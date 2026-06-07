@@ -23,6 +23,28 @@ import { ATTR_SERVICE_NAME } from '@opentelemetry/semantic-conventions';
 
 const NS = 'openagenda-mcp';
 
+// Explicit histogram buckets. The OTel SDK default boundaries
+// ([0,5,10,…,7500,10000]) are tuned for MILLISECONDS, so a byte- or
+// second-valued histogram left on the default would pile every observation into
+// a single bucket (tens-of-MB → all in +Inf; sub-second CPU → all in (0,5]),
+// making histogram_quantile return a flat, meaningless value. These boundaries
+// bracket the measured ranges (see README / docs/microsandbox.md) so the Grafana
+// quantile panels are actually interpretable.
+const MB = 1024 * 1024;
+const MS_BUCKETS = [
+  5, 10, 25, 50, 100, 250, 500, 1000, 2500, 5000, 10000, 30000, 60000,
+];
+const HOST_PEAK_BYTE_BUCKETS = [
+  8, 16, 32, 64, 96, 128, 160, 192, 256, 384, 512,
+].map((m) => m * MB);
+const WORKLOAD_PEAK_BYTE_BUCKETS = [
+  1, 2, 4, 8, 16, 32, 48, 64, 96, 128, 192, 256,
+].map((m) => m * MB);
+const CPU_SECOND_BUCKETS = [0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2, 5, 10];
+const WORKLOAD_CPU_SECOND_BUCKETS = [
+  0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2, 5,
+];
+
 let sdk = null;
 let instruments = null;
 
@@ -58,6 +80,7 @@ export function initMetrics({ enabled, serviceInstance } = {}) {
     executeDuration: meter.createHistogram('oa.mcp.execute.duration', {
       description: 'execute tool wall-clock duration',
       unit: 'ms',
+      advice: { explicitBucketBoundaries: MS_BUCKETS },
     }),
     searchDocs: meter.createCounter('oa.mcp.search_docs', {
       description: 'search_docs tool calls',
@@ -73,21 +96,25 @@ export function initMetrics({ enabled, serviceInstance } = {}) {
       description:
         'per-µVM peak host RAM (libkrun VmHWM) — real footprint, incl. VMM + guest kernel',
       unit: 'By',
+      advice: { explicitBucketBoundaries: HOST_PEAK_BYTE_BUCKETS },
     }),
     uvmWorkloadPeak: meter.createHistogram('oa.mcp.uvm.workload_peak', {
       description:
         'per-µVM peak host RAM above the boot baseline ≈ memory the run touched',
       unit: 'By',
+      advice: { explicitBucketBoundaries: WORKLOAD_PEAK_BYTE_BUCKETS },
     }),
     uvmCpuSeconds: meter.createHistogram('oa.mcp.uvm.cpu', {
       description:
         'per-µVM total CPU time (libkrun VMM utime+stime) — boot + run',
       unit: 's',
+      advice: { explicitBucketBoundaries: CPU_SECOND_BUCKETS },
     }),
     uvmWorkloadCpuSeconds: meter.createHistogram('oa.mcp.uvm.workload_cpu', {
       description:
         'per-µVM CPU time above the boot baseline ≈ the run workload',
       unit: 's',
+      advice: { explicitBucketBoundaries: WORKLOAD_CPU_SECOND_BUCKETS },
     }),
   };
 }

@@ -33,7 +33,7 @@
 // docs/microsandbox.md.
 
 import { randomUUID } from 'node:crypto';
-import { readdirSync, readFileSync } from 'node:fs';
+import { readdir, readFile } from 'node:fs/promises';
 import { MAX_OUTPUT_BYTES } from '../spawn.js';
 import { DEFAULT_MICROSANDBOX_IMAGE } from '../../config.js';
 import { log } from '../../log.js';
@@ -190,10 +190,15 @@ const CLOCK_TICK_HZ = 100;
 // The VMM is found by the unique sandbox name microsandbox passes as `--name <name>`
 // in its cmdline. Returns { hwmBytes, cpuSeconds } (each null if that field can't be
 // read), or null (no VMM found / no /proc on non-Linux). Never throws.
-function readVmmStats(name) {
+//
+// ASYNC on purpose: this scans /proc once per run (the run's `finally`), so doing it
+// with the sync fs API would block the single Node event loop on O(processes) reads
+// while up to OA_MAX_CONCURRENCY runs are in flight — telemetry must not stall the
+// hot path. The async fs API yields between reads instead.
+async function readVmmStats(name) {
   let pids;
   try {
-    pids = readdirSync('/proc');
+    pids = await readdir('/proc');
   } catch {
     return null; // no /proc (non-Linux host) — metrics simply absent
   }
@@ -201,7 +206,7 @@ function readVmmStats(name) {
     if (!/^\d+$/.test(pid)) continue;
     let cmdline;
     try {
-      cmdline = readFileSync(`/proc/${pid}/cmdline`);
+      cmdline = await readFile(`/proc/${pid}/cmdline`);
     } catch {
       continue; // process vanished mid-scan
     }
@@ -209,7 +214,7 @@ function readVmmStats(name) {
     /** @type {{hwmBytes: number|null, cpuSeconds: number|null}} */
     const stats = { hwmBytes: null, cpuSeconds: null };
     try {
-      const status = readFileSync(`/proc/${pid}/status`, 'utf8');
+      const status = await readFile(`/proc/${pid}/status`, 'utf8');
       const m = /VmHWM:\s+(\d+)\s+kB/.exec(status);
       if (m) stats.hwmBytes = Number(m[1]) * 1024;
     } catch {
@@ -218,7 +223,7 @@ function readVmmStats(name) {
     try {
       // /proc/<pid>/stat: utime (field 14) + stime (field 15), in clock ticks. comm
       // (field 2) can contain spaces/parens, so parse the fields AFTER the final ')'.
-      const stat = readFileSync(`/proc/${pid}/stat`, 'utf8');
+      const stat = await readFile(`/proc/${pid}/stat`, 'utf8');
       const after = stat.slice(stat.lastIndexOf(')') + 2).split(' ');
       const utime = Number(after[11]);
       const stime = Number(after[12]);
@@ -455,7 +460,7 @@ export function createMicrosandboxExecutor({
       // config — so workload_* can be derived from it without a per-run scan.
       const sbName = sb?.name ?? null;
       if (bootBaseline == null && sbName) {
-        const pre = readVmmStats(sbName);
+        const pre = await readVmmStats(sbName);
         if (pre) bootBaseline = pre;
       }
 
@@ -496,7 +501,7 @@ export function createMicrosandboxExecutor({
         // the run touched above boot. Best-effort + isolated: telemetry never affects
         // the result nor blocks teardown.
         try {
-          const post = sbName ? readVmmStats(sbName) : null;
+          const post = sbName ? await readVmmStats(sbName) : null;
           if (post) {
             recordUvmStats({
               hostPeakBytes: post.hwmBytes ?? undefined,
@@ -524,6 +529,10 @@ export function createMicrosandboxExecutor({
     dispose: async () => {
       const entry = await ensurePool();
       if (entry) await entry.pool.drain();
+      // Stop poolStats() reporting a drained pool as a healthy empty one: a final
+      // metrics flush (shutdownMetrics runs after executor.dispose) would otherwise
+      // publish a stale sample for a resource that no longer exists.
+      livePool = null;
     },
   };
 }

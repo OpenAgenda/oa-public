@@ -79,11 +79,14 @@ async function main() {
   const executor = createExecutor(config);
 
   // Wire the observable metrics (warm-pool efficiency + live concurrency) to the
-  // executor's live state. No-op when metrics are disabled; the getters are
-  // optional (poolStats only for a pooled microsandbox engine).
+  // executor's live state. No-op when metrics are disabled. Pass each getter ONLY
+  // when the executor actually exposes it, so a pool-less engine (node/deno) never
+  // registers warm-pool instruments — registerObservables gates on the getter's
+  // presence, and dead empty series read as a broken pool on the dashboard.
+  const { poolStats, inflight } = executor;
   registerObservables({
-    poolStats: () => executor.poolStats?.() ?? null,
-    inflight: () => executor.inflight?.() ?? 0,
+    ...poolStats ? { poolStats: () => poolStats() ?? null } : {},
+    ...inflight ? { inflight: () => inflight() } : {},
   });
 
   // Drain engine resources (a warm µVM pool, when OA_MICROSANDBOX_POOL_SIZE>0) on

@@ -419,14 +419,19 @@ export function loadConfig(env = process.env) {
     logging: {
       insightOpsToken: env.OA_INSIGHT_OPS_TOKEN ?? null,
     },
-    // OTel metrics, enabled only when an OTLP endpoint is configured (else fully
-    // off — see metrics.js). The exporter reads OTEL_EXPORTER_OTLP_* itself; we
-    // only gate on the endpoint's presence and carry the instance label.
+    // OTel metrics, enabled only in HOSTED mode AND when an OTLP endpoint is
+    // configured (else fully off — see metrics.js). The mode gate matters because
+    // OTEL_EXPORTER_OTLP_ENDPOINT is a standard, frequently-inherited env var: a
+    // local/stdio run that happens to inherit it must NOT silently start a metrics
+    // pipeline (background timer + egress) — stdio is "off" by contract. The
+    // exporter reads OTEL_EXPORTER_OTLP_* itself; we only gate enablement and
+    // carry the instance label.
     metrics: {
-      enabled: Boolean(
-        env.OTEL_EXPORTER_OTLP_METRICS_ENDPOINT
-          || env.OTEL_EXPORTER_OTLP_ENDPOINT,
-      ),
+      enabled: mode === 'hosted'
+        && Boolean(
+          env.OTEL_EXPORTER_OTLP_METRICS_ENDPOINT
+            || env.OTEL_EXPORTER_OTLP_ENDPOINT,
+        ),
       serviceInstance: env.OTEL_SERVICE_INSTANCE_ID ?? env.HOSTNAME ?? null,
     },
     // Maintenance kill: refuse `execute` (search_docs stays served). Read once at
