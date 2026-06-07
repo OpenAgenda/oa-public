@@ -11,7 +11,7 @@ import generateUid from './generateUid.js';
 import createApiKeyHelpers, { hashApiKey } from './apiKey.js';
 import createOAuthTokenHelpers from './oauthToken.js';
 import gcExpiredRows from './gcExpired.js';
-import { isUserActiveByUid } from './oauthGrants.js';
+import { isUserActiveByUid, isUserBarred } from './oauthGrants.js';
 import createCredentialHelpers from './internalAccount.js';
 import oaImpersonationPlugin from './impersonationPlugin.js';
 import tokenExchangePlugin from './tokenExchangePlugin.js';
@@ -571,7 +571,7 @@ export default function Auth(options = {}) {
           if (typeof email !== 'string') return;
           const found = await ctx.context.internalAdapter.findUserByEmail(email);
           const user = found?.user;
-          if (user && (user.isRemoved || user.isBlacklisted)) {
+          if (user && isUserBarred(user)) {
             throw new APIError('UNAUTHORIZED', {
               code: 'INVALID_EMAIL_OR_PASSWORD',
               message: 'Invalid email or password',
@@ -782,7 +782,7 @@ export default function Auth(options = {}) {
           }
           if (!user) return;
 
-          if (user.isRemoved || user.isBlacklisted) {
+          if (isUserBarred(user)) {
             try {
               await ctx.context.internalAdapter.deleteUserSessions(
                 String(userId),
@@ -892,7 +892,7 @@ export default function Auth(options = {}) {
           }
           if (!user) return;
 
-          if (user.isRemoved || user.isBlacklisted) {
+          if (isUserBarred(user)) {
             try {
               await ctx.context.internalAdapter.deleteUserSessions(
                 String(userId),

@@ -36,6 +36,14 @@ export async function revokeUserGrants(adapter, userId) {
   };
 }
 
+// SINGLE SOURCE OF TRUTH for "this user may not obtain access" — the set of
+// account flags that bar login / API access. Keep every gate (sign-in, oauth
+// callback, magic-link, token-exchange) reading THIS predicate so adding a new
+// disqualifying flag can't silently leave one path minting tokens for a user the
+// others reject. `user` is a better-auth user row (camelCase flags).
+export const isUserBarred = (user) =>
+  Boolean(user.isRemoved || user.isBlacklisted);
+
 // May the user behind an OA `uid` still obtain API access? Reads the user row by
 // `uid` via the model-aware adapter — which returns `returned:false` fields like
 // `isRemoved` (that filtering is an API-output concern, not the adapter's; cf.
@@ -47,5 +55,5 @@ export async function isUserActiveByUid(adapter, uid) {
     model: 'user',
     where: [{ field: 'uid', operator: 'eq', value: uid }],
   });
-  return !!user && !user.isRemoved && !user.isBlacklisted;
+  return !!user && !isUserBarred(user);
 }
