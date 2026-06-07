@@ -39,3 +39,14 @@ ré-exporte le JSON ici.
 > `oa_mcp_uvm_workload_cpu_seconds_bucket`, etc. Si ta chaîne d'ingestion nomme autrement
 > (suffixe d'unité, `_total`), ajuste les requêtes après le premier déploiement —
 > `label_values(oa_mcp_execute_total, instance)` dans Explore confirme les noms réels.
+
+> **Label `instance` (variable `$instance`).** Le MCP ne pose pas un label
+> `instance` : il émet l'attribut de ressource OTLP `service.instance.id`
+> (`OTEL_SERVICE_INSTANCE_ID`/`HOSTNAME`). Côté ingestion Prometheus/Mimir, les
+> resource-attributes ne sont **pas** promus en labels (`instance`/`job`) par
+> défaut — ils atterrissent dans `target_info`. Tant que la promotion n'est pas
+> activée (`promote_resource_attributes: [service.instance.id]` côté OTLP receiver
+> Mimir, ou la translation `service.name`→`job` / `service.instance.id`→`instance`),
+> le sélecteur `$instance` reste vide et le filtrage par instance ne marche pas
+> (en `All` = `.*` les panneaux s'affichent quand même). Vérifie après le premier
+> scrape ; sinon active la promotion, ou retire le filtre `instance` des requêtes.
