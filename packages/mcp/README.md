@@ -202,29 +202,30 @@ runs it in the sandbox.
 
 ### Config (env)
 
-| Var                         | Default                                  | Meaning                                                                                                                   |
-| --------------------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `OA_MCP_MODE`               | `local`                                  | `local` \| `hosted` (drives defaults + fail-closed gating)                                                                |
-| `OA_EXECUTOR`               | `deno` (local) / `microsandbox` (hosted) | engine: `node` \| `deno` \| `microsandbox` (see Execution model)                                                          |
-| `OA_CODE_EGRESS_AUTHORITY`  | `executor`                               | who owns code egress: `executor` \| `wrapper` \| `none`                                                                   |
-| `OA_LOCAL_NO_SANDBOX`       | _off_                                    | one-flag unsafe local node path (`node` + `none`); also the `egress=none` ack                                             |
-| `OA_BASE_URL`               | `https://api.openagenda.com/v3`          | v3 base URL                                                                                                               |
-| `OA_API_KEY`                | _none_                                   | any OpenAgenda API key (Bearer) — the **stdio** credential; a least-privilege/read key is advised (HTTP uses OAuth)       |
-| `OA_SANDBOX_TIMEOUT_MS`     | `5000`                                   | hard wall-clock kill                                                                                                      |
-| `OA_SANDBOX_MEMORY_MB`      | `256`                                    | V8 heap cap (node/deno) / hard µVM RAM cap (microsandbox — needs more headroom)                                           |
-| `OA_MAX_CONCURRENCY`        | `4`                                      | max simultaneous `execute` runs — the host-RAM guardrail                                                                  |
-| `OA_EXEC_MAX_QUEUE`         | `OA_MAX_CONCURRENCY × 10`                | max `execute` calls waiting for a slot before a retryable "at capacity" error (default auto-scales with the cap)          |
-| `OA_EXEC_QUEUE_TIMEOUT_MS`  | `30000`                                  | how long an over-cap `execute` waits for a free slot before a retryable "at capacity" error                               |
-| `OA_RATE_LIMIT_PER_MIN`     | `60`                                     | sustained `execute` calls/min **per caller** (OAuth `sub`); `transport=http` only — the per-token rate-limit              |
-| `OA_RATE_LIMIT_BURST`       | `20`                                     | per-caller `execute` burst (token-bucket size) before a retryable "rate limit reached" error                              |
-| `OA_INSIGHT_OPS_TOKEN`      | _none_                                   | InsightOps log token — ships logs + audit there (prod). For stderr instead, set `DEBUG=openagenda-mcp*`                   |
-| `OA_EXECUTE_DISABLED`       | _off_                                    | `1` → refuse `execute` (maintenance/incident); `search_docs` stays served. Per-caller bans live at the AS, not here       |
-| `OA_MICROSANDBOX_IMAGE`     | `node:24-alpine`                         | OCI image for the µVM (microsandbox; official Node Alpine, `node` on PATH; pin a digest in prod — see config.js)          |
-| `OA_SANDBOX_RUNTIME`        | `node`                                   | JS runtime INSIDE the µVM: `node` \| `llrt` (microsandbox only; llrt ≈ −52 % RAM / ~3× warm — see docs/microsandbox.md)   |
-| `OA_LLRT_BIN`               | _(unset)_                                | host path to a static llrt binary, bind-mounted (optional; unset when the image bakes llrt on PATH, e.g. llrt.Dockerfile) |
-| `OA_MICROSANDBOX_POOL_SIZE` | `0` (off)                                | warm single-use µVM spares (microsandbox; throughput optim, holds RAM — see docs/microsandbox.md)                         |
-| `OA_USE_SYSTEM_CA`          | _off_                                    | **dev only**: trust the OS cert store (Node bundles its own)                                                              |
-| `OA_EXTRA_CA_CERTS`         | _none_                                   | **dev only**: path to an extra PEM CA bundle                                                                              |
+| Var                             | Default                                  | Meaning                                                                                                                                                                                              |
+| ------------------------------- | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `OA_MCP_MODE`                   | `local`                                  | `local` \| `hosted` (drives defaults + fail-closed gating)                                                                                                                                           |
+| `OA_EXECUTOR`                   | `deno` (local) / `microsandbox` (hosted) | engine: `node` \| `deno` \| `microsandbox` (see Execution model)                                                                                                                                     |
+| `OA_CODE_EGRESS_AUTHORITY`      | `executor`                               | who owns code egress: `executor` \| `wrapper` \| `none`                                                                                                                                              |
+| `OA_LOCAL_NO_SANDBOX`           | _off_                                    | one-flag unsafe local node path (`node` + `none`); also the `egress=none` ack                                                                                                                        |
+| `OA_BASE_URL`                   | `https://api.openagenda.com/v3`          | v3 base URL                                                                                                                                                                                          |
+| `OA_API_KEY`                    | _none_                                   | any OpenAgenda API key (Bearer) — the **stdio** credential; a least-privilege/read key is advised (HTTP uses OAuth)                                                                                  |
+| `OA_SANDBOX_TIMEOUT_MS`         | `5000`                                   | hard wall-clock kill                                                                                                                                                                                 |
+| `OA_SANDBOX_MEMORY_MB`          | `256`                                    | V8 heap cap (node/deno) / hard µVM RAM cap (microsandbox — needs more headroom)                                                                                                                      |
+| `OA_MAX_CONCURRENCY`            | `4`                                      | max simultaneous `execute` runs — the host-RAM guardrail                                                                                                                                             |
+| `OA_EXEC_MAX_QUEUE`             | `OA_MAX_CONCURRENCY × 10`                | max `execute` calls waiting for a slot before a retryable "at capacity" error (default auto-scales with the cap)                                                                                     |
+| `OA_EXEC_QUEUE_TIMEOUT_MS`      | `30000`                                  | how long an over-cap `execute` waits for a free slot before a retryable "at capacity" error                                                                                                          |
+| `OA_RATE_LIMIT_PER_MIN`         | `60`                                     | sustained `execute` calls/min **per caller** (OAuth `sub`); `transport=http` only — the per-token rate-limit                                                                                         |
+| `OA_RATE_LIMIT_BURST`           | `20`                                     | per-caller `execute` burst (token-bucket size) before a retryable "rate limit reached" error                                                                                                         |
+| `OA_MAX_CONCURRENCY_PER_CALLER` | `2`                                      | max **simultaneous** `execute` runs one caller may hold (OAuth `sub`); `transport=http` only — fairness cap so a single caller can't occupy every global slot. Set ≥ `OA_MAX_CONCURRENCY` to disable |
+| `OA_INSIGHT_OPS_TOKEN`          | _none_                                   | InsightOps log token — ships logs + audit there (prod). For stderr instead, set `DEBUG=openagenda-mcp*`                                                                                              |
+| `OA_EXECUTE_DISABLED`           | _off_                                    | `1` → refuse `execute` (maintenance/incident); `search_docs` stays served. Per-caller bans live at the AS, not here                                                                                  |
+| `OA_MICROSANDBOX_IMAGE`         | `node:24-alpine`                         | OCI image for the µVM (microsandbox; official Node Alpine, `node` on PATH; pin a digest in prod — see config.js)                                                                                     |
+| `OA_SANDBOX_RUNTIME`            | `node`                                   | JS runtime INSIDE the µVM: `node` \| `llrt` (microsandbox only; llrt ≈ −52 % RAM / ~3× warm — see docs/microsandbox.md)                                                                              |
+| `OA_LLRT_BIN`                   | _(unset)_                                | host path to a static llrt binary, bind-mounted (optional; unset when the image bakes llrt on PATH, e.g. llrt.Dockerfile)                                                                            |
+| `OA_MICROSANDBOX_POOL_SIZE`     | `0` (off)                                | warm single-use µVM spares (microsandbox; throughput optim, holds RAM — see docs/microsandbox.md)                                                                                                    |
+| `OA_USE_SYSTEM_CA`              | _off_                                    | **dev only**: trust the OS cert store (Node bundles its own)                                                                                                                                         |
+| `OA_EXTRA_CA_CERTS`             | _none_                                   | **dev only**: path to an extra PEM CA bundle                                                                                                                                                         |
 
 > **Dev TLS.** `dapi.openagenda.com` serves a **private CA** (`O=OADEV`), unknown
 > to Node's bundled roots → `UNABLE_TO_VERIFY_LEAF_SIGNATURE`. Set
@@ -285,18 +286,24 @@ Each item maps to a concrete threat:
   allowlist of the API host only**, AND block the cloud **metadata endpoint
   `169.254.169.254`**, RFC1918 ranges and localhost. (The classic SSRF →
   cloud-credential theft.)
-- **Abuse / self-DoS** → two complementary guardrails, both **done**:
-  - a **concurrency cap on simultaneous sandboxes, with a bounded queue**
+- **Abuse / self-DoS** → three complementary guardrails, all **done**:
+  - a **global concurrency cap on simultaneous sandboxes, with a bounded queue**
     (`OA_MAX_CONCURRENCY`, default 4 → a saturated burst queues then gets a
     retryable busy, instead of spawning unbounded ~116 MiB µVMs and OOMing the
     host). `concurrencyLimit.js` wraps the executor for every engine and
-    transport — bounds **instantaneous** load globally.
+    transport — bounds **instantaneous** load globally (identity-blind).
+  - a **per-caller concurrency cap** (`callerConcurrency.js`, keyed on the OAuth
+    `sub`; `OA_MAX_CONCURRENCY_PER_CALLER`, default 2, `transport=http` only) —
+    bounds how many runs **one caller holds at once**, so a single caller can't
+    occupy every global slot and starve others (the global cap alone is
+    identity-blind, and burst ≫ the cap lets one caller grab them all). A caller
+    already at its cap gets a retryable busy. In-memory per instance.
   - a **per-caller rate-limit** on `execute` (`rateLimiter.js`, token bucket keyed
     on the OAuth `sub`; `OA_RATE_LIMIT_PER_MIN`/`OA_RATE_LIMIT_BURST`,
     `transport=http` only) — bounds **sustained** load per caller, so one caller
     can't monopolise the shared budget over time. Over-rate calls get a retryable
     "rate limit reached" result. In-memory per instance (effective limit scales
-    with replica count, like the concurrency cap).
+    with replica count, like the concurrency caps).
 - **Privilege escalation via the API itself** → **no ambient authority**: inject
   the **caller's scoped OAuth token** into the executed code; the API enforces
   scopes server-side, so a successful run can never exceed the caller's own
@@ -395,10 +402,11 @@ the sandbox boundary.
 ## What this server deliberately does NOT do
 
 - The `microsandbox` engine (hosted µVM boundary) **is implemented** and verified
-  on a real KVM host; the hosted **policy layer is now in place** — a
-  **concurrency cap + bounded queue** (`concurrencyLimit.js`), a **per-caller
-  rate-limit** (`rateLimiter.js`), a **per-tool audit log** (`log.js` → InsightOps)
-  and a **maintenance kill** (`OA_EXECUTE_DISABLED`). See
+  on a real KVM host; the hosted **policy layer is now in place** — a **global
+  concurrency cap + bounded queue** (`concurrencyLimit.js`), a **per-caller
+  concurrency cap** (`callerConcurrency.js`), a **per-caller rate-limit**
+  (`rateLimiter.js`), a **per-tool audit log** (`log.js` → InsightOps) and a
+  **maintenance kill** (`OA_EXECUTE_DISABLED`). See
   [docs/microsandbox.md](docs/microsandbox.md).
 - The **HTTP transport + OAuth 2.1 resource server are implemented and live**
   (local JWKS verification, audience binding, per-caller RFC 8693 token-exchange,

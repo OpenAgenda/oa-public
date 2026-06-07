@@ -312,6 +312,25 @@ describe('loadConfig', () => {
     );
   });
 
+  describe('per-caller concurrency cap', () => {
+    it('defaults to 2 simultaneous runs per caller', () => {
+      expect(loadConfig({}).maxConcurrencyPerCaller).toBe(2);
+    });
+
+    it('honours an explicit OA_MAX_CONCURRENCY_PER_CALLER', () => {
+      const cfg = loadConfig({ OA_MAX_CONCURRENCY_PER_CALLER: '5' });
+      expect(cfg.maxConcurrencyPerCaller).toBe(5);
+    });
+
+    it.each(['0', '-5', 'abc', ''])(
+      'floors an invalid value %p back to the default (never a lockout)',
+      (raw) => {
+        const cfg = loadConfig({ OA_MAX_CONCURRENCY_PER_CALLER: raw });
+        expect(cfg.maxConcurrencyPerCaller).toBe(2);
+      },
+    );
+  });
+
   describe('logging', () => {
     it('has no InsightOps token by default', () => {
       expect(loadConfig({}).logging).toEqual({ insightOpsToken: null });

@@ -19,6 +19,7 @@ import { metadataHandler } from '@modelcontextprotocol/sdk/server/auth/handlers/
 import { getOAuthProtectedResourceMetadataUrl } from '@modelcontextprotocol/sdk/server/auth/router.js';
 import { createServer } from './server.js';
 import { createRateLimiter } from './rateLimiter.js';
+import { createCallerConcurrencyLimiter } from './callerConcurrency.js';
 import { createTokenVerifier } from './auth/verifier.js';
 import { exchangeToken, TokenExchangeError } from './auth/tokenExchange.js';
 import { landingPage } from './landing.js';
@@ -56,6 +57,14 @@ export function createHttpApp({ config, executor }) {
   const rateLimiter = createRateLimiter({
     capacity: config.rateLimit.burst,
     refillPerSec: config.rateLimit.perMin / 60,
+  });
+
+  // Per-caller concurrency cap, also created ONCE and shared across the
+  // per-request servers so the in-flight count is process-wide. Keyed on the
+  // same OAuth `sub`. Bounds how many runs ONE caller holds at once (fairness),
+  // complementing rateLimiter's sustained-rate bound and the global slot cap.
+  const callerConcurrency = createCallerConcurrencyLimiter({
+    maxPerCaller: config.maxConcurrencyPerCaller,
   });
 
   // The protocol endpoint path IS the resource URL's path — single source of
@@ -125,6 +134,7 @@ export function createHttpApp({ config, executor }) {
       config,
       executor,
       rateLimiter,
+      callerConcurrency,
       callerId,
       // Audit identity: the consenting user (`sub` = AS join key, `uid` = OA
       // identity) + the client app. `callerId` already folds the rate-limit

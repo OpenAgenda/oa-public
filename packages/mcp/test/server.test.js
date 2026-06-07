@@ -24,6 +24,7 @@ async function connect({
   config,
   credential,
   rateLimiter,
+  callerConcurrency,
   callerId,
   recordAudit,
   recordMetric,
@@ -33,6 +34,7 @@ async function connect({
     executor: executor ?? makeExecutor(async () => okResult('null')),
     ...credential !== undefined ? { credential } : {},
     ...rateLimiter !== undefined ? { rateLimiter, callerId } : {},
+    ...callerConcurrency !== undefined ? { callerConcurrency, callerId } : {},
     ...recordAudit !== undefined ? { recordAudit } : {},
     ...recordMetric !== undefined ? { recordMetric } : {},
   });
@@ -404,6 +406,107 @@ describe('MCP server', () => {
       const text = textOf(r);
       expect(text.length).toBeLessThan(20000);
       expect(text).toMatch(/more chars truncated/);
+    });
+  });
+
+  describe('execute — per-caller concurrency cap', () => {
+    // A limiter admitting once then refusing — mimics a caller already at its
+    // cap on the second concurrent run.
+    const oneSlotThenFull = () => {
+      let admitted = false;
+      return {
+        tryAcquire: () => {
+          if (admitted) return { acquired: false, release: () => {} };
+          admitted = true;
+          return { acquired: true, release: () => {} };
+        },
+      };
+    };
+
+    it('refuses a caller already at its cap, before running anything', async () => {
+      // The first acquire admits; the second is refused — no executor run, no
+      // credential resolution, just a retryable "wait for one to finish" message.
+      let runs = 0;
+      const callerConcurrency = oneSlotThenFull();
+      callerConcurrency.tryAcquire('user-1'); // pre-fill the single slot
+      ({ client } = await connect({
+        executor: makeExecutor(async () => {
+          runs += 1;
+          return okResult('1');
+        }),
+        callerConcurrency,
+        callerId: 'user-1',
+      }));
+      const r = await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 1;' },
+      });
+      expect(r.isError).toBe(true);
+      expect(textOf(r)).toMatch(/maximum number of execute calls running/i);
+      expect(runs).toBe(0); // the run never started
+    });
+
+    it('runs and releases the slot when admitted', async () => {
+      // tryAcquire admits; the slot must be released after the run so a follow-up
+      // call from the same caller is admitted again.
+      const releases = [];
+      const callerConcurrency = {
+        tryAcquire: () => ({
+          acquired: true,
+          release: () => releases.push(1),
+        }),
+      };
+      ({ client } = await connect({
+        executor: makeExecutor(async () => okResult('42')),
+        callerConcurrency,
+        callerId: 'user-1',
+      }));
+      const r = await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 42;' },
+      });
+      expect(r.isError).toBeFalsy();
+      expect(textOf(r)).toBe('42');
+      expect(releases).toHaveLength(1); // slot freed on the success path
+    });
+
+    it('releases the slot even when the executor throws', async () => {
+      const releases = [];
+      const callerConcurrency = {
+        tryAcquire: () => ({
+          acquired: true,
+          release: () => releases.push(1),
+        }),
+      };
+      ({ client } = await connect({
+        executor: makeExecutor(async () => {
+          throw new Error('boom');
+        }),
+        callerConcurrency,
+        callerId: 'user-1',
+      }));
+      const r = await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 1;' },
+      });
+      expect(r.isError).toBe(true);
+      expect(releases).toHaveLength(1); // released in finally, not leaked
+    });
+
+    it('records outcome=caller_busy when the cap refuses the call', async () => {
+      const audit = [];
+      const callerConcurrency = oneSlotThenFull();
+      callerConcurrency.tryAcquire('user-1'); // pre-fill
+      ({ client } = await connect({
+        callerConcurrency,
+        callerId: 'user-1',
+        recordAudit: (tool, fields) => audit.push({ tool, fields }),
+      }));
+      await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 1;' },
+      });
+      expect(audit[0].fields.outcome).toBe('caller_busy');
     });
   });
 

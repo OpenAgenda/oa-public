@@ -93,9 +93,13 @@ const toolError = (text) => ({ isError: true, content: [textContent(text)] });
  * @param {{ check: (key: string) => { allowed: boolean, retryAfterMs: number } }} [deps.rateLimiter]
  *   per-caller sustained-rate guard (HTTP only; shared across this app's
  *   per-request servers). Absent on stdio (single local user, no caller id).
- * @param {string} [deps.callerId]  the caller identity the limiter keys on (the
- *   OAuth `sub`). Used only when `rateLimiter` is set; a falsy/absent id keys a
- *   shared 'anonymous' bucket (it never bypasses the limit).
+ * @param {{ tryAcquire: (key: string) => { acquired: boolean, release: () => void } }} [deps.callerConcurrency]
+ *   per-caller concurrency cap (HTTP only; shared like `rateLimiter`) so one
+ *   caller can't hold every global slot at once and starve others. Absent on
+ *   stdio. Keys on `callerId` with the same 'anonymous' fallback.
+ * @param {string} [deps.callerId]  the caller identity the limiters key on (the
+ *   OAuth `sub`). Used by `rateLimiter`/`callerConcurrency`; a falsy/absent id
+ *   keys a shared 'anonymous' bucket (it never bypasses a limit).
  * @param {(tool: string, fields: object) => void} [deps.recordAudit]  sink for
  *   the per-tool audit trail (see log.js → makeAuditRecorder). Defaults to a no-op
  *   (tests, or a stdio run with logging off). CONVENTION: audit is emitted
@@ -114,6 +118,7 @@ export function createServer({
   credential,
   getCredential,
   rateLimiter,
+  callerConcurrency,
   callerId,
   recordAudit = () => {},
   recordMetric = () => {},
@@ -267,101 +272,126 @@ export function createServer({
         }
       }
 
-      // Resolve the credential at point of use (HTTP: the token-exchange). On
-      // failure, fail THIS tool call with a generic message — never echo the
-      // upstream error (it may carry AS response detail) — and leave other tools
-      // and sessions working (the prior model failed the whole POST with a 502).
-      try {
-        apiCredential = await resolveCredential();
-      } catch {
+      // Per-caller concurrency cap (HTTP only; no limiter passed on stdio). Refuse
+      // a caller that already holds its max simultaneous runs with a RETRYABLE
+      // busy — so one caller can't occupy every global slot and starve others —
+      // BEFORE any work (no token exchange, no sandbox spawn). Same default-the-key
+      // rule as the rate limit (a falsy id keys a shared bucket, never a bypass).
+      // The slot is held until the run settles and released in `finally` below.
+      const callerSlot = callerConcurrency
+        ? callerConcurrency.tryAcquire(callerId || 'anonymous')
+        : null;
+      if (callerSlot && !callerSlot.acquired) {
         return finish(
-          'credential_error',
-          toolError('Could not obtain an API credential for this request.'),
+          'caller_busy',
+          toolError(
+            'You already have the maximum number of execute calls running. '
+              + 'Wait for one to finish, then retry this execute call.',
+          ),
         );
       }
 
-      const script = buildScript(code, {
-        baseUrl: config.baseUrl,
-        apiKey: apiCredential,
-      });
-
-      const fail = (text) =>
-        toolError(clampErrorText(redactSecrets(text, apiCredential)));
-
       try {
-        res = await executor.run({
-          code: script,
-          env: {},
-          allowNet: config.allowNet,
-          egressAuthority: config.egressAuthority,
-          limits: config.limits,
-          tls: config.tls,
-        });
-      } catch (err) {
-        // The concurrency guard rejects (it never started the run) when the
-        // server is saturated or shutting down — surface that as a RETRYABLE
-        // busy, not an execution failure, so the client knows to back off and
-        // try again rather than treating its code as broken.
-        const errCode = err && typeof err === 'object' && 'code' in err
-          ? err.code
-          : undefined;
-        if (errCode === 'EXEC_BUSY' || errCode === 'EXEC_SHUTTING_DOWN') {
+        // Resolve the credential at point of use (HTTP: the token-exchange). On
+        // failure, fail THIS tool call with a generic message — never echo the
+        // upstream error (it may carry AS response detail) — and leave other tools
+        // and sessions working (the prior model failed the whole POST with a 502).
+        try {
+          apiCredential = await resolveCredential();
+        } catch {
           return finish(
-            errCode === 'EXEC_SHUTTING_DOWN' ? 'shutting_down' : 'busy',
-            toolError(
-              'The server is at capacity right now — no execution slot was '
-                + 'available. Wait a moment and retry this execute call.',
+            'credential_error',
+            toolError('Could not obtain an API credential for this request.'),
+          );
+        }
+
+        const script = buildScript(code, {
+          baseUrl: config.baseUrl,
+          apiKey: apiCredential,
+        });
+
+        const fail = (text) =>
+          toolError(clampErrorText(redactSecrets(text, apiCredential)));
+
+        try {
+          res = await executor.run({
+            code: script,
+            env: {},
+            allowNet: config.allowNet,
+            egressAuthority: config.egressAuthority,
+            limits: config.limits,
+            tls: config.tls,
+          });
+        } catch (err) {
+          // The concurrency guard rejects (it never started the run) when the
+          // server is saturated or shutting down — surface that as a RETRYABLE
+          // busy, not an execution failure, so the client knows to back off and
+          // try again rather than treating its code as broken.
+          const errCode = err && typeof err === 'object' && 'code' in err
+            ? err.code
+            : undefined;
+          if (errCode === 'EXEC_BUSY' || errCode === 'EXEC_SHUTTING_DOWN') {
+            return finish(
+              errCode === 'EXEC_SHUTTING_DOWN' ? 'shutting_down' : 'busy',
+              toolError(
+                'The server is at capacity right now — no execution slot was '
+                  + 'available. Wait a moment and retry this execute call.',
+              ),
+            );
+          }
+          // A backend should RETURN an ExecResult, never throw — but if one does
+          // (the microsandbox stub, or an unexpected fault), route it through the
+          // same redacted/clamped failure path instead of letting a raw error
+          // (which could echo argv/env) reach the client.
+          const msg = err instanceof Error ? err.message : String(err);
+          return finish('threw', fail(`Execution failed: ${msg}`));
+        }
+
+        if (res.timedOut) {
+          return finish(
+            'timed_out',
+            fail(
+              `Execution timed out after ${config.limits.timeoutMs} ms `
+                + '(possible infinite loop or too-heavy processing).',
             ),
           );
         }
-        // A backend should RETURN an ExecResult, never throw — but if one does
-        // (the microsandbox stub, or an unexpected fault), route it through the
-        // same redacted/clamped failure path instead of letting a raw error
-        // (which could echo argv/env) reach the client.
-        const msg = err instanceof Error ? err.message : String(err);
-        return finish('threw', fail(`Execution failed: ${msg}`));
+        if (res.outputCapped) {
+          return finish(
+            'output_capped',
+            fail(
+              'Execution produced too much output (exceeded 1 MiB) and was killed. '
+                + 'Return only the data you need, not full payloads.',
+            ),
+          );
+        }
+        if (res.exitCode !== 0) {
+          // exitCode is null when the run never produced an exit (spawn error /
+          // missing binary) — don't render a misleading "exit null".
+          const where = res.exitCode === null ? '' : ` (exit ${res.exitCode})`;
+          return finish(
+            'nonzero_exit',
+            fail(`Execution failed${where}:\n${res.stderr || res.stdout}`),
+          );
+        }
+        // Best-effort hygiene, NOT a boundary: also scrub the configured key from a
+        // successful result (errors already do), so a naive `return __cfg.apiKey` or
+        // an accidental echo doesn't surface it. A hostile caller can still encode the
+        // key to defeat this — in-process scrubbing can't be the exfiltration boundary
+        // (see preamble.js); the real defense against leaking a SHARED key to an
+        // untrusted caller is a per-caller scoped token (OAuth, roadmap).
+        return finish('ok', {
+          content: [
+            textContent(
+              redactSecrets(res.stdout.trim() || 'null', apiCredential),
+            ),
+          ],
+        });
+      } finally {
+        // Free the caller's slot whatever the outcome (success, failure, or a
+        // thrown executor) — a no-op when no limiter ran or the cap refused us.
+        callerSlot?.release();
       }
-
-      if (res.timedOut) {
-        return finish(
-          'timed_out',
-          fail(
-            `Execution timed out after ${config.limits.timeoutMs} ms `
-              + '(possible infinite loop or too-heavy processing).',
-          ),
-        );
-      }
-      if (res.outputCapped) {
-        return finish(
-          'output_capped',
-          fail(
-            'Execution produced too much output (exceeded 1 MiB) and was killed. '
-              + 'Return only the data you need, not full payloads.',
-          ),
-        );
-      }
-      if (res.exitCode !== 0) {
-        // exitCode is null when the run never produced an exit (spawn error /
-        // missing binary) — don't render a misleading "exit null".
-        const where = res.exitCode === null ? '' : ` (exit ${res.exitCode})`;
-        return finish(
-          'nonzero_exit',
-          fail(`Execution failed${where}:\n${res.stderr || res.stdout}`),
-        );
-      }
-      // Best-effort hygiene, NOT a boundary: also scrub the configured key from a
-      // successful result (errors already do), so a naive `return __cfg.apiKey` or
-      // an accidental echo doesn't surface it. A hostile caller can still encode the
-      // key to defeat this — in-process scrubbing can't be the exfiltration boundary
-      // (see preamble.js); the real defense against leaking a SHARED key to an
-      // untrusted caller is a per-caller scoped token (OAuth, roadmap).
-      return finish('ok', {
-        content: [
-          textContent(
-            redactSecrets(res.stdout.trim() || 'null', apiCredential),
-          ),
-        ],
-      });
     },
   );
 

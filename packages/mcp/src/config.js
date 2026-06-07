@@ -13,6 +13,8 @@
 //   OA_EXEC_QUEUE_TIMEOUT_MS max wait for a free slot         (default: 30000; then a retryable busy)
 //   OA_RATE_LIMIT_PER_MIN    sustained execute calls/min per caller (default: 60; transport=http)
 //   OA_RATE_LIMIT_BURST      execute-call burst per caller    (default: 20; token-bucket size)
+//   OA_MAX_CONCURRENCY_PER_CALLER  simultaneous executes per caller (default: 2; transport=http;
+//                                                              fairness cap — set ≥ OA_MAX_CONCURRENCY to disable)
 //   OA_MICROSANDBOX_IMAGE    OCI image for the µVM runtime    (default: node:24-alpine)
 //   OA_SANDBOX_RUNTIME       node | llrt                      (JS runtime INSIDE the µVM; default node)
 //   OA_LLRT_BIN              host path to a static llrt binary (optional; bind-mounted for local iteration —
@@ -408,6 +410,13 @@ export function loadConfig(env = process.env) {
       perMin: int(env.OA_RATE_LIMIT_PER_MIN, 60),
       burst: int(env.OA_RATE_LIMIT_BURST, 20),
     },
+    // Per-caller concurrency cap (callerConcurrency.js, transport=http only): the
+    // max runs ONE caller may hold in flight at once, so a single tenant can't
+    // grab every global slot (maxConcurrency) and starve the rest — a fairness
+    // guard on top of the global resource-safety cap. Default 2 lets an agent
+    // run a little in parallel while leaving slots for others. int() floors it
+    // at >0 (never a lockout); set it ≥ maxConcurrency to effectively disable.
+    maxConcurrencyPerCaller: int(env.OA_MAX_CONCURRENCY_PER_CALLER, 2),
     // Observability — TWO independent channels, by role:
     //  - LOGS/audit (here): structured operational logs + a per-tool audit trail
     //    via @openagenda/logs (see log.js). `insightOpsToken` (OA_INSIGHT_OPS_TOKEN)
@@ -427,7 +436,8 @@ export function loadConfig(env = process.env) {
     // exporter reads OTEL_EXPORTER_OTLP_* itself; we only gate enablement and
     // carry the instance label.
     metrics: {
-      enabled: mode === 'hosted'
+      enabled:
+        mode === 'hosted'
         && Boolean(
           env.OTEL_EXPORTER_OTLP_METRICS_ENDPOINT
             || env.OTEL_EXPORTER_OTLP_ENDPOINT,
