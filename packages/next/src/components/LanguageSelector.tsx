@@ -11,15 +11,8 @@ import {
 } from '@openagenda/uikit/snippets';
 import { FaIcon } from 'icons';
 import { faGlobe, faChevronDown } from 'icons/solid';
-import { LANGUAGES, SUPPORTED_LOCALES } from 'config/constants';
-
-function stripLocalePrefix(pathname: string): string {
-  const segments = pathname.split('/');
-  if (segments.length > 1 && SUPPORTED_LOCALES.includes(segments[1])) {
-    return '/' + segments.slice(2).join('/') || '/';
-  }
-  return pathname;
-}
+import { LANGUAGES } from 'config/constants';
+import stripLocalePrefix from 'utils/stripLocalePrefix';
 
 export default function LanguageSelector() {
   const intl = useIntl();

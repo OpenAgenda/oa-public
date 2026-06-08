@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { defineMessages, useIntl } from 'react-intl';
 import ky from 'ky';
 import { Button, Field, HStack, chakra } from '@openagenda/uikit';
@@ -8,6 +9,7 @@ import {
   NativeSelectField,
   NativeSelectRoot,
 } from '@openagenda/uikit/snippets';
+import stripLocalePrefix from 'utils/stripLocalePrefix';
 import AccordionItem from '@/src/components/AccordionItem';
 import MessageAlert from '@/src/components/MessageAlert';
 import { SETTINGS_LANGUAGES, type SettingsUser } from './types';
@@ -44,6 +46,7 @@ export default function LanguageSection({
   onUpdated,
 }: LanguageSectionProps) {
   const intl = useIntl();
+  const pathname = usePathname();
   const [culture, setCulture] = useState(user.culture ?? 'fr');
   const [saving, setSaving] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -66,11 +69,20 @@ export default function LanguageSection({
     setError(false);
     try {
       await ky.patch('/users/me', { json: { culture } });
-      setSuccess(true);
       onUpdated();
+      // The page locale is driven by the /[locale] URL segment, not the saved
+      // culture, so saving alone leaves the UI in the previous language. Reload
+      // the same settings path under the new locale prefix (mirrors the navbar
+      // LanguageSelector) — a hard navigation re-runs the server render so the
+      // chosen language's messages load. Keep `saving` true through the unload.
+      if (culture !== user.culture) {
+        window.location.assign(`/${culture}${stripLocalePrefix(pathname)}`);
+        return;
+      }
+      setSuccess(true);
+      setSaving(false);
     } catch {
       setError(true);
-    } finally {
       setSaving(false);
     }
   };
