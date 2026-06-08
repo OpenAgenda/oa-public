@@ -12,6 +12,8 @@
 // (the engine-specific footprint is exactly why a RAM-derived default would have
 // to know the engine and break this abstraction).
 
+import { recordConcurrencyRejected } from '../metrics.js';
+
 /** @typedef {import('./executor.js').SandboxExecutor} SandboxExecutor */
 
 /**
@@ -63,6 +65,7 @@ export function withConcurrencyLimit(
   const acquire = () =>
     new Promise((resolve, reject) => {
       if (disposed) {
+        recordConcurrencyRejected('shutting_down');
         reject(limiterError('EXEC_SHUTTING_DOWN', 'Server is shutting down.'));
         return;
       }
@@ -72,6 +75,7 @@ export function withConcurrencyLimit(
         return;
       }
       if (queue.length >= maxQueue) {
+        recordConcurrencyRejected('queue_full');
         reject(
           limiterError(
             'EXEC_BUSY',
@@ -93,6 +97,7 @@ export function withConcurrencyLimit(
         timer: setTimeout(() => {
           const i = queue.indexOf(waiter);
           if (i !== -1) queue.splice(i, 1);
+          recordConcurrencyRejected('timeout');
           reject(
             limiterError(
               'EXEC_BUSY',
@@ -115,8 +120,17 @@ export function withConcurrencyLimit(
     if (next) next.admit();
   };
 
+  // Captured so the forwarded closure narrows cleanly (a const can't be reassigned).
+  const innerPoolStats = executor.poolStats;
   return {
     name: `${executor.name}+limit(${maxConcurrency})`,
+    // Live in-flight run count (admitted, not yet released) — surfaced for the
+    // metrics observable (see metrics.js). The decorator is the only altitude
+    // that sees the whole process's concurrency.
+    inflight: () => active,
+    // Forward the engine's warm-pool stats (microsandbox only) through the wrapper
+    // so the metrics layer can read them off the singleton executor.
+    ...innerPoolStats ? { poolStats: () => innerPoolStats() } : {},
     run: async (req) => {
       await acquire();
       try {
@@ -133,6 +147,7 @@ export function withConcurrencyLimit(
       while (queue.length) {
         const waiter = queue.shift();
         if (waiter) {
+          recordConcurrencyRejected('shutting_down');
           waiter.reject(
             limiterError('EXEC_SHUTTING_DOWN', 'Server is shutting down.'),
           );

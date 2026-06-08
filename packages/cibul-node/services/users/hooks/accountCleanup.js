@@ -1,8 +1,8 @@
 // Phase 2.5 — clean up better-auth state when a user is soft-removed or
 // blacklisted:
-// - remove → delete credential row AND revoke sessions.
-// - blacklist (internal patch isBlacklisted false→true) → revoke sessions
-//   only; the credential row stays because blacklist is reversible.
+// - remove → delete credential row AND revoke sessions + OAuth grants.
+// - blacklist (internal patch isBlacklisted false→true) → revoke sessions +
+//   OAuth grants only; the credential row stays because blacklist is reversible.
 //
 // Failure policy (aligned with phase 2a): log + swallow. Legacy is the
 // source of truth and a missed cleanup never blocks the operation.
@@ -27,6 +27,16 @@ const afterRemove = () => async (context, next) => {
   } catch (err) {
     log.error('account cleanup on remove failed', { userId, err });
   }
+  // Revoke OAuth grants (consents + refresh/access tokens) so a removed user
+  // mints no new API tokens; the token-exchange re-check cuts the data path
+  // before any already-issued JWS access token lapses. ISOLATED in its own
+  // try/catch so a failure (or, in an env without the oauth-provider tables) can
+  // never abort the session/credential cleanup above.
+  try {
+    await auth.revokeUserGrants(userId);
+  } catch (err) {
+    log.error('oauth grant revoke on remove failed', { userId, err });
+  }
 };
 
 const afterPatchBlacklist = () => async (context, next) => {
@@ -44,6 +54,18 @@ const afterPatchBlacklist = () => async (context, next) => {
     await auth.revokeUserSessions(before.id);
   } catch (err) {
     log.error('session revoke on blacklist failed', { userId: before.id, err });
+  }
+  // Blacklist keeps the credential row (reversible) but must also revoke OAuth
+  // grants, else a blacklisted user keeps minting API tokens via an existing
+  // grant. The token-exchange re-check covers already-issued access tokens.
+  // Isolated so a grant-revoke failure can't undo the session purge above.
+  try {
+    await auth.revokeUserGrants(before.id);
+  } catch (err) {
+    log.error('oauth grant revoke on blacklist failed', {
+      userId: before.id,
+      err,
+    });
   }
 };
 

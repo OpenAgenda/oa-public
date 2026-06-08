@@ -1,4 +1,4 @@
-// Configuration for the OpenAgenda MCP POC — everything from env.
+// Configuration for the OpenAgenda MCP server — everything from env.
 //
 //   OA_MCP_MODE              local | hosted                  (default: local)
 //   OA_EXECUTOR              node | deno | microsandbox       (engine that runs the code)
@@ -13,6 +13,8 @@
 //   OA_EXEC_QUEUE_TIMEOUT_MS max wait for a free slot         (default: 30000; then a retryable busy)
 //   OA_RATE_LIMIT_PER_MIN    sustained execute calls/min per caller (default: 60; transport=http)
 //   OA_RATE_LIMIT_BURST      execute-call burst per caller    (default: 20; token-bucket size)
+//   OA_MAX_CONCURRENCY_PER_CALLER  simultaneous executes per caller (default: 2; transport=http;
+//                                                              fairness cap — raise ≥ OA_MAX_CONCURRENCY + OA_EXEC_MAX_QUEUE to effectively disable)
 //   OA_MICROSANDBOX_IMAGE    OCI image for the µVM runtime    (default: node:24-alpine)
 //   OA_SANDBOX_RUNTIME       node | llrt                      (JS runtime INSIDE the µVM; default node)
 //   OA_LLRT_BIN              host path to a static llrt binary (optional; bind-mounted for local iteration —
@@ -28,6 +30,10 @@
 //   OA_OAUTH_EXCHANGE_URL    AS token-exchange endpoint       (default: <issuer>/oauth2/token-exchange)
 //   OA_INSIGHT_OPS_TOKEN     InsightOps log token             (prod: ships logs + audit there; absent → stderr)
 //   OA_EXECUTE_DISABLED      1                                (maintenance: refuse execute; search_docs stays up)
+//   OTEL_EXPORTER_OTLP_METRICS_ENDPOINT  OTLP metrics endpoint (hosted: enables OTel metrics → Alloy; absent → off)
+//   OTEL_EXPORTER_OTLP_ENDPOINT          OTLP base endpoint    (fallback for the above; standard OTel var)
+//   OTEL_SERVICE_INSTANCE_ID / HOSTNAME  service.instance.id on the emitted metrics
+//   OTEL_METRIC_EXPORT_INTERVAL  metric export cadence in ms (default: 15000; = rate() resolution)
 //
 // TWO ORTHOGONAL AXES (see README → "Execution model"):
 //   - executor: WHAT runs the JS (node / deno / a microsandbox µVM).
@@ -405,13 +411,42 @@ export function loadConfig(env = process.env) {
       perMin: int(env.OA_RATE_LIMIT_PER_MIN, 60),
       burst: int(env.OA_RATE_LIMIT_BURST, 20),
     },
-    // Observability: structured operational logs + a per-tool audit trail, via
-    // @openagenda/logs (see log.js). `insightOpsToken` (OA_INSIGHT_OPS_TOKEN) adds
-    // the InsightOps sink (prod). stderr is gated separately by the standard
-    // `DEBUG=openagenda-mcp*` env var (the dev lever) — not by config. No
-    // OTEL/Alloy here: µVM resource metrics are a host-level scrape, not app code.
+    // Per-caller concurrency cap (callerConcurrency.js, transport=http only): the
+    // max runs ONE caller may hold in the execute pipeline at once (running OR
+    // waiting in the global queue), so a single tenant can't grab every global
+    // slot (maxConcurrency) and starve the rest — a fairness guard on top of the
+    // global resource-safety cap. Default 2 lets an agent run a little in parallel
+    // while leaving slots for others. int() floors it at >0 (never a lockout). To
+    // effectively disable it, raise it past what one caller could ever hold in the
+    // global pipeline (≥ maxConcurrency + execMaxQueue); at = maxConcurrency a lone
+    // caller still gets a caller_busy instead of queuing once it holds that many.
+    maxConcurrencyPerCaller: int(env.OA_MAX_CONCURRENCY_PER_CALLER, 2),
+    // Observability — TWO independent channels, by role:
+    //  - LOGS/audit (here): structured operational logs + a per-tool audit trail
+    //    via @openagenda/logs (see log.js). `insightOpsToken` (OA_INSIGHT_OPS_TOKEN)
+    //    adds the InsightOps sink (prod); stderr is gated separately by the standard
+    //    `DEBUG=openagenda-mcp*` env var (the dev lever) — not by config.
+    //  - METRICS (below, see metrics.js): our own OTel counters/histograms pushed
+    //    over OTLP to the host Alloy → Mimir. Distinct system from the audit log on
+    //    purpose; HOST resource metrics (CPU/RAM/KVM) stay a node_exporter scrape.
     logging: {
       insightOpsToken: env.OA_INSIGHT_OPS_TOKEN ?? null,
+    },
+    // OTel metrics, enabled only in HOSTED mode AND when an OTLP endpoint is
+    // configured (else fully off — see metrics.js). The mode gate matters because
+    // OTEL_EXPORTER_OTLP_ENDPOINT is a standard, frequently-inherited env var: a
+    // local/stdio run that happens to inherit it must NOT silently start a metrics
+    // pipeline (background timer + egress) — stdio is "off" by contract. The
+    // exporter reads OTEL_EXPORTER_OTLP_* itself; we only gate enablement and
+    // carry the instance label.
+    metrics: {
+      enabled:
+        mode === 'hosted'
+        && Boolean(
+          env.OTEL_EXPORTER_OTLP_METRICS_ENDPOINT
+            || env.OTEL_EXPORTER_OTLP_ENDPOINT,
+        ),
+      serviceInstance: env.OTEL_SERVICE_INSTANCE_ID ?? env.HOSTNAME ?? null,
     },
     // Maintenance kill: refuse `execute` (search_docs stays served). Read once at
     // boot, so flipping it takes a process restart (not a code change, and not a
