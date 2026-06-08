@@ -43,6 +43,7 @@
   "next.components.settings.ApiKeys.info": "API-sleutels maken het mogelijk om gegevens te lezen en schrijven op OpenAgenda via de API.",
   "next.components.settings.ApiKeys.keyName": "Sleutelnaam",
   "next.components.settings.ApiKeys.name": "Een naam geven",
+  "next.components.settings.ApiKeys.newWindow": "opent in een nieuw venster",
   "next.components.settings.ApiKeys.publicKey": "Publieke sleutel",
   "next.components.settings.ApiKeys.remove": "Verwijderen",
   "next.components.settings.ApiKeys.removeKey": "Sleutel verwijderen",

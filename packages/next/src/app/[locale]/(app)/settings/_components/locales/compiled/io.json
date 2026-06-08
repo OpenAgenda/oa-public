@@ -271,6 +271,12 @@
       "value": "Add a name"
     }
   ],
+  "next.components.settings.ApiKeys.newWindow": [
+    {
+      "type": 0,
+      "value": "opens in a new window"
+    }
+  ],
   "next.components.settings.ApiKeys.publicKey": [
     {
       "type": 0,

@@ -267,6 +267,12 @@
       "value": "Nommer"
     }
   ],
+  "next.components.settings.ApiKeys.newWindow": [
+    {
+      "type": 0,
+      "value": "ouvre dans une nouvelle fenêtre"
+    }
+  ],
   "next.components.settings.ApiKeys.publicKey": [
     {
       "type": 0,

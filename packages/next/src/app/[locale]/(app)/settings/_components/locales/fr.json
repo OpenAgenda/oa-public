@@ -43,6 +43,7 @@
   "next.components.settings.ApiKeys.info": "Les clés API permettent de lire et écrire des données sur OpenAgenda via l'API.",
   "next.components.settings.ApiKeys.keyName": "Nom de clé",
   "next.components.settings.ApiKeys.name": "Nommer",
+  "next.components.settings.ApiKeys.newWindow": "ouvre dans une nouvelle fenêtre",
   "next.components.settings.ApiKeys.publicKey": "Clé publique",
   "next.components.settings.ApiKeys.remove": "Retirer",
   "next.components.settings.ApiKeys.removeKey": "Supprimer la clé",

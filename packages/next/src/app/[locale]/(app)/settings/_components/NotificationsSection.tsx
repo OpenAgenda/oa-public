@@ -616,6 +616,7 @@ export default function NotificationsSection({
                       setFilter(e.target.value)
                     }
                     placeholder={intl.formatMessage(messages.filterPlaceholder)}
+                    aria-label={intl.formatMessage(messages.filterPlaceholder)}
                   />
                 </Field.Root>
               )}

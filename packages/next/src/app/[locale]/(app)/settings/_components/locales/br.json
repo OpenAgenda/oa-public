@@ -43,6 +43,7 @@
   "next.components.settings.ApiKeys.info": "An alc'hwezioù API a ro an tu da lenn ha skrivañ roadennoù war OpenAgenda dre an API.",
   "next.components.settings.ApiKeys.keyName": "Anv alc'hwez",
   "next.components.settings.ApiKeys.name": "Envel",
+  "next.components.settings.ApiKeys.newWindow": "digeriñ a ra en ur prenestr nevez",
   "next.components.settings.ApiKeys.publicKey": "Alc'hwez foran",
   "next.components.settings.ApiKeys.remove": "Lemel",
   "next.components.settings.ApiKeys.removeKey": "Dilemel an alc'hwez",

@@ -267,6 +267,12 @@
       "value": "Een naam geven"
     }
   ],
+  "next.components.settings.ApiKeys.newWindow": [
+    {
+      "type": 0,
+      "value": "opent in een nieuw venster"
+    }
+  ],
   "next.components.settings.ApiKeys.publicKey": [
     {
       "type": 0,

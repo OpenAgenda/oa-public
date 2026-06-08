@@ -55,6 +55,10 @@ const messages = defineMessages({
     id: 'next.components.settings.ApiKeys.documentation',
     defaultMessage: 'Show documentation',
   },
+  newWindow: {
+    id: 'next.components.settings.ApiKeys.newWindow',
+    defaultMessage: 'opens in a new window',
+  },
   tiersHelp: {
     id: 'next.components.settings.ApiKeys.tiersHelp',
     defaultMessage:
@@ -221,6 +225,7 @@ function KeyRow({ item, revealed, onRename, onRemove }: KeyRowProps) {
               flex="1"
               value={name}
               placeholder={intl.formatMessage(messages.keyName)}
+              aria-label={intl.formatMessage(messages.keyName)}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setName(e.target.value)
               }
@@ -268,6 +273,7 @@ function KeyRow({ item, revealed, onRename, onRemove }: KeyRowProps) {
           disabled={fullValue == null}
           value={displayValue}
           fontFamily="mono"
+          aria-label={item.name ? `${tier} — ${item.name}` : tier}
         />
         {canToggle && (
           <IconButton
@@ -405,7 +411,14 @@ export default function ApiKeysSection({ user }: ApiKeysSectionProps) {
       <chakra.div maxW="2xl">
         <Text mb="2">{intl.formatMessage(messages.info)}</Text>
         <Text mb="2">
-          <Link href={DOC_URL} target="_blank" rel="noreferrer">
+          <Link
+            href={DOC_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            // RGAA 13.3: warn that the link opens a new window. aria-label keeps
+            // the visible text as a substring (label-in-name) and appends it.
+            aria-label={`${intl.formatMessage(messages.documentation)} (${intl.formatMessage(messages.newWindow)})`}
+          >
             {intl.formatMessage(messages.documentation)}
           </Link>
         </Text>

@@ -43,6 +43,7 @@
   "next.components.settings.ApiKeys.info": "API-Schlüssel für das Lesen und Schreiben von Daten über OpenAgenda API.",
   "next.components.settings.ApiKeys.keyName": "Schlüsselname",
   "next.components.settings.ApiKeys.name": "Benennen",
+  "next.components.settings.ApiKeys.newWindow": "wird in einem neuen Fenster geöffnet",
   "next.components.settings.ApiKeys.publicKey": "Öffentlicher Schlüssel",
   "next.components.settings.ApiKeys.remove": "Löschen",
   "next.components.settings.ApiKeys.removeKey": "Schlüssel entfernen",

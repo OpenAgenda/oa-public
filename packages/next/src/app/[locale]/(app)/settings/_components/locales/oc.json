@@ -43,6 +43,7 @@
   "next.components.settings.ApiKeys.info": "Claus API per legir e escriure de donadas amb l'API OpenAgenda.",
   "next.components.settings.ApiKeys.keyName": "Nom de clau",
   "next.components.settings.ApiKeys.name": "Nomenar",
+  "next.components.settings.ApiKeys.newWindow": "se dobrís dins una fenèstra novèla",
   "next.components.settings.ApiKeys.publicKey": "Clau publica",
   "next.components.settings.ApiKeys.remove": "Suprimir",
   "next.components.settings.ApiKeys.removeKey": "Suprimir la clau",

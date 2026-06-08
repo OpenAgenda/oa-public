@@ -43,6 +43,7 @@
   "next.components.settings.ApiKeys.info": "",
   "next.components.settings.ApiKeys.keyName": "",
   "next.components.settings.ApiKeys.name": "",
+  "next.components.settings.ApiKeys.newWindow": "",
   "next.components.settings.ApiKeys.publicKey": "",
   "next.components.settings.ApiKeys.remove": "",
   "next.components.settings.ApiKeys.removeKey": "",
