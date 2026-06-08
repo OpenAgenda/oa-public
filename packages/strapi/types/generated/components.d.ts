@@ -312,6 +312,22 @@ export interface SegmentsReferenceSet extends Struct.ComponentSchema {
   };
 }
 
+export interface SegmentsRichTextBlock extends Struct.ComponentSchema {
+  collectionName: 'components_segments_rich_text_blocks';
+  info: {
+    description: '';
+    displayName: 'RichTextBlock';
+  };
+  attributes: {
+    background: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::background.background'
+    >;
+    content: Schema.Attribute.RichText;
+    fontColor: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
+  };
+}
+
 export interface SegmentsTabSet extends Struct.ComponentSchema {
   collectionName: 'components_segments_tab_set';
   info: {
@@ -351,6 +367,7 @@ declare module '@strapi/strapi' {
       'segments.highlight-card-set': SegmentsHighlightCardSet;
       'segments.page-head': SegmentsPageHead;
       'segments.reference-set': SegmentsReferenceSet;
+      'segments.rich-text-block': SegmentsRichTextBlock;
       'segments.tab-set': SegmentsTabSet;
     }
   }

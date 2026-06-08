@@ -4,6 +4,7 @@ import Footer from '@/src/components/strapi/Footer';
 import HighlightCardSet from '@/src/components/strapi/HighlightCardSet';
 import PageHead from '@/src/components/strapi/PageHead';
 import ReferenceSet from '@/src/components/strapi/ReferenceSet';
+import RichTextBlock from '@/src/components/strapi/RichTextBlock';
 import SplitHeroSegment from '@/src/components/strapi/SplitHeroSegment';
 import TabSet from '@/src/components/strapi/TabSet';
 import type { StrapiPageData } from '@/src/components/strapi/types';
@@ -14,6 +15,7 @@ const SEGMENT_MAP: Record<string, React.ComponentType<any>> = {
   'segments.page-head': PageHead,
   'segments.tab-set': TabSet,
   'segments.reference-set': ReferenceSet,
+  'segments.rich-text-block': RichTextBlock,
   'components.split-hero': SplitHeroSegment,
 };
 
