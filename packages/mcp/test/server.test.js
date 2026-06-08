@@ -1,3 +1,9 @@
+import { trace, SpanStatusCode } from '@opentelemetry/api';
+import {
+  BasicTracerProvider,
+  InMemorySpanExporter,
+  SimpleSpanProcessor,
+} from '@opentelemetry/sdk-trace-base';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
 import { createServer } from '../src/server.js';
@@ -788,7 +794,7 @@ describe('MCP server', () => {
   describe('metrics', () => {
     // The server emits an OTel metric alongside the audit record, from the same
     // return paths, via the injected recordMetric sink (the real sink is a no-op
-    // until initMetrics runs — see metrics.js; here we assert the per-call shape).
+    // until initTelemetry runs — see telemetry.js; here we assert the per-call shape).
     const withMetric = async (opts = {}) => {
       const metric = [];
       ({ client } = await connect({
@@ -807,9 +813,11 @@ describe('MCP server', () => {
       expect(metric[0].tool).toBe('execute');
       expect(metric[0].fields.outcome).toBe('ok');
       expect(typeof metric[0].fields.duration_ms).toBe('number');
+      // ok is not a fault → error:false (the label the Grafana failure ratio filters).
+      expect(metric[0].fields.error).toBe(false);
     });
 
-    it('records execute outcome=timed_out on the matching path', async () => {
+    it('records execute outcome=timed_out with error:true (a real fault)', async () => {
       const metric = await withMetric({
         executor: makeExecutor(async () => ({
           stdout: '',
@@ -820,9 +828,21 @@ describe('MCP server', () => {
       });
       await client.callTool({ name: 'execute', arguments: { code: 'x' } });
       expect(metric[0].fields.outcome).toBe('timed_out');
+      expect(metric[0].fields.error).toBe(true);
     });
 
-    it('records a search_docs metric (outcome=ok)', async () => {
+    it('records execute backpressure (busy) with error:false (not a fault)', async () => {
+      const metric = await withMetric({
+        executor: makeExecutor(async () => {
+          throw Object.assign(new Error('saturated'), { code: 'EXEC_BUSY' });
+        }),
+      });
+      await client.callTool({ name: 'execute', arguments: { code: 'x' } });
+      expect(metric[0].fields.outcome).toBe('busy');
+      expect(metric[0].fields.error).toBe(false);
+    });
+
+    it('records a search_docs metric (outcome=ok, error:false)', async () => {
       const metric = await withMetric();
       await client.callTool({
         name: 'search_docs',
@@ -831,6 +851,74 @@ describe('MCP server', () => {
       expect(metric).toHaveLength(1);
       expect(metric[0].tool).toBe('search_docs');
       expect(metric[0].fields.outcome).toBe('ok');
+      expect(metric[0].fields.error).toBe(false);
     });
+  });
+});
+
+describe('MCP server — span status (tracing)', () => {
+  // Register a REAL in-memory tracer provider so the tool spans are recorded with
+  // their status (the default no-op tracer discards it), then disable it again so it
+  // can't leak to other suites (--runInBand shares globalThis).
+  let exporter;
+  let provider;
+  let client;
+  beforeEach(() => {
+    exporter = new InMemorySpanExporter();
+    provider = new BasicTracerProvider({
+      spanProcessors: [new SimpleSpanProcessor(exporter)],
+    });
+    trace.setGlobalTracerProvider(provider);
+  });
+  afterEach(async () => {
+    await client?.close();
+    client = undefined;
+    trace.disable();
+    await provider.shutdown();
+  });
+
+  const spanByName = (name) =>
+    exporter.getFinishedSpans().find((s) => s.name === name);
+
+  it.each(['EXEC_BUSY', 'EXEC_SHUTTING_DOWN'])(
+    'leaves the sandbox.run + execute spans non-error on %s backpressure',
+    async (code) => {
+      ({ client } = await connect({
+        executor: makeExecutor(async () => {
+          throw Object.assign(new Error('saturated'), { code });
+        }),
+      }));
+      await client.callTool({ name: 'execute', arguments: { code: 'x' } });
+      // Backpressure = the cap shedding load, not a fault → neither span is ERROR.
+      expect(spanByName('mcp.sandbox.run').status.code).not.toBe(
+        SpanStatusCode.ERROR,
+      );
+      expect(spanByName('mcp.tool/execute').status.code).not.toBe(
+        SpanStatusCode.ERROR,
+      );
+    },
+  );
+
+  it('marks both spans ERROR on a real fault (non-backpressure throw)', async () => {
+    ({ client } = await connect({
+      executor: makeExecutor(async () => {
+        throw new Error('boom'); // no EXEC_* code → outcome 'threw'
+      }),
+    }));
+    await client.callTool({ name: 'execute', arguments: { code: 'x' } });
+    expect(spanByName('mcp.tool/execute').status.code).toBe(
+      SpanStatusCode.ERROR,
+    );
+    expect(spanByName('mcp.sandbox.run').status.code).toBe(
+      SpanStatusCode.ERROR,
+    );
+  });
+
+  it('always ends the search_docs span (no leak), non-error', async () => {
+    ({ client } = await connect());
+    await client.callTool({ name: 'search_docs', arguments: { query: 'x' } });
+    const span = spanByName('mcp.tool/search_docs');
+    expect(span).toBeDefined();
+    expect(span.status.code).not.toBe(SpanStatusCode.ERROR);
   });
 });

@@ -12,11 +12,11 @@ import { createHttpApp } from './httpServer.js';
 import { assertIssuer } from './auth/assertIssuer.js';
 import { initLogging, log, makeAuditRecorder } from './log.js';
 import {
-  initMetrics,
+  initTelemetry,
   registerObservables,
-  shutdownMetrics,
+  shutdownTelemetry,
   recordMetric,
-} from './metrics.js';
+} from './telemetry.js';
 import {
   renderEgressPolicy,
   policySha256,
@@ -58,14 +58,18 @@ async function main() {
   }
 
   const config = loadConfig(); // throws (fail-closed) on an unsafe/incoherent pairing
-  // Configure logging ONCE, before anything logs. Two env-gated sinks:
-  // OA_INSIGHT_OPS_TOKEN → InsightOps (prod); DEBUG=openagenda-mcp* → stderr (dev).
-  // Both avoid stdout, so this is safe under stdio (where stdout is the MCP channel).
-  initLogging(config.logging);
-  // Start the OTel metrics pipeline (no-op unless an OTLP endpoint is configured —
-  // i.e. hosted; off for stdio/dev). Our own business metrics → Alloy → Mimir,
-  // separate from the audit log above (see metrics.js).
-  initMetrics(config.metrics);
+  // Start the OTel telemetry pipeline FIRST (no-op unless an OTLP endpoint is
+  // configured — i.e. hosted; off for stdio/dev). Metrics → Mimir, traces → Tempo,
+  // logs → Loki, all via the host Alloy agent. It must precede initLogging because
+  // the LoggerProvider it registers is what @openagenda/logs's OTel transport binds
+  // to at init time (see telemetry.js / log.js). initTelemetry does not itself log.
+  initTelemetry(config.telemetry);
+  // Configure logging ONCE, before anything else logs. Env-gated sinks:
+  // OA_INSIGHT_OPS_TOKEN → InsightOps (prod); DEBUG=openagenda-mcp* → stderr (dev);
+  // and — when telemetry is on — the OTel logs transport too (ships the same records
+  // over OTLP, IN ADDITION to InsightOps). All avoid stdout, so this is safe under
+  // stdio (where stdout is the MCP channel).
+  initLogging({ ...config.logging, otel: config.telemetry.enabled });
   // If NEITHER sink is active, say so once on stderr — otherwise every operational
   // log AND the audit trail are silently discarded (a security control going dark
   // with no signal). Coarse check: any DEBUG means the operator wants stderr.
@@ -105,7 +109,7 @@ async function main() {
     try {
       if (httpServer) await new Promise((resolve) => httpServer.close(resolve));
       await executor.dispose?.();
-      await shutdownMetrics(); // flush the last metrics before exit
+      await shutdownTelemetry(); // flush the last metrics/spans/logs before exit
     } catch {
       // best-effort drain — never block exit on cleanup
     }

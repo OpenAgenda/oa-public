@@ -1,27 +1,47 @@
-// OpenTelemetry metrics for the MCP server — our OWN business metrics (per-tool
-// outcome + latency, warm-pool efficiency, live concurrency), pushed via OTLP to
-// the host agent (Alloy), which forwards them to Mimir. This is DISTINCT from the
-// audit LOG (one structured record per call → InsightOps; see log.js): logs and
-// metrics are kept in their own systems, on purpose.
+// OpenTelemetry for the MCP server — our OWN telemetry, all three signals on ONE
+// NodeSDK, pushed via OTLP to the host agent (Alloy), which fans them out (metrics
+// → Mimir, traces → Tempo, logs → Loki):
+//   - METRICS  : per-tool outcome + latency, warm-pool efficiency, live concurrency
+//                (see the instruments below + recordMetric/recordUvmStats/…).
+//   - TRACES   : a span per tool call (`mcp.tool/execute`, `mcp.tool/search_docs`)
+//                with child spans for the slow steps (token-exchange, sandbox run),
+//                so latency is attributable, not just aggregate (see getTracer +
+//                server.js). The execute span is also the future parent of the v3
+//                API trace (PR2: propagate its context into the µVM's API calls).
+//   - LOGS     : the @openagenda/logs records ALSO go out over OTLP (log.js flips
+//                `otel:true` when telemetry is on) — IN ADDITION to InsightOps, not
+//                instead. The logs library only emits to the in-process OTel logs
+//                API; the LoggerProvider it needs is the one this NodeSDK registers,
+//                so initTelemetry MUST run before initLogging({otel:true}).
 //
-// Metrics-only today (a `metricReader`, no tracing/instrumentations on the
-// NodeSDK) — but the same NodeSDK is where distributed tracing would later plug
-// in, no rewrite. The exporter reads the standard `OTEL_EXPORTER_OTLP_*` env vars
-// for its endpoint/headers, so transport config lives in the environment, not here.
+// Every exporter reads the standard `OTEL_EXPORTER_OTLP_*` env vars for its
+// endpoint/headers, so transport config lives in the environment, not here.
 //
-// OFF unless an OTLP endpoint is configured (`config.metrics.enabled`): then
-// `initMetrics` is a no-op, no SDK starts, and `recordMetric` does nothing — so a
-// dev/stdio run never tries to export. Observability must never fail a tool call,
-// so every record path swallows its own errors.
+// OFF unless an OTLP endpoint is configured (`config.telemetry.enabled`): then
+// `initTelemetry` is a no-op, no SDK starts, no provider is registered — so
+// `recordMetric` does nothing, `getTracer()` hands back a no-op tracer, and
+// `otel:true` logs go nowhere. A dev/stdio run therefore never tries to export.
+// Observability must never fail a tool call, so every record path swallows its own
+// errors.
 
 import { NodeSDK } from '@opentelemetry/sdk-node';
 import { PeriodicExportingMetricReader } from '@opentelemetry/sdk-metrics';
 import { OTLPMetricExporter } from '@opentelemetry/exporter-metrics-otlp-proto';
-import { metrics } from '@opentelemetry/api';
+import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-base';
+import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-proto';
+import { BatchLogRecordProcessor } from '@opentelemetry/sdk-logs';
+import { OTLPLogExporter } from '@opentelemetry/exporter-logs-otlp-proto';
+import { metrics, trace } from '@opentelemetry/api';
 import { resourceFromAttributes } from '@opentelemetry/resources';
 import { ATTR_SERVICE_NAME } from '@opentelemetry/semantic-conventions';
+import { SERVICE_NAME as NS } from './serviceName.js';
 
-const NS = 'openagenda-mcp';
+/**
+ * The MCP tracer. Returns a no-op ProxyTracer until `initTelemetry` registers a
+ * provider (so server.js can create spans unconditionally — they cost nothing and
+ * export nothing in stdio/dev/tests). Single-sources the service name.
+ */
+export const getTracer = () => trace.getTracer(NS);
 
 // Explicit histogram buckets. The OTel SDK default boundaries
 // ([0,5,10,…,7500,10000]) are tuned for MILLISECONDS, so a byte- or
@@ -53,22 +73,28 @@ let sdk = null;
 let instruments = null;
 
 /**
- * Start the OTLP metrics pipeline ONCE, before serving. No-op when metrics are
- * disabled (no OTLP endpoint) or already started. Call from the hosted entrypoint
- * right after loadConfig.
+ * Start the OTLP telemetry pipeline (metrics + traces + logs) ONCE, before
+ * serving. No-op when telemetry is disabled (no OTLP endpoint) or already started.
+ * Call from the hosted entrypoint right after loadConfig and BEFORE initLogging —
+ * the LoggerProvider this registers is what @openagenda/logs's `otel:true`
+ * transport emits to (it binds the global logger at init time).
  *
  * @param {object} [opts]
  * @param {boolean} [opts.enabled]              whether an OTLP endpoint is configured.
  * @param {string|null} [opts.serviceInstance]  `service.instance.id` (e.g. the host).
  */
-export function initMetrics({ enabled, serviceInstance } = {}) {
+export function initTelemetry({ enabled, serviceInstance } = {}) {
   if (sdk || !enabled) return;
   sdk = new NodeSDK({
     resource: resourceFromAttributes({
       [ATTR_SERVICE_NAME]: NS,
+      // Same namespace cibul-node tags its spans with, so both OA services group
+      // together in Tempo and a future linked execute→v3-API trace reads as one.
+      'service.namespace': 'oa',
       ...serviceInstance ? { 'service.instance.id': serviceInstance } : {},
     }),
-    // The exporter takes its endpoint/headers/protocol from OTEL_EXPORTER_OTLP_*.
+    // Every exporter takes its endpoint/headers/protocol from OTEL_EXPORTER_OTLP_*
+    // (base `…_ENDPOINT`, or a per-signal `…_{METRICS,TRACES,LOGS}_ENDPOINT`).
     metricReader: new PeriodicExportingMetricReader({
       exporter: new OTLPMetricExporter(),
       // Export cadence = the time-resolution of every counter/histogram rate() in
@@ -81,6 +107,12 @@ export function initMetrics({ enabled, serviceInstance } = {}) {
       exportIntervalMillis:
         Number(process.env.OTEL_METRIC_EXPORT_INTERVAL) || 15000,
     }),
+    // Traces: batch-export spans (the per-tool-call spans from server.js). Batching
+    // keeps export off the hot path; pending spans are flushed on shutdown.
+    spanProcessors: [new BatchSpanProcessor(new OTLPTraceExporter())],
+    // Logs: register a LoggerProvider so @openagenda/logs's OTel transport has a
+    // global to emit into (see header). Batched like spans, flushed on shutdown.
+    logRecordProcessors: [new BatchLogRecordProcessor(new OTLPLogExporter())],
   });
   sdk.start();
 
@@ -159,14 +191,20 @@ export function initMetrics({ enabled, serviceInstance } = {}) {
 /**
  * Record one tool call. Mirrors `makeAuditRecorder`'s shape so server.js emits to
  * both from the same place; injected as a callback so the server stays pure and no
- * OTEL runs in tests. No-op until `initMetrics` has run with metrics enabled.
+ * OTEL runs in tests. No-op until `initTelemetry` has run with metrics enabled.
  *
  * @param {string} tool                  'execute' | 'search_docs'
- * @param {{ outcome?: string, duration_ms?: number }} fields
+ * @param {{ outcome?: string, duration_ms?: number, error?: boolean }} fields
+ *   `error` is the fault-vs-backpressure classification (server.js OUTCOMES) carried
+ *   as a label so Grafana filters `error="true"` instead of re-listing fault
+ *   outcomes in PromQL — one source of truth, no duplicated classification.
  */
 export function recordMetric(tool, fields = {}) {
   if (!instruments) return;
-  const attrs = fields.outcome ? { outcome: fields.outcome } : {};
+  const attrs = {
+    ...fields.outcome ? { outcome: fields.outcome } : {},
+    ...typeof fields.error === 'boolean' ? { error: fields.error } : {},
+  };
   try {
     if (tool === 'execute') {
       instruments.execute.add(1, attrs);
@@ -183,7 +221,7 @@ export function recordMetric(tool, fields = {}) {
 
 /**
  * Record a per-µVM resource sample taken at end of run from the libkrun VMM's /proc
- * (peak RSS + cumulative CPU — see microsandboxExecutor). No-op until initMetrics ran
+ * (peak RSS + cumulative CPU — see microsandboxExecutor). No-op until initTelemetry ran
  * with metrics enabled; never throws.
  *
  * @param {object} [sample]
@@ -221,7 +259,7 @@ export function recordUvmStats({
 
 /**
  * Record one execute run the concurrency guard refused before it started. No-op
- * until initMetrics ran with metrics enabled; never throws.
+ * until initTelemetry ran with metrics enabled; never throws.
  *
  * @param {'queue_full'|'timeout'|'shutting_down'|'caller_cap'} [reason]  why it
  *   was rejected. The first three come from the global cap (concurrencyLimit.js);
@@ -241,7 +279,7 @@ export function recordConcurrencyRejected(reason) {
  * held at admission (0 = their only run, up to cap − 1). Recorded at the event so
  * it is LOSSLESS — a gauge of live per-caller occupancy is sampled only once per
  * export interval and would miss the short-lived spikes these µVMs produce.
- * Recorded from callerConcurrency.js. No-op until initMetrics ran; never throws.
+ * Recorded from callerConcurrency.js. No-op until initTelemetry ran; never throws.
  *
  * @param {number} [held]  the caller's in-flight count BEFORE this admission.
  */
@@ -326,7 +364,7 @@ export function registerObservables({ poolStats, inflight } = {}) {
 }
 
 /** Flush and stop the metrics pipeline on shutdown (best-effort). */
-export async function shutdownMetrics() {
+export async function shutdownTelemetry() {
   if (!sdk) return;
   try {
     await sdk.shutdown();

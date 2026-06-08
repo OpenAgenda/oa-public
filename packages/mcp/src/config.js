@@ -30,9 +30,9 @@
 //   OA_OAUTH_EXCHANGE_URL    AS token-exchange endpoint       (default: <issuer>/oauth2/token-exchange)
 //   OA_INSIGHT_OPS_TOKEN     InsightOps log token             (prod: ships logs + audit there; absent → stderr)
 //   OA_EXECUTE_DISABLED      1                                (maintenance: refuse execute; search_docs stays up)
-//   OTEL_EXPORTER_OTLP_METRICS_ENDPOINT  OTLP metrics endpoint (hosted: enables OTel metrics → Alloy; absent → off)
-//   OTEL_EXPORTER_OTLP_ENDPOINT          OTLP base endpoint    (fallback for the above; standard OTel var)
-//   OTEL_SERVICE_INSTANCE_ID / HOSTNAME  service.instance.id on the emitted metrics
+//   OTEL_EXPORTER_OTLP_ENDPOINT          OTLP base endpoint    (hosted: enables OTel metrics+traces+logs → Alloy; absent → off)
+//   OTEL_EXPORTER_OTLP_{METRICS,TRACES,LOGS}_ENDPOINT  per-signal override (any one also enables telemetry)
+//   OTEL_SERVICE_INSTANCE_ID / HOSTNAME  service.instance.id on every signal
 //   OTEL_METRIC_EXPORT_INTERVAL  metric export cadence in ms (default: 15000; = rate() resolution)
 //
 // TWO ORTHOGONAL AXES (see README → "Execution model"):
@@ -426,25 +426,29 @@ export function loadConfig(env = process.env) {
     //    via @openagenda/logs (see log.js). `insightOpsToken` (OA_INSIGHT_OPS_TOKEN)
     //    adds the InsightOps sink (prod); stderr is gated separately by the standard
     //    `DEBUG=openagenda-mcp*` env var (the dev lever) — not by config.
-    //  - METRICS (below, see metrics.js): our own OTel counters/histograms pushed
-    //    over OTLP to the host Alloy → Mimir. Distinct system from the audit log on
-    //    purpose; HOST resource metrics (CPU/RAM/KVM) stay a node_exporter scrape.
+    //  - TELEMETRY (below, see telemetry.js): our own OTel metrics + traces + logs
+    //    pushed over OTLP to the host Alloy → Mimir/Tempo/Loki. Distinct system from
+    //    the InsightOps audit log on purpose (logs go to BOTH); HOST resource metrics
+    //    (CPU/RAM/KVM) stay a node_exporter scrape.
     logging: {
       insightOpsToken: env.OA_INSIGHT_OPS_TOKEN ?? null,
     },
-    // OTel metrics, enabled only in HOSTED mode AND when an OTLP endpoint is
-    // configured (else fully off — see metrics.js). The mode gate matters because
-    // OTEL_EXPORTER_OTLP_ENDPOINT is a standard, frequently-inherited env var: a
-    // local/stdio run that happens to inherit it must NOT silently start a metrics
-    // pipeline (background timer + egress) — stdio is "off" by contract. The
-    // exporter reads OTEL_EXPORTER_OTLP_* itself; we only gate enablement and
-    // carry the instance label.
-    metrics: {
+    // OTel telemetry (metrics + traces + logs), enabled only in HOSTED mode AND when
+    // an OTLP endpoint is configured (else fully off — see telemetry.js). The mode
+    // gate matters because OTEL_EXPORTER_OTLP_ENDPOINT is a standard, frequently-
+    // inherited env var: a local/stdio run that happens to inherit it must NOT
+    // silently start a pipeline (background timers + egress) — stdio is "off" by
+    // contract. Any signal endpoint (base or per-signal) flips it on; each exporter
+    // reads OTEL_EXPORTER_OTLP_* itself, we only gate enablement and carry the
+    // instance label. `enabled` also drives @openagenda/logs's OTel transport (log.js).
+    telemetry: {
       enabled:
         mode === 'hosted'
         && Boolean(
-          env.OTEL_EXPORTER_OTLP_METRICS_ENDPOINT
-            || env.OTEL_EXPORTER_OTLP_ENDPOINT,
+          env.OTEL_EXPORTER_OTLP_ENDPOINT
+            || env.OTEL_EXPORTER_OTLP_METRICS_ENDPOINT
+            || env.OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
+            || env.OTEL_EXPORTER_OTLP_LOGS_ENDPOINT,
         ),
       serviceInstance: env.OTEL_SERVICE_INSTANCE_ID ?? env.HOSTNAME ?? null,
     },

@@ -4,15 +4,64 @@
 
 import { createHash } from 'node:crypto';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { trace, SpanStatusCode } from '@opentelemetry/api';
 import { z } from 'zod';
 import { searchOperations, renderSearch } from './docs/operations.js';
 import { buildScript } from './sandbox/preamble.js';
 import { credentialFp } from './log.js';
+import { SERVICE_NAME } from './serviceName.js';
 
 // Cap on the diagnostic text returned to the client on a failed run. Bounds the
 // LLM context blast radius of a runaway, independent of the 1 MiB process-level
 // output cap. (Unrelated to secret-leakage: see `redactSecrets`.)
 const MAX_ERROR_TEXT = 4000;
+
+// The complete set of tool-call outcomes and whether each is a REAL fault (vs
+// backpressure / normal). SINGLE SOURCE for three things that must agree: the span
+// status (finish() below), the `error` metric label (so the Grafana failure-ratio
+// panel filters `error="true"` instead of re-listing the fault outcomes in PromQL —
+// no duplicated classification to drift), and the authoritative list of what
+// `finish()` may emit. Every finish(outcome, …) call site MUST use a key here.
+//   error:false → success or backpressure (a cap/limit engaging is the server
+//     protecting itself, not the call failing — keeps the trace + ratio green);
+//   error:true  → a genuine fault.
+const OUTCOMES = {
+  ok: { error: false },
+  disabled: { error: false }, // maintenance kill
+  rate_limited: { error: false }, // per-caller rate cap
+  caller_busy: { error: false }, // per-caller concurrency cap
+  busy: { error: false }, // global cap saturated
+  shutting_down: { error: false }, // draining
+  credential_error: { error: true },
+  threw: { error: true },
+  timed_out: { error: true },
+  output_capped: { error: true },
+  nonzero_exit: { error: true },
+};
+
+/** Whether an outcome is a real fault (unknown → not a fault, fail-safe). */
+const isErrorOutcome = (outcome) => OUTCOMES[outcome]?.error ?? false;
+
+// Executor rejection codes that are RETRYABLE backpressure, not faults — the global
+// concurrency guard shedding load (concurrencyLimit.js throws these). A span must
+// NOT mark them ERROR (mirrors OUTCOMES on the parent), else routine
+// capacity-shedding paints spans red on every shed request.
+const BACKPRESSURE_CODES = new Set(['EXEC_BUSY', 'EXEC_SHUTTING_DOWN']);
+
+/** Record a thrown value as a span exception, normalising non-Errors. */
+const recordSpanException = (span, err) =>
+  span.recordException(err instanceof Error ? err : new Error(String(err)));
+
+/**
+ * Mark a span for a THROWN error, unless the throw is retryable backpressure (the
+ * global cap shedding load) — backpressure leaves the span OK, mirroring OUTCOMES.
+ */
+const markSpanError = (span, err) => {
+  const code = err && typeof err === 'object' && 'code' in err ? err.code : undefined;
+  if (typeof code === 'string' && BACKPRESSURE_CODES.has(code)) return;
+  recordSpanException(span, err);
+  span.setStatus({ code: SpanStatusCode.ERROR });
+};
 
 // Cap on the code body recorded in the audit trail, per execute. 8 KiB covers
 // the vast majority of code-mode scripts in full; beyond that is almost always
@@ -100,6 +149,10 @@ const toolError = (text) => ({ isError: true, content: [textContent(text)] });
  * @param {string} [deps.callerId]  the caller identity the limiters key on (the
  *   OAuth `sub`). Used by `rateLimiter`/`callerConcurrency`; a falsy/absent id
  *   keys a shared 'anonymous' bucket (it never bypasses a limit).
+ * @param {number} [deps.callerUid]  the OA user id (the AS's optional `uid` claim),
+ *   set as the `user.uid` span attribute so a trace is attributable to a user —
+ *   the same key cibul-node inherits onto its API spans, so a future linked trace
+ *   (PR2) carries one consistent identity. Audit-only otherwise; absent on stdio.
  * @param {(tool: string, fields: object) => void} [deps.recordAudit]  sink for
  *   the per-tool audit trail (see log.js → makeAuditRecorder). Defaults to a no-op
  *   (tests, or a stdio run with logging off). CONVENTION: audit is emitted
@@ -108,7 +161,7 @@ const toolError = (text) => ({ isError: true, content: [textContent(text)] });
  *   ships un-audited (no test/type/runtime catches the omission). It is safe to
  *   call (it never throws — see makeAuditRecorder).
  * @param {(tool: string, fields: object) => void} [deps.recordMetric]  sink for
- *   OTel metrics (see metrics.js → recordMetric). Defaults to a no-op (tests, or a
+ *   OTel metrics (see telemetry.js → recordMetric). Defaults to a no-op (tests, or a
  *   run with metrics off). Emitted alongside `recordAudit` from the same return
  *   paths, reading `outcome` (+ `duration_ms` for execute). Safe to call.
  */
@@ -120,10 +173,70 @@ export function createServer({
   rateLimiter,
   callerConcurrency,
   callerId,
+  callerUid,
   recordAudit = () => {},
   recordMetric = () => {},
 }) {
-  const server = new McpServer({ name: 'openagenda-mcp', version: '0.0.0' });
+  const server = new McpServer({ name: SERVICE_NAME, version: '0.0.0' });
+
+  // Tracer for the per-tool-call spans below. From @opentelemetry/api directly (NOT
+  // telemetry.js) so this module never pulls in the OTel SDK — it's a no-op
+  // ProxyTracer until initTelemetry registers a provider (stdio/dev/tests export
+  // nothing), so the handlers can wrap themselves in spans unconditionally. Same
+  // SERVICE_NAME as telemetry.js's resource and the McpServer above (one service).
+  const tracer = trace.getTracer(SERVICE_NAME);
+
+  // Run `fn` inside a CHILD span of the active tool span, recording any throw as a
+  // span error and always ending it. Used for the slow inner steps (token-exchange,
+  // sandbox run) so a slow execute is attributable to a stage, not just a total.
+  // Re-throws so the caller's existing control flow is unchanged. Generic so it
+  // preserves `fn`'s resolved type (else `res`/`apiCredential` would widen to any).
+  /**
+   * @template T
+   * @param {string} name
+   * @param {Record<string, string | number | boolean>} attributes
+   * @param {() => Promise<T>} fn
+   * @returns {Promise<T>}
+   */
+  const withSpan = (name, attributes, fn) =>
+    tracer.startActiveSpan(name, { attributes }, async (span) => {
+      try {
+        return await fn();
+      } catch (err) {
+        markSpanError(span, err);
+        throw err;
+      } finally {
+        span.end();
+      }
+    });
+
+  // Register a tool whose handler runs inside a `mcp.tool/<name>` span. The span is
+  // created, made the active context, and ALWAYS ended here; a thrown error marks it
+  // (unless it's backpressure — see markSpanError). The ceremony lives at this
+  // registration SEAM, not copied into each handler, so a new tool CANNOT ship
+  // un-traced or leak an unended span — the per-handler fragility the audit
+  // convention warns about (see recordAudit below) does not apply to tracing. The
+  // handler receives (args, span) and sets its own attributes + outcome status; it
+  // must NOT end the span itself.
+  /**
+   * @param {string} name
+   * @param {any} schemaConfig  the McpServer.registerTool config (title/description/
+   *   inputSchema/annotations) — passed straight through; `any` because registerTool
+   *   is overloaded and a precise type resolves to `never` here.
+   * @param {(args: any, span: import('@opentelemetry/api').Span) => Promise<any>} handler
+   */
+  const registerTracedTool = (name, schemaConfig, handler) =>
+    server.registerTool(name, schemaConfig, (args) =>
+      tracer.startActiveSpan(`mcp.tool/${name}`, async (span) => {
+        try {
+          return await handler(args, span);
+        } catch (err) {
+          markSpanError(span, err);
+          throw err;
+        } finally {
+          span.end();
+        }
+      }));
 
   // Resolve the credential LAZILY and at most once per server instance. stdio /
   // static: synchronous (`credential ?? config.apiKey`). HTTP: the injected
@@ -149,7 +262,7 @@ export function createServer({
 
   // search_docs — progressive disclosure: find the right operation + how to call
   // it before writing code. Pure metadata, no network, no side effects.
-  server.registerTool(
+  registerTracedTool(
     'search_docs',
     {
       title: 'Search OpenAgenda API docs',
@@ -163,7 +276,7 @@ export function createServer({
       },
       annotations: { readOnlyHint: true, openWorldHint: false },
     },
-    async ({ query }) => {
+    async ({ query }, span) => {
       const startedAt = Date.now();
       const ops = searchOperations(query);
       const text = renderSearch(ops);
@@ -175,7 +288,21 @@ export function createServer({
         results_count: ops.length,
         credential_fp: staticCredentialFp,
       });
-      recordMetric('search_docs', { outcome: 'ok', duration_ms: durationMs });
+      recordMetric('search_docs', {
+        outcome: 'ok',
+        duration_ms: durationMs,
+        error: false,
+      });
+      // Span attributes mirror the audit fields that are safe to keep low-card:
+      // outcome + result count + the user (no query text — it's free-form and
+      // already in the audit log; keep the span lean). user.uid via `!= null` so
+      // a uid of 0 isn't dropped (matches the execute exit_code guard).
+      span.setAttributes({
+        'mcp.tool': 'search_docs',
+        'mcp.outcome': 'ok',
+        'mcp.search_docs.results_count': ops.length,
+        ...callerUid != null ? { 'user.uid': callerUid } : {},
+      });
       return { content: [textContent(text)] };
     },
   );
@@ -185,7 +312,7 @@ export function createServer({
   // ARBITRARY code, so it can mutate the moment the v3 write surface lands — the
   // annotation must not promise read-only, or a client would stop gating it (see
   // README → "Mutations & moderation"). openWorld because it reaches the network.
-  server.registerTool(
+  registerTracedTool(
     'execute',
     {
       title: 'Execute code against the OpenAgenda API',
@@ -211,7 +338,7 @@ export function createServer({
       },
       annotations: { readOnlyHint: false, openWorldHint: true },
     },
-    async ({ code }) => {
+    async ({ code }, span) => {
       const startedAt = Date.now();
       // `apiCredential`/`res` are filled as the run progresses; finish() reads
       // them so every return path emits ONE audit record from a single place.
@@ -224,19 +351,49 @@ export function createServer({
         // so a truncated body is still groupable. Never the result payload. The
         // clamp reports `truncated` from one byte measurement (no flag/clamp drift).
         const durationMs = Date.now() - startedAt;
+        // Computed ONCE and fed to both the audit record and the span (the
+        // sha256 of a large code body is the costly part — don't hash twice).
+        const codeBytes = Buffer.byteLength(code, 'utf8');
+        const codeSha256 = sha256(code);
+        const bytesOut = res ? Buffer.byteLength(res.stdout ?? '', 'utf8') : 0;
         const audited = clampAuditCode(redactSecrets(code, apiCredential));
         recordAudit('execute', {
           duration_ms: durationMs,
           outcome,
           code: audited.text,
-          code_bytes: Buffer.byteLength(code, 'utf8'),
+          code_bytes: codeBytes,
           code_truncated: audited.truncated,
-          code_sha256: sha256(code),
-          bytes_out: res ? Buffer.byteLength(res.stdout ?? '', 'utf8') : 0,
+          code_sha256: codeSha256,
+          bytes_out: bytesOut,
           exit_code: res?.exitCode ?? null,
           credential_fp: credentialFp(apiCredential),
         });
-        recordMetric('execute', { outcome, duration_ms: durationMs });
+        const error = isErrorOutcome(outcome);
+        recordMetric('execute', {
+          outcome,
+          duration_ms: durationMs,
+          error,
+        });
+        // Mirror the audit fields onto the tool span (a high-card id like the code
+        // hash is fine on a span — traces aren't aggregated like metrics) and set
+        // ERROR status only for a REAL fault, not backpressure (see OUTCOMES), so a
+        // cap engaging doesn't paint the trace red. user.uid via `!= null` so a uid
+        // of 0 isn't dropped (matches the exit_code guard). The registerTracedTool
+        // seam ends the span — finish() must NOT.
+        span.setAttributes({
+          'mcp.tool': 'execute',
+          'mcp.outcome': outcome,
+          'mcp.execute.code_bytes': codeBytes,
+          'mcp.execute.code_sha256': codeSha256,
+          'mcp.execute.bytes_out': bytesOut,
+          ...res?.exitCode != null
+            ? { 'mcp.execute.exit_code': res.exitCode }
+            : {},
+          ...callerUid != null ? { 'user.uid': callerUid } : {},
+        });
+        if (error) {
+          span.setStatus({ code: SpanStatusCode.ERROR, message: outcome });
+        }
         return result;
       };
 
@@ -303,7 +460,8 @@ export function createServer({
         // upstream error (it may carry AS response detail) — and leave other tools
         // and sessions working (the prior model failed the whole POST with a 502).
         try {
-          apiCredential = await resolveCredential();
+          apiCredential = await withSpan('mcp.credential.exchange', {}, () =>
+            resolveCredential());
         } catch {
           return finish(
             'credential_error',
@@ -320,14 +478,19 @@ export function createServer({
           toolError(clampErrorText(redactSecrets(text, apiCredential)));
 
         try {
-          res = await executor.run({
-            code: script,
-            env: {},
-            allowNet: config.allowNet,
-            egressAuthority: config.egressAuthority,
-            limits: config.limits,
-            tls: config.tls,
-          });
+          res = await withSpan(
+            'mcp.sandbox.run',
+            { 'mcp.executor': executor.name },
+            () =>
+              executor.run({
+                code: script,
+                env: {},
+                allowNet: config.allowNet,
+                egressAuthority: config.egressAuthority,
+                limits: config.limits,
+                tls: config.tls,
+              }),
+          );
         } catch (err) {
           // The concurrency guard rejects (it never started the run) when the
           // server is saturated or shutting down — surface that as a RETRYABLE

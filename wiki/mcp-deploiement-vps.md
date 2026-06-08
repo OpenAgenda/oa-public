@@ -275,9 +275,12 @@ OA_MCP_EXCHANGE_SECRET=__SECRET_PARTAGE_AVEC_AS__   # doit matcher la config de 
 # Observabilité — sinon audit log + logs opérationnels sont JETÉS (banner "no log sink")
 OA_INSIGHT_OPS_TOKEN=__TOKEN_INSIGHTOPS__
 
-# Métriques OTel (business : outcome/latence execute, warm-pool, concurrence) →
-# receiver OTLP de l'Alloy local (Étape 11) → Mimir. Absent = métriques off.
-OTEL_EXPORTER_OTLP_METRICS_ENDPOINT=http://127.0.0.1:4318/v1/metrics
+# Télémétrie OTel (métriques + traces + logs) → receiver OTLP de l'Alloy local
+# (Étape 11) → Mimir / Tempo / Loki. Un endpoint de base active les TROIS signaux
+# (chaque exporteur en dérive /v1/metrics, /v1/traces, /v1/logs) ; absent = off.
+# (Garder OTEL_EXPORTER_OTLP_METRICS_ENDPOINT en plus est inutile une fois la base
+#  posée — il ne sert qu'à router les métriques vers un endpoint différent.)
+OTEL_EXPORTER_OTLP_ENDPOINT=http://127.0.0.1:4318
 OTEL_SERVICE_INSTANCE_ID=mcp-ovh
 ENV
 chmod 600 "$HOME/oa-mcp.env"
@@ -451,25 +454,34 @@ sudo systemctl status alloy
 sudo systemctl reload alloy                          # après tout changement de config
 ```
 
-> L'`otelcol.receiver.otlp` (`:4317`/`:4318`) du template **reçoit les métriques
-> OTel du MCP** (`OTEL_EXPORTER_OTLP_METRICS_ENDPOINT=http://127.0.0.1:4318/v1/metrics`
-> dans `~/oa-mcp.env`) et les forwarde vers Mimir — outcome/latence d'`execute`,
-> hits/miss du warm-pool, concurrence en vol. ufw bloque ces ports en entrée
-> externe ; le MCP pousse en **loopback** (127.0.0.1), donc rien à ouvrir. Les
-> métriques **ressources hôte** (CPU/RAM/KVM) restent le scrape node_exporter.
+> L'`otelcol.receiver.otlp` (`:4317`/`:4318`) du template **reçoit la télémétrie
+> OTel du MCP** (`OTEL_EXPORTER_OTLP_ENDPOINT=http://127.0.0.1:4318` dans
+> `~/oa-mcp.env`) — les **trois** signaux : métriques (outcome/latence d'`execute`,
+> hits/miss du warm-pool, concurrence), **traces** (un span par appel d'outil +
+> sous-spans token-exchange / sandbox.run) et **logs** (les mêmes records que
+> InsightOps, en plus). ufw bloque ces ports en entrée externe ; le MCP pousse en
+> **loopback** (127.0.0.1), donc rien à ouvrir. Les métriques **ressources hôte**
+> (CPU/RAM/KVM) restent le scrape node_exporter.
+>
+> ⚠️ **À vérifier au déploiement** : le pipeline de l'Alloy doit router CHAQUE
+> signal vers son backend — métriques → Mimir (déjà câblé), **traces → Tempo** et
+> **logs → Loki**. Si le receiver OTLP ne forwarde que les métriques, les traces et
+> logs sont **droppés silencieusement** en loopback (aucune erreur côté MCP).
+> Confirmer dans `/etc/alloy/config.alloy` que `otelcol.receiver.otlp` exporte bien
+> `output { metrics … traces … logs … }`, sinon ajouter les exporteurs Tempo/Loki.
 
 ## Exploitation
 
-| Tâche                          | Commande                                                                                                     |
-| ------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| Logs                           | → InsightOps (clé `OA_INSIGHT_OPS_TOKEN`). En local : `DEBUG=openagenda-mcp* node packages/mcp/src/index.js` |
-| Métriques                      | OTel → Alloy local (`OTEL_EXPORTER_OTLP_METRICS_ENDPOINT`) → Mimir/Grafana (séries `oa_mcp_*`)               |
-| Statut / redémarrage           | `systemctl status oa-mcp` · `sudo systemctl restart oa-mcp`                                                  |
-| Journal systemd                | `sudo journalctl -u oa-mcp -f` (banners/fatals ; les logs applicatifs partent vers InsightOps)               |
-| Maintenance (couper `execute`) | poser `OA_EXECUTE_DISABLED=1` dans l'env + restart (`search_docs` reste servi)                               |
-| Mise à jour du code            | `~/update-mcp.sh` (pull main → install → build → restart → **vérifie** ; voir ci-dessous)                    |
-| Renouvellement TLS             | automatique (timer certbot) ; test : `sudo certbot renew --dry-run`                                          |
-| Tuning RAM/débit               | `OA_SANDBOX_MEMORY_MB` / `OA_MICROSANDBOX_POOL_SIZE` / `OA_MAX_CONCURRENCY` dans l'env + restart             |
+| Tâche                          | Commande                                                                                                                                |
+| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| Logs                           | → InsightOps (clé `OA_INSIGHT_OPS_TOKEN`) **et** OTel → Alloy → Loki. En local : `DEBUG=openagenda-mcp* node packages/mcp/src/index.js` |
+| Métriques + traces             | OTel → Alloy local (`OTEL_EXPORTER_OTLP_ENDPOINT`) → Mimir (séries `oa_mcp_*`) / Tempo (spans `mcp.tool/*`)                             |
+| Statut / redémarrage           | `systemctl status oa-mcp` · `sudo systemctl restart oa-mcp`                                                                             |
+| Journal systemd                | `sudo journalctl -u oa-mcp -f` (banners/fatals ; les logs applicatifs partent vers InsightOps)                                          |
+| Maintenance (couper `execute`) | poser `OA_EXECUTE_DISABLED=1` dans l'env + restart (`search_docs` reste servi)                                                          |
+| Mise à jour du code            | `~/update-mcp.sh` (pull main → install → build → restart → **vérifie** ; voir ci-dessous)                                               |
+| Renouvellement TLS             | automatique (timer certbot) ; test : `sudo certbot renew --dry-run`                                                                     |
+| Tuning RAM/débit               | `OA_SANDBOX_MEMORY_MB` / `OA_MICROSANDBOX_POOL_SIZE` / `OA_MAX_CONCURRENCY` dans l'env + restart                                        |
 
 ### Script de mise à jour (`~/update-mcp.sh`)
 
