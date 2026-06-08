@@ -176,6 +176,15 @@ describe('MCP HTTP resource server', () => {
     });
   });
 
+  describe('health endpoint', () => {
+    it('serves an unauthenticated liveness probe at GET /health', async () => {
+      // No token passed — the probe must answer 200 without auth, unlike /mcp.
+      const res = await fetch(`${baseUrl}health`);
+      expect(res.status).toBe(200);
+      expect(await res.json()).toEqual({ status: 'ok' });
+    });
+  });
+
   describe('landing page', () => {
     it('serves an HTML landing page at the root', async () => {
       const res = await fetch(baseUrl);

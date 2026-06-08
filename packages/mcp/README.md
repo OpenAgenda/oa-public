@@ -448,6 +448,11 @@ the sandbox boundary.
   to InsightOps (`@openagenda/logs`), **host** via node_exporter→Mimir. Kept separate
   by role; logs deliberately fan out to both InsightOps and OTel.
 
+- **Liveness**: an unauthenticated `GET /health` returns `{ "status": "ok" }` for
+  uptime checks (and a future LB / horizontal-scale probe). Deliberately cheap — it
+  touches no AS/token-exchange and spawns no sandbox, so a probe can't add load or
+  couple liveness to the AS's availability.
+
 - No per-call process isolation on the **local** engines (node/deno) — a runaway
   is killed via process-group SIGKILL + a 1 MiB output cap, not a VM boundary (the
   microsandbox engine does isolate per run).
