@@ -166,6 +166,12 @@ interface ConsentProps {
   clientId?: string;
   scope?: string;
   redirectUri?: string;
+  // True when `client_id` is on OpenAgenda's operator-controlled verified-apps
+  // allowlist (server-resolved in the page, see `isVerifiedClient`). A verified
+  // first-party app suppresses the "unverified" anti-phishing warning — but is
+  // INDEPENDENT of `skip_consent`: the consent screen is still shown, the user
+  // still authorizes once. Verified ⇒ no scary warning; it does NOT skip consent.
+  isVerified?: boolean;
 }
 
 // Host the authorization code will be delivered to, for display. `redirectUri`
@@ -185,6 +191,7 @@ export default function Consent({
   clientId,
   scope,
   redirectUri,
+  isVerified = false,
 }: ConsentProps) {
   const intl = useIntl();
   const [appName, setAppName] = useState<string | undefined>(undefined);
@@ -256,8 +263,9 @@ export default function Consent({
       <style>{rowAnimationCss}</style>
 
       {/* Identity header. The avatar is intentionally neutral (no brand colors,
-          no fetched logo): the app is unverified, and the amber corner badge
-          ties that status to its identity at a glance. */}
+          no fetched logo): for an unverified app the amber corner badge ties
+          that status to its identity at a glance. Verified first-party apps drop
+          the amber badge (they keep the neutral avatar — still no spoofable logo). */}
       <VStack gap="3" mb="6">
         <Box position="relative" w="16" h="16">
           <Flex
@@ -274,24 +282,26 @@ export default function Consent({
           >
             {initial || <FontAwesomeIcon icon={faPuzzlePiece} />}
           </Flex>
-          <Flex
-            position="absolute"
-            bottom="-1"
-            right="-1"
-            w="6"
-            h="6"
-            align="center"
-            justify="center"
-            borderRadius="full"
-            bg="orange.400"
-            color="white"
-            fontSize="xs"
-            borderWidth="2px"
-            borderColor="white"
-            aria-hidden="true"
-          >
-            <FontAwesomeIcon icon={faTriangleExclamation} />
-          </Flex>
+          {!isVerified && (
+            <Flex
+              position="absolute"
+              bottom="-1"
+              right="-1"
+              w="6"
+              h="6"
+              align="center"
+              justify="center"
+              borderRadius="full"
+              bg="orange.400"
+              color="white"
+              fontSize="xs"
+              borderWidth="2px"
+              borderColor="white"
+              aria-hidden="true"
+            >
+              <FontAwesomeIcon icon={faTriangleExclamation} />
+            </Flex>
+          )}
         </Box>
 
         <Heading as="h1" size="lg" textAlign="center">
@@ -305,38 +315,42 @@ export default function Consent({
         </MessageAlert>
       )}
 
-      {/* Anti-impersonation rampart for the open (DCR) client registry: every
-          client that reaches this screen is non-trusted (trusted clients skip
-          consent, and DCR is forbidden from setting skip_consent), so we always
-          warn that the app is unverified and surface the real redirect host.
-          A "verified apps" allowlist could later suppress this for first-party
-          clients — none exist today, so erring toward the warning is correct. */}
-      <MessageAlert
-        status="warning"
-        mb="6"
-        description={
-          <>
-            <Text>{intl.formatMessage(messages.unverifiedBody)}</Text>
-            {redirectHost && (
-              <Text mt="2">
-                {intl.formatMessage(messages.redirectNotice, {
-                  host: (
-                    <Code
-                      colorPalette="orange"
-                      fontWeight="bold"
-                      wordBreak="break-all"
-                    >
-                      {redirectHost}
-                    </Code>
-                  ),
-                })}
-              </Text>
-            )}
-          </>
-        }
-      >
-        {intl.formatMessage(messages.unverifiedTitle)}
-      </MessageAlert>
+      {/* Anti-impersonation rampart for the open (DCR) client registry: a
+          non-verified client that reaches this screen is self-asserted (DCR is
+          forbidden from setting skip_consent), so we warn that the app is
+          unverified and surface the real redirect host. Verified first-party
+          clients — on OpenAgenda's operator-controlled allowlist (`isVerified`),
+          unreachable by the open registry — suppress this warning. They still
+          render the consent screen (verified ≠ skip_consent): the user keeps an
+          explicit, informed authorization, just without the scary banner. */}
+      {!isVerified && (
+        <MessageAlert
+          status="warning"
+          mb="6"
+          description={
+            <>
+              <Text>{intl.formatMessage(messages.unverifiedBody)}</Text>
+              {redirectHost && (
+                <Text mt="2">
+                  {intl.formatMessage(messages.redirectNotice, {
+                    host: (
+                      <Code
+                        colorPalette="orange"
+                        fontWeight="bold"
+                        wordBreak="break-all"
+                      >
+                        {redirectHost}
+                      </Code>
+                    ),
+                  })}
+                </Text>
+              )}
+            </>
+          }
+        >
+          {intl.formatMessage(messages.unverifiedTitle)}
+        </MessageAlert>
+      )}
 
       <Text mb="3" color="fg.muted">
         {intl.formatMessage(messages.intro, { appName: displayName })}
