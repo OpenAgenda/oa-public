@@ -297,6 +297,7 @@ export function createServer({
         outcome: 'ok',
         duration_ms: durationMs,
         error: false,
+        response_bytes: Buffer.byteLength(text, 'utf8'),
       });
       // Span attributes mirror the audit fields that are safe to keep low-card:
       // outcome + result count + the user (no query text — it's free-form and
@@ -378,6 +379,7 @@ export function createServer({
           outcome,
           duration_ms: durationMs,
           error,
+          response_bytes: bytesOut,
         });
         // Mirror the audit fields onto the tool span (a high-card id like the code
         // hash is fine on a span — traces aren't aggregated like metrics) and set

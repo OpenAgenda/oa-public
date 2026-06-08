@@ -68,6 +68,19 @@ const WORKLOAD_CPU_SECOND_BUCKETS = [
 // admitted (0..cap-1, with headroom if the cap is raised). The default ms buckets
 // would pile every value into one bucket, so override with integer boundaries.
 const CALLER_CONC_BUCKETS = [0, 1, 2, 3, 4, 5, 6, 8, 12, 16];
+// Response payload sizes (bytes) returned to the caller. Brackets sub-KiB docs
+// snippets up to the 1 MiB execute output cap, so an output_capped run lands in
+// the top bucket. ms buckets would be meaningless here (see comment above).
+const RESPONSE_BYTE_BUCKETS = [
+  256,
+  1024,
+  4096,
+  16384,
+  65536,
+  262144,
+  524288,
+  MB,
+];
 
 let sdk = null;
 let instruments = null;
@@ -122,14 +135,26 @@ export function initTelemetry({ enabled, serviceInstance } = {}) {
       description: 'execute tool calls, by outcome',
       unit: '{call}',
     }),
-    executeDuration: meter.createHistogram('oa.mcp.execute.duration', {
-      description: 'execute tool wall-clock duration',
-      unit: 'ms',
-      advice: { explicitBucketBoundaries: MS_BUCKETS },
-    }),
     searchDocs: meter.createCounter('oa.mcp.search_docs', {
       description: 'search_docs tool calls',
       unit: '{call}',
+    }),
+    // Per-tool histograms keyed by a `tool` label (bounded set) rather than a
+    // bespoke instrument per tool: ONE templated Grafana panel covers every tool
+    // and a new tool is instrumented for free. Gives p50/p95/p99 latency AND
+    // response-size per tool, with cheap unsampled percentiles (the spans carry
+    // the same latency but traces get sampled).
+    toolDuration: meter.createHistogram('oa.mcp.tool.duration', {
+      description: 'per-tool call wall-clock duration, by tool',
+      unit: 'ms',
+      advice: { explicitBucketBoundaries: MS_BUCKETS },
+    }),
+    // Name carries no "bytes" — the `By` unit adds the Prometheus `_bytes` suffix
+    // (→ oa_mcp_tool_response_size_bytes_*), matching the uvm byte histograms.
+    toolResponseBytes: meter.createHistogram('oa.mcp.tool.response_size', {
+      description: 'per-tool response size returned to the caller, by tool',
+      unit: 'By',
+      advice: { explicitBucketBoundaries: RESPONSE_BYTE_BUCKETS },
     }),
     // execute runs the concurrency guard REFUSED before they started (the run never
     // ran), by `reason`. The execute outcome counter already shows these collapsed
@@ -194,10 +219,11 @@ export function initTelemetry({ enabled, serviceInstance } = {}) {
  * OTEL runs in tests. No-op until `initTelemetry` has run with metrics enabled.
  *
  * @param {string} tool                  'execute' | 'search_docs'
- * @param {{ outcome?: string, duration_ms?: number, error?: boolean }} fields
+ * @param {{ outcome?: string, duration_ms?: number, error?: boolean, response_bytes?: number }} fields
  *   `error` is the fault-vs-backpressure classification (server.js OUTCOMES) carried
  *   as a label so Grafana filters `error="true"` instead of re-listing fault
  *   outcomes in PromQL — one source of truth, no duplicated classification.
+ *   `duration_ms` and `response_bytes` feed the per-tool histograms (tagged `tool`).
  */
 export function recordMetric(tool, fields = {}) {
   if (!instruments) return;
@@ -205,14 +231,20 @@ export function recordMetric(tool, fields = {}) {
     ...fields.outcome ? { outcome: fields.outcome } : {},
     ...typeof fields.error === 'boolean' ? { error: fields.error } : {},
   };
+  // The histograms carry `tool` as a label (the counters stay per-tool instruments),
+  // so one templated panel covers every tool.
+  const toolAttrs = { tool, ...attrs };
   try {
     if (tool === 'execute') {
       instruments.execute.add(1, attrs);
-      if (typeof fields.duration_ms === 'number') {
-        instruments.executeDuration.record(fields.duration_ms, attrs);
-      }
     } else if (tool === 'search_docs') {
       instruments.searchDocs.add(1, attrs);
+    }
+    if (typeof fields.duration_ms === 'number') {
+      instruments.toolDuration.record(fields.duration_ms, toolAttrs);
+    }
+    if (typeof fields.response_bytes === 'number') {
+      instruments.toolResponseBytes.record(fields.response_bytes, toolAttrs);
     }
   } catch {
     // observability must never break a tool call — see header
