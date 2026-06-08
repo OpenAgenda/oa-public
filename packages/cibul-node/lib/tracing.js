@@ -7,6 +7,10 @@ import { OTLPMetricExporter } from '@opentelemetry/exporter-metrics-otlp-proto';
 import { OTLPLogExporter } from '@opentelemetry/exporter-logs-otlp-proto';
 import { resourceFromAttributes } from '@opentelemetry/resources';
 import {
+  CompositePropagator,
+  W3CTraceContextPropagator,
+} from '@opentelemetry/core';
+import {
   trace,
   diag,
   DiagConsoleLogger,
@@ -94,7 +98,20 @@ const sdk = new NodeSDK({
       )
       : null,
   ],
-  textMapPropagator: new SentryPropagator(),
+  // Speak BOTH the vendor-neutral W3C trace-context and Sentry's wire format, so
+  // a generic OpenTelemetry caller (e.g. the MCP server) can continue its trace
+  // into this API without anyone emitting Sentry-proprietary headers. W3C handles
+  // `traceparent`, which SentryPropagator alone ignores. ORDER MATTERS: extract
+  // runs the propagators in order and the LAST one to set a parent context wins,
+  // so Sentry goes LAST — a request carrying BOTH headers (a Sentry peer with
+  // `propagateTraceparent` enabled) then resolves to Sentry, keeping its Dynamic
+  // Sampling Context, while a traceparent-only request (the MCP) is left untouched
+  // by Sentry's no-op extract. Deliberately NOT W3CBaggagePropagator: it would
+  // re-write the outgoing `baggage` header and clobber the Sentry DSC that
+  // SentryPropagator packs there.
+  textMapPropagator: new CompositePropagator({
+    propagators: [new W3CTraceContextPropagator(), new SentryPropagator()],
+  }),
   contextManager: new SentryContextManager(),
   metricReader: process.env.OTEL_EXPORTER_OTLP_ENDPOINT
     ? new PeriodicExportingMetricReader({
