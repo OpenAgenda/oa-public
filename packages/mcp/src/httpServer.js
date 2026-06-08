@@ -51,6 +51,17 @@ export function createHttpApp({ config, executor }) {
   const app = express();
   app.disable('x-powered-by');
 
+  // Liveness probe for uptime monitoring (and a future LB / horizontal scale — the
+  // single-host SPOF is noted in the README). Unauthenticated by design (a probe
+  // carries no OAuth token) and deliberately CHEAP: it only asserts "this process
+  // is up and serving HTTP" — no token-exchange/AS round-trip, no sandbox spawn —
+  // so a probe (or a flood of them) adds no load and never couples liveness to the
+  // AS's availability. Nothing here gates it on auth (the bearer middleware is
+  // attached only to the /mcp route below).
+  app.get('/health', (req, res) => {
+    res.json({ status: 'ok' });
+  });
+
   // Per-caller sustained-rate guard for `execute`, created ONCE and shared across
   // the per-request servers below so its bucket state persists between requests
   // (and across the whole process). Keyed on the OAuth `sub` (see the handler).
