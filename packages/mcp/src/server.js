@@ -493,7 +493,15 @@ export function createServer({
               // header) is the access boundary.
               /** @type {Record<string, string>} */
               const traceCarrier = {};
-              propagation.inject(context.active(), traceCarrier);
+              // Observability must never fail a tool call (see telemetry.js — every
+              // record path swallows its own errors): a propagator fault must not
+              // abort the run. Worst case the carrier stays empty and the API calls
+              // just aren't linked to this trace.
+              try {
+                propagation.inject(context.active(), traceCarrier);
+              } catch {
+                // leave traceCarrier empty
+              }
               const script = buildScript(code, {
                 baseUrl: config.baseUrl,
                 apiKey: apiCredential,
