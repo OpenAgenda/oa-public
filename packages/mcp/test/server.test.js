@@ -2,6 +2,7 @@ import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
 import { createServer } from '../src/server.js';
 import { loadConfig } from '../src/config.js';
+import { createCallerConcurrencyLimiter } from '../src/callerConcurrency.js';
 
 // Drives the REAL MCP server through a REAL client over an in-memory transport,
 // with a MOCKED executor — so we test the tool wiring and result mapping with
@@ -24,15 +25,19 @@ async function connect({
   config,
   credential,
   rateLimiter,
+  callerConcurrency,
   callerId,
   recordAudit,
+  recordMetric,
 } = {}) {
   const server = createServer({
     config: config ?? loadConfig({ OA_API_KEY: 'oa_pk_test' }),
     executor: executor ?? makeExecutor(async () => okResult('null')),
     ...credential !== undefined ? { credential } : {},
     ...rateLimiter !== undefined ? { rateLimiter, callerId } : {},
+    ...callerConcurrency !== undefined ? { callerConcurrency, callerId } : {},
     ...recordAudit !== undefined ? { recordAudit } : {},
+    ...recordMetric !== undefined ? { recordMetric } : {},
   });
   const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
   const client = new Client({ name: 'test', version: '0.0.0' });
@@ -405,6 +410,167 @@ describe('MCP server', () => {
     });
   });
 
+  describe('execute — per-caller concurrency cap', () => {
+    // A limiter admitting once then refusing — mimics a caller already at its
+    // cap on the second concurrent run.
+    const oneSlotThenFull = () => {
+      let admitted = false;
+      return {
+        tryAcquire: () => {
+          if (admitted) return { acquired: false, release: () => {} };
+          admitted = true;
+          return { acquired: true, release: () => {} };
+        },
+      };
+    };
+
+    it('refuses a caller already at its cap, before running anything', async () => {
+      // The first acquire admits; the second is refused — no executor run, no
+      // credential resolution, just a retryable "wait for one to finish" message.
+      let runs = 0;
+      const callerConcurrency = oneSlotThenFull();
+      callerConcurrency.tryAcquire('user-1'); // pre-fill the single slot
+      ({ client } = await connect({
+        executor: makeExecutor(async () => {
+          runs += 1;
+          return okResult('1');
+        }),
+        callerConcurrency,
+        callerId: 'user-1',
+      }));
+      const r = await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 1;' },
+      });
+      expect(r.isError).toBe(true);
+      expect(textOf(r)).toMatch(/maximum number of execute calls running/i);
+      expect(runs).toBe(0); // the run never started
+    });
+
+    it('runs and releases the slot when admitted', async () => {
+      // tryAcquire admits; the slot must be released after the run so a follow-up
+      // call from the same caller is admitted again.
+      const releases = [];
+      const callerConcurrency = {
+        tryAcquire: () => ({
+          acquired: true,
+          release: () => releases.push(1),
+        }),
+      };
+      ({ client } = await connect({
+        executor: makeExecutor(async () => okResult('42')),
+        callerConcurrency,
+        callerId: 'user-1',
+      }));
+      const r = await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 42;' },
+      });
+      expect(r.isError).toBeFalsy();
+      expect(textOf(r)).toBe('42');
+      expect(releases).toHaveLength(1); // slot freed on the success path
+    });
+
+    it('releases the slot even when the executor throws', async () => {
+      const releases = [];
+      const callerConcurrency = {
+        tryAcquire: () => ({
+          acquired: true,
+          release: () => releases.push(1),
+        }),
+      };
+      ({ client } = await connect({
+        executor: makeExecutor(async () => {
+          throw new Error('boom');
+        }),
+        callerConcurrency,
+        callerId: 'user-1',
+      }));
+      const r = await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 1;' },
+      });
+      expect(r.isError).toBe(true);
+      expect(releases).toHaveLength(1); // released in finally, not leaked
+    });
+
+    it('records outcome=caller_busy when the cap refuses the call', async () => {
+      const audit = [];
+      const callerConcurrency = oneSlotThenFull();
+      callerConcurrency.tryAcquire('user-1'); // pre-fill
+      ({ client } = await connect({
+        callerConcurrency,
+        callerId: 'user-1',
+        recordAudit: (tool, fields) => audit.push({ tool, fields }),
+      }));
+      await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 1;' },
+      });
+      expect(audit[0].fields.outcome).toBe('caller_busy');
+    });
+
+    // The tests above use a mock limiter; these drive the REAL
+    // createCallerConcurrencyLimiter through the server so the per-`sub` keying
+    // and the finally-release are exercised end to end (a mock can't catch the
+    // server passing a wrong/constant key, or a slot that leaks on some path).
+    it('keys the cap on the per-caller id (one sub at its cap does not block another)', async () => {
+      const limiter = createCallerConcurrencyLimiter({ maxPerCaller: 1 });
+      limiter.tryAcquire('user-1'); // occupy user-1's only slot for the whole test
+
+      // user-1 is at its cap → refused.
+      ({ client } = await connect({
+        callerConcurrency: limiter,
+        callerId: 'user-1',
+      }));
+      const blocked = await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 1;' },
+      });
+      expect(blocked.isError).toBe(true);
+      expect(textOf(blocked)).toMatch(
+        /maximum number of execute calls running/i,
+      );
+      await client.close();
+
+      // user-2 shares the SAME limiter but has its own slot → runs. Proves the
+      // server keys on callerId, not a global/constant key.
+      ({ client } = await connect({
+        executor: makeExecutor(async () => okResult('42')),
+        callerConcurrency: limiter,
+        callerId: 'user-2',
+      }));
+      const ok = await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 42;' },
+      });
+      expect(ok.isError).toBeFalsy();
+      expect(textOf(ok)).toBe('42');
+    });
+
+    it('releases the real slot after a run so the same caller can run again', async () => {
+      const limiter = createCallerConcurrencyLimiter({ maxPerCaller: 1 });
+      ({ client } = await connect({
+        executor: makeExecutor(async () => okResult('1')),
+        callerConcurrency: limiter,
+        callerId: 'user-1',
+      }));
+      const first = await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 1;' },
+      });
+      expect(first.isError).toBeFalsy();
+      // The slot must be freed in the real Map once the run settled — a leak
+      // would leave inflightFor at 1 and caller_busy the next call.
+      expect(limiter.inflightFor('user-1')).toBe(0);
+      const second = await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 1;' },
+      });
+      expect(second.isError).toBeFalsy();
+    });
+  });
+
   describe('maintenance kill (OA_EXECUTE_DISABLED)', () => {
     it('refuses execute with a maintenance message, before running anything', async () => {
       let ran = false;
@@ -617,5 +783,54 @@ describe('MCP server', () => {
         );
       },
     );
+  });
+
+  describe('metrics', () => {
+    // The server emits an OTel metric alongside the audit record, from the same
+    // return paths, via the injected recordMetric sink (the real sink is a no-op
+    // until initMetrics runs — see metrics.js; here we assert the per-call shape).
+    const withMetric = async (opts = {}) => {
+      const metric = [];
+      ({ client } = await connect({
+        recordMetric: (tool, fields) => metric.push({ tool, fields }),
+        ...opts,
+      }));
+      return metric;
+    };
+
+    it('records an execute metric with outcome and a numeric duration', async () => {
+      const metric = await withMetric({
+        executor: makeExecutor(async () => okResult('null')),
+      });
+      await client.callTool({ name: 'execute', arguments: { code: 'x' } });
+      expect(metric).toHaveLength(1);
+      expect(metric[0].tool).toBe('execute');
+      expect(metric[0].fields.outcome).toBe('ok');
+      expect(typeof metric[0].fields.duration_ms).toBe('number');
+    });
+
+    it('records execute outcome=timed_out on the matching path', async () => {
+      const metric = await withMetric({
+        executor: makeExecutor(async () => ({
+          stdout: '',
+          stderr: '',
+          timedOut: true,
+          exitCode: null,
+        })),
+      });
+      await client.callTool({ name: 'execute', arguments: { code: 'x' } });
+      expect(metric[0].fields.outcome).toBe('timed_out');
+    });
+
+    it('records a search_docs metric (outcome=ok)', async () => {
+      const metric = await withMetric();
+      await client.callTool({
+        name: 'search_docs',
+        arguments: { query: 'upcoming events' },
+      });
+      expect(metric).toHaveLength(1);
+      expect(metric[0].tool).toBe('search_docs');
+      expect(metric[0].fields.outcome).toBe('ok');
+    });
   });
 });

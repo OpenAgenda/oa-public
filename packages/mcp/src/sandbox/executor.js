@@ -43,6 +43,11 @@
  * @property {(req: ExecRequest) => Promise<ExecResult>} run
  * @property {() => Promise<void>} [dispose]  Release engine resources (e.g. drain a
  *           warm µVM pool) on server shutdown. Optional; absent on stateless engines.
+ * @property {() => ({hits:number, misses:number, created:number, failed:number,
+ *           expired:number, idle:number} | null)} [poolStats]  Warm-pool counters
+ *           for the metrics layer (microsandbox + pooling on); null otherwise.
+ * @property {() => number} [inflight]  Live in-flight run count (the concurrency
+ *           limiter wrapper), for the metrics layer.
  */
 
 import { createNodeExecutor } from './executors/nodeExecutor.js';

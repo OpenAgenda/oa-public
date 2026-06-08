@@ -33,9 +33,11 @@
 // docs/microsandbox.md.
 
 import { randomUUID } from 'node:crypto';
+import { readdir, readFile } from 'node:fs/promises';
 import { MAX_OUTPUT_BYTES } from '../spawn.js';
 import { DEFAULT_MICROSANDBOX_IMAGE } from '../../config.js';
 import { log } from '../../log.js';
+import { recordUvmStats } from '../../metrics.js';
 import { createWarmPool } from './microsandboxPool.js';
 
 const SANDBOX_PREFIX = 'oa-mcp-exec'; // a UNIQUE name per run is appended (see below)
@@ -175,6 +177,67 @@ async function destroySandbox(sb) {
   await sb.removePersisted().catch(() => {});
 }
 
+// _SC_CLK_TCK — the kernel's clock-tick rate that /proc/<pid>/stat utime+stime are
+// counted in. 100 Hz on effectively all Linux builds (CONFIG_HZ); not queryable from
+// pure Node, so a constant. A wrong value would only scale cpu_seconds, never break a run.
+const CLOCK_TICK_HZ = 100;
+
+// Host-side resource stats of the libkrun VMM process backing a µVM, read from /proc:
+// VmHWM (peak RSS — monotone) and utime+stime (cumulative CPU). Both survive the
+// in-guest workload process exit (the VMM is alive at teardown) and, being monotone /
+// cumulative, capture even a sub-150ms run — unlike sb.metrics(), a 1s shared-memory
+// sample whose memory reads the idle floor and whose CPU reads 0 for our short runs.
+// The VMM is found by the unique sandbox name microsandbox passes as `--name <name>`
+// in its cmdline. Returns { hwmBytes, cpuSeconds } (each null if that field can't be
+// read), or null (no VMM found / no /proc on non-Linux). Never throws.
+//
+// ASYNC on purpose: this scans /proc once per run (the run's `finally`), so doing it
+// with the sync fs API would block the single Node event loop on O(processes) reads
+// while up to OA_MAX_CONCURRENCY runs are in flight — telemetry must not stall the
+// hot path. The async fs API yields between reads instead.
+async function readVmmStats(name) {
+  let pids;
+  try {
+    pids = await readdir('/proc');
+  } catch {
+    return null; // no /proc (non-Linux host) — metrics simply absent
+  }
+  for (const pid of pids) {
+    if (!/^\d+$/.test(pid)) continue;
+    let cmdline;
+    try {
+      cmdline = await readFile(`/proc/${pid}/cmdline`);
+    } catch {
+      continue; // process vanished mid-scan
+    }
+    if (!cmdline.includes(name)) continue;
+    /** @type {{hwmBytes: number|null, cpuSeconds: number|null}} */
+    const stats = { hwmBytes: null, cpuSeconds: null };
+    try {
+      const status = await readFile(`/proc/${pid}/status`, 'utf8');
+      const m = /VmHWM:\s+(\d+)\s+kB/.exec(status);
+      if (m) stats.hwmBytes = Number(m[1]) * 1024;
+    } catch {
+      // VmHWM unreadable (teardown race) — leave null
+    }
+    try {
+      // /proc/<pid>/stat: utime (field 14) + stime (field 15), in clock ticks. comm
+      // (field 2) can contain spaces/parens, so parse the fields AFTER the final ')'.
+      const stat = await readFile(`/proc/${pid}/stat`, 'utf8');
+      const after = stat.slice(stat.lastIndexOf(')') + 2).split(' ');
+      const utime = Number(after[11]);
+      const stime = Number(after[12]);
+      if (Number.isFinite(utime) && Number.isFinite(stime)) {
+        stats.cpuSeconds = (utime + stime) / CLOCK_TICK_HZ;
+      }
+    } catch {
+      // stat unreadable (teardown race) — leave null
+    }
+    return stats;
+  }
+  return null;
+}
+
 // Run the program on `node` inside the µVM: feed the ESM source on stdin (no file,
 // no node_modules). Returns the microsandbox exec output ({ stdout(), stderr(), code }).
 // Exported for hermetic unit tests (fed a fake sb); see microsandboxExecutor.test.js.
@@ -260,6 +323,15 @@ export function createMicrosandboxExecutor({
   // only uses it for a request whose signature matches that baked config.
   /** @type {Promise<{pool: ReturnType<typeof createWarmPool>, key: string} | null> | null} */
   let poolPromise = null;
+  // Synchronous handle on the live pool (once created), so the metrics layer can
+  // read its stats without awaiting poolPromise. Null until/unless a pool exists.
+  /** @type {ReturnType<typeof createWarmPool> | null} */
+  let livePool = null;
+  // Boot baseline (pre-exec VMM stats: RSS + CPU) for the workload_* metrics, measured
+  // ONCE per executor and cached: the boot floor is ~constant for this config's
+  // runtime/image, so we pay the extra /proc scan a single time, not per run.
+  /** @type {{hwmBytes:number|null, cpuSeconds:number|null} | null} */
+  let bootBaseline = null;
   function ensurePool() {
     if (poolSize <= 0 || !allowNet || !limits) return Promise.resolve(null);
     if (!poolPromise) {
@@ -294,6 +366,7 @@ export function createMicrosandboxExecutor({
                 errMsg(err),
               ),
           });
+          livePool = pool; // expose to poolStats() (metrics)
           pool.refill(); // warm on boot
           return {
             pool,
@@ -322,6 +395,10 @@ export function createMicrosandboxExecutor({
 
   return {
     name: 'microsandbox',
+    // Warm-pool stats for the metrics observable (null until a pool exists, e.g.
+    // pooling off or still initialising). `idle` is the current ready-spare count.
+    poolStats: () =>
+      (livePool ? { ...livePool.stats, idle: livePool.idleCount } : null),
     run: async ({
       code,
       env: reqEnv,
@@ -377,6 +454,16 @@ export function createMicrosandboxExecutor({
         return failure(`microsandbox failed to start a µVM: ${errMsg(err)}`);
       }
 
+      // Locate this µVM's VMM by its unique name for the host-side resource metrics.
+      // `sb.name` is a local property (no agent round-trip). Measure the boot baseline
+      // (pre-exec RSS + CPU) the first time only — the boot floor is ~constant for this
+      // config — so workload_* can be derived from it without a per-run scan.
+      const sbName = sb?.name ?? null;
+      if (bootBaseline == null && sbName) {
+        const pre = await readVmmStats(sbName);
+        if (pre) bootBaseline = pre;
+      }
+
       try {
         const out = runtime === 'llrt'
           ? await execLlrt(
@@ -407,6 +494,31 @@ export function createMicrosandboxExecutor({
         }
         return failure(`microsandbox exec failed: ${errMsg(err)}`);
       } finally {
+        // Real per-µVM resource use from the libkrun VMM's /proc, read while it is
+        // still alive (before teardown): VmHWM (monotone) and CPU (cumulative) catch a
+        // sub-150ms run — sb.metrics() (a 1s sample) would read the idle floor / 0.
+        // host_peak + cpu_seconds = real host footprint (capacity); workload_* ≈ what
+        // the run touched above boot. Best-effort + isolated: telemetry never affects
+        // the result nor blocks teardown.
+        try {
+          const post = sbName ? await readVmmStats(sbName) : null;
+          if (post) {
+            recordUvmStats({
+              hostPeakBytes: post.hwmBytes ?? undefined,
+              workloadPeakBytes:
+                post.hwmBytes != null && bootBaseline?.hwmBytes != null
+                  ? Math.max(0, post.hwmBytes - bootBaseline.hwmBytes)
+                  : null,
+              cpuSeconds: post.cpuSeconds ?? undefined,
+              workloadCpuSeconds:
+                post.cpuSeconds != null && bootBaseline?.cpuSeconds != null
+                  ? Math.max(0, post.cpuSeconds - bootBaseline.cpuSeconds)
+                  : null,
+            });
+          }
+        } catch {
+          // metrics optional — ignore (non-Linux host, teardown race, …)
+        }
         // Single-use: destroy the µVM whether it came from the pool or fresh.
         // A cleanup failure must not mask the run's result.
         await destroySandbox(sb);
@@ -417,6 +529,10 @@ export function createMicrosandboxExecutor({
     dispose: async () => {
       const entry = await ensurePool();
       if (entry) await entry.pool.drain();
+      // Stop poolStats() reporting a drained pool as a healthy empty one: a final
+      // metrics flush (shutdownMetrics runs after executor.dispose) would otherwise
+      // publish a stale sample for a resource that no longer exists.
+      livePool = null;
     },
   };
 }

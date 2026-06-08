@@ -19,10 +19,12 @@ import { metadataHandler } from '@modelcontextprotocol/sdk/server/auth/handlers/
 import { getOAuthProtectedResourceMetadataUrl } from '@modelcontextprotocol/sdk/server/auth/router.js';
 import { createServer } from './server.js';
 import { createRateLimiter } from './rateLimiter.js';
+import { createCallerConcurrencyLimiter } from './callerConcurrency.js';
 import { createTokenVerifier } from './auth/verifier.js';
 import { exchangeToken, TokenExchangeError } from './auth/tokenExchange.js';
 import { landingPage } from './landing.js';
 import { log, makeAuditRecorder } from './log.js';
+import { recordMetric } from './metrics.js';
 
 // JSON-RPC error returned without a request id (parse/transport-level failures).
 const jsonRpcError = (code, message) => ({
@@ -55,6 +57,14 @@ export function createHttpApp({ config, executor }) {
   const rateLimiter = createRateLimiter({
     capacity: config.rateLimit.burst,
     refillPerSec: config.rateLimit.perMin / 60,
+  });
+
+  // Per-caller concurrency cap, also created ONCE and shared across the
+  // per-request servers so the in-flight count is process-wide. Keyed on the
+  // same OAuth `sub`. Bounds how many runs ONE caller holds at once (fairness),
+  // complementing rateLimiter's sustained-rate bound and the global slot cap.
+  const callerConcurrency = createCallerConcurrencyLimiter({
+    maxPerCaller: config.maxConcurrencyPerCaller,
   });
 
   // The protocol endpoint path IS the resource URL's path — single source of
@@ -124,6 +134,7 @@ export function createHttpApp({ config, executor }) {
       config,
       executor,
       rateLimiter,
+      callerConcurrency,
       callerId,
       // Audit identity: the consenting user (`sub` = AS join key, `uid` = OA
       // identity) + the client app. `callerId` already folds the rate-limit
@@ -135,6 +146,9 @@ export function createHttpApp({ config, executor }) {
         callerUid: uid,
         clientId,
       }),
+      // Metrics share the per-call return paths with the audit recorder; the
+      // singleton no-ops until initMetrics ran with an OTLP endpoint (see metrics.js).
+      recordMetric,
       getCredential: async () => {
         // The bearer middleware guarantees req.auth.token, but assert it
         // explicitly: it makes the invariant the exchange depends on visible

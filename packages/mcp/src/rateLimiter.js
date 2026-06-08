@@ -1,8 +1,10 @@
 // Per-caller token-bucket rate limiter for the HTTP transport's `execute` tool.
 //
-// The concurrency cap (concurrencyLimit.js) bounds INSTANTANEOUS load globally;
-// this bounds SUSTAINED load PER CALLER, so one caller can't monopolise the
-// shared execution budget over time. It lives at the server boundary (not the
+// The global concurrency cap (concurrencyLimit.js) bounds INSTANTANEOUS load
+// across all callers; the per-caller concurrency cap (callerConcurrency.js)
+// bounds how many runs ONE caller holds AT ONCE; this bounds SUSTAINED load PER
+// CALLER over time, so one caller can't monopolise the shared execution budget
+// across many sequential calls. It lives at the server boundary (not the
 // executor) because it needs the caller identity — the verified OAuth `sub` —
 // which only the HTTP resource server has. stdio has no caller identity (a
 // single local user), so it runs without a limiter.
