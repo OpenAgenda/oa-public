@@ -75,6 +75,15 @@ export default function FullNameSection({
       title={
         <chakra.span fontWeight="medium">
           {intl.formatMessage(messages.title)}
+          {/* Visible required cue mirroring Field.RequiredIndicator on the
+              labelled rows. The input has no Field.Label of its own (it borrows
+              this trigger label via aria-labelledby), so the asterisk lives here.
+              aria-hidden: the native `required` on the input already conveys the
+              state to assistive tech, so the asterisk stays out of the
+              accessible name (RGAA 11.10). */}
+          <chakra.span aria-hidden="true" color="red.solid" ms="1">
+            *
+          </chakra.span>
         </chakra.span>
       }
       summary={
