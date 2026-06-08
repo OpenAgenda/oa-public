@@ -12377,6 +12377,8 @@ __metadata:
     "@openagenda/logs": "npm:^1.1.10"
     "@opentelemetry/api": "npm:^1.9.1"
     "@opentelemetry/api-logs": "npm:^0.218.0"
+    "@opentelemetry/context-async-hooks": "npm:^2.7.1"
+    "@opentelemetry/core": "npm:^2.7.1"
     "@opentelemetry/exporter-logs-otlp-proto": "npm:^0.218.0"
     "@opentelemetry/exporter-metrics-otlp-proto": "npm:^0.218.0"
     "@opentelemetry/exporter-trace-otlp-proto": "npm:^0.218.0"
@@ -13647,7 +13649,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opentelemetry/context-async-hooks@npm:2.7.1":
+"@opentelemetry/context-async-hooks@npm:2.7.1, @opentelemetry/context-async-hooks@npm:^2.7.1":
   version: 2.7.1
   resolution: "@opentelemetry/context-async-hooks@npm:2.7.1"
   peerDependencies:
@@ -13667,7 +13669,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opentelemetry/core@npm:2.7.1":
+"@opentelemetry/core@npm:2.7.1, @opentelemetry/core@npm:^2.7.1":
   version: 2.7.1
   resolution: "@opentelemetry/core@npm:2.7.1"
   dependencies:

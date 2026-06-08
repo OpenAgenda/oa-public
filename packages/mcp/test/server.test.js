@@ -1,9 +1,16 @@
-import { trace, SpanStatusCode } from '@opentelemetry/api';
+import {
+  trace,
+  context,
+  propagation,
+  SpanStatusCode,
+} from '@opentelemetry/api';
 import {
   BasicTracerProvider,
   InMemorySpanExporter,
   SimpleSpanProcessor,
 } from '@opentelemetry/sdk-trace-base';
+import { W3CTraceContextPropagator } from '@opentelemetry/core';
+import { AsyncLocalStorageContextManager } from '@opentelemetry/context-async-hooks';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
 import { createServer } from '../src/server.js';
@@ -862,6 +869,7 @@ describe('MCP server — span status (tracing)', () => {
   // can't leak to other suites (--runInBand shares globalThis).
   let exporter;
   let provider;
+  let contextManager;
   let client;
   beforeEach(() => {
     exporter = new InMemorySpanExporter();
@@ -869,11 +877,21 @@ describe('MCP server — span status (tracing)', () => {
       spanProcessors: [new SimpleSpanProcessor(exporter)],
     });
     trace.setGlobalTracerProvider(provider);
+    // A real W3C propagator so the server can serialize the active span into the
+    // program (the API default is a noop that injects nothing), and a context
+    // manager so `context.active()` reflects startActiveSpan (in prod the NodeSDK
+    // registers one; without it the active context is always root).
+    propagation.setGlobalPropagator(new W3CTraceContextPropagator());
+    contextManager = new AsyncLocalStorageContextManager().enable();
+    context.setGlobalContextManager(contextManager);
   });
   afterEach(async () => {
     await client?.close();
     client = undefined;
     trace.disable();
+    propagation.disable();
+    context.disable();
+    contextManager.disable();
     await provider.shutdown();
   });
 
@@ -920,5 +938,22 @@ describe('MCP server — span status (tracing)', () => {
     const span = spanByName('mcp.tool/search_docs');
     expect(span).toBeDefined();
     expect(span.status.code).not.toBe(SpanStatusCode.ERROR);
+  });
+
+  it('injects the sandbox.run span as a W3C traceparent into the executed program', async () => {
+    let received;
+    ({ client } = await connect({
+      executor: makeExecutor(async (req) => {
+        received = req;
+        return okResult('null');
+      }),
+    }));
+    await client.callTool({ name: 'execute', arguments: { code: 'x' } });
+    // The host bakes the span context into the program (as request-default headers
+    // on the SDK client) so the API calls the µVM makes continue the same trace.
+    expect(received.code).toContain('traceparent');
+    expect(received.code).toContain(
+      spanByName('mcp.sandbox.run').spanContext().traceId,
+    );
   });
 });

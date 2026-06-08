@@ -4,7 +4,12 @@
 
 import { createHash } from 'node:crypto';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import { trace, SpanStatusCode } from '@opentelemetry/api';
+import {
+  trace,
+  context,
+  propagation,
+  SpanStatusCode,
+} from '@opentelemetry/api';
 import { z } from 'zod';
 import { searchOperations, renderSearch } from './docs/operations.js';
 import { buildScript } from './sandbox/preamble.js';
@@ -469,11 +474,6 @@ export function createServer({
           );
         }
 
-        const script = buildScript(code, {
-          baseUrl: config.baseUrl,
-          apiKey: apiCredential,
-        });
-
         const fail = (text) =>
           toolError(clampErrorText(redactSecrets(text, apiCredential)));
 
@@ -481,15 +481,41 @@ export function createServer({
           res = await withSpan(
             'mcp.sandbox.run',
             { 'mcp.executor': executor.name },
-            () =>
-              executor.run({
+            () => {
+              // Serialize THIS span's context (W3C traceparent, vendor-neutral) into
+              // the program so the v3 API calls the µVM makes continue the same
+              // trace — the execute and the downstream API spans read as ONE trace
+              // in the shared OTLP backend. No-op when untraced (no provider → the
+              // global propagator is a noop → empty carrier → no header). It is a
+              // DEFAULT header on the SDK client; untrusted user code can override
+              // this default (see preamble.js) — accepted: trace IDs are unguessable
+              // so a caller can only pollute its own trace, and the JWT (not this
+              // header) is the access boundary.
+              /** @type {Record<string, string>} */
+              const traceCarrier = {};
+              // Observability must never fail a tool call (see telemetry.js — every
+              // record path swallows its own errors): a propagator fault must not
+              // abort the run. Worst case the carrier stays empty and the API calls
+              // just aren't linked to this trace.
+              try {
+                propagation.inject(context.active(), traceCarrier);
+              } catch {
+                // leave traceCarrier empty
+              }
+              const script = buildScript(code, {
+                baseUrl: config.baseUrl,
+                apiKey: apiCredential,
+                trace: traceCarrier,
+              });
+              return executor.run({
                 code: script,
                 env: {},
                 allowNet: config.allowNet,
                 egressAuthority: config.egressAuthority,
                 limits: config.limits,
                 tls: config.tls,
-              }),
+              });
+            },
           );
         } catch (err) {
           // The concurrency guard rejects (it never started the run) when the
