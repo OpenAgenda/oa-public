@@ -220,7 +220,12 @@ export default function UnlinkFacebookSection({
         <chakra.form onSubmit={handleSubmit} maxW="md">
           <Text mb="4">{intl.formatMessage(messages.intro)}</Text>
 
-          <Field.Root required disabled={saving} mb="4">
+          <Field.Root
+            required
+            disabled={saving}
+            invalid={error === 'taken'}
+            mb="4"
+          >
             <Field.Label>
               {intl.formatMessage(messages.emailLabel)}
               <Field.RequiredIndicator />
@@ -236,6 +241,11 @@ export default function UnlinkFacebookSection({
                 setError(null);
               }}
             />
+            {error === 'taken' && (
+              <Field.ErrorText>
+                {intl.formatMessage(messages.takenError)}
+              </Field.ErrorText>
+            )}
             {showUseAccountEmail && (
               <Field.HelperText>
                 <Link asChild fontSize="sm">
@@ -252,7 +262,14 @@ export default function UnlinkFacebookSection({
             )}
           </Field.Root>
 
-          <Field.Root required disabled={saving} mb="4">
+          <Field.Root
+            required
+            disabled={saving}
+            invalid={
+              error === 'required' || error === 'weak' || error === 'same'
+            }
+            mb="4"
+          >
             <Field.Label>
               {intl.formatMessage(messages.passwordLabel)}
               <Field.RequiredIndicator />
@@ -267,9 +284,21 @@ export default function UnlinkFacebookSection({
                 setError(null);
               }}
             />
+            {(error === 'required' ||
+              error === 'weak' ||
+              error === 'same') && (
+              <Field.ErrorText>
+                {intl.formatMessage(ERROR_MESSAGE[error])}
+              </Field.ErrorText>
+            )}
           </Field.Root>
 
-          <Field.Root required disabled={saving} mb="4">
+          <Field.Root
+            required
+            disabled={saving}
+            invalid={error === 'mismatch'}
+            mb="4"
+          >
             <Field.Label>
               {intl.formatMessage(messages.confirmationLabel)}
               <Field.RequiredIndicator />
@@ -284,11 +313,16 @@ export default function UnlinkFacebookSection({
                 setError(null);
               }}
             />
+            {error === 'mismatch' && (
+              <Field.ErrorText>
+                {intl.formatMessage(messages.mismatchError)}
+              </Field.ErrorText>
+            )}
           </Field.Root>
 
-          {error && (
+          {error === 'other' && (
             <MessageAlert role="alert" status="error" mb="4">
-              {intl.formatMessage(ERROR_MESSAGE[error])}
+              {intl.formatMessage(messages.otherError)}
             </MessageAlert>
           )}
 

@@ -156,7 +156,7 @@ export default function PasswordSection() {
       }
     >
       <chakra.form onSubmit={handleSubmit} maxW="md">
-        <Field.Root required disabled={saving} mb="4">
+        <Field.Root required disabled={saving} invalid={error === 'bad'} mb="4">
           <Field.Label>
             {intl.formatMessage(messages.currentLabel)}
             <Field.RequiredIndicator />
@@ -171,9 +171,19 @@ export default function PasswordSection() {
               setError(null);
             }}
           />
+          {error === 'bad' && (
+            <Field.ErrorText>
+              {intl.formatMessage(ERROR_MESSAGE.bad)}
+            </Field.ErrorText>
+          )}
         </Field.Root>
 
-        <Field.Root required disabled={saving} mb="4">
+        <Field.Root
+          required
+          disabled={saving}
+          invalid={error === 'short' || error === 'long'}
+          mb="4"
+        >
           <Field.Label>
             {intl.formatMessage(messages.newLabel)}
             <Field.RequiredIndicator />
@@ -188,9 +198,19 @@ export default function PasswordSection() {
               setError(null);
             }}
           />
+          {(error === 'short' || error === 'long') && (
+            <Field.ErrorText>
+              {intl.formatMessage(ERROR_MESSAGE[error])}
+            </Field.ErrorText>
+          )}
         </Field.Root>
 
-        <Field.Root required disabled={saving} mb="4">
+        <Field.Root
+          required
+          disabled={saving}
+          invalid={error === 'mismatch'}
+          mb="4"
+        >
           <Field.Label>
             {intl.formatMessage(messages.confirmationLabel)}
             <Field.RequiredIndicator />
@@ -205,6 +225,11 @@ export default function PasswordSection() {
               setError(null);
             }}
           />
+          {error === 'mismatch' && (
+            <Field.ErrorText>
+              {intl.formatMessage(ERROR_MESSAGE.mismatch)}
+            </Field.ErrorText>
+          )}
         </Field.Root>
 
         {success && (
@@ -212,9 +237,9 @@ export default function PasswordSection() {
             {intl.formatMessage(messages.success)}
           </MessageAlert>
         )}
-        {error && (
+        {error === 'other' && (
           <MessageAlert role="alert" status="error" mb="4">
-            {intl.formatMessage(ERROR_MESSAGE[error])}
+            {intl.formatMessage(ERROR_MESSAGE.other)}
           </MessageAlert>
         )}
 

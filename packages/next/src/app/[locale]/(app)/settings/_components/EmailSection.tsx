@@ -98,13 +98,6 @@ export default function EmailSection({ user }: EmailSectionProps) {
     }
   };
 
-  const errorMessage =
-    error === 'auth'
-      ? messages.authError
-      : error === 'taken'
-        ? messages.takenError
-        : messages.otherError;
-
   return (
     <AccordionItem
       value="email"
@@ -120,7 +113,12 @@ export default function EmailSection({ user }: EmailSectionProps) {
       }
     >
       <chakra.form onSubmit={handleSubmit} maxW="md">
-        <Field.Root required disabled={saving} mb="4">
+        <Field.Root
+          required
+          disabled={saving}
+          invalid={error === 'taken'}
+          mb="4"
+        >
           <Field.Label>
             {intl.formatMessage(messages.newEmailLabel)}
             <Field.RequiredIndicator />
@@ -137,9 +135,19 @@ export default function EmailSection({ user }: EmailSectionProps) {
               setError(null);
             }}
           />
+          {error === 'taken' && (
+            <Field.ErrorText>
+              {intl.formatMessage(messages.takenError)}
+            </Field.ErrorText>
+          )}
         </Field.Root>
 
-        <Field.Root required disabled={saving} mb="4">
+        <Field.Root
+          required
+          disabled={saving}
+          invalid={error === 'auth'}
+          mb="4"
+        >
           <Field.Label>
             {intl.formatMessage(messages.passwordLabel)}
             <Field.RequiredIndicator />
@@ -156,6 +164,11 @@ export default function EmailSection({ user }: EmailSectionProps) {
               setError(null);
             }}
           />
+          {error === 'auth' && (
+            <Field.ErrorText>
+              {intl.formatMessage(messages.authError)}
+            </Field.ErrorText>
+          )}
         </Field.Root>
 
         {success && (
@@ -163,9 +176,9 @@ export default function EmailSection({ user }: EmailSectionProps) {
             {intl.formatMessage(messages.success)}
           </MessageAlert>
         )}
-        {error && (
+        {error === 'other' && (
           <MessageAlert role="alert" status="error" mb="4">
-            {intl.formatMessage(errorMessage)}
+            {intl.formatMessage(messages.otherError)}
           </MessageAlert>
         )}
 

@@ -84,7 +84,12 @@ export default function DeleteAccountSection() {
           {intl.formatMessage(messages.warning)}
         </Text>
 
-        <Field.Root required disabled={loading} mb="4">
+        <Field.Root
+          required
+          disabled={loading}
+          invalid={error === 'auth'}
+          mb="4"
+        >
           <Field.Label>
             {intl.formatMessage(messages.passwordLabel)}
             <Field.RequiredIndicator />
@@ -101,13 +106,16 @@ export default function DeleteAccountSection() {
               setError(null);
             }}
           />
+          {error === 'auth' && (
+            <Field.ErrorText>
+              {intl.formatMessage(messages.authError)}
+            </Field.ErrorText>
+          )}
         </Field.Root>
 
-        {error && (
+        {error === 'other' && (
           <MessageAlert role="alert" status="error" mb="4">
-            {intl.formatMessage(
-              error === 'auth' ? messages.authError : messages.otherError,
-            )}
+            {intl.formatMessage(messages.otherError)}
           </MessageAlert>
         )}
 
