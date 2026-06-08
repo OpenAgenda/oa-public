@@ -93,7 +93,7 @@ export type ExportField = {
 
 export type ChoiceField = {
   field: string;
-  label: Record<string, string>;
+  label: string | Record<string, string>;
 };
 
 export type ExportSettings = {
