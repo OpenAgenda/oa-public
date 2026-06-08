@@ -431,7 +431,7 @@ the sandbox boundary.
   **OTLP** to that same host agent (Alloy), enabled in hosted mode when an OTLP
   endpoint is set (off otherwise):
 
-  - **metrics** → Mimir: per-tool outcome + latency, warm-pool hits/misses, live
+  - **metrics** → Mimir: per-tool outcome + latency + response size, warm-pool hits/misses, live
     concurrency, and per-µVM peak host RAM + CPU time read from the libkrun VMM's
     `/proc` — `VmHWM` (monotone) and `utime+stime` (cumulative), which capture even a
     sub-150ms run, unlike the SDK's 1s `sb.metrics()` sample.

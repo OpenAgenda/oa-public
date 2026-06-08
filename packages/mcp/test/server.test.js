@@ -822,6 +822,8 @@ describe('MCP server', () => {
       expect(typeof metric[0].fields.duration_ms).toBe('number');
       // ok is not a fault → error:false (the label the Grafana failure ratio filters).
       expect(metric[0].fields.error).toBe(false);
+      // Response size feeds the per-tool oa.mcp.tool.response_bytes histogram.
+      expect(typeof metric[0].fields.response_bytes).toBe('number');
     });
 
     it('records execute outcome=timed_out with error:true (a real fault)', async () => {
@@ -859,6 +861,9 @@ describe('MCP server', () => {
       expect(metric[0].tool).toBe('search_docs');
       expect(metric[0].fields.outcome).toBe('ok');
       expect(metric[0].fields.error).toBe(false);
+      // search_docs now feeds the per-tool latency + response-size histograms too.
+      expect(typeof metric[0].fields.duration_ms).toBe('number');
+      expect(typeof metric[0].fields.response_bytes).toBe('number');
     });
   });
 });
