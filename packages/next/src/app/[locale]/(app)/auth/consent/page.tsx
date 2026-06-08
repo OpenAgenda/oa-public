@@ -3,6 +3,7 @@ import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getSessionCookie } from '@openagenda/auth/server';
 import Consent from 'components/auth/Consent';
+import { isVerifiedClient } from 'components/auth/verifiedClients';
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
@@ -58,6 +59,10 @@ export default async function ConsentPage({
       // address the code WILL actually be sent to — trustworthy to display as
       // the anti-phishing signal (the client's self-asserted name is not).
       redirectUri={pickFirst(params.redirect_uri)}
+      // Operator-controlled verified-apps allowlist (env, out of the DCR
+      // registry's reach): suppresses the "unverified" warning for first-party
+      // apps. Resolved server-side; never exposes the list to the client.
+      isVerified={isVerifiedClient(pickFirst(params.client_id))}
     />
   );
 }

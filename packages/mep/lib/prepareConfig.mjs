@@ -20,6 +20,7 @@ export default async function prepareConfig({ dir, envVars, nodes }) {
     STRAPI_API_BASE: strapiAPIBase,
     STRAPI_API_AUTH_TOKEN: strapiAPIAuthToken,
     CRISP_WEBSITE_ID: crispWebsiteID,
+    NEXT_VERIFIED_OAUTH_CLIENT_IDS: verifiedOAuthClientIds,
   } = envVars;
 
   const nextEnvVars = [
@@ -43,6 +44,14 @@ export default async function prepareConfig({ dir, envVars, nodes }) {
 
   if (nextPublicAssetPrefix) {
     nextEnvVars.push(`NEXT_PUBLIC_ASSET_PREFIX=${nextPublicAssetPrefix}`);
+  }
+
+  // Verified first-party OAuth client_ids (suppress the consent "unverified"
+  // warning; server-only, never NEXT_PUBLIC_).
+  if (verifiedOAuthClientIds) {
+    nextEnvVars.push(
+      `NEXT_VERIFIED_OAUTH_CLIENT_IDS=${verifiedOAuthClientIds}`,
+    );
   }
 
   await fs.writeFile(`${dir}/oa/packages/next/.env.local`, nextEnvVars.join('\n'));
