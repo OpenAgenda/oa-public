@@ -427,13 +427,27 @@ the sandbox boundary.
   deployment must disclose this and set retention. Not a code blocker.
 - No **host** resource telemetry from app code: CPU/RAM/KVM stay a node_exporter
   scrape (e.g. alloy), deliberately not application code. The server DOES emit its
-  own **OTel business metrics** (per-tool outcome + latency, warm-pool hits/misses,
-  live concurrency, and per-µVM peak host RAM + CPU time read from the libkrun VMM's
-  `/proc` — `VmHWM` (monotone) and `utime+stime` (cumulative), which capture even a
-  sub-150ms run, unlike the SDK's 1s `sb.metrics()` sample) over **OTLP** to that same host agent → Mimir, enabled by
-  `OTEL_EXPORTER_OTLP_METRICS_ENDPOINT` (off otherwise — see metrics.js). Three
-  observability channels, kept separate by role: **metrics** (OTel→Mimir), \*\*logs
-  - audit** (`@openagenda/logs`→InsightOps), **host\*\* (node_exporter→Mimir).
+  own **OpenTelemetry** — all three signals on one `NodeSDK` (`telemetry.js`), over
+  **OTLP** to that same host agent (Alloy), enabled in hosted mode when an OTLP
+  endpoint is set (off otherwise):
+
+  - **metrics** → Mimir: per-tool outcome + latency, warm-pool hits/misses, live
+    concurrency, and per-µVM peak host RAM + CPU time read from the libkrun VMM's
+    `/proc` — `VmHWM` (monotone) and `utime+stime` (cumulative), which capture even a
+    sub-150ms run, unlike the SDK's 1s `sb.metrics()` sample.
+  - **traces** → Tempo: a span per tool call (`mcp.tool/execute`, `…/search_docs`)
+    with child spans for the slow steps (`mcp.credential.exchange`,
+    `mcp.sandbox.run`), so a slow `execute` is attributable to a stage, not just a
+    total. The `execute` span is the intended parent of the v3 API trace once its
+    context is propagated into the µVM's API calls (roadmap).
+  - **logs** → Loki: the `@openagenda/logs` records ALSO go out over OTLP
+    (`otel: true`), **in addition to** InsightOps — and a record emitted inside a
+    tool span is auto-correlated to that trace.
+
+  So: **metrics/traces/logs** via OTel→Alloy (Mimir/Tempo/Loki), **logs+audit** also
+  to InsightOps (`@openagenda/logs`), **host** via node_exporter→Mimir. Kept separate
+  by role; logs deliberately fan out to both InsightOps and OTel.
+
 - No per-call process isolation on the **local** engines (node/deno) — a runaway
   is killed via process-group SIGKILL + a 1 MiB output cap, not a VM boundary (the
   microsandbox engine does isolate per run).

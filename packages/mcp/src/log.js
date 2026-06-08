@@ -4,18 +4,24 @@
 // shutdown, fallbacks, faults) and the per-tool audit records share it; audit
 // records carry `kind: 'audit'` so they stay filterable without a second logger.
 //
-// Two independent, env-gated sinks: stderr (the DebugTransport, turned on by the
-// standard `DEBUG=openagenda-mcp*` env var) and InsightOps (added when an
-// OA_INSIGHT_OPS_TOKEN is set). Both are stderr/network — NEVER stdout — so this
-// is safe under the stdio transport, where stdout is the MCP protocol channel.
+// Up to three independent, env-gated sinks: stderr (the DebugTransport, turned on
+// by the standard `DEBUG=openagenda-mcp*` env var), InsightOps (added when an
+// OA_INSIGHT_OPS_TOKEN is set), and — when telemetry is on (hosted + an OTLP
+// endpoint) — the OTel logs transport (`otel: true`), which ships the SAME records
+// over OTLP to the host Alloy agent → Loki, IN ADDITION to InsightOps. They run in
+// parallel and independently; none is mutually exclusive. All are stderr/network —
+// NEVER stdout — so this is safe under the stdio transport, where stdout is the MCP
+// protocol channel.
 //
-// NO OpenTelemetry here (`otel: false`): µVM resource metrics are a host-level
-// scrape (alloy), not application code (see README → Observability).
+// The OTel transport binds the global logger provider AT init time, so the provider
+// must already exist: `initTelemetry` (telemetry.js, which registers it) MUST run
+// before `initLogging({ otel: true })`. A bonus of routing logs through OTel: a
+// record emitted inside a tool span is auto-correlated to that trace (the transport
+// stamps the active span's attributes onto the record).
 
 import { createHash } from 'node:crypto';
 import logs from '@openagenda/logs';
-
-const NS = 'openagenda-mcp';
+import { SERVICE_NAME as NS } from './serviceName.js';
 
 // `logs.init()` only reconfigures the library's basic logger, NOT namespaced
 // loggers created earlier — so we keep a single internal instance (reassigned by
@@ -42,14 +48,19 @@ export const log = {
  *     part. (The library's own `enableDebug` flag is a no-op for output, so we
  *     don't pass it — `debug` reads `DEBUG` once at load.)
  *   - InsightOps — added by the library when `insightOpsToken` is set (prod).
+ *   - OTel logs — added when `otel` is true (telemetry enabled): the same records
+ *     also go over OTLP to the host agent. Requires initTelemetry to have run first
+ *     (see header); harmless if it hasn't (records go to a no-op global logger).
  * So: prod sets `OA_INSIGHT_OPS_TOKEN` and ships there; a terminal/dev sets
- * `DEBUG=openagenda-mcp*` to see stderr. Both can be on; neither touches stdout.
+ * `DEBUG=openagenda-mcp*` to see stderr. Any combination can be on; none touches
+ * stdout.
  *
  * @param {object} opts
  * @param {string|null} opts.insightOpsToken  the InsightOps token, or null.
+ * @param {boolean} [opts.otel]  also emit logs over OTLP (telemetry enabled).
  */
-export function initLogging({ insightOpsToken }) {
-  logs.init({ namespace: NS, token: insightOpsToken ?? null, otel: false });
+export function initLogging({ insightOpsToken, otel = false }) {
+  logs.init({ namespace: NS, token: insightOpsToken ?? null, otel });
   // Recreate so the logger picks up the just-configured transports.
   logger = logs(NS);
 }

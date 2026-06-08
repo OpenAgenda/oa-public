@@ -12376,10 +12376,15 @@ __metadata:
     "@openagenda/api-spec": "workspace:*"
     "@openagenda/logs": "npm:^1.1.10"
     "@opentelemetry/api": "npm:^1.9.1"
+    "@opentelemetry/api-logs": "npm:^0.218.0"
+    "@opentelemetry/exporter-logs-otlp-proto": "npm:^0.218.0"
     "@opentelemetry/exporter-metrics-otlp-proto": "npm:^0.218.0"
+    "@opentelemetry/exporter-trace-otlp-proto": "npm:^0.218.0"
     "@opentelemetry/resources": "npm:^2.7.1"
+    "@opentelemetry/sdk-logs": "npm:^0.218.0"
     "@opentelemetry/sdk-metrics": "npm:^2.7.1"
     "@opentelemetry/sdk-node": "npm:^0.218.0"
+    "@opentelemetry/sdk-trace-base": "npm:^2.7.1"
     "@opentelemetry/semantic-conventions": "npm:^1.41.1"
     "@types/node": "npm:^22.0.0"
     express: "npm:^4.18.2"
@@ -13580,7 +13585,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opentelemetry/api-logs@npm:0.218.0":
+"@opentelemetry/api-logs@npm:0.218.0, @opentelemetry/api-logs@npm:^0.218.0":
   version: 0.218.0
   resolution: "@opentelemetry/api-logs@npm:0.218.0"
   dependencies:
@@ -13752,7 +13757,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opentelemetry/exporter-logs-otlp-proto@npm:0.218.0":
+"@opentelemetry/exporter-logs-otlp-proto@npm:0.218.0, @opentelemetry/exporter-logs-otlp-proto@npm:^0.218.0":
   version: 0.218.0
   resolution: "@opentelemetry/exporter-logs-otlp-proto@npm:0.218.0"
   dependencies:
@@ -13973,7 +13978,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opentelemetry/exporter-trace-otlp-proto@npm:0.218.0":
+"@opentelemetry/exporter-trace-otlp-proto@npm:0.218.0, @opentelemetry/exporter-trace-otlp-proto@npm:^0.218.0":
   version: 0.218.0
   resolution: "@opentelemetry/exporter-trace-otlp-proto@npm:0.218.0"
   dependencies:
@@ -14504,7 +14509,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opentelemetry/sdk-logs@npm:0.218.0":
+"@opentelemetry/sdk-logs@npm:0.218.0, @opentelemetry/sdk-logs@npm:^0.218.0":
   version: 0.218.0
   resolution: "@opentelemetry/sdk-logs@npm:0.218.0"
   dependencies:
@@ -14622,7 +14627,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opentelemetry/sdk-trace-base@npm:2.7.1":
+"@opentelemetry/sdk-trace-base@npm:2.7.1, @opentelemetry/sdk-trace-base@npm:^2.7.1":
   version: 2.7.1
   resolution: "@opentelemetry/sdk-trace-base@npm:2.7.1"
   dependencies:

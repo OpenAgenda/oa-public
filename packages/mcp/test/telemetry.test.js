@@ -1,22 +1,42 @@
 import {
-  initMetrics,
+  initTelemetry,
+  getTracer,
   recordMetric,
   recordUvmStats,
   recordConcurrencyRejected,
   recordCallerConcurrencyAtAdmission,
   registerObservables,
-  shutdownMetrics,
-} from '../src/metrics.js';
+  shutdownTelemetry,
+} from '../src/telemetry.js';
 
-// Metrics are OFF unless an OTLP endpoint is configured. These tests exercise the
-// disabled path only — they must NEVER start the SDK or touch the network, so we
-// only ever call initMetrics with enabled:false (and rely on the module's "no
-// instruments until init" guard for the pre-init calls).
+// Telemetry (metrics + traces + logs) is OFF unless an OTLP endpoint is configured.
+// These tests exercise the disabled path only — they must NEVER start the SDK or
+// touch the network, so we only ever call initTelemetry with enabled:false (and
+// rely on the module's "no instruments / no provider until init" guard for the
+// pre-init calls). The cross-version OTel logs path and span export are proven
+// separately, with in-memory exporters and no network, in otelWiring.test.js.
 
-describe('mcp - metrics (disabled / safe no-op)', () => {
-  it('initMetrics is a no-op when disabled (no throw, no SDK)', () => {
-    expect(() => initMetrics({ enabled: false })).not.toThrow();
-    expect(() => initMetrics()).not.toThrow();
+describe('mcp - telemetry (disabled / safe no-op)', () => {
+  it('initTelemetry is a no-op when disabled (no throw, no SDK)', () => {
+    expect(() => initTelemetry({ enabled: false })).not.toThrow();
+    expect(() => initTelemetry()).not.toThrow();
+  });
+
+  it('getTracer returns a no-op tracer that still runs the span body', () => {
+    // With no provider registered, getTracer() is a no-op ProxyTracer: spans cost
+    // nothing and export nothing, but startActiveSpan MUST still invoke the body
+    // and return its value (server.js wraps every handler in one unconditionally).
+    const tracer = getTracer();
+    let ended = false;
+    const out = tracer.startActiveSpan('test.span', (span) => {
+      span.setAttribute('k', 'v');
+      span.setStatus({ code: 1 });
+      span.end();
+      ended = true;
+      return 'result';
+    });
+    expect(out).toBe('result');
+    expect(ended).toBe(true);
   });
 
   it('recordMetric is a safe no-op before/without init', () => {
@@ -74,7 +94,7 @@ describe('mcp - metrics (disabled / safe no-op)', () => {
       })).not.toThrow();
   });
 
-  it('shutdownMetrics resolves when nothing was started', async () => {
-    await expect(shutdownMetrics()).resolves.toBeUndefined();
+  it('shutdownTelemetry resolves when nothing was started', async () => {
+    await expect(shutdownTelemetry()).resolves.toBeUndefined();
   });
 });

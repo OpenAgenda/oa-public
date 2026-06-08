@@ -133,7 +133,7 @@
             "type": "prometheus",
             "uid": "${DS_PROM}"
           },
-          "expr": "sum(rate(oa_mcp_execute_total{instance=~\"$instance\",outcome=~\"threw|timed_out|nonzero_exit|credential_error|output_capped\"}[5m])) / clamp_min(sum(rate(oa_mcp_execute_total{instance=~\"$instance\"}[5m])), 1e-9)",
+          "expr": "sum(rate(oa_mcp_execute_total{instance=~\"$instance\",error=\"true\"}[5m])) / clamp_min(sum(rate(oa_mcp_execute_total{instance=~\"$instance\"}[5m])), 1e-9)",
           "refId": "A"
         }
       ]
@@ -570,7 +570,7 @@
             "type": "prometheus",
             "uid": "${DS_PROM}"
           },
-          "expr": "sum(rate(oa_mcp_execute_total{instance=~\"$instance\",outcome=~\"caller_busy|rate_limited|busy|shutting_down|disabled\"}[5m])) / clamp_min(sum(rate(oa_mcp_execute_total{instance=~\"$instance\"}[5m])), 1e-9)",
+          "expr": "sum(rate(oa_mcp_execute_total{instance=~\"$instance\",error=\"false\",outcome!=\"ok\"}[5m])) / clamp_min(sum(rate(oa_mcp_execute_total{instance=~\"$instance\"}[5m])), 1e-9)",
           "legendFormat": "backpressure (total)",
           "refId": "A"
         },

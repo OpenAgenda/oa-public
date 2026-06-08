@@ -24,7 +24,7 @@ import { createTokenVerifier } from './auth/verifier.js';
 import { exchangeToken, TokenExchangeError } from './auth/tokenExchange.js';
 import { landingPage } from './landing.js';
 import { log, makeAuditRecorder } from './log.js';
-import { recordMetric } from './metrics.js';
+import { recordMetric } from './telemetry.js';
 
 // JSON-RPC error returned without a request id (parse/transport-level failures).
 const jsonRpcError = (code, message) => ({
@@ -136,6 +136,9 @@ export function createHttpApp({ config, executor }) {
       rateLimiter,
       callerConcurrency,
       callerId,
+      // OA user id for the `user.uid` span attribute (audit carries it too). Absent
+      // for a uid-less token; stdio passes nothing.
+      callerUid: uid,
       // Audit identity: the consenting user (`sub` = AS join key, `uid` = OA
       // identity) + the client app. `callerId` already folds the rate-limit
       // fallback chain; pass the raw `sub`/`uid` as the audit caller so a
@@ -146,8 +149,8 @@ export function createHttpApp({ config, executor }) {
         callerUid: uid,
         clientId,
       }),
-      // Metrics share the per-call return paths with the audit recorder; the
-      // singleton no-ops until initMetrics ran with an OTLP endpoint (see metrics.js).
+      // Metrics + spans share the per-call return paths with the audit recorder; the
+      // singleton no-ops until initTelemetry ran with an OTLP endpoint (telemetry.js).
       recordMetric,
       getCredential: async () => {
         // The bearer middleware guarantees req.auth.token, but assert it

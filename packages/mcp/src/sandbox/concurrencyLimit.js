@@ -12,7 +12,7 @@
 // (the engine-specific footprint is exactly why a RAM-derived default would have
 // to know the engine and break this abstraction).
 
-import { recordConcurrencyRejected } from '../metrics.js';
+import { recordConcurrencyRejected } from '../telemetry.js';
 
 /** @typedef {import('./executor.js').SandboxExecutor} SandboxExecutor */
 
@@ -125,7 +125,7 @@ export function withConcurrencyLimit(
   return {
     name: `${executor.name}+limit(${maxConcurrency})`,
     // Live in-flight run count (admitted, not yet released) — surfaced for the
-    // metrics observable (see metrics.js). The decorator is the only altitude
+    // metrics observable (see telemetry.js). The decorator is the only altitude
     // that sees the whole process's concurrency.
     inflight: () => active,
     // Forward the engine's warm-pool stats (microsandbox only) through the wrapper

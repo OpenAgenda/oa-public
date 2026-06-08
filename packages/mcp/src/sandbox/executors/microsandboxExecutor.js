@@ -37,7 +37,7 @@ import { readdir, readFile } from 'node:fs/promises';
 import { MAX_OUTPUT_BYTES } from '../spawn.js';
 import { DEFAULT_MICROSANDBOX_IMAGE } from '../../config.js';
 import { log } from '../../log.js';
-import { recordUvmStats } from '../../metrics.js';
+import { recordUvmStats } from '../../telemetry.js';
 import { createWarmPool } from './microsandboxPool.js';
 
 const SANDBOX_PREFIX = 'oa-mcp-exec'; // a UNIQUE name per run is appended (see below)
@@ -530,7 +530,7 @@ export function createMicrosandboxExecutor({
       const entry = await ensurePool();
       if (entry) await entry.pool.drain();
       // Stop poolStats() reporting a drained pool as a healthy empty one: a final
-      // metrics flush (shutdownMetrics runs after executor.dispose) would otherwise
+      // metrics flush (shutdownTelemetry runs after executor.dispose) would otherwise
       // publish a stale sample for a resource that no longer exists.
       livePool = null;
     },

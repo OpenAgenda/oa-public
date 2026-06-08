@@ -38,7 +38,7 @@
 import {
   recordConcurrencyRejected,
   recordCallerConcurrencyAtAdmission,
-} from './metrics.js';
+} from './telemetry.js';
 
 /**
  * @param {object} opts
@@ -84,7 +84,7 @@ export function createCallerConcurrencyLimiter({ maxPerCaller }) {
       inflight.set(key, n + 1);
       // Lossless occupancy signal: how many runs this caller already held when
       // this one was admitted (0..cap-1). Recorded per admission because a sampled
-      // gauge of live occupancy would miss these short-lived µVM spikes (metrics.js).
+      // gauge of live occupancy would miss these short-lived µVM spikes (telemetry.js).
       recordCallerConcurrencyAtAdmission(n);
       let released = false;
       return {
