@@ -51,6 +51,8 @@
   "devDependencies": {
     "@openagenda/api-client": "workspace:*",
     "@opentelemetry/api-logs": "^0.218.0",
+    "@opentelemetry/context-async-hooks": "^2.7.1",
+    "@opentelemetry/core": "^2.7.1",
     "@types/node": "^22.0.0",
     "jest": "^30.4.2",
     "tsdown": "^0.22.0",

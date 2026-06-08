@@ -36,23 +36,30 @@ const SDK_BUNDLE = readFileSync(
   'utf8',
 );
 
-// Configure the shared client (base URL + key), then expose a ready `oa`
-// instance and the zod `schemas` namespace. We never enumerate the SDK methods
-// here: `oa` carries whatever the contract defines (oa.agendas.events.list, …)
-// and grows with it. `auth` is the bearer key; without it the API returns 401.
+// Configure the shared client (base URL + key + trace headers), then expose a
+// ready `oa` instance and the zod `schemas` namespace. We never enumerate the SDK
+// methods here: `oa` carries whatever the contract defines (oa.agendas.events.list,
+// …) and grows with it. `auth` is the bearer key; without it the API returns 401.
+// `headers` are the W3C trace-context (traceparent) injected host-side as request
+// defaults, so the API calls this program makes join the MCP trace; absent when
+// the MCP isn't traced. Like the rest of `__cfg` they are caller-overridable — see
+// the SECURITY BOUNDARY note above; the trace header is observability, not a
+// boundary.
 const SETUP = `
-__OA_SDK__.client.setConfig({ baseUrl: __cfg.baseUrl, auth: __cfg.apiKey ?? undefined });
+__OA_SDK__.client.setConfig({ baseUrl: __cfg.baseUrl, auth: __cfg.apiKey ?? undefined, headers: __cfg.trace ?? undefined });
 const oa = new __OA_SDK__.OpenAgenda();
 const schemas = __OA_SDK__.schemas;
 `;
 
 /**
  * @param {string} userCode  async body written by the caller; should `return` a value.
- * @param {{baseUrl:string, apiKey:string|null}} cfg
+ * @param {{baseUrl:string, apiKey:string|null, trace?:Record<string,string>}} cfg
+ *   `trace` holds W3C trace-context headers (traceparent/baggage) propagating the
+ *   active MCP span into the program's API calls; empty/absent when untraced.
  * @returns {string} a self-contained program for the sandbox runtime.
  */
 export function buildScript(userCode, cfg) {
-  const head = `const __cfg = ${JSON.stringify({ baseUrl: cfg.baseUrl, apiKey: cfg.apiKey ?? null })};`;
+  const head = `const __cfg = ${JSON.stringify({ baseUrl: cfg.baseUrl, apiKey: cfg.apiKey ?? null, trace: cfg.trace ?? null })};`;
   return [
     head,
     SDK_BUNDLE,
