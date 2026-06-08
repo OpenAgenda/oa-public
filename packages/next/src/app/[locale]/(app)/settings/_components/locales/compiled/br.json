@@ -47,12 +47,6 @@
       "value": "Suivez les évolutions d'OpenAgenda! Vous pouvez vous désinscrire à tout moment."
     }
   ],
-  "Abilities.RulesCheckbox.AbilitiesForm.newsletterSubscribe": [
-    {
-      "type": 0,
-      "value": "Klikit amañ evit koumanantiñ"
-    }
-  ],
   "Abilities.RulesCheckbox.AbilitiesForm.newsletterSubscribed": [
     {
       "type": 0,
@@ -541,6 +535,12 @@
     {
       "type": 0,
       "value": "Kemmañ"
+    }
+  ],
+  "next.components.settings.Notifications.newsletterSubscribe": [
+    {
+      "type": 0,
+      "value": "Koumanantiñ d’al lizher-kelaouiñ"
     }
   ],
   "next.components.settings.Notifications.saveError": [

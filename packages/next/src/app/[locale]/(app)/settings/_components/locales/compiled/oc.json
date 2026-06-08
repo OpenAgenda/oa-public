@@ -47,12 +47,6 @@
       "value": "Seguissètz las evolucions a venir sus OpenAgenda ! Vos podètz desabonar a quin moment que siá."
     }
   ],
-  "Abilities.RulesCheckbox.AbilitiesForm.newsletterSubscribe": [
-    {
-      "type": 0,
-      "value": "Clicatz aicí per vos marcar"
-    }
-  ],
   "Abilities.RulesCheckbox.AbilitiesForm.newsletterSubscribed": [
     {
       "type": 0,
@@ -541,6 +535,12 @@
     {
       "type": 0,
       "value": "Modificar"
+    }
+  ],
+  "next.components.settings.Notifications.newsletterSubscribe": [
+    {
+      "type": 0,
+      "value": "S’inscriure a la letra d’informacions"
     }
   ],
   "next.components.settings.Notifications.saveError": [

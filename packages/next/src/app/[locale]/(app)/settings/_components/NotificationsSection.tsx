@@ -106,9 +106,13 @@ const messages = defineMessages({
     defaultMessage:
       'Follow the upcoming evolutions coming up on OpenAgenda! You can unsubscribe at any time.',
   },
+  // Own ID (not the shared Abilities one): RGAA 6.1 wants a self-descriptive
+  // link label, so this drops the legacy "Click here to" lead-in. A distinct ID
+  // keeps the reworded text from being clobbered by the crowdin sync that still
+  // feeds the legacy "Click here to subscribe" into the shared message.
   newsletterSubscribe: {
-    id: 'Abilities.RulesCheckbox.AbilitiesForm.newsletterSubscribe',
-    defaultMessage: 'Click here to subscribe',
+    id: 'next.components.settings.Notifications.newsletterSubscribe',
+    defaultMessage: 'Subscribe to the newsletter',
   },
   newsletterSubscribed: {
     id: 'Abilities.RulesCheckbox.AbilitiesForm.newsletterSubscribed',

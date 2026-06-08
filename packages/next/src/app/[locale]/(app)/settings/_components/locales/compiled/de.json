@@ -47,12 +47,6 @@
       "value": "Follow the upcoming evolutions coming up on OpenAgenda! You can unsubscribe at any time."
     }
   ],
-  "Abilities.RulesCheckbox.AbilitiesForm.newsletterSubscribe": [
-    {
-      "type": 0,
-      "value": "Click here to subscribe"
-    }
-  ],
   "Abilities.RulesCheckbox.AbilitiesForm.newsletterSubscribed": [
     {
       "type": 0,
@@ -537,6 +531,12 @@
     {
       "type": 0,
       "value": "Ändern"
+    }
+  ],
+  "next.components.settings.Notifications.newsletterSubscribe": [
+    {
+      "type": 0,
+      "value": "Newsletter abonnieren"
     }
   ],
   "next.components.settings.Notifications.saveError": [

@@ -47,12 +47,6 @@
       "value": "Segui le prossime evoluzioni in arrivo su OpenAgenda! È possibile annullare l'iscrizione in qualsiasi momento."
     }
   ],
-  "Abilities.RulesCheckbox.AbilitiesForm.newsletterSubscribe": [
-    {
-      "type": 0,
-      "value": "Clicca qui per iscriverti"
-    }
-  ],
   "Abilities.RulesCheckbox.AbilitiesForm.newsletterSubscribed": [
     {
       "type": 0,
@@ -541,6 +535,12 @@
     {
       "type": 0,
       "value": "Modificare"
+    }
+  ],
+  "next.components.settings.Notifications.newsletterSubscribe": [
+    {
+      "type": 0,
+      "value": "Iscriviti alla newsletter"
     }
   ],
   "next.components.settings.Notifications.saveError": [

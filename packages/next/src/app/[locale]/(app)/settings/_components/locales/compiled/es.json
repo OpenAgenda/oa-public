@@ -47,12 +47,6 @@
       "value": "¡Sigue las próximas evoluciones de Homenajeada"
     }
   ],
-  "Abilities.RulesCheckbox.AbilitiesForm.newsletterSubscribe": [
-    {
-      "type": 0,
-      "value": "Haz clic aquí para suscribirte"
-    }
-  ],
   "Abilities.RulesCheckbox.AbilitiesForm.newsletterSubscribed": [
     {
       "type": 0,
@@ -541,6 +535,12 @@
     {
       "type": 0,
       "value": "Editar"
+    }
+  ],
+  "next.components.settings.Notifications.newsletterSubscribe": [
+    {
+      "type": 0,
+      "value": "Suscribirse al boletín"
     }
   ],
   "next.components.settings.Notifications.saveError": [

@@ -47,12 +47,6 @@
       "value": "crwdns34160:0crwdne34160:0"
     }
   ],
-  "Abilities.RulesCheckbox.AbilitiesForm.newsletterSubscribe": [
-    {
-      "type": 0,
-      "value": "crwdns34162:0crwdne34162:0"
-    }
-  ],
   "Abilities.RulesCheckbox.AbilitiesForm.newsletterSubscribed": [
     {
       "type": 0,
@@ -545,6 +539,12 @@
     {
       "type": 0,
       "value": "Modify"
+    }
+  ],
+  "next.components.settings.Notifications.newsletterSubscribe": [
+    {
+      "type": 0,
+      "value": "Subscribe to the newsletter"
     }
   ],
   "next.components.settings.Notifications.saveError": [
