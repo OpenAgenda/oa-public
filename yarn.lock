@@ -29168,6 +29168,7 @@ __metadata:
     "@openagenda/verror": "npm:^3.2.0"
     "@opentelemetry/api": "npm:^1.9.0"
     "@opentelemetry/api-logs": "npm:^0.208.0"
+    "@opentelemetry/core": "npm:^2.2.0"
     "@opentelemetry/exporter-logs-otlp-proto": "npm:^0.208.0"
     "@opentelemetry/exporter-metrics-otlp-proto": "npm:^0.208.0"
     "@opentelemetry/exporter-trace-otlp-proto": "npm:^0.208.0"
