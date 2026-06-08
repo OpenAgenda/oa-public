@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_segments_rich_text_blocks",
+  "info": {
+    "displayName": "RichTextBlock",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "content": {
+      "type": "richtext"
+    },
+    "background": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::background.background"
+    },
+    "fontColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::color.color"
+    }
+  }
+}
