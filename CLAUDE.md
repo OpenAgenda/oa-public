@@ -33,4 +33,13 @@ node .crowdin/aggregate.js
 
 ## UI
 
-When working on UI in `packages/next`, consult [`packages/next/docs/UI-GUIDELINES.md`](packages/next/docs/UI-GUIDELINES.md) for shared design principles (dialog dismissal, etc.) and add new conventions there as they emerge.
+Before building or editing any UI, read the canonical design system:
+[`public/uikit/docs/DESIGN-SYSTEM.md`](public/uikit/docs/DESIGN-SYSTEM.md). It is the
+single source of truth for tokens, colors, fonts, component variants, snippets, and
+the rules for using them (use semantic tokens, never hardcode values; reach for
+existing snippets/components; variants live in recipes). New shared components or
+tokens go in `@openagenda/uikit` so every consumer gets them.
+
+For conventions specific to **this app**, see [`packages/next/docs/UI-GUIDELINES.md`](packages/next/docs/UI-GUIDELINES.md)
+(e.g. dialog dismissal). Add design-system rules to the uikit doc and app-only
+conventions to the next doc — never duplicate token values into either.
