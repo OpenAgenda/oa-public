@@ -640,7 +640,7 @@
   "next.components.auth.Signup.fullNameHelp": [
     {
       "type": 0,
-      "value": "Your username will be visible to administrators of the calendars you contribute to."
+      "value": "Your username will be visible to administrators of the agendas you contribute to."
     }
   ],
   "next.components.auth.Signup.fullNameLabel": [

@@ -60,7 +60,7 @@
   "next.components.settings.DeleteAccount.passwordLabel": "Type in your password to complete the operation",
   "next.components.settings.DeleteAccount.submit": "Delete",
   "next.components.settings.DeleteAccount.title": "Delete my account",
-  "next.components.settings.DeleteAccount.warning": "Are you sure you want to delete your account permanently? Your calendars and events will remain online, you can delete them manually if you do not want to leave them online",
+  "next.components.settings.DeleteAccount.warning": "Are you sure you want to delete your account permanently? Your agendas and events will remain online, you can delete them manually if you do not want to leave them online",
   "next.components.settings.Email.authError": "The submitted password is invalid. Please try again.",
   "next.components.settings.Email.newEmailLabel": "New e-mail address",
   "next.components.settings.Email.otherError": "There was a problem during the processing of the operation, retry shortly.",

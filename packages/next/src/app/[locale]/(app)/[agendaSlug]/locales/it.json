@@ -1,7 +1,7 @@
 {
   "next.views.AgendaError.agendaNotFound": "Agenda non trovata",
   "next.views.AgendaError.forbiddenMsg": "Non avete accesso a questa agenda.{br}Verificate il link che vi è stato fornito o richiedete l'accesso.",
-  "next.views.AgendaError.notFoundMsg": "Non esiste un calendario corrispondente a questo link.{br}O il link non è valido o il calendario è stato cancellato.",
+  "next.views.AgendaError.notFoundMsg": "Non esiste un'agenda corrispondente a questo link.{br}O il link non è valido o l'agenda è stata cancellata.",
   "next.views.AgendaError.orSignup": "Oppure <link>iscriviti</link> se non hai ancora un account.",
   "next.views.AgendaError.requestInvitation": "Richiedere un invito",
   "next.views.AgendaError.restrictedAccess": "L'accesso a questa agenda è limitato,<br></br> autenticarsi prima di potere accedere.",

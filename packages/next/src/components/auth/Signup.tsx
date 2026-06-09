@@ -33,7 +33,7 @@ const messages = defineMessages({
   fullNameHelp: {
     id: 'next.components.auth.Signup.fullNameHelp',
     defaultMessage:
-      'Your username will be visible to administrators of the calendars you contribute to.',
+      'Your username will be visible to administrators of the agendas you contribute to.',
   },
   fullNameLearnMore: {
     id: 'next.components.auth.Signup.fullNameLearnMore',

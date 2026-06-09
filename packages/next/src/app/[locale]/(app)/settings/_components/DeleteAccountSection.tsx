@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
+import ky, { isHTTPError } from 'ky';
 import { Button, Field, Text, chakra } from '@openagenda/uikit';
 import { PasswordInput } from '@openagenda/uikit/snippets';
 import AccordionItem from '@/src/components/AccordionItem';
@@ -15,7 +16,7 @@ const messages = defineMessages({
   warning: {
     id: 'next.components.settings.DeleteAccount.warning',
     defaultMessage:
-      'Are you sure you want to delete your account permanently?\n\nYour calendars and events will remain online, you can delete them manually if you do not want to leave them online',
+      'Are you sure you want to delete your account permanently?\n\nYour agendas and events will remain online, you can delete them manually if you do not want to leave them online',
   },
   passwordLabel: {
     id: 'next.components.settings.DeleteAccount.passwordLabel',
@@ -51,20 +52,14 @@ export default function DeleteAccountSection() {
       // is sent as a `Basic` credential and the account is removed in one
       // request. A 403 means the password was wrong; success ends the session
       // via the cibul-node /signout route.
-      const res = await fetch('/users/me', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Basic ${password}`,
-        },
+      await ky.delete('/users/me', {
+        headers: { Authorization: `Basic ${password}` },
       });
-      if (res.ok) {
-        window.location.href = '/signout';
-        return;
-      }
-      setError(res.status === 403 ? 'auth' : 'other');
-    } catch {
-      setError('other');
+      window.location.href = '/signout';
+    } catch (err) {
+      // ky throws HTTPError on a non-2xx response; a 403 means the password
+      // was wrong, anything else is an unexpected failure.
+      setError(isHTTPError(err) && err.response.status === 403 ? 'auth' : 'other');
     } finally {
       setLoading(false);
     }

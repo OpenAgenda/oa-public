@@ -100,7 +100,7 @@ export const agendaError = defineMessages({
   notFoundMsg: {
     id: 'next.views.AgendaError.notFoundMsg',
     defaultMessage:
-      'There is no calendar corresponding to this link.{br}Either the link is invalid or the calendar has been deleted.',
+      'There is no agenda corresponding to this link.{br}Either the link is invalid or the agenda has been deleted.',
   },
   searchAgenda: {
     id: 'next.views.AgendaError.searchAgenda',

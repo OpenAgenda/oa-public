@@ -22,7 +22,7 @@
   "next.views.AgendaError.notFoundMsg": [
     {
       "type": 0,
-      "value": "Non esiste un calendario corrispondente a questo link."
+      "value": "Non esiste un'agenda corrispondente a questo link."
     },
     {
       "type": 1,
@@ -30,7 +30,7 @@
     },
     {
       "type": 0,
-      "value": "O il link non è valido o il calendario è stato cancellato."
+      "value": "O il link non è valido o l'agenda è stata cancellata."
     }
   ],
   "next.views.AgendaError.orSignup": [

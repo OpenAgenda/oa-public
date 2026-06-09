@@ -376,7 +376,7 @@
   "next.components.settings.DeleteAccount.warning": [
     {
       "type": 0,
-      "value": "Are you sure you want to delete your account permanently? Your calendars and events will remain online, you can delete them manually if you do not want to leave them online"
+      "value": "Are you sure you want to delete your account permanently? Your agendas and events will remain online, you can delete them manually if you do not want to leave them online"
     }
   ],
   "next.components.settings.Email.authError": [

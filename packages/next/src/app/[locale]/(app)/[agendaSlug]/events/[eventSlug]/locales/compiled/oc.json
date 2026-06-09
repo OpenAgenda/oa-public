@@ -34,7 +34,7 @@
   "next.views.EventError.notFoundMsg": [
     {
       "type": 0,
-      "value": "I a pas de calendièr que corresponda a aqueste ligam."
+      "value": "I a pas d'agenda que corresponda a aqueste ligam."
     },
     {
       "type": 1,
@@ -42,7 +42,7 @@
     },
     {
       "type": 0,
-      "value": "Siá lo ligam es invalide siá lo calendièr es estat suprimit."
+      "value": "Siá lo ligam es invalide siá l'agenda es estat suprimit."
     }
   ],
   "next.views.EventError.orSignup": [

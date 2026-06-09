@@ -98,7 +98,7 @@
   "next.components.auth.Signup.errors.passwordTooWeak": "Password is too weak",
   "next.components.auth.Signup.errors.repeatNotEqual": "The passwords are not identical",
   "next.components.auth.Signup.formTitle": "Sign up form",
-  "next.components.auth.Signup.fullNameHelp": "Your username will be visible to administrators of the calendars you contribute to.",
+  "next.components.auth.Signup.fullNameHelp": "Your username will be visible to administrators of the agendas you contribute to.",
   "next.components.auth.Signup.fullNameLabel": "Username",
   "next.components.auth.Signup.fullNameLearnMore": "Read more",
   "next.components.auth.Signup.genericError": "An error occurred. Please try again.",
