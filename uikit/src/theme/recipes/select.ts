@@ -24,14 +24,4 @@ export const selectRecipe = defineSlotRecipe({
       maxW: 'full',
     },
   },
-  variants: {
-    variant: {
-      // Emphasize the resting trigger border to match inputs (see input.ts).
-      outline: {
-        trigger: {
-          borderColor: 'border.emphasized',
-        },
-      },
-    },
-  },
 });

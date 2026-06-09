@@ -22,12 +22,8 @@ import AccordionItem from '../AccordionItem';
 import messages from './messages';
 import type { CompleteUrlsResult } from './types';
 
-function pickLabel(
-  label: string | Record<string, string>,
-  lang: string,
-): string {
+function pickLabel(label: Record<string, string>, lang: string): string {
   if (!label) return '';
-  if (typeof label === 'string') return label;
   if (label[lang]) return label[lang];
   const first = Object.keys(label)[0];
   return first ? label[first] : '';
