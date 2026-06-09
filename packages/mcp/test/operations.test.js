@@ -5,6 +5,7 @@ import {
   renderSearch,
   skeletonExample,
   SCHEMA_VALIDATORS,
+  enumSchemaOf,
 } from '../src/docs/operations.js';
 
 // Extract the keys used under path:{…}/query:{…} in an example, walking braces
@@ -140,6 +141,25 @@ describe('structured params (derived from the contract)', () => {
     expect(relative.enum).toEqual(['passed', 'upcoming', 'current']);
   });
 
+  it('resolves a $ref enum (and its x-enum-descriptions) through to the param', () => {
+    // `status` items are a $ref to the shared EventStatus component; deriveParams
+    // must deref it so the values and labels reach the LLM (else they vanish).
+    const status = list.params.find((p) => p.name === 'status');
+    expect(status.enum).toEqual([1, 2, 3, 4, 5, 6]);
+    expect(status.enumDescriptions).toMatchObject({
+      1: 'Scheduled',
+      6: 'Cancelled',
+    });
+    // A $ref to a bare enum reads as its primitive type, not the component name —
+    // the LLM must know it passes an integer, not an opaque `EventStatus`.
+    expect(status.type).toBe('integer[]');
+  });
+
+  it('reads x-enum-descriptions off a direct (non-$ref) enum schema', () => {
+    const sort = list.params.find((p) => p.name === 'sort');
+    expect(sort.enumDescriptions.score).toMatch(/relevance/i);
+  });
+
   it('lifts default/min/max off the schema', () => {
     const limit = list.params.find((p) => p.name === 'limit');
     expect(limit).toMatchObject({ default: 20, min: 1, max: 100 });
@@ -264,6 +284,49 @@ describe('examples', () => {
   });
 });
 
+describe('enumSchemaOf — resolves the enum through every wrapper', () => {
+  // A param's enum can be modelled many ways; deriveParams must surface its
+  // values + x-enum-descriptions regardless, or the LLM loses the passable set.
+  const hasLabels = (s) =>
+    s && Array.isArray(s.enum) && !!s['x-enum-descriptions'];
+
+  it('direct $ref to a shared enum', () => {
+    const s = enumSchemaOf({ $ref: '#/components/schemas/EventStatus' });
+    expect(hasLabels(s)).toBe(true);
+    expect(s['x-enum-descriptions']['1']).toBe('Scheduled');
+  });
+
+  it('array items $ref (the `status` filter shape)', () => {
+    const s = enumSchemaOf({
+      type: 'array',
+      items: { $ref: '#/components/schemas/AccessibilityCode' },
+    });
+    expect(hasLabels(s)).toBe(true);
+    expect(s.enum).toContain('hi');
+  });
+
+  it('allOf-wrapped $ref (the `state` field shape)', () => {
+    const s = enumSchemaOf({
+      allOf: [{ $ref: '#/components/schemas/ModerationState' }],
+    });
+    expect(hasLabels(s)).toBe(true);
+    expect(s.enum).toContain(-2);
+  });
+
+  it('nullable inline enum (type: [integer, null])', () => {
+    const inline = { type: ['integer', 'null'], enum: [1, 2, null] };
+    expect(enumSchemaOf(inline)).toBe(inline);
+  });
+
+  it('returns undefined for a non-enum schema (no false positives)', () => {
+    expect(enumSchemaOf({ type: 'string' })).toBeUndefined();
+    expect(
+      enumSchemaOf({ $ref: '#/components/schemas/Event' }),
+    ).toBeUndefined();
+    expect(enumSchemaOf(undefined)).toBeUndefined();
+  });
+});
+
 describe('renderOperation', () => {
   it('renders a rich block (rank 0): signature, params, response, example', () => {
     const md = renderOperation(byId('agendas.events.list'), 0);
@@ -275,6 +338,10 @@ describe('renderOperation', () => {
     expect(md).toContain('Parameters:');
     // enum values surfaced inline for the LLM
     expect(md).toMatch(/relative.*passed, upcoming, current/s);
+    // a $ref'd enum surfaces its values WITH their labels, `value = label` so
+    // the passable value stays unmistakable from its gloss
+    expect(md).toMatch(/status.*one of: 1 = Scheduled/s);
+    expect(md).toContain('6 = Cancelled');
     expect(md).toContain('Response:');
     expect(md).toContain('EventSummary');
     expect(md).toContain('Example:');
