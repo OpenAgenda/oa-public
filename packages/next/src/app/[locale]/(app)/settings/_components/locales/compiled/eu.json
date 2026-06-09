@@ -1,0 +1,766 @@
+{
+  "Abilities.AbilitiesEditor.error": [
+    {
+      "type": 0,
+      "value": "Ocurrió un error."
+    }
+  ],
+  "Abilities.AbilitiesForm.save": [
+    {
+      "type": 0,
+      "value": "Guardar"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.childEntityAdminmod": [
+    {
+      "type": 0,
+      "value": "Configuración de administrador/moderador:"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.childEntityContributor": [
+    {
+      "type": 0,
+      "value": "Configuración de contribuyente:"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityAdminmod": [
+    {
+      "type": 0,
+      "value": "Tu configuración de administrador/moderador:"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityContributor": [
+    {
+      "type": 0,
+      "value": "Tu configuración de contribuyente:"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityUser": [
+    {
+      "type": 0,
+      "value": "Tu configuración global:"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.newsletterDescription": [
+    {
+      "type": 0,
+      "value": "¡Sigue las próximas evoluciones de Homenajeada"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.newsletterSubscribed": [
+    {
+      "type": 0,
+      "value": "¡Ahora recibirás el próximo boletín! Para darte de baja, simplemente haz clic en el enlace que encontrarás al pie de página en cada mensaje."
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.newsletterTitle": [
+    {
+      "type": 0,
+      "value": "Recibir el boletín"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.search": [
+    {
+      "type": 0,
+      "value": "Buscar"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveAgendaInboxMessage": [
+    {
+      "type": 0,
+      "value": "Recibir mensajes del buzón de la agenda"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveBehavioralEmails": [
+    {
+      "type": 0,
+      "value": "Receive behavioral emails"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEvent": [
+    {
+      "type": 0,
+      "value": "Recibir eventos enviados por otros usuarios"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventAddition": [
+    {
+      "type": 0,
+      "value": "Recibir adiciones de eventos"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventAggregation": [
+    {
+      "type": 0,
+      "value": "Recibir agregaciones de eventos"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventChangeState": [
+    {
+      "type": 0,
+      "value": "Recibir cambios de estado a "
+    },
+    {
+      "type": 1,
+      "value": "state"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventCreation": [
+    {
+      "type": 0,
+      "value": "Recibir creaciones de eventos"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventUpdate": [
+    {
+      "type": 0,
+      "value": "Recibir actualizaciones de eventos"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveInvitation": [
+    {
+      "type": 0,
+      "value": "Recibir invitaciones"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMemberMessage": [
+    {
+      "type": 0,
+      "value": "Recibir mensajes enviados a través de la función \"Escribirles\""
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventAddition": [
+    {
+      "type": 0,
+      "value": "Recibir notificaciones cuando alguien agrega mis eventos"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventAggregation": [
+    {
+      "type": 0,
+      "value": "Recibir notificaciones cuando alguien importa mis eventos"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventChangeState": [
+    {
+      "type": 0,
+      "value": "Recibir notificaciones cuando alguien cambie el estado de mis eventos"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventCreation": [
+    {
+      "type": 0,
+      "value": "Recibir confirmaciones a la creación de mis eventos"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventUpdate": [
+    {
+      "type": 0,
+      "value": "Recibir notificaciones cuando alguien actualice mis eventos"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveNotificationsSummary": [
+    {
+      "type": 0,
+      "value": "Recibir resúmenes de notificaciones"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveUserInboxMessage": [
+    {
+      "type": 0,
+      "value": "Recibir mensajes de mi buzón"
+    }
+  ],
+  "Abilities.RulesCheckbox.states.controlled": [
+    {
+      "type": 0,
+      "value": "controlado"
+    }
+  ],
+  "Abilities.RulesCheckbox.states.published": [
+    {
+      "type": 0,
+      "value": "publicado"
+    }
+  ],
+  "Abilities.RulesCheckbox.states.refused": [
+    {
+      "type": 0,
+      "value": "rechazado"
+    }
+  ],
+  "Abilities.RulesCheckbox.states.toControl": [
+    {
+      "type": 0,
+      "value": "a controlar"
+    }
+  ],
+  "next.components.settings.ApiKeys.cancel": [
+    {
+      "type": 0,
+      "value": "Anular"
+    }
+  ],
+  "next.components.settings.ApiKeys.copied": [
+    {
+      "type": 0,
+      "value": "Copiado"
+    }
+  ],
+  "next.components.settings.ApiKeys.copy": [
+    {
+      "type": 0,
+      "value": "Copia"
+    }
+  ],
+  "next.components.settings.ApiKeys.documentation": [
+    {
+      "type": 0,
+      "value": "Ver la documentación"
+    }
+  ],
+  "next.components.settings.ApiKeys.error": [
+    {
+      "type": 0,
+      "value": "Ocurrió un error durante el proceso de la operación, inténtalo nuevamente."
+    }
+  ],
+  "next.components.settings.ApiKeys.generatePublicKey": [
+    {
+      "type": 0,
+      "value": "Generar una clave pública"
+    }
+  ],
+  "next.components.settings.ApiKeys.generateSecretKey": [
+    {
+      "type": 0,
+      "value": "Generar una clave secreta"
+    }
+  ],
+  "next.components.settings.ApiKeys.hide": [
+    {
+      "type": 0,
+      "value": "Ocultar la clave"
+    }
+  ],
+  "next.components.settings.ApiKeys.info": [
+    {
+      "type": 0,
+      "value": "Las claves API se usan para leer y escribir datos en OpenAgenda a través de la API."
+    }
+  ],
+  "next.components.settings.ApiKeys.keyName": [
+    {
+      "type": 0,
+      "value": "Nombre de clave"
+    }
+  ],
+  "next.components.settings.ApiKeys.name": [
+    {
+      "type": 0,
+      "value": "Nombrar"
+    }
+  ],
+  "next.components.settings.ApiKeys.newWindow": [
+    {
+      "type": 0,
+      "value": "se abre en una nueva ventana"
+    }
+  ],
+  "next.components.settings.ApiKeys.publicKey": [
+    {
+      "type": 0,
+      "value": "Clave pública"
+    }
+  ],
+  "next.components.settings.ApiKeys.remove": [
+    {
+      "type": 0,
+      "value": "Eliminar"
+    }
+  ],
+  "next.components.settings.ApiKeys.removeKey": [
+    {
+      "type": 0,
+      "value": "Eliminar llave"
+    }
+  ],
+  "next.components.settings.ApiKeys.removeKeyWarning": [
+    {
+      "type": 0,
+      "value": "¿Está seguro de que desea eliminar esta llave?"
+    }
+  ],
+  "next.components.settings.ApiKeys.rename": [
+    {
+      "type": 0,
+      "value": "Renombrar"
+    }
+  ],
+  "next.components.settings.ApiKeys.reveal": [
+    {
+      "type": 0,
+      "value": "Mostrar la clave"
+    }
+  ],
+  "next.components.settings.ApiKeys.save": [
+    {
+      "type": 0,
+      "value": "Guardar"
+    }
+  ],
+  "next.components.settings.ApiKeys.secretKey": [
+    {
+      "type": 0,
+      "value": "Clave secreta"
+    }
+  ],
+  "next.components.settings.ApiKeys.shownOnce": [
+    {
+      "type": 0,
+      "value": "Copia esta llave ahora: no se volverá a mostrar."
+    }
+  ],
+  "next.components.settings.ApiKeys.summary": [
+    {
+      "type": 0,
+      "value": "Ver su clave API"
+    }
+  ],
+  "next.components.settings.ApiKeys.tiersHelp": [
+    {
+      "type": 0,
+      "value": "Una clave pública (pk) es de solo lectura y se puede integrar en el cliente; una clave secreta (sk) también permite escribir y debe permanecer confidencial."
+    }
+  ],
+  "next.components.settings.ApiKeys.title": [
+    {
+      "type": 0,
+      "value": "Claves API"
+    }
+  ],
+  "next.components.settings.DeleteAccount.authError": [
+    {
+      "type": 0,
+      "value": "La contraseña enviada no es válida. Por favor, inténtelo de nuevo."
+    }
+  ],
+  "next.components.settings.DeleteAccount.otherError": [
+    {
+      "type": 0,
+      "value": "Ocurrió un error durante el proceso de la operación, inténtalo nuevamente."
+    }
+  ],
+  "next.components.settings.DeleteAccount.passwordLabel": [
+    {
+      "type": 0,
+      "value": "Escriba su contraseña para completar la operación"
+    }
+  ],
+  "next.components.settings.DeleteAccount.submit": [
+    {
+      "type": 0,
+      "value": "Eliminar"
+    }
+  ],
+  "next.components.settings.DeleteAccount.title": [
+    {
+      "type": 0,
+      "value": "Eliminar mi cuenta"
+    }
+  ],
+  "next.components.settings.DeleteAccount.warning": [
+    {
+      "type": 0,
+      "value": "¿Está seguro de que quiere eliminar tu cuenta de forma permanente? Tus agendas y eventos permanecerán en línea, puedes eliminarlos manualmente si no deseas dejarlos en línea"
+    }
+  ],
+  "next.components.settings.Email.authError": [
+    {
+      "type": 0,
+      "value": "La contraseña enviada no es válida. Por favor, inténtelo de nuevo."
+    }
+  ],
+  "next.components.settings.Email.newEmailLabel": [
+    {
+      "type": 0,
+      "value": "Nueva dirección de correo electrónico"
+    }
+  ],
+  "next.components.settings.Email.otherError": [
+    {
+      "type": 0,
+      "value": "Ocurrió un error durante el proceso de la operación, inténtalo nuevamente."
+    }
+  ],
+  "next.components.settings.Email.passwordLabel": [
+    {
+      "type": 0,
+      "value": "Contraseña actual"
+    }
+  ],
+  "next.components.settings.Email.save": [
+    {
+      "type": 0,
+      "value": "Guardar"
+    }
+  ],
+  "next.components.settings.Email.success": [
+    {
+      "type": 0,
+      "value": "Un enlace de confirmación ha sido enviado al nuevo correo electrónico."
+    }
+  ],
+  "next.components.settings.Email.takenError": [
+    {
+      "type": 0,
+      "value": "Esta dirección de correo electrónico ya está usada"
+    }
+  ],
+  "next.components.settings.Email.title": [
+    {
+      "type": 0,
+      "value": "Dirección de correo electrónico"
+    }
+  ],
+  "next.components.settings.FullName.error": [
+    {
+      "type": 0,
+      "value": "Ocurrió un error durante el proceso de la operación, inténtalo nuevamente."
+    }
+  ],
+  "next.components.settings.FullName.save": [
+    {
+      "type": 0,
+      "value": "Guardar"
+    }
+  ],
+  "next.components.settings.FullName.success": [
+    {
+      "type": 0,
+      "value": "Su perfil ha sido actualizado exitosamente."
+    }
+  ],
+  "next.components.settings.FullName.title": [
+    {
+      "type": 0,
+      "value": "Nombre de usuario"
+    }
+  ],
+  "next.components.settings.Image.choose": [
+    {
+      "type": 0,
+      "value": "Elegir una imagen"
+    }
+  ],
+  "next.components.settings.Image.error": [
+    {
+      "type": 0,
+      "value": "Ocurrió un error durante el proceso de la operación, inténtalo nuevamente."
+    }
+  ],
+  "next.components.settings.Image.modify": [
+    {
+      "type": 0,
+      "value": "Editar"
+    }
+  ],
+  "next.components.settings.Image.remove": [
+    {
+      "type": 0,
+      "value": "Eliminar la imagen"
+    }
+  ],
+  "next.components.settings.Image.save": [
+    {
+      "type": 0,
+      "value": "Guardar"
+    }
+  ],
+  "next.components.settings.Image.success": [
+    {
+      "type": 0,
+      "value": "Su perfil ha sido actualizado exitosamente."
+    }
+  ],
+  "next.components.settings.Image.title": [
+    {
+      "type": 0,
+      "value": "Imagen del perfil"
+    }
+  ],
+  "next.components.settings.Image.tooLargeError": [
+    {
+      "type": 0,
+      "value": "Esta imagen supera el límite de 20 MB."
+    }
+  ],
+  "next.components.settings.Image.typeError": [
+    {
+      "type": 0,
+      "value": "Formato no admitido — usa BMP, JPEG, PNG o WebP."
+    }
+  ],
+  "next.components.settings.Language.error": [
+    {
+      "type": 0,
+      "value": "Ocurrió un error durante el proceso de la operación, inténtalo nuevamente."
+    }
+  ],
+  "next.components.settings.Language.save": [
+    {
+      "type": 0,
+      "value": "Guardar"
+    }
+  ],
+  "next.components.settings.Language.success": [
+    {
+      "type": 0,
+      "value": "Su perfil ha sido actualizado exitosamente."
+    }
+  ],
+  "next.components.settings.Language.title": [
+    {
+      "type": 0,
+      "value": "Idioma"
+    }
+  ],
+  "next.components.settings.Notifications.filterPlaceholder": [
+    {
+      "type": 0,
+      "value": "Buscar una agenda"
+    }
+  ],
+  "next.components.settings.Notifications.modify": [
+    {
+      "type": 0,
+      "value": "Editar"
+    }
+  ],
+  "next.components.settings.Notifications.newsletterSubscribe": [
+    {
+      "type": 0,
+      "value": "Suscribirse al boletín"
+    }
+  ],
+  "next.components.settings.Notifications.saveError": [
+    {
+      "type": 0,
+      "value": "Ocurrió un error durante el proceso de la operación, inténtalo nuevamente."
+    }
+  ],
+  "next.components.settings.Notifications.success": [
+    {
+      "type": 0,
+      "value": "Tus preferencias de notificación se han guardado."
+    }
+  ],
+  "next.components.settings.Notifications.title": [
+    {
+      "type": 0,
+      "value": "Notificaciones"
+    }
+  ],
+  "next.components.settings.Password.badError": [
+    {
+      "type": 0,
+      "value": "Contraseña incorrecta"
+    }
+  ],
+  "next.components.settings.Password.confirmationLabel": [
+    {
+      "type": 0,
+      "value": "Confirmación"
+    }
+  ],
+  "next.components.settings.Password.currentLabel": [
+    {
+      "type": 0,
+      "value": "Contraseña actual"
+    }
+  ],
+  "next.components.settings.Password.longError": [
+    {
+      "type": 0,
+      "value": "La contraseña es demasiado larga"
+    }
+  ],
+  "next.components.settings.Password.mismatchError": [
+    {
+      "type": 0,
+      "value": "Las dos contraseñas no son idénticas"
+    }
+  ],
+  "next.components.settings.Password.modify": [
+    {
+      "type": 0,
+      "value": "Editar"
+    }
+  ],
+  "next.components.settings.Password.newLabel": [
+    {
+      "type": 0,
+      "value": "Nueva contraseña"
+    }
+  ],
+  "next.components.settings.Password.otherError": [
+    {
+      "type": 0,
+      "value": "Ocurrió un error durante el proceso de la operación, inténtalo nuevamente."
+    }
+  ],
+  "next.components.settings.Password.save": [
+    {
+      "type": 0,
+      "value": "Guardar"
+    }
+  ],
+  "next.components.settings.Password.shortError": [
+    {
+      "type": 0,
+      "value": "La contraseña es demasiado corta"
+    }
+  ],
+  "next.components.settings.Password.success": [
+    {
+      "type": 0,
+      "value": "La contraseña se ha actualizado."
+    }
+  ],
+  "next.components.settings.Password.title": [
+    {
+      "type": 0,
+      "value": "Contraseña"
+    }
+  ],
+  "next.components.settings.Settings.heading": [
+    {
+      "type": 0,
+      "value": "Configuración de la cuenta"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.back": [
+    {
+      "type": 0,
+      "value": "Modificar"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.confirmationLabel": [
+    {
+      "type": 0,
+      "value": "Confirmación"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.emailLabel": [
+    {
+      "type": 0,
+      "value": "Correo electrónico"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.intro": [
+    {
+      "type": 0,
+      "value": "El inicio de sesión con Facebook se va a retirar. Elige un correo electrónico y una contraseña para seguir usando tu cuenta; enviaremos un enlace de confirmación a esa dirección. Al seguir el enlace, Facebook se desvinculará definitivamente."
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.mismatchError": [
+    {
+      "type": 0,
+      "value": "Las contraseñas no son idénticas"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.otherError": [
+    {
+      "type": 0,
+      "value": "Ocurrió un error durante el proceso de la operación, inténtalo nuevamente."
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.passwordLabel": [
+    {
+      "type": 0,
+      "value": "Nueva contraseña"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.requiredError": [
+    {
+      "type": 0,
+      "value": "Se debe definir una contraseña"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.resendHint": [
+    {
+      "type": 0,
+      "value": "¿No lo recibiste? Envía el formulario de nuevo para reenviarlo."
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.sameError": [
+    {
+      "type": 0,
+      "value": "La contraseña debe ser diferente de tu nombre y tu correo"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.sentInstructions": [
+    {
+      "type": 0,
+      "value": "Hemos enviado un enlace de confirmación a "
+    },
+    {
+      "type": 1,
+      "value": "email"
+    },
+    {
+      "type": 0,
+      "value": ". Haz clic en él para completar la migración."
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.sentTitle": [
+    {
+      "type": 0,
+      "value": "Revisa tu bandeja de entrada"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.submit": [
+    {
+      "type": 0,
+      "value": "Enviar correo de confirmación"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.summary": [
+    {
+      "type": 0,
+      "value": "Desvincular Facebook"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.takenError": [
+    {
+      "type": 0,
+      "value": "Esta dirección de correo ya está en uso"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.title": [
+    {
+      "type": 0,
+      "value": "Facebook"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.useAccountEmail": [
+    {
+      "type": 0,
+      "value": "Usar el correo de mi cuenta ("
+    },
+    {
+      "type": 1,
+      "value": "email"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.weakError": [
+    {
+      "type": 0,
+      "value": "La contraseña no es lo bastante segura"
+    }
+  ]
+}

@@ -7,3 +7,5 @@ locales/compiled/
 # Sentry
 .sentryclirc
 .continue
+
+debug-storybook.log

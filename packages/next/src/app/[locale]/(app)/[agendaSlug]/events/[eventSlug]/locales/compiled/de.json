@@ -34,7 +34,7 @@
   "next.views.EventError.notFoundMsg": [
     {
       "type": 0,
-      "value": "There is no calendar corresponding to this link."
+      "value": "There is no agenda corresponding to this link."
     },
     {
       "type": 1,
@@ -42,7 +42,7 @@
     },
     {
       "type": 0,
-      "value": "Either the link is invalid or the calendar has been deleted."
+      "value": "Either the link is invalid or the agenda has been deleted."
     }
   ],
   "next.views.EventError.orSignup": [
@@ -586,7 +586,7 @@
   "next.views.EventShow.DuplicateModal.reminder": [
     {
       "type": 0,
-      "value": "Zur Erinnerung: Eine einzelne Veranstaltung kann über mehrere Veranstaltungskalender gemeinsam genutzt werden. Erstelle bitte kein Duplikat, dies würde sonst als neues Event angezeigt werden."
+      "value": "Zur Erinnerung: Eine einzelne Veranstaltung kann über mehrere Agendas gemeinsam genutzt werden. Erstelle bitte kein Duplikat, dies würde sonst als neues Event angezeigt werden."
     }
   ],
   "next.views.EventShow.DuplicateModal.selectAnAgenda": [

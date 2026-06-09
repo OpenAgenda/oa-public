@@ -19,6 +19,7 @@ import {
 } from '@openagenda/uikit';
 import fetchCommonLocale from '@openagenda/common-labels/fetchLocale';
 import fetchReactLocale from '@openagenda/react/fetchLocale';
+import fetchActivityAppsLocale from '@openagenda/activity-apps/fetchLocale';
 import { EventShareModal } from '@openagenda/react';
 import defaultStyle from '@/src/utils/defaultStyle';
 import ConsentBanner from '@/src/components/ConsentBanner';
@@ -507,9 +508,7 @@ EventShow.fetchLocale = (locale: string) =>
     fetchCommonLocale('event/accessibilities', locale),
     fetchCommonLocale('roles', locale),
     fetchReactLocale(locale),
-    import(`@openagenda/activity-apps/locales-compiled/${locale}.json`).then(
-      (mod) => mod.default,
-    ),
+    fetchActivityAppsLocale(locale),
   ]).then((results) => Object.assign({}, ...results));
 
 export default EventShow;

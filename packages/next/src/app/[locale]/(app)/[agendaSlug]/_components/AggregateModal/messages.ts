@@ -8,7 +8,7 @@ export default defineMessages({
   subtitle: {
     id: 'next.views.AgendaShow.AggregateModal.subtitle',
     defaultMessage:
-      'Events published by {agenda} will be automatically added to the selected calendar.',
+      'Events published by {agenda} will be automatically added to the selected agenda.',
   },
   signedIn: {
     id: 'next.views.AgendaShow.AggregateModal.signedIn',

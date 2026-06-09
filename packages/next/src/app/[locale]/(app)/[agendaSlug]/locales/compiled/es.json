@@ -30,7 +30,7 @@
     },
     {
       "type": 0,
-      "value": "El enlace es inválido o el calendario ha sido eliminado."
+      "value": "El enlace es inválido o la agenda ha sido eliminada."
     }
   ],
   "next.views.AgendaError.orSignup": [

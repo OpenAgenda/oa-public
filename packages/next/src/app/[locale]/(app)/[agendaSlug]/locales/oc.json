@@ -1,7 +1,7 @@
 {
   "next.views.AgendaError.agendaNotFound": "Agenda pas trobada",
   "next.views.AgendaError.forbiddenMsg": "Avètz pas accès a aquela agenda.{br}Verificatz lo ligam que vos es estat donat o demandatz l'accès.",
-  "next.views.AgendaError.notFoundMsg": "I a pas de calendièr que corresponda a aqueste ligam.{br}Siá lo ligam es invalide siá lo calendièr es estat suprimit.",
+  "next.views.AgendaError.notFoundMsg": "I a pas d'agenda que corresponda a aqueste ligam.{br}Siá lo ligam es invalide siá l'agenda es estat suprimit.",
   "next.views.AgendaError.orSignup": "O <link>marcatz-vos</link> s'avètz pas encara de compte.",
   "next.views.AgendaError.requestInvitation": "Demandar una convidacion",
   "next.views.AgendaError.restrictedAccess": "L'accès a aquesta agenda es limitat, <br></br> autentificatz-vos abans d'i poder accedir.",

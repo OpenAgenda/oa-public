@@ -3,7 +3,7 @@
   "next.views.EventError.contactAdministrators": "Contact administrators",
   "next.views.EventError.eventNotFound": "Event not found",
   "next.views.EventError.forbiddenMsg": "You do not have access to this agenda.{br}Check the link provided to you or request access.",
-  "next.views.EventError.notFoundMsg": "There is no calendar corresponding to this link.{br}Either the link is invalid or the calendar has been deleted.",
+  "next.views.EventError.notFoundMsg": "There is no agenda corresponding to this link.{br}Either the link is invalid or the agenda has been deleted.",
   "next.views.EventError.orSignup": "Or <link>sign up</link> if you don't have an account yet.",
   "next.views.EventError.restrictedAccess": "Restricted access",
   "next.views.EventError.searchAgenda": "Search an agenda",

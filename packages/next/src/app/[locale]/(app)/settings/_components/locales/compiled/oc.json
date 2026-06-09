@@ -1,0 +1,766 @@
+{
+  "Abilities.AbilitiesEditor.error": [
+    {
+      "type": 0,
+      "value": "I a agut una error."
+    }
+  ],
+  "Abilities.AbilitiesForm.save": [
+    {
+      "type": 0,
+      "value": "Enregistrar"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.childEntityAdminmod": [
+    {
+      "type": 0,
+      "value": "Reglatges d'administrator/moderator :"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.childEntityContributor": [
+    {
+      "type": 0,
+      "value": "Reglatges de contributor :"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityAdminmod": [
+    {
+      "type": 0,
+      "value": "Vòstres reglatges d'administrator/moderator :"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityContributor": [
+    {
+      "type": 0,
+      "value": "Vòstres reglatges de contributor :"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityUser": [
+    {
+      "type": 0,
+      "value": "Vòstres reglatges globals :"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.newsletterDescription": [
+    {
+      "type": 0,
+      "value": "Seguissètz las evolucions a venir sus OpenAgenda ! Vos podètz desabonar a quin moment que siá."
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.newsletterSubscribed": [
+    {
+      "type": 0,
+      "value": "A comptar d'ara recebretz la letra d'informacions ! Per vos en desabonar, clicatz sonque sul ligam que serà en bas de cada messatge."
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.newsletterTitle": [
+    {
+      "type": 0,
+      "value": "Recebre la letra d'informacions"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.search": [
+    {
+      "type": 0,
+      "value": "Cercar"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveAgendaInboxMessage": [
+    {
+      "type": 0,
+      "value": "Recebre los messatges de la boita d'agenda"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveBehavioralEmails": [
+    {
+      "type": 0,
+      "value": "Recevoir les emails comportementaux"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEvent": [
+    {
+      "type": 0,
+      "value": "Recebre los eveniments mandats per d'autres utilizaires"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventAddition": [
+    {
+      "type": 0,
+      "value": "Recebre las creacions d'eveniments"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventAggregation": [
+    {
+      "type": 0,
+      "value": "Recebre las agregacions d'eveniments"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventChangeState": [
+    {
+      "type": 0,
+      "value": "Recebre los cambiaments d'estatut cap a "
+    },
+    {
+      "type": 1,
+      "value": "state"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventCreation": [
+    {
+      "type": 0,
+      "value": "Recebre las creacions d'eveniments"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventUpdate": [
+    {
+      "type": 0,
+      "value": "Recebre las mesas a jorn d'eveniments"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveInvitation": [
+    {
+      "type": 0,
+      "value": "Recebre los convits"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMemberMessage": [
+    {
+      "type": 0,
+      "value": "Recebre los messatges mandats amb la foncionalitat \"Lor escriure\""
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventAddition": [
+    {
+      "type": 0,
+      "value": "Recebre de notificacions quand qualqu'un apond mos eveniments"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventAggregation": [
+    {
+      "type": 0,
+      "value": "Recebre de notificacions quand qualqu'un agrèga mos eveniments"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventChangeState": [
+    {
+      "type": 0,
+      "value": "Recebre de notificacions quand qualqu'un càmbia l'estatut de mos eveniments"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventCreation": [
+    {
+      "type": 0,
+      "value": "Recebre la confirmacion de creacion de vòstre eveniment"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventUpdate": [
+    {
+      "type": 0,
+      "value": "Recebre de notificacions quand qualqu'un bòta a jorn mos eveniments"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveNotificationsSummary": [
+    {
+      "type": 0,
+      "value": "Recebre de resumits de las notificacions"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveUserInboxMessage": [
+    {
+      "type": 0,
+      "value": "Recebre de messatges de ma boita"
+    }
+  ],
+  "Abilities.RulesCheckbox.states.controlled": [
+    {
+      "type": 0,
+      "value": "revisat"
+    }
+  ],
+  "Abilities.RulesCheckbox.states.published": [
+    {
+      "type": 0,
+      "value": "publicat"
+    }
+  ],
+  "Abilities.RulesCheckbox.states.refused": [
+    {
+      "type": 0,
+      "value": "refusat"
+    }
+  ],
+  "Abilities.RulesCheckbox.states.toControl": [
+    {
+      "type": 0,
+      "value": "de revisar"
+    }
+  ],
+  "next.components.settings.ApiKeys.cancel": [
+    {
+      "type": 0,
+      "value": "Anullar"
+    }
+  ],
+  "next.components.settings.ApiKeys.copied": [
+    {
+      "type": 0,
+      "value": "Copiat"
+    }
+  ],
+  "next.components.settings.ApiKeys.copy": [
+    {
+      "type": 0,
+      "value": "Copiar"
+    }
+  ],
+  "next.components.settings.ApiKeys.documentation": [
+    {
+      "type": 0,
+      "value": "Afichar la documentacion"
+    }
+  ],
+  "next.components.settings.ApiKeys.error": [
+    {
+      "type": 0,
+      "value": "I a agut un problèma pendent lo tractament de l'operacion, tornatz ensajar lèu."
+    }
+  ],
+  "next.components.settings.ApiKeys.generatePublicKey": [
+    {
+      "type": 0,
+      "value": "Generar una clau publica"
+    }
+  ],
+  "next.components.settings.ApiKeys.generateSecretKey": [
+    {
+      "type": 0,
+      "value": "Generar una clau secrèta"
+    }
+  ],
+  "next.components.settings.ApiKeys.hide": [
+    {
+      "type": 0,
+      "value": "Amagar la clau"
+    }
+  ],
+  "next.components.settings.ApiKeys.info": [
+    {
+      "type": 0,
+      "value": "Claus API per legir e escriure de donadas amb l'API OpenAgenda."
+    }
+  ],
+  "next.components.settings.ApiKeys.keyName": [
+    {
+      "type": 0,
+      "value": "Nom de clau"
+    }
+  ],
+  "next.components.settings.ApiKeys.name": [
+    {
+      "type": 0,
+      "value": "Nomenar"
+    }
+  ],
+  "next.components.settings.ApiKeys.newWindow": [
+    {
+      "type": 0,
+      "value": "se dobrís dins una fenèstra novèla"
+    }
+  ],
+  "next.components.settings.ApiKeys.publicKey": [
+    {
+      "type": 0,
+      "value": "Clau publica"
+    }
+  ],
+  "next.components.settings.ApiKeys.remove": [
+    {
+      "type": 0,
+      "value": "Suprimir"
+    }
+  ],
+  "next.components.settings.ApiKeys.removeKey": [
+    {
+      "type": 0,
+      "value": "Suprimir la clau"
+    }
+  ],
+  "next.components.settings.ApiKeys.removeKeyWarning": [
+    {
+      "type": 0,
+      "value": "Sètz segur·a de voler suprimir aquesta clau ?"
+    }
+  ],
+  "next.components.settings.ApiKeys.rename": [
+    {
+      "type": 0,
+      "value": "Tornar nomenar"
+    }
+  ],
+  "next.components.settings.ApiKeys.reveal": [
+    {
+      "type": 0,
+      "value": "Afichar la clau"
+    }
+  ],
+  "next.components.settings.ApiKeys.save": [
+    {
+      "type": 0,
+      "value": "Enregistrar"
+    }
+  ],
+  "next.components.settings.ApiKeys.secretKey": [
+    {
+      "type": 0,
+      "value": "Clau secrèta"
+    }
+  ],
+  "next.components.settings.ApiKeys.shownOnce": [
+    {
+      "type": 0,
+      "value": "Copiatz aquesta clau ara : serà pas pus afichada."
+    }
+  ],
+  "next.components.settings.ApiKeys.summary": [
+    {
+      "type": 0,
+      "value": "Mostrar las claus API"
+    }
+  ],
+  "next.components.settings.ApiKeys.tiersHelp": [
+    {
+      "type": 0,
+      "value": "Una clau publica (pk) es en lectura sola e pòt èsser integrada del costat client ; una clau secrèta (sk) permet tanben d'escriure e deu demorar confidenciala."
+    }
+  ],
+  "next.components.settings.ApiKeys.title": [
+    {
+      "type": 0,
+      "value": "Claus API"
+    }
+  ],
+  "next.components.settings.DeleteAccount.authError": [
+    {
+      "type": 0,
+      "value": "Lo senhal picat es pas valid. Tornatz ensajar."
+    }
+  ],
+  "next.components.settings.DeleteAccount.otherError": [
+    {
+      "type": 0,
+      "value": "I a agut un problèma pendent lo tractament de l'operacion, tornatz ensajar lèu."
+    }
+  ],
+  "next.components.settings.DeleteAccount.passwordLabel": [
+    {
+      "type": 0,
+      "value": "Picatz vòstre senhal per completar l'operacion."
+    }
+  ],
+  "next.components.settings.DeleteAccount.submit": [
+    {
+      "type": 0,
+      "value": "Suprimir"
+    }
+  ],
+  "next.components.settings.DeleteAccount.title": [
+    {
+      "type": 0,
+      "value": "Suprimir mon compte"
+    }
+  ],
+  "next.components.settings.DeleteAccount.warning": [
+    {
+      "type": 0,
+      "value": "Sètz segur·a de voler suprimir vòstre compte de biais definitiu ? Vòstres agendas e eveniments demoraràn en linha, los poiretz escafar manualament se los volètz pas daissar"
+    }
+  ],
+  "next.components.settings.Email.authError": [
+    {
+      "type": 0,
+      "value": "Lo senhal picat es pas valid. Tornatz ensajar."
+    }
+  ],
+  "next.components.settings.Email.newEmailLabel": [
+    {
+      "type": 0,
+      "value": "Novòla adreça email"
+    }
+  ],
+  "next.components.settings.Email.otherError": [
+    {
+      "type": 0,
+      "value": "I a agut un problèma pendent lo tractament de l'operacion, tornatz ensajar lèu."
+    }
+  ],
+  "next.components.settings.Email.passwordLabel": [
+    {
+      "type": 0,
+      "value": "Senhal actual"
+    }
+  ],
+  "next.components.settings.Email.save": [
+    {
+      "type": 0,
+      "value": "Enregistrar"
+    }
+  ],
+  "next.components.settings.Email.success": [
+    {
+      "type": 0,
+      "value": "Un ligam de validacion es estat mandat a vòstra novèla adreça email."
+    }
+  ],
+  "next.components.settings.Email.takenError": [
+    {
+      "type": 0,
+      "value": "Aquela adreça email es ja utilizada"
+    }
+  ],
+  "next.components.settings.Email.title": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
+  "next.components.settings.FullName.error": [
+    {
+      "type": 0,
+      "value": "I a agut un problèma pendent lo tractament de l'operacion, tornatz ensajar lèu."
+    }
+  ],
+  "next.components.settings.FullName.save": [
+    {
+      "type": 0,
+      "value": "Enregistrar"
+    }
+  ],
+  "next.components.settings.FullName.success": [
+    {
+      "type": 0,
+      "value": "Vòstre perfil es plan estat mes a jorn."
+    }
+  ],
+  "next.components.settings.FullName.title": [
+    {
+      "type": 0,
+      "value": "Nom d'utilizaire"
+    }
+  ],
+  "next.components.settings.Image.choose": [
+    {
+      "type": 0,
+      "value": "Causir un imatge"
+    }
+  ],
+  "next.components.settings.Image.error": [
+    {
+      "type": 0,
+      "value": "I a agut un problèma pendent lo tractament de l'operacion, tornatz ensajar lèu."
+    }
+  ],
+  "next.components.settings.Image.modify": [
+    {
+      "type": 0,
+      "value": "Modificar"
+    }
+  ],
+  "next.components.settings.Image.remove": [
+    {
+      "type": 0,
+      "value": "Levar l'imatge"
+    }
+  ],
+  "next.components.settings.Image.save": [
+    {
+      "type": 0,
+      "value": "Enregistrar"
+    }
+  ],
+  "next.components.settings.Image.success": [
+    {
+      "type": 0,
+      "value": "Vòstre perfil es plan estat mes a jorn."
+    }
+  ],
+  "next.components.settings.Image.title": [
+    {
+      "type": 0,
+      "value": "Imatge de perfil"
+    }
+  ],
+  "next.components.settings.Image.tooLargeError": [
+    {
+      "type": 0,
+      "value": "Aquesta imatge depassa la limita de 20 Mo."
+    }
+  ],
+  "next.components.settings.Image.typeError": [
+    {
+      "type": 0,
+      "value": "Format pas pres en carga — utilizatz BMP, JPEG, PNG o WebP."
+    }
+  ],
+  "next.components.settings.Language.error": [
+    {
+      "type": 0,
+      "value": "I a agut un problèma pendent lo tractament de l'operacion, tornatz ensajar lèu."
+    }
+  ],
+  "next.components.settings.Language.save": [
+    {
+      "type": 0,
+      "value": "Enregistrar"
+    }
+  ],
+  "next.components.settings.Language.success": [
+    {
+      "type": 0,
+      "value": "Vòstre perfil es plan estat mes a jorn."
+    }
+  ],
+  "next.components.settings.Language.title": [
+    {
+      "type": 0,
+      "value": "Lenga"
+    }
+  ],
+  "next.components.settings.Notifications.filterPlaceholder": [
+    {
+      "type": 0,
+      "value": "Cercar un agenda"
+    }
+  ],
+  "next.components.settings.Notifications.modify": [
+    {
+      "type": 0,
+      "value": "Modificar"
+    }
+  ],
+  "next.components.settings.Notifications.newsletterSubscribe": [
+    {
+      "type": 0,
+      "value": "S’inscriure a la letra d’informacions"
+    }
+  ],
+  "next.components.settings.Notifications.saveError": [
+    {
+      "type": 0,
+      "value": "I a agut un problèma pendent lo tractament de l'operacion, tornatz ensajar lèu."
+    }
+  ],
+  "next.components.settings.Notifications.success": [
+    {
+      "type": 0,
+      "value": "Vòstras preferéncias de notificacion son estadas enregistradas."
+    }
+  ],
+  "next.components.settings.Notifications.title": [
+    {
+      "type": 0,
+      "value": "Notificacions"
+    }
+  ],
+  "next.components.settings.Password.badError": [
+    {
+      "type": 0,
+      "value": "Marrit senhal"
+    }
+  ],
+  "next.components.settings.Password.confirmationLabel": [
+    {
+      "type": 0,
+      "value": "Confirmacion"
+    }
+  ],
+  "next.components.settings.Password.currentLabel": [
+    {
+      "type": 0,
+      "value": "Senhal actual"
+    }
+  ],
+  "next.components.settings.Password.longError": [
+    {
+      "type": 0,
+      "value": "Lo senhal es tròp long"
+    }
+  ],
+  "next.components.settings.Password.mismatchError": [
+    {
+      "type": 0,
+      "value": "Los dos senhals son pas parièrs"
+    }
+  ],
+  "next.components.settings.Password.modify": [
+    {
+      "type": 0,
+      "value": "Modificar"
+    }
+  ],
+  "next.components.settings.Password.newLabel": [
+    {
+      "type": 0,
+      "value": "Senhal novèl"
+    }
+  ],
+  "next.components.settings.Password.otherError": [
+    {
+      "type": 0,
+      "value": "I a agut un problèma pendent lo tractament de l'operacion, tornatz ensajar lèu."
+    }
+  ],
+  "next.components.settings.Password.save": [
+    {
+      "type": 0,
+      "value": "Enregistrar"
+    }
+  ],
+  "next.components.settings.Password.shortError": [
+    {
+      "type": 0,
+      "value": "Lo senhal es tròp cort"
+    }
+  ],
+  "next.components.settings.Password.success": [
+    {
+      "type": 0,
+      "value": "Vòstre senhal es plan estat mes a jorn."
+    }
+  ],
+  "next.components.settings.Password.title": [
+    {
+      "type": 0,
+      "value": "Senhal"
+    }
+  ],
+  "next.components.settings.Settings.heading": [
+    {
+      "type": 0,
+      "value": "Configuracion del compte"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.back": [
+    {
+      "type": 0,
+      "value": "Modificar"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.confirmationLabel": [
+    {
+      "type": 0,
+      "value": "Confirmacion"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.emailLabel": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.intro": [
+    {
+      "type": 0,
+      "value": "La connexion via Facebook va èsser retirada. Causissètz un email e un senhal per contunhar d'utilizar vòstre compte; mandarem un ligam de confirmacion a aquela adreça. En seguissent lo ligam, Facebook serà desseparat definitivament."
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.mismatchError": [
+    {
+      "type": 0,
+      "value": "Los senhals son pas identics"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.otherError": [
+    {
+      "type": 0,
+      "value": "I a agut un problèma pendent lo tractament de l'operacion, tornatz ensajar lèu."
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.passwordLabel": [
+    {
+      "type": 0,
+      "value": "Nòu senhal"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.requiredError": [
+    {
+      "type": 0,
+      "value": "Cal definir un senhal"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.resendHint": [
+    {
+      "type": 0,
+      "value": "Avètz pas res recebut? Mandatz tornamai lo formulari."
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.sameError": [
+    {
+      "type": 0,
+      "value": "Lo senhal deu èsser diferent de vòstre nom e de vòstre email"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.sentInstructions": [
+    {
+      "type": 0,
+      "value": "Avèm mandat un ligam de confirmacion a "
+    },
+    {
+      "type": 1,
+      "value": "email"
+    },
+    {
+      "type": 0,
+      "value": ". Clicatz dessús per acabar la migracion."
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.sentTitle": [
+    {
+      "type": 0,
+      "value": "Verificatz vòstra bóstia de recepcion"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.submit": [
+    {
+      "type": 0,
+      "value": "Mandar l'email de confirmacion"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.summary": [
+    {
+      "type": 0,
+      "value": "Desseparar Facebook"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.takenError": [
+    {
+      "type": 0,
+      "value": "Aquela adreça email es ja utilizada"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.title": [
+    {
+      "type": 0,
+      "value": "Facebook"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.useAccountEmail": [
+    {
+      "type": 0,
+      "value": "Utilizar l'email de mon compte ("
+    },
+    {
+      "type": 1,
+      "value": "email"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.weakError": [
+    {
+      "type": 0,
+      "value": "Lo senhal es pas pro segur"
+    }
+  ]
+}

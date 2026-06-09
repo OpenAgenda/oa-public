@@ -1,0 +1,770 @@
+{
+  "Abilities.AbilitiesEditor.error": [
+    {
+      "type": 0,
+      "value": "crwdns250:0crwdne250:0"
+    }
+  ],
+  "Abilities.AbilitiesForm.save": [
+    {
+      "type": 0,
+      "value": "crwdns252:0crwdne252:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.childEntityAdminmod": [
+    {
+      "type": 0,
+      "value": "crwdns254:0crwdne254:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.childEntityContributor": [
+    {
+      "type": 0,
+      "value": "crwdns256:0crwdne256:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityAdminmod": [
+    {
+      "type": 0,
+      "value": "crwdns258:0crwdne258:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityContributor": [
+    {
+      "type": 0,
+      "value": "crwdns260:0crwdne260:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityUser": [
+    {
+      "type": 0,
+      "value": "crwdns262:0crwdne262:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.newsletterDescription": [
+    {
+      "type": 0,
+      "value": "crwdns34160:0crwdne34160:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.newsletterSubscribed": [
+    {
+      "type": 0,
+      "value": "crwdns34164:0crwdne34164:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.newsletterTitle": [
+    {
+      "type": 0,
+      "value": "crwdns34166:0crwdne34166:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.search": [
+    {
+      "type": 0,
+      "value": "crwdns34108:0crwdne34108:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveAgendaInboxMessage": [
+    {
+      "type": 0,
+      "value": "crwdns264:0crwdne264:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveBehavioralEmails": [
+    {
+      "type": 0,
+      "value": "crwdns35291:0crwdne35291:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEvent": [
+    {
+      "type": 0,
+      "value": "crwdns266:0crwdne266:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventAddition": [
+    {
+      "type": 0,
+      "value": "crwdns268:0crwdne268:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventAggregation": [
+    {
+      "type": 0,
+      "value": "crwdns270:0crwdne270:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventChangeState": [
+    {
+      "type": 0,
+      "value": "crwdns272:0"
+    },
+    {
+      "type": 1,
+      "value": "state"
+    },
+    {
+      "type": 0,
+      "value": "crwdne272:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventCreation": [
+    {
+      "type": 0,
+      "value": "crwdns274:0crwdne274:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventUpdate": [
+    {
+      "type": 0,
+      "value": "crwdns276:0crwdne276:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveInvitation": [
+    {
+      "type": 0,
+      "value": "crwdns278:0crwdne278:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMemberMessage": [
+    {
+      "type": 0,
+      "value": "crwdns280:0crwdne280:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventAddition": [
+    {
+      "type": 0,
+      "value": "crwdns282:0crwdne282:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventAggregation": [
+    {
+      "type": 0,
+      "value": "crwdns284:0crwdne284:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventChangeState": [
+    {
+      "type": 0,
+      "value": "crwdns286:0crwdne286:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventCreation": [
+    {
+      "type": 0,
+      "value": "crwdns288:0crwdne288:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventUpdate": [
+    {
+      "type": 0,
+      "value": "crwdns290:0crwdne290:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveNotificationsSummary": [
+    {
+      "type": 0,
+      "value": "crwdns292:0crwdne292:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveUserInboxMessage": [
+    {
+      "type": 0,
+      "value": "crwdns294:0crwdne294:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.states.controlled": [
+    {
+      "type": 0,
+      "value": "crwdns296:0crwdne296:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.states.published": [
+    {
+      "type": 0,
+      "value": "crwdns298:0crwdne298:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.states.refused": [
+    {
+      "type": 0,
+      "value": "crwdns300:0crwdne300:0"
+    }
+  ],
+  "Abilities.RulesCheckbox.states.toControl": [
+    {
+      "type": 0,
+      "value": "crwdns302:0crwdne302:0"
+    }
+  ],
+  "next.components.settings.ApiKeys.cancel": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "next.components.settings.ApiKeys.copied": [
+    {
+      "type": 0,
+      "value": "Copied"
+    }
+  ],
+  "next.components.settings.ApiKeys.copy": [
+    {
+      "type": 0,
+      "value": "Copy"
+    }
+  ],
+  "next.components.settings.ApiKeys.documentation": [
+    {
+      "type": 0,
+      "value": "Show documentation"
+    }
+  ],
+  "next.components.settings.ApiKeys.error": [
+    {
+      "type": 0,
+      "value": "There was a problem during the processing of the operation, retry shortly."
+    }
+  ],
+  "next.components.settings.ApiKeys.generatePublicKey": [
+    {
+      "type": 0,
+      "value": "Generate a public key"
+    }
+  ],
+  "next.components.settings.ApiKeys.generateSecretKey": [
+    {
+      "type": 0,
+      "value": "Generate a secret key"
+    }
+  ],
+  "next.components.settings.ApiKeys.hide": [
+    {
+      "type": 0,
+      "value": "Hide key"
+    }
+  ],
+  "next.components.settings.ApiKeys.info": [
+    {
+      "type": 0,
+      "value": "API key for reading and writing data via OpenAgenda's API."
+    }
+  ],
+  "next.components.settings.ApiKeys.keyName": [
+    {
+      "type": 0,
+      "value": "Key name"
+    }
+  ],
+  "next.components.settings.ApiKeys.name": [
+    {
+      "type": 0,
+      "value": "Add a name"
+    }
+  ],
+  "next.components.settings.ApiKeys.newWindow": [
+    {
+      "type": 0,
+      "value": "opens in a new window"
+    }
+  ],
+  "next.components.settings.ApiKeys.publicKey": [
+    {
+      "type": 0,
+      "value": "Public key"
+    }
+  ],
+  "next.components.settings.ApiKeys.remove": [
+    {
+      "type": 0,
+      "value": "Remove"
+    }
+  ],
+  "next.components.settings.ApiKeys.removeKey": [
+    {
+      "type": 0,
+      "value": "Remove key"
+    }
+  ],
+  "next.components.settings.ApiKeys.removeKeyWarning": [
+    {
+      "type": 0,
+      "value": "Are you sure you want to delete this key?"
+    }
+  ],
+  "next.components.settings.ApiKeys.rename": [
+    {
+      "type": 0,
+      "value": "Rename"
+    }
+  ],
+  "next.components.settings.ApiKeys.reveal": [
+    {
+      "type": 0,
+      "value": "Reveal key"
+    }
+  ],
+  "next.components.settings.ApiKeys.save": [
+    {
+      "type": 0,
+      "value": "Save"
+    }
+  ],
+  "next.components.settings.ApiKeys.secretKey": [
+    {
+      "type": 0,
+      "value": "Secret key"
+    }
+  ],
+  "next.components.settings.ApiKeys.shownOnce": [
+    {
+      "type": 0,
+      "value": "Copy this key now: it won't be shown again."
+    }
+  ],
+  "next.components.settings.ApiKeys.summary": [
+    {
+      "type": 0,
+      "value": "Show api keys"
+    }
+  ],
+  "next.components.settings.ApiKeys.tiersHelp": [
+    {
+      "type": 0,
+      "value": "A public key (pk) is read-only and safe to embed client-side; a secret key (sk) can also write and must stay private."
+    }
+  ],
+  "next.components.settings.ApiKeys.title": [
+    {
+      "type": 0,
+      "value": "API keys"
+    }
+  ],
+  "next.components.settings.DeleteAccount.authError": [
+    {
+      "type": 0,
+      "value": "The submitted password is invalid. Please try again."
+    }
+  ],
+  "next.components.settings.DeleteAccount.otherError": [
+    {
+      "type": 0,
+      "value": "There was a problem during the processing of the operation, retry shortly."
+    }
+  ],
+  "next.components.settings.DeleteAccount.passwordLabel": [
+    {
+      "type": 0,
+      "value": "Type in your password to complete the operation"
+    }
+  ],
+  "next.components.settings.DeleteAccount.submit": [
+    {
+      "type": 0,
+      "value": "Delete"
+    }
+  ],
+  "next.components.settings.DeleteAccount.title": [
+    {
+      "type": 0,
+      "value": "Delete my account"
+    }
+  ],
+  "next.components.settings.DeleteAccount.warning": [
+    {
+      "type": 0,
+      "value": "Are you sure you want to delete your account permanently? Your agendas and events will remain online, you can delete them manually if you do not want to leave them online"
+    }
+  ],
+  "next.components.settings.Email.authError": [
+    {
+      "type": 0,
+      "value": "The submitted password is invalid. Please try again."
+    }
+  ],
+  "next.components.settings.Email.newEmailLabel": [
+    {
+      "type": 0,
+      "value": "New e-mail address"
+    }
+  ],
+  "next.components.settings.Email.otherError": [
+    {
+      "type": 0,
+      "value": "There was a problem during the processing of the operation, retry shortly."
+    }
+  ],
+  "next.components.settings.Email.passwordLabel": [
+    {
+      "type": 0,
+      "value": "Current password"
+    }
+  ],
+  "next.components.settings.Email.save": [
+    {
+      "type": 0,
+      "value": "Save"
+    }
+  ],
+  "next.components.settings.Email.success": [
+    {
+      "type": 0,
+      "value": "A validation link has been sent to your new email address."
+    }
+  ],
+  "next.components.settings.Email.takenError": [
+    {
+      "type": 0,
+      "value": "This email address is already used"
+    }
+  ],
+  "next.components.settings.Email.title": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
+  "next.components.settings.FullName.error": [
+    {
+      "type": 0,
+      "value": "There was a problem during the processing of the operation, retry shortly."
+    }
+  ],
+  "next.components.settings.FullName.save": [
+    {
+      "type": 0,
+      "value": "Save"
+    }
+  ],
+  "next.components.settings.FullName.success": [
+    {
+      "type": 0,
+      "value": "Your profile has been updated successfully."
+    }
+  ],
+  "next.components.settings.FullName.title": [
+    {
+      "type": 0,
+      "value": "Username"
+    }
+  ],
+  "next.components.settings.Image.choose": [
+    {
+      "type": 0,
+      "value": "Choose an image"
+    }
+  ],
+  "next.components.settings.Image.error": [
+    {
+      "type": 0,
+      "value": "There was a problem during the processing of the operation, retry shortly."
+    }
+  ],
+  "next.components.settings.Image.modify": [
+    {
+      "type": 0,
+      "value": "Modify"
+    }
+  ],
+  "next.components.settings.Image.remove": [
+    {
+      "type": 0,
+      "value": "Remove the image"
+    }
+  ],
+  "next.components.settings.Image.save": [
+    {
+      "type": 0,
+      "value": "Save"
+    }
+  ],
+  "next.components.settings.Image.success": [
+    {
+      "type": 0,
+      "value": "Your profile has been updated successfully."
+    }
+  ],
+  "next.components.settings.Image.title": [
+    {
+      "type": 0,
+      "value": "Profile image"
+    }
+  ],
+  "next.components.settings.Image.tooLargeError": [
+    {
+      "type": 0,
+      "value": "This image exceeds the 20 MB limit."
+    }
+  ],
+  "next.components.settings.Image.typeError": [
+    {
+      "type": 0,
+      "value": "Unsupported format — use BMP, JPEG, PNG or WebP."
+    }
+  ],
+  "next.components.settings.Language.error": [
+    {
+      "type": 0,
+      "value": "There was a problem during the processing of the operation, retry shortly."
+    }
+  ],
+  "next.components.settings.Language.save": [
+    {
+      "type": 0,
+      "value": "Save"
+    }
+  ],
+  "next.components.settings.Language.success": [
+    {
+      "type": 0,
+      "value": "Your profile has been updated successfully."
+    }
+  ],
+  "next.components.settings.Language.title": [
+    {
+      "type": 0,
+      "value": "Language"
+    }
+  ],
+  "next.components.settings.Notifications.filterPlaceholder": [
+    {
+      "type": 0,
+      "value": "Search an agenda"
+    }
+  ],
+  "next.components.settings.Notifications.modify": [
+    {
+      "type": 0,
+      "value": "Modify"
+    }
+  ],
+  "next.components.settings.Notifications.newsletterSubscribe": [
+    {
+      "type": 0,
+      "value": "Subscribe to the newsletter"
+    }
+  ],
+  "next.components.settings.Notifications.saveError": [
+    {
+      "type": 0,
+      "value": "There was a problem during the processing of the operation, retry shortly."
+    }
+  ],
+  "next.components.settings.Notifications.success": [
+    {
+      "type": 0,
+      "value": "Your notification preferences have been saved."
+    }
+  ],
+  "next.components.settings.Notifications.title": [
+    {
+      "type": 0,
+      "value": "Notifications"
+    }
+  ],
+  "next.components.settings.Password.badError": [
+    {
+      "type": 0,
+      "value": "Bad password"
+    }
+  ],
+  "next.components.settings.Password.confirmationLabel": [
+    {
+      "type": 0,
+      "value": "Confirmation"
+    }
+  ],
+  "next.components.settings.Password.currentLabel": [
+    {
+      "type": 0,
+      "value": "Current password"
+    }
+  ],
+  "next.components.settings.Password.longError": [
+    {
+      "type": 0,
+      "value": "Password is too long"
+    }
+  ],
+  "next.components.settings.Password.mismatchError": [
+    {
+      "type": 0,
+      "value": "Both passwords are not identical"
+    }
+  ],
+  "next.components.settings.Password.modify": [
+    {
+      "type": 0,
+      "value": "Modify"
+    }
+  ],
+  "next.components.settings.Password.newLabel": [
+    {
+      "type": 0,
+      "value": "New password"
+    }
+  ],
+  "next.components.settings.Password.otherError": [
+    {
+      "type": 0,
+      "value": "There was a problem during the processing of the operation, retry shortly."
+    }
+  ],
+  "next.components.settings.Password.save": [
+    {
+      "type": 0,
+      "value": "Save"
+    }
+  ],
+  "next.components.settings.Password.shortError": [
+    {
+      "type": 0,
+      "value": "Password is too short"
+    }
+  ],
+  "next.components.settings.Password.success": [
+    {
+      "type": 0,
+      "value": "Your password has been updated successfully."
+    }
+  ],
+  "next.components.settings.Password.title": [
+    {
+      "type": 0,
+      "value": "Password"
+    }
+  ],
+  "next.components.settings.Settings.heading": [
+    {
+      "type": 0,
+      "value": "Account parameters"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.back": [
+    {
+      "type": 0,
+      "value": "Modify"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.confirmationLabel": [
+    {
+      "type": 0,
+      "value": "Confirmation"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.emailLabel": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.intro": [
+    {
+      "type": 0,
+      "value": "Facebook sign-in is being phased out. Choose an email and password to keep using your account, and we’ll send a confirmation link to that address. Clicking the link will unlink Facebook for good."
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.mismatchError": [
+    {
+      "type": 0,
+      "value": "Both passwords are not identical"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.otherError": [
+    {
+      "type": 0,
+      "value": "There was a problem during the processing of the operation, retry shortly."
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.passwordLabel": [
+    {
+      "type": 0,
+      "value": "New password"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.requiredError": [
+    {
+      "type": 0,
+      "value": "A password must be defined"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.resendHint": [
+    {
+      "type": 0,
+      "value": "Didn’t receive it? Submit the form again to resend."
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.sameError": [
+    {
+      "type": 0,
+      "value": "Password must be different from your name and email"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.sentInstructions": [
+    {
+      "type": 0,
+      "value": "We sent a confirmation link to "
+    },
+    {
+      "type": 1,
+      "value": "email"
+    },
+    {
+      "type": 0,
+      "value": ". Click it to complete the migration."
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.sentTitle": [
+    {
+      "type": 0,
+      "value": "Check your inbox"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.submit": [
+    {
+      "type": 0,
+      "value": "Send confirmation email"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.summary": [
+    {
+      "type": 0,
+      "value": "Unlink Facebook"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.takenError": [
+    {
+      "type": 0,
+      "value": "This email address is already used"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.title": [
+    {
+      "type": 0,
+      "value": "Facebook"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.useAccountEmail": [
+    {
+      "type": 0,
+      "value": "Use my account email ("
+    },
+    {
+      "type": 1,
+      "value": "email"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.weakError": [
+    {
+      "type": 0,
+      "value": "Password is not strong enough"
+    }
+  ]
+}

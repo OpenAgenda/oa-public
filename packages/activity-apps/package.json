@@ -12,6 +12,7 @@
   "exports": {
     "./package.json": "./package.json",
     "./client/apps/*": "./dist/client/apps/*/index.js",
+    "./locales-compiled": "./dist/locales-compiled/index.js",
     "./locales-compiled/*.json": "./dist/locales-compiled/*.json",
     "./*": "./dist/*.js"
   },

@@ -1,0 +1,766 @@
+{
+  "Abilities.AbilitiesEditor.error": [
+    {
+      "type": 0,
+      "value": "Il y a eu une erreur."
+    }
+  ],
+  "Abilities.AbilitiesForm.save": [
+    {
+      "type": 0,
+      "value": "Sauvegarder"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.childEntityAdminmod": [
+    {
+      "type": 0,
+      "value": "Paramètres d'administrateur/modérateur:"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.childEntityContributor": [
+    {
+      "type": 0,
+      "value": "Paramètres de contributeur:"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityAdminmod": [
+    {
+      "type": 0,
+      "value": "Vos paramètres d'administrateur/modérateur:"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityContributor": [
+    {
+      "type": 0,
+      "value": "Vos paramètres de contributeur:"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityUser": [
+    {
+      "type": 0,
+      "value": "Vos paramètres globaux:"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.newsletterDescription": [
+    {
+      "type": 0,
+      "value": "Suivez les évolutions d'OpenAgenda! Vous pouvez vous désinscrire à tout moment."
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.newsletterSubscribed": [
+    {
+      "type": 0,
+      "value": "Vous êtes désormais inscrit et recevrez la prochaine infolettre. Un lien se trouvera en fin de contenu permettant la désinscription."
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.newsletterTitle": [
+    {
+      "type": 0,
+      "value": "Recevoir l'infolettre"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.search": [
+    {
+      "type": 0,
+      "value": "Rechercher"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveAgendaInboxMessage": [
+    {
+      "type": 0,
+      "value": "Recevoir les messages de la messagerie agenda"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveBehavioralEmails": [
+    {
+      "type": 0,
+      "value": "Recevoir les emails comportementaux"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEvent": [
+    {
+      "type": 0,
+      "value": "Recevoir les événements envoyés par d'autres utilisateurs"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventAddition": [
+    {
+      "type": 0,
+      "value": "Recevoir les ajouts d'événements"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventAggregation": [
+    {
+      "type": 0,
+      "value": "Recevoir les agrégations d'événements"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventChangeState": [
+    {
+      "type": 0,
+      "value": "Recevoir les changements de statut vers "
+    },
+    {
+      "type": 1,
+      "value": "state"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventCreation": [
+    {
+      "type": 0,
+      "value": "Recevoir les créations d'événements"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventUpdate": [
+    {
+      "type": 0,
+      "value": "Recevoir les mises à jour d'événements"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveInvitation": [
+    {
+      "type": 0,
+      "value": "Recevoir les invitations"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMemberMessage": [
+    {
+      "type": 0,
+      "value": "Recevoir les messages envoyés via la fonctionnalité \"Leur écrire\""
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventAddition": [
+    {
+      "type": 0,
+      "value": "Recevoir les notifications lorsque quelqu'un ajoute un de mes événements"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventAggregation": [
+    {
+      "type": 0,
+      "value": "Recevoir les agrégations de mes événements"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventChangeState": [
+    {
+      "type": 0,
+      "value": "Recevoir les changements de statut de mes événements"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventCreation": [
+    {
+      "type": 0,
+      "value": "Recevoir les confirmations de vos créations d'événement"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventUpdate": [
+    {
+      "type": 0,
+      "value": "Recevoir les mises à jour de mes événements"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveNotificationsSummary": [
+    {
+      "type": 0,
+      "value": "Recevoir les résumés de notifications"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveUserInboxMessage": [
+    {
+      "type": 0,
+      "value": "Recevoir les messages de ma messagerie"
+    }
+  ],
+  "Abilities.RulesCheckbox.states.controlled": [
+    {
+      "type": 0,
+      "value": "prêt à publier"
+    }
+  ],
+  "Abilities.RulesCheckbox.states.published": [
+    {
+      "type": 0,
+      "value": "publié"
+    }
+  ],
+  "Abilities.RulesCheckbox.states.refused": [
+    {
+      "type": 0,
+      "value": "refusé"
+    }
+  ],
+  "Abilities.RulesCheckbox.states.toControl": [
+    {
+      "type": 0,
+      "value": "à contrôler"
+    }
+  ],
+  "next.components.settings.ApiKeys.cancel": [
+    {
+      "type": 0,
+      "value": "Annuler"
+    }
+  ],
+  "next.components.settings.ApiKeys.copied": [
+    {
+      "type": 0,
+      "value": "Copié"
+    }
+  ],
+  "next.components.settings.ApiKeys.copy": [
+    {
+      "type": 0,
+      "value": "Copier"
+    }
+  ],
+  "next.components.settings.ApiKeys.documentation": [
+    {
+      "type": 0,
+      "value": "Voir la documentation"
+    }
+  ],
+  "next.components.settings.ApiKeys.error": [
+    {
+      "type": 0,
+      "value": "Il y a eu un problème lors du traitement de l'opération, veuillez réessayer dans un instant."
+    }
+  ],
+  "next.components.settings.ApiKeys.generatePublicKey": [
+    {
+      "type": 0,
+      "value": "Générer une clé publique"
+    }
+  ],
+  "next.components.settings.ApiKeys.generateSecretKey": [
+    {
+      "type": 0,
+      "value": "Générer une clé secrète"
+    }
+  ],
+  "next.components.settings.ApiKeys.hide": [
+    {
+      "type": 0,
+      "value": "Masquer la clé"
+    }
+  ],
+  "next.components.settings.ApiKeys.info": [
+    {
+      "type": 0,
+      "value": "Les clés API permettent de lire et écrire des données sur OpenAgenda via l'API."
+    }
+  ],
+  "next.components.settings.ApiKeys.keyName": [
+    {
+      "type": 0,
+      "value": "Nom de clé"
+    }
+  ],
+  "next.components.settings.ApiKeys.name": [
+    {
+      "type": 0,
+      "value": "Nommer"
+    }
+  ],
+  "next.components.settings.ApiKeys.newWindow": [
+    {
+      "type": 0,
+      "value": "ouvre dans une nouvelle fenêtre"
+    }
+  ],
+  "next.components.settings.ApiKeys.publicKey": [
+    {
+      "type": 0,
+      "value": "Clé publique"
+    }
+  ],
+  "next.components.settings.ApiKeys.remove": [
+    {
+      "type": 0,
+      "value": "Retirer"
+    }
+  ],
+  "next.components.settings.ApiKeys.removeKey": [
+    {
+      "type": 0,
+      "value": "Supprimer la clé"
+    }
+  ],
+  "next.components.settings.ApiKeys.removeKeyWarning": [
+    {
+      "type": 0,
+      "value": "Êtes-vous certain de vouloir supprimer cette clé ?"
+    }
+  ],
+  "next.components.settings.ApiKeys.rename": [
+    {
+      "type": 0,
+      "value": "Renommer"
+    }
+  ],
+  "next.components.settings.ApiKeys.reveal": [
+    {
+      "type": 0,
+      "value": "Afficher la clé"
+    }
+  ],
+  "next.components.settings.ApiKeys.save": [
+    {
+      "type": 0,
+      "value": "Sauvegarder"
+    }
+  ],
+  "next.components.settings.ApiKeys.secretKey": [
+    {
+      "type": 0,
+      "value": "Clé secrète"
+    }
+  ],
+  "next.components.settings.ApiKeys.shownOnce": [
+    {
+      "type": 0,
+      "value": "Copiez cette clé maintenant : elle ne sera plus affichée."
+    }
+  ],
+  "next.components.settings.ApiKeys.summary": [
+    {
+      "type": 0,
+      "value": "Voir vos clés API"
+    }
+  ],
+  "next.components.settings.ApiKeys.tiersHelp": [
+    {
+      "type": 0,
+      "value": "Une clé publique (pk) est en lecture seule et peut être intégrée côté client ; une clé secrète (sk) permet aussi d'écrire et doit rester confidentielle."
+    }
+  ],
+  "next.components.settings.ApiKeys.title": [
+    {
+      "type": 0,
+      "value": "Clés API"
+    }
+  ],
+  "next.components.settings.DeleteAccount.authError": [
+    {
+      "type": 0,
+      "value": "Le mot de passe indiqué n'est pas valide. Veuillez réessayer."
+    }
+  ],
+  "next.components.settings.DeleteAccount.otherError": [
+    {
+      "type": 0,
+      "value": "Il y a eu un problème lors du traitement de l'opération, veuillez réessayer dans un instant."
+    }
+  ],
+  "next.components.settings.DeleteAccount.passwordLabel": [
+    {
+      "type": 0,
+      "value": "Saisissez votre mot de passe pour compléter l'opération."
+    }
+  ],
+  "next.components.settings.DeleteAccount.submit": [
+    {
+      "type": 0,
+      "value": "Supprimer"
+    }
+  ],
+  "next.components.settings.DeleteAccount.title": [
+    {
+      "type": 0,
+      "value": "Supprimer mon compte"
+    }
+  ],
+  "next.components.settings.DeleteAccount.warning": [
+    {
+      "type": 0,
+      "value": "Êtes vous certain de vouloir supprimer votre compte de manière définitive ? Vos agendas et événements resteront en ligne, vous pouvez les supprimer manuellement si vous ne souhaitez pas les laisser en ligne"
+    }
+  ],
+  "next.components.settings.Email.authError": [
+    {
+      "type": 0,
+      "value": "Le mot de passe indiqué n'est pas valide. Veuillez réessayer."
+    }
+  ],
+  "next.components.settings.Email.newEmailLabel": [
+    {
+      "type": 0,
+      "value": "Nouvelle adresse email"
+    }
+  ],
+  "next.components.settings.Email.otherError": [
+    {
+      "type": 0,
+      "value": "Il y a eu un problème lors du traitement de l'opération, veuillez réessayer dans un instant."
+    }
+  ],
+  "next.components.settings.Email.passwordLabel": [
+    {
+      "type": 0,
+      "value": "Mot de passe actuel"
+    }
+  ],
+  "next.components.settings.Email.save": [
+    {
+      "type": 0,
+      "value": "Sauvegarder"
+    }
+  ],
+  "next.components.settings.Email.success": [
+    {
+      "type": 0,
+      "value": "Un lien de validation vous a été envoyé à votre nouvelle adresse email."
+    }
+  ],
+  "next.components.settings.Email.takenError": [
+    {
+      "type": 0,
+      "value": "Cette adresse email est déjà utilisée"
+    }
+  ],
+  "next.components.settings.Email.title": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
+  "next.components.settings.FullName.error": [
+    {
+      "type": 0,
+      "value": "Il y a eu un problème lors du traitement de l'opération, veuillez réessayer dans un instant."
+    }
+  ],
+  "next.components.settings.FullName.save": [
+    {
+      "type": 0,
+      "value": "Sauvegarder"
+    }
+  ],
+  "next.components.settings.FullName.success": [
+    {
+      "type": 0,
+      "value": "Votre profil a été mis à jour."
+    }
+  ],
+  "next.components.settings.FullName.title": [
+    {
+      "type": 0,
+      "value": "Nom d'utilisateur"
+    }
+  ],
+  "next.components.settings.Image.choose": [
+    {
+      "type": 0,
+      "value": "Choisir une image"
+    }
+  ],
+  "next.components.settings.Image.error": [
+    {
+      "type": 0,
+      "value": "Il y a eu un problème lors du traitement de l'opération, veuillez réessayer dans un instant."
+    }
+  ],
+  "next.components.settings.Image.modify": [
+    {
+      "type": 0,
+      "value": "Modifier"
+    }
+  ],
+  "next.components.settings.Image.remove": [
+    {
+      "type": 0,
+      "value": "Retirer l'image"
+    }
+  ],
+  "next.components.settings.Image.save": [
+    {
+      "type": 0,
+      "value": "Sauvegarder"
+    }
+  ],
+  "next.components.settings.Image.success": [
+    {
+      "type": 0,
+      "value": "Votre profil a été mis à jour."
+    }
+  ],
+  "next.components.settings.Image.title": [
+    {
+      "type": 0,
+      "value": "Image de profil"
+    }
+  ],
+  "next.components.settings.Image.tooLargeError": [
+    {
+      "type": 0,
+      "value": "Cette image dépasse la limite de 20 Mo."
+    }
+  ],
+  "next.components.settings.Image.typeError": [
+    {
+      "type": 0,
+      "value": "Format non pris en charge — utilisez BMP, JPEG, PNG ou WebP."
+    }
+  ],
+  "next.components.settings.Language.error": [
+    {
+      "type": 0,
+      "value": "Il y a eu un problème lors du traitement de l'opération, veuillez réessayer dans un instant."
+    }
+  ],
+  "next.components.settings.Language.save": [
+    {
+      "type": 0,
+      "value": "Sauvegarder"
+    }
+  ],
+  "next.components.settings.Language.success": [
+    {
+      "type": 0,
+      "value": "Votre profil a été mis à jour."
+    }
+  ],
+  "next.components.settings.Language.title": [
+    {
+      "type": 0,
+      "value": "Langue"
+    }
+  ],
+  "next.components.settings.Notifications.filterPlaceholder": [
+    {
+      "type": 0,
+      "value": "Rechercher un agenda"
+    }
+  ],
+  "next.components.settings.Notifications.modify": [
+    {
+      "type": 0,
+      "value": "Modifier"
+    }
+  ],
+  "next.components.settings.Notifications.newsletterSubscribe": [
+    {
+      "type": 0,
+      "value": "S’inscrire à l’infolettre"
+    }
+  ],
+  "next.components.settings.Notifications.saveError": [
+    {
+      "type": 0,
+      "value": "Il y a eu un problème lors du traitement de l'opération, veuillez réessayer dans un instant."
+    }
+  ],
+  "next.components.settings.Notifications.success": [
+    {
+      "type": 0,
+      "value": "Vos préférences de notification ont été enregistrées."
+    }
+  ],
+  "next.components.settings.Notifications.title": [
+    {
+      "type": 0,
+      "value": "Notifications"
+    }
+  ],
+  "next.components.settings.Password.badError": [
+    {
+      "type": 0,
+      "value": "Mauvais mot de passe"
+    }
+  ],
+  "next.components.settings.Password.confirmationLabel": [
+    {
+      "type": 0,
+      "value": "Confirmation"
+    }
+  ],
+  "next.components.settings.Password.currentLabel": [
+    {
+      "type": 0,
+      "value": "Mot de passe actuel"
+    }
+  ],
+  "next.components.settings.Password.longError": [
+    {
+      "type": 0,
+      "value": "Le mot de passe est trop long"
+    }
+  ],
+  "next.components.settings.Password.mismatchError": [
+    {
+      "type": 0,
+      "value": "Les 2 mots de passe ne sont pas identiques"
+    }
+  ],
+  "next.components.settings.Password.modify": [
+    {
+      "type": 0,
+      "value": "Modifier"
+    }
+  ],
+  "next.components.settings.Password.newLabel": [
+    {
+      "type": 0,
+      "value": "Nouveau mot de passe"
+    }
+  ],
+  "next.components.settings.Password.otherError": [
+    {
+      "type": 0,
+      "value": "Il y a eu un problème lors du traitement de l'opération, veuillez réessayer dans un instant."
+    }
+  ],
+  "next.components.settings.Password.save": [
+    {
+      "type": 0,
+      "value": "Sauvegarder"
+    }
+  ],
+  "next.components.settings.Password.shortError": [
+    {
+      "type": 0,
+      "value": "Le mot de passe est trop court"
+    }
+  ],
+  "next.components.settings.Password.success": [
+    {
+      "type": 0,
+      "value": "Votre mot de passe a été mis à jour."
+    }
+  ],
+  "next.components.settings.Password.title": [
+    {
+      "type": 0,
+      "value": "Mot de passe"
+    }
+  ],
+  "next.components.settings.Settings.heading": [
+    {
+      "type": 0,
+      "value": "Paramètres du compte"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.back": [
+    {
+      "type": 0,
+      "value": "Modifier"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.confirmationLabel": [
+    {
+      "type": 0,
+      "value": "Confirmation"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.emailLabel": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.intro": [
+    {
+      "type": 0,
+      "value": "La connexion via Facebook va être retirée. Choisissez un email et un mot de passe pour continuer à utiliser votre compte. Nous enverrons un lien de confirmation à cette adresse et, en le suivant, Facebook sera définitivement dissocié."
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.mismatchError": [
+    {
+      "type": 0,
+      "value": "Les mots de passe ne sont pas identiques"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.otherError": [
+    {
+      "type": 0,
+      "value": "Il y a eu un problème lors du traitement de l'opération, veuillez réessayer dans un instant."
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.passwordLabel": [
+    {
+      "type": 0,
+      "value": "Nouveau mot de passe"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.requiredError": [
+    {
+      "type": 0,
+      "value": "Un mot de passe doit être défini"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.resendHint": [
+    {
+      "type": 0,
+      "value": "Rien reçu ? Soumettez à nouveau le formulaire pour renvoyer."
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.sameError": [
+    {
+      "type": 0,
+      "value": "Le mot de passe doit être différent de votre nom et de votre email"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.sentInstructions": [
+    {
+      "type": 0,
+      "value": "Un lien de confirmation a été envoyé à "
+    },
+    {
+      "type": 1,
+      "value": "email"
+    },
+    {
+      "type": 0,
+      "value": ". Cliquez dessus pour finaliser la migration."
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.sentTitle": [
+    {
+      "type": 0,
+      "value": "Vérifiez votre boîte de réception"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.submit": [
+    {
+      "type": 0,
+      "value": "Envoyer l'email de confirmation"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.summary": [
+    {
+      "type": 0,
+      "value": "Dissocier Facebook"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.takenError": [
+    {
+      "type": 0,
+      "value": "Cette adresse email est déjà utilisée"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.title": [
+    {
+      "type": 0,
+      "value": "Facebook"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.useAccountEmail": [
+    {
+      "type": 0,
+      "value": "Utiliser l'email de mon compte ("
+    },
+    {
+      "type": 1,
+      "value": "email"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.weakError": [
+    {
+      "type": 0,
+      "value": "Le mot de passe n'est pas assez sûr"
+    }
+  ]
+}

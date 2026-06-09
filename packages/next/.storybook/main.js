@@ -40,9 +40,17 @@ const main = {
     return config;
   },
 
+  // Storybook inlines `env` into the client preview bundle, so only NEXT_PUBLIC_*
+  // may cross over (the stories need them for image/CDN URLs). Spreading the full
+  // parsed env would bake server-only secrets (e.g. NEXT_STRAPI_API_AUTH_TOKEN)
+  // into browser-facing JS.
   env: (baseEnv) => ({
     ...baseEnv,
-    ...loadedEnv.parsedEnv,
+    ...Object.fromEntries(
+      Object.entries(loadedEnv.parsedEnv ?? {}).filter(([key]) =>
+        key.startsWith('NEXT_PUBLIC_'),
+      ),
+    ),
   }),
 };
 

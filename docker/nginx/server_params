@@ -290,10 +290,6 @@ location ~ ^/supervisor(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-location ~ ^/settings(|/.+)$ {
-  include conf.d/nodejs_params;
-}
-
 location ~ ^/support(|/.+)$ {
   include conf.d/nodejs_params;
 }
@@ -312,7 +308,13 @@ location ~ ^/[^/]+/events/[^/]+/(action|email|ics|contact|suggest-change|embed-i
 }
 
 # /:agendaSlug/...
-location ~ ^/[^/]+/(admin|contribute|facebook|twitter|google|signin|signup|activate|settings|share|unauthorized|addevent|actions|contact|request-contribute|navigate|locations)(|/.+)$ {
+# "settings" intentionally omitted: legacy /:agendaSlug/settings no longer
+# exists (404s; real agenda settings are under /:agendaSlug/admin/settings/...).
+# With "settings" absent here, /:locale/settings (and any /X/settings) matches no
+# regex and falls through to the default `location /` -> Next — so no dedicated
+# settings->Next block is needed. The agenda settings export stays on cibul via
+# the numeric /agendas/:id/(...|settings).(json|...) rule higher up.
+location ~ ^/[^/]+/(admin|contribute|facebook|twitter|google|signin|signup|activate|share|unauthorized|addevent|actions|contact|request-contribute|navigate|locations)(|/.+)$ {
   include conf.d/nodejs_params;
 }
 

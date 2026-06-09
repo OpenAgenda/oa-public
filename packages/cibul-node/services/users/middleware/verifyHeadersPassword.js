@@ -7,7 +7,10 @@ export default function verifyHeadersPassword(req, res, next) {
 
   users
     .verifyPassword(req.headers.authorization.replace(/^Basic\s/, ''), {
-      query: { email: req.user.email },
+      // Identify by stable uid, not the session email — the email can be stale
+      // right after a change, and a lookup by a no-longer-current email throws
+      // NotFound. Mirrors hooks/verifyHeadersPassword.js.
+      query: { uid: req.user.uid },
     })
     .then(
       (isValid) => {

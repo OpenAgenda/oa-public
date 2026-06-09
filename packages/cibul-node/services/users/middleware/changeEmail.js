@@ -86,12 +86,38 @@ function onError(err, req, res) {
   cmn.catchError(req, res)(err);
 }
 
-function onSuccess(req, res) {
+async function onSuccess(req, res) {
   log.info('email changed successfully', {
     userUid: req.user.uid,
   });
+
+  // confirmChangeEmail writes the new email with a hook-bypassing `_patch`, and
+  // `email` is not a session-mirrored field, so the Redis session snapshot still
+  // holds the OLD address. `getSession` alone can't fix this: with
+  // secondaryStorage it returns the stored snapshot's user — it does NOT re-read
+  // the DB. `refreshUserSessions` (→ adapter.updateUser) re-reads the row and
+  // rewrites the snapshot; the subsequent getSession then rebuilds the cookie
+  // cache from the now-fresh snapshot. Without the refresh, req.user.email keeps
+  // the old address until the session expires, breaking email-based lookups.
+  const { auth } = req.app.services;
+  if (auth) {
+    try {
+      await auth.refreshUserSessions(req.user.id);
+      const out = await auth.api.getSession({
+        headers: auth.toHeaders(req),
+        query: { disableCookieCache: true },
+        asResponse: true,
+      });
+      auth.forwardSetCookieHeaders(out, res);
+    } catch (_err) {
+      // Cache stays stale until expiry; not worth failing the confirmation.
+    }
+  }
+
   setFlash(res, getLabel('changeEmailSuccess', req.lang));
-  res.redirect('/home');
+  // Back to the (Next) settings page so the user sees the updated email
+  // loaded on their account, with the success flash.
+  res.redirect('/settings');
 }
 
 export default {
