@@ -27,6 +27,7 @@ packages/agenda-settings/stories/static
 packages/agenda-stats/dist
 packages/aggregator-sources/dist
 packages/api-client/src/generated
+packages/api-docs/dist
 packages/event-admin-apps/dist
 packages/event-form/build
 packages/form-schemas/client/build
