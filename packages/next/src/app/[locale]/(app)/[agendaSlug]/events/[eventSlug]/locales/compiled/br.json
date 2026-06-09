@@ -11,6 +11,12 @@
       "value": "Mont e darempred gant ar verourien"
     }
   ],
+  "next.views.EventError.eventGoneMsg": [
+    {
+      "type": 0,
+      "value": "Dilamet eo bet an abadenn-mañ ha n’eo ket mui hegerz."
+    }
+  ],
   "next.views.EventError.eventNotFound": [
     {
       "type": 0,

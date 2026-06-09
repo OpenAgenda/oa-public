@@ -1,6 +1,7 @@
 {
   "next.views.EventError.agendaNotFound": "Agenda no encontrada",
   "next.views.EventError.contactAdministrators": "Contactar los administradores",
+  "next.views.EventError.eventGoneMsg": "Este evento ha sido eliminado y ya no está disponible.",
   "next.views.EventError.eventNotFound": "Evento no encontrado",
   "next.views.EventError.forbiddenMsg": "No tienes acceso a esta agenda.{br}Verifica el enlace que te proporcionaron o solicita acceso.",
   "next.views.EventError.notFoundMsg": "No hay ninguna agenda correspondiente a este enlace.{br}El enlace es inválido o la agenda ha sido eliminada.",

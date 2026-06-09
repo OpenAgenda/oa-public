@@ -11,6 +11,12 @@
       "value": "Contact met beheerders"
     }
   ],
+  "next.views.EventError.eventGoneMsg": [
+    {
+      "type": 0,
+      "value": "Dit evenement is verwijderd en niet langer beschikbaar."
+    }
+  ],
   "next.views.EventError.eventNotFound": [
     {
       "type": 0,

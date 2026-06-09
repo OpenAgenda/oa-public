@@ -724,6 +724,10 @@ export const eventError = defineMessages({
     id: 'next.views.EventError.eventNotFound',
     defaultMessage: 'Event not found',
   },
+  eventGoneMsg: {
+    id: 'next.views.EventError.eventGoneMsg',
+    defaultMessage: 'This event has been removed and is no longer available.',
+  },
   seeAgenda: {
     id: 'next.views.EventError.seeAgenda',
     defaultMessage: 'See agenda',

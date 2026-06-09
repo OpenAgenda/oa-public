@@ -11,6 +11,12 @@
       "value": "Contacter les administrateurs"
     }
   ],
+  "next.views.EventError.eventGoneMsg": [
+    {
+      "type": 0,
+      "value": "Cet événement a été supprimé et n’est plus disponible."
+    }
+  ],
   "next.views.EventError.eventNotFound": [
     {
       "type": 0,

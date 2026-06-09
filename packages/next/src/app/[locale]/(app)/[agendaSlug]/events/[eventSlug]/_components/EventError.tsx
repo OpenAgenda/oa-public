@@ -127,7 +127,9 @@ function EventErrorContent({
             {intl.formatMessage(messages.eventNotFound)}
           </Text>
           <Text textAlign="center">
-            {intl.formatMessage(messages.notFoundMsg, { br: <br /> })}
+            {statusCode === 410
+              ? intl.formatMessage(messages.eventGoneMsg)
+              : intl.formatMessage(messages.notFoundMsg, { br: <br /> })}
           </Text>
 
           <Button asChild mt="8">
