@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import logs from '@openagenda/logs';
 
+import buildInboxToAddress from './lib/buildInboxToAddress.js';
+
 const log = logs('services/inboxes/onMessageCreate');
 
 async function inboxIdsToInboxUsers(services, inboxes, ids) {
@@ -165,7 +167,11 @@ async function sendMail(
     },
     to: {
       name: agendaTitle,
-      address: `${conversation.id}.${agenda ? agenda.slug : 'inbox'}@${mailsDomain}`,
+      address: buildInboxToAddress({
+        conversationId: conversation.id,
+        slug: agenda ? agenda.slug : null,
+        mailsDomain,
+      }),
       unsubscriptions,
     },
     cc: {
