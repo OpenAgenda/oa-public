@@ -207,14 +207,25 @@ export default function Auth(options = {}) {
   ];
 
   // Audiences a client may bind a token to via `resource` (RFC 8707): the AS
-  // origin (`baseURL` — OIDC/userinfo, and future "Sign in with OpenAgenda" SSO
-  // clients bind here) plus every gateway's `subjectResource` (the MCP resource,
-  // today). This is the oauth-provider's `checkResource` allowlist — what
-  // `resource` values it accepts at /authorize|token. The in-process
-  // `apiResourceUrl` is NOT here: clients never bind to it; the exchange endpoint
-  // mints those server-side. Default `[baseURL]` (the plugin's own default) when
-  // no gateway is registered.
-  const validAudiences = [baseURL, ...subjectResources];
+  // origin (`baseURL` — OIDC/userinfo, and "Sign in with OpenAgenda" SSO clients
+  // bind here), every gateway's `subjectResource` (the MCP resource), and the
+  // in-process v3 API (`apiResourceUrl`). This is the oauth-provider's
+  // `checkResource` allowlist — the `resource` values it accepts at
+  // /authorize|token.
+  //
+  // `apiResourceUrl` is bindable DIRECTLY: a public client (an in-browser API
+  // explorer, an SPA) requests `resource=<v3>` and gets a JWS `aud=v3` token the
+  // resource server verifies offline — the canonical RFC 8707 pattern. The
+  // token-exchange path STILL mints `aud=v3` server-side for confidential
+  // gateways (the MCP), whose sandbox needs the consented token kept out and a
+  // short TTL; that hardening is gateway-specific, not a reason to hide a
+  // legitimate resource from direct clients. v3 is audience-checked either way,
+  // and consent + scopes + the per-request blacklist stay the authz controls.
+  const validAudiences = [
+    baseURL,
+    ...subjectResources,
+    ...apiResourceUrl ? [apiResourceUrl] : [],
+  ];
 
   // The in-process verifier accepts a NARROWER set than the AS issues for: only
   // the API resource id (`aud=api`), NOT the bare AS origin and NOT any gateway
@@ -305,12 +316,13 @@ export default function Auth(options = {}) {
     trustedClients,
     // Audiences a client may bind a token to via the `resource` parameter
     // (RFC 8707). `checkResource` rejects any `resource` not listed here. A
-    // resource-bound request yields a JWS access token (`aud` set) the MCP
-    // resource server verifies locally; without `resource` the token is opaque.
-    // baseURL stays valid (the userinfo audience is auto-added for `openid`);
-    // each registered gateway's `subjectResource` is added (→ O2). Only override
-    // the plugin's `[baseURL]` default when we actually widen it (≥1 gateway).
-    ...subjectResources.length ? { validAudiences } : {},
+    // resource-bound request yields a JWS access token (`aud` set) the resource
+    // server verifies locally; without `resource` the token is opaque. baseURL
+    // stays valid (the userinfo audience is auto-added for `openid`); gateways'
+    // `subjectResource` and the v3 `apiResourceUrl` are added (see validAudiences
+    // above). Only override the plugin's `[baseURL]` default when we actually
+    // widen it — i.e. `validAudiences` carries more than baseURL alone.
+    ...validAudiences.length > 1 ? { validAudiences } : {},
     schema: {
       oauthClient: {
         modelName: tables.oauthClient,
