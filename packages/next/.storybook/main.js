@@ -37,19 +37,6 @@ const main = {
       });
     }
 
-    // webpack can't resolve the dynamic-import *context* base
-    // (`import(\`@openagenda/activity-apps/locales-compiled/${locale}.json\`)`)
-    // through the package `exports` field, so alias it to the built dir. The
-    // package export is correct for node/Turbopack; this is a webpack-only gap.
-    config.resolve = config.resolve || {};
-    config.resolve.alias = {
-      ...(config.resolve.alias || {}),
-      '@openagenda/activity-apps/locales-compiled': join(
-        getAbsolutePath('@openagenda/activity-apps'),
-        'dist/locales-compiled',
-      ),
-    };
-
     return config;
   },
 
