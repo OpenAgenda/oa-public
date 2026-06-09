@@ -3,13 +3,43 @@ openapi: 3.1.0
 info:
   title: OpenAgenda API
   version: '3.0.0-draft'
-  description: >
-    Public OpenAgenda API (v3). Clean, coherent contract — source of truth for
-    the generated SDK, MCP server and documentation.
+  description: |
+    The OpenAgenda v3 API gives programmatic access to agendas, events and
+    locations. This contract is the single source of truth behind the generated
+    SDK, the MCP server and this reference.
 
+    > **Draft.** v3 is a work in progress. Slice 1 covers read access to agendas
+    > and events; the surface may still change.
 
-    This is a work-in-progress draft. Slice 1 covers read access to events
-    and agendas.
+    ## Authentication
+
+    Every request is authenticated with `Authorization: Bearer <token>`, using
+    one of two credentials:
+
+    - **API key** — a publishable read-only key (`oa_pk_…`, safe to ship in a
+      browser) for reads, or a secret key (`oa_sk_…`) for reads and writes.
+      Best for server-to-server and scripts.
+    - **OAuth 2.1** — authorization-code flow with mandatory PKCE (`S256`) for
+      interactive apps acting on a user's behalf. The issued short-lived token
+      carries the granted scopes (`agendas:read`, `events:read`, …). Public
+      clients hold no secret.
+
+    Use the **Authentication** selector at the top of this page to try requests
+    with either credential directly from the browser.
+
+    ## Pagination
+
+    List endpoints are **cursor-paginated**. Read `pagination.after` from a
+    response and pass it back as the `after` query parameter to fetch the next
+    page. Filters are not encoded in the cursor, so keep them stable across
+    pages.
+
+    ## SDK & MCP
+
+    - **TypeScript SDK** — [`@openagenda/api-client`](https://www.npmjs.com/package/@openagenda/api-client),
+      generated from this contract (see the code samples on each operation).
+    - **MCP server** — [`mcp.openagenda.com`](https://mcp.openagenda.com)
+      exposes the same surface to AI agents over the Model Context Protocol.
   contact:
     name: OpenAgenda Support
     email: support@openagenda.com
@@ -17,6 +47,19 @@ info:
   license:
     name: Proprietary — © OpenAgenda
     identifier: LicenseRef-OpenAgenda-Proprietary
+  # SDK-first story: the code samples on each operation use @openagenda/api-client
+  # (generated from this very contract). Surface its install up front.
+  x-scalar-sdk-installation:
+    - lang: TypeScript
+      description: |
+        Install the official, fully-typed TypeScript SDK — generated from this
+        contract, so it always matches the endpoints below:
+
+        ```sh
+        npm install @openagenda/api-client
+        ```
+
+        Every operation's code sample uses it.
 
 servers:
   - url: https://api.openagenda.com/v3
@@ -25,8 +68,20 @@ servers:
     description: Development
 
 tags:
+  - name: Agendas
+    description: >
+      Agendas are the calendars that hold events. List and inspect them, then
+      drill into the events they publish.
   - name: Events
     description: Events published in an agenda.
+
+# Groups the resource tags under a "Resources" heading in the Scalar sidebar.
+# Forward-compatible with the upcoming locations/members surfaces (see scopes).
+x-tagGroups:
+  - name: Resources
+    tags:
+      - Agendas
+      - Events
 
 # Authenticate every request with either an API key or an OAuth2 token,
 # both carried as `Authorization: Bearer <token>`.
@@ -379,14 +434,28 @@ components:
         for reads and writes.
     oauth2:
       type: oauth2
-      description: OAuth2 client-credentials flow for short-lived access tokens.
+      description: >
+        OAuth2 authorization code flow with PKCE (OAuth 2.1). Interactive
+        clients redirect the user to the OpenAgenda authorization server to sign
+        in and consent; the issued short-lived access token carries the granted
+        scopes. PKCE (`S256`) is mandatory and public clients hold no secret.
+
+        For machine-to-machine access, use an API key as a Bearer token instead
+        (see `bearerAuth`).
       flows:
-        clientCredentials:
-          tokenUrl: https://api.openagenda.com/v3/oauth/token
+        authorizationCode:
+          authorizationUrl: https://openagenda.com/api/auth/oauth2/authorize
+          tokenUrl: https://openagenda.com/api/auth/oauth2/token
+          refreshUrl: https://openagenda.com/api/auth/oauth2/token
           scopes:
+            agendas:read: Read agendas
+            agendas:write: Create and modify agendas
             events:read: Read events
             events:write: Create and modify events
-            agendas:read: Read agendas
+            locations:read: Read locations
+            locations:write: Create and modify locations
+            members:read: Read members
+            members:write: Manage members
 
   parameters:
     AgendaUid:
@@ -625,6 +694,18 @@ components:
           - location.city.asc
           - location.city.desc
           - score
+        x-enum-descriptions:
+          timings.asc: By event date, earliest first
+          timingsWithFeatured.asc: By event date, featured events first
+          lastTiming.asc: By last occurrence date, earliest first
+          lastTimingWithFeatured.asc: By last occurrence, featured events first
+          updatedAt.asc: Least recently updated first
+          updatedAt.desc: Most recently updated first
+          location.name.asc: By venue name, A→Z
+          location.name.desc: By venue name, Z→A
+          location.city.asc: By city, A→Z
+          location.city.desc: By city, Z→A
+          score: By search relevance (only meaningful with `search`)
 
     Search:
       name: search
@@ -740,38 +821,31 @@ components:
       name: accessibility
       in: query
       required: false
-      description: >
-        Restrict to events offering these accessibility facilities:
-        hi=hearing, ii=intellectual, mi=motor, pi=psychic, vi=visual.
+      description: Restrict to events offering these accessibility facilities.
       schema:
         type: array
         items:
-          type: string
-          enum: [hi, ii, mi, pi, vi]
+          $ref: '#/components/schemas/AccessibilityCode'
 
     FilterStatus:
       name: status
       in: query
       required: false
-      description: >
-        Restrict to these statuses: 1=scheduled, 2=rescheduled, 3=movedOnline,
-        4=postponed, 5=full, 6=cancelled.
+      description: Restrict to these statuses.
       schema:
         type: array
         items:
-          type: integer
-          enum: [1, 2, 3, 4, 5, 6]
+          $ref: '#/components/schemas/EventStatus'
 
     FilterAttendanceMode:
       name: attendanceMode
       in: query
       required: false
-      description: 'Restrict to these attendance modes: 1=offline, 2=online, 3=mixed.'
+      description: Restrict to these attendance modes.
       schema:
         type: array
         items:
-          type: integer
-          enum: [1, 2, 3]
+          $ref: '#/components/schemas/AttendanceMode'
 
     FilterFeatured:
       name: featured
@@ -1077,7 +1151,8 @@ components:
         `additionalFields[<fieldName>][gte]=…&additionalFields[<fieldName>][lte]=…`.
       schema:
         type: object
-        additionalProperties: true
+        additionalProperties:
+          x-additionalPropertiesName: fieldName
 
   responses:
     BadRequest:
@@ -1160,6 +1235,10 @@ components:
       type: object
       required: [after, limit]
       additionalProperties: false
+      example:
+        after: eyJ1aWQiOjIzNDU2fQ
+        limit: 20
+        total: 342
       properties:
         after:
           type: [string, 'null']
@@ -1182,6 +1261,7 @@ components:
         fr, en, de, es, it, nl, br, oc.
       additionalProperties:
         type: string
+        x-additionalPropertiesName: languageCode
       examples:
         - fr: 'Concert de jazz'
           en: 'Jazz concert'
@@ -1191,6 +1271,7 @@ components:
       description: A list of strings localized per language code (used for keywords).
       additionalProperties:
         type: array
+        x-additionalPropertiesName: languageCode
         items:
           type: string
 
@@ -1301,20 +1382,25 @@ components:
     Accessibility:
       type: [object, 'null']
       description: >
-        Accessibility flags: hi=hearing impairment, ii=intellectual impairment,
-        vi=visual impairment, pi=psychic impairment, mi=motor impairment.
+        Per-facility accessibility flags — `true` when the event offers that
+        facility. The keys are the `AccessibilityCode` values.
       additionalProperties: false
       properties:
         hi:
           type: boolean
+          description: Hearing impairment.
         ii:
           type: boolean
+          description: Intellectual impairment.
         vi:
           type: boolean
+          description: Visual impairment.
         pi:
           type: boolean
+          description: Psychic impairment.
         mi:
           type: boolean
+          description: Motor impairment.
 
     Registration:
       type: object
@@ -1394,7 +1480,8 @@ components:
         each value are defined by the agenda's event schema (see
         GET /agendas/{agendaUid}/settings/eventSchema). Each value follows its
         field's fieldType (text, choice, multilingual, …).
-      additionalProperties: true
+      additionalProperties:
+        x-additionalPropertiesName: fieldName
 
     AgendaNetworkRef:
       type: [object, 'null']
@@ -1445,6 +1532,13 @@ components:
         - description
         - image
         - official
+      example:
+        uid: 12345
+        slug: festival-des-lumieres
+        title: Festival des Lumières
+        description: La programmation officielle du Festival des Lumières.
+        image: https://cdn.openagenda.com/main/12345.jpg
+        official: true
       properties:
         uid:
           type: integer
@@ -1543,6 +1637,25 @@ components:
         - indexed
         - network
         - locationSet
+      example:
+        uid: 12345
+        slug: festival-des-lumieres
+        title: Festival des Lumières
+        description: La programmation officielle du Festival des Lumières.
+        image: https://cdn.openagenda.com/main/12345.jpg
+        official: true
+        url: https://openagenda.com/festival-des-lumieres
+        createdAt: '2024-11-04T09:12:00+01:00'
+        updatedAt: '2025-05-28T16:45:00+02:00'
+        officializedAt: '2024-11-15T10:00:00+01:00'
+        private: false
+        indexed: true
+        network:
+          uid: 87
+          title: Ville de Lyon
+        locationSet:
+          uid: 204
+          title: Lieux de Lyon
       properties:
         uid:
           type: integer
@@ -1605,6 +1718,50 @@ components:
         pagination:
           $ref: '#/components/schemas/Pagination'
 
+    # Shared enum types — one home for the values AND their meaning
+    # (x-enum-descriptions, rendered per-value by Scalar and surfaced by the MCP).
+    # $ref'd from both the response models and the matching filter parameters, so
+    # the labels never drift between the two.
+    EventStatus:
+      type: integer
+      enum: [1, 2, 3, 4, 5, 6]
+      description: Publication status of the event.
+      x-enum-descriptions:
+        '1': Scheduled
+        '2': Rescheduled
+        '3': Moved online
+        '4': Postponed
+        '5': Full
+        '6': Cancelled
+    AttendanceMode:
+      type: integer
+      enum: [1, 2, 3]
+      description: How attendees take part.
+      x-enum-descriptions:
+        '1': Offline (on-site)
+        '2': Online
+        '3': Mixed (on-site and online)
+    ModerationState:
+      type: integer
+      enum: [-2, -1, 0, 1, 2]
+      description: Moderation state of the event.
+      x-enum-descriptions:
+        '-2': Removed
+        '-1': Refused
+        '0': To control
+        '1': Controlled
+        '2': Published
+    AccessibilityCode:
+      type: string
+      enum: [hi, ii, mi, pi, vi]
+      description: Accessibility facility code.
+      x-enum-descriptions:
+        hi: Hearing impairment
+        ii: Intellectual impairment
+        mi: Motor impairment
+        pi: Psychic impairment
+        vi: Visual impairment
+
     EventSummary:
       type: object
       description: >
@@ -1642,6 +1799,76 @@ components:
         - lastTiming
         - nextTiming
         - additionalFields
+      example:
+        uid: 9876543
+        slug: concert-de-jazz-au-parc
+        title: { fr: Concert de jazz au parc, en: Jazz concert in the park }
+        description:
+          { fr: Une soirée jazz en plein air., en: An open-air jazz evening. }
+        status: 1
+        dateRange:
+          {
+            fr: 'Le 20 juin 2025 de 18h00 à 22h00',
+            en: 'June 20, 2025, 6:00 PM – 10:00 PM',
+          }
+        featured: false
+        image:
+          filename: '9876543.jpg'
+          base: https://cdn.openagenda.com/events/
+          credits: Ville de Lyon
+          size: { width: 1200, height: 800 }
+          variants:
+            - type: thumbnail
+              filename: '9876543_thumb.jpg'
+              size: { width: 200, height: 133 }
+        imageCredits: Ville de Lyon
+        keywords:
+          { fr: [jazz, concert, plein air], en: [jazz, concert, open air] }
+        originAgenda:
+          uid: 12345
+          title: Festival des Lumières
+          slug: festival-des-lumieres
+          image: https://cdn.openagenda.com/main/12345.jpg
+          url: https://openagenda.com/festival-des-lumieres
+          official: true
+        timings:
+          - begin: '2025-06-20T18:00:00+02:00'
+            end: '2025-06-20T22:00:00+02:00'
+        location:
+          uid: 55512
+          name: Parc de la Tête d'Or
+          address: Place Général Leclerc
+          city: Lyon
+          region: Auvergne-Rhône-Alpes
+          postalCode: '69006'
+          countryCode: FR
+          latitude: 45.7772
+          longitude: 4.8558
+          district: null
+          department: Rhône
+          adminLevel3: null
+          adminLevel5: null
+          country: { fr: France, en: France }
+          timezone: Europe/Paris
+        timezone: Europe/Paris
+        attendanceMode: 1
+        onlineAccessLink: null
+        firstTiming:
+          {
+            begin: '2025-06-20T18:00:00+02:00',
+            end: '2025-06-20T22:00:00+02:00',
+          }
+        lastTiming:
+          {
+            begin: '2025-06-20T18:00:00+02:00',
+            end: '2025-06-20T22:00:00+02:00',
+          }
+        nextTiming:
+          {
+            begin: '2025-06-20T18:00:00+02:00',
+            end: '2025-06-20T22:00:00+02:00',
+          }
+        additionalFields: {}
       properties:
         uid:
           type: integer
@@ -1655,11 +1882,7 @@ components:
         description:
           $ref: '#/components/schemas/LocalizedString'
         status:
-          type: integer
-          enum: [1, 2, 3, 4, 5, 6]
-          description: >
-            1 = scheduled, 2 = rescheduled, 3 = movedOnline, 4 = postponed,
-            5 = full, 6 = cancelled.
+          $ref: '#/components/schemas/EventStatus'
         dateRange:
           allOf:
             - $ref: '#/components/schemas/LocalizedString'
@@ -1696,9 +1919,7 @@ components:
           readOnly: true
           description: IANA time zone the timings are expressed in (null when unset).
         attendanceMode:
-          type: integer
-          enum: [1, 2, 3]
-          description: '1 = offline, 2 = online, 3 = mixed.'
+          $ref: '#/components/schemas/AttendanceMode'
         onlineAccessLink:
           type: [string, 'null']
           format: uri
@@ -1768,6 +1989,98 @@ components:
         - links
         - extIds
         - sourceAgendas
+      example:
+        uid: 9876543
+        slug: concert-de-jazz-au-parc
+        title: { fr: Concert de jazz au parc, en: Jazz concert in the park }
+        description:
+          { fr: Une soirée jazz en plein air., en: An open-air jazz evening. }
+        status: 1
+        dateRange:
+          {
+            fr: 'Le 20 juin 2025 de 18h00 à 22h00',
+            en: 'June 20, 2025, 6:00 PM – 10:00 PM',
+          }
+        featured: false
+        image:
+          filename: '9876543.jpg'
+          base: https://cdn.openagenda.com/events/
+          credits: Ville de Lyon
+          size: { width: 1200, height: 800 }
+          variants:
+            - type: thumbnail
+              filename: '9876543_thumb.jpg'
+              size: { width: 200, height: 133 }
+        imageCredits: Ville de Lyon
+        keywords:
+          { fr: [jazz, concert, plein air], en: [jazz, concert, open air] }
+        originAgenda:
+          uid: 12345
+          title: Festival des Lumières
+          slug: festival-des-lumieres
+          image: https://cdn.openagenda.com/main/12345.jpg
+          url: https://openagenda.com/festival-des-lumieres
+          official: true
+        timings:
+          - begin: '2025-06-20T18:00:00+02:00'
+            end: '2025-06-20T22:00:00+02:00'
+        location:
+          uid: 55512
+          name: Parc de la Tête d'Or
+          address: Place Général Leclerc
+          city: Lyon
+          region: Auvergne-Rhône-Alpes
+          postalCode: '69006'
+          countryCode: FR
+          latitude: 45.7772
+          longitude: 4.8558
+          district: null
+          department: Rhône
+          adminLevel3: null
+          adminLevel5: null
+          country: { fr: France, en: France }
+          timezone: Europe/Paris
+        timezone: Europe/Paris
+        attendanceMode: 1
+        onlineAccessLink: null
+        firstTiming:
+          {
+            begin: '2025-06-20T18:00:00+02:00',
+            end: '2025-06-20T22:00:00+02:00',
+          }
+        lastTiming:
+          {
+            begin: '2025-06-20T18:00:00+02:00',
+            end: '2025-06-20T22:00:00+02:00',
+          }
+        nextTiming:
+          {
+            begin: '2025-06-20T18:00:00+02:00',
+            end: '2025-06-20T22:00:00+02:00',
+          }
+        additionalFields: {}
+        longDescription:
+          {
+            fr: 'Un concert en plein air avec plusieurs formations de jazz…',
+            en: 'An open-air concert featuring several jazz ensembles…',
+          }
+        conditions: { fr: Entrée libre, en: Free entry }
+        country: { fr: France, en: France }
+        registration:
+          - type: link
+            value: https://openagenda.com/festival-des-lumieres/events/concert-de-jazz-au-parc
+        createdAt: '2025-03-12T11:30:00+01:00'
+        updatedAt: '2025-05-28T16:45:00+02:00'
+        accessibility: { hi: false, ii: false, vi: true, pi: false, mi: true }
+        age: { min: 0, max: null }
+        state: 2
+        links:
+          - link: https://example.org/jazz-au-parc
+            data: {}
+        extIds:
+          - key: legacy
+            value: '4421007'
+        sourceAgendas: []
       properties:
         uid:
           type: integer
@@ -1781,11 +2094,7 @@ components:
         description:
           $ref: '#/components/schemas/LocalizedString'
         status:
-          type: integer
-          enum: [1, 2, 3, 4, 5, 6]
-          description: >
-            1 = scheduled, 2 = rescheduled, 3 = movedOnline, 4 = postponed,
-            5 = full, 6 = cancelled.
+          $ref: '#/components/schemas/EventStatus'
         dateRange:
           allOf:
             - $ref: '#/components/schemas/LocalizedString'
@@ -1822,9 +2131,7 @@ components:
           readOnly: true
           description: IANA time zone the timings are expressed in (null when unset).
         attendanceMode:
-          type: integer
-          enum: [1, 2, 3]
-          description: '1 = offline, 2 = online, 3 = mixed.'
+          $ref: '#/components/schemas/AttendanceMode'
         onlineAccessLink:
           type: [string, 'null']
           format: uri
@@ -1873,12 +2180,9 @@ components:
         age:
           $ref: '#/components/schemas/AgeRange'
         state:
-          type: integer
-          enum: [-2, -1, 0, 1, 2]
+          allOf:
+            - $ref: '#/components/schemas/ModerationState'
           readOnly: true
-          description: >
-            Moderation state: -2 = removed, -1 = refused, 0 = to control,
-            1 = controlled, 2 = published.
         links:
           type: array
           readOnly: true
@@ -1932,6 +2236,35 @@ components:
       type: object
       required: [facets]
       additionalProperties: false
+      example:
+        facets:
+          cities:
+            - { value: Lyon, count: 42 }
+            - { value: Villeurbanne, count: 11 }
+          keywords:
+            - { value: jazz, count: 18 }
+            - { value: concert, count: 57 }
+          status:
+            - { value: '1', count: 80 }
+            - { value: '6', count: 7 }
+          attendanceModes:
+            - { value: '1', count: 74 }
+            - { value: '2', count: 13 }
+          originAgendas:
+            - agenda:
+                uid: 12345
+                title: Festival des Lumières
+                slug: festival-des-lumieres
+                image: https://cdn.openagenda.com/main/12345.jpg
+                url: https://openagenda.com/festival-des-lumieres
+                official: true
+              count: 87
+          timespan:
+            first: '2025-06-20T18:00:00+02:00'
+            last: '2025-09-14T20:00:00+02:00'
+          viewport:
+            topLeft: { latitude: 45.808, longitude: 4.812 }
+            bottomRight: { latitude: 45.748, longitude: 4.879 }
       properties:
         facets:
           type: object
@@ -1999,14 +2332,18 @@ components:
                 One entry per requested (and readable) agenda choice/boolean
                 field, keyed by field name.
               additionalProperties:
-                $ref: '#/components/schemas/AdditionalFieldFacet'
+                x-additionalPropertiesName: fieldName
+                allOf:
+                  - $ref: '#/components/schemas/AdditionalFieldFacet'
             additionalFieldMetrics:
               type: object
               description: >
                 One entry per requested (and readable) agenda numeric field,
                 keyed by field name.
               additionalProperties:
-                $ref: '#/components/schemas/AdditionalFieldMetricsFacet'
+                x-additionalPropertiesName: fieldName
+                allOf:
+                  - $ref: '#/components/schemas/AdditionalFieldMetricsFacet'
 
     AdditionalFieldFacet:
       type: object

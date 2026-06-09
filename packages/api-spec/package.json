@@ -14,6 +14,8 @@
     "lint": "npx --yes @redocly/cli lint openapi.yaml"
   },
   "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
     "yaml": "^2.4.5"
   }
 }
