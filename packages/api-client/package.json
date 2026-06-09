@@ -13,7 +13,7 @@
     "generate": "openapi-ts",
     "generate:check": "yarn generate && git diff --exit-code -- src/generated",
     "build": "tsdown",
-    "prepack": "yarn build",
+    "prepack": "yarn generate && yarn build",
     "check": "tsc --noEmit"
   },
   "dependencies": {

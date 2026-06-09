@@ -77,7 +77,7 @@ export const zAgeRange = z.object({
 }).nullable();
 
 /**
- * Accessibility flags: hi=hearing impairment, ii=intellectual impairment, vi=visual impairment, pi=psychic impairment, mi=motor impairment.
+ * Per-facility accessibility flags — `true` when the event offers that facility. The keys are the `AccessibilityCode` values.
  *
  */
 export const zAccessibility = z.object({
@@ -221,6 +221,49 @@ export const zAgendaList = z.object({
 });
 
 /**
+ * Publication status of the event.
+ */
+export const zEventStatus = z.union([
+    z.literal(1),
+    z.literal(2),
+    z.literal(3),
+    z.literal(4),
+    z.literal(5),
+    z.literal(6)
+]);
+
+/**
+ * How attendees take part.
+ */
+export const zAttendanceMode = z.union([
+    z.literal(1),
+    z.literal(2),
+    z.literal(3)
+]);
+
+/**
+ * Moderation state of the event.
+ */
+export const zModerationState = z.union([
+    z.literal(-2),
+    z.literal(-1),
+    z.literal(0),
+    z.literal(1),
+    z.literal(2)
+]);
+
+/**
+ * Accessibility facility code.
+ */
+export const zAccessibilityCode = z.enum([
+    'hi',
+    'ii',
+    'mi',
+    'pi',
+    'vi'
+]);
+
+/**
  * Compact event representation returned by the list endpoint (`detailed: false`). It carries the base field set only — the detailed fields (longDescription, conditions, country, registration, createdAt, updatedAt, accessibility, age, state, links, extIds, sourceAgendas) are NOT present here; fetch a single event for those.
  *
  * Empty-as-empty rule: every field is always present. Collections are never null/omitted (arrays → `[]`, localized maps → `{}`); singular optional values are present as `null` when absent. `additionalFields` is typically `{}` in summaries because agenda additional fields are detailed-level.
@@ -231,14 +274,7 @@ export const zEventSummary = z.object({
     slug: z.string().readonly(),
     title: zLocalizedString,
     description: zLocalizedString,
-    status: z.union([
-        z.literal(1),
-        z.literal(2),
-        z.literal(3),
-        z.literal(4),
-        z.literal(5),
-        z.literal(6)
-    ]),
+    status: zEventStatus,
     dateRange: zLocalizedString.readonly(),
     featured: z.boolean().readonly(),
     image: zImage.nullable(),
@@ -248,11 +284,7 @@ export const zEventSummary = z.object({
     timings: z.array(zTiming),
     location: zLocation.nullable(),
     timezone: z.string().readonly().nullable(),
-    attendanceMode: z.union([
-        z.literal(1),
-        z.literal(2),
-        z.literal(3)
-    ]),
+    attendanceMode: zAttendanceMode,
     onlineAccessLink: z.string().url().nullable(),
     firstTiming: zTiming.nullable(),
     lastTiming: zTiming.nullable(),
@@ -271,14 +303,7 @@ export const zEvent = z.object({
     slug: z.string().readonly(),
     title: zLocalizedString,
     description: zLocalizedString,
-    status: z.union([
-        z.literal(1),
-        z.literal(2),
-        z.literal(3),
-        z.literal(4),
-        z.literal(5),
-        z.literal(6)
-    ]),
+    status: zEventStatus,
     dateRange: zLocalizedString.readonly(),
     featured: z.boolean().readonly(),
     image: zImage.nullable(),
@@ -288,11 +313,7 @@ export const zEvent = z.object({
     timings: z.array(zTiming),
     location: zLocation.nullable(),
     timezone: z.string().readonly().nullable(),
-    attendanceMode: z.union([
-        z.literal(1),
-        z.literal(2),
-        z.literal(3)
-    ]),
+    attendanceMode: zAttendanceMode,
     onlineAccessLink: z.string().url().nullable(),
     firstTiming: zTiming.nullable(),
     lastTiming: zTiming.nullable(),
@@ -306,13 +327,7 @@ export const zEvent = z.object({
     updatedAt: z.string().datetime().readonly(),
     accessibility: zAccessibility,
     age: zAgeRange,
-    state: z.union([
-        z.literal(-2),
-        z.literal(-1),
-        z.literal(0),
-        z.literal(1),
-        z.literal(2)
-    ]).readonly(),
+    state: zModerationState.readonly(),
     links: z.array(zEnrichedLink).readonly(),
     extIds: z.array(zExtId),
     sourceAgendas: z.array(zAgendaRef).readonly()
@@ -463,24 +478,13 @@ export const zLocationWritable = z.object({
 export const zEventSummaryWritable = z.object({
     title: zLocalizedString,
     description: zLocalizedString,
-    status: z.union([
-        z.literal(1),
-        z.literal(2),
-        z.literal(3),
-        z.literal(4),
-        z.literal(5),
-        z.literal(6)
-    ]),
+    status: zEventStatus,
     image: zImage.nullable(),
     imageCredits: z.string().max(255).nullable(),
     keywords: zLocalizedStringArray,
     timings: z.array(zTiming),
     location: zLocationWritable.nullable(),
-    attendanceMode: z.union([
-        z.literal(1),
-        z.literal(2),
-        z.literal(3)
-    ]),
+    attendanceMode: zAttendanceMode,
     onlineAccessLink: z.string().url().nullable(),
     additionalFields: zAdditionalFields
 });
@@ -494,24 +498,13 @@ export const zEventSummaryWritable = z.object({
 export const zEventWritable = z.object({
     title: zLocalizedString,
     description: zLocalizedString,
-    status: z.union([
-        z.literal(1),
-        z.literal(2),
-        z.literal(3),
-        z.literal(4),
-        z.literal(5),
-        z.literal(6)
-    ]),
+    status: zEventStatus,
     image: zImage.nullable(),
     imageCredits: z.string().max(255).nullable(),
     keywords: zLocalizedStringArray,
     timings: z.array(zTiming),
     location: zLocationWritable.nullable(),
-    attendanceMode: z.union([
-        z.literal(1),
-        z.literal(2),
-        z.literal(3)
-    ]),
+    attendanceMode: zAttendanceMode,
     onlineAccessLink: z.string().url().nullable(),
     additionalFields: zAdditionalFields,
     longDescription: zLocalizedString,
@@ -663,6 +656,29 @@ export const zSort = z.enum([
 export const zSearch = z.string();
 
 /**
+ * Relevance score floor for `search` results, used to drop weakly-matching events from the long tail (e.g. a single query term buried in a long description). Ignored when `search` is not set.
+ *
+ * - `off` (default) — no score filtering; every match is returned.
+ * - `auto` — a dynamic cutoff derived from the score distribution of the
+ * current query: the largest relative drop ("elbow") in the top scores
+ * becomes the floor. It self-calibrates per query, adapting to rare vs
+ * common terms and small vs large agendas.
+ *
+ * - a non-negative number — an absolute minimum score. Relevance scores are
+ * not comparable across queries nor stable across reindexes, so a fixed
+ * value suits a single tuned query rather than general use; prefer `auto`.
+ *
+ *
+ * Filtering is consistent across the returned events, their `total`, and facet counts: the cutoff is an Elasticsearch `min_score`, applied during document collection, so the same trimmed set drives the hit list and the aggregations. Pass the same `threshold` to the facets endpoint to keep its counts aligned with the list.
+ *
+ */
+export const zRelevanceThreshold = z.union([
+    z.literal('off'),
+    z.literal('auto'),
+    z.number().gte(0)
+]).default('off');
+
+/**
  * Restrict to these event uids. Repeat the parameter for multiple values.
  */
 export const zFilterUid = z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }));
@@ -693,38 +709,19 @@ export const zFilterKeyword = z.array(z.string());
 export const zFilterLanguage = z.array(z.string());
 
 /**
- * Restrict to events offering these accessibility facilities: hi=hearing, ii=intellectual, mi=motor, pi=psychic, vi=visual.
- *
+ * Restrict to events offering these accessibility facilities.
  */
-export const zFilterAccessibility = z.array(z.enum([
-    'hi',
-    'ii',
-    'mi',
-    'pi',
-    'vi'
-]));
+export const zFilterAccessibility = z.array(zAccessibilityCode);
 
 /**
- * Restrict to these statuses: 1=scheduled, 2=rescheduled, 3=movedOnline, 4=postponed, 5=full, 6=cancelled.
- *
+ * Restrict to these statuses.
  */
-export const zFilterStatus = z.array(z.union([
-    z.literal(1),
-    z.literal(2),
-    z.literal(3),
-    z.literal(4),
-    z.literal(5),
-    z.literal(6)
-]));
+export const zFilterStatus = z.array(zEventStatus);
 
 /**
- * Restrict to these attendance modes: 1=offline, 2=online, 3=mixed.
+ * Restrict to these attendance modes.
  */
-export const zFilterAttendanceMode = z.array(z.union([
-    z.literal(1),
-    z.literal(2),
-    z.literal(3)
-]));
+export const zFilterAttendanceMode = z.array(zAttendanceMode);
 
 /**
  * Restrict to featured (`true`) or non-featured (`false`) events.
@@ -920,6 +917,11 @@ export const zAgendasEventsListQuery = z.object({
         'score'
     ]).optional(),
     search: z.string().optional(),
+    threshold: z.union([
+        z.literal('off'),
+        z.literal('auto'),
+        z.number().gte(0)
+    ]).optional().default('off'),
     uid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
     slug: z.array(z.string()).optional(),
     extId: z.object({
@@ -928,26 +930,9 @@ export const zAgendasEventsListQuery = z.object({
     }).optional(),
     keyword: z.array(z.string()).optional(),
     language: z.array(z.string()).optional(),
-    accessibility: z.array(z.enum([
-        'hi',
-        'ii',
-        'mi',
-        'pi',
-        'vi'
-    ])).optional(),
-    status: z.array(z.union([
-        z.literal(1),
-        z.literal(2),
-        z.literal(3),
-        z.literal(4),
-        z.literal(5),
-        z.literal(6)
-    ])).optional(),
-    attendanceMode: z.array(z.union([
-        z.literal(1),
-        z.literal(2),
-        z.literal(3)
-    ])).optional(),
+    accessibility: z.array(zAccessibilityCode).optional(),
+    status: z.array(zEventStatus).optional(),
+    attendanceMode: z.array(zAttendanceMode).optional(),
     featured: z.boolean().optional(),
     locationUid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
     locationExtId: z.object({
@@ -1048,6 +1033,11 @@ export const zAgendasEventsFacetsQuery = z.object({
     additionalFieldsKeys: z.array(z.string()).optional(),
     additionalFieldMetricsKeys: z.array(z.string()).optional(),
     search: z.string().optional(),
+    threshold: z.union([
+        z.literal('off'),
+        z.literal('auto'),
+        z.number().gte(0)
+    ]).optional().default('off'),
     uid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
     slug: z.array(z.string()).optional(),
     extId: z.object({
@@ -1056,26 +1046,9 @@ export const zAgendasEventsFacetsQuery = z.object({
     }).optional(),
     keyword: z.array(z.string()).optional(),
     language: z.array(z.string()).optional(),
-    accessibility: z.array(z.enum([
-        'hi',
-        'ii',
-        'mi',
-        'pi',
-        'vi'
-    ])).optional(),
-    status: z.array(z.union([
-        z.literal(1),
-        z.literal(2),
-        z.literal(3),
-        z.literal(4),
-        z.literal(5),
-        z.literal(6)
-    ])).optional(),
-    attendanceMode: z.array(z.union([
-        z.literal(1),
-        z.literal(2),
-        z.literal(3)
-    ])).optional(),
+    accessibility: z.array(zAccessibilityCode).optional(),
+    status: z.array(zEventStatus).optional(),
+    attendanceMode: z.array(zAttendanceMode).optional(),
     featured: z.boolean().optional(),
     locationUid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
     locationExtId: z.object({
