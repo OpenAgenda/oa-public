@@ -6,7 +6,6 @@ export default async (services, agenda) => {
   const {
     members,
     users: usersSvc,
-    keys,
     activities,
     inboxes,
     eventSearch,
@@ -101,15 +100,6 @@ export default async (services, agenda) => {
     } catch (e) {
       log('error', 'failed to index agenda in agenda search', e);
     }
-  }
-
-  try {
-    await keys({
-      type: 'agendaFullRead',
-      identifier: agenda.uid,
-    }).create();
-  } catch (e) {
-    log('error', 'failed to create agenda key', e);
   }
 
   try {
