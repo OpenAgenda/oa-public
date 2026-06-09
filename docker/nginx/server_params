@@ -290,22 +290,6 @@ location ~ ^/supervisor(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
-# /:first/settings — the App Router user settings page. Matches any first
-# segment (locale) rather than enumerating locales, so adding a locale needs no
-# nginx edit. This is safe because the legacy per-agenda /:agendaSlug/settings
-# route no longer exists (it 404s; real agenda settings live under
-# /:agendaSlug/admin/settings/...), so there is no /X/settings to send to cibul.
-# Must come before the /:agendaSlug/... catch-all below. A non-locale slug here
-# (e.g. /some-agenda/settings) still resolves to a 404 via Next.
-#
-# The bare (no-locale) /settings and /settings/... paths are deliberately not
-# matched here (this rule needs a segment before "settings"); they fall through
-# to the default `location /` -> Next, whose proxy then 307s them to
-# /:locale/settings. So no separate bare-/settings block is needed.
-location ~ ^/[^/]+/settings(|/.+)$ {
-  include conf.d/nextjs_params;
-}
-
 location ~ ^/support(|/.+)$ {
   include conf.d/nodejs_params;
 }
@@ -324,9 +308,12 @@ location ~ ^/[^/]+/events/[^/]+/(action|email|ics|contact|suggest-change|embed-i
 }
 
 # /:agendaSlug/...
-# "settings" intentionally dropped: legacy /:agendaSlug/settings no longer
-# exists (404s; real agenda settings are under /:agendaSlug/admin/settings/...),
-# and /:first/settings is now claimed by the App Router block above.
+# "settings" intentionally omitted: legacy /:agendaSlug/settings no longer
+# exists (404s; real agenda settings are under /:agendaSlug/admin/settings/...).
+# With "settings" absent here, /:locale/settings (and any /X/settings) matches no
+# regex and falls through to the default `location /` -> Next — so no dedicated
+# settings->Next block is needed. The agenda settings export stays on cibul via
+# the numeric /agendas/:id/(...|settings).(json|...) rule higher up.
 location ~ ^/[^/]+/(admin|contribute|facebook|twitter|google|signin|signup|activate|share|unauthorized|addevent|actions|contact|request-contribute|navigate|locations)(|/.+)$ {
   include conf.d/nodejs_params;
 }
