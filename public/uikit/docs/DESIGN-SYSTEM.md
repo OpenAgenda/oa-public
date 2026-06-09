@@ -29,7 +29,10 @@ agent follows it.
 
 ## What's in the system
 
-Built on **Chakra UI v3** (`createSystem`), CSS var prefix `oa`. Source of truth:
+Built on **Chakra UI v3** (`createSystem`), CSS var prefix `oa` — see the
+[LLM-oriented Chakra docs](https://chakra-ui.com/llms.txt) for component APIs and
+theming (consult these for the underlying primitive's props; still import from
+uikit, not `@chakra-ui/react`). Source of truth:
 
 | Concern              | Source                                                       | Notes                                                                                               |
 | -------------------- | ------------------------------------------------------------ | --------------------------------------------------------------------------------------------------- |
