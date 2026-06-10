@@ -6660,6 +6660,7 @@ __metadata:
     typescript: "npm:^5.6.3"
     yaml: "npm:^2.4.5"
     zod: "npm:^3.25.0"
+    zod-to-json-schema: "npm:^3.25.1"
   dependenciesMeta:
     microsandbox:
       optional: true

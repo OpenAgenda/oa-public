@@ -5,6 +5,8 @@
 // emits the egress allowlist an outer `wrapper` must enforce (see egressPolicy.js).
 
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import pkg from '../package.json' with { type: 'json' };
+import { parseCliArgs, HELP } from './cli.js';
 import { loadConfig, allowNetFromEnv } from './config.js';
 import { createExecutor } from './sandbox/executor.js';
 import { createServer } from './server.js';
@@ -33,7 +35,14 @@ function printEgressPolicy(argv, env = process.env) {
     process.stderr.write(`unknown --format=${format} (use srt|json)\n`);
     process.exit(2);
   }
-  const allowNet = allowNetFromEnv(env);
+  // Honor --base-url here too, so the policy a wrapper is configured with can't
+  // disagree with the base URL the server itself would use under the same flag
+  // (the two commands must compute the SAME allowlist from one invocation).
+  const baseArg = argv.find((a) => a.startsWith('--base-url='));
+  const policyEnv = baseArg
+    ? { ...env, OA_BASE_URL: baseArg.slice('--base-url='.length) }
+    : env;
+  const allowNet = allowNetFromEnv(policyEnv);
   // stdout stays a clean artifact (e.g. `> srt-settings.json`); the fingerprint
   // and the human note go to stderr.
   process.stdout.write(`${renderEgressPolicy({ allowNet, format })}\n`);
@@ -57,7 +66,25 @@ async function main() {
     return;
   }
 
-  const config = loadConfig(); // throws (fail-closed) on an unsafe/incoherent pairing
+  // Non-secret invocation flags (see cli.js) — they overlay the env BEFORE
+  // loadConfig, which remains the single source of truth. help/version print
+  // to stdout and exit: no transport has started, so stdout is still ours.
+  const cli = parseCliArgs(process.argv.slice(2));
+  if (cli.error) {
+    process.stderr.write(`[openagenda-mcp] ${cli.error}\n\n${HELP}`);
+    process.exit(2);
+  }
+  if (cli.help) {
+    process.stdout.write(HELP);
+    return;
+  }
+  if (cli.version) {
+    process.stdout.write(`${pkg.version}\n`);
+    return;
+  }
+
+  // throws (fail-closed) on an unsafe/incoherent pairing
+  const config = loadConfig({ ...process.env, ...cli.envOverrides });
   // Start the OTel telemetry pipeline FIRST (no-op unless an OTLP endpoint is
   // configured — i.e. hosted; off for stdio/dev). Metrics → Mimir, traces → Tempo,
   // logs → Loki, all via the host Alloy agent. It must precede initLogging because
@@ -181,11 +208,20 @@ async function main() {
         + '(run `openagenda-mcp print-egress-policy` for the exact policy).',
     );
   } else if (config.egressAuthority === 'none') {
-    banner(
-      'OA_LOCAL_NO_SANDBOX: executed code has NO network boundary'
-        + `${config.executor === 'node' ? ' and NO filesystem boundary' : ''} `
-        + '— trusted local use only.',
-    );
+    if (config.nodePermission) {
+      banner(
+        'node permission sandbox: filesystem/subprocess are denied, but egress '
+          + 'is NOT bounded — executed code can reach any host, carrying the '
+          + 'baked API credential. For a scoped-egress boundary, install deno '
+          + 'and set OA_EXECUTOR=deno (see README → "Execution model").',
+      );
+    } else {
+      banner(
+        'OA_LOCAL_NO_SANDBOX: executed code has NO network boundary'
+          + `${config.executor === 'node' ? ' and NO filesystem boundary' : ''} `
+          + '— trusted local use only.',
+      );
+    }
   }
 
   // CA trust inside the µVM depends on the in-µVM runtime. node-in-µVM can't see

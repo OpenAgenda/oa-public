@@ -62,7 +62,7 @@ import { withConcurrencyLimit } from './concurrencyLimit.js';
 function createEngine(config) {
   switch (config.executor) {
     case 'node':
-      return createNodeExecutor();
+      return createNodeExecutor({ permission: config.nodePermission });
     case 'deno':
       return createDenoExecutor();
     case 'microsandbox':

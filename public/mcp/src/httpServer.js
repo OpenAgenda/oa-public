@@ -22,6 +22,7 @@ import { createRateLimiter } from './rateLimiter.js';
 import { createCallerConcurrencyLimiter } from './callerConcurrency.js';
 import { createTokenVerifier } from './auth/verifier.js';
 import { exchangeToken, TokenExchangeError } from './auth/tokenExchange.js';
+import { buildServerCard } from './serverCard.js';
 import { landingPage } from './landing.js';
 import { log, makeAuditRecorder } from './log.js';
 import { recordMetric } from './telemetry.js';
@@ -50,6 +51,37 @@ export function createHttpApp({ config, executor }) {
   }
   const app = express();
   app.disable('x-powered-by');
+
+  // CORS, app-wide and deliberately wildcard. This server has NO ambient
+  // authentication (no cookies/session — only an explicit bearer a foreign page
+  // cannot obtain), so `*` exposes nothing; and it makes the whole surface
+  // usable from browser-based MCP clients (web inspectors, playgrounds), which
+  // today would fail the preflight on POST /mcp. WWW-Authenticate is exposed
+  // because the 401 challenge IS the discovery entrypoint (it points at the
+  // PRM) and is not CORS-safelisted; Mcp-Session-Id for stateful-capable
+  // clients (stateless here — harmless, future-proof). Preflight is answered
+  // at this altitude (204) so the bearer middleware never sees OPTIONS. NO
+  // Allow-Credentials — same edge posture as the AS endpoints. The deployment
+  // proxy must NOT add its own ACAO header (duplicate headers are rejected by
+  // browsers); CORS belongs to the app on this subdomain.
+  app.use((req, res, next) => {
+    res.set('Access-Control-Allow-Origin', '*');
+    res.set(
+      'Access-Control-Expose-Headers',
+      'WWW-Authenticate, Mcp-Session-Id',
+    );
+    if (req.method === 'OPTIONS') {
+      res.set('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
+      res.set(
+        'Access-Control-Allow-Headers',
+        'Authorization, Content-Type, Mcp-Protocol-Version, Mcp-Session-Id, Last-Event-ID',
+      );
+      res.set('Access-Control-Max-Age', '600');
+      res.status(204).end();
+      return;
+    }
+    next();
+  });
 
   // Liveness probe for uptime monitoring (and a future LB / horizontal scale — the
   // single-host SPOF is noted in the README). Unauthenticated by design (a probe
@@ -107,6 +139,22 @@ export function createHttpApp({ config, executor }) {
   if (prmUrl.pathname !== rootPrmPath) {
     app.use(rootPrmPath, prm);
   }
+
+  // MCP Server Card (SEP-1649 draft): unauthenticated, static server metadata —
+  // identity, tool definitions, and the "OAuth required" signal — for registries
+  // and health-checkers whose probes can't complete an OAuth flow (no human on
+  // their side) and would otherwise read our 401 as an outage. Built ONCE from
+  // the same sources as the live server, so it can't drift (see serverCard.js).
+  // Served at BOTH well-known forms in the wild: the SEP text's mcp.json and
+  // the server-card.json variant from the SEP discussion, which is what
+  // Smithery's audit fetches. Same document; public; CORS via the app-wide
+  // middleware. Collapse to one path when the SEP settles.
+  const serverCard = buildServerCard({ config });
+  const cardHandler = (req, res) => {
+    res.json(serverCard);
+  };
+  app.get('/.well-known/mcp.json', cardHandler);
+  app.get('/.well-known/mcp/server-card.json', cardHandler);
 
   // Validate the JWS locally against the AS JWKS, bound to our resource as
   // audience. On failure the client gets a 401 with a WWW-Authenticate challenge

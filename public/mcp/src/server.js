@@ -10,12 +10,13 @@ import {
   propagation,
   SpanStatusCode,
 } from '@opentelemetry/api';
-import { z } from 'zod';
 import pkg from '../package.json' with { type: 'json' };
 import { searchOperations, renderSearch } from './docs/operations.js';
 import { buildScript } from './sandbox/preamble.js';
 import { credentialFp } from './log.js';
 import { SERVICE_NAME } from './serviceName.js';
+import { sandboxFacts } from './config.js';
+import { searchDocsTool, executeTool } from './toolDefs.js';
 
 // Cap on the diagnostic text returned to the client on a failed run. Bounds the
 // LLM context blast radius of a runaway, independent of the 1 MiB process-level
@@ -270,20 +271,10 @@ export function createServer({
 
   // search_docs — progressive disclosure: find the right operation + how to call
   // it before writing code. Pure metadata, no network, no side effects.
+  // Definition shared with the server card — see toolDefs.js.
   registerTracedTool(
-    'search_docs',
-    {
-      title: 'Search OpenAgenda API docs',
-      description:
-        'Find the OpenAgenda v3 operations relevant to a question. Returns '
-        + 'operation signatures, parameters and examples to use from the `execute` tool.',
-      inputSchema: {
-        query: z
-          .string()
-          .describe('what you want to do, e.g. "upcoming events in Paris"'),
-      },
-      annotations: { readOnlyHint: true, openWorldHint: false },
-    },
+    searchDocsTool.name,
+    searchDocsTool.config,
     async ({ query }, span) => {
       const startedAt = Date.now();
       const ops = searchOperations(query);
@@ -317,36 +308,13 @@ export function createServer({
   );
 
   // execute — the code-mode tool. The LLM writes JS against the `oa` client; we
-  // run it in the sandbox and return the JSON result. NOT readOnly: it runs
-  // ARBITRARY code, so it can mutate the moment the v3 write surface lands — the
-  // annotation must not promise read-only, or a client would stop gating it (see
-  // README → "Mutations & moderation"). openWorld because it reaches the network.
+  // run it in the sandbox and return the JSON result. The definition (and the
+  // NOT-readOnly annotation rationale) is shared with the server card — see
+  // toolDefs.js; it embeds this instance's configured limits.
+  const executeDef = executeTool(config.limits, sandboxFacts(config));
   registerTracedTool(
-    'execute',
-    {
-      title: 'Execute code against the OpenAgenda API',
-      description: [
-        'Run JavaScript against the OpenAgenda v3 API and return its result.',
-        'A ready-to-use `oa` client (an OpenAgenda instance) is available. Every operation is',
-        '`oa.<resource>.<action>({ path?, query? })`, is async, and resolves to { data, error }',
-        '— it does NOT throw on HTTP errors, so check `error`. Call search_docs to discover the',
-        "full catalogue with each operation's params, response shape and a runnable example, e.g.:",
-        '  oa.agendas.events.list({ path: { agendaUid }, query: { relative: ["upcoming"] } })',
-        'List endpoints return { data: [...], pagination: { after } } — pass query.after to page;',
-        'facets returns { facets: {...} } (no data array, no pagination).',
-        'A `schemas` namespace (zod validators, prefixed z…) is also available to validate payloads.',
-        'Write an async body and `return` the value you want back (JSON-serialised).',
-        'Compose freely: fetch, filter and aggregate in one script; return only what you need.',
-        'Sandbox: ONLY network to the OpenAgenda API is allowed (no filesystem, env or subprocess); '
-          + `execution is killed after ${config.limits.timeoutMs} ms and heap is capped at ${config.limits.memoryMb} MiB.`,
-      ].join('\n'),
-      inputSchema: {
-        code: z
-          .string()
-          .describe('async JS body that returns a JSON-serialisable value'),
-      },
-      annotations: { readOnlyHint: false, openWorldHint: true },
-    },
+    executeDef.name,
+    executeDef.config,
     async ({ code }, span) => {
       const startedAt = Date.now();
       // `apiCredential`/`res` are filled as the run progresses; finish() reads
@@ -580,13 +548,8 @@ export function createServer({
         // key to defeat this — in-process scrubbing can't be the exfiltration boundary
         // (see preamble.js); the real defense against leaking a SHARED key to an
         // untrusted caller is a per-caller scoped token (OAuth, roadmap).
-        return finish('ok', {
-          content: [
-            textContent(
-              redactSecrets(res.stdout.trim() || 'null', apiCredential),
-            ),
-          ],
-        });
+        const text = redactSecrets(res.stdout.trim() || 'null', apiCredential);
+        return finish('ok', { content: [textContent(text)] });
       } finally {
         // Free the caller's slot whatever the outcome (success, failure, or a
         // thrown executor) — a no-op when no limiter ran or the cap refused us.

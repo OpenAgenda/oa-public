@@ -10,10 +10,11 @@ knobs. Pinned against **microsandbox v0.5.4 (beta)**.
 ## Where it fits
 
 The `execute` tool runs untrusted code through a pluggable
-[`SandboxExecutor`](../src/sandbox/executor.js). `deno` (local default) and `node`
-(local, under an `srt` wrapper or `OA_LOCAL_NO_SANDBOX`) cover bounded-trust
-local use; **`microsandbox` is the hard boundary for the public surface** and
-needs a KVM (Linux) / Apple-Silicon (macOS) host.
+[`SandboxExecutor`](../src/sandbox/executor.js). `node` (local default — Node's
+permission sandbox; bare with `OA_LOCAL_NO_SANDBOX`, or under an `srt` wrapper)
+and `deno` (the scoped-egress local hardening) cover bounded-trust local use;
+**`microsandbox` is the hard boundary for the public surface** and needs a KVM
+(Linux) / Apple-Silicon (macOS) host.
 
 In the two-axis model it is an **engine that owns its egress**
 (`egressAuthority=executor`): the µVM's host-enforced network policy _is_ the
