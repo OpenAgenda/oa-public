@@ -1,5 +1,14 @@
 # Change Log
 
+## 0.15.6
+
+### Patch Changes
+
+- Updated dependencies [[`11dda7f`](https://github.com/OpenAgenda/oa/commit/11dda7f2d318a8ead73675efb4f6046b9c1078ae)]:
+  - @openagenda/event-search@2.9.0
+  - @openagenda/agenda-stats@1.10.5
+  - @openagenda/react-integration-app@1.6.5
+
 ## 0.15.5
 
 ### Patch Changes

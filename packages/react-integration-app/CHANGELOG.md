@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.6.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @openagenda/agenda-stats@1.10.5
+  - @openagenda/event-admin-apps@0.0.3
+
 ## 1.6.4
 
 ### Patch Changes
