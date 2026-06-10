@@ -68,11 +68,11 @@ config. ~95 % of the server is shared; only the adapter that runs the code
 differs — so the **same codebase** ships a broadly-compatible local mode and a
 hard multi-tenant boundary, without duplication.
 
-| Engine (`OA_EXECUTOR`) | Runtime isolation                                          | Owns egress?              | Use                         |
-| ---------------------- | ---------------------------------------------------------- | ------------------------- | --------------------------- |
-| `deno`                 | deny-by-default perms + wall-clock kill + heap cap         | ✅ scoped `--allow-net`   | **local default**           |
-| `node`                 | heap cap + wall-clock kill (no fs/net boundary of its own) | ❌ needs an outer wrapper | local hardened, under `srt` |
-| `microsandbox`         | hardware-isolated micro-VM (own kernel)                    | ✅ (the µVM)              | **hosted / multi-tenant**   |
+| Engine (`OA_EXECUTOR`) | Runtime isolation                                        | Owns egress?                     | Use                              |
+| ---------------------- | -------------------------------------------------------- | -------------------------------- | -------------------------------- |
+| `node`                 | permission sandbox (fs/subprocess/workers denied) + caps | ❌ no host-scoped net permission | **local default** (zero-install) |
+| `deno`                 | deny-by-default perms + wall-clock kill + heap cap       | ✅ scoped `--allow-net`          | local hardening (scoped egress)  |
+| `microsandbox`         | hardware-isolated micro-VM (own kernel)                  | ✅ (the µVM)                     | **hosted / multi-tenant**        |
 
 The **engine** is one axis; **who owns network egress** (`OA_CODE_EGRESS_AUTHORITY`)
 is the other. `srt` is **not** an engine — it is the reference _wrapper_. Both
@@ -113,16 +113,17 @@ code-egress matrix below is about scope 1; scope 2 is a pure deployment choice.
 
 ### One authority — the validity matrix (code egress)
 
-| engine + authority          | verdict                                                                                                                                                                                                                                           |
-| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `deno` + `executor`         | ✅ deno scopes `--allow-net=<apiHost>` — self-contained                                                                                                                                                                                           |
-| `node` + `wrapper`          | ✅ the wrapper owns egress; node honors its proxy (`NODE_USE_ENV_PROXY=1`)                                                                                                                                                                        |
-| `deno` + `wrapper`          | ✅ deno runs **permissive** — it must _not_ also scope `--allow-net`, or it blocks the wrapper's proxy (macOS)                                                                                                                                    |
-| `microsandbox` + `executor` | ✅ the µVM owns its egress                                                                                                                                                                                                                        |
-| `node` + `executor`         | ❌ **refused by policy** — this project does not treat Node's process-level permission model as a hard egress boundary for hostile public code (and Node 24 has no network permission at all). Use a wrapper or microsandbox for a real boundary. |
-| any + `none`                | ⚠️ accepted **only** with `OA_MCP_MODE=local` + an explicit `OA_LOCAL_NO_SANDBOX=1` ack — never a silent default                                                                                                                                  |
-| `microsandbox` + `wrapper`  | ❌ unsupported — srt's seccomp denies the KVM/device primitives a µVM needs, and it is redundant (the µVM is already the hard boundary)                                                                                                           |
-| `hosted` + anything else    | ❌ fail-closed — hosted requires `microsandbox` + `executor`                                                                                                                                                                                      |
+| engine + authority          | verdict                                                                                                                                                                                                                                      |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `deno` + `executor`         | ✅ deno scopes `--allow-net=<apiHost>` — self-contained                                                                                                                                                                                      |
+| `node` + `wrapper`          | ✅ the wrapper owns egress; node honors its proxy (`NODE_USE_ENV_PROXY=1`)                                                                                                                                                                   |
+| `deno` + `wrapper`          | ✅ deno runs **permissive** — it must _not_ also scope `--allow-net`, or it blocks the wrapper's proxy (macOS)                                                                                                                               |
+| `microsandbox` + `executor` | ✅ the µVM owns its egress                                                                                                                                                                                                                   |
+| `node` + `executor`         | ❌ **refused by policy** — Node's permission model cannot scope egress (Node 24 has no network permission; Node 25's `--allow-net` is all-or-nothing, not host-scoped). Use a wrapper or microsandbox for a real boundary.                   |
+| `node` + `none`             | ⚠️ the **local default** (zero-install). The engine still self-applies Node's permission sandbox (`--permission`, Node ≥ 24: fs/subprocess/workers denied) **unless** `OA_LOCAL_NO_SANDBOX=1` — but egress is NOT bounded; bannered at boot. |
+| other + `none`              | ⚠️ accepted **only** with `OA_MCP_MODE=local` + an explicit `OA_LOCAL_NO_SANDBOX=1` ack — never a silent default                                                                                                                             |
+| `microsandbox` + `wrapper`  | ❌ unsupported — srt's seccomp denies the KVM/device primitives a µVM needs, and it is redundant (the µVM is already the hard boundary)                                                                                                      |
+| `hosted` + anything else    | ❌ fail-closed — hosted requires `microsandbox` + `executor`                                                                                                                                                                                 |
 
 ### The wrapper is a deployment contract the app cannot verify
 
@@ -139,14 +140,19 @@ a bad config **loud and drift-proof**:
 
 ### Recommended deployments
 
-- **Local dev** → `deno` + `executor`. Self-enforcing, only needs deno; the
-  default.
-- **Local personal (no sandbox)** → `OA_LOCAL_NO_SANDBOX=1 node src/index.js`. One
-  flag resolves to `node` + `none` (zero install). Fine for driving the tool
-  yourself, but it has **no fs/network boundary** — a prompt-injected script can
-  read local files and exfiltrate. Local + explicitly acknowledged only.
-- **Local hardened** → `node` + `wrapper`, run under `srt` (below). Adds
-  OS-level fs/proc isolation.
+- **Local default** → `node` + `none` (zero install, Node ≥ 24). The engine
+  runs the code under Node's **permission sandbox** (`--permission`): no
+  filesystem, subprocess, workers or addons. What it does **not** bound is
+  egress — a prompt-injected script can still send your API key anywhere (it
+  can no longer read local files). Bannered at boot.
+- **Local hardened (recommended)** → `OA_EXECUTOR=deno` (+ `executor`, the
+  default). One install adds the **scoped egress boundary**
+  (`--allow-net=<apiHost>`): the key physically cannot leave for another host.
+- **Local bare (opt-out)** → `OA_LOCAL_NO_SANDBOX=1`. Disables the permission
+  sandbox too — **no fs/network boundary at all**. Trusted, explicitly
+  acknowledged use only.
+- **Local belt-and-braces** → `node` + `wrapper`, run under `srt` (below). Adds
+  OS-level fs/proc isolation and wrapper-owned egress.
 - **Hosted / public** → `microsandbox` + `executor` for the code; **and,
   independently**, the orchestrator under srt (allowlisting only the microsandbox
   control endpoint). Two layers, two scopes — never microsandbox-under-srt.
@@ -211,15 +217,17 @@ control endpoint instead.
 
 ## Quickstart (local)
 
-**Prereqs:** Node ≥ 24, plus [`deno`](https://deno.com) on PATH for the default
-local engine. No deno? Add `OA_LOCAL_NO_SANDBOX=1` for the zero-install `node`
-path (no fs/network boundary — see [Recommended deployments](#recommended-deployments)).
-For the hardened `node` + `srt` setup, see [Running under srt](#running-under-srt-the-wrapper-authority).
+**Prereqs:** Node ≥ 24 — that's it. The default engine is node itself under its
+permission sandbox (no fs/subprocess; **network not bounded** — see
+[Recommended deployments](#recommended-deployments)). Recommended hardening:
+install [`deno`](https://deno.com) and set `OA_EXECUTOR=deno` for a scoped
+egress boundary. For the `srt` wrapper setup, see
+[Running under srt](#running-under-srt-the-wrapper-authority).
 
 ```sh
 # From npm — no checkout needed:
 # The API needs a credential (no anonymous read): any OpenAgenda API key for stdio (oa_pk_… shown; a least-privilege/read key is advised — it's baked into the sandboxed code). HTTP uses OAuth.
-OA_API_KEY=oa_pk_xxx npx -y @openagenda/mcp         # speaks MCP over stdio (deno engine)
+OA_API_KEY=oa_pk_xxx npx -y @openagenda/mcp         # speaks MCP over stdio (node engine)
 
 # Or from a checkout:
 yarn install
@@ -249,14 +257,26 @@ Then ask, e.g. _"how many upcoming events per city in agenda X?"_ — the model
 calls `search_docs`, writes a script using `oa.agendas.events.facets(...)`, and `execute`
 runs it in the sandbox.
 
+### CLI flags
+
+The non-secret invocation knobs also exist as flags — each maps onto its env
+var (the flag wins; `--help` shows the full list):
+
+```sh
+npx -y @openagenda/mcp --executor=deno --base-url=https://dapi.openagenda.com/v3
+```
+
+Secrets (`OA_API_KEY`, …) are **env-only by design**: argv is visible in
+`ps`/`/proc`, so no flag will ever carry a credential.
+
 ### Config (env)
 
 | Var                             | Default                                  | Meaning                                                                                                                                                                                                                                       |
 | ------------------------------- | ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `OA_MCP_MODE`                   | `local`                                  | `local` \| `hosted` (drives defaults + fail-closed gating)                                                                                                                                                                                    |
-| `OA_EXECUTOR`                   | `deno` (local) / `microsandbox` (hosted) | engine: `node` \| `deno` \| `microsandbox` (see Execution model)                                                                                                                                                                              |
-| `OA_CODE_EGRESS_AUTHORITY`      | `executor`                               | who owns code egress: `executor` \| `wrapper` \| `none`                                                                                                                                                                                       |
-| `OA_LOCAL_NO_SANDBOX`           | _off_                                    | one-flag unsafe local node path (`node` + `none`); also the `egress=none` ack                                                                                                                                                                 |
+| `OA_EXECUTOR`                   | `node` (local) / `microsandbox` (hosted) | engine: `node` \| `deno` \| `microsandbox` (see Execution model; `deno` = the scoped-egress upgrade)                                                                                                                                          |
+| `OA_CODE_EGRESS_AUTHORITY`      | `none` (node) / `executor` (others)      | who owns code egress: `executor` \| `wrapper` \| `none`                                                                                                                                                                                       |
+| `OA_LOCAL_NO_SANDBOX`           | _off_                                    | bare node: disables the permission sandbox too (NO boundary at all); also the `egress=none` ack for non-node engines                                                                                                                          |
 | `OA_BASE_URL`                   | `https://api.openagenda.com/v3`          | v3 base URL                                                                                                                                                                                                                                   |
 | `OA_API_KEY`                    | _none_                                   | any OpenAgenda API key (Bearer) — the **stdio** credential; a least-privilege/read key is advised (HTTP uses OAuth)                                                                                                                           |
 | `OA_SANDBOX_TIMEOUT_MS`         | `5000`                                   | hard wall-clock kill                                                                                                                                                                                                                          |
@@ -395,7 +415,11 @@ Auth method, transport and tenancy are **independent** axes — don't conflate
 The transport choice fixes the auth model rather than leaving a footgun:
 `transport=http` **fails closed** without OAuth config (issuer, resource,
 exchange secret), so a shared key can never be exposed over the network — there
-is no shared-key-over-HTTP path to opt into.
+is no shared-key-over-HTTP path to opt into. It **also fails closed on unbounded
+egress**: because http is network-facing, the node-first default (`egress=none`)
+is refused — a self-hosted http server must bound egress with `OA_EXECUTOR=deno`
+(or `microsandbox`), run under a `wrapper`, or explicitly accept a trusted
+single-tenant box with `OA_LOCAL_NO_SANDBOX=1`.
 
 > `OA_API_KEY` is the **stdio** credential — shared and ambient by nature. The
 > server redacts it from any error text it returns, and it is meant for local /

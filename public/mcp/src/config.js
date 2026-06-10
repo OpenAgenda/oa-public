@@ -1,10 +1,14 @@
 // Configuration for the OpenAgenda MCP server — everything from env.
 //
 //   OA_MCP_MODE              local | hosted                  (default: local)
-//   OA_EXECUTOR              node | deno | microsandbox       (engine that runs the code)
+//   OA_EXECUTOR              node | deno | microsandbox       (engine that runs the code;
+//                                                              local default: node — Node's
+//                                                              permission sandbox, no egress bound;
+//                                                              deno = the scoped-egress upgrade)
 //   OA_CODE_EGRESS_AUTHORITY executor | wrapper | none        (who owns the network boundary)
-//   OA_LOCAL_NO_SANDBOX      1                                (one-flag unsafe local node path;
-//                                                              also the explicit egress=none ack)
+//   OA_LOCAL_NO_SANDBOX      1                                (bare node: disable the permission
+//                                                              sandbox too; also the explicit
+//                                                              egress=none ack for other engines)
 //   OA_BASE_URL              v3 base URL                      (default: production)
 //   OA_API_KEY               any OpenAgenda API key (Bearer)   (no anonymous read; least-privilege key advised)
 //   OA_SANDBOX_TIMEOUT_MS / OA_SANDBOX_MEMORY_MB              hard resource caps
@@ -101,6 +105,22 @@ export function allowNetFromEnv(env = process.env) {
   return [apiHostFromBaseUrl(env.OA_BASE_URL ?? DEFAULT_BASE_URL)];
 }
 
+/**
+ * The executed code's ACTUAL isolation, derived from a resolved config — the
+ * single source the tool description (toolDefs.js) uses so the card and
+ * tools/list never overstate the boundary. `egressBounded`: an authority other
+ * than `none` confines the network (deno --allow-net, the µVM, or an outer
+ * wrapper). `fsBounded`: every engine confines the filesystem EXCEPT bare node
+ * (node without the permission sandbox).
+ * @param {Pick<ReturnType<typeof loadConfig>, 'executor'|'egressAuthority'|'nodePermission'>} config
+ */
+export function sandboxFacts({ executor, egressAuthority, nodePermission }) {
+  return {
+    egressBounded: egressAuthority !== 'none',
+    fsBounded: executor !== 'node' || nodePermission,
+  };
+}
+
 function int(raw, fallback) {
   const n = Number.parseInt(raw, 10);
   return Number.isFinite(n) && n > 0 ? n : fallback;
@@ -118,7 +138,33 @@ function oneOf(value, allowed, varName) {
 // The fail-closed validity matrix. Throws on every refused pairing with a
 // message that says how to fix it. Order matters: the broad hosted gate first,
 // then the specific impossible/unsupported/unsafe combos. See README for the table.
-function validateCombo({ mode, executor, egressAuthority, localNoSandbox }) {
+function validateCombo({
+  mode,
+  executor,
+  egressAuthority,
+  localNoSandbox,
+  transport,
+}) {
+  // The http transport is network-facing (a standalone OAuth resource server,
+  // reachable by any authenticated caller, minting a per-caller aud=api token
+  // into the sandbox). An UNBOUNDED-egress default is fail-OPEN there: a
+  // prompt-injected script could exfiltrate that token to any host. The
+  // node-first local default (node+none) is fine for the stdio personal model
+  // but must NOT silently carry over to http — require a bounded executor
+  // (deno/microsandbox/wrapper) or the explicit OA_LOCAL_NO_SANDBOX ack. Checked
+  // first so the network-facing footgun fails closed before the looser local
+  // allowances below. (Production hosted is already forced to microsandbox; this
+  // guards the self-hosted operator who runs http but forgets OA_MCP_MODE.)
+  if (transport === 'http' && egressAuthority === 'none' && !localNoSandbox) {
+    throw new Error(
+      'Refusing to start: OA_MCP_TRANSPORT=http with code egress=none is fail-open — a '
+        + "network-facing server would let executed code exfiltrate the caller's token to "
+        + 'any host. Bound egress with OA_EXECUTOR=deno (or microsandbox for the public '
+        + 'surface), run under an egress wrapper (OA_CODE_EGRESS_AUTHORITY=wrapper), or — for '
+        + 'a trusted single-tenant box only — acknowledge explicitly with OA_LOCAL_NO_SANDBOX=1.',
+    );
+  }
+
   // Hosted is the public, multi-tenant surface: the ONLY safe pairing is the
   // hardware-isolated µVM owning its own egress. Anything else is refused.
   if (
@@ -132,15 +178,15 @@ function validateCombo({ mode, executor, egressAuthority, localNoSandbox }) {
     );
   }
 
-  // node is refused as its own egress authority BY POLICY: this project does not
-  // treat Node's process-level permission model as a hard egress boundary (and on
-  // Node 24 there is no network permission at all). Use a real boundary instead.
+  // node is refused as its own egress authority BY POLICY: Node's permission
+  // model cannot scope egress (Node 24 has no network permission at all; Node
+  // 25's --allow-net is all-or-nothing, not host-scoped). Use a real boundary.
   if (executor === 'node' && egressAuthority === 'executor') {
     throw new Error(
-      "OA_EXECUTOR=node cannot own egress: this project does not treat Node's permission "
-        + 'model as a hard network boundary (and Node 24 has none anyway). Run it under an '
-        + 'outer sandbox (OA_CODE_EGRESS_AUTHORITY=wrapper, e.g. `srt -- node server.js`), or '
-        + '— for trusted local use only, with NO boundary — OA_LOCAL_NO_SANDBOX=1.',
+      "OA_EXECUTOR=node cannot own egress: Node's permission model cannot scope the network "
+        + "(24 doesn't cover it; 25's --allow-net is all-or-nothing). Run it under an outer "
+        + 'sandbox (OA_CODE_EGRESS_AUTHORITY=wrapper, e.g. `srt -- node server.js`), use '
+        + 'OA_EXECUTOR=deno, or accept the unbounded-egress local default (egress=none).',
     );
   }
 
@@ -166,12 +212,20 @@ function validateCombo({ mode, executor, egressAuthority, localNoSandbox }) {
     );
   }
 
-  // `none` disables every network boundary on the executed code. Only ever
-  // acceptable for explicit, local, trusted use — never a silent default.
-  if (egressAuthority === 'none' && !(mode === 'local' && localNoSandbox)) {
+  // `none` disables every network boundary on the executed code. Acceptable in
+  // LOCAL mode only, and only when something still bounds the process: the node
+  // engine (which self-applies Node's permission sandbox — fs/subprocess denied
+  // — unless OA_LOCAL_NO_SANDBOX opts out of that too; see nodeExecutor.js), or
+  // any engine with the explicit OA_LOCAL_NO_SANDBOX=1 acknowledgement. Never a
+  // silent default elsewhere.
+  if (
+    egressAuthority === 'none'
+    && !(mode === 'local' && (executor === 'node' || localNoSandbox))
+  ) {
     throw new Error(
       'OA_CODE_EGRESS_AUTHORITY=none disables every network boundary on the executed code. '
-        + 'Allowed only with OA_MCP_MODE=local AND OA_LOCAL_NO_SANDBOX=1 (explicit acknowledgement).',
+        + 'Allowed only with OA_MCP_MODE=local, and only for the node engine (whose permission '
+        + 'sandbox still bounds fs/subprocess) or with OA_LOCAL_NO_SANDBOX=1 (explicit acknowledgement).',
     );
   }
 }
@@ -274,32 +328,41 @@ export function loadConfig(env = process.env) {
 
   const localNoSandbox = env.OA_LOCAL_NO_SANDBOX === '1' || env.OA_LOCAL_NO_SANDBOX === 'true';
 
-  // OA_LOCAL_NO_SANDBOX is the one-flag personal shorthand AND the explicit
-  // acknowledgement that egress=none has no boundary. When set (local), it
-  // shifts the per-axis DEFAULTS to the zero-install node path (node + none) so
-  // `OA_LOCAL_NO_SANDBOX=1 node src/index.js` just works; explicit OA_EXECUTOR /
-  // OA_CODE_EGRESS_AUTHORITY still win per axis (never silently overridden).
-  const unsafeLocal = mode === 'local' && localNoSandbox;
-
-  // Defaults are derived from the mode so an operator who sets nothing is safe:
-  // local → deno (self-contained boundary), hosted → microsandbox (hard µVM).
-  // The no-sandbox flag shifts the local default to the zero-install node path.
-  const localDefaultExecutor = unsafeLocal ? 'node' : 'deno';
+  // Defaults are derived from the mode: local → node (zero-install — the engine
+  // self-applies Node's permission sandbox, fs/subprocess denied, but has NO
+  // egress boundary, see nodeExecutor.js; index.js banners it at boot), hosted →
+  // microsandbox (hard µVM). deno (scoped egress) is the recommended local
+  // hardening, one OA_EXECUTOR=deno away. OA_LOCAL_NO_SANDBOX no longer shifts
+  // the executor default (node already IS the default); it now means "bare node"
+  // — it disables the permission sandbox (nodePermission below) and remains the
+  // explicit egress=none acknowledgement for non-node engines.
   const executor = oneOf(
-    env.OA_EXECUTOR
-      ?? (mode === 'hosted' ? 'microsandbox' : localDefaultExecutor),
+    env.OA_EXECUTOR ?? (mode === 'hosted' ? 'microsandbox' : 'node'),
     EXECUTORS,
     'OA_EXECUTOR',
   );
-  // Default: the engine owns egress (valid for both default executors), unless
-  // the no-sandbox flag asked for the boundary-less path.
+  // Default egress follows the engine: deno/microsandbox own it (`executor`);
+  // node cannot (no host-scoped network permission), so its default is `none` —
+  // validateCombo allows that pairing for the local node engine specifically.
   const egressAuthority = oneOf(
-    env.OA_CODE_EGRESS_AUTHORITY ?? (unsafeLocal ? 'none' : 'executor'),
+    env.OA_CODE_EGRESS_AUTHORITY ?? (executor === 'node' ? 'none' : 'executor'),
     EGRESS,
     'OA_CODE_EGRESS_AUTHORITY',
   );
 
-  validateCombo({ mode, executor, egressAuthority, localNoSandbox });
+  // Resolved BEFORE validateCombo: the network-facing http transport tightens
+  // the egress matrix (a silent unbounded-egress default is fail-open there).
+  const transport = oneOf(
+    env.OA_MCP_TRANSPORT ?? 'stdio',
+    TRANSPORTS,
+    'OA_MCP_TRANSPORT',
+  );
+  // Resolve OAuth BEFORE the safety matrix so an operator gets the more
+  // fundamental "your http config is incomplete" error (missing issuer/resource/
+  // secret) before the egress-posture one. Returns null for stdio.
+  const oauth = loadOAuth(transport, env);
+
+  validateCombo({ mode, executor, egressAuthority, localNoSandbox, transport });
 
   // JS runtime inside the µVM (microsandbox only). `llrt` swaps node for a
   // lightweight QuickJS-based runtime (~½ the RAM, ~3× faster warm start); the SDK
@@ -344,16 +407,6 @@ export function loadConfig(env = process.env) {
     }
   }
 
-  // Transport is orthogonal to the executor/egress matrix above: stdio (local,
-  // API-key model) or http (standalone OAuth resource server). The executor
-  // boundary is governed by validateCombo regardless of transport.
-  const transport = oneOf(
-    env.OA_MCP_TRANSPORT ?? 'stdio',
-    TRANSPORTS,
-    'OA_MCP_TRANSPORT',
-  );
-  const oauth = loadOAuth(transport, env);
-
   const baseUrl = env.OA_BASE_URL ?? DEFAULT_BASE_URL;
   const apiHost = apiHostFromBaseUrl(baseUrl);
 
@@ -366,6 +419,11 @@ export function loadConfig(env = process.env) {
     executor,
     egressAuthority,
     localNoSandbox,
+    // The node engine self-applies Node's permission model to the child
+    // (--permission: fs/subprocess/workers/addons denied — egress stays
+    // UNbounded, see nodeExecutor.js). OA_LOCAL_NO_SANDBOX is the explicit
+    // opt-out (bare node). Meaningless for the other engines.
+    nodePermission: executor === 'node' && !localNoSandbox,
     transport,
     httpPort: int(env.OA_MCP_HTTP_PORT, DEFAULT_HTTP_PORT),
     // OAuth resource-server config (transport=http only; null for stdio).
