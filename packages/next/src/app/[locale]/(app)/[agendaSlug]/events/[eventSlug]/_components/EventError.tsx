@@ -112,7 +112,7 @@ function EventErrorContent({
 
     return (
       <>
-        <Box as="header" w="full" bg="#413a42" px="4" py="8">
+        <Box as="header" w="full" bg="darkPurple.500" px="4" py="8">
           <Container
             maxW="container.lg"
             color="white"

@@ -171,7 +171,7 @@ function EventShow() {
         </Box>
       ) : null}
       <Box as="main">
-        <Box as="header" w="full" bg="#413a42" px={{ md: 4 }}>
+        <Box as="header" w="full" bg="darkPurple.500" px={{ md: 4 }}>
           <Container
             maxW="5xl"
             color="white"
