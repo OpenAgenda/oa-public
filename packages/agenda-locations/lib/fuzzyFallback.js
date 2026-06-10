@@ -12,11 +12,12 @@ const CANDIDATE_CAP = 300;
 //     query token, ranked by total distance.
 // This recalls the common "one token mistyped" case (e.g. "hotl ville"); it is
 // deliberately not exhaustive — comprehensive typo recall at scale is the
-// Elasticsearch escalation noted in the plan. Returns up to `limit` items.
+// Elasticsearch escalation noted in the plan. Returns the full ranked match set
+// (bounded by CANDIDATE_CAP); the caller slices the requested page.
 export default async function fuzzyFallback(
   runList,
   service,
-  { query, nav, options, tokens, limit },
+  { query, nav, options, tokens },
 ) {
   const byLengthDesc = [...tokens].sort((a, b) => b.length - a.length);
 
@@ -57,6 +58,5 @@ export default async function fuzzyFallback(
     }))
     .filter(({ score }) => score !== null)
     .sort((a, b) => a.score - b.score)
-    .slice(0, limit)
     .map(({ item }) => item);
 }

@@ -75,7 +75,28 @@ async function list(
     ...pickContextIdentifiers(endpointId, ['agendaUid', 'setUid']),
   });
 
-  let total = includeTotal
+  const search = typeof inflatedQuery?.search === 'string' ? inflatedQuery.search : null;
+
+  // Interactive search — a search term, offset pagination, and no explicit
+  // `order` — is relevance-ranked: fetch a bounded, early-terminating candidate
+  // window and rank it app-side (see rankWindowRows / paginationAndOrder). An
+  // explicit `order` opts out: the caller wants a sorted, fully paginable
+  // enumeration of every match instead of the ranked top-N. Keyset and stream
+  // are never ranked.
+  const relevanceRanking = !!search
+    && !cleanNav.useAfter
+    && !cleanListOptions.stream
+    && nav?.order === undefined;
+
+  const offset = cleanNav.offset ?? 0;
+  const rankWindow = relevanceRanking
+    ? Math.max(RANK_WINDOW, offset + cleanNav.limit)
+    : null;
+
+  // In ranked mode the result is intentionally bounded to the window, so a
+  // whole-agenda COUNT(*) would be both expensive and misleading — `total` is
+  // taken from the window after the fetch. Every other mode keeps the true count.
+  let total = includeTotal && !rankWindow
     ? await k
       .clone()
       .count('id as total')
@@ -92,19 +113,6 @@ async function list(
   if ((includeFields ?? []).includes('agendaUid')) {
     k.select('agenda_id');
   }
-
-  const search = typeof inflatedQuery?.search === 'string' ? inflatedQuery.search : null;
-
-  // Relevance ranking applies for a non-keyset, non-streaming search. We then
-  // fetch a bounded, early-terminating candidate window and rank it app-side
-  // (see rankWindowRows / paginationAndOrder rankWindow branch) rather than
-  // letting MySQL filesort every matching row in the agenda.
-  const relevanceRanking = !!search && !cleanNav.useAfter && !cleanListOptions.stream;
-
-  const offset = cleanNav.offset ?? 0;
-  const rankWindow = relevanceRanking
-    ? Math.max(RANK_WINDOW, offset + cleanNav.limit)
-    : null;
 
   if (rankWindow) {
     // The window is ranked and sliced by `placename`/`id`, so both must be
@@ -128,11 +136,13 @@ async function list(
     result.rows = await k;
 
     if (rankWindow) {
-      // Rank the recency-ordered window, then return only the requested page.
-      result.rows = rankWindowRows(result.rows, search).slice(
-        offset,
-        offset + cleanNav.limit,
-      );
+      // Rank the recency-ordered window; `total` is the number of matches in
+      // the window (bounded), then return only the requested page.
+      const ranked = rankWindowRows(result.rows, search);
+      if (includeTotal) {
+        total = ranked.length;
+      }
+      result.rows = ranked.slice(offset, offset + cleanNav.limit);
     }
 
     result.items = await transformAndDecorateItems(
@@ -142,9 +152,9 @@ async function list(
     );
     log('fetched %s items', result.rows.length);
 
-    // Typo-tolerant fallback: only when an explicit search found nothing and
-    // we're not paginating by keyset. Recurses into list() with a single anchor
-    // token (guarded by `internal.skipFuzzyFallback`).
+    // Typo-tolerant fallback: only when a search found nothing and we're not
+    // paginating by keyset. fuzzyFallback returns the full ranked "did you mean"
+    // set; we slice the requested page and report the set size as total.
     if (
       !internal.skipFuzzyFallback
       && search
@@ -154,18 +164,17 @@ async function list(
       const tokens = tokenizeSearch(search);
 
       if (tokens.length) {
-        const fuzzyItems = await fuzzyFallback(list, service, {
+        const fuzzyMatches = await fuzzyFallback(list, service, {
           query,
           nav,
           options,
           tokens,
-          limit: cleanNav.limit,
         });
 
-        if (fuzzyItems.length) {
-          result.items = fuzzyItems;
-          if (total !== null) {
-            total = fuzzyItems.length;
+        if (fuzzyMatches.length) {
+          result.items = fuzzyMatches.slice(offset, offset + cleanNav.limit);
+          if (includeTotal) {
+            total = fuzzyMatches.length;
           }
         }
       }

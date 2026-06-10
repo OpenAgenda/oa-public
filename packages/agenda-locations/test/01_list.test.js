@@ -336,6 +336,36 @@ describe('agenda-locations - functional - list', () => {
         expect(beffroi).toBeDefined();
         expect(beffroi.eventCount).toBeDefined();
       });
+
+      it('an explicit order opts out of ranking (sorted enumeration)', async () => {
+        const items = await svc(7196947).list(
+          { search: 'saint' },
+          { order: 'name.asc', limit: 10 },
+        );
+        const names = items.map((i) => i.name);
+        expect(names.length).toBeGreaterThan(1);
+        expect(names).toEqual([...names].sort((a, b) => a.localeCompare(b)));
+      });
+
+      it('total reflects the bounded match set in ranked mode', async () => {
+        const { items, total } = await svc(7196947).list(
+          { search: 'château' },
+          { limit: 300 },
+          { total: true },
+        );
+        expect(total).toBeGreaterThan(0);
+        expect(total).toBe(items.length);
+      });
+
+      it('fuzzy fallback reports its full match-set size as total', async () => {
+        const { items, total } = await svc(7196947).list(
+          { search: 'hotl ville' },
+          { limit: 5 },
+          { total: true },
+        );
+        expect(items.length).toBeGreaterThan(0);
+        expect(total).toBeGreaterThanOrEqual(items.length);
+      });
     });
 
     it('"state" filters verified or unverified locations', async () => {
