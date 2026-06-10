@@ -123,6 +123,23 @@ async function fetchAgendaForProxy(
   }
 }
 
+// better-auth writes the session-cache cookie with a `__Secure-` prefix
+// whenever the auth baseURL is https (`createCookieGetter`), but the standalone
+// `getCookieCache` reader only assumes that prefix when `NODE_ENV==='production'`
+// (or an explicit `isSecure`). On an https deployment running with
+// `NODE_ENV !== 'production'` (e.g. dev/staging) the unprefixed read misses the
+// `__Secure-oa.sess_data` cookie, so `userLocale` is lost and locale silently
+// falls back to `fr`. Read both name variants so the session survives regardless.
+async function getOaSessionCache(req: NextRequest) {
+  const secret = process.env.OA_AUTH_SECRET;
+  if (!secret) return null;
+  const opts = { secret, cookiePrefix: 'oa', cookieName: 'sess_data' } as const;
+  return (
+    await getCookieCache(req, { ...opts, isSecure: true }) ??
+    await getCookieCache(req, { ...opts, isSecure: false })
+  );
+}
+
 export async function proxy(req: NextRequest) {
   if (MATCHER_REGEX.test(req.nextUrl.pathname)) {
     return;
@@ -168,14 +185,7 @@ export async function proxy(req: NextRequest) {
   const acceptLanguage = parseAcceptLanguage(
     req.headers.get('Accept-Language'),
   );
-  const session = process.env.OA_AUTH_SECRET
-    ? await getCookieCache(req, {
-        secret: process.env.OA_AUTH_SECRET,
-        cookiePrefix: 'oa',
-        // Match the renamed session-cache cookie in `@openagenda/auth`.
-        cookieName: 'sess_data',
-      })
-    : null;
+  const session = await getOaSessionCache(req);
   const userLocale = (session?.user as { culture?: string | null } | undefined)
     ?.culture;
   const qsLocale = req.nextUrl.searchParams.get('lang');
