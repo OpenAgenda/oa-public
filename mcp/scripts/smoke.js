@@ -55,9 +55,17 @@ try {
   const runtimeWorks = !r2.isError && textOf(r2).trim() === '2';
   ok(runtimeWorks, 'execute runs in sandbox (1+1 === 2)', textOf(r2));
 
-  // 3. egress allowlist: a fetch OUTSIDE the API host must be denied by the
-  // sandbox. Only meaningful if the runtime actually ran — otherwise an error
-  // here just means "runtime broken", not "egress blocked" (false positive).
+  // 3. egress boundary: a fetch OUTSIDE the API host. The EXPECTATION depends on
+  // the configured engine — deno/microsandbox (or a wrapper) bound egress and
+  // must DENY it; the node-first default does NOT bound egress and will ALLOW
+  // it. Mirror config's derivation so the smoke passes under both the documented
+  // `OA_EXECUTOR=deno` invocation and the zero-config node default. Only
+  // meaningful once the runtime actually ran (else an error means "runtime
+  // broken", not "egress blocked").
+  const executor = process.env.OA_EXECUTOR ?? 'node';
+  const egress = process.env.OA_CODE_EGRESS_AUTHORITY
+    ?? (executor === 'node' ? 'none' : 'executor');
+  const egressBounded = egress !== 'none';
   if (runtimeWorks) {
     const r3 = await client.callTool({
       name: 'execute',
@@ -65,11 +73,21 @@ try {
         code: 'return await fetch("https://example.com").then(r => r.status);',
       },
     });
-    ok(
-      r3.isError === true,
-      'egress blocked: fetch to non-allowlisted host errors',
-      r3.isError ? '' : `NOT blocked → ${textOf(r3)}`,
-    );
+    if (egressBounded) {
+      ok(
+        r3.isError === true,
+        `egress blocked: fetch to non-allowlisted host errors (executor=${executor})`,
+        r3.isError ? '' : `NOT blocked → ${textOf(r3)}`,
+      );
+    } else {
+      // node default: egress is intentionally unbounded — assert the run reached
+      // the network (proves the path works) and flag that there is NO boundary.
+      ok(
+        r3.isError !== true,
+        `egress UNBOUNDED by config (executor=${executor}, egress=none) — fetch reaches any host`,
+        `unexpected error → ${textOf(r3)}`,
+      );
+    }
   } else {
     console.log(
       '· skipped egress check (runtime not working — fix that first)',

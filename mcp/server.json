@@ -9,6 +9,18 @@
   },
   "version": "1.0.0",
   "websiteUrl": "https://mcp.openagenda.com",
+  "icons": [
+    {
+      "src": "https://cdn.openagenda.com/static/icon-512.png",
+      "mimeType": "image/png",
+      "sizes": ["512x512"]
+    },
+    {
+      "src": "https://cdn.openagenda.com/static/OA.svg",
+      "mimeType": "image/svg+xml",
+      "sizes": ["any"]
+    }
+  ],
   "remotes": [
     {
       "type": "streamable-http",
@@ -39,8 +51,14 @@
           "format": "string"
         },
         {
+          "name": "OA_EXECUTOR",
+          "description": "Code engine: node (default — Node's permission sandbox: no filesystem/subprocess; network NOT bounded) or deno (adds a scoped network egress boundary; recommended hardening, needs deno installed).",
+          "isRequired": false,
+          "format": "string"
+        },
+        {
           "name": "OA_LOCAL_NO_SANDBOX",
-          "description": "Run without deno, using plain node — NO sandbox boundary; trusted/dev use only.",
+          "description": "Disable the Node permission sandbox entirely (bare node, NO boundary at all) — trusted/dev use only.",
           "isRequired": false,
           "format": "boolean"
         }

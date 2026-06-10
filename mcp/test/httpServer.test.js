@@ -186,6 +186,65 @@ describe('MCP HTTP resource server', () => {
     });
   });
 
+  describe('app-wide CORS (browser-based MCP clients)', () => {
+    it('answers the preflight on the MCP endpoint at the edge (204, no auth)', async () => {
+      const res = await fetch(`${baseUrl}mcp`, {
+        method: 'OPTIONS',
+        headers: {
+          Origin: 'https://inspector.example',
+          'Access-Control-Request-Method': 'POST',
+          'Access-Control-Request-Headers': 'authorization, content-type',
+        },
+      });
+      expect(res.status).toBe(204);
+      expect(res.headers.get('access-control-allow-origin')).toBe('*');
+      expect(res.headers.get('access-control-allow-headers')).toContain(
+        'Authorization',
+      );
+      expect(res.headers.get('access-control-allow-methods')).toContain('POST');
+      // Wildcard origin must never pair with credentials (no ambient auth here).
+      expect(res.headers.get('access-control-allow-credentials')).toBeNull();
+    });
+
+    it('exposes WWW-Authenticate on the 401 (the challenge IS the discovery entrypoint)', async () => {
+      const { status, headers } = await rpc({ method: 'tools/list' });
+      expect(status).toBe(401);
+      expect(headers.get('access-control-allow-origin')).toBe('*');
+      expect(headers.get('access-control-expose-headers')).toContain(
+        'WWW-Authenticate',
+      );
+    });
+  });
+
+  describe('server card (SEP-1649 draft)', () => {
+    it('serves the unauthenticated card at /.well-known/mcp.json with open CORS', async () => {
+      // No token passed — the card exists precisely for crawlers that cannot
+      // complete an OAuth flow (shape/anti-drift is covered in serverCard.test.js).
+      const res = await fetch(`${baseUrl}.well-known/mcp.json`);
+      expect(res.status).toBe(200);
+      expect(res.headers.get('access-control-allow-origin')).toBe('*');
+      const card = await res.json();
+      expect(card.transport).toEqual({
+        type: 'streamable-http',
+        endpoint: '/mcp',
+      });
+      expect(card.authentication).toEqual({
+        required: true,
+        schemes: ['oauth2'],
+      });
+      expect(card.tools.map((t) => t.name)).toEqual(['search_docs', 'execute']);
+    });
+
+    it('serves the same card at the server-card.json variant (Smithery audit)', async () => {
+      const [a, b] = await Promise.all([
+        fetch(`${baseUrl}.well-known/mcp.json`),
+        fetch(`${baseUrl}.well-known/mcp/server-card.json`),
+      ]);
+      expect(b.status).toBe(200);
+      expect(await b.json()).toEqual(await a.json());
+    });
+  });
+
   describe('health endpoint', () => {
     it('serves an unauthenticated liveness probe at GET /health', async () => {
       // No token passed — the probe must answer 200 without auth, unlike /mcp.

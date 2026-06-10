@@ -46,10 +46,10 @@ export function createDenoExecutor() {
         return Promise.resolve(
           missingBinResult(
             'deno',
-            'The local default uses deno because it enforces fs/env/network '
-              + 'permissions by default. Install deno (https://deno.com), or run '
-              + 'with OA_LOCAL_NO_SANDBOX=1 for the unsafe local node engine (no '
-              + 'filesystem/network boundary).',
+            'OA_EXECUTOR=deno is the scoped-egress local hardening (it confines '
+              + 'the network to the API host, which the node default does not). '
+              + 'Install deno (https://deno.com), or drop OA_EXECUTOR to use the '
+              + 'node permission sandbox (fs/subprocess bounded, egress NOT).',
           ),
         );
       }

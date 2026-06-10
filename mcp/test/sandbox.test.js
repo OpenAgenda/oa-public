@@ -7,8 +7,79 @@ import { runProcess } from '../src/sandbox/spawn.js';
 import { which, missingBinResult } from '../src/sandbox/which.js';
 import { sandboxEnv } from '../src/sandbox/env.js';
 import { buildDenoArgs } from '../src/sandbox/executors/denoExecutor.js';
+import {
+  buildNodeFlags,
+  createNodeExecutor,
+} from '../src/sandbox/executors/nodeExecutor.js';
 
 const NODE = process.execPath;
+const NODE_MAJOR = Number(process.versions.node.split('.')[0]);
+
+describe('buildNodeFlags', () => {
+  const limits = { memoryMb: 256 };
+
+  it('applies the permission sandbox by default flags + heap cap + stdin program', () => {
+    const flags = buildNodeFlags({ limits, permission: true, nodeMajor: 24 });
+    expect(flags).toContain('--permission');
+    expect(flags).not.toContain('--allow-net'); // not a Node 24 flag
+    expect(flags).toContain('--max-old-space-size=256');
+    expect(flags).toContain('--input-type=module');
+  });
+
+  it('grants --allow-net from Node 25 (network moved behind the permission model)', () => {
+    const flags = buildNodeFlags({ limits, permission: true, nodeMajor: 25 });
+    expect(flags).toContain('--permission');
+    expect(flags).toContain('--allow-net');
+  });
+
+  it('bare node (OA_LOCAL_NO_SANDBOX) carries no permission flags', () => {
+    const flags = buildNodeFlags({ limits, permission: false, nodeMajor: 25 });
+    expect(flags).not.toContain('--permission');
+    expect(flags).not.toContain('--allow-net');
+  });
+
+  it('adds --use-system-ca for the dev CA', () => {
+    const flags = buildNodeFlags({ limits, useSystemCa: true, nodeMajor: 24 });
+    expect(flags[0]).toBe('--use-system-ca');
+  });
+});
+
+// The child is this very node — these run wherever node >= 24 runs (the
+// engines floor), so gate the whole block instead of failing on an older CI runtime.
+const describeOnNode24 = NODE_MAJOR >= 24 ? describe : describe.skip;
+
+describeOnNode24('createNodeExecutor (permission sandbox)', () => {
+  it('denies filesystem reads to the executed code', async () => {
+    const r = await createNodeExecutor({ permission: true }).run({
+      code:
+        'try { (await import("node:fs")).readFileSync("/etc/hostname"); console.log("read-ok"); }'
+        + ' catch (e) { console.log("code:" + e.code); }',
+      limits: { timeoutMs: 5000, memoryMb: 128 },
+      env: {},
+    });
+    expect(r.stdout).toContain('code:ERR_ACCESS_DENIED');
+  });
+
+  it('denies subprocess spawning to the executed code', async () => {
+    const r = await createNodeExecutor({ permission: true }).run({
+      code:
+        'try { (await import("node:child_process")).execSync("id"); console.log("spawn-ok"); }'
+        + ' catch (e) { console.log("code:" + e.code); }',
+      limits: { timeoutMs: 5000, memoryMb: 128 },
+      env: {},
+    });
+    expect(r.stdout).toContain('code:ERR_ACCESS_DENIED');
+  });
+
+  it('bare node (permission: false) keeps fs readable — the opt-out path', async () => {
+    const r = await createNodeExecutor({ permission: false }).run({
+      code: '(await import("node:fs")).statSync("/"); console.log("fs-ok");',
+      limits: { timeoutMs: 5000, memoryMb: 128 },
+      env: {},
+    });
+    expect(r.stdout).toContain('fs-ok');
+  });
+});
 
 describe('buildDenoArgs', () => {
   it('is deny-by-default: run, net flag, --no-prompt, heap cap, program via stdin', () => {

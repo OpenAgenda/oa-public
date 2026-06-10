@@ -8,10 +8,11 @@ describe('loadConfig', () => {
   describe('defaults (local)', () => {
     const cfg = loadConfig({});
 
-    it('defaults to local mode, deno executor, executor-owned egress', () => {
+    it('defaults to local mode, node executor (permission sandbox), egress=none', () => {
       expect(cfg.mode).toBe('local');
-      expect(cfg.executor).toBe('deno');
-      expect(cfg.egressAuthority).toBe('executor');
+      expect(cfg.executor).toBe('node');
+      expect(cfg.egressAuthority).toBe('none');
+      expect(cfg.nodePermission).toBe(true);
     });
 
     it('defaults to the production base URL and derives the API host', () => {
@@ -52,10 +53,17 @@ describe('loadConfig', () => {
   });
 
   describe('valid combinations', () => {
-    it('deno + executor (the local default)', () => {
+    it('deno + executor (the recommended local hardening)', () => {
       const cfg = loadConfig({ OA_EXECUTOR: 'deno' });
       expect(cfg.executor).toBe('deno');
       expect(cfg.egressAuthority).toBe('executor');
+      expect(cfg.nodePermission).toBe(false); // node-engine knob, inert here
+    });
+
+    it('node + none (the local default) keeps the permission sandbox on', () => {
+      const cfg = loadConfig({ OA_EXECUTOR: 'node' });
+      expect(cfg.egressAuthority).toBe('none'); // node cannot own egress
+      expect(cfg.nodePermission).toBe(true);
     });
 
     it('node + wrapper (hardened local under srt)', () => {
@@ -75,7 +83,7 @@ describe('loadConfig', () => {
       expect(cfg.egressAuthority).toBe('wrapper');
     });
 
-    it('node + none with an explicit no-sandbox ack', () => {
+    it('node + none with the explicit no-sandbox ack disables the permission sandbox', () => {
       const cfg = loadConfig({
         OA_EXECUTOR: 'node',
         OA_CODE_EGRESS_AUTHORITY: 'none',
@@ -83,14 +91,16 @@ describe('loadConfig', () => {
       });
       expect(cfg.egressAuthority).toBe('none');
       expect(cfg.localNoSandbox).toBe(true);
+      expect(cfg.nodePermission).toBe(false); // bare node — opted out
     });
   });
 
-  describe('OA_LOCAL_NO_SANDBOX shorthand', () => {
-    it('alone resolves to the node + none personal path', () => {
+  describe('OA_LOCAL_NO_SANDBOX (bare node)', () => {
+    it('alone resolves to bare node + none (no permission sandbox)', () => {
       const cfg = loadConfig({ OA_LOCAL_NO_SANDBOX: '1' });
       expect(cfg.executor).toBe('node');
       expect(cfg.egressAuthority).toBe('none');
+      expect(cfg.nodePermission).toBe(false);
     });
 
     it('does not override an explicit executor (deno stays deno)', () => {
@@ -121,13 +131,15 @@ describe('loadConfig', () => {
   });
 
   describe('fail-closed matrix', () => {
-    it('refuses node + executor (Node has no network permission)', () => {
-      expect(() => loadConfig({ OA_EXECUTOR: 'node' })).toThrow(
-        /node cannot own egress/,
-      );
+    it('refuses node + executor (Node cannot scope egress)', () => {
+      expect(() =>
+        loadConfig({
+          OA_EXECUTOR: 'node',
+          OA_CODE_EGRESS_AUTHORITY: 'executor',
+        })).toThrow(/node cannot own egress/);
     });
 
-    it('refuses egress=none without the trusted-local ack', () => {
+    it('refuses egress=none for a non-node engine without the ack', () => {
       expect(() =>
         loadConfig({
           OA_EXECUTOR: 'deno',
@@ -163,6 +175,39 @@ describe('loadConfig', () => {
           OA_CODE_EGRESS_AUTHORITY: 'none',
           OA_LOCAL_NO_SANDBOX: '1',
         })).toThrow(/microsandbox requires OA_CODE_EGRESS_AUTHORITY=executor/);
+    });
+  });
+
+  describe('fail-closed http egress gate', () => {
+    const httpBase = {
+      OA_MCP_TRANSPORT: 'http',
+      OA_OAUTH_ISSUER: 'https://auth.test/api/auth',
+      OA_MCP_RESOURCE_URL: 'https://dmcp.test/mcp',
+      OA_MCP_EXCHANGE_SECRET: 's',
+    };
+
+    it('refuses http with the silent node+none default (network-facing fail-open)', () => {
+      // The full OAuth triad present but executor/egress left default → node+none.
+      expect(() => loadConfig(httpBase)).toThrow(/egress=none is fail-open/);
+    });
+
+    it('allows http with a bounded executor (deno)', () => {
+      const cfg = loadConfig({ ...httpBase, OA_EXECUTOR: 'deno' });
+      expect(cfg.transport).toBe('http');
+      expect(cfg.egressAuthority).toBe('executor');
+    });
+
+    it('allows http + none ONLY with the explicit no-sandbox ack (trusted box)', () => {
+      const cfg = loadConfig({ ...httpBase, OA_LOCAL_NO_SANDBOX: '1' });
+      expect(cfg.egressAuthority).toBe('none');
+      expect(cfg.localNoSandbox).toBe(true);
+    });
+
+    it('still reports incomplete OAuth config before the egress posture', () => {
+      // loadOAuth runs first: the more fundamental error wins.
+      expect(() => loadConfig({ OA_MCP_TRANSPORT: 'http' })).toThrow(
+        /OA_OAUTH_ISSUER/,
+      );
     });
   });
 
@@ -418,6 +463,7 @@ describe('loadConfig', () => {
       expect(() =>
         loadConfig({
           OA_MCP_TRANSPORT: 'http',
+          OA_EXECUTOR: 'deno', // bounded egress — required for http (config-only; executor is mocked)
           OA_OAUTH_ISSUER: 'https://auth.test',
           OA_MCP_RESOURCE_URL: 'https://dmcp.test',
         })).toThrow(/OA_MCP_EXCHANGE_SECRET/);
@@ -426,6 +472,7 @@ describe('loadConfig', () => {
     it('defaults the JWKS URL to <issuer>/jwks and parses scopes', () => {
       const cfg = loadConfig({
         OA_MCP_TRANSPORT: 'http',
+        OA_EXECUTOR: 'deno', // bounded egress — required for http (config-only; executor is mocked)
         OA_OAUTH_ISSUER: 'https://auth.test/api/auth',
         OA_MCP_RESOURCE_URL: 'https://dmcp.test',
         OA_MCP_EXCHANGE_SECRET: 'test-exchange-secret',
@@ -440,6 +487,7 @@ describe('loadConfig', () => {
     it('defaults the exchange endpoint to <issuer>/oauth2/token-exchange', () => {
       const cfg = loadConfig({
         OA_MCP_TRANSPORT: 'http',
+        OA_EXECUTOR: 'deno', // bounded egress — required for http (config-only; executor is mocked)
         OA_OAUTH_ISSUER: 'https://auth.test/api/auth',
         OA_MCP_RESOURCE_URL: 'https://dmcp.test',
         OA_MCP_EXCHANGE_SECRET: 'test-exchange-secret',
@@ -454,6 +502,7 @@ describe('loadConfig', () => {
     it('honours an explicit JWKS URL and HTTP port', () => {
       const cfg = loadConfig({
         OA_MCP_TRANSPORT: 'http',
+        OA_EXECUTOR: 'deno', // bounded egress — required for http (config-only; executor is mocked)
         OA_OAUTH_ISSUER: 'https://auth.test',
         OA_MCP_RESOURCE_URL: 'https://dmcp.test',
         OA_MCP_EXCHANGE_SECRET: 'test-exchange-secret',

@@ -120,6 +120,9 @@ describe('MCP server', () => {
         config: loadConfig({
           OA_API_KEY: 'oa_pk_test',
           OA_BASE_URL: 'https://dapi.openagenda.com/v3',
+          // Explicit non-default engine/egress, so the assertions below prove
+          // forwarding (the node-first default would be egress=none).
+          OA_EXECUTOR: 'deno',
         }),
       }));
       const r = await client.callTool({
