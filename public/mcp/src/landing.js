@@ -67,12 +67,29 @@ export function landingPage({ resourceUrl }) {
   <h1>OpenAgenda MCP</h1>
   <p class="lede">A Model Context Protocol server for the OpenAgenda API — run sandboxed code against your agendas, authenticated with your OpenAgenda account.</p>
 
-  <h2>Add it to Claude Code</h2>
+  <h2>Claude Code</h2>
   <pre><code>claude mcp add --transport http openagenda ${endpoint}</code></pre>
   <p>Then run <code>/mcp</code> and authenticate in your browser.</p>
 
-  <h2>Endpoint</h2>
-  <p>The protocol endpoint is <code>POST ${endpoint}</code> (Streamable HTTP), protected by OAuth 2.1. Discovery: <a href="${prm}">protected resource metadata</a>.</p>
+  <h2>Claude Desktop &amp; claude.ai</h2>
+  <p>Settings → Connectors → <em>Add custom connector</em> → paste <code>${endpoint}</code>.</p>
+
+  <h2>Cursor</h2>
+  <pre><code>{
+  "mcpServers": {
+    "openagenda": { "url": "${endpoint}" }
+  }
+}</code></pre>
+  <p>In <code>~/.cursor/mcp.json</code> (or your project's <code>.cursor/mcp.json</code>).</p>
+
+  <h2>VS Code</h2>
+  <pre><code>code --add-mcp '{"name":"openagenda","type":"http","url":"${endpoint}"}'</code></pre>
+
+  <h2>Any other client</h2>
+  <p>The protocol endpoint is <code>POST ${endpoint}</code> (Streamable HTTP), protected by OAuth 2.1 — your OpenAgenda account, browser consent on first connection. Discovery: <a href="${prm}">protected resource metadata</a>.</p>
+
+  <h2>Self-host / local</h2>
+  <p>The server is open source and on npm: <code>OA_API_KEY=… npx -y @openagenda/mcp</code> speaks MCP over stdio against the public API with your API key. Source, docs and threat model: <a href="https://github.com/OpenAgenda/oa-public">github.com/OpenAgenda/oa-public</a> · <a href="https://www.npmjs.com/package/@openagenda/mcp">npm</a>.</p>
 
   <footer><a href="https://openagenda.com">openagenda.com</a></footer>
 </main>

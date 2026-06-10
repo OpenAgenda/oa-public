@@ -13,6 +13,48 @@ scoping and human-gated destructive tools are what bound what it can do.
 > [Hébergé / multi-tenant](#hébergé--multi-tenant) for the caveats that still apply
 > before relying on the write surface.
 
+## Connect to the hosted server
+
+The hosted server is the recommended way to use this MCP: no install, OAuth
+with your OpenAgenda account (the first connection opens a browser consent),
+per-caller scoping and rate limits. The endpoint is
+**`https://mcp.openagenda.com/mcp`** (Streamable HTTP).
+
+**Claude Code**
+
+```sh
+claude mcp add --transport http openagenda https://mcp.openagenda.com/mcp
+```
+
+Then `/mcp` to authenticate.
+
+**Claude Desktop / claude.ai** — Settings → Connectors → _Add custom
+connector_ → paste `https://mcp.openagenda.com/mcp`.
+
+**Cursor** — add to `~/.cursor/mcp.json` (or the project's `.cursor/mcp.json`):
+
+```json
+{
+  "mcpServers": {
+    "openagenda": { "url": "https://mcp.openagenda.com/mcp" }
+  }
+}
+```
+
+**VS Code**
+
+```sh
+code --add-mcp '{"name":"openagenda","type":"http","url":"https://mcp.openagenda.com/mcp"}'
+```
+
+**Anything else** — the server is a standard OAuth-protected MCP resource
+(RFC 9728 discovery at
+`https://mcp.openagenda.com/.well-known/oauth-protected-resource/mcp`); any
+client supporting remote MCP + OAuth works.
+
+Prefer running it yourself? `npx -y @openagenda/mcp` speaks MCP over stdio
+with an API key — see [Quickstart (local)](#quickstart-local).
+
 ## Architecture
 
 ```
@@ -175,11 +217,15 @@ path (no fs/network boundary — see [Recommended deployments](#recommended-depl
 For the hardened `node` + `srt` setup, see [Running under srt](#running-under-srt-the-wrapper-authority).
 
 ```sh
-yarn install
+# From npm — no checkout needed:
 # The API needs a credential (no anonymous read): any OpenAgenda API key for stdio (oa_pk_… shown; a least-privilege/read key is advised — it's baked into the sandboxed code). HTTP uses OAuth.
+OA_API_KEY=oa_pk_xxx npx -y @openagenda/mcp         # speaks MCP over stdio (deno engine)
+
+# Or from a checkout:
+yarn install
 export OA_API_KEY=oa_pk_xxx
 export OA_BASE_URL=https://dapi.openagenda.com/v3   # dev; defaults to production
-node public/mcp/src/index.js                      # speaks MCP over stdio (deno engine)
+node public/mcp/src/index.js
 ```
 
 Register it with an MCP client (e.g. Claude Desktop / Claude Code):
@@ -188,13 +234,16 @@ Register it with an MCP client (e.g. Claude Desktop / Claude Code):
 {
   "mcpServers": {
     "openagenda": {
-      "command": "node",
-      "args": ["/abs/path/to/public/mcp/src/index.js"],
+      "command": "npx",
+      "args": ["-y", "@openagenda/mcp"],
       "env": { "OA_API_KEY": "oa_pk_xxx" }
     }
   }
 }
 ```
+
+(From a checkout, use `"command": "node"`,
+`"args": ["/abs/path/to/public/mcp/src/index.js"]` instead.)
 
 Then ask, e.g. _"how many upcoming events per city in agenda X?"_ — the model
 calls `search_docs`, writes a script using `oa.agendas.events.facets(...)`, and `execute`
