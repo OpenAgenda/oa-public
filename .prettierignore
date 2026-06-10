@@ -12,9 +12,12 @@ polyfills
 
 agenda-docx/client/build
 agenda-portal/assets
+api-client/src/generated
+api-docs/dist
 common-labels/build
 date-utils/dist
 intl/dist
+mcp/dist
 react-filters/build
 react-filters/dist
 react-portal-ssr/dist

@@ -1,0 +1,2495 @@
+openapi: 3.1.0
+
+info:
+  title: OpenAgenda API
+  version: '3.0.0-draft'
+  description: |
+    The OpenAgenda v3 API gives programmatic access to agendas, events and
+    locations. This contract is the single source of truth behind the generated
+    SDK, the MCP server and this reference.
+
+    > **Draft.** v3 is a work in progress. Slice 1 covers read access to agendas
+    > and events; the surface may still change.
+
+    ## Authentication
+
+    Every request is authenticated with `Authorization: Bearer <token>`, using
+    one of two credentials:
+
+    - **API key** — a publishable read-only key (`oa_pk_…`, safe to ship in a
+      browser) for reads, or a secret key (`oa_sk_…`) for reads and writes.
+      Best for server-to-server and scripts.
+    - **OAuth 2.1** — authorization-code flow with mandatory PKCE (`S256`) for
+      interactive apps acting on a user's behalf. The issued short-lived token
+      carries the granted scopes (`agendas:read`, `events:read`, …). Public
+      clients hold no secret.
+
+    Use the **Authentication** selector at the top of this page to try requests
+    with either credential directly from the browser.
+
+    ## Pagination
+
+    List endpoints are **cursor-paginated**. Read `pagination.after` from a
+    response and pass it back as the `after` query parameter to fetch the next
+    page. Filters are not encoded in the cursor, so keep them stable across
+    pages.
+
+    ## SDK & MCP
+
+    - **TypeScript SDK** — [`@openagenda/api-client`](https://www.npmjs.com/package/@openagenda/api-client),
+      generated from this contract (see the code samples on each operation).
+    - **MCP server** — [`mcp.openagenda.com`](https://mcp.openagenda.com)
+      exposes the same surface to AI agents over the Model Context Protocol.
+  contact:
+    name: OpenAgenda Support
+    email: support@openagenda.com
+    url: https://developers.openagenda.com
+  license:
+    name: Proprietary — © OpenAgenda
+    identifier: LicenseRef-OpenAgenda-Proprietary
+  # SDK-first story: the code samples on each operation use @openagenda/api-client
+  # (generated from this very contract). Surface its install up front.
+  x-scalar-sdk-installation:
+    - lang: TypeScript
+      description: |
+        Install the official, fully-typed TypeScript SDK — generated from this
+        contract, so it always matches the endpoints below:
+
+        ```sh
+        npm install @openagenda/api-client
+        ```
+
+        Every operation's code sample uses it.
+
+servers:
+  - url: https://api.openagenda.com/v3
+    description: Production
+  - url: https://dapi.openagenda.com/v3
+    description: Development
+
+tags:
+  - name: Agendas
+    description: >
+      Agendas are the calendars that hold events. List and inspect them, then
+      drill into the events they publish.
+  - name: Events
+    description: Events published in an agenda.
+
+# Groups the resource tags under a "Resources" heading in the Scalar sidebar.
+# Forward-compatible with the upcoming locations/members surfaces (see scopes).
+x-tagGroups:
+  - name: Resources
+    tags:
+      - Agendas
+      - Events
+
+# Authenticate every request with either an API key or an OAuth2 token,
+# both carried as `Authorization: Bearer <token>`.
+security:
+  - bearerAuth: []
+  - oauth2:
+      - events:read
+
+paths:
+  /agendas:
+    get:
+      operationId: agendas.list
+      tags: [Agendas]
+      summary: List agendas
+      x-synonyms: [directory, catalogue, catalog, browse, find, all]
+      x-codeSamples:
+        - lang: TypeScript
+          label: List official agendas
+          source: |
+            const { data, error } = await oa.agendas.list({
+              query: { official: true, limit: 20 },
+            });
+            if (error) throw error;
+            return data.data.map((a) => ({ uid: a.uid, title: a.title }));
+      description: >
+        Returns a cursor-paginated list of agendas. Pass the `after` cursor
+        returned in `pagination.after` to fetch the next page; resend the same
+        filters (they are not encoded in the cursor).
+
+
+        By default items are the lighter `AgendaSummary`; pass `detailed=true`
+        for `AgendaDetailed` (adds `createdAt`, `network`, `locationSet` — the
+        search-index detailed projection). The full canonical record (with
+        `url`, `updatedAt`, `officializedAt`, `private`, `indexed`) is only
+        available via the single-agenda `GET /agendas/{agendaUid}`.
+
+
+        Unknown or malformed filter values return `400`.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - agendas:read
+      parameters:
+        - $ref: '#/components/parameters/AfterCursor'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Detailed'
+        - $ref: '#/components/parameters/AgendaSearch'
+        - $ref: '#/components/parameters/AgendaFilterUid'
+        - $ref: '#/components/parameters/AgendaFilterSlug'
+        - $ref: '#/components/parameters/AgendaFilterOfficial'
+      responses:
+        '200':
+          description: A page of agendas.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgendaList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /agendas/{agendaUid}:
+    get:
+      operationId: agendas.get
+      tags: [Agendas]
+      summary: Get one agenda
+      x-synonyms: [detail, single, one, by id, uid, fetch, retrieve, lookup]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Get one agenda by uid
+          source: |
+            const { data, error } = await oa.agendas.get({
+              path: { agendaUid: 12345 },
+            });
+            if (error) throw error;
+            return data;
+      description: >
+        Returns a single agenda in its full `Agenda` representation, including
+        `network` and `locationSet`.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - agendas:read
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+      responses:
+        '200':
+          description: The agenda.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agenda'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /agendas/{agendaUid}/events:
+    get:
+      operationId: agendas.events.list
+      tags: [Events]
+      summary: List events of an agenda
+      x-synonyms:
+        [find, browse, filter, paginate, cursor, upcoming, when, where, date]
+      x-codeSamples:
+        - lang: TypeScript
+          label: All upcoming events in Paris (paging every result)
+          source: |
+            const events = [];
+            let after;
+            do {
+              const { data, error } = await oa.agendas.events.list({
+                path: { agendaUid: 12345 },
+                query: { city: ['Paris'], relative: ['upcoming'], limit: 100, after },
+              });
+              if (error) throw error;
+              events.push(...data.data);
+              after = data.pagination.after;
+            } while (after);
+            return events.length;
+      description: >
+        Returns a cursor-paginated list of events for the given agenda.
+        Pass the `after` cursor returned in `pagination.after` to fetch the
+        next page.
+
+
+        Filters narrow the result set; they are NOT encoded in the cursor, so
+        resend the same filter parameters when fetching subsequent pages.
+
+
+        Only published events are listed. Unknown or malformed filter values
+        return `400` with per-field context under `error.details`.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - events:read
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+        - $ref: '#/components/parameters/AfterCursor'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Detailed'
+        - $ref: '#/components/parameters/Sort'
+        # text & identity
+        - $ref: '#/components/parameters/Search'
+        - $ref: '#/components/parameters/RelevanceThreshold'
+        - $ref: '#/components/parameters/FilterUid'
+        - $ref: '#/components/parameters/FilterSlug'
+        - $ref: '#/components/parameters/FilterExtId'
+        # classification
+        - $ref: '#/components/parameters/FilterKeyword'
+        - $ref: '#/components/parameters/FilterLanguage'
+        - $ref: '#/components/parameters/FilterAccessibility'
+        - $ref: '#/components/parameters/FilterStatus'
+        - $ref: '#/components/parameters/FilterAttendanceMode'
+        - $ref: '#/components/parameters/FilterFeatured'
+        # place
+        - $ref: '#/components/parameters/FilterLocationUid'
+        - $ref: '#/components/parameters/FilterLocationExtId'
+        - $ref: '#/components/parameters/FilterRegion'
+        - $ref: '#/components/parameters/FilterDepartment'
+        - $ref: '#/components/parameters/FilterCity'
+        - $ref: '#/components/parameters/FilterDistrict'
+        - $ref: '#/components/parameters/FilterAdminLevel3'
+        - $ref: '#/components/parameters/FilterAdminLevel5'
+        - $ref: '#/components/parameters/FilterCountryCode'
+        - $ref: '#/components/parameters/FilterBoundingBox'
+        - $ref: '#/components/parameters/FilterNear'
+        - $ref: '#/components/parameters/FilterRadius'
+        # provenance
+        - $ref: '#/components/parameters/FilterOriginAgendaUid'
+        - $ref: '#/components/parameters/FilterOriginAgendaOfficial'
+        - $ref: '#/components/parameters/FilterSourceAgendaUid'
+        # time
+        - $ref: '#/components/parameters/FilterRelative'
+        - $ref: '#/components/parameters/FilterTimings'
+        - $ref: '#/components/parameters/FilterLocalTime'
+        - $ref: '#/components/parameters/FilterCreatedAt'
+        - $ref: '#/components/parameters/FilterUpdatedAt'
+        # audience & additional fields
+        - $ref: '#/components/parameters/FilterAge'
+        - $ref: '#/components/parameters/FilterAdditionalFields'
+      responses:
+        '200':
+          description: A page of events.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /agendas/{agendaUid}/events/{eventUid}:
+    get:
+      operationId: agendas.events.get
+      tags: [Events]
+      summary: Get a single event
+      x-synonyms: [detail, single, one, by id, uid, fetch, retrieve, lookup]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Get a single event within an agenda
+          source: |
+            const { data, error } = await oa.agendas.events.get({
+              path: { agendaUid: 12345, eventUid: 67890 },
+            });
+            if (error) throw error;
+            return data;
+      description: Returns a single event by its uid within the given agenda.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - events:read
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+        - $ref: '#/components/parameters/EventUid'
+      responses:
+        '200':
+          description: The event.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /agendas/{agendaUid}/events/facets:
+    get:
+      operationId: agendas.events.facets
+      tags: [Events]
+      summary: Faceted counts for an agenda's events
+      x-synonyms:
+        [
+          aggregate,
+          count,
+          group,
+          group by,
+          stats,
+          statistics,
+          histogram,
+          distribution,
+          how many,
+          breakdown,
+          top,
+        ]
+      x-codeSamples:
+        - lang: TypeScript
+          label: How many concert events per city
+          source: |
+            const { data, error } = await oa.agendas.events.facets({
+              path: { agendaUid: 12345 },
+              query: { facets: ['cities'], keyword: ['concert'] },
+            });
+            if (error) throw error;
+            return data.facets.cities;
+      description: >
+        Returns event counts grouped by the requested facets, computed over the
+        **same filtered set** as `agendas.events.list`. Pass the same filter
+        parameters to scope the counts (e.g. `?keyword=concert` then facet on
+        `cities`). No event data is returned — only `{ value, count }` buckets
+        per facet.
+
+
+        Only published events are counted. `facets` selects which facets to
+        compute; an unknown facet name returns `400`. There is no pagination:
+        facets describe the whole filtered set.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - events:read
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+        - $ref: '#/components/parameters/Facets'
+        - $ref: '#/components/parameters/GeohashZoom'
+        - $ref: '#/components/parameters/TimingsInterval'
+        - $ref: '#/components/parameters/Month'
+        - $ref: '#/components/parameters/AdditionalFieldsKeys'
+        - $ref: '#/components/parameters/AdditionalFieldMetricsKeys'
+        # Same filters as agendas.events.list — facets reflect the filtered set.
+        - $ref: '#/components/parameters/Search'
+        - $ref: '#/components/parameters/RelevanceThreshold'
+        - $ref: '#/components/parameters/FilterUid'
+        - $ref: '#/components/parameters/FilterSlug'
+        - $ref: '#/components/parameters/FilterExtId'
+        - $ref: '#/components/parameters/FilterKeyword'
+        - $ref: '#/components/parameters/FilterLanguage'
+        - $ref: '#/components/parameters/FilterAccessibility'
+        - $ref: '#/components/parameters/FilterStatus'
+        - $ref: '#/components/parameters/FilterAttendanceMode'
+        - $ref: '#/components/parameters/FilterFeatured'
+        - $ref: '#/components/parameters/FilterLocationUid'
+        - $ref: '#/components/parameters/FilterLocationExtId'
+        - $ref: '#/components/parameters/FilterRegion'
+        - $ref: '#/components/parameters/FilterDepartment'
+        - $ref: '#/components/parameters/FilterCity'
+        - $ref: '#/components/parameters/FilterDistrict'
+        - $ref: '#/components/parameters/FilterAdminLevel3'
+        - $ref: '#/components/parameters/FilterAdminLevel5'
+        - $ref: '#/components/parameters/FilterCountryCode'
+        - $ref: '#/components/parameters/FilterBoundingBox'
+        - $ref: '#/components/parameters/FilterNear'
+        - $ref: '#/components/parameters/FilterRadius'
+        - $ref: '#/components/parameters/FilterOriginAgendaUid'
+        - $ref: '#/components/parameters/FilterOriginAgendaOfficial'
+        - $ref: '#/components/parameters/FilterSourceAgendaUid'
+        - $ref: '#/components/parameters/FilterRelative'
+        - $ref: '#/components/parameters/FilterTimings'
+        - $ref: '#/components/parameters/FilterLocalTime'
+        - $ref: '#/components/parameters/FilterCreatedAt'
+        - $ref: '#/components/parameters/FilterUpdatedAt'
+        - $ref: '#/components/parameters/FilterAge'
+        - $ref: '#/components/parameters/FilterAdditionalFields'
+      responses:
+        '200':
+          description: Facet counts over the filtered set.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FacetResults'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >
+        API key sent as a Bearer token. Use a publishable read-only key
+        (`oa_pk_…`, safe in browsers) for reads, or a secret key (`oa_sk_…`)
+        for reads and writes.
+    oauth2:
+      type: oauth2
+      description: >
+        OAuth2 authorization code flow with PKCE (OAuth 2.1). Interactive
+        clients redirect the user to the OpenAgenda authorization server to sign
+        in and consent; the issued short-lived access token carries the granted
+        scopes. PKCE (`S256`) is mandatory and public clients hold no secret.
+
+        For machine-to-machine access, use an API key as a Bearer token instead
+        (see `bearerAuth`).
+      flows:
+        authorizationCode:
+          authorizationUrl: https://openagenda.com/api/auth/oauth2/authorize
+          tokenUrl: https://openagenda.com/api/auth/oauth2/token
+          refreshUrl: https://openagenda.com/api/auth/oauth2/token
+          scopes:
+            agendas:read: Read agendas
+            agendas:write: Create and modify agendas
+            events:read: Read events
+            events:write: Create and modify events
+            locations:read: Read locations
+            locations:write: Create and modify locations
+            members:read: Read members
+            members:write: Manage members
+
+  parameters:
+    AgendaUid:
+      name: agendaUid
+      in: path
+      required: true
+      description: Numeric uid of the agenda.
+      schema:
+        type: integer
+        format: int64
+    EventUid:
+      name: eventUid
+      in: path
+      required: true
+      description: Numeric uid of the event.
+      schema:
+        type: integer
+        format: int64
+    AfterCursor:
+      name: after
+      in: query
+      required: false
+      description: >
+        Opaque pagination cursor returned in `pagination.after` of the previous
+        page. Omit it to fetch the first page.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of items to return per page.
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 100
+
+    Detailed:
+      name: detailed
+      in: query
+      required: false
+      description: >
+        When `true`, each item in `data` is returned in its detailed
+        representation, including the detailed-only fields. When `false` (the
+        default), items are the lighter summary representation.
+      schema:
+        type: boolean
+        default: false
+
+    AgendaSearch:
+      name: search
+      in: query
+      required: false
+      description: >
+        Full-text search across agenda title and description. Wrap the value in
+        double quotes for an exact phrase match.
+      schema:
+        type: string
+
+    AgendaFilterUid:
+      name: uid
+      in: query
+      required: false
+      description: Restrict to these agenda uids. Repeat the parameter for multiple values.
+      schema:
+        type: array
+        items:
+          type: integer
+          format: int64
+
+    AgendaFilterSlug:
+      name: slug
+      in: query
+      required: false
+      description: Restrict to these agenda slugs. Repeat the parameter for multiple values.
+      schema:
+        type: array
+        items:
+          type: string
+
+    AgendaFilterOfficial:
+      name: official
+      in: query
+      required: false
+      description: >
+        Restrict to official agendas (`true`) or to non-official agendas
+        (`false`). Omit to return both.
+      schema:
+        type: boolean
+
+    Facets:
+      name: facets
+      in: query
+      required: true
+      description: >
+        Comma-separated list of facets to compute. Each returns an array of
+        buckets over the filtered events, ordered by the facet's default
+        ordering. Unknown facet names return `400`. Shapes by family: term facets
+        yield `{ value, count }`; provenance (`originAgendas`, `sourceAgendas`)
+        yields `{ agenda, count }`; `geohash` yields geo cluster buckets
+        (`{ value, count, latitude, longitude }`); `viewport` yields a single
+        bounding box object (or `null`); `timespan` yields the earliest/latest
+        event date as `{ first, last }` (or `null`); `timings` yields a date
+        histogram as `{ value, count }` buckets (bucket width set by
+        `timingsInterval`); `dateRanges` yields a **dense daily grid** of
+        `{ value, count }` over a calendar month (one bucket per day, including
+        zero-count days; month set by `month`); `additionalFields` yields, per
+        agenda choice/boolean field, its option counts as
+        `{ <field>: { label, values:[{ value, label, count }] } }` (fields named
+        by `additionalFieldsKeys`, or all readable when omitted);
+        `additionalFieldMetrics` yields, per agenda numeric field, summary stats
+        as `{ <field>: { label, metrics:{ sum, avg, max, min } } }` (fields named
+        by `additionalFieldMetricsKeys`). Both honor per-field read access.
+      style: form
+      explode: false
+      schema:
+        type: array
+        minItems: 1
+        items:
+          type: string
+          enum:
+            - cities
+            - regions
+            - departments
+            - districts
+            - countryCodes
+            - keywords
+            - languages
+            - accessibilities
+            - status
+            - attendanceModes
+            - originAgendas
+            - sourceAgendas
+            - geohash
+            - viewport
+            - timespan
+            - timings
+            - dateRanges
+            - additionalFields
+            - additionalFieldMetrics
+
+    GeohashZoom:
+      name: geohashZoom
+      in: query
+      required: false
+      description: >
+        Clustering zoom level for the `geohash` facet (higher = finer grid, more
+        clusters). Ignored unless `geohash` is requested.
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+
+    TimingsInterval:
+      name: timingsInterval
+      in: query
+      required: false
+      description: >
+        Bucket width for the `timings` date histogram. Ignored unless `timings`
+        is requested; an unrecognized value falls back to `day`.
+      schema:
+        type: string
+        default: day
+        enum:
+          - hour
+          - day
+          - week
+          - month
+          - year
+
+    Month:
+      name: month
+      in: query
+      required: false
+      description: >
+        Calendar month (`YYYY-MM`) the `dateRanges` facet buckets day-by-day.
+        Defaults to the current month; an unrecognized value falls back to it.
+        Ignored unless `dateRanges` is requested. Because it bounds the buckets
+        by scoping the filtered set to that month, it also constrains any other
+        facet requested in the same call.
+      schema:
+        type: string
+        pattern: '^\d{4}-\d{2}$'
+
+    AdditionalFieldsKeys:
+      name: additionalFieldsKeys
+      in: query
+      required: false
+      description: >
+        Comma-separated agenda choice/boolean field names to compute the
+        `additionalFields` facet on. Omit to get every such field readable at the
+        caller's access level. An unknown or non-readable field name returns
+        `400`. Ignored unless `additionalFields` is requested.
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+
+    AdditionalFieldMetricsKeys:
+      name: additionalFieldMetricsKeys
+      in: query
+      required: false
+      description: >
+        Comma-separated agenda numeric field names to compute the
+        `additionalFieldMetrics` facet on. Omit to get every numeric field
+        readable at the caller's access level. An unknown or non-readable field
+        name returns `400`. Ignored unless `additionalFieldMetrics` is requested.
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+
+    Sort:
+      name: sort
+      in: query
+      required: false
+      description: >
+        Ordering of the results. Defaults to `timingsWithFeatured.asc`, or to
+        `score` (relevance) when `search` is set and no `sort` is given.
+      schema:
+        type: string
+        enum:
+          - timings.asc
+          - timingsWithFeatured.asc
+          - lastTiming.asc
+          - lastTimingWithFeatured.asc
+          - updatedAt.asc
+          - updatedAt.desc
+          - location.name.asc
+          - location.name.desc
+          - location.city.asc
+          - location.city.desc
+          - score
+        x-enum-descriptions:
+          timings.asc: By event date, earliest first
+          timingsWithFeatured.asc: By event date, featured events first
+          lastTiming.asc: By last occurrence date, earliest first
+          lastTimingWithFeatured.asc: By last occurrence, featured events first
+          updatedAt.asc: Least recently updated first
+          updatedAt.desc: Most recently updated first
+          location.name.asc: By venue name, A→Z
+          location.name.desc: By venue name, Z→A
+          location.city.asc: By city, A→Z
+          location.city.desc: By city, Z→A
+          score: By search relevance (only meaningful with `search`)
+
+    Search:
+      name: search
+      in: query
+      required: false
+      description: >
+        Full-text search across title, description, keywords and address.
+        Wrap the value in double quotes for an exact phrase match.
+      schema:
+        type: string
+
+    RelevanceThreshold:
+      name: threshold
+      in: query
+      required: false
+      description: >
+        Relevance score floor for `search` results, used to drop weakly-matching
+        events from the long tail (e.g. a single query term buried in a long
+        description). Ignored when `search` is not set.
+
+
+        - `off` (default) — no score filtering; every match is returned.
+
+        - `auto` — a dynamic cutoff derived from the score distribution of the
+          current query: the largest relative drop ("elbow") in the top scores
+          becomes the floor. It self-calibrates per query, adapting to rare vs
+          common terms and small vs large agendas.
+
+        - a non-negative number — an absolute minimum score. Relevance scores are
+          not comparable across queries nor stable across reindexes, so a fixed
+          value suits a single tuned query rather than general use; prefer `auto`.
+
+
+        Filtering is consistent across the returned events, their `total`, and
+        facet counts: the cutoff is an Elasticsearch `min_score`, applied during
+        document collection, so the same trimmed set drives the hit list and the
+        aggregations. Pass the same `threshold` to the facets endpoint to keep
+        its counts aligned with the list.
+      schema:
+        # Quote the string barewords: unquoted `off` is coerced to boolean false
+        # by YAML 1.1 tooling (PyYAML, some codegens), diverging from the runtime
+        # string. (The server also accepts a falsy `false`/"false" as `off`.)
+        default: 'off'
+        oneOf:
+          - type: string
+            enum: ['off', 'auto']
+          - type: number
+            minimum: 0
+
+    FilterUid:
+      name: uid
+      in: query
+      required: false
+      description: Restrict to these event uids. Repeat the parameter for multiple values.
+      schema:
+        type: array
+        items:
+          type: integer
+          format: int64
+
+    FilterSlug:
+      name: slug
+      in: query
+      required: false
+      description: Restrict to these event slugs. Repeat the parameter for multiple values.
+      schema:
+        type: array
+        items:
+          type: string
+
+    FilterExtId:
+      name: extId
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: >
+        Match an event by an external identifier:
+        `extId[key]=<system>&extId[value]=<id>`.
+      schema:
+        type: object
+        additionalProperties: false
+        required: [key, value]
+        properties:
+          key:
+            type: string
+          value:
+            type: string
+
+    FilterKeyword:
+      name: keyword
+      in: query
+      required: false
+      description: >
+        Restrict to events tagged with these keywords. Repeating the parameter
+        narrows the result set (AND semantics).
+      schema:
+        type: array
+        items:
+          type: string
+
+    FilterLanguage:
+      name: language
+      in: query
+      required: false
+      description: Restrict to events in these languages (ISO 639-1 codes).
+      schema:
+        type: array
+        items:
+          type: string
+
+    FilterAccessibility:
+      name: accessibility
+      in: query
+      required: false
+      description: Restrict to events offering these accessibility facilities.
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/AccessibilityCode'
+
+    FilterStatus:
+      name: status
+      in: query
+      required: false
+      description: Restrict to these statuses.
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/EventStatus'
+
+    FilterAttendanceMode:
+      name: attendanceMode
+      in: query
+      required: false
+      description: Restrict to these attendance modes.
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/AttendanceMode'
+
+    FilterFeatured:
+      name: featured
+      in: query
+      required: false
+      description: Restrict to featured (`true`) or non-featured (`false`) events.
+      schema:
+        type: boolean
+
+    FilterLocationUid:
+      name: locationUid
+      in: query
+      required: false
+      description: Restrict to events held at these location uids.
+      schema:
+        type: array
+        items:
+          type: integer
+          format: int64
+
+    FilterLocationExtId:
+      name: locationExtId
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: >
+        Match by a location external identifier:
+        `locationExtId[key]=<system>&locationExtId[value]=<id>`.
+      schema:
+        type: object
+        additionalProperties: false
+        required: [key, value]
+        properties:
+          key:
+            type: string
+          value:
+            type: string
+
+    FilterRegion:
+      name: region
+      in: query
+      required: false
+      description: Restrict to events located in these regions.
+      schema:
+        type: array
+        items:
+          type: string
+
+    FilterDepartment:
+      name: department
+      in: query
+      required: false
+      description: Restrict to events located in these departments.
+      schema:
+        type: array
+        items:
+          type: string
+
+    FilterCity:
+      name: city
+      in: query
+      required: false
+      description: Restrict to events located in these cities.
+      schema:
+        type: array
+        items:
+          type: string
+
+    FilterDistrict:
+      name: district
+      in: query
+      required: false
+      description: Restrict to events located in these districts.
+      schema:
+        type: array
+        items:
+          type: string
+
+    FilterAdminLevel3:
+      name: adminLevel3
+      in: query
+      required: false
+      description: Restrict to events located in these level-3 administrative areas.
+      schema:
+        type: array
+        items:
+          type: string
+
+    FilterAdminLevel5:
+      name: adminLevel5
+      in: query
+      required: false
+      description: Restrict to events located in these level-5 administrative areas.
+      schema:
+        type: array
+        items:
+          type: string
+
+    FilterCountryCode:
+      name: countryCode
+      in: query
+      required: false
+      description: Restrict to events located in these countries (ISO 3166-1 alpha-2).
+      schema:
+        type: array
+        items:
+          type: string
+          pattern: '^[A-Za-z]{2}$'
+
+    FilterBoundingBox:
+      name: bbox
+      in: query
+      required: false
+      description: >
+        Restrict to events whose location falls within a bounding box, given as
+        `west,south,east,north` in decimal degrees (WGS84). Example:
+        `bbox=2.224,48.815,2.469,48.902`.
+      schema:
+        type: string
+        pattern: '^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$'
+
+    FilterNear:
+      name: near
+      in: query
+      required: false
+      description: >
+        Center of a proximity search, given as `latitude,longitude` in decimal
+        degrees. Must be combined with `radius`.
+      schema:
+        type: string
+        pattern: '^-?\d+(\.\d+)?,-?\d+(\.\d+)?$'
+
+    FilterRadius:
+      name: radius
+      in: query
+      required: false
+      description: >
+        Proximity radius in metres around `near`. Requires `near` to be set.
+      schema:
+        type: integer
+        minimum: 1
+
+    FilterOriginAgendaUid:
+      name: originAgendaUid
+      in: query
+      required: false
+      description: Restrict to events originally created in these agendas.
+      schema:
+        type: array
+        items:
+          type: integer
+          format: int64
+
+    FilterOriginAgendaOfficial:
+      name: originAgendaOfficial
+      in: query
+      required: false
+      description: Restrict to events whose origin agenda is official (`true`) or not (`false`).
+      schema:
+        type: boolean
+
+    FilterSourceAgendaUid:
+      name: sourceAgendaUid
+      in: query
+      required: false
+      description: Restrict to events aggregated from these source agendas.
+      schema:
+        type: array
+        items:
+          type: integer
+          format: int64
+
+    FilterRelative:
+      name: relative
+      in: query
+      required: false
+      description: >
+        Restrict by temporal position relative to now. Combine values (repeat
+        the parameter) to widen the window: `passed`, `upcoming`, `current`.
+      schema:
+        type: array
+        items:
+          type: string
+          enum: [passed, upcoming, current]
+
+    FilterTimings:
+      name: timings
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: >
+        Restrict to events having a timing that begins within the range, as
+        RFC 3339 date-times: `timings[gte]=…&timings[lte]=…`. For now-relative
+        windows, prefer `relative`.
+      schema:
+        type: object
+        additionalProperties: false
+        properties:
+          gte:
+            type: string
+            format: date-time
+          lte:
+            type: string
+            format: date-time
+
+    FilterLocalTime:
+      name: localTime
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: >
+        Restrict to events with a timing starting within a daily time window,
+        in minutes from local midnight: `localTime[gte]=480` (08:00) and/or
+        `localTime[lte]=1200` (20:00).
+      schema:
+        type: object
+        additionalProperties: false
+        properties:
+          gte:
+            type: integer
+            minimum: 0
+            maximum: 1440
+          lte:
+            type: integer
+            minimum: 0
+            maximum: 1440
+
+    FilterCreatedAt:
+      name: createdAt
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: >
+        Restrict by creation date, as RFC 3339 date-times:
+        `createdAt[gte]=…&createdAt[lte]=…`.
+      schema:
+        type: object
+        additionalProperties: false
+        properties:
+          gte:
+            type: string
+            format: date-time
+          lte:
+            type: string
+            format: date-time
+
+    FilterUpdatedAt:
+      name: updatedAt
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: >
+        Restrict by last-update date, as RFC 3339 date-times:
+        `updatedAt[gte]=…&updatedAt[lte]=…`. Useful for incremental sync.
+      schema:
+        type: object
+        additionalProperties: false
+        properties:
+          gte:
+            type: string
+            format: date-time
+          lte:
+            type: string
+            format: date-time
+
+    FilterAge:
+      name: age
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: >
+        Restrict to events whose intended audience age range overlaps the given
+        bounds, in years: `age[gte]=7&age[lte]=12`.
+      schema:
+        type: object
+        additionalProperties: false
+        properties:
+          gte:
+            type: integer
+            minimum: 0
+          lte:
+            type: integer
+            minimum: 0
+
+    FilterAdditionalFields:
+      name: additionalFields
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: >
+        Filter on agenda-specific additional fields, addressed by field name:
+        `additionalFields[<fieldName>]=<value>`. Available fields and their value
+        types come from the agenda's event schema
+        (GET /agendas/{agendaUid}/settings/eventSchema). For numeric fields, use
+        a range object:
+        `additionalFields[<fieldName>][gte]=…&additionalFields[<fieldName>][lte]=…`.
+      schema:
+        type: object
+        additionalProperties:
+          x-additionalPropertiesName: fieldName
+
+  responses:
+    BadRequest:
+      description: >
+        Malformed request — an invalid `after` cursor, or an unknown/malformed
+        filter value. Per-field context is provided under `error.details`.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: >-
+        Missing or invalid credentials: no API key was supplied, the key is
+        unknown, or the access token is expired. `error.code` is `unauthorized`.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: >-
+        Authenticated, but not allowed to access this resource. For a blacklisted
+        account `error.code` is `forbidden`. For an OAuth2 access token that
+        lacks the scope this operation declares, `error.code` is
+        `insufficient_scope` and a `WWW-Authenticate: Bearer
+        error="insufficient_scope", scope="<required>"` header names the missing
+        scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+      headers:
+        WWW-Authenticate:
+          description: >-
+            Present on an `insufficient_scope` failure: the RFC 6750 Bearer
+            challenge naming the scope the token must hold.
+          required: false
+          schema:
+            type: string
+          example: >-
+            Bearer error="insufficient_scope", scope="events:read",
+            error_description="the access token lacks the required scope"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  schemas:
+    Error:
+      type: object
+      required: [error]
+      additionalProperties: false
+      properties:
+        error:
+          type: object
+          required: [code, message]
+          additionalProperties: false
+          properties:
+            code:
+              type: string
+              description: Stable, machine-readable error code.
+              examples:
+                [
+                  'not_found',
+                  'unauthorized',
+                  'forbidden',
+                  'insufficient_scope',
+                  'validation_error',
+                ]
+            message:
+              type: string
+              description: Human-readable explanation.
+            details:
+              type: object
+              description: Optional structured context (e.g. per-field validation errors).
+              additionalProperties: true
+
+    Pagination:
+      type: object
+      required: [after, limit]
+      additionalProperties: false
+      example:
+        after: eyJ1aWQiOjIzNDU2fQ
+        limit: 20
+        total: 342
+      properties:
+        after:
+          type: [string, 'null']
+          description: >
+            Opaque cursor to fetch the next page (pass back as the `after`
+            query parameter). Null when there are no more results.
+        limit:
+          type: integer
+          description: The page size that was applied.
+        total:
+          type: integer
+          description: >
+            Total number of matching records. May be omitted when counting is
+            too expensive.
+
+    LocalizedString:
+      type: object
+      description: >
+        A string localized per language (ISO 639-1 code). Common keys:
+        fr, en, de, es, it, nl, br, oc.
+      additionalProperties:
+        type: string
+        x-additionalPropertiesName: languageCode
+      examples:
+        - fr: 'Concert de jazz'
+          en: 'Jazz concert'
+
+    LocalizedStringArray:
+      type: object
+      description: A list of strings localized per language code (used for keywords).
+      additionalProperties:
+        type: array
+        x-additionalPropertiesName: languageCode
+        items:
+          type: string
+
+    Image:
+      type: object
+      description: Event image with its generated size variants.
+      additionalProperties: false
+      properties:
+        filename:
+          type: [string, 'null']
+        base:
+          type: [string, 'null']
+          format: uri
+          description: Base URL the variants are served from.
+        credits:
+          type: [string, 'null']
+        size:
+          type: [object, 'null']
+          properties:
+            width:
+              type: [integer, 'null']
+            height:
+              type: [integer, 'null']
+        variants:
+          type: array
+          description: Generated size variants of the image.
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              type:
+                type: string
+              filename:
+                type: string
+              size:
+                type: [object, 'null']
+                properties:
+                  width:
+                    type: [integer, 'null']
+                  height:
+                    type: [integer, 'null']
+
+    Location:
+      type: object
+      additionalProperties: false
+      properties:
+        uid:
+          type: integer
+          format: int64
+          readOnly: true
+        name:
+          type: [string, 'null']
+        address:
+          type: [string, 'null']
+        city:
+          type: [string, 'null']
+        region:
+          type: [string, 'null']
+        postalCode:
+          type: [string, 'null']
+        countryCode:
+          type: [string, 'null']
+          description: ISO 3166-1 alpha-2 country code.
+        latitude:
+          type: [number, 'null']
+          format: double
+        longitude:
+          type: [number, 'null']
+          format: double
+        district:
+          type: [string, 'null']
+        department:
+          type: [string, 'null']
+        adminLevel3:
+          type: [string, 'null']
+        adminLevel5:
+          type: [string, 'null']
+        country:
+          oneOf:
+            - $ref: '#/components/schemas/LocalizedString'
+            - type: 'null'
+          description: Localized country label.
+        timezone:
+          type: [string, 'null']
+          description: IANA time zone of the location.
+
+    Timing:
+      type: object
+      required: [begin, end]
+      additionalProperties: false
+      properties:
+        begin:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+
+    AgeRange:
+      type: [object, 'null']
+      additionalProperties: false
+      properties:
+        min:
+          type: [integer, 'null']
+        max:
+          type: [integer, 'null']
+
+    Accessibility:
+      type: [object, 'null']
+      description: >
+        Per-facility accessibility flags — `true` when the event offers that
+        facility. The keys are the `AccessibilityCode` values.
+      additionalProperties: false
+      properties:
+        hi:
+          type: boolean
+          description: Hearing impairment.
+        ii:
+          type: boolean
+          description: Intellectual impairment.
+        vi:
+          type: boolean
+          description: Visual impairment.
+        pi:
+          type: boolean
+          description: Psychic impairment.
+        mi:
+          type: boolean
+          description: Motor impairment.
+
+    Registration:
+      type: object
+      description: A single way for attendees to register.
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          enum: [phone, email, link]
+        value:
+          type: string
+
+    EnrichedLink:
+      type: object
+      additionalProperties: false
+      properties:
+        link:
+          type: string
+          format: uri
+        data:
+          type: object
+          description: Optional enrichment metadata extracted from the link.
+          additionalProperties: true
+
+    AgendaRef:
+      type: object
+      description: A compact reference to an agenda.
+      additionalProperties: false
+      properties:
+        uid:
+          type: integer
+          format: int64
+        title:
+          type: [string, 'null']
+        slug:
+          type: [string, 'null']
+        image:
+          type: [string, 'null']
+        url:
+          type: [string, 'null']
+          format: uri
+        official:
+          type: [boolean, 'null']
+
+    SourceAgendaRef:
+      type: object
+      description: >
+        A source-agenda reference as carried by provenance facets. Narrower than
+        AgendaRef: the search index only stores uid/title/image for source
+        agendas (slug/url/official are not indexed for sources), so this type
+        deliberately omits them. (On events, sourceAgendas use the full AgendaRef.)
+      additionalProperties: false
+      required: [uid]
+      properties:
+        uid:
+          type: integer
+          format: int64
+        title:
+          type: [string, 'null']
+        image:
+          type: [string, 'null']
+
+    ExtId:
+      type: object
+      description: An external identifier mapping this event to a third-party system.
+      additionalProperties: false
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+
+    AdditionalFields:
+      type: object
+      description: >
+        Agenda-specific additional fields. The available keys and the shape of
+        each value are defined by the agenda's event schema (see
+        GET /agendas/{agendaUid}/settings/eventSchema). Each value follows its
+        field's fieldType (text, choice, multilingual, …).
+      additionalProperties:
+        x-additionalPropertiesName: fieldName
+
+    AgendaNetworkRef:
+      type: [object, 'null']
+      description: A compact reference to the network an agenda belongs to, or `null`.
+      additionalProperties: false
+      required: [uid, title]
+      properties:
+        uid:
+          type: integer
+          format: int64
+        title:
+          type: [string, 'null']
+
+    AgendaLocationSetRef:
+      type: [object, 'null']
+      description: A compact reference to the location set bound to an agenda, or `null`.
+      additionalProperties: false
+      required: [uid, title]
+      properties:
+        uid:
+          type: integer
+          format: int64
+        title:
+          type: [string, 'null']
+
+    AgendaSummary:
+      type: object
+      description: >
+        Base agenda representation returned by the list endpoint by default
+        (`detailed: false`). It is the search-index base projection — identity
+        and display essentials only.
+
+
+        The three agenda read shapes are distinct and reflect their source:
+        `AgendaSummary` (list base) ⊂ `AgendaDetailed` (list `detailed=true`, the
+        search-index detailed projection) and `Agenda` (the single-get, full SQL
+        record).
+
+
+        Empty-as-empty rule: every field is always present; singular optional
+        values are present as `null` when absent. NOTE: unlike events, agenda
+        `title`/`description` are plain strings, not localized maps.
+      additionalProperties: false
+      required:
+        - uid
+        - slug
+        - title
+        - description
+        - image
+        - official
+      example:
+        uid: 12345
+        slug: festival-des-lumieres
+        title: Festival des Lumières
+        description: La programmation officielle du Festival des Lumières.
+        image: https://cdn.openagenda.com/main/12345.jpg
+        official: true
+      properties:
+        uid:
+          type: integer
+          format: int64
+        slug:
+          type: string
+        title:
+          type: string
+        description:
+          type: [string, 'null']
+        image:
+          type: [string, 'null']
+          format: uri
+          description: >
+            Absolute URL of the agenda image, or `null`. (Scalar URL — not the
+            structured `Image` type used by events; aligning the two is a
+            planned backend follow-up.)
+        official:
+          type: boolean
+          description: Whether the agenda is an official one. `null` is coerced to `false`.
+
+    AgendaDetailed:
+      type: object
+      description: >
+        Detailed agenda representation returned by the list endpoint when
+        `detailed: true`. It is the search-index detailed projection: the
+        `AgendaSummary` base set PLUS `createdAt`, `network` and `locationSet`.
+
+
+        It is narrower than the single-get `Agenda`: the search index does not
+        carry `url`, `updatedAt`, `officializedAt`, `private` or `indexed`, so
+        those are only available by fetching a single agenda.
+      additionalProperties: false
+      required:
+        - uid
+        - slug
+        - title
+        - description
+        - image
+        - official
+        - createdAt
+        - network
+        - locationSet
+      properties:
+        uid:
+          type: integer
+          format: int64
+        slug:
+          type: string
+        title:
+          type: string
+        description:
+          type: [string, 'null']
+        image:
+          type: [string, 'null']
+          format: uri
+          description: >
+            Absolute URL of the agenda image, or `null`. (Scalar URL — not the
+            structured `Image` type used by events; aligning the two is a
+            planned backend follow-up.)
+        official:
+          type: boolean
+          description: Whether the agenda is an official one. `null` is coerced to `false`.
+        createdAt:
+          type: string
+          format: date-time
+        network:
+          $ref: '#/components/schemas/AgendaNetworkRef'
+        locationSet:
+          $ref: '#/components/schemas/AgendaLocationSetRef'
+
+    Agenda:
+      type: object
+      description: >
+        Full agenda representation returned by the single-get endpoint. The
+        canonical record (SQL), with the richest field set: the base fields plus
+        `url`, `createdAt`, `updatedAt`, `officializedAt`, `private`, `indexed`,
+        `network` and `locationSet`.
+
+
+        Empty-as-empty rule: every field is always present; singular optional
+        values are present as `null` when absent.
+      additionalProperties: false
+      required:
+        - uid
+        - slug
+        - title
+        - description
+        - image
+        - official
+        - url
+        - createdAt
+        - updatedAt
+        - officializedAt
+        - private
+        - indexed
+        - network
+        - locationSet
+      example:
+        uid: 12345
+        slug: festival-des-lumieres
+        title: Festival des Lumières
+        description: La programmation officielle du Festival des Lumières.
+        image: https://cdn.openagenda.com/main/12345.jpg
+        official: true
+        url: https://openagenda.com/festival-des-lumieres
+        createdAt: '2024-11-04T09:12:00+01:00'
+        updatedAt: '2025-05-28T16:45:00+02:00'
+        officializedAt: '2024-11-15T10:00:00+01:00'
+        private: false
+        indexed: true
+        network:
+          uid: 87
+          title: Ville de Lyon
+        locationSet:
+          uid: 204
+          title: Lieux de Lyon
+      properties:
+        uid:
+          type: integer
+          format: int64
+        slug:
+          type: string
+        title:
+          type: string
+        description:
+          type: [string, 'null']
+        image:
+          type: [string, 'null']
+          format: uri
+          description: >
+            Absolute URL of the agenda image, or `null`. (Scalar URL — not the
+            structured `Image` type used by events; aligning the two is a
+            planned backend follow-up.)
+        official:
+          type: boolean
+          description: Whether the agenda is an official one. `null` is coerced to `false`.
+        url:
+          type: [string, 'null']
+          format: uri
+          description: Public website URL of the agenda, or `null`.
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        officializedAt:
+          type: [string, 'null']
+          format: date-time
+          description: When the agenda was officialized, or `null` if it is not official.
+        private:
+          type: boolean
+          description: Whether the agenda is private (not publicly listed).
+        indexed:
+          type: boolean
+          description: Whether the agenda is indexed in public search.
+        network:
+          $ref: '#/components/schemas/AgendaNetworkRef'
+        locationSet:
+          $ref: '#/components/schemas/AgendaLocationSetRef'
+
+    AgendaList:
+      type: object
+      required: [data, pagination]
+      additionalProperties: false
+      properties:
+        data:
+          type: array
+          description: >
+            `AgendaSummary` items by default, or `AgendaDetailed` items when
+            `detailed=true`.
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/AgendaSummary'
+              - $ref: '#/components/schemas/AgendaDetailed'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+
+    # Shared enum types — one home for the values AND their meaning
+    # (x-enum-descriptions, rendered per-value by Scalar and surfaced by the MCP).
+    # $ref'd from both the response models and the matching filter parameters, so
+    # the labels never drift between the two.
+    EventStatus:
+      type: integer
+      enum: [1, 2, 3, 4, 5, 6]
+      description: Publication status of the event.
+      x-enum-descriptions:
+        '1': Scheduled
+        '2': Rescheduled
+        '3': Moved online
+        '4': Postponed
+        '5': Full
+        '6': Cancelled
+    AttendanceMode:
+      type: integer
+      enum: [1, 2, 3]
+      description: How attendees take part.
+      x-enum-descriptions:
+        '1': Offline (on-site)
+        '2': Online
+        '3': Mixed (on-site and online)
+    ModerationState:
+      type: integer
+      enum: [-2, -1, 0, 1, 2]
+      description: Moderation state of the event.
+      x-enum-descriptions:
+        '-2': Removed
+        '-1': Refused
+        '0': To control
+        '1': Controlled
+        '2': Published
+    AccessibilityCode:
+      type: string
+      enum: [hi, ii, mi, pi, vi]
+      description: Accessibility facility code.
+      x-enum-descriptions:
+        hi: Hearing impairment
+        ii: Intellectual impairment
+        mi: Motor impairment
+        pi: Psychic impairment
+        vi: Visual impairment
+
+    EventSummary:
+      type: object
+      description: >
+        Compact event representation returned by the list endpoint
+        (`detailed: false`). It carries the base field set only — the detailed
+        fields (longDescription, conditions, country, registration, createdAt,
+        updatedAt, accessibility, age, state, links, extIds, sourceAgendas) are
+        NOT present here; fetch a single event for those.
+
+
+        Empty-as-empty rule: every field is always present. Collections are
+        never null/omitted (arrays → `[]`, localized maps → `{}`); singular
+        optional values are present as `null` when absent. `additionalFields` is
+        typically `{}` in summaries because agenda additional fields are
+        detailed-level.
+      additionalProperties: false
+      required:
+        - uid
+        - slug
+        - title
+        - description
+        - status
+        - dateRange
+        - featured
+        - image
+        - imageCredits
+        - keywords
+        - originAgenda
+        - timings
+        - location
+        - timezone
+        - attendanceMode
+        - onlineAccessLink
+        - firstTiming
+        - lastTiming
+        - nextTiming
+        - additionalFields
+      example:
+        uid: 9876543
+        slug: concert-de-jazz-au-parc
+        title: { fr: Concert de jazz au parc, en: Jazz concert in the park }
+        description:
+          { fr: Une soirée jazz en plein air., en: An open-air jazz evening. }
+        status: 1
+        dateRange:
+          {
+            fr: 'Le 20 juin 2025 de 18h00 à 22h00',
+            en: 'June 20, 2025, 6:00 PM – 10:00 PM',
+          }
+        featured: false
+        image:
+          filename: '9876543.jpg'
+          base: https://cdn.openagenda.com/events/
+          credits: Ville de Lyon
+          size: { width: 1200, height: 800 }
+          variants:
+            - type: thumbnail
+              filename: '9876543_thumb.jpg'
+              size: { width: 200, height: 133 }
+        imageCredits: Ville de Lyon
+        keywords:
+          { fr: [jazz, concert, plein air], en: [jazz, concert, open air] }
+        originAgenda:
+          uid: 12345
+          title: Festival des Lumières
+          slug: festival-des-lumieres
+          image: https://cdn.openagenda.com/main/12345.jpg
+          url: https://openagenda.com/festival-des-lumieres
+          official: true
+        timings:
+          - begin: '2025-06-20T18:00:00+02:00'
+            end: '2025-06-20T22:00:00+02:00'
+        location:
+          uid: 55512
+          name: Parc de la Tête d'Or
+          address: Place Général Leclerc
+          city: Lyon
+          region: Auvergne-Rhône-Alpes
+          postalCode: '69006'
+          countryCode: FR
+          latitude: 45.7772
+          longitude: 4.8558
+          district: null
+          department: Rhône
+          adminLevel3: null
+          adminLevel5: null
+          country: { fr: France, en: France }
+          timezone: Europe/Paris
+        timezone: Europe/Paris
+        attendanceMode: 1
+        onlineAccessLink: null
+        firstTiming:
+          {
+            begin: '2025-06-20T18:00:00+02:00',
+            end: '2025-06-20T22:00:00+02:00',
+          }
+        lastTiming:
+          {
+            begin: '2025-06-20T18:00:00+02:00',
+            end: '2025-06-20T22:00:00+02:00',
+          }
+        nextTiming:
+          {
+            begin: '2025-06-20T18:00:00+02:00',
+            end: '2025-06-20T22:00:00+02:00',
+          }
+        additionalFields: {}
+      properties:
+        uid:
+          type: integer
+          format: int64
+          readOnly: true
+        slug:
+          type: string
+          readOnly: true
+        title:
+          $ref: '#/components/schemas/LocalizedString'
+        description:
+          $ref: '#/components/schemas/LocalizedString'
+        status:
+          $ref: '#/components/schemas/EventStatus'
+        dateRange:
+          allOf:
+            - $ref: '#/components/schemas/LocalizedString'
+          readOnly: true
+          description: Human-readable, localized date range computed from the timings.
+        featured:
+          type: boolean
+          readOnly: true
+        image:
+          oneOf:
+            - $ref: '#/components/schemas/Image'
+            - type: 'null'
+        imageCredits:
+          type: [string, 'null']
+          maxLength: 255
+        keywords:
+          $ref: '#/components/schemas/LocalizedStringArray'
+        originAgenda:
+          readOnly: true
+          description: The agenda the event was originally created in.
+          oneOf:
+            - $ref: '#/components/schemas/AgendaRef'
+            - type: 'null'
+        timings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Timing'
+        location:
+          oneOf:
+            - $ref: '#/components/schemas/Location'
+            - type: 'null'
+        timezone:
+          type: [string, 'null']
+          readOnly: true
+          description: IANA time zone the timings are expressed in (null when unset).
+        attendanceMode:
+          $ref: '#/components/schemas/AttendanceMode'
+        onlineAccessLink:
+          type: [string, 'null']
+          format: uri
+        firstTiming:
+          readOnly: true
+          oneOf:
+            - $ref: '#/components/schemas/Timing'
+            - type: 'null'
+        lastTiming:
+          readOnly: true
+          oneOf:
+            - $ref: '#/components/schemas/Timing'
+            - type: 'null'
+        nextTiming:
+          readOnly: true
+          description: The next upcoming timing, or null when the event is over.
+          oneOf:
+            - $ref: '#/components/schemas/Timing'
+            - type: 'null'
+        additionalFields:
+          $ref: '#/components/schemas/AdditionalFields'
+
+    Event:
+      type: object
+      description: >
+        Full event representation returned by the single-get endpoint
+        (`detailed: true`). It carries the EventSummary base field set PLUS the
+        detailed-only fields.
+
+
+        Empty-as-empty rule: every field is always present. Collections are
+        never null/omitted (arrays → `[]`, localized maps → `{}`); singular
+        optional values are present as `null` when absent.
+      additionalProperties: false
+      required:
+        # base (EventSummary) fields
+        - uid
+        - slug
+        - title
+        - description
+        - status
+        - dateRange
+        - featured
+        - image
+        - imageCredits
+        - keywords
+        - originAgenda
+        - timings
+        - location
+        - timezone
+        - attendanceMode
+        - onlineAccessLink
+        - firstTiming
+        - lastTiming
+        - nextTiming
+        - additionalFields
+        # detailed-only fields
+        - longDescription
+        - conditions
+        - country
+        - registration
+        - createdAt
+        - updatedAt
+        - accessibility
+        - age
+        - state
+        - links
+        - extIds
+        - sourceAgendas
+      example:
+        uid: 9876543
+        slug: concert-de-jazz-au-parc
+        title: { fr: Concert de jazz au parc, en: Jazz concert in the park }
+        description:
+          { fr: Une soirée jazz en plein air., en: An open-air jazz evening. }
+        status: 1
+        dateRange:
+          {
+            fr: 'Le 20 juin 2025 de 18h00 à 22h00',
+            en: 'June 20, 2025, 6:00 PM – 10:00 PM',
+          }
+        featured: false
+        image:
+          filename: '9876543.jpg'
+          base: https://cdn.openagenda.com/events/
+          credits: Ville de Lyon
+          size: { width: 1200, height: 800 }
+          variants:
+            - type: thumbnail
+              filename: '9876543_thumb.jpg'
+              size: { width: 200, height: 133 }
+        imageCredits: Ville de Lyon
+        keywords:
+          { fr: [jazz, concert, plein air], en: [jazz, concert, open air] }
+        originAgenda:
+          uid: 12345
+          title: Festival des Lumières
+          slug: festival-des-lumieres
+          image: https://cdn.openagenda.com/main/12345.jpg
+          url: https://openagenda.com/festival-des-lumieres
+          official: true
+        timings:
+          - begin: '2025-06-20T18:00:00+02:00'
+            end: '2025-06-20T22:00:00+02:00'
+        location:
+          uid: 55512
+          name: Parc de la Tête d'Or
+          address: Place Général Leclerc
+          city: Lyon
+          region: Auvergne-Rhône-Alpes
+          postalCode: '69006'
+          countryCode: FR
+          latitude: 45.7772
+          longitude: 4.8558
+          district: null
+          department: Rhône
+          adminLevel3: null
+          adminLevel5: null
+          country: { fr: France, en: France }
+          timezone: Europe/Paris
+        timezone: Europe/Paris
+        attendanceMode: 1
+        onlineAccessLink: null
+        firstTiming:
+          {
+            begin: '2025-06-20T18:00:00+02:00',
+            end: '2025-06-20T22:00:00+02:00',
+          }
+        lastTiming:
+          {
+            begin: '2025-06-20T18:00:00+02:00',
+            end: '2025-06-20T22:00:00+02:00',
+          }
+        nextTiming:
+          {
+            begin: '2025-06-20T18:00:00+02:00',
+            end: '2025-06-20T22:00:00+02:00',
+          }
+        additionalFields: {}
+        longDescription:
+          {
+            fr: 'Un concert en plein air avec plusieurs formations de jazz…',
+            en: 'An open-air concert featuring several jazz ensembles…',
+          }
+        conditions: { fr: Entrée libre, en: Free entry }
+        country: { fr: France, en: France }
+        registration:
+          - type: link
+            value: https://openagenda.com/festival-des-lumieres/events/concert-de-jazz-au-parc
+        createdAt: '2025-03-12T11:30:00+01:00'
+        updatedAt: '2025-05-28T16:45:00+02:00'
+        accessibility: { hi: false, ii: false, vi: true, pi: false, mi: true }
+        age: { min: 0, max: null }
+        state: 2
+        links:
+          - link: https://example.org/jazz-au-parc
+            data: {}
+        extIds:
+          - key: legacy
+            value: '4421007'
+        sourceAgendas: []
+      properties:
+        uid:
+          type: integer
+          format: int64
+          readOnly: true
+        slug:
+          type: string
+          readOnly: true
+        title:
+          $ref: '#/components/schemas/LocalizedString'
+        description:
+          $ref: '#/components/schemas/LocalizedString'
+        status:
+          $ref: '#/components/schemas/EventStatus'
+        dateRange:
+          allOf:
+            - $ref: '#/components/schemas/LocalizedString'
+          readOnly: true
+          description: Human-readable, localized date range computed from the timings.
+        featured:
+          type: boolean
+          readOnly: true
+        image:
+          oneOf:
+            - $ref: '#/components/schemas/Image'
+            - type: 'null'
+        imageCredits:
+          type: [string, 'null']
+          maxLength: 255
+        keywords:
+          $ref: '#/components/schemas/LocalizedStringArray'
+        originAgenda:
+          readOnly: true
+          description: The agenda the event was originally created in.
+          oneOf:
+            - $ref: '#/components/schemas/AgendaRef'
+            - type: 'null'
+        timings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Timing'
+        location:
+          oneOf:
+            - $ref: '#/components/schemas/Location'
+            - type: 'null'
+        timezone:
+          type: [string, 'null']
+          readOnly: true
+          description: IANA time zone the timings are expressed in (null when unset).
+        attendanceMode:
+          $ref: '#/components/schemas/AttendanceMode'
+        onlineAccessLink:
+          type: [string, 'null']
+          format: uri
+        firstTiming:
+          readOnly: true
+          oneOf:
+            - $ref: '#/components/schemas/Timing'
+            - type: 'null'
+        lastTiming:
+          readOnly: true
+          oneOf:
+            - $ref: '#/components/schemas/Timing'
+            - type: 'null'
+        nextTiming:
+          readOnly: true
+          description: The next upcoming timing, or null when the event is over.
+          oneOf:
+            - $ref: '#/components/schemas/Timing'
+            - type: 'null'
+        additionalFields:
+          $ref: '#/components/schemas/AdditionalFields'
+        longDescription:
+          $ref: '#/components/schemas/LocalizedString'
+        conditions:
+          $ref: '#/components/schemas/LocalizedString'
+        country:
+          readOnly: true
+          description: Localized country label of the event location.
+          oneOf:
+            - $ref: '#/components/schemas/LocalizedString'
+            - type: 'null'
+        registration:
+          type: array
+          items:
+            $ref: '#/components/schemas/Registration'
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+        accessibility:
+          $ref: '#/components/schemas/Accessibility'
+        age:
+          $ref: '#/components/schemas/AgeRange'
+        state:
+          allOf:
+            - $ref: '#/components/schemas/ModerationState'
+          readOnly: true
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/EnrichedLink'
+        extIds:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtId'
+        sourceAgendas:
+          type: array
+          readOnly: true
+          description: Agendas this event was aggregated from.
+          items:
+            $ref: '#/components/schemas/AgendaRef'
+
+    EventList:
+      type: object
+      required: [data, pagination]
+      additionalProperties: false
+      properties:
+        data:
+          type: array
+          description: >
+            `EventSummary` items by default, or full `Event` items when
+            `detailed=true` is passed. The two are mutually exclusive
+            (`additionalProperties: false`), so each item validates against
+            exactly one branch.
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/EventSummary'
+              - $ref: '#/components/schemas/Event'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+
+    FacetBucket:
+      type: object
+      required: [value, count]
+      additionalProperties: false
+      properties:
+        value:
+          type: string
+          description: >
+            The facet value — e.g. a city name, a keyword, a language code, a
+            status. Always a string (numeric-keyed facets are stringified).
+        count:
+          type: integer
+          description: Number of events in the filtered set with this value.
+
+    FacetResults:
+      type: object
+      required: [facets]
+      additionalProperties: false
+      example:
+        facets:
+          cities:
+            - { value: Lyon, count: 42 }
+            - { value: Villeurbanne, count: 11 }
+          keywords:
+            - { value: jazz, count: 18 }
+            - { value: concert, count: 57 }
+          status:
+            - { value: '1', count: 80 }
+            - { value: '6', count: 7 }
+          attendanceModes:
+            - { value: '1', count: 74 }
+            - { value: '2', count: 13 }
+          originAgendas:
+            - agenda:
+                uid: 12345
+                title: Festival des Lumières
+                slug: festival-des-lumieres
+                image: https://cdn.openagenda.com/main/12345.jpg
+                url: https://openagenda.com/festival-des-lumieres
+                official: true
+              count: 87
+          timespan:
+            first: '2025-06-20T18:00:00+02:00'
+            last: '2025-09-14T20:00:00+02:00'
+          viewport:
+            topLeft: { latitude: 45.808, longitude: 4.812 }
+            bottomRight: { latitude: 45.748, longitude: 4.879 }
+      properties:
+        facets:
+          type: object
+          additionalProperties: false
+          description: >
+            One entry per requested facet; a facet that was not requested is
+            absent. Each value is an array of `{ value, count }` buckets.
+          properties:
+            cities:
+              type: array
+              items: { $ref: '#/components/schemas/FacetBucket' }
+            regions:
+              type: array
+              items: { $ref: '#/components/schemas/FacetBucket' }
+            departments:
+              type: array
+              items: { $ref: '#/components/schemas/FacetBucket' }
+            districts:
+              type: array
+              items: { $ref: '#/components/schemas/FacetBucket' }
+            countryCodes:
+              type: array
+              items: { $ref: '#/components/schemas/FacetBucket' }
+            keywords:
+              type: array
+              items: { $ref: '#/components/schemas/FacetBucket' }
+            languages:
+              type: array
+              items: { $ref: '#/components/schemas/FacetBucket' }
+            accessibilities:
+              type: array
+              items: { $ref: '#/components/schemas/FacetBucket' }
+            status:
+              type: array
+              items: { $ref: '#/components/schemas/FacetBucket' }
+            attendanceModes:
+              type: array
+              items: { $ref: '#/components/schemas/FacetBucket' }
+            originAgendas:
+              type: array
+              items: { $ref: '#/components/schemas/AgendaFacetBucket' }
+            sourceAgendas:
+              type: array
+              items: { $ref: '#/components/schemas/SourceAgendaFacetBucket' }
+            geohash:
+              type: array
+              items: { $ref: '#/components/schemas/GeoFacetBucket' }
+            viewport:
+              oneOf:
+                - $ref: '#/components/schemas/Viewport'
+                - type: 'null'
+            timespan:
+              oneOf:
+                - $ref: '#/components/schemas/Timespan'
+                - type: 'null'
+            timings:
+              type: array
+              items: { $ref: '#/components/schemas/FacetBucket' }
+            dateRanges:
+              type: array
+              items: { $ref: '#/components/schemas/FacetBucket' }
+            additionalFields:
+              type: object
+              description: >
+                One entry per requested (and readable) agenda choice/boolean
+                field, keyed by field name.
+              additionalProperties:
+                x-additionalPropertiesName: fieldName
+                allOf:
+                  - $ref: '#/components/schemas/AdditionalFieldFacet'
+            additionalFieldMetrics:
+              type: object
+              description: >
+                One entry per requested (and readable) agenda numeric field,
+                keyed by field name.
+              additionalProperties:
+                x-additionalPropertiesName: fieldName
+                allOf:
+                  - $ref: '#/components/schemas/AdditionalFieldMetricsFacet'
+
+    AdditionalFieldFacet:
+      type: object
+      required: [label, values]
+      additionalProperties: false
+      description: An agenda choice/boolean field with per-option event counts.
+      properties:
+        label:
+          $ref: '#/components/schemas/LocalizedString'
+        values:
+          type: array
+          items: { $ref: '#/components/schemas/AdditionalFieldBucket' }
+
+    AdditionalFieldBucket:
+      type: object
+      required: [value, label, count]
+      additionalProperties: false
+      properties:
+        value:
+          type: string
+          description: The option id (or `true`/`false` for boolean fields).
+        label:
+          description: >
+            Localized option label, or `null` when the option has none (boolean
+            fields).
+          oneOf:
+            - $ref: '#/components/schemas/LocalizedString'
+            - type: 'null'
+        count:
+          type: integer
+          description: Number of events in the filtered set with this option.
+
+    AdditionalFieldMetricsFacet:
+      type: object
+      required: [label, metrics]
+      additionalProperties: false
+      description: An agenda numeric field with summary statistics.
+      properties:
+        label:
+          $ref: '#/components/schemas/LocalizedString'
+        metrics:
+          $ref: '#/components/schemas/AdditionalFieldMetrics'
+
+    AdditionalFieldMetrics:
+      type: object
+      required: [sum, avg, max, min]
+      additionalProperties: false
+      description: >
+        Summary statistics over the field's numeric values across the filtered
+        set. Each is `null` when no event in the set carries a value.
+      properties:
+        sum:
+          type: [number, 'null']
+        avg:
+          type: [number, 'null']
+        max:
+          type: [number, 'null']
+        min:
+          type: [number, 'null']
+
+    AgendaFacetBucket:
+      type: object
+      required: [agenda, count]
+      additionalProperties: false
+      description: >
+        An origin-agenda facet bucket — events grouped by origin agenda. `agenda`
+        is an `AgendaRef` (uid, title, slug, image, url; `official` is not indexed
+        for this aggregation). Use the uid with the `originAgendaUid` filter.
+      properties:
+        agenda:
+          $ref: '#/components/schemas/AgendaRef'
+        count:
+          type: integer
+          description: Number of events in the filtered set from this agenda.
+
+    SourceAgendaFacetBucket:
+      type: object
+      required: [agenda, count]
+      additionalProperties: false
+      description: >
+        A source-agenda facet bucket — events grouped by source (aggregated)
+        agenda. `agenda` is a `SourceAgendaRef` (uid, title, image only). Use the
+        uid with the `sourceAgendaUid` filter.
+      properties:
+        agenda:
+          $ref: '#/components/schemas/SourceAgendaRef'
+        count:
+          type: integer
+          description: Number of events in the filtered set from this source agenda.
+
+    GeoPoint:
+      type: object
+      required: [latitude, longitude]
+      additionalProperties: false
+      properties:
+        latitude:
+          type: number
+        longitude:
+          type: number
+
+    GeoFacetBucket:
+      type: object
+      required: [value, count, latitude, longitude]
+      additionalProperties: false
+      description: >
+        A geo-clustering bucket (from the `geohash` facet): a cluster centroid
+        plus its event count, for plotting clustered markers on a map. Cluster
+        granularity is controlled by `geohashZoom`.
+      properties:
+        value:
+          type: string
+          description: Opaque cluster id (the geohash grid key).
+        count:
+          type: integer
+        latitude:
+          type: number
+        longitude:
+          type: number
+
+    Viewport:
+      type: object
+      required: [topLeft, bottomRight]
+      additionalProperties: false
+      description: >
+        The bounding box enclosing all matching events' locations (from the
+        `viewport` facet) — handy to auto-fit a map to the result set. The facet
+        value is `null` when no event in the filtered set has coordinates.
+      properties:
+        topLeft:
+          $ref: '#/components/schemas/GeoPoint'
+        bottomRight:
+          $ref: '#/components/schemas/GeoPoint'
+
+    Timespan:
+      type: object
+      required: [first, last]
+      additionalProperties: false
+      description: >
+        The date range spanned by the matching events (from the `timespan`
+        facet): `first` is the earliest event start and `last` the latest, both
+        RFC 3339 date-times — handy to bound a date picker to the result set. The
+        facet value is `null` when no event in the filtered set has timings.
+      properties:
+        first:
+          type: string
+          format: date-time
+        last:
+          type: string
+          format: date-time

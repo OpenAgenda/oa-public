@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2022"],
+    "types": ["node"],
+    "allowJs": true,
+    "checkJs": true,
+    "strict": true,
+    // JSDoc-style JS: don't force a @param annotation on every helper param
+    // (idiomatic JS, and the spec/YAML traversal is inherently untyped). We keep
+    // the rest of `strict` — strictNullChecks etc. is what catches real bugs and
+    // enforces the @typedef contracts where types ARE known.
+    "noImplicitAny": false,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "verbatimModuleSyntax": true,
+    // @openagenda/logs is a raw-JS workspace package with no declarations; point
+    // the checker at our local shim so checkJs doesn't descend into its source
+    // (runtime resolution is unaffected — `paths` is type-only). See the .d.ts.
+    "paths": { "@openagenda/logs": ["./src/openagenda-logs.d.ts"] }
+  },
+  "include": ["src/**/*.js", "src/**/*.d.ts", "tsdown.config.ts"]
+}

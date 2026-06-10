@@ -1,0 +1,18 @@
+{
+  "name": "@openagenda/api-docs",
+  "version": "0.0.0",
+  "private": true,
+  "description": "OpenAgenda v3 API reference — static Scalar docs built from @openagenda/api-spec (source of truth: the OpenAPI contract).",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "dev": "node scripts/dev.js",
+    "preview": "node scripts/serve.js"
+  },
+  "devDependencies": {
+    "@fontsource-variable/noto-sans": "^5.2.10",
+    "@fontsource-variable/ubuntu-sans": "^5.2.10",
+    "@openagenda/api-spec": "workspace:*",
+    "@scalar/api-reference": "^1.59.0"
+  }
+}
