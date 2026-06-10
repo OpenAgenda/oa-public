@@ -28,16 +28,14 @@ describe('parseCliArgs', () => {
   });
 
   it('rejects unknown flags — secrets can never arrive via argv', () => {
-    expect(parseCliArgs(['--api-key=oa_pk_x']).error).toMatch(
-      /unknown argument/,
-    );
+    expect(parseCliArgs(['--api-key=oa_pk_x']).error).toMatch(/Unknown option/);
     expect(parseCliArgs(['--oauth-secret', 's']).error).toMatch(
-      /unknown argument/,
+      /Unknown option/,
     );
   });
 
   it('rejects a flag without a value', () => {
-    expect(parseCliArgs(['--port']).error).toMatch(/requires a value/);
+    expect(parseCliArgs(['--port']).error).toMatch(/argument missing/);
   });
 
   it('does not greedily eat a following flag as a value', () => {
@@ -47,8 +45,12 @@ describe('parseCliArgs', () => {
       '--executor',
       'deno',
     ]);
-    expect(error).toMatch(/--port requires a value/);
+    expect(error).toMatch(/ambiguous/);
     expect(envOverrides).not.toHaveProperty('OA_MCP_HTTP_PORT');
+  });
+
+  it('rejects stray positionals', () => {
+    expect(parseCliArgs(['serve']).error).toMatch(/Unexpected argument/);
   });
 
   it('validates --port is numeric (the flag-wins promise, not a silent fallback)', () => {

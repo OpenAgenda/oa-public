@@ -5,13 +5,20 @@
 // configuration surface stay env-only ON PURPOSE: argv is visible in `ps`/
 // `/proc`, so no flag will ever carry a credential.
 
+import { parseArgs } from 'node:util';
 import pkg from '../package.json' with { type: 'json' };
 
-const FLAG_TO_ENV = {
-  '--transport': 'OA_MCP_TRANSPORT',
-  '--port': 'OA_MCP_HTTP_PORT',
-  '--executor': 'OA_EXECUTOR',
-  '--base-url': 'OA_BASE_URL',
+// The non-secret flags, and the env key each overlays. parseArgs handles the
+// grammar (--flag=value / --flag value, short aliases, strict unknown/missing/
+// ambiguous-value rejection); we only own the option→env mapping and the value
+// shape checks below.
+// option name → env key. Listed separately from the parseArgs options (inlined
+// below) so the boolean help/version flags don't appear here.
+const OPTION_TO_ENV = {
+  transport: 'OA_MCP_TRANSPORT',
+  port: 'OA_MCP_HTTP_PORT',
+  executor: 'OA_EXECUTOR',
+  'base-url': 'OA_BASE_URL',
 };
 
 export const HELP = `openagenda-mcp ${pkg.version} — OpenAgenda MCP server (code-mode tools over the v3 API)
@@ -43,47 +50,52 @@ Secrets and every other knob are env-only (see README → "Config (env)"):
  *            envOverrides: Record<string,string>}}
  */
 export function parseCliArgs(argv) {
+  let values;
+  try {
+    // Options inlined so TS infers both the literal option `type`s and the
+    // shape of `values` (the keys below) by contextual typing.
+    ({ values } = parseArgs({
+      args: argv,
+      options: {
+        transport: { type: 'string' },
+        port: { type: 'string' },
+        executor: { type: 'string' },
+        'base-url': { type: 'string' },
+        help: { type: 'boolean', short: 'h' },
+        version: { type: 'boolean', short: 'v' },
+      },
+      allowPositionals: false,
+      strict: true,
+    }));
+  } catch (err) {
+    // parseArgs throws on unknown options, missing/ambiguous values and stray
+    // positionals — surface its message verbatim.
+    return {
+      error: err instanceof Error ? err.message : String(err),
+      envOverrides: {},
+    };
+  }
+
+  if (values.help) return { help: true, envOverrides: {} };
+  if (values.version) return { version: true, envOverrides: {} };
+
+  // "The flag wins" must mean the value actually takes effect — a non-numeric
+  // port silently swallowed by config's int() fallback would be a broken
+  // promise, so reject it loudly here (parseArgs only checks it's a string).
+  if (typeof values.port === 'string' && !/^[0-9]+$/.test(values.port)) {
+    return {
+      error: `--port must be a positive integer (got "${values.port}")`,
+      envOverrides: {},
+    };
+  }
+
   /** @type {Record<string,string>} */
   const envOverrides = {};
-  for (let i = 0; i < argv.length; i += 1) {
-    const arg = argv[i];
-    if (arg === '--help' || arg === '-h') return { help: true, envOverrides };
-    if (arg === '--version' || arg === '-v') return { version: true, envOverrides };
-    // Accept both --flag=value and --flag value.
-    const eq = arg.indexOf('=');
-    const flag = eq === -1 ? arg : arg.slice(0, eq);
-    const envKey = FLAG_TO_ENV[flag];
-    if (!envKey) {
-      return { error: `unknown argument: ${arg}`, envOverrides };
-    }
-    let value;
-    if (eq === -1) {
-      // --flag value: the next token is the value — but only if it isn't itself
-      // a flag, else `--port --executor deno` would silently eat `--executor` as
-      // the port and drop it. A missing/flag-shaped value is an error, not a
-      // greedy consume.
-      const next = argv[i + 1];
-      if (next === undefined || next.startsWith('-')) {
-        return { error: `${flag} requires a value`, envOverrides };
-      }
-      value = next;
-      i += 1;
-    } else {
-      value = arg.slice(eq + 1);
-      if (!value) {
-        return { error: `${flag} requires a value`, envOverrides };
-      }
-    }
-    // "The flag wins" must mean the flag's value actually takes effect — a
-    // numeric flag silently swallowed by config's int() fallback would be a
-    // broken promise. Validate the shape here, where we can error loudly.
-    if (flag === '--port' && !/^[0-9]+$/.test(value)) {
-      return {
-        error: `--port must be a positive integer (got "${value}")`,
-        envOverrides,
-      };
-    }
-    envOverrides[envKey] = value;
+  for (const [option, envKey] of Object.entries(OPTION_TO_ENV)) {
+    // Every mapped option is `type: 'string'`, so a present value is a string;
+    // the typeof guard also narrows parseArgs' `string | boolean` value type.
+    const value = values[option];
+    if (typeof value === 'string') envOverrides[envKey] = value;
   }
   return { envOverrides };
 }
