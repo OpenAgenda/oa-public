@@ -97,7 +97,10 @@ for TAG_NAME in $TAGS; do
   echo "🎉 Création de la release pour le tag : ${TAG_NAME}"
 
   echo "📝 Extraction des notes de release..."
-  RELEASE_NOTES=$(gh release view "${TAG_NAME}" --repo "${SOURCE_REPO_OWNER_NAME}" --json body -q .body)
+  # `|| true` : sans release GitHub côté source (publication sans changeset, tag
+  # posé à la main…), `gh release view` échoue et `set -e` tuerait le script
+  # AVANT le fallback ci-dessous. On retombe alors sur le message par défaut.
+  RELEASE_NOTES=$(gh release view "${TAG_NAME}" --repo "${SOURCE_REPO_OWNER_NAME}" --json body -q .body || true)
 
   if [ -z "$RELEASE_NOTES" ]; then
     echo "    ⚠️ Avertissement : Aucune note de release trouvée pour le tag ${TAG_NAME} sur le dépôt source. On utilisera un message par défaut."

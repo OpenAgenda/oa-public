@@ -495,6 +495,10 @@ ne renvoie pas 401) :
 # Met à jour le MCP : pull main → install → build → restart → vérifie.
 set -euo pipefail
 export NVM_DIR="$HOME/.nvm"; . "$NVM_DIR/nvm.sh"
+# Le plugin workspace-lockfile régénère public/yarn.lock-workspace en re-fetchant TOUT
+# public/ (incl. fontawesome → 401 sans token) et laisse un public/yarn.lock orphelin
+# en cas d'échec, ce qui détourne la racine projet de yarn depuis public/mcp. Off ici.
+export YARN_ENABLE_WORKSPACE_LOCKFILES=false
 cd "$HOME/oa"
 
 echo "→ fetch + reset main"
@@ -503,7 +507,7 @@ git reset --hard origin/main
 git log --oneline -1
 
 echo "→ install + build"
-yarn workspaces focus @openagenda/mcp || true   # erreur fontawesome (dép frontend) bénigne
+yarn workspaces focus @openagenda/mcp
 yarn workspace @openagenda/mcp build            # vraie barrière : échoue si une dép manque
 
 echo "→ restart service"
