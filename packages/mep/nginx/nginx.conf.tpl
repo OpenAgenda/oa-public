@@ -93,10 +93,33 @@ http {
         }
 
         location /v3 {
-            add_header 'Access-Control-Allow-Origin' '*';
-            add_header 'Access-Control-Allow-Methods' 'GET, OPTIONS';
-            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
-            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+            # CORS lives here (edge), as for /v2. Three additions over the base
+            # policy let an in-browser API explorer (Scalar docs) run
+            # authenticated requests:
+            #   1. `Authorization` in Allow-Headers — a Bearer credential makes
+            #      the request non-simple, so the browser preflights and checks
+            #      this list; `Authorization` is never covered by a wildcard.
+            #   2. An explicit OPTIONS → 204 short-circuit — the v3 app answers
+            #      OPTIONS with 404 (its catch-all shadows Express's
+            #      auto-OPTIONS), and a non-2xx preflight fails regardless of
+            #      headers. Answer it at the edge instead.
+            #   3. `always` — so the headers ride 4xx too; a 401/403 body stays
+            #      readable in the explorer instead of an opaque network error.
+            # Anonymous simple GETs (the prior behaviour) are unaffected.
+            # Keep in sync with docker/nginx/api.conf (dev edge).
+            if ($request_method = OPTIONS) {
+                add_header 'Access-Control-Allow-Origin' '*';
+                add_header 'Access-Control-Allow-Methods' 'GET, OPTIONS';
+                add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+                add_header 'Access-Control-Max-Age' 600;
+                add_header 'Content-Length' 0;
+                return 204;
+            }
+
+            add_header 'Access-Control-Allow-Origin' '*' always;
+            add_header 'Access-Control-Allow-Methods' 'GET, OPTIONS' always;
+            add_header 'Access-Control-Allow-Headers' 'Authorization,DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range' always;
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range' always;
 
             proxy_http_version 1.1;
             proxy_set_header "Connection" "";

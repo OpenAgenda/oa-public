@@ -126,6 +126,33 @@ location ~ ^/agendas/([0-9]+)/(events|locations|settings|sources)\.(json|csv|xls
 ##########################################################
 #                NODEJS
 
+# CORS for the in-browser API explorer's OAuth (authorization-code + PKCE) token
+# exchange — same posture as /v3 at the edge: `*` with NO Allow-Credentials. The
+# PKCE token request carries no ambient credentials (no cookies; the `code` and
+# `code_verifier` are in the request body), so a wildcard origin leaks nothing —
+# an attacker origin still can't forge a valid authorization code. A vetted
+# allowlist would add nothing here and break the moment the docs are served from
+# a different/undecided origin. `^~` makes this prefix win over the `~ ^/api…`
+# regex below; proxies to node like the rest of /api. Covers the oauth2 family
+# (token/register/userinfo); /authorize is a top-level redirect and ignores CORS.
+# This file feeds BOTH dev (docker) and the prepared prod config.
+location ^~ /api/auth/oauth2/ {
+  # Preflight: the token POST carries a non-simple Content-Type, so the browser
+  # probes first. Answer at the edge (204) — node would otherwise 404 it.
+  if ($request_method = OPTIONS) {
+    add_header 'Access-Control-Allow-Origin' '*';
+    add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+    add_header 'Access-Control-Allow-Headers' 'Authorization,Content-Type';
+    add_header 'Access-Control-Max-Age' 600;
+    add_header 'Content-Length' 0;
+    return 204;
+  }
+
+  add_header 'Access-Control-Allow-Origin' '*' always;
+
+  include conf.d/nodejs_params;
+}
+
 location ~ ^/api(|/.+)$ {
   include conf.d/nodejs_params;
 }
