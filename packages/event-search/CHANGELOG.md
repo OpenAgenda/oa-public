@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.9.0
+
+### Minor Changes
+
+- [#96](https://github.com/OpenAgenda/oa/pull/96) [`11dda7f`](https://github.com/OpenAgenda/oa/commit/11dda7f2d318a8ead73675efb4f6046b9c1078ae) Thanks [@clement180](https://github.com/clement180)! - Admin-only event search by organizing member structure. Events can now be found via their organizing member's structure (organization), name or position in `admin/events` free-text search. The member data is indexed into a dedicated `_admin_search_member` field that is only added to the `q.search` query for `moderator`+ access, keeping member personal data unreachable through the public search (GDPR). The field is `_`-prefixed so it is never returned in `_source`.
+
 ## 2.8.2
 
 ### Patch Changes
