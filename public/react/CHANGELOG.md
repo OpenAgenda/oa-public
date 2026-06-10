@@ -1,5 +1,13 @@
 # @openagenda/react
 
+## 0.0.4
+
+### Patch Changes
+
+- [#136](https://github.com/OpenAgenda/oa/pull/136) [`243515b`](https://github.com/OpenAgenda/oa/commit/243515b8959b3182bc3e150b2d6a05e86068ac5c) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Align `@openagenda/mails` on the workspace major (`^5.0.0`). The only consumed
+  entry point is `extractEmails`, byte-identical between 4.0.2 and 5.0.0 — the
+  major only replaced `@openagenda/queues` with bullmq, an unrelated surface.
+
 ## 0.0.3
 
 ### Patch Changes

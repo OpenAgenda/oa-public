@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.4.4
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @openagenda/widgets@0.0.2
+
 ## 1.4.3
 
 ### Patch Changes

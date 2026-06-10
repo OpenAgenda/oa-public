@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.15.7
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @openagenda/cibul-templates@1.4.4
+
 ## 0.15.6
 
 ### Patch Changes
