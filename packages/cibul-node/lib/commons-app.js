@@ -108,7 +108,12 @@ function lang(req, res, next) {
     req.lang = _cleanLang(req.query.lang);
   }
 
-  if ((userCulture && req.lang !== userCulture) || req.query.lang) {
+  // Bake the language into every URL genUrl builds (links and redirects)
+  // whenever it differs from the site default. The previous guard compared
+  // req.lang to userCulture — always false right after `req.lang = userCulture`
+  // — so `?lang` was only propagated on an explicit query param, and a
+  // logged-in non-FR user's links/redirects silently dropped to /fr.
+  if (req.lang !== 'fr') {
     req.genUrl.preload({ lang: req.lang });
   }
 
