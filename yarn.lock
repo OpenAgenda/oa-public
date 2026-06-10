@@ -6321,12 +6321,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@crowdin/crowdin-api-client@npm:^1.33.1":
-  version: 1.33.1
-  resolution: "@crowdin/crowdin-api-client@npm:1.33.1"
+"@crowdin/crowdin-api-client@npm:^1.55.4":
+  version: 1.55.4
+  resolution: "@crowdin/crowdin-api-client@npm:1.55.4"
   dependencies:
-    axios: "npm:^1"
-  checksum: 10c0/4b207dbcbdeaf6cf8ae224398bc712f1c10f297b7a1ac52632f9fba39dcf8b77d4b5056baa6f94915d9fed64711cdfc2f74fb4714251dec34ad7a05d6ad08f26
+    axios: "npm:1.16.1"
+  checksum: 10c0/694618563ea8376abc8ddd2c0502e605c4c725e8e22144ec600c9fdc08fa62f19a368355f68c2708618ccd3e2a8053076572cdc84107eef9fd9c654cd91a3b2f
   languageName: node
   linkType: hard
 
@@ -27855,6 +27855,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"axios@npm:1.16.1":
+  version: 1.16.1
+  resolution: "axios@npm:1.16.1"
+  dependencies:
+    follow-redirects: "npm:^1.16.0"
+    form-data: "npm:^4.0.5"
+    https-proxy-agent: "npm:^5.0.1"
+    proxy-from-env: "npm:^2.1.0"
+  checksum: 10c0/2f77e37e6552bbff8a772d058fb09500198e9188c6b20dc799d82dbe12a8cb506f6eed4e4e62a9ba612a35cbab496faa26d68f9bff14a53af6d15c3e136391a7
+  languageName: node
+  linkType: hard
+
 "axios@npm:1.8.4":
   version: 1.8.4
   resolution: "axios@npm:1.8.4"
@@ -27863,17 +27875,6 @@ __metadata:
     form-data: "npm:^4.0.0"
     proxy-from-env: "npm:^1.1.0"
   checksum: 10c0/450993c2ba975ffccaf0d480b68839a3b2435a5469a71fa2fb0b8a55cdb2c2ae47e609360b9c1e2b2534b73dfd69e2733a1cf9f8215bee0bcd729b72f801b0ce
-  languageName: node
-  linkType: hard
-
-"axios@npm:^1":
-  version: 1.7.2
-  resolution: "axios@npm:1.7.2"
-  dependencies:
-    follow-redirects: "npm:^1.15.6"
-    form-data: "npm:^4.0.0"
-    proxy-from-env: "npm:^1.1.0"
-  checksum: 10c0/cbd47ce380fe045313364e740bb03b936420b8b5558c7ea36a4563db1258c658f05e40feb5ddd41f6633fdd96d37ac2a76f884dad599c5b0224b4c451b3fa7ae
   languageName: node
   linkType: hard
 
@@ -37677,6 +37678,16 @@ __metadata:
     debug:
       optional: true
   checksum: 10c0/9ff767f0d7be6aa6870c82ac79cf0368cd73e01bbc00e9eb1c2a16fbb198ec105e3c9b6628bb98e9f3ac66fe29a957b9645bcb9a490bb7aa0d35f908b6b85071
+  languageName: node
+  linkType: hard
+
+"follow-redirects@npm:^1.16.0":
+  version: 1.16.0
+  resolution: "follow-redirects@npm:1.16.0"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 10c0/a1e2900163e6f1b4d1ed5c221b607f41decbab65534c63fe7e287e40a5d552a6496e7d9d7d976fa4ba77b4c51c11e5e9f683f10b43011ea11e442ff128d0e181
   languageName: node
   linkType: hard
 
@@ -50148,7 +50159,7 @@ __metadata:
     "@changesets/cli": "patch:@changesets/cli@npm%3A2.29.4#~/public/.yarn/patches/@changesets-cli-npm-2.29.4-aeb1ee0739.patch"
     "@commitlint/cli": "npm:^17.6.5"
     "@commitlint/config-conventional": "npm:^17.6.5"
-    "@crowdin/crowdin-api-client": "npm:^1.33.1"
+    "@crowdin/crowdin-api-client": "npm:^1.55.4"
     "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/cz-conventional-changelog": "npm:^3.2.2"
     "@openagenda/intl": "workspace:^"
@@ -53314,6 +53325,13 @@ __metadata:
   version: 1.1.0
   resolution: "proxy-from-env@npm:1.1.0"
   checksum: 10c0/fe7dd8b1bdbbbea18d1459107729c3e4a2243ca870d26d34c2c1bcd3e4425b7bcc5112362df2d93cc7fb9746f6142b5e272fd1cc5c86ddf8580175186f6ad42b
+  languageName: node
+  linkType: hard
+
+"proxy-from-env@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "proxy-from-env@npm:2.1.0"
+  checksum: 10c0/ed01729fd4d094eab619cd7e17ce3698b3413b31eb102c4904f9875e677cd207392795d5b4adee9cec359dfd31c44d5ad7595a3a3ad51c40250e141512281c58
   languageName: node
   linkType: hard
 
