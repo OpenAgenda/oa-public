@@ -2,7 +2,7 @@
 
 Journal des décisions et pièges concrets pour **construire** l'API v3 (la couche de mapping HTTP au-dessus de `core`). Complète `docs/analyse-api.md` (analyse + décisions, le « pourquoi/quoi ») ; ici c'est le « comment », enrichi au fil des tranches.
 
-Le contrat fait foi : `packages/api-spec/openapi.yaml`. Stratégie spec-first + spec exécutable (cf. `docs/analyse-api.md` §9 décision 6).
+Le contrat fait foi : `public/api-spec/openapi.yaml`. Stratégie spec-first + spec exécutable (cf. `docs/analyse-api.md` §9 décision 6).
 
 ---
 
@@ -84,7 +84,7 @@ historique inchangé), `auto` (coupure dynamique), ou un nombre ≥ 0 (plancher
 - **Facettes — cohérentes** : `min_score` est appliqué **pendant la collecte**
   (un min-score collector enveloppe aussi les collecteurs d'agrégation), donc il
   filtre les hits, le `total` **et** les agrégations de façon cohérente (vérifié
-  sur ES 7.7). À ne pas confondre avec `post_filter`, qui s'applique *après* les
+  sur ES 7.7). À ne pas confondre avec `post_filter`, qui s'applique _après_ les
   agrégations et est, lui, ignoré par celles-ci. L'endpoint facettes v3
   (`/events/facets`) passe par le même `search()` (donc sonde + `min_score` même
   en `size:0`) : ses comptes correspondent à la liste tant que le client envoie

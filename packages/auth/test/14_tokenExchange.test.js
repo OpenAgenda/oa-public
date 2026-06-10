@@ -6,7 +6,7 @@ import Auth from '../src/index.js';
 // verification — confidential-client auth, grant_type, and target-resource
 // checks. The post-verification path (subject verification via JWKS, the
 // per-client `subjectResource` binding check, and signing) needs a live keyset
-// and is exercised end-to-end by packages/mcp/scripts/smoke-oauth.js.
+// and is exercised end-to-end by public/mcp/scripts/smoke-oauth.js.
 
 const fakeMysqlPool = { query: jest.fn() };
 const V3_RESOURCE = 'https://dapi.openagenda.com/v3';

@@ -8,7 +8,7 @@
 //
 // Auth (createAuthenticate) and agenda loading (createLoadAgenda) are
 // v3-native: they throw typed errors into the v3 error envelope. The contract
-// is `packages/api-spec/openapi.yaml`.
+// is `public/api-spec/openapi.yaml`.
 
 import express from 'express';
 import { BadRequest, NotFound } from '@openagenda/verror';
@@ -102,7 +102,7 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
 
   // OAuth scope gate (O4a): each route below declares the scope the contract
   // requires of a scope-bearing caller (`security.oauth2` in
-  // packages/api-spec/openapi.yaml). requireScope constrains scoped credentials
+  // public/api-spec/openapi.yaml). requireScope constrains scoped credentials
   // — OAuth tokens, and API keys carrying explicit `permissions` — while
   // unscoped ones (grandfathered keys with no permissions, agenda keys,
   // sessions) pass through. A missing scope answers 403 insufficient_scope.

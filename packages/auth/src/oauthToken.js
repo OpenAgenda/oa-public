@@ -1,7 +1,7 @@
 // OA-issued OAuth access-token verification, for resource servers that live in
 // the SAME process as the authorization server (the v3 API). The MCP HTTP
 // resource server verifies the same tokens out-of-process via JWKS over HTTP
-// (packages/mcp/src/auth/verifier.js); this is its in-process twin.
+// (public/mcp/src/auth/verifier.js); this is its in-process twin.
 //
 // WHY a local twin instead of a loopback /jwks fetch: the API is the AS, so it
 // can pull the public keyset directly from the `jwt` plugin

@@ -11850,9 +11850,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/api-client@workspace:*, @openagenda/api-client@workspace:packages/api-client":
+"@openagenda/api-client@workspace:*, @openagenda/api-client@workspace:public/api-client":
   version: 0.0.0-use.local
-  resolution: "@openagenda/api-client@workspace:packages/api-client"
+  resolution: "@openagenda/api-client@workspace:public/api-client"
   dependencies:
     "@hey-api/openapi-ts": "npm:^0.97.3"
     "@openagenda/api-spec": "workspace:*"
@@ -11863,9 +11863,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/api-docs@workspace:packages/api-docs":
+"@openagenda/api-docs@workspace:public/api-docs":
   version: 0.0.0-use.local
-  resolution: "@openagenda/api-docs@workspace:packages/api-docs"
+  resolution: "@openagenda/api-docs@workspace:public/api-docs"
   dependencies:
     "@fontsource-variable/noto-sans": "npm:^5.2.10"
     "@fontsource-variable/ubuntu-sans": "npm:^5.2.10"
@@ -11874,9 +11874,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/api-spec@workspace:*, @openagenda/api-spec@workspace:^, @openagenda/api-spec@workspace:packages/api-spec":
+"@openagenda/api-spec@workspace:*, @openagenda/api-spec@workspace:^, @openagenda/api-spec@workspace:public/api-spec":
   version: 0.0.0-use.local
-  resolution: "@openagenda/api-spec@workspace:packages/api-spec"
+  resolution: "@openagenda/api-spec@workspace:public/api-spec"
   dependencies:
     ajv: "npm:^8.17.1"
     ajv-formats: "npm:^3.0.1"
@@ -12785,9 +12785,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/mcp@workspace:packages/mcp":
+"@openagenda/mcp@workspace:public/mcp":
   version: 0.0.0-use.local
-  resolution: "@openagenda/mcp@workspace:packages/mcp"
+  resolution: "@openagenda/mcp@workspace:public/mcp"
   dependencies:
     "@modelcontextprotocol/sdk": "npm:^1.29.0"
     "@openagenda/api-client": "workspace:*"

@@ -127,7 +127,7 @@ describe('auth - /oauth2/register enforces the DCR posture', () => {
 describe('auth - DCR registration audit hook', () => {
   // The success path (a real client issued → onClientRegistered fires with the
   // sanitized descriptor) needs a live keyset/DB and is exercised by
-  // packages/mcp/scripts/smoke-oauth.js (DCR is its first step). Here we pin the
+  // public/mcp/scripts/smoke-oauth.js (DCR is its first step). Here we pin the
   // guard that matters without a DB: a registration that does NOT succeed emits
   // NO audit event, so rejected/garbage attempts never pollute the trail or
   // trip downstream alerts.

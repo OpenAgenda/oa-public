@@ -1,5 +1,5 @@
 // v3 OAuth scope gate (O4a). Enforces the per-operation scope the contract
-// already declares (`security.oauth2` in packages/api-spec/openapi.yaml) for any
+// already declares (`security.oauth2` in public/api-spec/openapi.yaml) for any
 // caller whose credential carries a scope grant.
 //
 // Scopes constrain ONLY a scope-bearing credential. The contract's security is

@@ -215,8 +215,8 @@ digest (microsandbox la pull au premier boot) :
 openagenda/mcp-llrt@sha256:81b2242a631b31a848a7232cb523ab9aeff66f9e9a7f93b2c2ba5e4b34410d58
 ```
 
-Pour la (re)construire/publier : `packages/mcp/llrt.Dockerfile` +
-`packages/mcp/scripts/refresh-llrt-image.sh` (résout version llrt + digests).
+Pour la (re)construire/publier : `public/mcp/llrt.Dockerfile` +
+`public/mcp/scripts/refresh-llrt-image.sh` (résout version llrt + digests).
 
 ## Étape 7 — Valider microsandbox sur l'hôte
 
@@ -224,7 +224,7 @@ Smoke de bout en bout en runtime llrt (mode local, clé factice — les checks n
 dépendent pas d'une vraie clé API). Le **premier run pull l'image** :
 
 ```sh
-cd "$HOME/oa/packages/mcp"
+cd "$HOME/oa/public/mcp"
 export NVM_DIR="$HOME/.nvm"; . "$NVM_DIR/nvm.sh"
 OA_EXECUTOR=microsandbox OA_SANDBOX_RUNTIME=llrt OA_CODE_EGRESS_AUTHORITY=executor \
 OA_MICROSANDBOX_IMAGE=openagenda/mcp-llrt@sha256:81b2242a…  \
@@ -305,7 +305,7 @@ Type=simple
 User=ubuntu
 WorkingDirectory=/home/ubuntu/oa
 EnvironmentFile=/home/ubuntu/oa-mcp.env
-ExecStart=/home/ubuntu/.nvm/versions/node/v24.16.0/bin/node packages/mcp/src/index.js
+ExecStart=/home/ubuntu/.nvm/versions/node/v24.16.0/bin/node public/mcp/src/index.js
 Restart=on-failure
 RestartSec=3
 NoNewPrivileges=true
@@ -472,16 +472,16 @@ sudo systemctl reload alloy                          # après tout changement de
 
 ## Exploitation
 
-| Tâche                          | Commande                                                                                                                                |
-| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
-| Logs                           | → InsightOps (clé `OA_INSIGHT_OPS_TOKEN`) **et** OTel → Alloy → Loki. En local : `DEBUG=openagenda-mcp* node packages/mcp/src/index.js` |
-| Métriques + traces             | OTel → Alloy local (`OTEL_EXPORTER_OTLP_ENDPOINT`) → Mimir (séries `oa_mcp_*`) / Tempo (spans `mcp.tool/*`)                             |
-| Statut / redémarrage           | `systemctl status oa-mcp` · `sudo systemctl restart oa-mcp`                                                                             |
-| Journal systemd                | `sudo journalctl -u oa-mcp -f` (banners/fatals ; les logs applicatifs partent vers InsightOps)                                          |
-| Maintenance (couper `execute`) | poser `OA_EXECUTE_DISABLED=1` dans l'env + restart (`search_docs` reste servi)                                                          |
-| Mise à jour du code            | `~/update-mcp.sh` (pull main → install → build → restart → **vérifie** ; voir ci-dessous)                                               |
-| Renouvellement TLS             | automatique (timer certbot) ; test : `sudo certbot renew --dry-run`                                                                     |
-| Tuning RAM/débit               | `OA_SANDBOX_MEMORY_MB` / `OA_MICROSANDBOX_POOL_SIZE` / `OA_MAX_CONCURRENCY` dans l'env + restart                                        |
+| Tâche                          | Commande                                                                                                                              |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
+| Logs                           | → InsightOps (clé `OA_INSIGHT_OPS_TOKEN`) **et** OTel → Alloy → Loki. En local : `DEBUG=openagenda-mcp* node public/mcp/src/index.js` |
+| Métriques + traces             | OTel → Alloy local (`OTEL_EXPORTER_OTLP_ENDPOINT`) → Mimir (séries `oa_mcp_*`) / Tempo (spans `mcp.tool/*`)                           |
+| Statut / redémarrage           | `systemctl status oa-mcp` · `sudo systemctl restart oa-mcp`                                                                           |
+| Journal systemd                | `sudo journalctl -u oa-mcp -f` (banners/fatals ; les logs applicatifs partent vers InsightOps)                                        |
+| Maintenance (couper `execute`) | poser `OA_EXECUTE_DISABLED=1` dans l'env + restart (`search_docs` reste servi)                                                        |
+| Mise à jour du code            | `~/update-mcp.sh` (pull main → install → build → restart → **vérifie** ; voir ci-dessous)                                             |
+| Renouvellement TLS             | automatique (timer certbot) ; test : `sudo certbot renew --dry-run`                                                                   |
+| Tuning RAM/débit               | `OA_SANDBOX_MEMORY_MB` / `OA_MICROSANDBOX_POOL_SIZE` / `OA_MAX_CONCURRENCY` dans l'env + restart                                      |
 
 ### Script de mise à jour (`~/update-mcp.sh`)
 
@@ -539,5 +539,5 @@ code=$(curl -s -o /dev/null -w '%{http_code}' -X POST https://mcp.openagenda.com
 
 ## Voir aussi
 
-- `packages/mcp/README.md` — modèle d'exécution, matrice fail-closed, threat-model.
-- `packages/mcp/docs/microsandbox.md` — egress SNI, footprint, pool, cycle de vie µVM.
+- `public/mcp/README.md` — modèle d'exécution, matrice fail-closed, threat-model.
+- `public/mcp/docs/microsandbox.md` — egress SNI, footprint, pool, cycle de vie µVM.

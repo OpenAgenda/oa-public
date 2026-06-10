@@ -412,7 +412,7 @@ export function createMicrosandboxExecutor({
           'microsandbox is not available. It is an optional dependency requiring a '
             + 'virtualization host (Linux + /dev/kvm, or macOS Apple Silicon). Install it on a '
             + 'supported host (`yarn workspace @openagenda/mcp add microsandbox`), or use '
-            + 'OA_EXECUTOR=deno locally. See packages/mcp/docs/microsandbox.md.',
+            + 'OA_EXECUTOR=deno locally. See public/mcp/docs/microsandbox.md.',
         );
       }
       const { Rule, Destination } = msb;
