@@ -1,0 +1,44 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.openagenda/mcp",
+  "title": "OpenAgenda",
+  "description": "Query OpenAgenda's public events platform: run sandboxed code against the v3 API (agendas, events, facets) with your OpenAgenda account via OAuth.",
+  "repository": {
+    "url": "https://github.com/OpenAgenda/oa-public",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "websiteUrl": "https://mcp.openagenda.com",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.openagenda.com/mcp"
+    }
+  ],
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@openagenda/mcp",
+      "version": "1.0.0",
+      "runtimeHint": "npx",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "OA_API_KEY",
+          "description": "OpenAgenda API key (the stdio credential — a least-privilege/read key is advised). The hosted remote uses OAuth instead.",
+          "isRequired": true,
+          "isSecret": true,
+          "format": "string"
+        },
+        {
+          "name": "OA_BASE_URL",
+          "description": "v3 API base URL (defaults to https://api.openagenda.com/v3).",
+          "isRequired": false,
+          "format": "string"
+        }
+      ]
+    }
+  ]
+}
