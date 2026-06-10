@@ -25,9 +25,10 @@ BASE_SHA=$(git merge-base @ @{u})
 if [ "$LOCAL_SHA" == "$REMOTE_SHA" ]; then
     echo "✔️  La branche locale est à jour avec le remote."
 elif [ "$LOCAL_SHA" == "$BASE_SHA" ]; then
-    echo "❌ Erreur : Votre branche locale est en retard sur le remote."
-    echo "Veuillez d'abord faire 'git pull' pour vous mettre à jour."
-    exit 1
+    # En CI, 'main' peut avancer pendant le build qui précède ce script : on se
+    # met à jour en fast-forward au lieu d'échouer.
+    echo "⏩ La branche locale est en retard sur le remote — mise à jour (fast-forward)..."
+    git pull --ff-only origin "${MAIN_BRANCH_NAME}"
 elif [ "$REMOTE_SHA" == "$BASE_SHA" ]; then
     echo "❌ Erreur : Votre branche locale est en avance sur le remote."
     echo "Veuillez d'abord faire 'git push' pour vous mettre à jour."
@@ -156,9 +157,27 @@ for commit_sha in $COMMIT_LIST; do
     fi
 done
 
-# Étape 4 : Pousser le résultat
+# Étape 4 : Vérification finale puis poussée du résultat
+# Les réplications commit par commit peuvent dériver (patch appliqué sur une base
+# décalée) : avant de pousser quoi que ce soit, on garantit que l'état final est
+# identique au sous-dossier de HEAD, quitte à l'imposer dans un commit correctif.
+EXPECTED_TREE_SHA=$(git rev-parse "${OA_HEAD_SHA}:${SUBTREE_PREFIX}" 2>/dev/null || echo 4b825dc642cb6eb9a060e54bf8d69288fbee4904)
+FINAL_TREE_SHA=$(git -C "${WORKTREE_PATH}" write-tree)
+if [ "$FINAL_TREE_SHA" != "$EXPECTED_TREE_SHA" ]; then
+    echo "⚠️ L'état final répliqué diverge de '${SUBTREE_PREFIX}' — imposition de l'état exact..."
+    git -C "${WORKTREE_PATH}" rm -rfq . || true
+    git -C "${WORKTREE_PATH}" read-tree --reset -u "${EXPECTED_TREE_SHA}"
+    git -C "${WORKTREE_PATH}" add -A
+    git -C "${WORKTREE_PATH}" commit -m "chore: align public subtree with source state" --no-verify
+fi
+
 echo "🛰️ Poussée vers ${PUBLIC_REMOTE_NAME} depuis le worktree..."
-git -C "${WORKTREE_PATH}" push ${PUBLIC_REMOTE_NAME} "${FINAL_BRANCH}:main"
+if ! git -C "${WORKTREE_PATH}" push ${PUBLIC_REMOTE_NAME} "${FINAL_BRANCH}:main"; then
+    echo "🔴 Push rejeté : '${PUBLIC_REMOTE_NAME}/main' a avancé depuis le début de la synchro"
+    echo "   (ex. une PR mergée sur le repo public). Rien n'a été écrit."
+    echo "   Veuillez exécuter le script de PULL pour intégrer ces commits, puis relancer."
+    exit 1
+fi
 NEW_PUBLIC_HEAD_SHA=$(git -C "${WORKTREE_PATH}" rev-parse ${FINAL_BRANCH})
 
 # Étape 5 : Création du nouveau commit d'ancrage dans `oa`
@@ -167,6 +186,19 @@ echo "✍️ Création du nouveau commit d'ancrage..."
 COMMIT_MESSAGE=$(printf "chore: sync with %s\n\nAligns oa commit %s with %s commit %s" "${PUBLIC_REMOTE_NAME}" "${OA_HEAD_SHA}" "${PUBLIC_REMOTE_NAME}" "${NEW_PUBLIC_HEAD_SHA}")
 git commit --allow-empty -m "${COMMIT_MESSAGE}" --no-verify
 
+# Si la poussée de l'ancrage échoue (quelqu'un a poussé sur main entre-temps),
+# l'ancrage serait perdu et toutes les synchros suivantes échoueraient en
+# « divergence » alors que le contenu est identique. Le commit d'ancrage étant
+# vide, le rebase est toujours trivial : on retente après mise à jour.
 echo "🛰️ Poussée finale du commit d'ancrage vers 'origin'..."
-git push
-echo "✨ Push terminé"
+for attempt in 1 2 3 4 5; do
+    if git push; then
+        echo "✨ Push terminé"
+        exit 0
+    fi
+    echo "⚠️ Push rejeté ('${MAIN_BRANCH_NAME}' a avancé) — rebase puis nouvel essai (${attempt}/5)..."
+    git pull --rebase origin "${MAIN_BRANCH_NAME}"
+done
+echo "❌ Impossible de pousser le commit d'ancrage après 5 tentatives."
+echo "   L'ancrage est commité localement ; faites 'git pull --rebase' puis 'git push'."
+exit 1
