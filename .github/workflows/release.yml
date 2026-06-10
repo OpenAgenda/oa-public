@@ -76,3 +76,26 @@ jobs:
           ./scripts/sync-releases-to-public.sh
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      # Mirror a freshly published @openagenda/mcp release to the official MCP
+      # registry (https://registry.modelcontextprotocol.io). The registry only
+      # hosts metadata: public/mcp/server.json, with its versions aligned on the
+      # npm version that was just published (jq rewrite — server.json stays
+      # authoritative for everything but the version). DNS authentication binds
+      # the com.openagenda/* namespace; the Ed25519 private key lives in the
+      # MCP_PUBLISHER_PRIVATE_KEY secret and must match the TXT record on
+      # openagenda.com (runbook: wiki/mcp-registry.md).
+      - name: Publish to MCP Registry
+        if: steps.changesets.outputs.published == 'true' && contains(fromJSON(steps.changesets.outputs.publishedPackages).*.name, '@openagenda/mcp')
+        working-directory: public/mcp
+        run: |
+          VERSION=$(echo "$PUBLISHED_PACKAGES" | jq -r '.[] | select(.name == "@openagenda/mcp") | .version')
+          jq --arg v "$VERSION" '.version = $v | (.packages[]?.version) = $v' server.json > server.json.tmp
+          mv server.json.tmp server.json
+          curl -fsSL "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_linux_amd64.tar.gz" | tar xz mcp-publisher
+          ./mcp-publisher login dns --domain openagenda.com --private-key "$MCP_PUBLISHER_PRIVATE_KEY"
+          ./mcp-publisher publish
+          rm -f mcp-publisher
+        env:
+          PUBLISHED_PACKAGES: ${{ steps.changesets.outputs.publishedPackages }}
+          MCP_PUBLISHER_PRIVATE_KEY: ${{ secrets.MCP_PUBLISHER_PRIVATE_KEY }}
