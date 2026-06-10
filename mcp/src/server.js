@@ -11,6 +11,7 @@ import {
   SpanStatusCode,
 } from '@opentelemetry/api';
 import { z } from 'zod';
+import pkg from '../package.json' with { type: 'json' };
 import { searchOperations, renderSearch } from './docs/operations.js';
 import { buildScript } from './sandbox/preamble.js';
 import { credentialFp } from './log.js';
@@ -182,7 +183,9 @@ export function createServer({
   recordAudit = () => {},
   recordMetric = () => {},
 }) {
-  const server = new McpServer({ name: SERVICE_NAME, version: '0.0.0' });
+  // The handshake version is the released package version, so MCP inspectors and
+  // the registry listing tell the same story deploy after deploy.
+  const server = new McpServer({ name: SERVICE_NAME, version: pkg.version });
 
   // Tracer for the per-tool-call spans below. From @opentelemetry/api directly (NOT
   // telemetry.js) so this module never pulls in the OTel SDK — it's a no-op
