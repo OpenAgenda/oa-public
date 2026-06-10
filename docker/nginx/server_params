@@ -153,6 +153,37 @@ location ^~ /api/auth/oauth2/ {
   include conf.d/nodejs_params;
 }
 
+# OAuth/OIDC discovery documents must be readable cross-origin: browser-based
+# OAuth/MCP clients fetch them before any redirect. Public documents, same edge
+# posture as /api/auth/oauth2/ — `*` with NO Allow-Credentials.
+location ^~ /api/auth/.well-known/ {
+  if ($request_method = OPTIONS) {
+    add_header 'Access-Control-Allow-Origin' '*';
+    add_header 'Access-Control-Allow-Methods' 'GET, OPTIONS';
+    add_header 'Access-Control-Allow-Headers' 'Content-Type';
+    add_header 'Access-Control-Max-Age' 600;
+    add_header 'Content-Length' 0;
+    return 204;
+  }
+
+  add_header 'Access-Control-Allow-Origin' '*' always;
+
+  include conf.d/nodejs_params;
+}
+
+# RFC 8414 derives the metadata URL by INSERTING the well-known segment between
+# host and issuer path; better-auth serves the path-APPENDED form only. Strict
+# OAuth/MCP clients try the canonical insertion first (some try nothing else) —
+# alias it (and its OIDC twin) onto what node actually serves. `last` re-enters
+# location matching, so the rewritten URI lands in the CORS block above.
+location = /.well-known/oauth-authorization-server/api/auth {
+  rewrite ^ /api/auth/.well-known/oauth-authorization-server last;
+}
+
+location = /.well-known/openid-configuration/api/auth {
+  rewrite ^ /api/auth/.well-known/openid-configuration last;
+}
+
 location ~ ^/api(|/.+)$ {
   include conf.d/nodejs_params;
 }
