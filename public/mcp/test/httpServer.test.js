@@ -174,6 +174,16 @@ describe('MCP HTTP resource server', () => {
       expect(prm.authorization_servers).toEqual([ISSUER]);
       expect(prm.bearer_methods_supported).toEqual(['header']);
     });
+
+    it('serves the same PRM at the root well-known (origin-derived clients)', async () => {
+      // Some clients (Le Chat/Mistral's connector checklist) derive the PRM from
+      // the origin and fetch the root form, without the resource path suffix.
+      const res = await fetch(`${baseUrl}.well-known/oauth-protected-resource`);
+      expect(res.status).toBe(200);
+      const prm = await res.json();
+      expect(prm.resource).toBe(RESOURCE);
+      expect(prm.authorization_servers).toEqual([ISSUER]);
+    });
   });
 
   describe('health endpoint', () => {

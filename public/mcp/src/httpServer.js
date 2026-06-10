@@ -91,16 +91,22 @@ export function createHttpApp({ config, executor }) {
   const prmUrl = new URL(
     getOAuthProtectedResourceMetadataUrl(new URL(oauth.resourceUrl)),
   );
-  app.use(
-    prmUrl.pathname,
-    metadataHandler({
-      resource: oauth.resourceUrl,
-      authorization_servers: [oauth.issuer],
-      scopes_supported: oauth.scopesSupported,
-      bearer_methods_supported: ['header'],
-      resource_name: 'OpenAgenda MCP',
-    }),
-  );
+  const prm = metadataHandler({
+    resource: oauth.resourceUrl,
+    authorization_servers: [oauth.issuer],
+    scopes_supported: oauth.scopesSupported,
+    bearer_methods_supported: ['header'],
+    resource_name: 'OpenAgenda MCP',
+  });
+  app.use(prmUrl.pathname, prm);
+  // Some clients derive the PRM from the ORIGIN instead of the full resource
+  // URL and fetch the root well-known, without the resource path suffix — Le
+  // Chat (Mistral) documents exactly that URL in its connector troubleshooting
+  // checklist. Serve the same document there so both derivations resolve.
+  const rootPrmPath = '/.well-known/oauth-protected-resource';
+  if (prmUrl.pathname !== rootPrmPath) {
+    app.use(rootPrmPath, prm);
+  }
 
   // Validate the JWS locally against the AS JWKS, bound to our resource as
   // audience. On failure the client gets a 401 with a WWW-Authenticate challenge
