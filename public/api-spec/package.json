@@ -1,10 +1,21 @@
 {
   "name": "@openagenda/api-spec",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.1.0",
   "description": "OpenAgenda v3 public API — OpenAPI 3.1 contract (source of truth for SDK, MCP and docs)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/OpenAgenda/oa-public.git"
+  },
+  "homepage": "https://github.com/OpenAgenda/oa-public",
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "main": "openapi.yaml",
+  "files": [
+    "openapi.yaml"
+  ],
   "exports": {
     "./openapi.yaml": "./openapi.yaml",
     "./package.json": "./package.json"
