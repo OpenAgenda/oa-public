@@ -256,7 +256,7 @@ services:
     # non-root uid can't traverse it to reach a /root/oa mount (the ubuntu
     # Dockerfile chmods /root; the bare image doesn't).
     working_dir: /oa
-    command: node packages/mcp/src/index.js
+    command: node public/mcp/src/index.js
     restart: always
     volumes:
       - .:/oa

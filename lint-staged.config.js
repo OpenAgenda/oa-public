@@ -8,7 +8,7 @@ module.exports = {
   // race prettier's write against validate's read of openapi.yaml.
   '*.yaml': (files) => {
     const commands = [`prettier --write ${files.join(' ')}`];
-    if (files.some((f) => f.endsWith('packages/api-spec/openapi.yaml'))) {
+    if (files.some((f) => f.endsWith('public/api-spec/openapi.yaml'))) {
       commands.push('yarn workspace @openagenda/api-spec validate');
     }
     return commands;

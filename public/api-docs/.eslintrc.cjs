@@ -1,11 +1,14 @@
 'use strict';
 
 module.exports = {
-  extends: '../../.eslintrc',
+  extends: '../.eslintrc',
 
   parserOptions: {
     sourceType: 'module',
   },
+
+  // Static build output — not hand-written, don't lint it.
+  ignorePatterns: ['dist/**'],
 
   rules: {
     'import/no-extraneous-dependencies': [

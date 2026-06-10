@@ -31,9 +31,9 @@
 # distroless/Renovate cadence config.js warns a static pin needs to avoid rot).
 #
 # Build (multi-arch, push to YOUR registry — do not depend on a hub image):
-#   docker buildx build -f packages/mcp/llrt.Dockerfile \
+#   docker buildx build -f public/mcp/llrt.Dockerfile \
 #     --platform linux/amd64,linux/arm64 \
-#     -t <registry>/oa-mcp-llrt:v0.8.1-beta --push packages/mcp
+#     -t <registry>/oa-mcp-llrt:v0.8.1-beta --push public/mcp
 # Then seed the µVM host: `msb pull <registry>/oa-mcp-llrt@sha256:…` and set
 #   OA_MICROSANDBOX_IMAGE=<registry>/oa-mcp-llrt@sha256:…  OA_SANDBOX_RUNTIME=llrt
 # (no OA_LLRT_BIN — llrt is on PATH in the image).

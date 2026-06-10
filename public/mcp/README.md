@@ -158,7 +158,7 @@ Then launch the MCP under srt with that policy:
 
 ```sh
 OA_EXECUTOR=node OA_CODE_EGRESS_AUTHORITY=wrapper \
-  srt --settings srt-settings.json -- node packages/mcp/src/index.js
+  srt --settings srt-settings.json -- node public/mcp/src/index.js
 ```
 
 srt jails the process **and the engine it spawns**, so it is the single
@@ -179,7 +179,7 @@ yarn install
 # The API needs a credential (no anonymous read): any OpenAgenda API key for stdio (oa_pk_… shown; a least-privilege/read key is advised — it's baked into the sandboxed code). HTTP uses OAuth.
 export OA_API_KEY=oa_pk_xxx
 export OA_BASE_URL=https://dapi.openagenda.com/v3   # dev; defaults to production
-node packages/mcp/src/index.js                      # speaks MCP over stdio (deno engine)
+node public/mcp/src/index.js                      # speaks MCP over stdio (deno engine)
 ```
 
 Register it with an MCP client (e.g. Claude Desktop / Claude Code):
@@ -189,7 +189,7 @@ Register it with an MCP client (e.g. Claude Desktop / Claude Code):
   "mcpServers": {
     "openagenda": {
       "command": "node",
-      "args": ["/abs/path/to/packages/mcp/src/index.js"],
+      "args": ["/abs/path/to/public/mcp/src/index.js"],
       "env": { "OA_API_KEY": "oa_pk_xxx" }
     }
   }

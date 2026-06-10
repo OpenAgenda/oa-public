@@ -23,7 +23,7 @@
 // The dev domains serve a private CA, so trust it:
 //
 //   NODE_EXTRA_CA_CERTS=docker/devinstaller/ssl/certs/ca.crt \
-//     node packages/mcp/scripts/smoke-oauth.js
+//     node public/mcp/scripts/smoke-oauth.js
 //
 // All endpoints/credentials are overridable via env (see DEFAULTS below).
 

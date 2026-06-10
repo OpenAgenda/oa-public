@@ -1,7 +1,7 @@
 // Pure mappers: projected `core` agenda -> public v3 agenda read shapes.
 //
 // Three distinct shapes, each reflecting what its source returns (see
-// packages/api-spec/openapi.yaml):
+// public/api-spec/openapi.yaml):
 //   - AgendaSummary   : list `detailed=false` — search-index base projection.
 //   - AgendaDetailed  : list `detailed=true`  — search-index detailed projection
 //                       (base + createdAt + network + locationSet). Narrower

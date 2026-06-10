@@ -249,14 +249,14 @@ docker run --privileged --rm tonistiigi/binfmt --install arm64   # arm64 emulati
 docker buildx create --name oabuilder --driver docker-container --bootstrap --use
 
 # 2. (optional) bump the pinned llrt version / checksums / base digest
-bash packages/mcp/scripts/refresh-llrt-image.sh         # latest release; or pass a tag
-git diff packages/mcp/llrt.Dockerfile                    # review the new pins
+bash public/mcp/scripts/refresh-llrt-image.sh         # latest release; or pass a tag
+git diff public/mcp/llrt.Dockerfile                    # review the new pins
 
 # 3. Build + push multi-arch (a single tag serves amd64 AND arm64)
-docker buildx build -f packages/mcp/llrt.Dockerfile \
+docker buildx build -f public/mcp/llrt.Dockerfile \
   --platform linux/amd64,linux/arm64 \
   -t openagenda/mcp-llrt:v0.8.1-beta -t openagenda/mcp-llrt:latest \
-  --push packages/mcp
+  --push public/mcp
 
 # 4. Resolve the index digest to pin (the top-level "Digest:" line)
 docker buildx imagetools inspect openagenda/mcp-llrt:v0.8.1-beta
