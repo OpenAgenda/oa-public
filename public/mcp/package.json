@@ -2,13 +2,28 @@
   "name": "@openagenda/mcp",
   "version": "1.1.0",
   "description": "OpenAgenda v3 MCP server — code-mode tools over the v3 API, with a pluggable sandbox executor",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "mcp-server",
+    "openagenda",
+    "events",
+    "calendar",
+    "agenda",
+    "code-mode",
+    "ai",
+    "llm"
+  ],
   "license": "MIT",
+  "author": "OpenAgenda",
   "mcpName": "com.openagenda/mcp",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/OpenAgenda/oa-public.git"
+    "url": "git+ssh://git@github.com/OpenAgenda/oa-public.git",
+    "directory": "mcp"
   },
   "homepage": "https://mcp.openagenda.com",
+  "bugs": "https://github.com/OpenAgenda/oa-public/issues",
   "publishConfig": {
     "access": "public"
   },
