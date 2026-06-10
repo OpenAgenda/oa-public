@@ -175,7 +175,7 @@ function AgendaShow({ agenda, initialQuery = {} }: AgendaShowProps) {
           </Box>
         ) : null}
 
-        <Box as="header" w="full" bg="#413a42" px="4" py="8">
+        <Box as="header" w="full" bg="darkPurple.500" px="4" py="8">
           <Container maxW="7xl" color="white">
             <AgendaHeader agenda={agenda} />
           </Container>

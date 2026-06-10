@@ -1,6 +1,7 @@
 {
   "next.views.EventError.agendaNotFound": "crwdns46867:0crwdne46867:0",
   "next.views.EventError.contactAdministrators": "crwdns46869:0crwdne46869:0",
+  "next.views.EventError.eventGoneMsg": "",
   "next.views.EventError.eventNotFound": "crwdns46871:0crwdne46871:0",
   "next.views.EventError.forbiddenMsg": "crwdns46873:0{br}crwdne46873:0",
   "next.views.EventError.notFoundMsg": "crwdns46875:0{br}crwdne46875:0",

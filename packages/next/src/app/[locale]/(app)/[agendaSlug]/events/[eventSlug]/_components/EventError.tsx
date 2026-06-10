@@ -112,7 +112,7 @@ function EventErrorContent({
 
     return (
       <>
-        <Box as="header" w="full" bg="#413a42" px="4" py="8">
+        <Box as="header" w="full" bg="darkPurple.500" px="4" py="8">
           <Container
             maxW="container.lg"
             color="white"
@@ -127,7 +127,9 @@ function EventErrorContent({
             {intl.formatMessage(messages.eventNotFound)}
           </Text>
           <Text textAlign="center">
-            {intl.formatMessage(messages.notFoundMsg, { br: <br /> })}
+            {statusCode === 410
+              ? intl.formatMessage(messages.eventGoneMsg)
+              : intl.formatMessage(messages.notFoundMsg, { br: <br /> })}
           </Text>
 
           <Button asChild mt="8">

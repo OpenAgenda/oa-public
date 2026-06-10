@@ -6,7 +6,7 @@ import { Skeleton, SkeletonText } from '@openagenda/uikit/snippets';
 export default function EventLoading() {
   return (
     <>
-      <Box as="header" w="full" bg="#413a42" px="4" py="8">
+      <Box as="header" w="full" bg="darkPurple.500" px="4" py="8">
         <Container maxW="5xl">
           <Skeleton height="48px" width="40%" />
         </Container>

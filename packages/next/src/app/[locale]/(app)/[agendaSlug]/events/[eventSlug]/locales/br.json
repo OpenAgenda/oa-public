@@ -1,6 +1,7 @@
 {
   "next.views.EventError.agendaNotFound": "Deiziataer ebet kavet",
   "next.views.EventError.contactAdministrators": "Mont e darempred gant ar verourien",
+  "next.views.EventError.eventGoneMsg": "Dilamet eo bet an abadenn-mañ ha n’eo ket mui hegerz.",
   "next.views.EventError.eventNotFound": "Darvoud n'eo ket kavet",
   "next.views.EventError.forbiddenMsg": "N'hoc'h eus ket moned d'an deiziataer-mañ.{br}Gwiriit al liamm zo bet roet deoc'h pe goulennit ar moned.",
   "next.views.EventError.notFoundMsg": "N'eus deiziataer ebet o klotañ gant al liamm-mañ.{br}Pe eo direizh al liamm pe eo bet dilamet an deiziataer.",

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 import { permanentRedirect } from 'next/navigation';
 import qs from 'qs';
 import { SUPPORTED_LOCALES } from '@/src/config/constants';
@@ -26,6 +27,12 @@ export async function generateMetadata({
   params: Params;
   searchParams: SearchParams;
 }): Promise<Metadata> {
+  // The proxy flags deleted events as gone (410). Skip fetching the removed
+  // event and emit a minimal, noindex head for it.
+  if ((await headers()).get('x-event-gone') === '1') {
+    return { title: 'OpenAgenda', robots: { index: false, follow: false } };
+  }
+
   const { agendaSlug, eventSlug } = await params;
   const sp = await searchParams;
   const locale = await getLocale();
@@ -116,6 +123,27 @@ export default async function EventPage({
 }) {
   const { locale, agendaSlug, eventSlug } = await params;
   const sp = await searchParams;
+
+  // Middleware already confirmed the event is gone (HEAD 410) and rewrote here
+  // with a 410 status. Render the themed 410 view without re-fetching the
+  // removed event. The agenda still exists, so fetch it for the header, but
+  // degrade gracefully if it too has disappeared.
+  if ((await headers()).get('x-event-gone') === '1') {
+    let goneAgenda;
+    try {
+      goneAgenda = await fetchAgenda(agendaSlug, { includeMemberSchema: true });
+    } catch {
+      goneAgenda = undefined;
+    }
+    return (
+      <EventError
+        statusCode={410}
+        agendaSlug={agendaSlug}
+        eventSlug={eventSlug}
+        agenda={goneAgenda}
+      />
+    );
+  }
 
   let agenda;
   try {
