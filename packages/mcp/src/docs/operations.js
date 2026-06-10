@@ -26,6 +26,7 @@ import MiniSearch from 'minisearch';
  * @property {boolean} required
  * @property {string} type            Resolved type (`integer`, `string[]`, `Event`…).
  * @property {(string|number)[]} [enum]
+ * @property {Record<string, string>} [enumDescriptions]  Per-value labels (x-enum-descriptions).
  * @property {unknown} [default]
  * @property {number} [min]
  * @property {number} [max]
@@ -66,6 +67,33 @@ const resolveRef = (ref) =>
 
 const deref = (node) => (node && node.$ref ? resolveRef(node.$ref) : node);
 const refName = (ref) => ref.split('/').pop();
+
+// Resolve a (possibly wrapped) schema down to the node that actually carries
+// the `enum` — through $ref, array `items`, and allOf/oneOf/anyOf members —
+// so the enum values and their x-enum-descriptions labels surface no matter how
+// the parameter is modelled (`sort`'s inline enum, `status`'s `items: $ref`, a
+// direct `$ref` to a shared enum, an `allOf: [{$ref}]` like the `state` field,
+// or a nullable `type: [integer, 'null']` enum). Returns the enum-bearing
+// schema, or undefined. `seen` guards against $ref cycles.
+export function enumSchemaOf(schema, seen = new Set()) {
+  if (!schema || typeof schema !== 'object') return undefined;
+  if (schema.$ref) {
+    if (seen.has(schema.$ref)) return undefined;
+    seen.add(schema.$ref);
+    return enumSchemaOf(resolveRef(schema.$ref), seen);
+  }
+  if (schema.enum) return schema;
+  if (schema.items) return enumSchemaOf(schema.items, seen);
+  for (const key of ['allOf', 'oneOf', 'anyOf']) {
+    if (Array.isArray(schema[key])) {
+      for (const member of schema[key]) {
+        const found = enumSchemaOf(member, seen);
+        if (found) return found;
+      }
+    }
+  }
+  return undefined;
+}
 const oneLine = (text) =>
   String(text || '')
     .trim()
@@ -75,7 +103,16 @@ const oneLine = (text) =>
 // sub-objects — `search_docs` describes the surface, `execute` runs the code).
 function resolveType(schema) {
   if (!schema) return 'any';
-  if (schema.$ref) return refName(schema.$ref);
+  if (schema.$ref) {
+    const target = resolveRef(schema.$ref);
+    // A $ref to a bare enum reads as its primitive JSON type (`integer`,
+    // `string`) — what the caller actually passes — not the opaque component
+    // name. Object refs keep their name so the shape stays inspectable.
+    if (target && target.enum && target.type && target.type !== 'object') {
+      return resolveType(target);
+    }
+    return refName(schema.$ref);
+  }
   if (schema.oneOf) {
     return [...new Set(schema.oneOf.map(resolveType))].join(' | ');
   }
@@ -104,7 +141,13 @@ function resolveType(schema) {
 function deriveParams(op) {
   return (op.parameters || []).map(deref).map((p) => {
     const schema = p.schema || {};
-    const enumValues = schema.enum || schema.items?.enum;
+    // The enum (and its x-enum-descriptions labels) may sit on the param schema
+    // directly (`sort`), under array `items`, behind a $ref to a shared enum, or
+    // wrapped in allOf/oneOf/anyOf — enumSchemaOf resolves through all of them.
+    // The labels travel WITH the enum, so a renamed/extended enum stays in sync.
+    const enumSchema = enumSchemaOf(schema);
+    const enumValues = enumSchema?.enum;
+    const enumDescriptions = enumSchema?.['x-enum-descriptions'];
     /** @type {Param} */
     const param = {
       name: p.name,
@@ -114,6 +157,7 @@ function deriveParams(op) {
       description: oneLine(p.description),
     };
     if (enumValues) param.enum = enumValues;
+    if (enumDescriptions) param.enumDescriptions = enumDescriptions;
     if (schema.default !== undefined) param.default = schema.default;
     if (schema.minimum !== undefined) param.min = schema.minimum;
     if (schema.maximum !== undefined) param.max = schema.maximum;
@@ -358,7 +402,14 @@ miniSearch.addAll(
     id: op.id,
     summary: op.summary,
     params: op.params.map((p) => p.name).join(' '),
-    enums: op.params.flatMap((p) => p.enum || []).join(' '),
+    // Index the enum values AND their labels, so a query like "cancelled" or
+    // "relevance" matches the operation carrying that enum.
+    enums: op.params
+      .flatMap((p) => [
+        ...p.enum || [],
+        ...p.enumDescriptions ? Object.values(p.enumDescriptions) : [],
+      ])
+      .join(' '),
     keywords: op.keywords.join(' '),
   })),
 );
@@ -389,7 +440,20 @@ const RICH_RANK_CUTOFF = 3;
 // op COUNT (only the top few render rich), never by truncating a single op.
 function renderParamLine(p) {
   const meta = [];
-  if (p.enum) meta.push(`one of: ${p.enum.join(', ')}`);
+  if (p.enum) {
+    const d = p.enumDescriptions;
+    // `value = label` (not `value (label)`): the `=` keeps the passable value
+    // unmistakable from its gloss, so the LLM sends `1`, never `"Scheduled"`.
+    const values = d
+      ? p.enum.map((v) => {
+        // A value missing from x-enum-descriptions falls back to the bare
+        // value (still a passable input), never a literal `?` gloss.
+        const label = d[v] ?? d[String(v)];
+        return label ? `${JSON.stringify(v)} = ${label}` : JSON.stringify(v);
+      })
+      : p.enum;
+    meta.push(`one of: ${values.join(', ')}`);
+  }
   if (p.default !== undefined) meta.push(`default ${JSON.stringify(p.default)}`);
   if (p.min !== undefined || p.max !== undefined) {
     meta.push(`range ${p.min ?? '−∞'}…${p.max ?? '∞'}`);
