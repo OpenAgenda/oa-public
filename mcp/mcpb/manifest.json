@@ -1,0 +1,67 @@
+{
+  "manifest_version": "0.3",
+  "name": "openagenda",
+  "display_name": "OpenAgenda",
+  "version": "1.1.0",
+  "description": "Search, analyze and manage events on OpenAgenda from your assistant.",
+  "long_description": "Code-mode MCP server for the OpenAgenda v3 API. It exposes just two stable tools — `search_docs` to discover the right API operation, and `execute` to run JavaScript against a ready-to-use `oa` client — so the whole API surface stays reachable without a tool per endpoint. This bundle is a thin launcher: it runs `npx @openagenda/mcp` over stdio and authenticates with an OpenAgenda API key. Prefer the hosted OAuth server? Add `https://mcp.openagenda.com/mcp` as a remote connector instead — no API key needed.",
+  "author": {
+    "name": "OpenAgenda",
+    "url": "https://openagenda.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OpenAgenda/oa-public"
+  },
+  "homepage": "https://mcp.openagenda.com",
+  "documentation": "https://github.com/OpenAgenda/oa-public/tree/main/mcp#readme",
+  "support": "https://github.com/OpenAgenda/oa-public/issues",
+  "icon": "icon.png",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "openagenda",
+    "events",
+    "calendar",
+    "agenda",
+    "code-mode"
+  ],
+  "server": {
+    "type": "node",
+    "entry_point": "npx @openagenda/mcp",
+    "mcp_config": {
+      "command": "npx",
+      "args": ["-y", "@openagenda/mcp"],
+      "env": {
+        "OA_API_KEY": "${user_config.api_key}"
+      }
+    }
+  },
+  "tools": [
+    {
+      "name": "search_docs",
+      "description": "Find the OpenAgenda v3 operations relevant to a question — returns signatures, parameters and examples to call from execute."
+    },
+    {
+      "name": "execute",
+      "description": "Run JavaScript against the OpenAgenda v3 API through a ready-to-use oa client and return the result."
+    }
+  ],
+  "user_config": {
+    "api_key": {
+      "type": "string",
+      "title": "OpenAgenda API key",
+      "description": "Your OpenAgenda API key (a least-privilege/read key is advised). Create one at https://openagenda.com → My account → API keys.",
+      "sensitive": true,
+      "required": true
+    }
+  },
+  "compatibility": {
+    "claude_desktop": ">=0.10.0",
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": {
+      "node": ">=24.0.0"
+    }
+  }
+}
