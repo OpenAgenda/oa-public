@@ -1,1 +1,0 @@
-require( '../../layout/js/main' );
