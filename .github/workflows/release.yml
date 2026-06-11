@@ -77,6 +77,24 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
+      # Attach the one-click Claude Desktop bundle (openagenda.mcpb) to the
+      # just-created public release. The manifest `version` is rewritten to the
+      # published npm version (same jq pattern as server.json below) so Desktop
+      # shows the release version; the bundle stays a thin `npx @openagenda/mcp`
+      # launcher, so it always pulls that version's code from npm at runtime.
+      - name: Attach Claude Desktop bundle to the public release
+        if: steps.changesets.outputs.published == 'true' && contains(fromJSON(steps.changesets.outputs.publishedPackages).*.name, '@openagenda/mcp')
+        working-directory: public/mcp
+        run: |
+          VERSION=$(echo "$PUBLISHED_PACKAGES" | jq -r '.[] | select(.name == "@openagenda/mcp") | .version')
+          jq --arg v "$VERSION" '.version = $v' mcpb/manifest.json > mcpb/manifest.tmp
+          mv mcpb/manifest.tmp mcpb/manifest.json
+          yarn pack:mcpb
+          gh release upload "@openagenda/mcp@$VERSION" openagenda.mcpb --repo openagenda/oa-public --clobber
+        env:
+          PUBLISHED_PACKAGES: ${{ steps.changesets.outputs.publishedPackages }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
       # Mirror a freshly published @openagenda/mcp release to the official MCP
       # registry (https://registry.modelcontextprotocol.io). The registry only
       # hosts metadata: public/mcp/server.json, with its versions aligned on the

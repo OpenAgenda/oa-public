@@ -6,6 +6,13 @@
 // view layer and the page is static but for the injected endpoint URL.
 
 import { getOAuthProtectedResourceMetadataUrl } from '@modelcontextprotocol/sdk/server/auth/router.js';
+import pkg from '../package.json' with { type: 'json' };
+
+// One-click Claude Desktop bundle for the LOCAL (API-key) path — pinned to this
+// server's version, whose release uploads the asset (see release.yml). The tag
+// is scoped (@openagenda/mcp@x); encoded as GitHub serves it: @ → %40, the slash
+// stays literal.
+const MCPB_URL = `https://github.com/OpenAgenda/oa-public/releases/download/%40openagenda/mcp%40${pkg.version}/openagenda.mcpb`;
 
 const escapeHtml = (value) =>
   String(value).replace(
@@ -59,6 +66,15 @@ export function landingPage({ resourceUrl }) {
   code { font: .9em ui-monospace, SFMono-Regular, Menlo, monospace; }
   p { margin: .5rem 0; }
   a { color: LinkText; }
+  a.dl {
+    display: inline-block;
+    margin: .35rem 0;
+    padding: .5rem .9rem;
+    border-radius: .5rem;
+    background: color-mix(in srgb, CanvasText 10%, Canvas);
+    text-decoration: none;
+    font-weight: 600;
+  }
   footer { margin-top: 2rem; font-size: .85rem; opacity: .55; }
 </style>
 </head>
@@ -90,6 +106,7 @@ export function landingPage({ resourceUrl }) {
 
   <h2>Self-host / local</h2>
   <p>The server is open source and on npm: <code>OA_API_KEY=… npx -y @openagenda/mcp</code> speaks MCP over stdio against the public API with your API key. Source, docs and threat model: <a href="https://github.com/OpenAgenda/oa-public">github.com/OpenAgenda/oa-public</a> · <a href="https://www.npmjs.com/package/@openagenda/mcp">npm</a>.</p>
+  <p><strong>Claude Desktop, one-click</strong> — the local path, packaged: <a class="dl" href="${MCPB_URL}">Download openagenda.mcpb</a><br>Double-click it (or drag it into Settings); Desktop runs the npx server above and prompts for your API key. Prefer no key? Use the hosted connector above instead.</p>
 
   <footer><a href="https://openagenda.com">openagenda.com</a></footer>
 </main>

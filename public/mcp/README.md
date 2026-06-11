@@ -253,6 +253,16 @@ Register it with an MCP client (e.g. Claude Desktop / Claude Code):
 (From a checkout, use `"command": "node"`,
 `"args": ["/abs/path/to/public/mcp/src/index.js"]` instead.)
 
+**Claude Desktop, one click** — grab `openagenda.mcpb` from the
+[latest release](https://github.com/OpenAgenda/oa-public/releases) and
+double-click it (or drag it into Settings). Desktop prompts for your API key and
+wires the stdio server above for you. The bundle is a thin launcher — it runs
+`npx @openagenda/mcp`, so it always pulls the current published version; the
+`.mcpb` itself only changes when its metadata does. (This is the API-key path;
+for OAuth with no key, add the hosted remote by URL instead — see
+[Connect to the hosted server](#connect-to-the-hosted-server).) Build it
+yourself with `yarn pack:mcpb`.
+
 Then ask, e.g. _"how many upcoming events per city in agenda X?"_ — the model
 calls `search_docs`, writes a script using `oa.agendas.events.facets(...)`, and `execute`
 runs it in the sandbox.
