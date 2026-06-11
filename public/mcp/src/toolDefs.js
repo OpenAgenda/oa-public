@@ -67,8 +67,6 @@ export function executeTool(limits, sandboxFacts) {
         '— it does NOT throw on HTTP errors, so check `error`. Call search_docs to discover the',
         "full catalogue with each operation's params, response shape and a runnable example, e.g.:",
         '  oa.agendas.events.list({ path: { agendaUid }, query: { relative: ["upcoming"] } })',
-        'List endpoints return { data: [...], pagination: { after } } — pass query.after to page;',
-        'facets returns { facets: {...} } (no data array, no pagination).',
         'A `schemas` namespace (zod validators, prefixed z…) is also available to validate payloads.',
         'Write an async body and `return` the value you want back (JSON-serialised).',
         'Compose freely: fetch, filter and aggregate in one script; return only what you need.',
