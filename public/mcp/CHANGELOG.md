@@ -1,5 +1,15 @@
 # @openagenda/mcp
 
+## 1.1.1
+
+### Patch Changes
+
+- [#145](https://github.com/OpenAgenda/oa/pull/145) [`0f0a50c`](https://github.com/OpenAgenda/oa/commit/0f0a50c8a2fa89ba71a0e2d123242cfae58cbe52) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Add a one-click Claude Desktop bundle (`openagenda.mcpb`). It is a thin launcher — the manifest runs `npx @openagenda/mcp` over stdio and prompts for the API key — so it always pulls the current published version and never needs re-releasing when the server or API contract changes. Build it with `yarn pack:mcpb`. The hosted OAuth server stays a remote URL connector (mcpb is local-stdio only).
+
+  The bundle is attached to each GitHub release (CI) and offered for download from the server's landing page, version-pinned to the running server.
+
+- [`11864ca`](https://github.com/OpenAgenda/oa/commit/11864ca9539f1dd36334b6957fc106d2b0f1ad10) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Add npm package metadata for discoverability: `keywords` (mcp, model-context-protocol, openagenda, events, …), `author`, a `bugs` URL, and `repository.directory` so the npm listing links to the package subfolder in the mirror.
+
 ## 1.1.0
 
 ### Minor Changes
