@@ -50,6 +50,7 @@
     "build": "tsdown",
     "check": "tsc --noEmit",
     "prepack": "yarn build",
+    "pack:mcpb": "npx -y @anthropic-ai/mcpb pack mcpb openagenda.mcpb",
     "test": "yarn build && NODE_OPTIONS=\"--experimental-vm-modules\" jest --runInBand --forceExit"
   },
   "dependencies": {
