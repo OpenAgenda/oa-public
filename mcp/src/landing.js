@@ -33,6 +33,29 @@ export function landingPage({ resourceUrl }) {
   const prm = escapeHtml(
     getOAuthProtectedResourceMetadataUrl(new URL(resourceUrl)),
   );
+  // One-click "install" deep links. Cursor and LM Studio take a base64 config,
+  // the VS Code ones a URL-encoded one; all carry just the remote endpoint
+  // (every target runs the OAuth flow itself on first connect).
+  const cursorInstall = escapeHtml(
+    `cursor://anysphere.cursor-deeplink/mcp/install?name=openagenda&config=${Buffer.from(
+      JSON.stringify({ url: resourceUrl }),
+    ).toString('base64')}`,
+  );
+  const vscodeInstall = escapeHtml(
+    `https://vscode.dev/redirect/mcp/install?name=openagenda&config=${encodeURIComponent(
+      JSON.stringify({ type: 'http', url: resourceUrl }),
+    )}`,
+  );
+  const vscodeInsidersInstall = escapeHtml(
+    `https://insiders.vscode.dev/redirect/mcp/install?name=openagenda&config=${encodeURIComponent(
+      JSON.stringify({ type: 'http', url: resourceUrl }),
+    )}&quality=insiders`,
+  );
+  const lmStudioInstall = escapeHtml(
+    `lmstudio://add_mcp?name=openagenda&config=${Buffer.from(
+      JSON.stringify({ url: resourceUrl }),
+    ).toString('base64')}`,
+  );
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -66,7 +89,7 @@ export function landingPage({ resourceUrl }) {
   code { font: .9em ui-monospace, SFMono-Regular, Menlo, monospace; }
   p { margin: .5rem 0; }
   a { color: LinkText; }
-  a.dl {
+  a.btn {
     display: inline-block;
     margin: .35rem 0;
     padding: .5rem .9rem;
@@ -91,6 +114,7 @@ export function landingPage({ resourceUrl }) {
   <p>Settings → Connectors → <em>Add custom connector</em> → paste <code>${endpoint}</code>.</p>
 
   <h2>Cursor</h2>
+  <p><a class="btn" href="${cursorInstall}">Add to Cursor</a></p>
   <pre><code>{
   "mcpServers": {
     "openagenda": { "url": "${endpoint}" }
@@ -99,14 +123,19 @@ export function landingPage({ resourceUrl }) {
   <p>In <code>~/.cursor/mcp.json</code> (or your project's <code>.cursor/mcp.json</code>).</p>
 
   <h2>VS Code</h2>
+  <p><a class="btn" href="${vscodeInstall}">Install in VS Code</a> <a class="btn" href="${vscodeInsidersInstall}">VS Code Insiders</a></p>
   <pre><code>code --add-mcp '{"name":"openagenda","type":"http","url":"${endpoint}"}'</code></pre>
+
+  <h2>LM Studio</h2>
+  <p><a class="btn" href="${lmStudioInstall}">Add to LM Studio</a></p>
+  <p>Opens LM Studio and runs the OAuth flow in your browser on first connect.</p>
 
   <h2>Any other client</h2>
   <p>The protocol endpoint is <code>POST ${endpoint}</code> (Streamable HTTP), protected by OAuth 2.1 — your OpenAgenda account, browser consent on first connection. Discovery: <a href="${prm}">protected resource metadata</a>.</p>
 
   <h2>Self-host / local</h2>
   <p>The server is open source and on npm: <code>OA_API_KEY=… npx -y @openagenda/mcp</code> speaks MCP over stdio against the public API with your API key. Source, docs and threat model: <a href="https://github.com/OpenAgenda/oa-public">github.com/OpenAgenda/oa-public</a> · <a href="https://www.npmjs.com/package/@openagenda/mcp">npm</a>.</p>
-  <p><strong>Claude Desktop, one-click</strong> — the local path, packaged: <a class="dl" href="${MCPB_URL}">Download openagenda.mcpb</a><br>Double-click it (or drag it into Settings); Desktop runs the npx server above and prompts for your API key. Prefer no key? Use the hosted connector above instead.</p>
+  <p><strong>Claude Desktop, one-click</strong> — the local path, packaged: <a class="btn" href="${MCPB_URL}">Download openagenda.mcpb</a><br>Double-click it (or drag it into Settings); Desktop runs the npx server above and prompts for your API key. Prefer no key? Use the hosted connector above instead.</p>
 
   <footer><a href="https://openagenda.com">openagenda.com</a></footer>
 </main>
