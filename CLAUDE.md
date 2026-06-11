@@ -4,6 +4,8 @@
 
 The package manager for all packages in oa is **yarn**. Always use `yarn` instead of `npm` for running scripts and managing dependencies.
 
+Any PR that touches a published package under `public/` must include a changeset (run `yarn changeset`) — the release workflow versions and publishes from it.
+
 ## Locales
 
 Relevant languages across the codebase: **fr, en, de, es, it, nl, br, oc**. Fill all of them when adding new labels (best-effort translations are fine — they can be refined later via crowdin). The legacy `io` key in `packages/labels/` is a crowdin placeholder and can be left as a `crwdns…` token or omitted.
