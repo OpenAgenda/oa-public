@@ -58,6 +58,7 @@
   "next.components.settings.DeleteAccount.authError": "Het opgegeven wachtwoord is niet geldig. Probeer het opnieuw.",
   "next.components.settings.DeleteAccount.otherError": "Er was een probleem tijdens het verwerken van de bewerking, probeer het zo meteen opnieuw.",
   "next.components.settings.DeleteAccount.passwordLabel": "Voer uw wachtwoord in om de bewerking te voltooien",
+  "next.components.settings.DeleteAccount.soleAdminWarning": "Je bent de enige beheerder van de onderstaande agenda's. Als je je account verwijdert, blijven ze zonder beheerder achter. Voeg een andere beheerder toe voordat je je account verwijdert zodat ze beheerd blijven.",
   "next.components.settings.DeleteAccount.submit": "Verwijderen",
   "next.components.settings.DeleteAccount.title": "Mijn account verwijderen",
   "next.components.settings.DeleteAccount.warning": "Weet je zeker dat je je account definitief wilt verwijderen? Je agenda's en evenementen blijven online, je kunt ze handmatig verwijderen als je ze niet online wilt laten",

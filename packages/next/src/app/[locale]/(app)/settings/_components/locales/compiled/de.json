@@ -353,6 +353,12 @@
       "value": "Geben Sie Ihr Passwort ein, um den Vorgang abzuschließen."
     }
   ],
+  "next.components.settings.DeleteAccount.soleAdminWarning": [
+    {
+      "type": 0,
+      "value": "Sie sind der einzige Administrator der unten aufgeführten Kalender. Wenn Sie Ihr Konto löschen, bleiben diese ohne Administrator. Fügen Sie einen weiteren Administrator hinzu, bevor Sie Ihr Konto löschen, damit sie verwaltet bleiben."
+    }
+  ],
   "next.components.settings.DeleteAccount.submit": [
     {
       "type": 0,

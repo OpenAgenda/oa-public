@@ -357,6 +357,12 @@
       "value": "Escriba su contraseña para completar la operación"
     }
   ],
+  "next.components.settings.DeleteAccount.soleAdminWarning": [
+    {
+      "type": 0,
+      "value": "Eres el único administrador de las agendas siguientes. Si eliminas tu cuenta, se quedarán sin ningún administrador. Añade otro administrador antes de eliminar tu cuenta para que sigan gestionadas."
+    }
+  ],
   "next.components.settings.DeleteAccount.submit": [
     {
       "type": 0,

@@ -58,6 +58,7 @@
   "next.components.settings.DeleteAccount.authError": "",
   "next.components.settings.DeleteAccount.otherError": "",
   "next.components.settings.DeleteAccount.passwordLabel": "",
+  "next.components.settings.DeleteAccount.soleAdminWarning": "",
   "next.components.settings.DeleteAccount.submit": "",
   "next.components.settings.DeleteAccount.title": "",
   "next.components.settings.DeleteAccount.warning": "",

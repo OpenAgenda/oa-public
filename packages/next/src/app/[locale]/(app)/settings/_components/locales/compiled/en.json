@@ -357,6 +357,12 @@
       "value": "Type in your password to complete the operation"
     }
   ],
+  "next.components.settings.DeleteAccount.soleAdminWarning": [
+    {
+      "type": 0,
+      "value": "You are the only administrator of the agendas below. If you delete your account, they will be left without any administrator. Add another administrator before deleting your account to keep them managed."
+    }
+  ],
   "next.components.settings.DeleteAccount.submit": [
     {
       "type": 0,

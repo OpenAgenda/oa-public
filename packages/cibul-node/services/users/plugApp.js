@@ -39,6 +39,24 @@ export default function plugApp(app) {
     service.upload.middleware([{ name: 'image', unique: true }]),
   );
 
+  // Agendas where the authenticated user is the sole administrator. Surfaced by
+  // the settings UI to warn, before account deletion, which agendas would be
+  // left without any administrator (deletion anonymizes memberships without
+  // going through the members.remove last-admin guard). JSON/XHR, so
+  // requireUserJson (401) rather than a redirect.
+  app.get(
+    '/users/me/sole-admin-agendas',
+    requireUserJson,
+    async (req, res, next) => {
+      try {
+        const items = await req.app.core.users(req.user.uid).soleAdminAgendas();
+        res.json({ items, total: items.length });
+      } catch (err) {
+        next(err);
+      }
+    },
+  );
+
   app.get('/users', getHandler('find', ['params'])(service));
   app.get('/users/:__feathersId', getHandler('get', ['id', 'params'])(service));
   app.post('/users', getHandler('create', ['data', 'params'])(service));

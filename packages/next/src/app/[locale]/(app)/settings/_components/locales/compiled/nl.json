@@ -357,6 +357,12 @@
       "value": "Voer uw wachtwoord in om de bewerking te voltooien"
     }
   ],
+  "next.components.settings.DeleteAccount.soleAdminWarning": [
+    {
+      "type": 0,
+      "value": "Je bent de enige beheerder van de onderstaande agenda's. Als je je account verwijdert, blijven ze zonder beheerder achter. Voeg een andere beheerder toe voordat je je account verwijdert zodat ze beheerd blijven."
+    }
+  ],
   "next.components.settings.DeleteAccount.submit": [
     {
       "type": 0,
