@@ -11,12 +11,12 @@
   "websiteUrl": "https://mcp.openagenda.com",
   "icons": [
     {
-      "src": "https://cdn.openagenda.com/static/icon-512.png",
+      "src": "https://cdn.openagenda.com/static/openagenda-icon-512-white.png",
       "mimeType": "image/png",
       "sizes": ["512x512"]
     },
     {
-      "src": "https://cdn.openagenda.com/static/OA.svg",
+      "src": "https://cdn.openagenda.com/static/openagenda-icon-white.svg",
       "mimeType": "image/svg+xml",
       "sizes": ["any"]
     }
