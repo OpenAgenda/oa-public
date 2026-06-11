@@ -365,13 +365,19 @@ location ~ ^/[^/]+/events/[^/]+/(action|email|ics|contact|suggest-change|embed-i
   include conf.d/nodejs_params;
 }
 
+# /:agendaSlug/settings/schema — the only slug-based /:agendaSlug/settings route
+# served by cibul (legacy merged form-schema endpoint). Must be matched explicitly
+# so it reaches cibul instead of falling through to Next via `location /`.
+location ~ ^/[^/]+/settings/schema/?$ {
+  include conf.d/nodejs_params;
+}
+
 # /:agendaSlug/...
-# "settings" intentionally omitted: legacy /:agendaSlug/settings no longer
-# exists (404s; real agenda settings are under /:agendaSlug/admin/settings/...).
-# With "settings" absent here, /:locale/settings (and any /X/settings) matches no
-# regex and falls through to the default `location /` -> Next — so no dedicated
-# settings->Next block is needed. The agenda settings export stays on cibul via
-# the numeric /agendas/:id/(...|settings).(json|...) rule higher up.
+# "settings" intentionally omitted: the new user settings page is App-Router/Next
+# (bare /settings and /:locale/settings) and reaches Next via the default
+# `location /` — no dedicated block needed. The one slug-based settings route on
+# cibul, /:agendaSlug/settings/schema, is handled explicitly just above. The
+# numeric /agendas/:id/(...|settings).(json|...) export stays on cibul higher up.
 location ~ ^/[^/]+/(admin|contribute|facebook|twitter|google|signin|signup|activate|share|unauthorized|addevent|actions|contact|request-contribute|navigate|locations)(|/.+)$ {
   include conf.d/nodejs_params;
 }
