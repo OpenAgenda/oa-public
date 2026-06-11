@@ -1,3 +1,11 @@
+# Dev only: Next.js dev (Turbopack) compiles each route on first request, which
+# can exceed nginx's default 60s proxy_read_timeout and surface as a 504 in the
+# browser before the cold compile finishes. Raise it (server scope → applies to
+# the next_upstream locations) so the first hit waits the compile out. Prod is
+# prebuilt and never includes server_params_dev, so this stays dev-only.
+proxy_read_timeout 600s;
+proxy_send_timeout 600s;
+
 location = /_next/webpack-hmr {
   include conf.d/nextjs_params;
   proxy_http_version 1.1;
