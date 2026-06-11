@@ -1,10 +1,16 @@
 import _ from 'lodash';
-import { Forbidden, BadRequest, GeneralError } from '@openagenda/verror';
+import {
+  Forbidden,
+  BadRequest,
+  GeneralError,
+  Conflict,
+} from '@openagenda/verror';
 import FormSchema from '@openagenda/form-schemas/iso/FormSchema.js';
 import dispatchDataPerSchemas from '@openagenda/form-schemas/iso/dispatchDataPerSchemas.js';
 import getMemberSchema from '../utils/getMemberSchema.js';
 import * as format from './lib/format.js';
 import canEdit from './lib/canEdit.js';
+import isLastAdministrator from './lib/isLastAdministrator.js';
 
 export default async (core, agendaOrUid, identifiers, data, options = {}) => {
   const { services } = core;
@@ -48,6 +54,17 @@ export default async (core, agendaOrUid, identifiers, data, options = {}) => {
     })
   ) {
     throw new Forbidden('Not authorized to patch member');
+  }
+
+  if (
+    patchData.role !== undefined
+    && members.utils.getRoleSlug(patchData.role) !== 'administrator'
+    && await isLastAdministrator(services, { agendaUid, member })
+  ) {
+    throw new Conflict(
+      { info: { code: 'last-administrator' } },
+      'Cannot demote the last administrator of the agenda',
+    );
   }
 
   const agenda = agendaOrUid?.constructor.name === 'Object'

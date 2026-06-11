@@ -1,5 +1,6 @@
-import { Forbidden, BadRequest } from '@openagenda/verror';
+import { Forbidden, BadRequest, Conflict } from '@openagenda/verror';
 import canEdit from './lib/canEdit.js';
+import isLastAdministrator from './lib/isLastAdministrator.js';
 
 export default async (core, agendaOrUid, identifiers, options = {}) => {
   const { services } = core;
@@ -35,6 +36,13 @@ export default async (core, agendaOrUid, identifiers, options = {}) => {
     })
   ) {
     throw new Forbidden('Not authorized to patch member');
+  }
+
+  if (await isLastAdministrator(services, { agendaUid, member })) {
+    throw new Conflict(
+      { info: { code: 'last-administrator' } },
+      'Cannot remove the last administrator of the agenda',
+    );
   }
 
   const memberRes = await members.remove(member.id, {
