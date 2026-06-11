@@ -21,7 +21,7 @@ import { searchDocsTool, executeTool } from './toolDefs.js';
 // Deployment-independent identity. The icon is the brand asset on the public
 // CDN (a single URL — the card schema has no multi-icon array; the registry
 // server.json carries the SVG variant). PNG for universal client support.
-const ICON_URL = 'https://cdn.openagenda.com/static/icon-512.png';
+const ICON_URL = 'https://cdn.openagenda.com/static/openagenda-icon-512-white.png';
 const DOCUMENTATION_URL = 'https://github.com/OpenAgenda/oa-public/tree/main/mcp#readme';
 
 // The same inputSchema conversion the SDK applies to registerTool (its zod v3
