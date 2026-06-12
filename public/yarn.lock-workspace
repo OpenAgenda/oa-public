@@ -6255,7 +6255,7 @@ __metadata:
     "@openagenda/verror": "npm:^3.2.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
     "@storybook/react-webpack5": "npm:^10.2.0"
-    angular-expressions: "npm:^0.3.0"
+    angular-expressions: "npm:^1.5.5"
     date-fns: "npm:^4.1.0"
     docxtemplater: "npm:^3.44.0"
     express: "npm:^4.17.1"
@@ -12767,10 +12767,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"angular-expressions@npm:^0.3.0":
-  version: 0.3.0
-  resolution: "angular-expressions@npm:0.3.0"
-  checksum: 10c0/72d6447a73de41cc26a5a710fdc0217d9003b181815428c3895d3beedf7ca72f3e59f3a0a6e368b3f6986a37443e608a62739d4d1d24f9e4b20610164f74d22a
+"angular-expressions@npm:^1.5.5":
+  version: 1.5.5
+  resolution: "angular-expressions@npm:1.5.5"
+  checksum: 10c0/fb375929bac62ff55b9623b46f904d75b721da8f487c438405dd37f6b9d279f802efe86ccfd7df5eb447c2c96e894076b9e2eae80140e9e26ea34f0b933b32bc
   languageName: node
   linkType: hard
 
