@@ -80,6 +80,17 @@ describe('MCP server', () => {
       ]);
     });
 
+    // The workflow doctrine rides the initialize result so clients mount it as
+    // system-context guidance — the channel read before any planning, which is
+    // what keeps lower-tier models from skipping search_docs and guessing
+    // `execute` bodies from priors.
+    it('serves the search_docs-first workflow as server instructions', async () => {
+      ({ client } = await connect());
+      expect(client.getInstructions()).toMatch(
+        /Compose `execute` bodies from `search_docs` results/,
+      );
+    });
+
     it('marks search_docs read-only; execute is NOT (runs arbitrary code) and is open-world', async () => {
       ({ client } = await connect());
       const { tools } = await client.listTools();

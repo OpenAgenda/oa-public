@@ -186,7 +186,23 @@ export function createServer({
 }) {
   // The handshake version is the released package version, so MCP inspectors and
   // the registry listing tell the same story deploy after deploy.
-  const server = new McpServer({ name: SERVICE_NAME, version: pkg.version });
+  //
+  // `instructions` is the server-level channel: returned in the initialize
+  // result, surfaced by clients as system-context guidance BEFORE any planning
+  // happens. Lower-tier models skip the tool descriptions and guess `execute`
+  // bodies from priors — this is the one channel that frames the workflow
+  // first. It states only how the two tools articulate; tool-level facts stay
+  // in the tool descriptions, per-operation facts in the contract.
+  const server = new McpServer(
+    { name: SERVICE_NAME, version: pkg.version },
+    {
+      instructions:
+        'Compose `execute` bodies from `search_docs` results: operation names and '
+        + 'parameters are not guessable from convention. Call it before your first '
+        + '`execute`; the catalogue is stable, so earlier results stay valid — search '
+        + 'again only when you need operations you have not yet seen documented.',
+    },
+  );
 
   // Tracer for the per-tool-call spans below. From @opentelemetry/api directly (NOT
   // telemetry.js) so this module never pulls in the OTel SDK — it's a no-op
