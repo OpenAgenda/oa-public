@@ -3,6 +3,7 @@ import {
   searchOperations,
   renderOperation,
   renderSearch,
+  renderComponentDef,
   skeletonExample,
   SCHEMA_VALIDATORS,
   enumSchemaOf,
@@ -150,9 +151,10 @@ describe('structured params (derived from the contract)', () => {
       1: 'Scheduled',
       6: 'Cancelled',
     });
-    // A $ref to a bare enum reads as its primitive type, not the component name —
-    // the LLM must know it passes an integer, not an opaque `EventStatus`.
-    expect(status.type).toBe('integer[]');
+    // The $ref keeps its component name — the same name the response fields,
+    // the Components definition and the zod validator use. The passable values
+    // still render inline on the param line, so the name is never a blocker.
+    expect(status.type).toBe('EventStatus[]');
   });
 
   it('reads x-enum-descriptions off a direct (non-$ref) enum schema', () => {
@@ -200,6 +202,71 @@ describe('response shape (derived from the 200 body)', () => {
     const { response } = byId('agendas.events.list');
     const dateRange = response.item.fields.find((f) => f.name === 'dateRange');
     expect(dateRange.type).toBe('LocalizedString');
+  });
+
+  it('keeps the enum COMPONENT NAME on response fields', () => {
+    // Reading side: `status: 6` in an execute result is decoded through the
+    // EventStatus definition in the Components section — the name is the join
+    // key, so it must NOT collapse to `integer`.
+    const { response } = byId('agendas.events.get');
+    const status = response.fields.find((f) => f.name === 'status');
+    expect(status.type).toBe('EventStatus');
+  });
+
+  it("carries each field's own description", () => {
+    const { response } = byId('agendas.events.get');
+    const dateRange = response.fields.find((f) => f.name === 'dateRange');
+    expect(dateRange.description).toMatch(/localized date range/i);
+    // A bare-$ref field has no own description — the component definition in
+    // the Components section carries the semantics, not every field line.
+    const status = response.fields.find((f) => f.name === 'status');
+    expect(status.description).toBe('');
+  });
+});
+
+describe('componentRefs (transitive component collection)', () => {
+  it('collects the components the 200 body references, root included', () => {
+    const { componentRefs } = byId('agendas.events.list');
+    expect(componentRefs).toEqual(
+      expect.arrayContaining([
+        'EventList',
+        'EventSummary',
+        'Event',
+        'EventStatus',
+        'LocalizedString',
+        'Pagination',
+      ]),
+    );
+  });
+
+  it('reaches components nested under inline objects (the facets shapes)', () => {
+    // FacetResults nests its bucket types two levels under an inline `facets`
+    // object — the traversal must walk inline properties, arrays and
+    // additionalProperties, or those names would dangle unrendered.
+    const { componentRefs } = byId('agendas.events.facets');
+    expect(componentRefs).toEqual(
+      expect.arrayContaining([
+        'FacetBucket',
+        'AdditionalFieldFacet',
+        'AdditionalFieldBucket',
+        'Timespan',
+      ]),
+    );
+  });
+
+  it('deduplicates: one entry per component name', () => {
+    for (const op of OPERATIONS) {
+      expect(new Set(op.componentRefs).size).toBe(op.componentRefs.length);
+    }
+  });
+
+  it('collects components referenced only from PARAM schemas', () => {
+    // `accessibility` filters by $ref'd AccessibilityCode values; the response
+    // references the Accessibility object but never the code enum — without
+    // param-side collection, `accessibility (AccessibilityCode[])` would
+    // dangle undefined.
+    const { componentRefs } = byId('agendas.events.list');
+    expect(componentRefs).toContain('AccessibilityCode');
   });
 });
 
@@ -356,11 +423,143 @@ describe('renderOperation', () => {
   });
 });
 
+// The spec orders the DETAILED branch first in every summary/detailed oneOf
+// (load-bearing for the generated zod client), while deriveResponse re-derives
+// the summary branch structurally (smaller property set). Two encodings of one
+// invariant — pin the outcome for every current pair so they can never drift
+// apart silently (a property-count tie or an allOf-composed branch would).
+describe('summary/detailed variant resolution', () => {
+  it.each([
+    ['agendas.list', ['AgendaSummary', 'AgendaDetailed']],
+    ['agendas.events.list', ['EventSummary', 'Event']],
+    ['agendas.locations.list', ['LocationSummary', 'Location']],
+    ['me.agendas.list', ['MeAgendaItem', 'MeAgendaItemDetailed']],
+  ])('%s leads with the summary variant', (id, variants) => {
+    expect(byId(id).response.item.variants).toEqual(variants);
+  });
+});
+
 describe('renderSearch', () => {
   it('appends the validators footer with the contract-derived list', () => {
     const text = renderSearch(searchOperations('events'));
     expect(text).toContain('schemas');
     expect(text).toContain('zEvent');
+  });
+
+  // The list card renders its summary item in full (locality rule); the
+  // Components section must not define it a second time.
+  it('does not re-define the inline-rendered summary variant in Components', () => {
+    const text = renderSearch(searchOperations('list upcoming events'));
+    const components = text.slice(text.indexOf('Components — '));
+    expect(text).toMatch(/`EventSummary` — Compact event representation/);
+    expect(components).not.toContain('`EventSummary` —');
+  });
+
+  // The Components section is the response-side complement of the params'
+  // inline `one of:` lists — without it, every component name a rich card
+  // renders (`status (EventStatus)`) would dangle, and an LLM could not decode
+  // the values it reads off an `execute` result.
+  describe('Components section', () => {
+    const text = renderSearch(searchOperations('get one event by uid'));
+    const section = text.slice(text.indexOf('Components — '));
+
+    it('defines every enum component with its decode table', () => {
+      expect(section).toMatch(
+        /`EventStatus` \(integer\).*1 = Scheduled.*6 = Cancelled/,
+      );
+      expect(section).toMatch(/`ModerationState` \(integer\).*-2 = Removed/);
+    });
+
+    it('defines object components with typed, described property lines', () => {
+      // EventLocation.country line: typed by component name AND described.
+      expect(section).toMatch(
+        /- country \(LocalizedString \| null\) — Localized country label\./,
+      );
+    });
+
+    it('defines the components that field types reference (no dangling name)', () => {
+      // The get card renders `title (LocalizedString)`; the name must be
+      // defined in the same payload.
+      expect(section).toMatch(
+        /`LocalizedString` \(object\) — A string localized per language/,
+      );
+    });
+
+    it('does NOT redefine a root already rendered inline on a rich card', () => {
+      // `Event` is the rank-0 root, rendered field by field on its card — a
+      // second definition in the section would be pure duplication.
+      expect(section).not.toMatch(/^`Event`[ \n]/m);
+      // Each remaining component is defined exactly once (deduped across hits).
+      expect(section.match(/`EventStatus` \(integer\)/g)).toHaveLength(1);
+    });
+
+    it('surfaces component property semantics (the schemaId discriminant)', () => {
+      // The original failure this feature fixes: FormSchemaField.schemaId marks
+      // additional fields, but that semantics lived only in the component and
+      // never reached the search_docs payload.
+      const schemaText = renderSearch(searchOperations('event form schema'));
+      expect(schemaText).toContain('`FormSchemaField`');
+      expect(schemaText).toMatch(
+        /schemaId \(integer \| null\) — .*Non-null marks an/,
+      );
+    });
+
+    it('renders an inline property enum with null spelled out (not dropped)', () => {
+      const schemaText = renderSearch(searchOperations('event form schema'));
+      expect(schemaText).toMatch(
+        /origin .*one of: tags, categories, custom, null/,
+      );
+    });
+
+    // The structural invariant of the whole feature: a component name rendered
+    // as a type anywhere in the payload (param or field line) is never opaque —
+    // it is defined in that same payload, either inline as a rich root or as a
+    // Components entry. Sweeps every query shape we serve.
+    it('never renders a dangling component name', () => {
+      const componentNames = new Set(SCHEMA_VALIDATORS.map((v) => v.slice(1)));
+      const queries = [
+        'events',
+        'get one event by uid',
+        'event form schema',
+        'aggregate breakdown counts',
+        'locations',
+        'list my agendas',
+        '',
+      ];
+      for (const query of queries) {
+        const payload = renderSearch(searchOperations(query));
+        const rendered = new Set();
+        for (const m of payload.matchAll(/\(([A-Za-z ,[\]|&]+)\)/g)) {
+          for (const part of m[1].split(/[|&,]/)) {
+            const base = part.trim().replace(/\[\]$/, '');
+            if (componentNames.has(base)) rendered.add(base);
+          }
+        }
+        expect(rendered.size).toBeGreaterThan(0);
+        for (const name of rendered) {
+          const defined = new RegExp(`(^|\\n)\`${name}\`[ (\\n]`).test(payload)
+            || payload.includes(`Response: \`${name}\``);
+          if (!defined) {
+            throw new Error(
+              `"${name}" rendered but never defined (query: "${query}")`,
+            );
+          }
+        }
+      }
+    });
+  });
+});
+
+describe('renderComponentDef', () => {
+  it('renders an enum component as a one-line decode table', () => {
+    expect(renderComponentDef('AttendanceMode')).toBe(
+      '`AttendanceMode` (integer) — How attendees take part. '
+        + 'Values: 1 = Offline (on-site), 2 = Online, 3 = Mixed (on-site and online).',
+    );
+  });
+
+  it('returns an empty string for an unknown component', () => {
+    expect(renderComponentDef('Nope')).toBe('');
   });
 });
 
