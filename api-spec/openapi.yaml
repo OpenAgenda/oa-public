@@ -473,9 +473,11 @@ paths:
         write operations, or to interpret `additionalFields` on events.
 
 
-        Fields the caller's access level cannot read are omitted: with a
-        publishable key the public schema is returned; a secret key sees the
-        fields readable at the owner's role on this agenda.
+        The schema is served complete: a field's `read` access levels gate the
+        visibility of its VALUE on events (the event reads enforce them), not
+        the visibility of its descriptor here — a contributor needs the
+        descriptor of every field they can fill, even when only moderators
+        read its value.
 
 
         The descriptors follow the OpenAgenda form-schema vocabulary
@@ -532,6 +534,10 @@ paths:
         belongs to ARE included (each item carries a `private` flag).
 
 
+        By default items carry the `AgendaSummary` base fields; pass
+        `detailed=true` to add `createdAt`, `network` and `locationSet`.
+
+
         Requires a user identity: a secret key (`oa_sk_…`) or an OAuth access
         token granted the `me:read` scope. A publishable key (`oa_pk_…`)
         carries no identity and is answered `401`.
@@ -542,6 +548,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AfterCursor'
         - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Detailed'
       responses:
         '200':
           description: A page of the caller's agenda memberships.
@@ -2111,6 +2118,52 @@ components:
         role:
           $ref: '#/components/schemas/MemberRole'
 
+    MeAgendaItemDetailed:
+      type: object
+      description: >
+        The `detailed=true` variant of `MeAgendaItem`: the membership item
+        plus `createdAt`, `network` and `locationSet`.
+      additionalProperties: false
+      required:
+        - uid
+        - slug
+        - title
+        - description
+        - image
+        - official
+        - private
+        - role
+        - createdAt
+        - network
+        - locationSet
+      properties:
+        uid:
+          type: integer
+          format: int64
+          readOnly: true
+        slug:
+          type: string
+          readOnly: true
+        title:
+          type: [string, 'null']
+        description:
+          type: [string, 'null']
+        image:
+          type: [string, 'null']
+        official:
+          type: boolean
+        private:
+          type: boolean
+        role:
+          $ref: '#/components/schemas/MemberRole'
+        createdAt:
+          type: [string, 'null']
+          format: date-time
+        network:
+          $ref: '#/components/schemas/AgendaNetworkRef'
+        locationSet:
+          $ref: '#/components/schemas/AgendaLocationSetRef'
+
     MeAgendaList:
       type: object
       required: [data, pagination]
@@ -2118,8 +2171,13 @@ components:
       properties:
         data:
           type: array
+          description: >
+            `MeAgendaItem` items by default, or `MeAgendaItemDetailed` items
+            when `detailed=true`.
           items:
-            $ref: '#/components/schemas/MeAgendaItem'
+            oneOf:
+              - $ref: '#/components/schemas/MeAgendaItem'
+              - $ref: '#/components/schemas/MeAgendaItemDetailed'
         pagination:
           $ref: '#/components/schemas/Pagination'
 
