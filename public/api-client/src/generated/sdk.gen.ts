@@ -104,7 +104,7 @@ export class Events extends HeyApiClient {
      *
      * Returns the agenda's **merged event form schema** — the dynamic contract the events of this agenda follow. It merges the platform's native event fields with the network's and the agenda's own declarations: an agenda can add its own additional fields and override natives (make one required, restrict its options, relabel it). This is the same schema the OpenAgenda UI uses to build the event form, served raw: use it to know which fields exist, which are required and what their options are — e.g. to build payloads for the (upcoming) event write operations, or to interpret `additionalFields` on events.
      *
-     * Fields the caller's access level cannot read are omitted: with a publishable key the public schema is returned; a secret key sees the fields readable at the owner's role on this agenda.
+     * The schema is served complete: a field's `read` access levels gate the visibility of its VALUE on events (the event reads enforce them), not the visibility of its descriptor here — a contributor needs the descriptor of every field they can fill, even when only moderators read its value.
      *
      * The descriptors follow the OpenAgenda form-schema vocabulary (`field`, `fieldType`, `label`, `options`, `optional`, …). The properties documented here are stable; descriptors may carry further engine-specific keys.
      *
@@ -205,6 +205,8 @@ export class Agendas2 extends HeyApiClient {
      * List the agendas you are a member of
      *
      * Returns a cursor-paginated list of the agendas the authenticated user is a member of, with their role on each. Private agendas the user belongs to ARE included (each item carries a `private` flag).
+     *
+     * By default items carry the `AgendaSummary` base fields; pass `detailed=true` to add `createdAt`, `network` and `locationSet`.
      *
      * Requires a user identity: a secret key (`oa_sk_…`) or an OAuth access token granted the `me:read` scope. A publishable key (`oa_pk_…`) carries no identity and is answered `401`.
      *
