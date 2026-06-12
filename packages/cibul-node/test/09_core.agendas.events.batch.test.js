@@ -60,7 +60,7 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
   describe('basic batch with core.agendas.events.list', () => {
     beforeAll(
       () =>
-        new Promise((done) => {
+        new Promise((done, reject) => {
           core.agendas(99501607).events.batch(
             'patch',
             {
@@ -74,14 +74,23 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
 
           core.tasks({
             active() {},
-            error(...args) {
-              done(args);
+            // No `error` override: worker 'error' events can be transient
+            // (redis reconnects) — the default handler logs them and the
+            // hook timeout is the backstop. A 'failed' JOB is definitive —
+            // reject so the real error shows instead of a silent
+            // wrong-state assertion.
+            failed(job, err) {
+              reject(err ?? new Error(`${job?.name} failed`));
             },
-            failed(...args) {
-              done(args);
-            },
-            completed(...args) {
-              if (args[0].name === 'batchedPatch') return done();
+            completed(job) {
+              // Resolve on the asserted event's own patch: the batch
+              // enqueues one job per selected event, completed in any order.
+              if (
+                job.name === 'batchedPatch'
+                && Number(job.data[1]) === 89898798
+              ) {
+                return done();
+              }
             },
           });
         }),
@@ -100,7 +109,7 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
   describe('batch using core.agendas.events.search', () => {
     beforeAll(
       () =>
-        new Promise((done) => {
+        new Promise((done, reject) => {
           core.agendas(99501607).events.batch(
             'patch',
             {
@@ -116,14 +125,19 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
 
           core.tasks({
             active() {},
-            error(...args) {
-              done(args);
+            failed(job, err) {
+              reject(err ?? new Error(`${job?.name} failed`));
             },
-            failed(...args) {
-              done(args);
-            },
-            completed(...args) {
-              if (args[0].name === 'batchedPatch') return done();
+            completed(job) {
+              // This batch selects BOTH fixture events; waiting on the first
+              // completion raced the asserted event's own job. Wait for it
+              // specifically.
+              if (
+                job.name === 'batchedPatch'
+                && Number(job.data[1]) === 20774404
+              ) {
+                return done();
+              }
             },
           });
         }),
