@@ -5,15 +5,17 @@
 //   GET /agendas/:agendaUid                  -> bare Agenda (full)
 //   GET /agendas/:agendaUid/events           -> { data: [Event...], pagination }
 //   GET /agendas/:agendaUid/events/:eventUid -> bare Event
+//   GET /agendas/:agendaUid/events/schema    -> raw merged event form schema
 //   GET /agendas/:agendaUid/locations        -> { data: [LocationSummary|Location], pagination }
 //   GET /agendas/:agendaUid/locations/:locationUid -> bare Location (full)
+//   GET /me/agendas                          -> { data: [MeAgendaItem], pagination }
 //
 // Auth (createAuthenticate) and agenda loading (createLoadAgenda) are
 // v3-native: they throw typed errors into the v3 error envelope. The contract
 // is `public/api-spec/openapi.yaml`.
 
 import express from 'express';
-import { BadRequest, NotFound } from '@openagenda/verror';
+import { BadRequest, NotAuthenticated, NotFound } from '@openagenda/verror';
 import logs from '@openagenda/logs';
 import sentryErrorHandler from '../lib/sentryErrorHandler.js';
 import loadSearchAccess from '../core/agendas/events/lib/loadSearchAccess.js';
@@ -33,6 +35,7 @@ import {
   locationEndpoints,
   loadLocationFormSchema,
 } from './lib/agendaLocations.js';
+import buildMeAgendaList from './lib/meAgendas.js';
 import {
   parseFacets,
   parseGeohashZoom,
@@ -42,6 +45,7 @@ import {
   resolveAdditionalFieldSelections,
   buildAggregations,
   mapFacets,
+  isReadableAt,
 } from './lib/facets.js';
 import { decodeCursor } from './lib/cursor.js';
 import apiV3ErrorHandler from './errorHandler.js';
@@ -307,6 +311,39 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
     },
   );
 
+  // GET /agendas/:agendaUid/events/schema
+  // Registered BEFORE the `/events/:eventUid` route so `schema` is not
+  // captured as an event uid. Serves the agenda's merged event form schema
+  // RAW (the same declarative contract the OA UI builds the event form from):
+  // native fields + network/agenda declarations, with per-agenda overrides
+  // applied. The only transformation is the per-field read gate — getMerged's
+  // own access filter is a no-op for a bare access string (see the NOTE in
+  // core/agendas/settings/getMergedSchema.js), so the route applies
+  // `isReadableAt` itself, exactly like the facets' additionalFields path.
+  app.get(
+    '/agendas/:agendaUid/events/schema',
+    requireScope('events:read'),
+    async (req, res, next) => {
+      try {
+        const access = await loadSearchAccess(core, req.agenda.uid, {
+          userUid: req.user?.uid,
+          agendaKey: req.agendaKey,
+        }) ?? 'public';
+
+        const schema = await core
+          .agendas(req.agenda.uid)
+          .settings.schema.getMerged({ includeEvent: true, access });
+
+        res.json({
+          ...schema,
+          fields: (schema.fields ?? []).filter((f) => isReadableAt(f, access)),
+        });
+      } catch (err) {
+        next(err);
+      }
+    },
+  );
+
   // GET /agendas/:agendaUid/events/:eventUid
   app.get(
     '/agendas/:agendaUid/events/:eventUid',
@@ -419,6 +456,39 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
       }
     },
   );
+
+  // GET /me/agendas
+  // The caller's memberships. Requires a USER identity: a pk key never sets
+  // `req.user` (D6.A structural public lock) and an agenda key has none, so
+  // both fall through to the 401 — only a secret key, a legacy token or an
+  // OAuth token (gated by the `me:read` scope) get through.
+  app.get('/me/agendas', requireScope('me:read'), async (req, res, next) => {
+    try {
+      if (!req.user) {
+        throw new NotAuthenticated(
+          'a user identity is required: authenticate with a secret key or an OAuth access token',
+        );
+      }
+
+      const limit = resolveLimit(req.query.limit);
+
+      const nav = { size: limit };
+      if (req.query.after !== undefined) {
+        const decoded = decodeCursor(req.query.after);
+        if (decoded) {
+          // The memberships keyset position is a scalar (the last row's
+          // `order`), carried as a 1-element array in the opaque cursor.
+          [nav.after] = decoded.after;
+        }
+      }
+
+      const result = await core.users(req.user.uid).agendas.list(nav);
+
+      res.json(await buildMeAgendaList(core, result, { limit }));
+    } catch (err) {
+      next(err);
+    }
+  });
 
   log('done');
 
