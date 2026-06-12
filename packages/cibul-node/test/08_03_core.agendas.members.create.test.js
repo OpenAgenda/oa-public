@@ -178,6 +178,54 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
     });
   });
 
+  // Backs the superadmin "add me as administrator" action on /admin/agendas:
+  // access: 'internal' bypasses the per-agenda membership check, so a user who
+  // is not a member can be added (as themselves) as administrator.
+  describe('superadmin self-add (internal access)', () => {
+    // a dedicated uid, not a member of agenda 2 and untouched by other tests
+    const userUid = 70000777;
+
+    beforeAll(async () => {
+      // guard against a leftover row from a previously interrupted run
+      await core.services
+        .knex('reviewer')
+        .where({ agenda_uid: 2, user_uid: userUid })
+        .delete();
+    });
+
+    it('adds a non-member as administrator via internal access', async () => {
+      const member = await core
+        .agendas(2)
+        .members.create(userUid, 'administrator', null, {
+          userUid,
+          access: 'internal',
+        });
+
+      expect(member.role).toBe('administrator');
+
+      const dbMember = await services.members.get({
+        agendaUid: 2,
+        userUid,
+      });
+      expect(dbMember.role).toBe(2);
+    });
+
+    it('rejects a second add with Already exists (idempotent at the route)', async () => {
+      let error;
+      try {
+        await core.agendas(2).members.create(userUid, 'administrator', null, {
+          userUid,
+          access: 'internal',
+        });
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error?.name).toBe('BadRequest');
+      expect(error?.message).toContain('Already exists');
+    });
+  });
+
   describe('unsuccessful creates', () => {
     it('contributor cannot add a member', async () => {
       let error;

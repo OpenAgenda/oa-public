@@ -272,6 +272,22 @@ export default function Body(props) {
     setDisplayDeleteModal(true);
   }
 
+  /**
+   * Ajoute le superadmin courant comme administrateur de l'agenda sélectionné,
+   * puis recharge la liste des membres.
+   */
+  function addMeAsAdmin() {
+    return new Promise((resolve, reject) => {
+      post(`${setAgendaRes}/${agenda.uid}/members/me`, {}, (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        onSelectAgenda(agenda.uid);
+        resolve(result);
+      });
+    });
+  }
+
   return (
     <IntlProvider
       key="fr"
@@ -299,6 +315,7 @@ export default function Body(props) {
               pageRange={membersPageRange}
               getMembersPage={getMembersPage}
               setAgenda={saveAgenda}
+              addMeAsAdmin={addMeAsAdmin}
               displayConfirmDelete={displayConfirmDelete}
               updateHref={updateHref}
               getQuery={getQuery}
