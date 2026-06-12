@@ -78,6 +78,11 @@ tags:
     description: >
       The venues events happen at. Each agenda has its own pool of locations —
       or shares one with other agendas through a location set.
+  - name: Me
+    description: >
+      The authenticated caller: the agendas they are a member of and their
+      role on each. Requires a user identity — a secret key or an OAuth
+      token; a publishable (`oa_pk_…`) key carries no identity and is denied.
 
 # Groups the resource tags under a "Resources" heading in the Scalar sidebar.
 # Forward-compatible with the upcoming members surface (see scopes).
@@ -87,6 +92,7 @@ x-tagGroups:
       - Agendas
       - Events
       - Locations
+      - Me
 
 # Authenticate every request with either an API key or an OAuth2 token,
 # both carried as `Authorization: Bearer <token>`.
@@ -428,6 +434,128 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 
+  /agendas/{agendaUid}/events/schema:
+    get:
+      operationId: agendas.events.schema
+      tags: [Events]
+      summary: Event form schema of an agenda
+      x-synonyms:
+        [
+          form,
+          fields,
+          additional fields,
+          custom fields,
+          required,
+          validate,
+          structure,
+          definition,
+        ]
+      x-codeSamples:
+        - lang: TypeScript
+          label: List the agenda's additional event fields
+          source: |
+            const { data, error } = await oa.agendas.events.schema({
+              path: { agendaUid: 12345 },
+            });
+            if (error) throw error;
+            return data.fields
+              .filter((f) => f.schemaId != null)
+              .map((f) => ({ name: f.field, type: f.fieldType }));
+      description: >
+        Returns the agenda's **merged event form schema** — the dynamic
+        contract the events of this agenda follow. It merges the platform's
+        native event fields with the network's and the agenda's own
+        declarations: an agenda can add its own additional fields and override
+        natives (make one required, restrict its options, relabel it). This is
+        the same schema the OpenAgenda UI uses to build the event form, served
+        raw: use it to know which fields exist, which are required and what
+        their options are — e.g. to build payloads for the (upcoming) event
+        write operations, or to interpret `additionalFields` on events.
+
+
+        Fields the caller's access level cannot read are omitted: with a
+        publishable key the public schema is returned; a secret key sees the
+        fields readable at the owner's role on this agenda.
+
+
+        The descriptors follow the OpenAgenda form-schema vocabulary
+        (`field`, `fieldType`, `label`, `options`, `optional`, …). The
+        properties documented here are stable; descriptors may carry further
+        engine-specific keys.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - events:read
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+      responses:
+        '200':
+          description: The merged event form schema.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventFormSchema'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /me/agendas:
+    get:
+      operationId: me.agendas.list
+      tags: [Me]
+      summary: List the agendas you are a member of
+      x-synonyms:
+        [
+          my agendas,
+          memberships,
+          my role,
+          mine,
+          which agendas,
+          can I,
+          permissions,
+        ]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Which agendas can I write to?
+          source: |
+            const { data, error } = await oa.me.agendas.list({});
+            if (error) throw error;
+            return data.data
+              .filter((a) => a.role !== 'reader')
+              .map((a) => ({ uid: a.uid, title: a.title, role: a.role }));
+      description: >
+        Returns a cursor-paginated list of the agendas the authenticated user
+        is a member of, with their role on each. Private agendas the user
+        belongs to ARE included (each item carries a `private` flag).
+
+
+        Requires a user identity: a secret key (`oa_sk_…`) or an OAuth access
+        token granted the `me:read` scope. A publishable key (`oa_pk_…`)
+        carries no identity and is answered `401`.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - me:read
+      parameters:
+        - $ref: '#/components/parameters/AfterCursor'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A page of the caller's agenda memberships.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeAgendaList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
   /agendas/{agendaUid}/locations:
     get:
       operationId: agendas.locations.list
@@ -584,6 +712,9 @@ components:
           tokenUrl: https://openagenda.com/api/auth/oauth2/token
           refreshUrl: https://openagenda.com/api/auth/oauth2/token
           scopes:
+            me:read: >-
+              Read the caller's own memberships: the agendas they belong to
+              and their role on each.
             agendas:read: Read agendas
             agendas:write: Create and modify agendas
             events:read: Read events
@@ -1835,6 +1966,160 @@ components:
             oneOf:
               - $ref: '#/components/schemas/LocationSummary'
               - $ref: '#/components/schemas/Location'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+
+    EventFormSchema:
+      type: object
+      required: [fields]
+      # Served raw from the form engine: top-level keys beyond `fields` may
+      # appear (engine vocabulary); only `fields` is contractual.
+      additionalProperties: true
+      properties:
+        fields:
+          type: array
+          description: >
+            Every field readable at the caller's access level — native event
+            fields (with any per-agenda overrides applied) and the
+            agenda's/network's additional fields (`schemaId` non-null).
+          items:
+            $ref: '#/components/schemas/FormSchemaField'
+
+    FormSchemaField:
+      type: object
+      description: >
+        A field descriptor in the OpenAgenda form-schema vocabulary, served
+        raw. The properties below are the stable core; descriptors may carry
+        further engine-specific keys (conditions, display hints, sub-schemas
+        such as `schema` on the `location` field, …).
+      required: [field]
+      additionalProperties: true
+      example:
+        field: thematique
+        fieldType: radio
+        label: { fr: 'Thématique', en: 'Theme' }
+        schemaId: 10522
+        schemaType: agenda
+        options:
+          - id: 42
+            value: concert
+            label: { fr: 'Concert' }
+      properties:
+        field:
+          type: string
+          description: Field name — the key the value is carried under on events.
+        fieldType:
+          type: string
+          description: >
+            Field kind in the form-schema vocabulary, e.g. `text`, `textarea`,
+            `multilingual`, `radio`, `checkbox`, `select`, `number`, `date`,
+            `image`, `link`, `abstract` (structural)…
+        label:
+          description: Localized display label, when the field carries one.
+          oneOf:
+            - $ref: '#/components/schemas/LocalizedString'
+            - type: string
+            - type: 'null'
+        optional:
+          type: boolean
+          description: >
+            `false` means the field is required (possibly a per-agenda
+            override of a native field).
+        options:
+          type: array
+          description: Allowed choices for choice-like field kinds.
+          items:
+            type: object
+            additionalProperties: true
+            properties:
+              id:
+                type: integer
+              value:
+                type: string
+              label:
+                oneOf:
+                  - $ref: '#/components/schemas/LocalizedString'
+                  - type: string
+        schemaId:
+          type: [integer, 'null']
+          description: >
+            Identifier of the declaring agenda/network schema. Non-null marks
+            an **additional field**; `null`/absent marks a native one.
+        schemaType:
+          type: [string, 'null']
+          enum: [agenda, network, event, null]
+          description: >
+            Which level declared the field: `agenda`/`network` for additional
+            fields, `event` for the platform's native event fields.
+
+    MemberRole:
+      type: string
+      enum: [administrator, moderator, contributor, reader]
+      x-enum-descriptions:
+        administrator: Full control of the agenda, its settings and members
+        moderator: Moderates contributed events and manages content
+        contributor: Can contribute events to the agenda
+        reader: Read-only member
+
+    MeAgendaItem:
+      type: object
+      description: >
+        An agenda the authenticated user is a member of: the AgendaSummary
+        base fields plus the user's `role` and the agenda's `private` flag
+        (private agendas the user belongs to are listed).
+
+
+        Empty-as-empty rule: every field is always present; singular optional
+        values are present as `null` when absent.
+      additionalProperties: false
+      example:
+        uid: 12345
+        slug: festival-des-lumieres
+        title: Festival des Lumières
+        description: La programmation du festival.
+        image: https://cdn.openagenda.com/main/12345.jpg
+        official: false
+        private: false
+        role: administrator
+      required:
+        - uid
+        - slug
+        - title
+        - description
+        - image
+        - official
+        - private
+        - role
+      properties:
+        uid:
+          type: integer
+          format: int64
+          readOnly: true
+        slug:
+          type: string
+          readOnly: true
+        title:
+          type: [string, 'null']
+        description:
+          type: [string, 'null']
+        image:
+          type: [string, 'null']
+        official:
+          type: boolean
+        private:
+          type: boolean
+        role:
+          $ref: '#/components/schemas/MemberRole'
+
+    MeAgendaList:
+      type: object
+      required: [data, pagination]
+      additionalProperties: false
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/MeAgendaItem'
         pagination:
           $ref: '#/components/schemas/Pagination'
 
