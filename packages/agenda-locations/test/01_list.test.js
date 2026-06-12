@@ -235,6 +235,153 @@ describe('agenda-locations - functional - list', () => {
       expect(items[0].name).toBe('Abbatiale Sainte-Marie');
     });
 
+    // Tolerant search: tokenized (word-order independent) + relevance-ranked.
+    // The fixture contains "Beffroi de l'Hôtel de Ville", a textbook generic
+    // name whose words a contributor rarely types in the stored order.
+    describe('tolerant search', () => {
+      const BEFFROI = "Beffroi de l'Hôtel de Ville";
+
+      it('is word-order independent: "ville hôtel" finds "...Hôtel de Ville" (failed before)', async () => {
+        const items = await svc(7196947).list({ search: 'ville hôtel' });
+        expect(items.some((i) => i.name === BEFFROI)).toBe(true);
+      });
+
+      it('tolerates missing accents and case: "HOTEL ville" finds the beffroi', async () => {
+        const items = await svc(7196947).list({ search: 'HOTEL ville' });
+        expect(items.some((i) => i.name === BEFFROI)).toBe(true);
+      });
+
+      it('ignores separators and order: "baptiste eglise" finds "Ancienne église Saint-Jean-Baptiste"', async () => {
+        const items = await svc(7196947).list({ search: 'baptiste eglise' });
+        expect(
+          items.some((i) => i.name === 'Ancienne église Saint-Jean-Baptiste'),
+        ).toBe(true);
+      });
+
+      it('drops stopwords so "hôtel de ville" is not over-constrained by "de"', async () => {
+        const items = await svc(7196947).list({ search: 'hôtel de ville' });
+        expect(items.some((i) => i.name === BEFFROI)).toBe(true);
+      });
+
+      it('single-word search still matches, accent-insensitive: "chateau"', async () => {
+        const items = await svc(7196947).list(
+          { search: 'chateau' },
+          { limit: 300 },
+        );
+        expect(items.some((i) => i.name === "Château d'Alba-la-Romaine")).toBe(
+          true,
+        );
+      });
+
+      it('ranks the exact placename first: "château musée"', async () => {
+        const items = await svc(7196947).list({ search: 'château musée' });
+        expect(items[0].name).toBe('Château Musée');
+      });
+
+      it('paginates a ranked search consistently within the candidate window', async () => {
+        // Ranking happens on a bounded window then is sliced by offset/limit, so
+        // page1 + page2 must equal a single page2-sized fetch (no dupes/gaps and
+        // the same relevance order across the boundary).
+        const page1 = await svc(7196947).list(
+          { search: 'chateau' },
+          { offset: 0, limit: 3 },
+        );
+        const page2 = await svc(7196947).list(
+          { search: 'chateau' },
+          { offset: 3, limit: 3 },
+        );
+        const combined = await svc(7196947).list(
+          { search: 'chateau' },
+          { offset: 0, limit: 6 },
+        );
+
+        expect([...page1, ...page2].map((i) => i.uid)).toStrictEqual(
+          combined.map((i) => i.uid),
+        );
+        // No overlap between the two pages.
+        const overlap = page1
+          .map((i) => i.uid)
+          .filter((uid) => page2.some((i) => i.uid === uid));
+        expect(overlap).toHaveLength(0);
+      });
+
+      it('tolerates a typo via the fuzzy fallback: "hotl ville" finds the beffroi', async () => {
+        const items = await svc(7196947).list({ search: 'hotl ville' });
+        expect(items.some((i) => i.name === BEFFROI)).toBe(true);
+      });
+
+      it('a genuinely unmatchable search still returns nothing', async () => {
+        const items = await svc(7196947).list({
+          search: 'zzzxqwk noplacelikethis',
+        });
+        expect(items.length).toBe(0);
+      });
+
+      it('escapes LIKE wildcards so a typed % is literal, not a wildcard', async () => {
+        const plain = await svc(7196947).list({ search: 'région' });
+        const wildcard = await svc(7196947).list({ search: 'région%' });
+        expect(plain.length).toBeGreaterThan(0);
+        expect(wildcard.length).toBe(0);
+      });
+
+      it('fuzzy fallback still applies eventCounts when the caller requests them', async () => {
+        const items = await svc(7196947).list(
+          { search: 'hotl ville' },
+          { limit: 5 },
+          { eventCounts: true },
+        );
+        const beffroi = items.find(
+          (i) => i.name === "Beffroi de l'Hôtel de Ville",
+        );
+        expect(beffroi).toBeDefined();
+        expect(beffroi.eventCount).toBeDefined();
+      });
+
+      it('an explicit order opts out of ranking (sorted enumeration)', async () => {
+        const items = await svc(7196947).list(
+          { search: 'saint' },
+          { order: 'name.asc', limit: 10 },
+        );
+        const names = items.map((i) => i.name);
+        expect(names.length).toBeGreaterThan(1);
+        expect(names).toEqual([...names].sort((a, b) => a.localeCompare(b)));
+      });
+
+      it('total reflects the bounded match set in ranked mode', async () => {
+        const { items, total } = await svc(7196947).list(
+          { search: 'château' },
+          { limit: 300 },
+          { total: true },
+        );
+        expect(total).toBeGreaterThan(0);
+        expect(total).toBe(items.length);
+      });
+
+      it('fuzzy fallback reports its full match-set size as total', async () => {
+        const { items, total } = await svc(7196947).list(
+          { search: 'hotl ville' },
+          { limit: 5 },
+          { total: true },
+        );
+        expect(items.length).toBeGreaterThan(0);
+        expect(total).toBeGreaterThanOrEqual(items.length);
+      });
+
+      it('does not fire the fuzzy fallback in explicit-order (enumeration) mode', async () => {
+        // 'hotl ville' has no exact matches; in ranked mode the fallback would
+        // surface the beffroi, but an explicit order is an enumeration — it must
+        // return the (empty) exact result, not fuzzy non-matches in distance order.
+        const ranked = await svc(7196947).list({ search: 'hotl ville' });
+        expect(ranked.length).toBeGreaterThan(0);
+
+        const enumerated = await svc(7196947).list(
+          { search: 'hotl ville' },
+          { order: 'name.asc' },
+        );
+        expect(enumerated.length).toBe(0);
+      });
+    });
+
     it('"state" filters verified or unverified locations', async () => {
       const verified = await svc(7196947).list(
         { state: 1 },

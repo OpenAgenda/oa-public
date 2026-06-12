@@ -5,7 +5,28 @@ import integer from '@openagenda/validators/integer';
 import text from '@openagenda/validators/text';
 import boolean from '@openagenda/validators/boolean';
 
+import tokenizeSearch from './tokenizeSearch.js';
+
 schema.register({ integer, text, date, boolean });
+
+const SEARCH_COLUMNS = ['placename', 'address', 'region', 'department', 'city'];
+
+// Escape LIKE wildcards so a user-typed % or _ matches literally instead of
+// acting as a wildcard (MySQL LIKE uses \ as its default escape character).
+const escapeLike = (value) => value.replace(/[\\%_]/g, '\\$&');
+
+// A token matches if it is a substring of any searched column (OR within the
+// token). The caller ANDs these together across tokens.
+const whereTokenMatchesAnyColumn = (builder, token) => {
+  const pattern = `%${escapeLike(token)}%`;
+  SEARCH_COLUMNS.forEach((column, index) => {
+    if (index === 0) {
+      builder.where(column, 'like', pattern);
+    } else {
+      builder.orWhere(column, 'like', pattern);
+    }
+  });
+};
 
 const isNumber = (a) => typeof a === 'number';
 
@@ -155,13 +176,23 @@ export default async (service, k, deleted, query) => {
   }
 
   if (search) {
-    k.where(function or() {
-      this.where('placename', 'like', `%${search}%`)
-        .orWhere('address', 'like', `%${search}%`)
-        .orWhere('region', 'like', `%${search}%`)
-        .orWhere('department', 'like', `%${search}%`)
-        .orWhere('city', 'like', `%${search}%`);
-    });
+    const tokens = tokenizeSearch(search);
+
+    if (tokens.length) {
+      // Every token must match at least one column, so word order and
+      // separators (spaces, hyphens, apostrophes) no longer matter:
+      // "ville hôtel" now finds "Beffroi de l'Hôtel de Ville".
+      tokens.forEach((token) => {
+        k.where(function or() {
+          whereTokenMatchesAnyColumn(this, token);
+        });
+      });
+    } else {
+      // No usable tokens (e.g. punctuation-only search): keep legacy behavior.
+      k.where(function or() {
+        whereTokenMatchesAnyColumn(this, search);
+      });
+    }
   }
 
   Object.keys(updatedAt)
