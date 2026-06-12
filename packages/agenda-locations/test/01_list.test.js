@@ -366,6 +366,20 @@ describe('agenda-locations - functional - list', () => {
         expect(items.length).toBeGreaterThan(0);
         expect(total).toBeGreaterThanOrEqual(items.length);
       });
+
+      it('does not fire the fuzzy fallback in explicit-order (enumeration) mode', async () => {
+        // 'hotl ville' has no exact matches; in ranked mode the fallback would
+        // surface the beffroi, but an explicit order is an enumeration — it must
+        // return the (empty) exact result, not fuzzy non-matches in distance order.
+        const ranked = await svc(7196947).list({ search: 'hotl ville' });
+        expect(ranked.length).toBeGreaterThan(0);
+
+        const enumerated = await svc(7196947).list(
+          { search: 'hotl ville' },
+          { order: 'name.asc' },
+        );
+        expect(enumerated.length).toBe(0);
+      });
     });
 
     it('"state" filters verified or unverified locations', async () => {

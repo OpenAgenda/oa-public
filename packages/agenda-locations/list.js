@@ -152,14 +152,15 @@ async function list(
     );
     log('fetched %s items', result.rows.length);
 
-    // Typo-tolerant fallback: only when a search found nothing and we're not
-    // paginating by keyset. fuzzyFallback returns the full ranked "did you mean"
-    // set; we slice the requested page and report the set size as total.
+    // Typo-tolerant fallback: only for interactive (relevance-ranked) searches
+    // that found nothing. An explicit `order`, keyset, or stream opts out via
+    // `relevanceRanking` — those are enumerations, not "did you mean" lookups, so
+    // they must not be polluted with fuzzy non-matches. fuzzyFallback returns the
+    // full ranked set; we slice the page and report the set size as total.
     if (
       !internal.skipFuzzyFallback
-      && search
+      && relevanceRanking
       && result.items.length === 0
-      && !cleanNav.useAfter
     ) {
       const tokens = tokenizeSearch(search);
 
