@@ -27,7 +27,10 @@ export function locationEndpoints(core, agenda) {
 // schema's location tagSet survive). Needed whenever the full `Location`
 // shape (which carries `additionalFields`) is returned.
 export async function loadLocationFormSchema(core, agenda) {
-  const detailedAgenda = await getAgenda(core.services, agenda.uid, {
+  // Passing the loaded object (req.agenda) skips getAgenda's SQL re-fetch;
+  // its detailed branch decorates THAT copy (network/formSchema), which stays
+  // request-local — loadAgenda rebuilds req.agenda on every request.
+  const detailedAgenda = await getAgenda(core.services, agenda, {
     detailed: true,
   });
 

@@ -46,7 +46,7 @@ import {
   buildAggregations,
   mapFacets,
 } from './lib/facets.js';
-import { decodeCursor } from './lib/cursor.js';
+import { decodeCursor, decodeIntCursor } from './lib/cursor.js';
 import apiV3ErrorHandler from './errorHandler.js';
 
 const log = logs('api-v3');
@@ -326,8 +326,11 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
     requireScope('events:read'),
     async (req, res, next) => {
       try {
+        // The loaded object (not the uid) skips getMergedSchema's agenda
+        // re-fetch — req.agenda is rebuilt per request, so the internal
+        // `_.isObject` fast path stays request-local.
         const schema = await core
-          .agendas(req.agenda.uid)
+          .agendas(req.agenda)
           .settings.schema.getMerged({ includeEvent: true });
 
         res.json(schema);
@@ -374,13 +377,11 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
         const query = buildLocationListQuery(req.query);
 
         const nav = { limit, useAfter: true, order: 'createdAt.desc' };
-        if (req.query.after !== undefined) {
-          const decoded = decodeCursor(req.query.after);
-          if (decoded) {
-            // The locations keyset position is a scalar (the last row's
-            // internal id), carried as a 1-element array in the opaque cursor.
-            [nav.after] = decoded.after;
-          }
+        // The locations keyset position is a scalar (the last row's internal
+        // id), carried as a 1-element array in the opaque cursor.
+        const after = decodeIntCursor(req.query.after);
+        if (after != null) {
+          nav.after = after;
         }
 
         const result = await locationEndpoints(core, req.agenda).list(
@@ -467,13 +468,11 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
       const detailed = resolveDetailed(req.query.detailed);
 
       const nav = { size: limit };
-      if (req.query.after !== undefined) {
-        const decoded = decodeCursor(req.query.after);
-        if (decoded) {
-          // The memberships keyset position is a scalar (the last row's
-          // `order`), carried as a 1-element array in the opaque cursor.
-          [nav.after] = decoded.after;
-        }
+      // The memberships keyset position is a scalar (the last row's `order`),
+      // carried as a 1-element array in the opaque cursor.
+      const after = decodeIntCursor(req.query.after);
+      if (after != null) {
+        nav.after = after;
       }
 
       // Passing the loaded user object (not the uid) skips core's redundant

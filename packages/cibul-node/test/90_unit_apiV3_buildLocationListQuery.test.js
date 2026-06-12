@@ -34,6 +34,12 @@ describe('90 - api-v3 unit - buildLocationListQuery', () => {
         'Invalid query parameters',
       );
     });
+
+    it('rejects a search over 255 characters (the service cap), in the gate shape', () => {
+      expect(() => buildLocationListQuery({ search: 'x'.repeat(256) })).toThrow(
+        'Invalid query parameters',
+      );
+    });
   });
 
   describe('uid', () => {
@@ -46,6 +52,20 @@ describe('90 - api-v3 unit - buildLocationListQuery', () => {
 
     it('rejects non-integer uids', () => {
       expect(() => buildLocationListQuery({ uid: 'abc' })).toThrow(
+        'Invalid query parameters',
+      );
+    });
+
+    it('rejects blank uids instead of coercing them to 0', () => {
+      // `Number('')` and `Number(' ')` are 0: a dangling `uid=` must fail the
+      // gate, not silently filter on uid 0 (empty result page).
+      expect(() => buildLocationListQuery({ uid: '' })).toThrow(
+        'Invalid query parameters',
+      );
+      expect(() => buildLocationListQuery({ uid: ' ' })).toThrow(
+        'Invalid query parameters',
+      );
+      expect(() => buildLocationListQuery({ uid: ['1', ''] })).toThrow(
         'Invalid query parameters',
       );
     });
@@ -97,26 +117,53 @@ describe('90 - api-v3 unit - buildLocationListQuery', () => {
       expect(() =>
         buildLocationListQuery({ bbox: '2.2,98.8,2.4,48.9' })).toThrow('Invalid query parameters');
     });
+
+    it('rejects blank coordinates instead of coercing them to 0', () => {
+      // `Number(' ')` is 0 — a blank component must not silently stretch the
+      // box to the equator/meridian.
+      expect(() => buildLocationListQuery({ bbox: '2.2, ,2.4,48.9' })).toThrow(
+        'Invalid query parameters',
+      );
+    });
   });
 
   describe('date ranges', () => {
     it('parses createdAt/updatedAt bounds into Dates', () => {
       const query = buildLocationListQuery({
         createdAt: { gte: '2026-01-01T00:00:00Z' },
-        updatedAt: { lt: '2026-06-01T00:00:00Z' },
+        updatedAt: { lte: '2026-06-01T00:00:00Z' },
       });
       expect(query.createdAt.gte).toEqual(new Date('2026-01-01T00:00:00Z'));
-      expect(query.updatedAt.lt).toEqual(new Date('2026-06-01T00:00:00Z'));
+      expect(query.updatedAt.lte).toEqual(new Date('2026-06-01T00:00:00Z'));
+    });
+
+    it('accepts a bare date (read as UTC midnight)', () => {
+      const query = buildLocationListQuery({
+        createdAt: { gte: '2026-01-01' },
+      });
+      expect(query.createdAt.gte).toEqual(new Date('2026-01-01T00:00:00Z'));
     });
 
     it('rejects unknown bounds and non-dates', () => {
       expect(() =>
         buildLocationListQuery({ createdAt: { eq: '2026-01-01' } })).toThrow('Invalid query parameters');
       expect(() =>
+        buildLocationListQuery({ createdAt: { gt: '2026-01-01' } })).toThrow('Invalid query parameters');
+      expect(() =>
         buildLocationListQuery({ updatedAt: { gte: 'not-a-date' } })).toThrow('Invalid query parameters');
       expect(() => buildLocationListQuery({ createdAt: '2026-01-01' })).toThrow(
         'Invalid query parameters',
       );
+    });
+
+    it('rejects lax inputs Date.parse would let through', () => {
+      // Strict RFC 3339: no month-name forms, no year-only strings, and no
+      // offset-less date-times (ES reads those as UTC where SQL would read
+      // server-local time).
+      for (const raw of ['March 13 2024', '1', '2026-01-15T10:00:00']) {
+        expect(() =>
+          buildLocationListQuery({ createdAt: { gte: raw } })).toThrow('Invalid query parameters');
+      }
     });
   });
 

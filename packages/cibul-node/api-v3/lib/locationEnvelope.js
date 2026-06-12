@@ -4,7 +4,7 @@
 // full `Location` (same shape as the single-get).
 
 import mapLocation, { mapLocationSummary } from './mapLocation.js';
-import { encodeCursor } from './cursor.js';
+import buildPagination from './pagination.js';
 
 export default function buildLocationListEnvelope(
   result,
@@ -14,21 +14,17 @@ export default function buildLocationListEnvelope(
 
   const mapItem = detailed ? mapLocation : mapLocationSummary;
 
-  // The locations list is keyset-paginated over SQL with a fixed
-  // `createdAt.desc` order; the service's `after` is the last row's internal
-  // id (a scalar — normalized to the cursor's array form). Like the agenda
-  // search, the service returns a non-null `after` even on the last full
-  // page, so a short page (< limit) is the "no more results" signal; a full
-  // final page costs one extra empty request.
-  const isLastPage = items.length < limit;
-
   return {
     data: items.map(mapItem),
-    pagination: {
-      after:
-        isLastPage || after == null ? null : encodeCursor({ after: [after] }),
+    // SQL keyset, fixed `createdAt.desc` order; the service's `after` is the
+    // last row's internal id (a scalar) and is returned even on the last full
+    // page — the short-page sentinel is the "no more results" signal (see
+    // pagination.js).
+    pagination: buildPagination({
+      after,
+      isLastPage: items.length < limit,
       limit,
-      ...total === undefined ? {} : { total },
-    },
+      total,
+    }),
   };
 }

@@ -235,6 +235,12 @@ describe('90 - api-v3 unit - buildEventSearchQuery', () => {
       expect(badRequestFields({ threshold: '-5' })).toContain('threshold');
     });
 
+    it('rejects a blank or boolean threshold (Number would coerce them to 0/1)', () => {
+      expect(badRequestFields({ threshold: '' })).toContain('threshold');
+      expect(badRequestFields({ threshold: ' ' })).toContain('threshold');
+      expect(badRequestFields({ threshold: true })).toContain('threshold');
+    });
+
     it('rejects a threshold given multiple times', () => {
       expect(badRequestFields({ threshold: ['auto', '20'] })).toContain(
         'threshold',

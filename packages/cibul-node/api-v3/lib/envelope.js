@@ -1,7 +1,7 @@
 // Builds the `{ data, pagination }` list envelope for the v3 events list.
 
 import mapEvent, { mapEventSummary } from './mapEvent.js';
-import { encodeCursor } from './cursor.js';
+import buildPagination from './pagination.js';
 
 export default function buildListEnvelope(result, { limit, detailed = false }) {
   const { events = [], total, after = null, sort = null } = result ?? {};
@@ -14,12 +14,8 @@ export default function buildListEnvelope(result, { limit, detailed = false }) {
 
   return {
     data: events.map(mapItem),
-    pagination: {
-      // `core` returns `after: null` on the last page; otherwise it is the raw
-      // search_after array, encoded here into the opaque public cursor.
-      after: after == null ? null : encodeCursor({ after, sort }),
-      limit,
-      ...total === undefined ? {} : { total },
-    },
+    // `core` returns `after: null` on the last page itself — no short-page
+    // sentinel needed here.
+    pagination: buildPagination({ after, sort, limit, total }),
   };
 }

@@ -7,6 +7,7 @@ import addFormats from 'ajv-formats';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
 import instanciateApiV3 from '../api-v3/index.js';
+import { encodeCursor } from '../api-v3/lib/cursor.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 
@@ -250,11 +251,21 @@ describe('90 - api-v3 - functional (server): locations read endpoints', () => {
     });
 
     it('returns a 400 with the { error } shape for malformed parameters', async () => {
+      // A decodable cursor with a non-integer keyset position: must fail at
+      // the decode gate (the service's nav validator throws non-Error shapes
+      // the error handler can't map into the contract envelope).
+      // encodeCursor performs no validation (the gate lives in decode), so
+      // this stays a forgery — and it tracks the wire format if it evolves.
+      const forgedCursor = encodeCursor({ after: ['abc'] });
+
       for (const qs of [
         '?bbox=1,2,3',
         '?after=not-a-valid-cursor!!',
+        `?after=${forgedCursor}`,
         '?detailed=maybe',
         '?createdAt[eq]=2026-01-01',
+        '?uid=',
+        '?uid=%20',
       ]) {
         const res = await get(`/agendas/${AGENDA_UID}/locations`, qs);
         expect(res.status).toBe(400);

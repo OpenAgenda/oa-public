@@ -1,6 +1,7 @@
 // v3 error handler: maps `core`/feathers error names to the public contract
 // `{ error: { code, message, details? } }` envelope with the right HTTP status.
 
+import { inspect } from 'node:util';
 import { VError } from '@openagenda/verror';
 import errors from '../services/errors.js';
 
@@ -54,9 +55,14 @@ export default function apiV3ErrorHandler(err, req, res, _next) {
   }
 
   // Unmapped -> log the real cause, return a generic 500 (no internals leaked).
+  // Some legacy validators throw plain arrays/objects; VError asserts its
+  // cause is an Error, and this handler must never throw itself (Express would
+  // fall through to its default HTML 500), so normalize first.
+  const cause = err instanceof Error ? err : new Error(`non-Error thrown: ${inspect(err)}`);
+
   handleError(
     new VError({
-      cause: err,
+      cause,
       info: {
         query: req.query,
         params: req.params,
