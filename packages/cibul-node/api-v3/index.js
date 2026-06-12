@@ -45,7 +45,6 @@ import {
   resolveAdditionalFieldSelections,
   buildAggregations,
   mapFacets,
-  isReadableAt,
 } from './lib/facets.js';
 import { decodeCursor } from './lib/cursor.js';
 import apiV3ErrorHandler from './errorHandler.js';
@@ -314,30 +313,24 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
   // GET /agendas/:agendaUid/events/schema
   // Registered BEFORE the `/events/:eventUid` route so `schema` is not
   // captured as an event uid. Serves the agenda's merged event form schema
-  // RAW (the same declarative contract the OA UI builds the event form from):
-  // native fields + network/agenda declarations, with per-agenda overrides
-  // applied. The only transformation is the per-field read gate — getMerged's
-  // own access filter is a no-op for a bare access string (see the NOTE in
-  // core/agendas/settings/getMergedSchema.js), so the route applies
-  // `isReadableAt` itself, exactly like the facets' additionalFields path.
+  // RAW and UNFILTERED (the same declarative contract the OA UI builds the
+  // event form from): native fields + network/agenda declarations, with
+  // per-agenda overrides applied. The per-field `read` arrays gate the
+  // visibility of VALUES on events (the search projections and the facets
+  // enforce them) — not of the form itself: a contributor must see the
+  // descriptor of any field they can fill even when only moderators read its
+  // value, and a descriptor (name, label, options) is form metadata, not
+  // event data.
   app.get(
     '/agendas/:agendaUid/events/schema',
     requireScope('events:read'),
     async (req, res, next) => {
       try {
-        const access = await loadSearchAccess(core, req.agenda.uid, {
-          userUid: req.user?.uid,
-          agendaKey: req.agendaKey,
-        }) ?? 'public';
-
         const schema = await core
           .agendas(req.agenda.uid)
-          .settings.schema.getMerged({ includeEvent: true, access });
+          .settings.schema.getMerged({ includeEvent: true });
 
-        res.json({
-          ...schema,
-          fields: (schema.fields ?? []).filter((f) => isReadableAt(f, access)),
-        });
+        res.json(schema);
       } catch (err) {
         next(err);
       }
@@ -471,6 +464,7 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
       }
 
       const limit = resolveLimit(req.query.limit);
+      const detailed = resolveDetailed(req.query.detailed);
 
       const nav = { size: limit };
       if (req.query.after !== undefined) {
@@ -484,7 +478,7 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
 
       const result = await core.users(req.user.uid).agendas.list(nav);
 
-      res.json(await buildMeAgendaList(core, result, { limit }));
+      res.json(await buildMeAgendaList(core, result, { limit, detailed }));
     } catch (err) {
       next(err);
     }

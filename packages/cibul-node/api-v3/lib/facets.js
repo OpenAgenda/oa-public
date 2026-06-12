@@ -259,9 +259,7 @@ const additionalFieldsOf = (schema) =>
 // `settings.schema.getMerged({access})` does NOT drop restricted additional
 // fields, so v3 must filter them out before aggregating (a `pk` caller resolves
 // to `'public'`, so only public-readable fields are ever aggregated).
-// Exported: the events/schema route applies the same per-field gate to the
-// raw merged schema it serves.
-export const isReadableAt = (field, access) =>
+const isReadableAt = (field, access) =>
   !field.read?.length || field.read.includes(access);
 
 // Parse a CSV field-list param. Absent → null (= "all readable of this type");

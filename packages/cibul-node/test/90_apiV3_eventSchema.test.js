@@ -32,8 +32,8 @@ const enabled = [
   'users',
 ];
 
-// janine's public (pk) key — resolves NO user on v3 (D6.A), so the schema is
-// served at the public access level.
+// janine's public (pk) key — the schema is the same whatever the caller: the
+// per-field `read` levels gate event VALUES, not the form descriptors.
 const USER_PK = 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9';
 
 // Agenda 17026855 (id 218) uses form_schema 2 = fixtures/form-schemas/1.json:
@@ -124,14 +124,13 @@ describe('90 - api-v3 - functional (server): GET /agendas/:agendaUid/events/sche
     expect(byName.get('location')).toHaveProperty('schema');
   });
 
-  it('omits the fields the public access level cannot read', async () => {
+  it('serves the schema unfiltered — read-gated descriptors included', async () => {
     const res = await get();
     const names = res.body.fields.map((f) => f.field);
 
-    // moderator-gated additional field (read: ['moderator'])
-    expect(names).not.toContain('custom_description');
-    // internal/system-gated native
-    expect(names).not.toContain('id');
+    // `read: ['moderator']` gates the VALUE on events, not the descriptor: a
+    // contributor needs it to fill the field. Served even to a pk caller.
+    expect(names).toContain('custom_description');
   });
 
   it('is 404 on an unknown and on a private agenda', async () => {

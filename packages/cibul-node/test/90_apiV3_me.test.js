@@ -38,12 +38,11 @@ const USER_SK = 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM';
 const USER_PK = 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9';
 
 // janine (uid 1) memberships in 014.sql.js: administrator on 93399464,
-// 48353388, 55268170 and TWICE on 17026855 (two reviewer rows — kept as-is:
-// like v2, /me lists membership rows without deduplicating), + contributor on
-// the PRIVATE agenda 990001 (90_apiV3_me.extra.sql.js). 6 rows total.
+// 17026855, 48353388 and 55268170, + contributor on the PRIVATE agenda
+// 990001 (90_apiV3_me.extra.sql.js). 5 rows total.
 const PRIVATE_UID = 990001;
 const ADMIN_UIDS = [93399464, 17026855, 48353388, 55268170];
-const TOTAL_MEMBERSHIPS = 6;
+const TOTAL_MEMBERSHIPS = 5;
 
 const specPath = fileURLToPath(
   import.meta.resolve('@openagenda/api-spec/openapi.yaml'),
@@ -58,6 +57,7 @@ function buildValidator(ref) {
 }
 
 const validateMeAgendaList = buildValidator('MeAgendaList');
+const validateMeAgendaItemDetailed = buildValidator('MeAgendaItemDetailed');
 const validateError = buildValidator('Error');
 
 function assertValid(validate, body, label) {
@@ -138,9 +138,8 @@ describe('90 - api-v3 - functional (server): /me/agendas', () => {
   });
 
   it('paginates with the opaque after cursor', async () => {
-    // Reference order: the whole list in one page. A membership row can
-    // duplicate an agenda uid (17026855), so pages are compared against the
-    // reference SEQUENCE, not as uid sets.
+    // Reference order: the whole list in one page; pages must reproduce the
+    // same sequence.
     const all = await get('?limit=100');
     expect(all.status).toBe(200);
     expect(all.body.data.length).toBe(TOTAL_MEMBERSHIPS);
@@ -159,6 +158,33 @@ describe('90 - api-v3 - functional (server): /me/agendas', () => {
     expect(second.status).toBe(200);
     assertValid(validateMeAgendaList, second.body, 'MeAgendaList (page 2)');
     expect(second.body.data.map((a) => a.uid)).toEqual(reference.slice(2, 4));
+  });
+
+  it('returns detailed items when detailed=true — private SQL-fallback included', async () => {
+    const res = await get('?detailed=true&limit=100');
+    expect(res.status).toBe(200);
+    assertValid(validateMeAgendaList, res.body, 'MeAgendaList (detailed)');
+
+    for (const agenda of res.body.data) {
+      assertValid(
+        validateMeAgendaItemDetailed,
+        agenda,
+        `MeAgendaItemDetailed ${agenda.uid}`,
+      );
+      expect(agenda).toHaveProperty('createdAt');
+      expect(agenda).toHaveProperty('network');
+      expect(agenda).toHaveProperty('locationSet');
+    }
+
+    // The set agenda resolves its locationSet ref; the private one resolves
+    // its detailed tier through the SQL fallback.
+    const byUid = new Map(res.body.data.map((a) => [a.uid, a]));
+    expect(byUid.get(55268170)?.locationSet).toEqual({
+      uid: 1,
+      title: 'Un jeu de lieux',
+    });
+    expect(byUid.get(PRIVATE_UID)?.private).toBe(true);
+    expect(byUid.get(PRIVATE_UID)?.createdAt).toBeTruthy();
   });
 
   it('answers 401 to a publishable key (no user identity) and to anonymous', async () => {
