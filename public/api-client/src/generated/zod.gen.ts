@@ -48,7 +48,11 @@ export const zImage = z.object({
     })).optional()
 });
 
-export const zLocation = z.object({
+/**
+ * The denormalized location snapshot an event carries — a nullable subset captured at indexing time. The canonical, full record is the `Location` resource (`GET /agendas/{agendaUid}/locations/{locationUid}`, same `uid`).
+ *
+ */
+export const zEventLocation = z.object({
     uid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }).readonly().optional(),
     name: z.string().nullish(),
     address: z.string().nullish(),
@@ -64,6 +68,89 @@ export const zLocation = z.object({
     adminLevel5: z.string().nullish(),
     country: zLocalizedString.nullish(),
     timezone: z.string().nullish()
+});
+
+/**
+ * Compact location representation returned by the list endpoint (`detailed: false`) — identity, coordinates and verification status only; fetch with `detailed=true` or the single-location get for the full record.
+ *
+ * Empty-as-empty rule: every field is always present; singular optional values are present as `null` when absent.
+ *
+ */
+export const zLocationSummary = z.object({
+    uid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }).readonly(),
+    name: z.string(),
+    address: z.string().nullable(),
+    latitude: z.number(),
+    longitude: z.number(),
+    verified: z.boolean()
+});
+
+/**
+ * An external identifier mapping this location to a third-party system.
+ *
+ */
+export const zLocationExtId = z.object({
+    key: z.string().optional(),
+    value: z.string().nullish()
+});
+
+/**
+ * Agenda-specific additional fields of the location. Today this carries a single `tags` key — the location's tags filtered against the tag set declared in the agenda's schema. As the platform converges legacy tags into real additional fields, agenda-defined keys will appear here (non-breaking).
+ *
+ */
+export const zLocationAdditionalFields = z.object({
+    tags: z.array(z.object({
+        id: z.number().int().optional(),
+        label: z.union([
+            z.string(),
+            zLocalizedString
+        ]).optional()
+    })).optional()
+});
+
+/**
+ * Full location representation returned by the single-get endpoint and by the list when `detailed=true` — the canonical record (the events' embedded `EventLocation` is a nullable snapshot of it).
+ *
+ * Empty-as-empty rule: every field is always present. Collections are never null/omitted (arrays → `[]`, localized maps → `{}`); singular optional values are present as `null` when absent.
+ *
+ */
+export const zLocation = z.object({
+    uid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }).readonly(),
+    slug: z.string().readonly(),
+    setUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }).readonly().nullable(),
+    name: z.string(),
+    address: z.string().nullable(),
+    city: z.string().nullable(),
+    district: z.string().nullable(),
+    region: z.string().nullable(),
+    department: z.string().nullable(),
+    adminLevel3: z.string().nullable(),
+    adminLevel5: z.string().nullable(),
+    postalCode: z.string().nullable(),
+    insee: z.string().nullable(),
+    countryCode: z.string().nullable(),
+    latitude: z.number(),
+    longitude: z.number(),
+    timezone: z.string().nullable(),
+    description: zLocalizedString,
+    access: zLocalizedString,
+    image: z.string().nullable(),
+    imageCredits: z.string().nullable(),
+    website: z.string().nullable(),
+    email: z.string().nullable(),
+    phone: z.string().nullable(),
+    links: z.array(z.string()),
+    extIds: z.array(zLocationExtId),
+    additionalFields: zLocationAdditionalFields,
+    siret: z.string().nullable(),
+    verified: z.boolean(),
+    createdAt: z.string().datetime().readonly(),
+    updatedAt: z.string().datetime().readonly()
+});
+
+export const zLocationList = z.object({
+    data: z.array(z.union([zLocationSummary, zLocation])),
+    pagination: zPagination
 });
 
 export const zTiming = z.object({
@@ -282,7 +369,7 @@ export const zEventSummary = z.object({
     keywords: zLocalizedStringArray,
     originAgenda: zAgendaRef.nullable(),
     timings: z.array(zTiming),
-    location: zLocation.nullable(),
+    location: zEventLocation.nullable(),
     timezone: z.string().readonly().nullable(),
     attendanceMode: zAttendanceMode,
     onlineAccessLink: z.string().url().nullable(),
@@ -311,7 +398,7 @@ export const zEvent = z.object({
     keywords: zLocalizedStringArray,
     originAgenda: zAgendaRef.nullable(),
     timings: z.array(zTiming),
-    location: zLocation.nullable(),
+    location: zEventLocation.nullable(),
     timezone: z.string().readonly().nullable(),
     attendanceMode: zAttendanceMode,
     onlineAccessLink: z.string().url().nullable(),
@@ -452,7 +539,11 @@ export const zFacetResults = z.object({
     })
 });
 
-export const zLocationWritable = z.object({
+/**
+ * The denormalized location snapshot an event carries — a nullable subset captured at indexing time. The canonical, full record is the `Location` resource (`GET /agendas/{agendaUid}/locations/{locationUid}`, same `uid`).
+ *
+ */
+export const zEventLocationWritable = z.object({
     name: z.string().nullish(),
     address: z.string().nullish(),
     city: z.string().nullish(),
@@ -470,6 +561,60 @@ export const zLocationWritable = z.object({
 });
 
 /**
+ * Compact location representation returned by the list endpoint (`detailed: false`) — identity, coordinates and verification status only; fetch with `detailed=true` or the single-location get for the full record.
+ *
+ * Empty-as-empty rule: every field is always present; singular optional values are present as `null` when absent.
+ *
+ */
+export const zLocationSummaryWritable = z.object({
+    name: z.string(),
+    address: z.string().nullable(),
+    latitude: z.number(),
+    longitude: z.number(),
+    verified: z.boolean()
+});
+
+/**
+ * Full location representation returned by the single-get endpoint and by the list when `detailed=true` — the canonical record (the events' embedded `EventLocation` is a nullable snapshot of it).
+ *
+ * Empty-as-empty rule: every field is always present. Collections are never null/omitted (arrays → `[]`, localized maps → `{}`); singular optional values are present as `null` when absent.
+ *
+ */
+export const zLocationWritable = z.object({
+    name: z.string(),
+    address: z.string().nullable(),
+    city: z.string().nullable(),
+    district: z.string().nullable(),
+    region: z.string().nullable(),
+    department: z.string().nullable(),
+    adminLevel3: z.string().nullable(),
+    adminLevel5: z.string().nullable(),
+    postalCode: z.string().nullable(),
+    insee: z.string().nullable(),
+    countryCode: z.string().nullable(),
+    latitude: z.number(),
+    longitude: z.number(),
+    timezone: z.string().nullable(),
+    description: zLocalizedString,
+    access: zLocalizedString,
+    image: z.string().nullable(),
+    imageCredits: z.string().nullable(),
+    website: z.string().nullable(),
+    email: z.string().nullable(),
+    phone: z.string().nullable(),
+    links: z.array(z.string()),
+    extIds: z.array(zLocationExtId),
+    additionalFields: zLocationAdditionalFields,
+    siret: z.string().nullable(),
+    verified: z.boolean()
+});
+
+export const zLocationListWritable = z.object({
+    data: z.array(z.union([zLocationSummaryWritable, zLocationWritable])),
+    pagination: zPagination
+});
+
+/**
  * Compact event representation returned by the list endpoint (`detailed: false`). It carries the base field set only — the detailed fields (longDescription, conditions, country, registration, createdAt, updatedAt, accessibility, age, state, links, extIds, sourceAgendas) are NOT present here; fetch a single event for those.
  *
  * Empty-as-empty rule: every field is always present. Collections are never null/omitted (arrays → `[]`, localized maps → `{}`); singular optional values are present as `null` when absent. `additionalFields` is typically `{}` in summaries because agenda additional fields are detailed-level.
@@ -483,7 +628,7 @@ export const zEventSummaryWritable = z.object({
     imageCredits: z.string().max(255).nullable(),
     keywords: zLocalizedStringArray,
     timings: z.array(zTiming),
-    location: zLocationWritable.nullable(),
+    location: zEventLocationWritable.nullable(),
     attendanceMode: zAttendanceMode,
     onlineAccessLink: z.string().url().nullable(),
     additionalFields: zAdditionalFields
@@ -503,7 +648,7 @@ export const zEventWritable = z.object({
     imageCredits: z.string().max(255).nullable(),
     keywords: zLocalizedStringArray,
     timings: z.array(zTiming),
-    location: zLocationWritable.nullable(),
+    location: zEventLocationWritable.nullable(),
     attendanceMode: zAttendanceMode,
     onlineAccessLink: z.string().url().nullable(),
     additionalFields: zAdditionalFields,
@@ -568,6 +713,38 @@ export const zAgendaFilterSlug = z.array(z.string());
  *
  */
 export const zAgendaFilterOfficial = z.boolean();
+
+/**
+ * Numeric uid of the location.
+ */
+export const zLocationUid = z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' });
+
+/**
+ * Free-text search over the locations' name, address, city, region and department.
+ *
+ */
+export const zLocationSearch = z.string();
+
+/**
+ * Restrict to the given location uid(s). Repeat the parameter (`uid=123&uid=456`) for multiple values.
+ *
+ */
+export const zLocationFilterUid = z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }));
+
+/**
+ * Match a location by an external identifier: `extId[key]=<system>&extId[value]=<id>`. Both parts are required.
+ *
+ */
+export const zLocationFilterExtId = z.object({
+    key: z.string(),
+    value: z.string()
+});
+
+/**
+ * Restrict to locations within a bounding box, given as `west,south,east,north` in decimal degrees (WGS84). Example: `bbox=2.224,48.815,2.469,48.902`.
+ *
+ */
+export const zLocationBoundingBox = z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$/);
 
 /**
  * Comma-separated list of facets to compute. Each returns an array of buckets over the filtered events, ordered by the facet's default ordering. Unknown facet names return `400`. Shapes by family: term facets yield `{ value, count }`; provenance (`originAgendas`, `sourceAgendas`) yields `{ agenda, count }`; `geohash` yields geo cluster buckets (`{ value, count, latitude, longitude }`); `viewport` yields a single bounding box object (or `null`); `timespan` yields the earliest/latest event date as `{ first, last }` (or `null`); `timings` yields a date histogram as `{ value, count }` buckets (bucket width set by `timingsInterval`); `dateRanges` yields a **dense daily grid** of `{ value, count }` over a calendar month (one bucket per day, including zero-count days; month set by `month`); `additionalFields` yields, per agenda choice/boolean field, its option counts as `{ <field>: { label, values:[{ value, label, count }] } }` (fields named by `additionalFieldsKeys`, or all readable when omitted); `additionalFieldMetrics` yields, per agenda numeric field, summary stats as `{ <field>: { label, metrics:{ sum, avg, max, min } } }` (fields named by `additionalFieldMetricsKeys`). Both honor per-field read access.
@@ -1100,3 +1277,43 @@ export const zAgendasEventsFacetsQuery = z.object({
  * Facet counts over the filtered set.
  */
 export const zAgendasEventsFacetsResponse = zFacetResults;
+
+export const zAgendasLocationsListPath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
+});
+
+export const zAgendasLocationsListQuery = z.object({
+    after: z.string().optional(),
+    limit: z.number().int().gte(1).lte(100).optional().default(20),
+    detailed: z.boolean().optional().default(false),
+    search: z.string().optional(),
+    uid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
+    extId: z.object({
+        key: z.string(),
+        value: z.string()
+    }).optional(),
+    bbox: z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$/).optional(),
+    createdAt: z.object({
+        gte: z.string().datetime().optional(),
+        lte: z.string().datetime().optional()
+    }).optional(),
+    updatedAt: z.object({
+        gte: z.string().datetime().optional(),
+        lte: z.string().datetime().optional()
+    }).optional()
+});
+
+/**
+ * A page of locations.
+ */
+export const zAgendasLocationsListResponse = zLocationList;
+
+export const zAgendasLocationsGetPath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
+    locationUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
+});
+
+/**
+ * The location.
+ */
+export const zAgendasLocationsGetResponse = zLocation;

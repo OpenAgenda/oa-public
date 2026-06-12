@@ -82,7 +82,11 @@ export type Image = {
     }>;
 };
 
-export type Location = {
+/**
+ * The denormalized location snapshot an event carries — a nullable subset captured at indexing time. The canonical, full record is the `Location` resource (`GET /agendas/{agendaUid}/locations/{locationUid}`, same `uid`).
+ *
+ */
+export type EventLocation = {
     readonly uid?: number;
     name?: string | null;
     address?: string | null;
@@ -107,6 +111,124 @@ export type Location = {
      * IANA time zone of the location.
      */
     timezone?: string | null;
+};
+
+/**
+ * Compact location representation returned by the list endpoint (`detailed: false`) — identity, coordinates and verification status only; fetch with `detailed=true` or the single-location get for the full record.
+ *
+ * Empty-as-empty rule: every field is always present; singular optional values are present as `null` when absent.
+ *
+ */
+export type LocationSummary = {
+    readonly uid: number;
+    name: string;
+    address: string | null;
+    latitude: number;
+    longitude: number;
+    /**
+     * Whether the location was verified by an agenda moderator.
+     */
+    verified: boolean;
+};
+
+/**
+ * Full location representation returned by the single-get endpoint and by the list when `detailed=true` — the canonical record (the events' embedded `EventLocation` is a nullable snapshot of it).
+ *
+ * Empty-as-empty rule: every field is always present. Collections are never null/omitted (arrays → `[]`, localized maps → `{}`); singular optional values are present as `null` when absent.
+ *
+ */
+export type Location = {
+    readonly uid: number;
+    readonly slug: string;
+    /**
+     * Uid of the shared location set this location belongs to, or `null` when it belongs to a single agenda's own pool.
+     *
+     */
+    readonly setUid: number | null;
+    name: string;
+    address: string | null;
+    city: string | null;
+    district: string | null;
+    region: string | null;
+    department: string | null;
+    adminLevel3: string | null;
+    adminLevel5: string | null;
+    postalCode: string | null;
+    /**
+     * INSEE code of the French municipality, when known.
+     */
+    insee: string | null;
+    /**
+     * ISO 3166-1 alpha-2 country code.
+     */
+    countryCode: string | null;
+    latitude: number;
+    longitude: number;
+    /**
+     * IANA time zone of the location.
+     */
+    timezone: string | null;
+    description: LocalizedString;
+    /**
+     * Localized practical information on how to reach the venue.
+     *
+     */
+    access: LocalizedString;
+    /**
+     * Absolute URL of the location's image.
+     */
+    image: string | null;
+    imageCredits: string | null;
+    website: string | null;
+    email: string | null;
+    phone: string | null;
+    links: Array<string>;
+    extIds: Array<LocationExtId>;
+    additionalFields: LocationAdditionalFields;
+    /**
+     * SIRET number of the venue operator, when provided.
+     */
+    siret: string | null;
+    /**
+     * Whether the location was verified by an agenda moderator.
+     */
+    verified: boolean;
+    readonly createdAt: string;
+    readonly updatedAt: string;
+};
+
+/**
+ * An external identifier mapping this location to a third-party system.
+ *
+ */
+export type LocationExtId = {
+    key?: string;
+    value?: string | null;
+};
+
+/**
+ * Agenda-specific additional fields of the location. Today this carries a single `tags` key — the location's tags filtered against the tag set declared in the agenda's schema. As the platform converges legacy tags into real additional fields, agenda-defined keys will appear here (non-breaking).
+ *
+ */
+export type LocationAdditionalFields = {
+    tags?: Array<{
+        id?: number;
+        /**
+         * Display label of the tag — a plain string or a localized map, as stored.
+         *
+         */
+        label?: string | LocalizedString;
+    }>;
+    [key: string]: unknown;
+};
+
+export type LocationList = {
+    /**
+     * `LocationSummary` items by default, or full `Location` items when `detailed=true`.
+     *
+     */
+    data: Array<LocationSummary | Location>;
+    pagination: Pagination;
 };
 
 export type Timing = {
@@ -363,7 +485,7 @@ export type EventSummary = {
      */
     readonly originAgenda: AgendaRef | null;
     timings: Array<Timing>;
-    location: Location | null;
+    location: EventLocation | null;
     /**
      * IANA time zone the timings are expressed in (null when unset).
      */
@@ -404,7 +526,7 @@ export type Event = {
      */
     readonly originAgenda: AgendaRef | null;
     timings: Array<Timing>;
-    location: Location | null;
+    location: EventLocation | null;
     /**
      * IANA time zone the timings are expressed in (null when unset).
      */
@@ -603,7 +725,11 @@ export type Timespan = {
     last: string;
 };
 
-export type LocationWritable = {
+/**
+ * The denormalized location snapshot an event carries — a nullable subset captured at indexing time. The canonical, full record is the `Location` resource (`GET /agendas/{agendaUid}/locations/{locationUid}`, same `uid`).
+ *
+ */
+export type EventLocationWritable = {
     name?: string | null;
     address?: string | null;
     city?: string | null;
@@ -630,6 +756,89 @@ export type LocationWritable = {
 };
 
 /**
+ * Compact location representation returned by the list endpoint (`detailed: false`) — identity, coordinates and verification status only; fetch with `detailed=true` or the single-location get for the full record.
+ *
+ * Empty-as-empty rule: every field is always present; singular optional values are present as `null` when absent.
+ *
+ */
+export type LocationSummaryWritable = {
+    name: string;
+    address: string | null;
+    latitude: number;
+    longitude: number;
+    /**
+     * Whether the location was verified by an agenda moderator.
+     */
+    verified: boolean;
+};
+
+/**
+ * Full location representation returned by the single-get endpoint and by the list when `detailed=true` — the canonical record (the events' embedded `EventLocation` is a nullable snapshot of it).
+ *
+ * Empty-as-empty rule: every field is always present. Collections are never null/omitted (arrays → `[]`, localized maps → `{}`); singular optional values are present as `null` when absent.
+ *
+ */
+export type LocationWritable = {
+    name: string;
+    address: string | null;
+    city: string | null;
+    district: string | null;
+    region: string | null;
+    department: string | null;
+    adminLevel3: string | null;
+    adminLevel5: string | null;
+    postalCode: string | null;
+    /**
+     * INSEE code of the French municipality, when known.
+     */
+    insee: string | null;
+    /**
+     * ISO 3166-1 alpha-2 country code.
+     */
+    countryCode: string | null;
+    latitude: number;
+    longitude: number;
+    /**
+     * IANA time zone of the location.
+     */
+    timezone: string | null;
+    description: LocalizedString;
+    /**
+     * Localized practical information on how to reach the venue.
+     *
+     */
+    access: LocalizedString;
+    /**
+     * Absolute URL of the location's image.
+     */
+    image: string | null;
+    imageCredits: string | null;
+    website: string | null;
+    email: string | null;
+    phone: string | null;
+    links: Array<string>;
+    extIds: Array<LocationExtId>;
+    additionalFields: LocationAdditionalFields;
+    /**
+     * SIRET number of the venue operator, when provided.
+     */
+    siret: string | null;
+    /**
+     * Whether the location was verified by an agenda moderator.
+     */
+    verified: boolean;
+};
+
+export type LocationListWritable = {
+    /**
+     * `LocationSummary` items by default, or full `Location` items when `detailed=true`.
+     *
+     */
+    data: Array<LocationSummaryWritable | LocationWritable>;
+    pagination: Pagination;
+};
+
+/**
  * Compact event representation returned by the list endpoint (`detailed: false`). It carries the base field set only — the detailed fields (longDescription, conditions, country, registration, createdAt, updatedAt, accessibility, age, state, links, extIds, sourceAgendas) are NOT present here; fetch a single event for those.
  *
  * Empty-as-empty rule: every field is always present. Collections are never null/omitted (arrays → `[]`, localized maps → `{}`); singular optional values are present as `null` when absent. `additionalFields` is typically `{}` in summaries because agenda additional fields are detailed-level.
@@ -643,7 +852,7 @@ export type EventSummaryWritable = {
     imageCredits: string | null;
     keywords: LocalizedStringArray;
     timings: Array<Timing>;
-    location: LocationWritable | null;
+    location: EventLocationWritable | null;
     attendanceMode: AttendanceMode;
     onlineAccessLink: string | null;
     additionalFields: AdditionalFields;
@@ -663,7 +872,7 @@ export type EventWritable = {
     imageCredits: string | null;
     keywords: LocalizedStringArray;
     timings: Array<Timing>;
-    location: LocationWritable | null;
+    location: EventLocationWritable | null;
     attendanceMode: AttendanceMode;
     onlineAccessLink: string | null;
     additionalFields: AdditionalFields;
@@ -732,6 +941,38 @@ export type AgendaFilterSlug = Array<string>;
  *
  */
 export type AgendaFilterOfficial = boolean;
+
+/**
+ * Numeric uid of the location.
+ */
+export type LocationUid = number;
+
+/**
+ * Free-text search over the locations' name, address, city, region and department.
+ *
+ */
+export type LocationSearch = string;
+
+/**
+ * Restrict to the given location uid(s). Repeat the parameter (`uid=123&uid=456`) for multiple values.
+ *
+ */
+export type LocationFilterUid = Array<number>;
+
+/**
+ * Match a location by an external identifier: `extId[key]=<system>&extId[value]=<id>`. Both parts are required.
+ *
+ */
+export type LocationFilterExtId = {
+    key: string;
+    value: string;
+};
+
+/**
+ * Restrict to locations within a bounding box, given as `west,south,east,north` in decimal degrees (WGS84). Example: `bbox=2.224,48.815,2.469,48.902`.
+ *
+ */
+export type LocationBoundingBox = string;
 
 /**
  * Comma-separated list of facets to compute. Each returns an array of buckets over the filtered events, ordered by the facet's default ordering. Unknown facet names return `400`. Shapes by family: term facets yield `{ value, count }`; provenance (`originAgendas`, `sourceAgendas`) yields `{ agenda, count }`; `geohash` yields geo cluster buckets (`{ value, count, latitude, longitude }`); `viewport` yields a single bounding box object (or `null`); `timespan` yields the earliest/latest event date as `{ first, last }` (or `null`); `timings` yields a date histogram as `{ value, count }` buckets (bucket width set by `timingsInterval`); `dateRanges` yields a **dense daily grid** of `{ value, count }` over a calendar month (one bucket per day, including zero-count days; month set by `month`); `additionalFields` yields, per agenda choice/boolean field, its option counts as `{ <field>: { label, values:[{ value, label, count }] } }` (fields named by `additionalFieldsKeys`, or all readable when omitted); `additionalFieldMetrics` yields, per agenda numeric field, summary stats as `{ <field>: { label, metrics:{ sum, avg, max, min } } }` (fields named by `additionalFieldMetricsKeys`). Both honor per-field read access.
@@ -1640,3 +1881,143 @@ export type AgendasEventsFacetsResponses = {
 };
 
 export type AgendasEventsFacetsResponse = AgendasEventsFacetsResponses[keyof AgendasEventsFacetsResponses];
+
+export type AgendasLocationsListData = {
+    body?: never;
+    path: {
+        /**
+         * Numeric uid of the agenda.
+         */
+        agendaUid: number;
+    };
+    query?: {
+        /**
+         * Opaque pagination cursor returned in `pagination.after` of the previous page. Omit it to fetch the first page.
+         *
+         */
+        after?: string;
+        /**
+         * Maximum number of items to return per page.
+         */
+        limit?: number;
+        /**
+         * When `true`, each item in `data` is returned in its detailed representation, including the detailed-only fields. When `false` (the default), items are the lighter summary representation.
+         *
+         */
+        detailed?: boolean;
+        /**
+         * Free-text search over the locations' name, address, city, region and department.
+         *
+         */
+        search?: string;
+        /**
+         * Restrict to the given location uid(s). Repeat the parameter (`uid=123&uid=456`) for multiple values.
+         *
+         */
+        uid?: Array<number>;
+        /**
+         * Match a location by an external identifier: `extId[key]=<system>&extId[value]=<id>`. Both parts are required.
+         *
+         */
+        extId?: {
+            key: string;
+            value: string;
+        };
+        /**
+         * Restrict to locations within a bounding box, given as `west,south,east,north` in decimal degrees (WGS84). Example: `bbox=2.224,48.815,2.469,48.902`.
+         *
+         */
+        bbox?: string;
+        /**
+         * Restrict by creation date, as RFC 3339 date-times: `createdAt[gte]=…&createdAt[lte]=…`.
+         *
+         */
+        createdAt?: {
+            gte?: string;
+            lte?: string;
+        };
+        /**
+         * Restrict by last-update date, as RFC 3339 date-times: `updatedAt[gte]=…&updatedAt[lte]=…`. Useful for incremental sync.
+         *
+         */
+        updatedAt?: {
+            gte?: string;
+            lte?: string;
+        };
+    };
+    url: '/agendas/{agendaUid}/locations';
+};
+
+export type AgendasLocationsListErrors = {
+    /**
+     * Malformed request — an invalid `after` cursor, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     *
+     */
+    400: Error;
+    /**
+     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     */
+    401: Error;
+    /**
+     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     */
+    403: Error;
+    /**
+     * Resource not found.
+     */
+    404: Error;
+};
+
+export type AgendasLocationsListError = AgendasLocationsListErrors[keyof AgendasLocationsListErrors];
+
+export type AgendasLocationsListResponses = {
+    /**
+     * A page of locations.
+     */
+    200: LocationList;
+};
+
+export type AgendasLocationsListResponse = AgendasLocationsListResponses[keyof AgendasLocationsListResponses];
+
+export type AgendasLocationsGetData = {
+    body?: never;
+    path: {
+        /**
+         * Numeric uid of the agenda.
+         */
+        agendaUid: number;
+        /**
+         * Numeric uid of the location.
+         */
+        locationUid: number;
+    };
+    query?: never;
+    url: '/agendas/{agendaUid}/locations/{locationUid}';
+};
+
+export type AgendasLocationsGetErrors = {
+    /**
+     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     */
+    401: Error;
+    /**
+     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     */
+    403: Error;
+    /**
+     * Agenda or location not found — or location merged into another one (`code: merged`, surviving uid in `details.mergedIn`).
+     *
+     */
+    404: Error;
+};
+
+export type AgendasLocationsGetError = AgendasLocationsGetErrors[keyof AgendasLocationsGetErrors];
+
+export type AgendasLocationsGetResponses = {
+    /**
+     * The location.
+     */
+    200: Location;
+};
+
+export type AgendasLocationsGetResponse = AgendasLocationsGetResponses[keyof AgendasLocationsGetResponses];

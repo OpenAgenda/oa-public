@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { AgendasEventsFacetsData, AgendasEventsFacetsErrors, AgendasEventsFacetsResponses, AgendasEventsGetData, AgendasEventsGetErrors, AgendasEventsGetResponses, AgendasEventsListData, AgendasEventsListErrors, AgendasEventsListResponses, AgendasGetData, AgendasGetErrors, AgendasGetResponses, AgendasListData, AgendasListErrors, AgendasListResponses } from './types.gen';
+import type { AgendasEventsFacetsData, AgendasEventsFacetsErrors, AgendasEventsFacetsResponses, AgendasEventsGetData, AgendasEventsGetErrors, AgendasEventsGetResponses, AgendasEventsListData, AgendasEventsListErrors, AgendasEventsListResponses, AgendasGetData, AgendasGetErrors, AgendasGetResponses, AgendasListData, AgendasListErrors, AgendasListResponses, AgendasLocationsGetData, AgendasLocationsGetErrors, AgendasLocationsGetResponses, AgendasLocationsListData, AgendasLocationsListErrors, AgendasLocationsListResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -100,6 +100,44 @@ export class Events extends HeyApiClient {
     }
 }
 
+export class Locations extends HeyApiClient {
+    /**
+     * List an agenda's locations
+     *
+     * Returns a cursor-paginated list of the agenda's locations, most recently created first. Pass the `after` cursor returned in `pagination.after` to fetch the next page; resend the same filters (they are not encoded in the cursor).
+     *
+     * By default items are the lighter `LocationSummary`; pass `detailed=true` for the full `Location` (the same shape as the single-location get).
+     *
+     * When the agenda shares its locations through a location set, the whole set is listed — including locations contributed by the other agendas of the set (their `setUid` carries the set's uid).
+     *
+     * Malformed filter values return `400`.
+     *
+     */
+    public list<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsListData, ThrowOnError>) {
+        return (options.client ?? this.client).get<AgendasLocationsListResponses, AgendasLocationsListErrors, ThrowOnError>({
+            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            url: '/agendas/{agendaUid}/locations',
+            ...options
+        });
+    }
+    
+    /**
+     * Get a location
+     *
+     * Returns a single location of the agenda (or of its shared location set) in the full `Location` shape.
+     *
+     * A location that was merged into another one answers `404` with the machine-readable code `merged` and the surviving location's uid in `error.details.mergedIn` — use it to repair stale references. Any other deleted or unknown uid is a plain `404` with code `not_found`.
+     *
+     */
+    public get<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsGetData, ThrowOnError>) {
+        return (options.client ?? this.client).get<AgendasLocationsGetResponses, AgendasLocationsGetErrors, ThrowOnError>({
+            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            url: '/agendas/{agendaUid}/locations/{locationUid}',
+            ...options
+        });
+    }
+}
+
 export class Agendas extends HeyApiClient {
     /**
      * List agendas
@@ -136,6 +174,11 @@ export class Agendas extends HeyApiClient {
     private _events?: Events;
     get events(): Events {
         return this._events ??= new Events({ client: this.client });
+    }
+    
+    private _locations?: Locations;
+    get locations(): Locations {
+        return this._locations ??= new Locations({ client: this.client });
     }
 }
 
