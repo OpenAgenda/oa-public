@@ -79,9 +79,11 @@ export class Events extends HeyApiClient {
     }
     
     /**
-     * Faceted counts for an agenda's events
+     * Faceted counts for an agenda's events — native facets plus its `additionalFields`
      *
      * Returns event counts grouped by the requested facets, computed over the **same filtered set** as `agendas.events.list`. Pass the same filter parameters to scope the counts (e.g. `?keyword=concert` then facet on `cities`). No event data is returned — only `{ value, count }` buckets per facet.
+     *
+     * The native facets are not the whole story: the agenda's own fields (its categories, labels…) are faceted by `additionalFields` — request it too for an agenda-wide stats overview (`additionalFieldMetrics` covers its numeric fields). The fields themselves are declared by the agenda's event form schema (`GET /agendas/{agendaUid}/events/schema`).
      *
      * Only published events are counted. `facets` selects which facets to compute; an unknown facet name returns `400`. There is no pagination: facets describe the whole filtered set.
      *
@@ -102,7 +104,7 @@ export class Events extends HeyApiClient {
     /**
      * Event form schema of an agenda
      *
-     * Returns the agenda's **merged event form schema** — the dynamic contract the events of this agenda follow. It merges the platform's native event fields with the network's and the agenda's own declarations: an agenda can add its own additional fields and override natives (make one required, restrict its options, relabel it). This is the same schema the OpenAgenda UI uses to build the event form, served raw: use it to know which fields exist, which are required and what their options are — e.g. to build payloads for the (upcoming) event write operations, or to interpret `additionalFields` on events.
+     * Returns the agenda's **merged event form schema** — the dynamic contract the events of this agenda follow. It merges the platform's native event fields with the network's and the agenda's own declarations: an agenda can add its own additional fields and override natives (make one required, restrict its options, relabel it). This is the same schema the OpenAgenda UI uses to build the event form, served raw: use it to know which fields exist, which are required and what their options are — e.g. to build payloads for the (upcoming) event write operations, to interpret `additionalFields` on events, or to discover the agenda-specific facets of the facets endpoint.
      *
      * The schema is served complete: a field's `read` access levels gate the visibility of its VALUE on events (the event reads enforce them), not the visibility of its descriptor here — a contributor needs the descriptor of every field they can fill, even when only moderators read its value.
      *
@@ -122,7 +124,7 @@ export class Locations extends HeyApiClient {
     /**
      * List an agenda's locations
      *
-     * Returns a cursor-paginated list of the agenda's locations, most recently created first. Pass the `after` cursor returned in `pagination.after` to fetch the next page; resend the same filters (they are not encoded in the cursor).
+     * Returns a cursor-paginated list of the agenda's locations, newest first (insertion order — this matches creation date except for records whose `createdAt` was backfilled, e.g. imports preserving source dates). Pass the `after` cursor returned in `pagination.after` to fetch the next page; resend the same filters (they are not encoded in the cursor).
      *
      * By default items are the lighter `LocationSummary`; pass `detailed=true` for the full `Location` (the same shape as the single-location get).
      *

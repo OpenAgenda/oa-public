@@ -170,7 +170,7 @@ export type Location = {
     timezone: string | null;
     description: LocalizedString;
     /**
-     * Localized practical information on how to reach the venue.
+     * Localized practical information on how to reach the location.
      *
      */
     access: LocalizedString;
@@ -186,7 +186,7 @@ export type Location = {
     extIds: Array<LocationExtId>;
     additionalFields: LocationAdditionalFields;
     /**
-     * SIRET number of the venue operator, when provided.
+     * SIRET number (French establishment id) of the location's operator, when provided.
      */
     siret: string | null;
     /**
@@ -227,13 +227,13 @@ export type LocationList = {
      * `LocationSummary` items by default, or full `Location` items when `detailed=true`.
      *
      */
-    data: Array<LocationSummary | Location>;
+    data: Array<Location | LocationSummary>;
     pagination: Pagination;
 };
 
 export type EventFormSchema = {
     /**
-     * Every field readable at the caller's access level — native event fields (with any per-agenda overrides applied) and the agenda's/network's additional fields (`schemaId` non-null).
+     * Every field of the merged schema — native event fields (with any per-agenda overrides applied) and the agenda's/network's additional fields (`schemaId` non-null). Served complete: a field's `read` access levels gate the visibility of its VALUE on events, not the presence of its descriptor here.
      *
      */
     fields: Array<FormSchemaField>;
@@ -360,7 +360,7 @@ export type MeAgendaList = {
      * `MeAgendaItem` items by default, or `MeAgendaItemDetailed` items when `detailed=true`.
      *
      */
-    data: Array<MeAgendaItem | MeAgendaItemDetailed>;
+    data: Array<MeAgendaItemDetailed | MeAgendaItem>;
     pagination: Pagination;
 };
 
@@ -450,7 +450,7 @@ export type ExtId = {
 };
 
 /**
- * Agenda-specific additional fields. The available keys and the shape of each value are defined by the agenda's event schema (see GET /agendas/{agendaUid}/settings/eventSchema). Each value follows its field's fieldType (text, choice, multilingual, …).
+ * Agenda-specific additional fields. The available keys and the shape of each value are defined by the agenda's event form schema (see `GET /agendas/{agendaUid}/events/schema`). Each value follows its field's fieldType (text, choice, multilingual, …).
  *
  */
 export type AdditionalFields = {
@@ -569,7 +569,7 @@ export type AgendaList = {
      * `AgendaSummary` items by default, or `AgendaDetailed` items when `detailed=true`.
      *
      */
-    data: Array<AgendaSummary | AgendaDetailed>;
+    data: Array<AgendaDetailed | AgendaSummary>;
     pagination: Pagination;
 };
 
@@ -698,7 +698,7 @@ export type EventList = {
      * `EventSummary` items by default, or full `Event` items when `detailed=true` is passed. The two are mutually exclusive (`additionalProperties: false`), so each item validates against exactly one branch.
      *
      */
-    data: Array<EventSummary | Event>;
+    data: Array<Event | EventSummary>;
     pagination: Pagination;
 };
 
@@ -732,6 +732,7 @@ export type FacetResults = {
         attendanceModes?: Array<FacetBucket>;
         originAgendas?: Array<AgendaFacetBucket>;
         sourceAgendas?: Array<SourceAgendaFacetBucket>;
+        locations?: Array<LocationFacetBucket>;
         geohash?: Array<GeoFacetBucket>;
         viewport?: Viewport | null;
         timespan?: Timespan | null;
@@ -817,6 +818,21 @@ export type SourceAgendaFacetBucket = {
     agenda: SourceAgendaRef;
     /**
      * Number of events in the filtered set from this source agenda.
+     */
+    count: number;
+};
+
+/**
+ * A location facet bucket — events grouped by their attached location. `location` carries only what the aggregation indexes (uid and name), narrower than events' `location`. Use the uid with the `locationUid` filter.
+ *
+ */
+export type LocationFacetBucket = {
+    location: {
+        uid: number;
+        name: string | null;
+    };
+    /**
+     * Number of events in the filtered set at this location.
      */
     count: number;
 };
@@ -937,7 +953,7 @@ export type LocationWritable = {
     timezone: string | null;
     description: LocalizedString;
     /**
-     * Localized practical information on how to reach the venue.
+     * Localized practical information on how to reach the location.
      *
      */
     access: LocalizedString;
@@ -953,7 +969,7 @@ export type LocationWritable = {
     extIds: Array<LocationExtId>;
     additionalFields: LocationAdditionalFields;
     /**
-     * SIRET number of the venue operator, when provided.
+     * SIRET number (French establishment id) of the location's operator, when provided.
      */
     siret: string | null;
     /**
@@ -967,7 +983,7 @@ export type LocationListWritable = {
      * `LocationSummary` items by default, or full `Location` items when `detailed=true`.
      *
      */
-    data: Array<LocationSummaryWritable | LocationWritable>;
+    data: Array<LocationWritable | LocationSummaryWritable>;
     pagination: Pagination;
 };
 
@@ -1007,7 +1023,7 @@ export type MeAgendaListWritable = {
      * `MeAgendaItem` items by default, or `MeAgendaItemDetailed` items when `detailed=true`.
      *
      */
-    data: Array<MeAgendaItemWritable | MeAgendaItemDetailedWritable>;
+    data: Array<MeAgendaItemDetailedWritable | MeAgendaItemWritable>;
     pagination: Pagination;
 };
 
@@ -1062,7 +1078,7 @@ export type EventListWritable = {
      * `EventSummary` items by default, or full `Event` items when `detailed=true` is passed. The two are mutually exclusive (`additionalProperties: false`), so each item validates against exactly one branch.
      *
      */
-    data: Array<EventSummaryWritable | EventWritable>;
+    data: Array<EventWritable | EventSummaryWritable>;
     pagination: Pagination;
 };
 
@@ -1148,10 +1164,11 @@ export type LocationFilterExtId = {
 export type LocationBoundingBox = string;
 
 /**
- * Comma-separated list of facets to compute. Each returns an array of buckets over the filtered events, ordered by the facet's default ordering. Unknown facet names return `400`. Shapes by family: term facets yield `{ value, count }`; provenance (`originAgendas`, `sourceAgendas`) yields `{ agenda, count }`; `geohash` yields geo cluster buckets (`{ value, count, latitude, longitude }`); `viewport` yields a single bounding box object (or `null`); `timespan` yields the earliest/latest event date as `{ first, last }` (or `null`); `timings` yields a date histogram as `{ value, count }` buckets (bucket width set by `timingsInterval`); `dateRanges` yields a **dense daily grid** of `{ value, count }` over a calendar month (one bucket per day, including zero-count days; month set by `month`); `additionalFields` yields, per agenda choice/boolean field, its option counts as `{ <field>: { label, values:[{ value, label, count }] } }` (fields named by `additionalFieldsKeys`, or all readable when omitted); `additionalFieldMetrics` yields, per agenda numeric field, summary stats as `{ <field>: { label, metrics:{ sum, avg, max, min } } }` (fields named by `additionalFieldMetricsKeys`). Both honor per-field read access.
+ * Comma-separated list of facets to compute. Each returns an array of buckets over the filtered events, ordered by the facet's default ordering. Unknown facet names return `400`. Shapes by family: term facets yield `{ value, count }`; provenance (`originAgendas`, `sourceAgendas`) yields `{ agenda, count }`; `locations` yields `{ location: { uid, name }, count }` buckets (the uid feeds the `locationUid` filter); `geohash` yields geo cluster buckets (`{ value, count, latitude, longitude }`); `viewport` yields a single bounding box object (or `null`); `timespan` yields the earliest/latest event date as `{ first, last }` (or `null`); `timings` yields a date histogram as `{ value, count }` buckets (bucket width set by `timingsInterval`); `dateRanges` yields a **dense daily grid** of `{ value, count }` over a calendar month (one bucket per day, including zero-count days; month set by `month`); `additionalFields` yields, per agenda choice/boolean field, its option counts as `{ <field>: { label, values:[{ value, label, count }] } }` (fields named by `additionalFieldsKeys`, or all readable when omitted); `additionalFieldMetrics` yields, per agenda numeric field, summary stats as `{ <field>: { label, metrics:{ sum, avg, max, min } } }` (fields named by `additionalFieldMetricsKeys`). Both honor per-field read access.
+ * Bucket-list facets (the term, provenance and `locations` families) currently return the **top 10** buckets by event count; a way to request more (a size parameter and/or facet pagination) is under consideration. `additionalFields` is exhaustive (one bucket per option). The fields, their option ids and their labels are the ones the agenda's event form schema declares (`GET /agendas/{agendaUid}/events/schema`).
  *
  */
-export type Facets = Array<'cities' | 'regions' | 'departments' | 'districts' | 'countryCodes' | 'keywords' | 'languages' | 'accessibilities' | 'status' | 'attendanceModes' | 'originAgendas' | 'sourceAgendas' | 'geohash' | 'viewport' | 'timespan' | 'timings' | 'dateRanges' | 'additionalFields' | 'additionalFieldMetrics'>;
+export type Facets = Array<'additionalFields' | 'additionalFieldMetrics' | 'cities' | 'regions' | 'departments' | 'districts' | 'countryCodes' | 'keywords' | 'languages' | 'accessibilities' | 'status' | 'attendanceModes' | 'originAgendas' | 'sourceAgendas' | 'locations' | 'geohash' | 'viewport' | 'timespan' | 'timings' | 'dateRanges'>;
 
 /**
  * Clustering zoom level for the `geohash` facet (higher = finer grid, more clusters). Ignored unless `geohash` is requested.
@@ -1172,13 +1189,13 @@ export type TimingsInterval = 'hour' | 'day' | 'week' | 'month' | 'year';
 export type Month = string;
 
 /**
- * Comma-separated agenda choice/boolean field names to compute the `additionalFields` facet on. Omit to get every such field readable at the caller's access level. An unknown or non-readable field name returns `400`. Ignored unless `additionalFields` is requested.
+ * Comma-separated agenda choice/boolean field names to compute the `additionalFields` facet on — the names the agenda's event form schema declares (`GET /agendas/{agendaUid}/events/schema`). Omit to get every such field readable at the caller's access level. An unknown or non-readable field name returns `400`. Ignored unless `additionalFields` is requested.
  *
  */
 export type AdditionalFieldsKeys = Array<string>;
 
 /**
- * Comma-separated agenda numeric field names to compute the `additionalFieldMetrics` facet on. Omit to get every numeric field readable at the caller's access level. An unknown or non-readable field name returns `400`. Ignored unless `additionalFieldMetrics` is requested.
+ * Comma-separated agenda numeric field names to compute the `additionalFieldMetrics` facet on — the names the agenda's event form schema declares (`GET /agendas/{agendaUid}/events/schema`). Omit to get every numeric field readable at the caller's access level. An unknown or non-readable field name returns `400`. Ignored unless `additionalFieldMetrics` is requested.
  *
  */
 export type AdditionalFieldMetricsKeys = Array<string>;
@@ -1353,7 +1370,7 @@ export type FilterSourceAgendaUid = Array<number>;
 export type FilterRelative = Array<'passed' | 'upcoming' | 'current'>;
 
 /**
- * Restrict to events having a timing that begins within the range, as RFC 3339 date-times: `timings[gte]=…&timings[lte]=…`. For now-relative windows, prefer `relative`.
+ * Restrict to events having a timing that begins within the range, as RFC 3339 date-times: `timings[gte]=…&timings[lte]=…`. For now-relative windows, prefer `relative`. Date-times must carry an explicit offset (e.g. `Z`); a bare date (`YYYY-MM-DD`) is read as UTC midnight.
  *
  */
 export type FilterTimings = {
@@ -1371,7 +1388,7 @@ export type FilterLocalTime = {
 };
 
 /**
- * Restrict by creation date, as RFC 3339 date-times: `createdAt[gte]=…&createdAt[lte]=…`.
+ * Restrict by creation date, as RFC 3339 date-times: `createdAt[gte]=…&createdAt[lte]=…`. Date-times must carry an explicit offset (e.g. `Z`); a bare date (`YYYY-MM-DD`) is read as UTC midnight.
  *
  */
 export type FilterCreatedAt = {
@@ -1380,7 +1397,7 @@ export type FilterCreatedAt = {
 };
 
 /**
- * Restrict by last-update date, as RFC 3339 date-times: `updatedAt[gte]=…&updatedAt[lte]=…`. Useful for incremental sync.
+ * Restrict by last-update date, as RFC 3339 date-times: `updatedAt[gte]=…&updatedAt[lte]=…`. Useful for incremental sync. Date-times must carry an explicit offset (e.g. `Z`); a bare date (`YYYY-MM-DD`) is read as UTC midnight.
  *
  */
 export type FilterUpdatedAt = {
@@ -1398,7 +1415,7 @@ export type FilterAge = {
 };
 
 /**
- * Filter on agenda-specific additional fields, addressed by field name: `additionalFields[<fieldName>]=<value>`. Available fields and their value types come from the agenda's event schema (GET /agendas/{agendaUid}/settings/eventSchema). For numeric fields, use a range object: `additionalFields[<fieldName>][gte]=…&additionalFields[<fieldName>][lte]=…`.
+ * Filter on agenda-specific additional fields, addressed by field name: `additionalFields[<fieldName>]=<value>`. Available fields and their value types come from the agenda's event form schema (`GET /agendas/{agendaUid}/events/schema`). For numeric fields, use a range object: `additionalFields[<fieldName>][gte]=…&additionalFields[<fieldName>][lte]=…`.
  *
  */
 export type FilterAdditionalFields = {
@@ -1447,7 +1464,7 @@ export type AgendasListData = {
 
 export type AgendasListErrors = {
     /**
-     * Malformed request — an invalid `after` cursor, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
      *
      */
     400: Error;
@@ -1675,7 +1692,7 @@ export type AgendasEventsListData = {
          */
         relative?: Array<'passed' | 'upcoming' | 'current'>;
         /**
-         * Restrict to events having a timing that begins within the range, as RFC 3339 date-times: `timings[gte]=…&timings[lte]=…`. For now-relative windows, prefer `relative`.
+         * Restrict to events having a timing that begins within the range, as RFC 3339 date-times: `timings[gte]=…&timings[lte]=…`. For now-relative windows, prefer `relative`. Date-times must carry an explicit offset (e.g. `Z`); a bare date (`YYYY-MM-DD`) is read as UTC midnight.
          *
          */
         timings?: {
@@ -1691,7 +1708,7 @@ export type AgendasEventsListData = {
             lte?: number;
         };
         /**
-         * Restrict by creation date, as RFC 3339 date-times: `createdAt[gte]=…&createdAt[lte]=…`.
+         * Restrict by creation date, as RFC 3339 date-times: `createdAt[gte]=…&createdAt[lte]=…`. Date-times must carry an explicit offset (e.g. `Z`); a bare date (`YYYY-MM-DD`) is read as UTC midnight.
          *
          */
         createdAt?: {
@@ -1699,7 +1716,7 @@ export type AgendasEventsListData = {
             lte?: string;
         };
         /**
-         * Restrict by last-update date, as RFC 3339 date-times: `updatedAt[gte]=…&updatedAt[lte]=…`. Useful for incremental sync.
+         * Restrict by last-update date, as RFC 3339 date-times: `updatedAt[gte]=…&updatedAt[lte]=…`. Useful for incremental sync. Date-times must carry an explicit offset (e.g. `Z`); a bare date (`YYYY-MM-DD`) is read as UTC midnight.
          *
          */
         updatedAt?: {
@@ -1715,7 +1732,7 @@ export type AgendasEventsListData = {
             lte?: number;
         };
         /**
-         * Filter on agenda-specific additional fields, addressed by field name: `additionalFields[<fieldName>]=<value>`. Available fields and their value types come from the agenda's event schema (GET /agendas/{agendaUid}/settings/eventSchema). For numeric fields, use a range object: `additionalFields[<fieldName>][gte]=…&additionalFields[<fieldName>][lte]=…`.
+         * Filter on agenda-specific additional fields, addressed by field name: `additionalFields[<fieldName>]=<value>`. Available fields and their value types come from the agenda's event form schema (`GET /agendas/{agendaUid}/events/schema`). For numeric fields, use a range object: `additionalFields[<fieldName>][gte]=…&additionalFields[<fieldName>][lte]=…`.
          *
          */
         additionalFields?: {
@@ -1727,7 +1744,7 @@ export type AgendasEventsListData = {
 
 export type AgendasEventsListErrors = {
     /**
-     * Malformed request — an invalid `after` cursor, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
      *
      */
     400: Error;
@@ -1808,10 +1825,11 @@ export type AgendasEventsFacetsData = {
     };
     query: {
         /**
-         * Comma-separated list of facets to compute. Each returns an array of buckets over the filtered events, ordered by the facet's default ordering. Unknown facet names return `400`. Shapes by family: term facets yield `{ value, count }`; provenance (`originAgendas`, `sourceAgendas`) yields `{ agenda, count }`; `geohash` yields geo cluster buckets (`{ value, count, latitude, longitude }`); `viewport` yields a single bounding box object (or `null`); `timespan` yields the earliest/latest event date as `{ first, last }` (or `null`); `timings` yields a date histogram as `{ value, count }` buckets (bucket width set by `timingsInterval`); `dateRanges` yields a **dense daily grid** of `{ value, count }` over a calendar month (one bucket per day, including zero-count days; month set by `month`); `additionalFields` yields, per agenda choice/boolean field, its option counts as `{ <field>: { label, values:[{ value, label, count }] } }` (fields named by `additionalFieldsKeys`, or all readable when omitted); `additionalFieldMetrics` yields, per agenda numeric field, summary stats as `{ <field>: { label, metrics:{ sum, avg, max, min } } }` (fields named by `additionalFieldMetricsKeys`). Both honor per-field read access.
+         * Comma-separated list of facets to compute. Each returns an array of buckets over the filtered events, ordered by the facet's default ordering. Unknown facet names return `400`. Shapes by family: term facets yield `{ value, count }`; provenance (`originAgendas`, `sourceAgendas`) yields `{ agenda, count }`; `locations` yields `{ location: { uid, name }, count }` buckets (the uid feeds the `locationUid` filter); `geohash` yields geo cluster buckets (`{ value, count, latitude, longitude }`); `viewport` yields a single bounding box object (or `null`); `timespan` yields the earliest/latest event date as `{ first, last }` (or `null`); `timings` yields a date histogram as `{ value, count }` buckets (bucket width set by `timingsInterval`); `dateRanges` yields a **dense daily grid** of `{ value, count }` over a calendar month (one bucket per day, including zero-count days; month set by `month`); `additionalFields` yields, per agenda choice/boolean field, its option counts as `{ <field>: { label, values:[{ value, label, count }] } }` (fields named by `additionalFieldsKeys`, or all readable when omitted); `additionalFieldMetrics` yields, per agenda numeric field, summary stats as `{ <field>: { label, metrics:{ sum, avg, max, min } } }` (fields named by `additionalFieldMetricsKeys`). Both honor per-field read access.
+         * Bucket-list facets (the term, provenance and `locations` families) currently return the **top 10** buckets by event count; a way to request more (a size parameter and/or facet pagination) is under consideration. `additionalFields` is exhaustive (one bucket per option). The fields, their option ids and their labels are the ones the agenda's event form schema declares (`GET /agendas/{agendaUid}/events/schema`).
          *
          */
-        facets: Array<'cities' | 'regions' | 'departments' | 'districts' | 'countryCodes' | 'keywords' | 'languages' | 'accessibilities' | 'status' | 'attendanceModes' | 'originAgendas' | 'sourceAgendas' | 'geohash' | 'viewport' | 'timespan' | 'timings' | 'dateRanges' | 'additionalFields' | 'additionalFieldMetrics'>;
+        facets: Array<'additionalFields' | 'additionalFieldMetrics' | 'cities' | 'regions' | 'departments' | 'districts' | 'countryCodes' | 'keywords' | 'languages' | 'accessibilities' | 'status' | 'attendanceModes' | 'originAgendas' | 'sourceAgendas' | 'locations' | 'geohash' | 'viewport' | 'timespan' | 'timings' | 'dateRanges'>;
         /**
          * Clustering zoom level for the `geohash` facet (higher = finer grid, more clusters). Ignored unless `geohash` is requested.
          *
@@ -1828,12 +1846,12 @@ export type AgendasEventsFacetsData = {
          */
         month?: string;
         /**
-         * Comma-separated agenda choice/boolean field names to compute the `additionalFields` facet on. Omit to get every such field readable at the caller's access level. An unknown or non-readable field name returns `400`. Ignored unless `additionalFields` is requested.
+         * Comma-separated agenda choice/boolean field names to compute the `additionalFields` facet on — the names the agenda's event form schema declares (`GET /agendas/{agendaUid}/events/schema`). Omit to get every such field readable at the caller's access level. An unknown or non-readable field name returns `400`. Ignored unless `additionalFields` is requested.
          *
          */
         additionalFieldsKeys?: Array<string>;
         /**
-         * Comma-separated agenda numeric field names to compute the `additionalFieldMetrics` facet on. Omit to get every numeric field readable at the caller's access level. An unknown or non-readable field name returns `400`. Ignored unless `additionalFieldMetrics` is requested.
+         * Comma-separated agenda numeric field names to compute the `additionalFieldMetrics` facet on — the names the agenda's event form schema declares (`GET /agendas/{agendaUid}/events/schema`). Omit to get every numeric field readable at the caller's access level. An unknown or non-readable field name returns `400`. Ignored unless `additionalFieldMetrics` is requested.
          *
          */
         additionalFieldMetricsKeys?: Array<string>;
@@ -1974,7 +1992,7 @@ export type AgendasEventsFacetsData = {
          */
         relative?: Array<'passed' | 'upcoming' | 'current'>;
         /**
-         * Restrict to events having a timing that begins within the range, as RFC 3339 date-times: `timings[gte]=…&timings[lte]=…`. For now-relative windows, prefer `relative`.
+         * Restrict to events having a timing that begins within the range, as RFC 3339 date-times: `timings[gte]=…&timings[lte]=…`. For now-relative windows, prefer `relative`. Date-times must carry an explicit offset (e.g. `Z`); a bare date (`YYYY-MM-DD`) is read as UTC midnight.
          *
          */
         timings?: {
@@ -1990,7 +2008,7 @@ export type AgendasEventsFacetsData = {
             lte?: number;
         };
         /**
-         * Restrict by creation date, as RFC 3339 date-times: `createdAt[gte]=…&createdAt[lte]=…`.
+         * Restrict by creation date, as RFC 3339 date-times: `createdAt[gte]=…&createdAt[lte]=…`. Date-times must carry an explicit offset (e.g. `Z`); a bare date (`YYYY-MM-DD`) is read as UTC midnight.
          *
          */
         createdAt?: {
@@ -1998,7 +2016,7 @@ export type AgendasEventsFacetsData = {
             lte?: string;
         };
         /**
-         * Restrict by last-update date, as RFC 3339 date-times: `updatedAt[gte]=…&updatedAt[lte]=…`. Useful for incremental sync.
+         * Restrict by last-update date, as RFC 3339 date-times: `updatedAt[gte]=…&updatedAt[lte]=…`. Useful for incremental sync. Date-times must carry an explicit offset (e.g. `Z`); a bare date (`YYYY-MM-DD`) is read as UTC midnight.
          *
          */
         updatedAt?: {
@@ -2014,7 +2032,7 @@ export type AgendasEventsFacetsData = {
             lte?: number;
         };
         /**
-         * Filter on agenda-specific additional fields, addressed by field name: `additionalFields[<fieldName>]=<value>`. Available fields and their value types come from the agenda's event schema (GET /agendas/{agendaUid}/settings/eventSchema). For numeric fields, use a range object: `additionalFields[<fieldName>][gte]=…&additionalFields[<fieldName>][lte]=…`.
+         * Filter on agenda-specific additional fields, addressed by field name: `additionalFields[<fieldName>]=<value>`. Available fields and their value types come from the agenda's event form schema (`GET /agendas/{agendaUid}/events/schema`). For numeric fields, use a range object: `additionalFields[<fieldName>][gte]=…&additionalFields[<fieldName>][lte]=…`.
          *
          */
         additionalFields?: {
@@ -2026,7 +2044,7 @@ export type AgendasEventsFacetsData = {
 
 export type AgendasEventsFacetsErrors = {
     /**
-     * Malformed request — an invalid `after` cursor, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
      *
      */
     400: Error;
@@ -2117,7 +2135,7 @@ export type MeAgendasListData = {
 
 export type MeAgendasListErrors = {
     /**
-     * Malformed request — an invalid `after` cursor, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
      *
      */
     400: Error;
@@ -2189,7 +2207,7 @@ export type AgendasLocationsListData = {
          */
         bbox?: string;
         /**
-         * Restrict by creation date, as RFC 3339 date-times: `createdAt[gte]=…&createdAt[lte]=…`.
+         * Restrict by creation date, as RFC 3339 date-times: `createdAt[gte]=…&createdAt[lte]=…`. Date-times must carry an explicit offset (e.g. `Z`); a bare date (`YYYY-MM-DD`) is read as UTC midnight.
          *
          */
         createdAt?: {
@@ -2197,7 +2215,7 @@ export type AgendasLocationsListData = {
             lte?: string;
         };
         /**
-         * Restrict by last-update date, as RFC 3339 date-times: `updatedAt[gte]=…&updatedAt[lte]=…`. Useful for incremental sync.
+         * Restrict by last-update date, as RFC 3339 date-times: `updatedAt[gte]=…&updatedAt[lte]=…`. Useful for incremental sync. Date-times must carry an explicit offset (e.g. `Z`); a bare date (`YYYY-MM-DD`) is read as UTC midnight.
          *
          */
         updatedAt?: {
@@ -2210,7 +2228,7 @@ export type AgendasLocationsListData = {
 
 export type AgendasLocationsListErrors = {
     /**
-     * Malformed request — an invalid `after` cursor, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
      *
      */
     400: Error;
@@ -2256,6 +2274,11 @@ export type AgendasLocationsGetData = {
 };
 
 export type AgendasLocationsGetErrors = {
+    /**
+     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     *
+     */
+    400: Error;
     /**
      * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
      */
