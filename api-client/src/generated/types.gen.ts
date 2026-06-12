@@ -304,8 +304,30 @@ export type MeAgendaItem = {
     role: MemberRole;
 };
 
+/**
+ * The `detailed=true` variant of `MeAgendaItem`: the membership item plus `createdAt`, `network` and `locationSet`.
+ *
+ */
+export type MeAgendaItemDetailed = {
+    readonly uid: number;
+    readonly slug: string;
+    title: string | null;
+    description: string | null;
+    image: string | null;
+    official: boolean;
+    private: boolean;
+    role: MemberRole;
+    createdAt: string | null;
+    network: AgendaNetworkRef;
+    locationSet: AgendaLocationSetRef;
+};
+
 export type MeAgendaList = {
-    data: Array<MeAgendaItem>;
+    /**
+     * `MeAgendaItem` items by default, or `MeAgendaItemDetailed` items when `detailed=true`.
+     *
+     */
+    data: Array<MeAgendaItem | MeAgendaItemDetailed>;
     pagination: Pagination;
 };
 
@@ -931,8 +953,28 @@ export type MeAgendaItemWritable = {
     role: MemberRole;
 };
 
+/**
+ * The `detailed=true` variant of `MeAgendaItem`: the membership item plus `createdAt`, `network` and `locationSet`.
+ *
+ */
+export type MeAgendaItemDetailedWritable = {
+    title: string | null;
+    description: string | null;
+    image: string | null;
+    official: boolean;
+    private: boolean;
+    role: MemberRole;
+    createdAt: string | null;
+    network: AgendaNetworkRef;
+    locationSet: AgendaLocationSetRef;
+};
+
 export type MeAgendaListWritable = {
-    data: Array<MeAgendaItemWritable>;
+    /**
+     * `MeAgendaItem` items by default, or `MeAgendaItemDetailed` items when `detailed=true`.
+     *
+     */
+    data: Array<MeAgendaItemWritable | MeAgendaItemDetailedWritable>;
     pagination: Pagination;
 };
 
@@ -2031,6 +2073,11 @@ export type MeAgendasListData = {
          * Maximum number of items to return per page.
          */
         limit?: number;
+        /**
+         * When `true`, each item in `data` is returned in its detailed representation, including the detailed-only fields. When `false` (the default), items are the lighter summary representation.
+         *
+         */
+        detailed?: boolean;
     };
     url: '/me/agendas';
 };

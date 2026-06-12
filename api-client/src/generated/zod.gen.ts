@@ -209,11 +209,6 @@ export const zMeAgendaItem = z.object({
     role: zMemberRole
 });
 
-export const zMeAgendaList = z.object({
-    data: z.array(zMeAgendaItem),
-    pagination: zPagination
-});
-
 export const zTiming = z.object({
     begin: z.string().datetime(),
     end: z.string().datetime()
@@ -304,6 +299,29 @@ export const zAgendaLocationSetRef = z.object({
     uid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
     title: z.string().nullable()
 }).nullable();
+
+/**
+ * The `detailed=true` variant of `MeAgendaItem`: the membership item plus `createdAt`, `network` and `locationSet`.
+ *
+ */
+export const zMeAgendaItemDetailed = z.object({
+    uid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }).readonly(),
+    slug: z.string().readonly(),
+    title: z.string().nullable(),
+    description: z.string().nullable(),
+    image: z.string().nullable(),
+    official: z.boolean(),
+    private: z.boolean(),
+    role: zMemberRole,
+    createdAt: z.string().datetime().nullable(),
+    network: zAgendaNetworkRef,
+    locationSet: zAgendaLocationSetRef
+});
+
+export const zMeAgendaList = z.object({
+    data: z.array(z.union([zMeAgendaItem, zMeAgendaItemDetailed])),
+    pagination: zPagination
+});
 
 /**
  * Base agenda representation returned by the list endpoint by default (`detailed: false`). It is the search-index base projection — identity and display essentials only.
@@ -690,8 +708,24 @@ export const zMeAgendaItemWritable = z.object({
     role: zMemberRole
 });
 
+/**
+ * The `detailed=true` variant of `MeAgendaItem`: the membership item plus `createdAt`, `network` and `locationSet`.
+ *
+ */
+export const zMeAgendaItemDetailedWritable = z.object({
+    title: z.string().nullable(),
+    description: z.string().nullable(),
+    image: z.string().nullable(),
+    official: z.boolean(),
+    private: z.boolean(),
+    role: zMemberRole,
+    createdAt: z.string().datetime().nullable(),
+    network: zAgendaNetworkRef,
+    locationSet: zAgendaLocationSetRef
+});
+
 export const zMeAgendaListWritable = z.object({
-    data: z.array(zMeAgendaItemWritable),
+    data: z.array(z.union([zMeAgendaItemWritable, zMeAgendaItemDetailedWritable])),
     pagination: zPagination
 });
 
@@ -1370,7 +1404,8 @@ export const zAgendasEventsSchemaResponse = zEventFormSchema;
 
 export const zMeAgendasListQuery = z.object({
     after: z.string().optional(),
-    limit: z.number().int().gte(1).lte(100).optional().default(20)
+    limit: z.number().int().gte(1).lte(100).optional().default(20),
+    detailed: z.boolean().optional().default(false)
 });
 
 /**
