@@ -51,7 +51,8 @@
 // below). `srt` is NOT a value here — it is an outer *wrapper*, applied at launch
 // (`srt -- node server.js`), selected with OA_CODE_EGRESS_AUTHORITY=wrapper.
 
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
+import { parse as parseYaml } from 'yaml';
 
 const MODES = ['local', 'hosted'];
 const EXECUTORS = ['node', 'deno', 'microsandbox'];
@@ -236,6 +237,34 @@ function parseScopes(raw) {
   return [...new Set(raw.split(/[\s,]+/).filter(Boolean))];
 }
 
+// The resource scopes the contract actually uses: every `oauth2` security
+// requirement across the spec's operations, plus the document-level default.
+// Derived (not hand-maintained) so the PRM and the DCR client track the
+// contract — before this, `me:read` shipped in the spec while the hand-kept
+// list here silently omitted it, and /me/agendas was unreachable over OAuth
+// (`insufficient_scope` with no way for the client to even request the scope).
+// Deliberate consequence: the MCP advertises what its BUNDLED
+// @openagenda/api-spec version declares, so bumping that dependency is the act
+// that publishes new scopes — only do it once the production AS issues them,
+// or DCR clients will request a scope the AS rejects as out-of-scope (the same
+// failure mode the `offline_access` note below describes).
+let cachedSpecScopes = null;
+function specScopes() {
+  if (cachedSpecScopes) return cachedSpecScopes;
+  const specUrl = import.meta.resolve('@openagenda/api-spec/openapi.yaml');
+  const spec = parseYaml(readFileSync(new URL(specUrl), 'utf8'));
+  const securities = [
+    ...spec.security ?? [],
+    ...Object.values(spec.paths ?? {})
+      .flatMap((path) => Object.values(path))
+      .flatMap((op) => op?.security ?? []),
+  ];
+  cachedSpecScopes = [
+    ...new Set(securities.flatMap((req) => req.oauth2 ?? [])),
+  ].sort();
+  return cachedSpecScopes;
+}
+
 // Resolve and validate the OAuth resource-server config for the HTTP transport.
 // FAIL CLOSED: transport=http with no issuer/resource would expose an
 // unauthenticated MCP endpoint, so refuse to boot rather than degrade. Returns
@@ -306,20 +335,15 @@ function loadOAuth(transport, env) {
     },
     // Advertised in the PRM. MCP clients (Claude, etc.) register dynamically
     // with exactly these scopes, so the list doubles as the DCR scope set:
-    //   - `openid` + the v3 read vocabulary: the resource scopes an OAuth token
-    //     may carry today (write scopes are not wired through the AS yet).
-    //   - `offline_access`: NOT a resource scope, but required here so the DCR
-    //     client is registered with it — otherwise the client requests
-    //     `offline_access` at /authorize (to obtain a refresh token, hence its
-    //     `refresh_token` grant) and the AS rejects it as out-of-scope.
-    scopesSupported: [
-      'openid',
-      'offline_access',
-      'events:read',
-      'agendas:read',
-      'locations:read',
-      'members:read',
-    ],
+    //   - the resource scopes are DERIVED from the contract (see specScopes),
+    //     so a scope that ships with a new endpoint (e.g. `me:read` with
+    //     /me/agendas) reaches the PRM without a hand-maintained list here.
+    //   - `openid` identifies the user; `offline_access` is NOT a resource
+    //     scope, but required here so the DCR client is registered with it —
+    //     otherwise the client requests `offline_access` at /authorize (to
+    //     obtain a refresh token, hence its `refresh_token` grant) and the AS
+    //     rejects it as out-of-scope.
+    scopesSupported: ['openid', 'offline_access', ...specScopes()],
   };
 }
 

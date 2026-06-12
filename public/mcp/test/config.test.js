@@ -499,6 +499,29 @@ describe('loadConfig', () => {
       });
     });
 
+    it('derives the advertised resource scopes from the contract', () => {
+      const cfg = loadConfig({
+        OA_MCP_TRANSPORT: 'http',
+        OA_EXECUTOR: 'deno', // bounded egress — required for http (config-only; executor is mocked)
+        OA_OAUTH_ISSUER: 'https://auth.test/api/auth',
+        OA_MCP_RESOURCE_URL: 'https://dmcp.test',
+        OA_MCP_EXCHANGE_SECRET: 'test-exchange-secret',
+      });
+      // openid/offline_access are the manual OIDC pair; the rest is every
+      // oauth2 scope the bundled contract's operations require, sorted. A
+      // declared-but-unused scope (members:read today) is deliberately NOT
+      // advertised; a scope shipping with a new endpoint appears here without
+      // a code change — this assertion is the canary that the list moved.
+      expect(cfg.oauth.scopesSupported).toEqual([
+        'openid',
+        'offline_access',
+        'agendas:read',
+        'events:read',
+        'locations:read',
+        'me:read',
+      ]);
+    });
+
     it('honours an explicit JWKS URL and HTTP port', () => {
       const cfg = loadConfig({
         OA_MCP_TRANSPORT: 'http',
