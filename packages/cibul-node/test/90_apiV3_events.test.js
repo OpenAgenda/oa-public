@@ -501,6 +501,31 @@ describe('90 - api-v3 - functional (server): events read endpoints', () => {
       }
     });
 
+    it('returns { location, count } buckets for the locations facet', async () => {
+      const res = await facetsQ('?facets=locations');
+
+      expect(res.status).toBe(200);
+      assertValid(validateFacetResults, res.body, 'FacetResults');
+      expect(Object.keys(res.body.facets)).toEqual(['locations']);
+      // agenda 2's published events are attached to locations.
+      expect(res.body.facets.locations.length).toBeGreaterThan(0);
+      for (const bucket of res.body.facets.locations) {
+        // The ref packs only uid+name (location._agg) — never address fields.
+        expect(Object.keys(bucket.location).sort()).toEqual(['name', 'uid']);
+        expect(Number.isInteger(bucket.location.uid)).toBe(true);
+        expect(typeof bucket.count).toBe('number');
+      }
+
+      // The uid feeds the locationUid filter: filtering on a bucket's own uid
+      // scopes the facet down to exactly that bucket.
+      const top = res.body.facets.locations[0];
+      const filtered = await facetsQ(
+        `?facets=locations&locationUid=${top.location.uid}`,
+      );
+      expect(filtered.status).toBe(200);
+      expect(filtered.body.facets.locations).toEqual([top]);
+    });
+
     it('mixes term and provenance facets in one call', async () => {
       const res = await facetsQ('?facets=cities,originAgendas');
 

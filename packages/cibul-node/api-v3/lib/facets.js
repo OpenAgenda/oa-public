@@ -7,6 +7,7 @@
 // result (not per-bucket — `viewport` is a single object, not a list):
 //   - term facets       -> [{ value, count }]                 (FacetBucket)
 //   - provenance facets  -> [{ agenda, count }]               (Agenda*FacetBucket)
+//   - locations          -> [{ location, count }]             (LocationFacetBucket)
 //   - geohash            -> [{ value, count, latitude, longitude }] (GeoFacetBucket)
 //   - viewport           -> { topLeft, bottomRight } | null    (Viewport)
 //   - timespan           -> { first, last } | null             (Timespan)
@@ -43,6 +44,17 @@ const mapTerms = (r) =>
 const mapAgendas = (r) =>
   (r ?? []).map((b) => ({
     agenda: cleanAgendaRef(b.agenda),
+    count: b.eventCount,
+  }));
+
+// Location buckets: internally { key, location, eventCount } where the index
+// packs only uid+name into `location._agg` (event-search
+// utils/extractLocationData.js) — so the ref is narrower than events'
+// `location`. The uid feeds the `locationUid` filter. `name` is normalized to
+// null when the indexed location had none (empty-as-empty).
+const mapLocations = (r) =>
+  (r ?? []).map((b) => ({
+    location: { uid: b.location.uid, name: b.location.name ?? null },
     count: b.eventCount,
   }));
 
@@ -114,6 +126,7 @@ const FACETS = {
   attendanceModes: mapTerms,
   originAgendas: mapAgendas,
   sourceAgendas: mapAgendas,
+  locations: mapLocations,
   geohash: mapGeohash,
   viewport: mapViewport,
   timespan: mapTimespan,
