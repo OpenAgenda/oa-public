@@ -74,14 +74,19 @@ tags:
       drill into the events they publish.
   - name: Events
     description: Events published in an agenda.
+  - name: Locations
+    description: >
+      The venues events happen at. Each agenda has its own pool of locations —
+      or shares one with other agendas through a location set.
 
 # Groups the resource tags under a "Resources" heading in the Scalar sidebar.
-# Forward-compatible with the upcoming locations/members surfaces (see scopes).
+# Forward-compatible with the upcoming members surface (see scopes).
 x-tagGroups:
   - name: Resources
     tags:
       - Agendas
       - Events
+      - Locations
 
 # Authenticate every request with either an API key or an OAuth2 token,
 # both carried as `Authorization: Bearer <token>`.
@@ -423,6 +428,137 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 
+  /agendas/{agendaUid}/locations:
+    get:
+      operationId: agendas.locations.list
+      tags: [Locations]
+      summary: List an agenda's locations
+      x-synonyms: [venues, places, addresses, map, where, browse, all]
+      x-codeSamples:
+        - lang: TypeScript
+          label: List the most recent locations
+          source: |
+            const { data, error } = await oa.agendas.locations.list({
+              path: { agendaUid: 12345 },
+              query: { limit: 20 },
+            });
+            if (error) throw error;
+            return data.data.map((l) => ({ uid: l.uid, name: l.name }));
+      description: >
+        Returns a cursor-paginated list of the agenda's locations, most
+        recently created first. Pass the `after` cursor returned in
+        `pagination.after` to fetch the next page; resend the same filters
+        (they are not encoded in the cursor).
+
+
+        By default items are the lighter `LocationSummary`; pass
+        `detailed=true` for the full `Location` (the same shape as the
+        single-location get).
+
+
+        When the agenda shares its locations through a location set, the whole
+        set is listed — including locations contributed by the other agendas
+        of the set (their `setUid` carries the set's uid).
+
+
+        Malformed filter values return `400`.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - locations:read
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+        - $ref: '#/components/parameters/AfterCursor'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Detailed'
+        - $ref: '#/components/parameters/LocationSearch'
+        - $ref: '#/components/parameters/LocationFilterUid'
+        - $ref: '#/components/parameters/LocationFilterExtId'
+        - $ref: '#/components/parameters/LocationBoundingBox'
+        - $ref: '#/components/parameters/FilterCreatedAt'
+        - $ref: '#/components/parameters/FilterUpdatedAt'
+      responses:
+        '200':
+          description: A page of locations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /agendas/{agendaUid}/locations/{locationUid}:
+    get:
+      operationId: agendas.locations.get
+      tags: [Locations]
+      summary: Get a location
+      x-synonyms: [venue, place, address, detail]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Fetch one location
+          source: |
+            const { data, error } = await oa.agendas.locations.get({
+              path: { agendaUid: 12345, locationUid: 67890 },
+            });
+            if (error) throw error;
+            return data;
+      description: >
+        Returns a single location of the agenda (or of its shared location
+        set) in the full `Location` shape.
+
+
+        A location that was merged into another one answers `404` with the
+        machine-readable code `merged` and the surviving location's uid in
+        `error.details.mergedIn` — use it to repair stale references. Any
+        other deleted or unknown uid is a plain `404` with code `not_found`.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - locations:read
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+        - $ref: '#/components/parameters/LocationUid'
+      responses:
+        '200':
+          description: The location.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          description: >
+            Agenda or location not found — or location merged into another
+            one (`code: merged`, surviving uid in `details.mergedIn`).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                merged:
+                  summary: Location merged into another one
+                  value:
+                    error:
+                      code: merged
+                      message: location merged into another location
+                      details:
+                        mergedIn: 11111111
+                notFound:
+                  summary: Unknown location
+                  value:
+                    error:
+                      code: not_found
+                      message: location not found
+
 components:
   securitySchemes:
     bearerAuth:
@@ -546,6 +682,71 @@ components:
         (`false`). Omit to return both.
       schema:
         type: boolean
+
+    LocationUid:
+      name: locationUid
+      in: path
+      required: true
+      description: Numeric uid of the location.
+      schema:
+        type: integer
+        format: int64
+
+    LocationSearch:
+      name: search
+      in: query
+      required: false
+      description: >
+        Free-text search over the locations' name, address, city, region and
+        department.
+      schema:
+        type: string
+
+    LocationFilterUid:
+      name: uid
+      in: query
+      required: false
+      description: >
+        Restrict to the given location uid(s). Repeat the parameter
+        (`uid=123&uid=456`) for multiple values.
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: integer
+          format: int64
+
+    LocationFilterExtId:
+      name: extId
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: >
+        Match a location by an external identifier:
+        `extId[key]=<system>&extId[value]=<id>`. Both parts are required.
+      schema:
+        type: object
+        additionalProperties: false
+        required: [key, value]
+        properties:
+          key:
+            type: string
+          value:
+            type: string
+
+    LocationBoundingBox:
+      name: bbox
+      in: query
+      required: false
+      description: >
+        Restrict to locations within a bounding box, given as
+        `west,south,east,north` in decimal degrees (WGS84). Example:
+        `bbox=2.224,48.815,2.469,48.902`.
+      schema:
+        type: string
+        pattern: '^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$'
 
     Facets:
       name: facets
@@ -1314,8 +1515,13 @@ components:
                   height:
                     type: [integer, 'null']
 
-    Location:
+    EventLocation:
       type: object
+      description: >
+        The denormalized location snapshot an event carries — a nullable
+        subset captured at indexing time. The canonical, full record is the
+        `Location` resource (`GET /agendas/{agendaUid}/locations/{locationUid}`,
+        same `uid`).
       additionalProperties: false
       properties:
         uid:
@@ -1357,6 +1563,280 @@ components:
         timezone:
           type: [string, 'null']
           description: IANA time zone of the location.
+
+    LocationSummary:
+      type: object
+      description: >
+        Compact location representation returned by the list endpoint
+        (`detailed: false`) — identity, coordinates and verification status
+        only; fetch with `detailed=true` or the single-location get for the
+        full record.
+
+
+        Empty-as-empty rule: every field is always present; singular optional
+        values are present as `null` when absent.
+      additionalProperties: false
+      example:
+        uid: 67890
+        name: Château des Lèbres
+        address: Naves, 07140 Les Vans
+        latitude: 44.388303
+        longitude: 4.105528
+        verified: true
+      required:
+        - uid
+        - name
+        - address
+        - latitude
+        - longitude
+        - verified
+      properties:
+        uid:
+          type: integer
+          format: int64
+          readOnly: true
+        name:
+          type: string
+        address:
+          type: [string, 'null']
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        verified:
+          type: boolean
+          description: Whether the location was verified by an agenda moderator.
+
+    Location:
+      type: object
+      description: >
+        Full location representation returned by the single-get endpoint and
+        by the list when `detailed=true` — the canonical record (the events'
+        embedded `EventLocation` is a nullable snapshot of it).
+
+
+        Empty-as-empty rule: every field is always present. Collections are
+        never null/omitted (arrays → `[]`, localized maps → `{}`); singular
+        optional values are present as `null` when absent.
+      additionalProperties: false
+      example:
+        uid: 67890
+        slug: chateau-des-lebres_4421007
+        setUid: null
+        name: Château des Lèbres
+        address: Naves, 07140 Les Vans
+        city: Les Vans
+        district: null
+        region: Auvergne-Rhône-Alpes
+        department: Ardèche
+        adminLevel3: null
+        adminLevel5: null
+        postalCode: '07140'
+        insee: '07334'
+        countryCode: FR
+        latitude: 44.388303
+        longitude: 4.105528
+        timezone: Europe/Paris
+        description:
+          fr: Ancienne maison forte des comtes du Roure.
+        access: {}
+        image: https://cdn.openagenda.com/main/locations/67890.jpg
+        imageCredits: null
+        website: http://www.domainedeslebres.com/
+        email: null
+        phone: '0475363414'
+        links:
+          - https://fr-fr.facebook.com/domainedeslebres/
+        extIds:
+          - key: legacy
+            value: '4421007'
+        additionalFields:
+          tags:
+            - id: 2
+              label: Château, hôtel urbain, palais, manoir
+        siret: null
+        verified: true
+        createdAt: '2017-10-30T14:21:07.000Z'
+        updatedAt: '2019-04-29T15:40:33.000Z'
+      required:
+        - uid
+        - slug
+        - setUid
+        - name
+        - address
+        - city
+        - district
+        - region
+        - department
+        - adminLevel3
+        - adminLevel5
+        - postalCode
+        - insee
+        - countryCode
+        - latitude
+        - longitude
+        - timezone
+        - description
+        - access
+        - image
+        - imageCredits
+        - website
+        - email
+        - phone
+        - links
+        - extIds
+        - additionalFields
+        - siret
+        - verified
+        - createdAt
+        - updatedAt
+      properties:
+        uid:
+          type: integer
+          format: int64
+          readOnly: true
+        slug:
+          type: string
+          readOnly: true
+        setUid:
+          type: [integer, 'null']
+          format: int64
+          readOnly: true
+          description: >
+            Uid of the shared location set this location belongs to, or `null`
+            when it belongs to a single agenda's own pool.
+        name:
+          type: string
+        address:
+          type: [string, 'null']
+        city:
+          type: [string, 'null']
+        district:
+          type: [string, 'null']
+        region:
+          type: [string, 'null']
+        department:
+          type: [string, 'null']
+        adminLevel3:
+          type: [string, 'null']
+        adminLevel5:
+          type: [string, 'null']
+        postalCode:
+          type: [string, 'null']
+        insee:
+          type: [string, 'null']
+          description: INSEE code of the French municipality, when known.
+        countryCode:
+          type: [string, 'null']
+          description: ISO 3166-1 alpha-2 country code.
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        timezone:
+          type: [string, 'null']
+          description: IANA time zone of the location.
+        description:
+          $ref: '#/components/schemas/LocalizedString'
+        access:
+          allOf:
+            - $ref: '#/components/schemas/LocalizedString'
+          description: >
+            Localized practical information on how to reach the venue.
+        image:
+          type: [string, 'null']
+          description: Absolute URL of the location's image.
+        imageCredits:
+          type: [string, 'null']
+        website:
+          type: [string, 'null']
+        email:
+          type: [string, 'null']
+        phone:
+          type: [string, 'null']
+        links:
+          type: array
+          items:
+            type: string
+        extIds:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationExtId'
+        additionalFields:
+          $ref: '#/components/schemas/LocationAdditionalFields'
+        siret:
+          type: [string, 'null']
+          description: SIRET number of the venue operator, when provided.
+        verified:
+          type: boolean
+          description: Whether the location was verified by an agenda moderator.
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+
+    LocationExtId:
+      type: object
+      description: >
+        An external identifier mapping this location to a third-party system.
+      additionalProperties: false
+      properties:
+        key:
+          type: string
+        value:
+          type: [string, 'null']
+
+    LocationAdditionalFields:
+      type: object
+      description: >
+        Agenda-specific additional fields of the location. Today this carries
+        a single `tags` key — the location's tags filtered against the tag set
+        declared in the agenda's schema. As the platform converges legacy tags
+        into real additional fields, agenda-defined keys will appear here
+        (non-breaking).
+      properties:
+        tags:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              id:
+                type: integer
+              label:
+                description: >
+                  Display label of the tag — a plain string or a localized
+                  map, as stored.
+                oneOf:
+                  - type: string
+                  - $ref: '#/components/schemas/LocalizedString'
+      additionalProperties:
+        x-additionalPropertiesName: fieldName
+
+    LocationList:
+      type: object
+      required: [data, pagination]
+      additionalProperties: false
+      properties:
+        data:
+          type: array
+          description: >
+            `LocationSummary` items by default, or full `Location` items when
+            `detailed=true`.
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/LocationSummary'
+              - $ref: '#/components/schemas/Location'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
 
     Timing:
       type: object
@@ -1912,7 +2392,7 @@ components:
             $ref: '#/components/schemas/Timing'
         location:
           oneOf:
-            - $ref: '#/components/schemas/Location'
+            - $ref: '#/components/schemas/EventLocation'
             - type: 'null'
         timezone:
           type: [string, 'null']
@@ -2124,7 +2604,7 @@ components:
             $ref: '#/components/schemas/Timing'
         location:
           oneOf:
-            - $ref: '#/components/schemas/Location'
+            - $ref: '#/components/schemas/EventLocation'
             - type: 'null'
         timezone:
           type: [string, 'null']
