@@ -96,13 +96,13 @@
   "next.components.auth.Consent.scope.agendasRead": [
     {
       "type": 0,
-      "value": "Leggere le tue agende"
+      "value": "Leggere le agende"
     }
   ],
   "next.components.auth.Consent.scope.agendasWrite": [
     {
       "type": 0,
-      "value": "Creare e modificare le tue agende"
+      "value": "Creare e modificare agende"
     }
   ],
   "next.components.auth.Consent.scope.email": [
@@ -114,37 +114,37 @@
   "next.components.auth.Consent.scope.eventsRead": [
     {
       "type": 0,
-      "value": "Leggere i tuoi eventi"
+      "value": "Leggere gli eventi"
     }
   ],
   "next.components.auth.Consent.scope.eventsTransverse": [
     {
       "type": 0,
-      "value": "Accedere agli eventi di tutte le tue agende"
+      "value": "Cercare eventi in tutte le agende"
     }
   ],
   "next.components.auth.Consent.scope.eventsWrite": [
     {
       "type": 0,
-      "value": "Creare e modificare i tuoi eventi"
+      "value": "Creare e modificare eventi"
     }
   ],
   "next.components.auth.Consent.scope.locationsRead": [
     {
       "type": 0,
-      "value": "Leggere i tuoi luoghi"
+      "value": "Leggere i luoghi"
     }
   ],
   "next.components.auth.Consent.scope.locationsWrite": [
     {
       "type": 0,
-      "value": "Creare e modificare i tuoi luoghi"
+      "value": "Creare e modificare luoghi"
     }
   ],
   "next.components.auth.Consent.scope.meRead": [
     {
       "type": 0,
-      "value": "Vedere le agende di cui sei membro e il tuo ruolo"
+      "value": "Vedere le agende di cui sei membro"
     }
   ],
   "next.components.auth.Consent.scope.membersRead": [

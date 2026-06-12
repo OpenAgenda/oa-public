@@ -96,13 +96,13 @@
   "next.components.auth.Consent.scope.agendasRead": [
     {
       "type": 0,
-      "value": "Lenn hoc'h deizataerioù"
+      "value": "Lenn an deizataerioù"
     }
   ],
   "next.components.auth.Consent.scope.agendasWrite": [
     {
       "type": 0,
-      "value": "Krouiñ ha kemmañ hoc'h deizataerioù"
+      "value": "Krouiñ ha kemmañ deizataerioù"
     }
   ],
   "next.components.auth.Consent.scope.email": [
@@ -114,37 +114,37 @@
   "next.components.auth.Consent.scope.eventsRead": [
     {
       "type": 0,
-      "value": "Lenn hoc'h abadennoù"
+      "value": "Lenn an abadennoù"
     }
   ],
   "next.components.auth.Consent.scope.eventsTransverse": [
     {
       "type": 0,
-      "value": "Tizhout an abadennoù eus hoc'h holl deizataerioù"
+      "value": "Klask abadennoù en holl zeizataerioù"
     }
   ],
   "next.components.auth.Consent.scope.eventsWrite": [
     {
       "type": 0,
-      "value": "Krouiñ ha kemmañ hoc'h abadennoù"
+      "value": "Krouiñ ha kemmañ abadennoù"
     }
   ],
   "next.components.auth.Consent.scope.locationsRead": [
     {
       "type": 0,
-      "value": "Lenn ho lec'hioù"
+      "value": "Lenn al lec'hioù"
     }
   ],
   "next.components.auth.Consent.scope.locationsWrite": [
     {
       "type": 0,
-      "value": "Krouiñ ha kemmañ ho lec'hioù"
+      "value": "Krouiñ ha kemmañ lec'hioù"
     }
   ],
   "next.components.auth.Consent.scope.meRead": [
     {
       "type": 0,
-      "value": "Gwelet an deiziataerioù m'oc'h ezel anezho hag ho roll enno"
+      "value": "Gwelet an deiziataerioù m'oc'h ezel anezho"
     }
   ],
   "next.components.auth.Consent.scope.membersRead": [

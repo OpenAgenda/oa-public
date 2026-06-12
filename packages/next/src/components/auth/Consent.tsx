@@ -94,35 +94,40 @@ const scopeMessages = defineMessages({
   },
   'me:read': {
     id: 'next.components.auth.Consent.scope.meRead',
-    defaultMessage: 'See the agendas you are a member of and your role on them',
+    defaultMessage: 'See the agendas you are a member of',
   },
+  // Read/write scopes deliberately carry no possessive and no "where your
+  // role allows" qualifier: delegation is implicitly bounded by what the
+  // account can see or do, and the qualifier only adds noise. `transverse` is
+  // the exception that must spell its reach (platform-wide, not "your"
+  // agendas).
   'events:read': {
     id: 'next.components.auth.Consent.scope.eventsRead',
-    defaultMessage: 'Read your events',
+    defaultMessage: 'Read events',
   },
   'events:write': {
     id: 'next.components.auth.Consent.scope.eventsWrite',
-    defaultMessage: 'Create and edit your events',
+    defaultMessage: 'Create and edit events',
   },
   'events:transverse': {
     id: 'next.components.auth.Consent.scope.eventsTransverse',
-    defaultMessage: 'Access events across all your agendas',
+    defaultMessage: 'Search events across all agendas',
   },
   'agendas:read': {
     id: 'next.components.auth.Consent.scope.agendasRead',
-    defaultMessage: 'Read your agendas',
+    defaultMessage: 'Read agendas',
   },
   'agendas:write': {
     id: 'next.components.auth.Consent.scope.agendasWrite',
-    defaultMessage: 'Create and edit your agendas',
+    defaultMessage: 'Create and edit agendas',
   },
   'locations:read': {
     id: 'next.components.auth.Consent.scope.locationsRead',
-    defaultMessage: 'Read your locations',
+    defaultMessage: 'Read locations',
   },
   'locations:write': {
     id: 'next.components.auth.Consent.scope.locationsWrite',
-    defaultMessage: 'Create and edit your locations',
+    defaultMessage: 'Create and edit locations',
   },
   'members:read': {
     id: 'next.components.auth.Consent.scope.membersRead',

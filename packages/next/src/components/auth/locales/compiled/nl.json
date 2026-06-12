@@ -96,13 +96,13 @@
   "next.components.auth.Consent.scope.agendasRead": [
     {
       "type": 0,
-      "value": "Je agenda's lezen"
+      "value": "Agenda's lezen"
     }
   ],
   "next.components.auth.Consent.scope.agendasWrite": [
     {
       "type": 0,
-      "value": "Je agenda's aanmaken en bewerken"
+      "value": "Agenda's aanmaken en bewerken"
     }
   ],
   "next.components.auth.Consent.scope.email": [
@@ -114,37 +114,37 @@
   "next.components.auth.Consent.scope.eventsRead": [
     {
       "type": 0,
-      "value": "Je evenementen lezen"
+      "value": "Evenementen lezen"
     }
   ],
   "next.components.auth.Consent.scope.eventsTransverse": [
     {
       "type": 0,
-      "value": "Toegang tot evenementen in al je agenda's"
+      "value": "Evenementen zoeken in alle agenda's"
     }
   ],
   "next.components.auth.Consent.scope.eventsWrite": [
     {
       "type": 0,
-      "value": "Je evenementen aanmaken en bewerken"
+      "value": "Evenementen aanmaken en bewerken"
     }
   ],
   "next.components.auth.Consent.scope.locationsRead": [
     {
       "type": 0,
-      "value": "Je locaties lezen"
+      "value": "Locaties lezen"
     }
   ],
   "next.components.auth.Consent.scope.locationsWrite": [
     {
       "type": 0,
-      "value": "Je locaties aanmaken en bewerken"
+      "value": "Locaties aanmaken en bewerken"
     }
   ],
   "next.components.auth.Consent.scope.meRead": [
     {
       "type": 0,
-      "value": "De agenda's zien waarvan je lid bent en je rol daarin"
+      "value": "De agenda's zien waarvan je lid bent"
     }
   ],
   "next.components.auth.Consent.scope.membersRead": [
