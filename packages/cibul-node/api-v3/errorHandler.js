@@ -17,13 +17,23 @@ const MAPPING = {
 };
 
 function fieldDetails(err) {
+  const details = {};
+
   // Validators surface field errors under `info.errors`; expose them as
   // structured `details` so clients can react per-field.
   const fieldErrors = err?.info?.errors;
   if (fieldErrors && (Array.isArray(fieldErrors) ? fieldErrors.length : true)) {
-    return { errors: fieldErrors };
+    details.errors = fieldErrors;
   }
-  return undefined;
+
+  // A handler may attach extra machine-readable context under `info.details`
+  // (e.g. `mergedIn` on a 404 for a merged location).
+  const extra = err?.info?.details;
+  if (extra && typeof extra === 'object' && !Array.isArray(extra)) {
+    Object.assign(details, extra);
+  }
+
+  return Object.keys(details).length ? details : undefined;
 }
 
 export default function apiV3ErrorHandler(err, req, res, _next) {

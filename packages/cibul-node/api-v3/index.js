@@ -1,10 +1,12 @@
-// OpenAgenda v3 API — read endpoints for agendas and events.
+// OpenAgenda v3 API — read endpoints for agendas, events and locations.
 //
 // Thin HTTP mapping layer over `core`:
 //   GET /agendas                             -> { data: [AgendaSummary|AgendaDetailed], pagination }
 //   GET /agendas/:agendaUid                  -> bare Agenda (full)
 //   GET /agendas/:agendaUid/events           -> { data: [Event...], pagination }
 //   GET /agendas/:agendaUid/events/:eventUid -> bare Event
+//   GET /agendas/:agendaUid/locations        -> { data: [LocationSummary|Location], pagination }
+//   GET /agendas/:agendaUid/locations/:locationUid -> bare Location (full)
 //
 // Auth (createAuthenticate) and agenda loading (createLoadAgenda) are
 // v3-native: they throw typed errors into the v3 error envelope. The contract
@@ -20,10 +22,17 @@ import requireScope from './lib/requireScope.js';
 import createLoadAgenda from './lib/loadAgenda.js';
 import mapEvent from './lib/mapEvent.js';
 import mapAgenda from './lib/mapAgenda.js';
+import mapLocation from './lib/mapLocation.js';
 import buildListEnvelope from './lib/envelope.js';
 import buildAgendaListEnvelope from './lib/agendaEnvelope.js';
+import buildLocationListEnvelope from './lib/locationEnvelope.js';
 import buildEventSearchQuery from './lib/buildEventSearchQuery.js';
 import buildAgendaSearchQuery from './lib/buildAgendaSearchQuery.js';
+import buildLocationListQuery from './lib/buildLocationListQuery.js';
+import {
+  locationEndpoints,
+  loadLocationFormSchema,
+} from './lib/agendaLocations.js';
 import {
   parseFacets,
   parseGeohashZoom,
@@ -312,6 +321,99 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
           );
 
         res.json(mapEvent(event));
+      } catch (err) {
+        next(err);
+      }
+    },
+  );
+
+  // GET /agendas/:agendaUid/locations
+  // Cursor-paginated location list (SQL keyset, fixed createdAt.desc order —
+  // no `sort` param: the underlying keyset is only correct for that order).
+  // `detailed=false` -> LocationSummary, `detailed=true` -> full Location.
+  // When the agenda is bound to a shared location set, the whole set is
+  // listed (locations contributed by every agenda of the set), like v2.
+  app.get(
+    '/agendas/:agendaUid/locations',
+    requireScope('locations:read'),
+    async (req, res, next) => {
+      try {
+        const limit = resolveLimit(req.query.limit);
+        const detailed = resolveDetailed(req.query.detailed);
+
+        const query = buildLocationListQuery(req.query);
+
+        const nav = { limit, useAfter: true, order: 'createdAt.desc' };
+        if (req.query.after !== undefined) {
+          const decoded = decodeCursor(req.query.after);
+          if (decoded) {
+            // The locations keyset position is a scalar (the last row's
+            // internal id), carried as a 1-element array in the opaque cursor.
+            [nav.after] = decoded.after;
+          }
+        }
+
+        const result = await locationEndpoints(core, req.agenda).list(
+          query,
+          nav,
+          {
+            total: true,
+            includeImagePath: true,
+            detailed,
+            // The full shape carries `additionalFields` (the legacy tags,
+            // filtered against the agenda's merged schema).
+            formSchema: detailed
+              ? await loadLocationFormSchema(core, req.agenda)
+              : null,
+          },
+        );
+
+        res.json(buildLocationListEnvelope(result, { limit, detailed }));
+      } catch (err) {
+        next(err);
+      }
+    },
+  );
+
+  // GET /agendas/:agendaUid/locations/:locationUid
+  // Single location, full `Location` shape. Reads with `deleted: null` so a
+  // soft-deleted record surfaces as the service's `{ uid, deleted, mergedIn? }`
+  // stub instead of a bare miss: a merged location answers 404 with the
+  // machine-readable `merged` code and the surviving uid in
+  // `details.mergedIn` (sync clients repair their references with it); any
+  // other deleted or unknown uid is a plain 404.
+  app.get(
+    '/agendas/:agendaUid/locations/:locationUid',
+    requireScope('locations:read'),
+    async (req, res, next) => {
+      try {
+        const location = await locationEndpoints(core, req.agenda).get(
+          { uid: req.params.locationUid },
+          {
+            includeImagePath: true,
+            deleted: null,
+            formSchema: await loadLocationFormSchema(core, req.agenda),
+          },
+        );
+
+        if (!location || location.deleted) {
+          const mergedIn = location?.mergedIn ?? null;
+          throw new NotFound(
+            {
+              info: {
+                uid: req.params.locationUid,
+                ...mergedIn == null
+                  ? {}
+                  : { code: 'merged', details: { mergedIn } },
+              },
+            },
+            mergedIn == null
+              ? 'location not found'
+              : 'location merged into another location',
+          );
+        }
+
+        res.json(mapLocation(location));
       } catch (err) {
         next(err);
       }
