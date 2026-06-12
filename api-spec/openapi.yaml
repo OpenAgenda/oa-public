@@ -1995,11 +1995,13 @@ components:
     FormSchemaField:
       type: object
       description: >
-        A field descriptor in the OpenAgenda form-schema vocabulary, served
-        raw. The properties below are the stable core; descriptors may carry
-        further engine-specific keys (conditions, display hints, sub-schemas
-        such as `schema` on the `location` field, …).
-      required: [field]
+        A descriptor in the OpenAgenda form-schema vocabulary, served raw.
+        Two kinds share the array: **data field descriptors** (carrying
+        `field`, the key the value lives under on events) and **section
+        separators** (`type: 'section'`, no `field` — structure the form into
+        titled groups). The properties below are the stable core; descriptors
+        may carry further engine-specific keys (conditions, display hints,
+        sub-schemas such as `schema` on the `location` field, …).
       additionalProperties: true
       example:
         field: thematique
@@ -2014,15 +2016,25 @@ components:
       properties:
         field:
           type: string
-          description: Field name — the key the value is carried under on events.
+          description: >
+            Field name — the key the value is carried under on events. Absent
+            on section separators.
         fieldType:
           type: string
           description: >
             Field kind in the form-schema vocabulary, e.g. `text`, `textarea`,
             `multilingual`, `radio`, `checkbox`, `select`, `number`, `date`,
             `image`, `link`, `abstract` (structural)…
+        type:
+          type: string
+          description: >
+            Descriptor kind marker — `section` for section separators; data
+            fields usually omit it.
+        slug:
+          type: string
+          description: Stable identifier of a section separator.
         label:
-          description: Localized display label, when the field carries one.
+          description: Localized display label, when the descriptor carries one.
           oneOf:
             - $ref: '#/components/schemas/LocalizedString'
             - type: string
@@ -2032,6 +2044,26 @@ components:
           description: >
             `false` means the field is required (possibly a per-agenda
             override of a native field).
+        display:
+          description: Whether the field is shown on the form (default true).
+        enable:
+          type: boolean
+          description: Whether the field is enabled (default true).
+        enableWith:
+          description: >
+            The field is only active when another field has a value: either
+            that field's name, or `{ field, value }` to require specific
+            values (e.g. `onlineAccessLink` enabled when `attendanceMode` is
+            online or mixed).
+        optionalWith:
+          description: >
+            The field is only required when another field (same reference
+            forms as `enableWith`) has a value.
+        origin:
+          type: [string, 'null']
+          enum: [tags, categories, custom, null]
+          description: >
+            For converted legacy fields, what they were converted from.
         options:
           type: array
           description: Allowed choices for choice-like field kinds.
