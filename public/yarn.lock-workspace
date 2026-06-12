@@ -6971,7 +6971,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react@npm:^0.0.3, @openagenda/react@workspace:react":
+"@openagenda/react@npm:^0.0.4, @openagenda/react@workspace:react":
   version: 0.0.0-use.local
   resolution: "@openagenda/react@workspace:react"
   dependencies:
@@ -7079,7 +7079,7 @@ __metadata:
     "@babel/core": "npm:^7.28.4"
     "@iframe-resizer/parent": "npm:^5.4.6"
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/react": "npm:^0.0.3"
+    "@openagenda/react": "npm:^0.0.4"
     "@openagenda/react-filters": "npm:^2.13.6"
     "@openagenda/uikit": "npm:^0.0.4"
     "@storybook/html-vite": "npm:^10.2.0"
