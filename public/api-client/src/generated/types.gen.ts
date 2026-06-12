@@ -231,6 +231,84 @@ export type LocationList = {
     pagination: Pagination;
 };
 
+export type EventFormSchema = {
+    /**
+     * Every field readable at the caller's access level — native event fields (with any per-agenda overrides applied) and the agenda's/network's additional fields (`schemaId` non-null).
+     *
+     */
+    fields: Array<FormSchemaField>;
+    [key: string]: unknown;
+};
+
+/**
+ * A field descriptor in the OpenAgenda form-schema vocabulary, served raw. The properties below are the stable core; descriptors may carry further engine-specific keys (conditions, display hints, sub-schemas such as `schema` on the `location` field, …).
+ *
+ */
+export type FormSchemaField = {
+    /**
+     * Field name — the key the value is carried under on events.
+     */
+    field: string;
+    /**
+     * Field kind in the form-schema vocabulary, e.g. `text`, `textarea`, `multilingual`, `radio`, `checkbox`, `select`, `number`, `date`, `image`, `link`, `abstract` (structural)…
+     *
+     */
+    fieldType?: string;
+    /**
+     * Localized display label, when the field carries one.
+     */
+    label?: LocalizedString | string | null;
+    /**
+     * `false` means the field is required (possibly a per-agenda override of a native field).
+     *
+     */
+    optional?: boolean;
+    /**
+     * Allowed choices for choice-like field kinds.
+     */
+    options?: Array<{
+        id?: number;
+        value?: string;
+        label?: LocalizedString | string;
+        [key: string]: unknown;
+    }>;
+    /**
+     * Identifier of the declaring agenda/network schema. Non-null marks an **additional field**; `null`/absent marks a native one.
+     *
+     */
+    schemaId?: number | null;
+    /**
+     * Which level declared the field: `agenda`/`network` for additional fields, `event` for the platform's native event fields.
+     *
+     */
+    schemaType?: 'agenda' | 'network' | 'event' | null;
+    [key: string]: unknown;
+};
+
+export type MemberRole = 'administrator' | 'moderator' | 'contributor' | 'reader';
+
+/**
+ * An agenda the authenticated user is a member of: the AgendaSummary base fields plus the user's `role` and the agenda's `private` flag (private agendas the user belongs to are listed).
+ *
+ * Empty-as-empty rule: every field is always present; singular optional values are present as `null` when absent.
+ *
+ */
+export type MeAgendaItem = {
+    readonly uid: number;
+    readonly slug: string;
+    title: string | null;
+    description: string | null;
+    image: string | null;
+    official: boolean;
+    private: boolean;
+    role: MemberRole;
+};
+
+export type MeAgendaList = {
+    data: Array<MeAgendaItem>;
+    pagination: Pagination;
+};
+
 export type Timing = {
     begin: string;
     end: string;
@@ -835,6 +913,26 @@ export type LocationListWritable = {
      *
      */
     data: Array<LocationSummaryWritable | LocationWritable>;
+    pagination: Pagination;
+};
+
+/**
+ * An agenda the authenticated user is a member of: the AgendaSummary base fields plus the user's `role` and the agenda's `private` flag (private agendas the user belongs to are listed).
+ *
+ * Empty-as-empty rule: every field is always present; singular optional values are present as `null` when absent.
+ *
+ */
+export type MeAgendaItemWritable = {
+    title: string | null;
+    description: string | null;
+    image: string | null;
+    official: boolean;
+    private: boolean;
+    role: MemberRole;
+};
+
+export type MeAgendaListWritable = {
+    data: Array<MeAgendaItemWritable>;
     pagination: Pagination;
 };
 
@@ -1881,6 +1979,88 @@ export type AgendasEventsFacetsResponses = {
 };
 
 export type AgendasEventsFacetsResponse = AgendasEventsFacetsResponses[keyof AgendasEventsFacetsResponses];
+
+export type AgendasEventsSchemaData = {
+    body?: never;
+    path: {
+        /**
+         * Numeric uid of the agenda.
+         */
+        agendaUid: number;
+    };
+    query?: never;
+    url: '/agendas/{agendaUid}/events/schema';
+};
+
+export type AgendasEventsSchemaErrors = {
+    /**
+     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     */
+    401: Error;
+    /**
+     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     */
+    403: Error;
+    /**
+     * Resource not found.
+     */
+    404: Error;
+};
+
+export type AgendasEventsSchemaError = AgendasEventsSchemaErrors[keyof AgendasEventsSchemaErrors];
+
+export type AgendasEventsSchemaResponses = {
+    /**
+     * The merged event form schema.
+     */
+    200: EventFormSchema;
+};
+
+export type AgendasEventsSchemaResponse = AgendasEventsSchemaResponses[keyof AgendasEventsSchemaResponses];
+
+export type MeAgendasListData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Opaque pagination cursor returned in `pagination.after` of the previous page. Omit it to fetch the first page.
+         *
+         */
+        after?: string;
+        /**
+         * Maximum number of items to return per page.
+         */
+        limit?: number;
+    };
+    url: '/me/agendas';
+};
+
+export type MeAgendasListErrors = {
+    /**
+     * Malformed request — an invalid `after` cursor, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     *
+     */
+    400: Error;
+    /**
+     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     */
+    401: Error;
+    /**
+     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     */
+    403: Error;
+};
+
+export type MeAgendasListError = MeAgendasListErrors[keyof MeAgendasListErrors];
+
+export type MeAgendasListResponses = {
+    /**
+     * A page of the caller's agenda memberships.
+     */
+    200: MeAgendaList;
+};
+
+export type MeAgendasListResponse = MeAgendasListResponses[keyof MeAgendasListResponses];
 
 export type AgendasLocationsListData = {
     body?: never;

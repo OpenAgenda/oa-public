@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { AgendasEventsFacetsData, AgendasEventsFacetsErrors, AgendasEventsFacetsResponses, AgendasEventsGetData, AgendasEventsGetErrors, AgendasEventsGetResponses, AgendasEventsListData, AgendasEventsListErrors, AgendasEventsListResponses, AgendasGetData, AgendasGetErrors, AgendasGetResponses, AgendasListData, AgendasListErrors, AgendasListResponses, AgendasLocationsGetData, AgendasLocationsGetErrors, AgendasLocationsGetResponses, AgendasLocationsListData, AgendasLocationsListErrors, AgendasLocationsListResponses } from './types.gen';
+import type { AgendasEventsFacetsData, AgendasEventsFacetsErrors, AgendasEventsFacetsResponses, AgendasEventsGetData, AgendasEventsGetErrors, AgendasEventsGetResponses, AgendasEventsListData, AgendasEventsListErrors, AgendasEventsListResponses, AgendasEventsSchemaData, AgendasEventsSchemaErrors, AgendasEventsSchemaResponses, AgendasGetData, AgendasGetErrors, AgendasGetResponses, AgendasListData, AgendasListErrors, AgendasListResponses, AgendasLocationsGetData, AgendasLocationsGetErrors, AgendasLocationsGetResponses, AgendasLocationsListData, AgendasLocationsListErrors, AgendasLocationsListResponses, MeAgendasListData, MeAgendasListErrors, MeAgendasListResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -98,6 +98,24 @@ export class Events extends HeyApiClient {
             ...options
         });
     }
+    
+    /**
+     * Event form schema of an agenda
+     *
+     * Returns the agenda's **merged event form schema** — the dynamic contract the events of this agenda follow. It merges the platform's native event fields with the network's and the agenda's own declarations: an agenda can add its own additional fields and override natives (make one required, restrict its options, relabel it). This is the same schema the OpenAgenda UI uses to build the event form, served raw: use it to know which fields exist, which are required and what their options are — e.g. to build payloads for the (upcoming) event write operations, or to interpret `additionalFields` on events.
+     *
+     * Fields the caller's access level cannot read are omitted: with a publishable key the public schema is returned; a secret key sees the fields readable at the owner's role on this agenda.
+     *
+     * The descriptors follow the OpenAgenda form-schema vocabulary (`field`, `fieldType`, `label`, `options`, `optional`, …). The properties documented here are stable; descriptors may carry further engine-specific keys.
+     *
+     */
+    public schema<ThrowOnError extends boolean = false>(options: Options<AgendasEventsSchemaData, ThrowOnError>) {
+        return (options.client ?? this.client).get<AgendasEventsSchemaResponses, AgendasEventsSchemaErrors, ThrowOnError>({
+            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            url: '/agendas/{agendaUid}/events/schema',
+            ...options
+        });
+    }
 }
 
 export class Locations extends HeyApiClient {
@@ -182,6 +200,31 @@ export class Agendas extends HeyApiClient {
     }
 }
 
+export class Agendas2 extends HeyApiClient {
+    /**
+     * List the agendas you are a member of
+     *
+     * Returns a cursor-paginated list of the agendas the authenticated user is a member of, with their role on each. Private agendas the user belongs to ARE included (each item carries a `private` flag).
+     *
+     * Requires a user identity: a secret key (`oa_sk_…`) or an OAuth access token granted the `me:read` scope. A publishable key (`oa_pk_…`) carries no identity and is answered `401`.
+     *
+     */
+    public list<ThrowOnError extends boolean = false>(options?: Options<MeAgendasListData, ThrowOnError>) {
+        return (options?.client ?? this.client).get<MeAgendasListResponses, MeAgendasListErrors, ThrowOnError>({
+            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            url: '/me/agendas',
+            ...options
+        });
+    }
+}
+
+export class Me extends HeyApiClient {
+    private _agendas?: Agendas2;
+    get agendas(): Agendas2 {
+        return this._agendas ??= new Agendas2({ client: this.client });
+    }
+}
+
 export class OpenAgenda extends HeyApiClient {
     public static readonly __registry = new HeyApiRegistry<OpenAgenda>();
     
@@ -196,5 +239,10 @@ export class OpenAgenda extends HeyApiClient {
     private _agendas?: Agendas;
     get agendas(): Agendas {
         return this._agendas ??= new Agendas({ client: this.client });
+    }
+    
+    private _me?: Me;
+    get me(): Me {
+        return this._me ??= new Me({ client: this.client });
     }
 }

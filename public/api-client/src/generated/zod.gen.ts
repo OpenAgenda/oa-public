@@ -153,6 +153,67 @@ export const zLocationList = z.object({
     pagination: zPagination
 });
 
+/**
+ * A field descriptor in the OpenAgenda form-schema vocabulary, served raw. The properties below are the stable core; descriptors may carry further engine-specific keys (conditions, display hints, sub-schemas such as `schema` on the `location` field, …).
+ *
+ */
+export const zFormSchemaField = z.object({
+    field: z.string(),
+    fieldType: z.string().optional(),
+    label: z.union([
+        zLocalizedString,
+        z.string()
+    ]).nullish(),
+    optional: z.boolean().optional(),
+    options: z.array(z.object({
+        id: z.number().int().optional(),
+        value: z.string().optional(),
+        label: z.union([
+            zLocalizedString,
+            z.string()
+        ]).optional()
+    })).optional(),
+    schemaId: z.number().int().nullish(),
+    schemaType: z.enum([
+        'agenda',
+        'network',
+        'event'
+    ]).nullish()
+});
+
+export const zEventFormSchema = z.object({
+    fields: z.array(zFormSchemaField)
+});
+
+export const zMemberRole = z.enum([
+    'administrator',
+    'moderator',
+    'contributor',
+    'reader'
+]);
+
+/**
+ * An agenda the authenticated user is a member of: the AgendaSummary base fields plus the user's `role` and the agenda's `private` flag (private agendas the user belongs to are listed).
+ *
+ * Empty-as-empty rule: every field is always present; singular optional values are present as `null` when absent.
+ *
+ */
+export const zMeAgendaItem = z.object({
+    uid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }).readonly(),
+    slug: z.string().readonly(),
+    title: z.string().nullable(),
+    description: z.string().nullable(),
+    image: z.string().nullable(),
+    official: z.boolean(),
+    private: z.boolean(),
+    role: zMemberRole
+});
+
+export const zMeAgendaList = z.object({
+    data: z.array(zMeAgendaItem),
+    pagination: zPagination
+});
+
 export const zTiming = z.object({
     begin: z.string().datetime(),
     end: z.string().datetime()
@@ -611,6 +672,26 @@ export const zLocationWritable = z.object({
 
 export const zLocationListWritable = z.object({
     data: z.array(z.union([zLocationSummaryWritable, zLocationWritable])),
+    pagination: zPagination
+});
+
+/**
+ * An agenda the authenticated user is a member of: the AgendaSummary base fields plus the user's `role` and the agenda's `private` flag (private agendas the user belongs to are listed).
+ *
+ * Empty-as-empty rule: every field is always present; singular optional values are present as `null` when absent.
+ *
+ */
+export const zMeAgendaItemWritable = z.object({
+    title: z.string().nullable(),
+    description: z.string().nullable(),
+    image: z.string().nullable(),
+    official: z.boolean(),
+    private: z.boolean(),
+    role: zMemberRole
+});
+
+export const zMeAgendaListWritable = z.object({
+    data: z.array(zMeAgendaItemWritable),
     pagination: zPagination
 });
 
@@ -1277,6 +1358,25 @@ export const zAgendasEventsFacetsQuery = z.object({
  * Facet counts over the filtered set.
  */
 export const zAgendasEventsFacetsResponse = zFacetResults;
+
+export const zAgendasEventsSchemaPath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
+});
+
+/**
+ * The merged event form schema.
+ */
+export const zAgendasEventsSchemaResponse = zEventFormSchema;
+
+export const zMeAgendasListQuery = z.object({
+    after: z.string().optional(),
+    limit: z.number().int().gte(1).lte(100).optional().default(20)
+});
+
+/**
+ * A page of the caller's agenda memberships.
+ */
+export const zMeAgendasListResponse = zMeAgendaList;
 
 export const zAgendasLocationsListPath = z.object({
     agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
