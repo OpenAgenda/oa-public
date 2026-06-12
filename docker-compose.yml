@@ -183,6 +183,7 @@ services:
       S3_MAIN_PATH: ${S3_MAIN_PATH}
       S3_DOCX_PATH: ${S3_DOCX_PATH}
       S3_ASSETS_PATH: ${S3_ASSETS_PATH}
+      UPPY_SECRET: ${UPPY_SECRET}
       MAIL_PORT: ${MAIL_PORT}
       MAIL_HOST: ${MAIL_HOST}
       CLIENT_SSL_KEY: /root/.ssh/client.key

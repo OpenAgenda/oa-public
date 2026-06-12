@@ -481,7 +481,14 @@ const config = {
     xls: 'application/vnd.ms-excel',
   },
   uppy: {
-    secret: 'DUy=dBGY1,(B]Yj',
+    // Companion session secret (signs upload/session tokens). Real value comes
+    // from prod.js or the UPPY_SECRET env var; the literal below is a dev-only
+    // placeholder (companion throws if `secret` is empty). Set a rotated secret
+    // in production — the previous hardcoded value is in git history.
+    secret:
+      prod.uppy?.secret
+      ?? process.env.UPPY_SECRET
+      ?? 'dev-only-uppy-companion-secret',
   },
   pdf: {
     withImageLimit: process.env.PDF_WITH_IMAGE_LIMIT ?? 200,
