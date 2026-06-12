@@ -149,7 +149,7 @@ export const zLocation = z.object({
 });
 
 export const zLocationList = z.object({
-    data: z.array(z.union([zLocationSummary, zLocation])),
+    data: z.array(z.union([zLocation, zLocationSummary])),
     pagination: zPagination
 });
 
@@ -290,7 +290,7 @@ export const zExtId = z.object({
 });
 
 /**
- * Agenda-specific additional fields. The available keys and the shape of each value are defined by the agenda's event schema (see GET /agendas/{agendaUid}/settings/eventSchema). Each value follows its field's fieldType (text, choice, multilingual, …).
+ * Agenda-specific additional fields. The available keys and the shape of each value are defined by the agenda's event form schema (see `GET /agendas/{agendaUid}/events/schema`). Each value follows its field's fieldType (text, choice, multilingual, …).
  *
  */
 export const zAdditionalFields = z.record(z.unknown());
@@ -330,7 +330,7 @@ export const zMeAgendaItemDetailed = z.object({
 });
 
 export const zMeAgendaList = z.object({
-    data: z.array(z.union([zMeAgendaItem, zMeAgendaItemDetailed])),
+    data: z.array(z.union([zMeAgendaItemDetailed, zMeAgendaItem])),
     pagination: zPagination
 });
 
@@ -393,7 +393,7 @@ export const zAgenda = z.object({
 });
 
 export const zAgendaList = z.object({
-    data: z.array(z.union([zAgendaSummary, zAgendaDetailed])),
+    data: z.array(z.union([zAgendaDetailed, zAgendaSummary])),
     pagination: zPagination
 });
 
@@ -511,7 +511,7 @@ export const zEvent = z.object({
 });
 
 export const zEventList = z.object({
-    data: z.array(z.union([zEventSummary, zEvent])),
+    data: z.array(z.union([zEvent, zEventSummary])),
     pagination: zPagination
 });
 
@@ -571,6 +571,18 @@ export const zSourceAgendaFacetBucket = z.object({
     count: z.number().int()
 });
 
+/**
+ * A location facet bucket — events grouped by their attached location. `location` carries only what the aggregation indexes (uid and name), narrower than events' `location`. Use the uid with the `locationUid` filter.
+ *
+ */
+export const zLocationFacetBucket = z.object({
+    location: z.object({
+        uid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
+        name: z.string().nullable()
+    }),
+    count: z.number().int()
+});
+
 export const zGeoPoint = z.object({
     latitude: z.number(),
     longitude: z.number()
@@ -619,6 +631,7 @@ export const zFacetResults = z.object({
         attendanceModes: z.array(zFacetBucket).optional(),
         originAgendas: z.array(zAgendaFacetBucket).optional(),
         sourceAgendas: z.array(zSourceAgendaFacetBucket).optional(),
+        locations: z.array(zLocationFacetBucket).optional(),
         geohash: z.array(zGeoFacetBucket).optional(),
         viewport: zViewport.nullish(),
         timespan: zTimespan.nullish(),
@@ -700,7 +713,7 @@ export const zLocationWritable = z.object({
 });
 
 export const zLocationListWritable = z.object({
-    data: z.array(z.union([zLocationSummaryWritable, zLocationWritable])),
+    data: z.array(z.union([zLocationWritable, zLocationSummaryWritable])),
     pagination: zPagination
 });
 
@@ -736,7 +749,7 @@ export const zMeAgendaItemDetailedWritable = z.object({
 });
 
 export const zMeAgendaListWritable = z.object({
-    data: z.array(z.union([zMeAgendaItemWritable, zMeAgendaItemDetailedWritable])),
+    data: z.array(z.union([zMeAgendaItemDetailedWritable, zMeAgendaItemWritable])),
     pagination: zPagination
 });
 
@@ -787,7 +800,7 @@ export const zEventWritable = z.object({
 });
 
 export const zEventListWritable = z.object({
-    data: z.array(z.union([zEventSummaryWritable, zEventWritable])),
+    data: z.array(z.union([zEventWritable, zEventSummaryWritable])),
     pagination: zPagination
 });
 
@@ -873,10 +886,13 @@ export const zLocationFilterExtId = z.object({
 export const zLocationBoundingBox = z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$/);
 
 /**
- * Comma-separated list of facets to compute. Each returns an array of buckets over the filtered events, ordered by the facet's default ordering. Unknown facet names return `400`. Shapes by family: term facets yield `{ value, count }`; provenance (`originAgendas`, `sourceAgendas`) yields `{ agenda, count }`; `geohash` yields geo cluster buckets (`{ value, count, latitude, longitude }`); `viewport` yields a single bounding box object (or `null`); `timespan` yields the earliest/latest event date as `{ first, last }` (or `null`); `timings` yields a date histogram as `{ value, count }` buckets (bucket width set by `timingsInterval`); `dateRanges` yields a **dense daily grid** of `{ value, count }` over a calendar month (one bucket per day, including zero-count days; month set by `month`); `additionalFields` yields, per agenda choice/boolean field, its option counts as `{ <field>: { label, values:[{ value, label, count }] } }` (fields named by `additionalFieldsKeys`, or all readable when omitted); `additionalFieldMetrics` yields, per agenda numeric field, summary stats as `{ <field>: { label, metrics:{ sum, avg, max, min } } }` (fields named by `additionalFieldMetricsKeys`). Both honor per-field read access.
+ * Comma-separated list of facets to compute. Each returns an array of buckets over the filtered events, ordered by the facet's default ordering. Unknown facet names return `400`. Shapes by family: term facets yield `{ value, count }`; provenance (`originAgendas`, `sourceAgendas`) yields `{ agenda, count }`; `locations` yields `{ location: { uid, name }, count }` buckets (the uid feeds the `locationUid` filter); `geohash` yields geo cluster buckets (`{ value, count, latitude, longitude }`); `viewport` yields a single bounding box object (or `null`); `timespan` yields the earliest/latest event date as `{ first, last }` (or `null`); `timings` yields a date histogram as `{ value, count }` buckets (bucket width set by `timingsInterval`); `dateRanges` yields a **dense daily grid** of `{ value, count }` over a calendar month (one bucket per day, including zero-count days; month set by `month`); `additionalFields` yields, per agenda choice/boolean field, its option counts as `{ <field>: { label, values:[{ value, label, count }] } }` (fields named by `additionalFieldsKeys`, or all readable when omitted); `additionalFieldMetrics` yields, per agenda numeric field, summary stats as `{ <field>: { label, metrics:{ sum, avg, max, min } } }` (fields named by `additionalFieldMetricsKeys`). Both honor per-field read access.
+ * Bucket-list facets (the term, provenance and `locations` families) currently return the **top 10** buckets by event count; a way to request more (a size parameter and/or facet pagination) is under consideration. `additionalFields` is exhaustive (one bucket per option). The fields, their option ids and their labels are the ones the agenda's event form schema declares (`GET /agendas/{agendaUid}/events/schema`).
  *
  */
 export const zFacets = z.array(z.enum([
+    'additionalFields',
+    'additionalFieldMetrics',
     'cities',
     'regions',
     'departments',
@@ -889,13 +905,12 @@ export const zFacets = z.array(z.enum([
     'attendanceModes',
     'originAgendas',
     'sourceAgendas',
+    'locations',
     'geohash',
     'viewport',
     'timespan',
     'timings',
-    'dateRanges',
-    'additionalFields',
-    'additionalFieldMetrics'
+    'dateRanges'
 ])).min(1);
 
 /**
@@ -923,13 +938,13 @@ export const zTimingsInterval = z.enum([
 export const zMonth = z.string().regex(/^\d{4}-\d{2}$/);
 
 /**
- * Comma-separated agenda choice/boolean field names to compute the `additionalFields` facet on. Omit to get every such field readable at the caller's access level. An unknown or non-readable field name returns `400`. Ignored unless `additionalFields` is requested.
+ * Comma-separated agenda choice/boolean field names to compute the `additionalFields` facet on — the names the agenda's event form schema declares (`GET /agendas/{agendaUid}/events/schema`). Omit to get every such field readable at the caller's access level. An unknown or non-readable field name returns `400`. Ignored unless `additionalFields` is requested.
  *
  */
 export const zAdditionalFieldsKeys = z.array(z.string());
 
 /**
- * Comma-separated agenda numeric field names to compute the `additionalFieldMetrics` facet on. Omit to get every numeric field readable at the caller's access level. An unknown or non-readable field name returns `400`. Ignored unless `additionalFieldMetrics` is requested.
+ * Comma-separated agenda numeric field names to compute the `additionalFieldMetrics` facet on — the names the agenda's event form schema declares (`GET /agendas/{agendaUid}/events/schema`). Omit to get every numeric field readable at the caller's access level. An unknown or non-readable field name returns `400`. Ignored unless `additionalFieldMetrics` is requested.
  *
  */
 export const zAdditionalFieldMetricsKeys = z.array(z.string());
@@ -1124,7 +1139,7 @@ export const zFilterRelative = z.array(z.enum([
 ]));
 
 /**
- * Restrict to events having a timing that begins within the range, as RFC 3339 date-times: `timings[gte]=…&timings[lte]=…`. For now-relative windows, prefer `relative`.
+ * Restrict to events having a timing that begins within the range, as RFC 3339 date-times: `timings[gte]=…&timings[lte]=…`. For now-relative windows, prefer `relative`. Date-times must carry an explicit offset (e.g. `Z`); a bare date (`YYYY-MM-DD`) is read as UTC midnight.
  *
  */
 export const zFilterTimings = z.object({
@@ -1142,7 +1157,7 @@ export const zFilterLocalTime = z.object({
 });
 
 /**
- * Restrict by creation date, as RFC 3339 date-times: `createdAt[gte]=…&createdAt[lte]=…`.
+ * Restrict by creation date, as RFC 3339 date-times: `createdAt[gte]=…&createdAt[lte]=…`. Date-times must carry an explicit offset (e.g. `Z`); a bare date (`YYYY-MM-DD`) is read as UTC midnight.
  *
  */
 export const zFilterCreatedAt = z.object({
@@ -1151,7 +1166,7 @@ export const zFilterCreatedAt = z.object({
 });
 
 /**
- * Restrict by last-update date, as RFC 3339 date-times: `updatedAt[gte]=…&updatedAt[lte]=…`. Useful for incremental sync.
+ * Restrict by last-update date, as RFC 3339 date-times: `updatedAt[gte]=…&updatedAt[lte]=…`. Useful for incremental sync. Date-times must carry an explicit offset (e.g. `Z`); a bare date (`YYYY-MM-DD`) is read as UTC midnight.
  *
  */
 export const zFilterUpdatedAt = z.object({
@@ -1169,7 +1184,7 @@ export const zFilterAge = z.object({
 });
 
 /**
- * Filter on agenda-specific additional fields, addressed by field name: `additionalFields[<fieldName>]=<value>`. Available fields and their value types come from the agenda's event schema (GET /agendas/{agendaUid}/settings/eventSchema). For numeric fields, use a range object: `additionalFields[<fieldName>][gte]=…&additionalFields[<fieldName>][lte]=…`.
+ * Filter on agenda-specific additional fields, addressed by field name: `additionalFields[<fieldName>]=<value>`. Available fields and their value types come from the agenda's event form schema (`GET /agendas/{agendaUid}/events/schema`). For numeric fields, use a range object: `additionalFields[<fieldName>][gte]=…&additionalFields[<fieldName>][lte]=…`.
  *
  */
 export const zFilterAdditionalFields = z.record(z.unknown());
@@ -1304,6 +1319,8 @@ export const zAgendasEventsFacetsPath = z.object({
 
 export const zAgendasEventsFacetsQuery = z.object({
     facets: z.array(z.enum([
+        'additionalFields',
+        'additionalFieldMetrics',
         'cities',
         'regions',
         'departments',
@@ -1316,13 +1333,12 @@ export const zAgendasEventsFacetsQuery = z.object({
         'attendanceModes',
         'originAgendas',
         'sourceAgendas',
+        'locations',
         'geohash',
         'viewport',
         'timespan',
         'timings',
-        'dateRanges',
-        'additionalFields',
-        'additionalFieldMetrics'
+        'dateRanges'
     ])).min(1),
     geohashZoom: z.number().int().gte(1).optional().default(1),
     timingsInterval: z.enum([
