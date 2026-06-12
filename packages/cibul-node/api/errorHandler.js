@@ -21,7 +21,9 @@ export default function apiErrorHandler(err, req, res, _next) {
     });
   }
 
-  if (['NotAuthenticated', 'Forbidden', 'NotFound'].includes(err.name)) {
+  if (
+    ['NotAuthenticated', 'Forbidden', 'NotFound', 'Conflict'].includes(err.name)
+  ) {
     return res.status(err.statusCode || err.code).json({
       message: err.message,
       info: err.info,

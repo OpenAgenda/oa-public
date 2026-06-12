@@ -47,6 +47,7 @@ export function MemberRemoveModal({
   member,
   res,
   uid,
+  slug,
   onSuccess,
   closeModal,
   lang,
@@ -57,6 +58,7 @@ export function MemberRemoveModal({
       operation="remove"
       mode="modal"
       res={`${res.members.replace(':agendaUid', uid)}/${member.userUid}`}
+      agendaSlug={slug}
       onRemoveSuccess={() => onSuccess(member)}
       onCloseModalRequest={() => closeModal()}
     />
