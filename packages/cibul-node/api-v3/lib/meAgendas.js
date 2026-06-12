@@ -10,7 +10,7 @@
 // own flag.
 
 import { mapAgendaSummary, mapAgendaDetailed } from './mapAgenda.js';
-import { encodeCursor } from './cursor.js';
+import buildPagination from './pagination.js';
 
 // Resolve `fn` over distinct values with bounded concurrency — the fallback
 // fan-out must stay flat even for a worst-case page of 100 private agendas.
@@ -51,26 +51,35 @@ async function enrichAgendas(core, items, { detailed }) {
     return byUid;
   }
 
-  // One SQL query for every index miss of the page.
+  // One SQL query for every index miss of the page. `networkUid` is excluded
+  // from the service's default list projection (`list: false`); the detailed
+  // tier needs it to resolve the network ref below.
   const { agendas: rows = [] } = await services.agendas.list(
     { uid: missingUids },
     0,
     missingUids.length,
-    { private: null, includeImagePath: true },
+    {
+      private: null,
+      includeImagePath: true,
+      includeFields: ['networkUid'],
+    },
   );
 
   if (detailed) {
     // The detailed tier resolves the network/locationSet refs the same way
     // core's agenda get does (the SQL record only carries the uids) —
-    // deduplicated and concurrency-bounded.
-    const networks = await resolveEach(
-      rows.map((a) => a.networkUid),
-      (uid) => services.networks.get(uid),
-    );
-    const locationSets = await resolveEach(
-      rows.map((a) => a.locationSetUid),
-      (uid) => services.agendaLocations.sets.get(uid),
-    );
+    // deduplicated and concurrency-bounded. The two ref families are
+    // independent, so they resolve in parallel (≤5 in flight each).
+    const [networks, locationSets] = await Promise.all([
+      resolveEach(
+        rows.map((a) => a.networkUid),
+        (uid) => services.networks.get(uid),
+      ),
+      resolveEach(
+        rows.map((a) => a.locationSetUid),
+        (uid) => services.agendaLocations.sets.get(uid),
+      ),
+    ]);
     for (const agenda of rows) {
       agenda.network = networks.get(agenda.networkUid) ?? null;
       agenda.locationSet = locationSets.get(agenda.locationSetUid) ?? null;
@@ -85,9 +94,10 @@ async function enrichAgendas(core, items, { detailed }) {
 }
 
 // `item` is a membership row from core.users(uid).agendas.list:
-// `{ uid, slug, title, member: { role, … } }`. An unresolvable agenda (e.g. a
-// stale membership row) degrades to that member-join base — uid/slug/title
-// are still known, the summary extras map to their empty values.
+// `{ uid, slug, title, member: { role, … } }`. An agenda that resolved at
+// member-join time but misses both enrichment tiers (e.g. deleted between the
+// two reads) degrades to that member-join base — uid/slug/title are known,
+// the summary extras map to their empty values.
 function mapItem(item, enriched, { detailed }) {
   const { agenda = item, private: isPrivate = false } = enriched ?? {};
   const mapAgendaItem = detailed ? mapAgendaDetailed : mapAgendaSummary;
@@ -106,20 +116,27 @@ export default async function buildMeAgendaList(
 ) {
   const { items = [], total, after = null } = result ?? {};
 
-  const enriched = await enrichAgendas(core, items, { detailed });
+  // A stale membership row — its agenda deleted while the member-row cleanup
+  // task lags or fails — could not pick uid/slug/title from the member join.
+  // It is unrepresentable (every contract field would be empty) and its
+  // undefined uid would poison the search uid filter, so drop it from the
+  // page. `total` may transiently overcount by those rows until the cleanup
+  // catches up.
+  const liveItems = items.filter((item) => item.uid != null);
 
-  // The members listing returns the last row's `order` even on the last full
-  // page — same short-page sentinel as the other SQL-backed lists.
-  const isLastPage = items.length < limit;
+  const enriched = await enrichAgendas(core, liveItems, { detailed });
 
   return {
-    data: items.map((item) =>
+    data: liveItems.map((item) =>
       mapItem(item, enriched.get(item.uid), { detailed })),
-    pagination: {
-      after:
-        isLastPage || after == null ? null : encodeCursor({ after: [after] }),
+    // The members listing returns the last row's `order` (a scalar) even on
+    // the last full page — short-page sentinel, gauged on the RAW page size:
+    // stale rows were fetched, only their rendering is skipped.
+    pagination: buildPagination({
+      after,
+      isLastPage: items.length < limit,
       limit,
-      ...total === undefined ? {} : { total },
-    },
+      total,
+    }),
   };
 }
