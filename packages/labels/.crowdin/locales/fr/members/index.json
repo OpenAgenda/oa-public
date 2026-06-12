@@ -84,5 +84,9 @@
   "subject": "Sujet",
   "total": "Total",
   "writeToHim": "Lui écrire",
-  "writeToThem": "Leur écrire"
+  "writeToThem": "Leur écrire",
+  "lastAdminTitle": "Vous êtes le seul administrateur",
+  "lastAdminMessage": "Vous ne pouvez pas vous retirer tant que vous êtes le seul administrateur de cet agenda. Invitez un autre administrateur, ou supprimez l'agenda.",
+  "lastAdminInvite": "Inviter un autre administrateur",
+  "lastAdminDeleteAgenda": "Supprimer l'agenda"
 }

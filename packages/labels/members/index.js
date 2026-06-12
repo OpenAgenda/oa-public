@@ -221,6 +221,46 @@ module.exports = {
     "nl": "U kunt dit lid niet verwijderen.",
     "br": "N'hallit ket dilemel an ezel-mañ."
   },
+  "lastAdminTitle": {
+    "fr": "Vous êtes le seul administrateur",
+    "en": "You are the only administrator",
+    "de": "Sie sind der einzige Administrator",
+    "es": "Eres el único administrador",
+    "it": "Sei l'unico amministratore",
+    "oc": "Sètz lo sol administrator",
+    "nl": "Je bent de enige beheerder",
+    "br": "C'hwi eo an merour nemetañ"
+  },
+  "lastAdminMessage": {
+    "fr": "Vous ne pouvez pas vous retirer tant que vous êtes le seul administrateur de cet agenda. Invitez un autre administrateur, ou supprimez l'agenda.",
+    "en": "You can't remove yourself while you are the only administrator of this agenda. Invite another administrator, or delete the agenda.",
+    "de": "Sie können sich nicht entfernen, solange Sie der einzige Administrator dieses Kalenders sind. Laden Sie einen weiteren Administrator ein oder löschen Sie den Kalender.",
+    "es": "No puedes eliminarte mientras seas el único administrador de esta agenda. Invita a otro administrador o elimina la agenda.",
+    "it": "Non puoi rimuoverti finché sei l'unico amministratore di questa agenda. Invita un altro amministratore oppure elimina l'agenda.",
+    "oc": "Vos podètz pas tirar tant que sètz lo sol administrator d'aquesta agenda. Convidatz un autre administrator, o suprimissètz l'agenda.",
+    "nl": "Je kunt jezelf niet verwijderen zolang je de enige beheerder van deze agenda bent. Nodig een andere beheerder uit of verwijder de agenda.",
+    "br": "N'hallit ket en em zilemel keit ha ma'z oc'h an merour nemetañ eus an deizataer-mañ. Pedit ur merour all, pe dilamit an deizataer."
+  },
+  "lastAdminInvite": {
+    "fr": "Inviter un autre administrateur",
+    "en": "Invite another administrator",
+    "de": "Einen weiteren Administrator einladen",
+    "es": "Invitar a otro administrador",
+    "it": "Invita un altro amministratore",
+    "oc": "Convidar un autre administrator",
+    "nl": "Een andere beheerder uitnodigen",
+    "br": "Pediñ ur merour all"
+  },
+  "lastAdminDeleteAgenda": {
+    "fr": "Supprimer l'agenda",
+    "en": "Delete the agenda",
+    "de": "Den Kalender löschen",
+    "es": "Eliminar la agenda",
+    "it": "Eliminare l'agenda",
+    "oc": "Suprimir l'agenda",
+    "nl": "De agenda verwijderen",
+    "br": "Dilemel an deizataer"
+  },
   "editProfile": {
     "fr": "Voir la fiche contact",
     "en": "Edit profile",

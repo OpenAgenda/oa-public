@@ -83,5 +83,9 @@
   "subject": "Subjècte",
   "total": "Total",
   "writeToHim": "Escriure al membre",
-  "writeToThem": "Lor escriure"
+  "writeToThem": "Lor escriure",
+  "lastAdminTitle": "Sètz lo sol administrator",
+  "lastAdminMessage": "Vos podètz pas tirar tant que sètz lo sol administrator d'aquesta agenda. Convidatz un autre administrator, o suprimissètz l'agenda.",
+  "lastAdminInvite": "Convidar un autre administrator",
+  "lastAdminDeleteAgenda": "Suprimir l'agenda"
 }

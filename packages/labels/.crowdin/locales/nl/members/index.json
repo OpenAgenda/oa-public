@@ -83,5 +83,9 @@
   "subject": "Onderwerp",
   "total": "Totaal",
   "writeToHim": "Hem/haar schrijven",
-  "writeToThem": "Hen schrijven"
+  "writeToThem": "Hen schrijven",
+  "lastAdminTitle": "Je bent de enige beheerder",
+  "lastAdminMessage": "Je kunt jezelf niet verwijderen zolang je de enige beheerder van deze agenda bent. Nodig een andere beheerder uit of verwijder de agenda.",
+  "lastAdminInvite": "Een andere beheerder uitnodigen",
+  "lastAdminDeleteAgenda": "De agenda verwijderen"
 }

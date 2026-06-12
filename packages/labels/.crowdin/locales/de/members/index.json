@@ -69,5 +69,9 @@
   "string.tooshort": "String zu kurz",
   "total": "Gesamt",
   "writeToHim": "Schreiben Sie Mitglied",
-  "writeToThem": "Schreiben Sie sie"
+  "writeToThem": "Schreiben Sie sie",
+  "lastAdminTitle": "Sie sind der einzige Administrator",
+  "lastAdminMessage": "Sie können sich nicht entfernen, solange Sie der einzige Administrator dieses Kalenders sind. Laden Sie einen weiteren Administrator ein oder löschen Sie den Kalender.",
+  "lastAdminInvite": "Einen weiteren Administrator einladen",
+  "lastAdminDeleteAgenda": "Den Kalender löschen"
 }

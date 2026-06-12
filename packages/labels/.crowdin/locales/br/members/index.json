@@ -83,5 +83,9 @@
   "subject": "Danvez",
   "total": "Hollad",
   "writeToHim": "Skrivañ dezhañ",
-  "writeToThem": "Skrivañ dezho"
+  "writeToThem": "Skrivañ dezho",
+  "lastAdminTitle": "C'hwi eo an merour nemetañ",
+  "lastAdminMessage": "N'hallit ket en em zilemel keit ha ma'z oc'h an merour nemetañ eus an deizataer-mañ. Pedit ur merour all, pe dilamit an deizataer.",
+  "lastAdminInvite": "Pediñ ur merour all",
+  "lastAdminDeleteAgenda": "Dilemel an deizataer"
 }
