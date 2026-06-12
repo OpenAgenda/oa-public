@@ -241,21 +241,31 @@ export type EventFormSchema = {
 };
 
 /**
- * A field descriptor in the OpenAgenda form-schema vocabulary, served raw. The properties below are the stable core; descriptors may carry further engine-specific keys (conditions, display hints, sub-schemas such as `schema` on the `location` field, …).
+ * A descriptor in the OpenAgenda form-schema vocabulary, served raw. Two kinds share the array: **data field descriptors** (carrying `field`, the key the value lives under on events) and **section separators** (`type: 'section'`, no `field` — structure the form into titled groups). The properties below are the stable core; descriptors may carry further engine-specific keys (conditions, display hints, sub-schemas such as `schema` on the `location` field, …).
  *
  */
 export type FormSchemaField = {
     /**
-     * Field name — the key the value is carried under on events.
+     * Field name — the key the value is carried under on events. Absent on section separators.
+     *
      */
-    field: string;
+    field?: string;
     /**
      * Field kind in the form-schema vocabulary, e.g. `text`, `textarea`, `multilingual`, `radio`, `checkbox`, `select`, `number`, `date`, `image`, `link`, `abstract` (structural)…
      *
      */
     fieldType?: string;
     /**
-     * Localized display label, when the field carries one.
+     * Descriptor kind marker — `section` for section separators; data fields usually omit it.
+     *
+     */
+    type?: string;
+    /**
+     * Stable identifier of a section separator.
+     */
+    slug?: string;
+    /**
+     * Localized display label, when the descriptor carries one.
      */
     label?: LocalizedString | string | null;
     /**
@@ -263,6 +273,29 @@ export type FormSchemaField = {
      *
      */
     optional?: boolean;
+    /**
+     * Whether the field is shown on the form (default true).
+     */
+    display?: unknown;
+    /**
+     * Whether the field is enabled (default true).
+     */
+    enable?: boolean;
+    /**
+     * The field is only active when another field has a value: either that field's name, or `{ field, value }` to require specific values (e.g. `onlineAccessLink` enabled when `attendanceMode` is online or mixed).
+     *
+     */
+    enableWith?: unknown;
+    /**
+     * The field is only required when another field (same reference forms as `enableWith`) has a value.
+     *
+     */
+    optionalWith?: unknown;
+    /**
+     * For converted legacy fields, what they were converted from.
+     *
+     */
+    origin?: 'tags' | 'categories' | 'custom' | null;
     /**
      * Allowed choices for choice-like field kinds.
      */

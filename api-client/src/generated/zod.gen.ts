@@ -154,17 +154,28 @@ export const zLocationList = z.object({
 });
 
 /**
- * A field descriptor in the OpenAgenda form-schema vocabulary, served raw. The properties below are the stable core; descriptors may carry further engine-specific keys (conditions, display hints, sub-schemas such as `schema` on the `location` field, …).
+ * A descriptor in the OpenAgenda form-schema vocabulary, served raw. Two kinds share the array: **data field descriptors** (carrying `field`, the key the value lives under on events) and **section separators** (`type: 'section'`, no `field` — structure the form into titled groups). The properties below are the stable core; descriptors may carry further engine-specific keys (conditions, display hints, sub-schemas such as `schema` on the `location` field, …).
  *
  */
 export const zFormSchemaField = z.object({
-    field: z.string(),
+    field: z.string().optional(),
     fieldType: z.string().optional(),
+    type: z.string().optional(),
+    slug: z.string().optional(),
     label: z.union([
         zLocalizedString,
         z.string()
     ]).nullish(),
     optional: z.boolean().optional(),
+    display: z.unknown().optional(),
+    enable: z.boolean().optional(),
+    enableWith: z.unknown().optional(),
+    optionalWith: z.unknown().optional(),
+    origin: z.enum([
+        'tags',
+        'categories',
+        'custom'
+    ]).nullish(),
     options: z.array(z.object({
         id: z.number().int().optional(),
         value: z.string().optional(),
