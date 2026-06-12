@@ -141,6 +141,12 @@
       "value": "Krouiñ ha kemmañ ho lec'hioù"
     }
   ],
+  "next.components.auth.Consent.scope.meRead": [
+    {
+      "type": 0,
+      "value": "Gwelet an deiziataerioù m'oc'h ezel anezho hag ho roll enno"
+    }
+  ],
   "next.components.auth.Consent.scope.membersRead": [
     {
       "type": 0,

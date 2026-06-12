@@ -20,6 +20,7 @@
   "next.components.auth.Consent.scope.eventsWrite": "Je evenementen aanmaken en bewerken",
   "next.components.auth.Consent.scope.locationsRead": "Je locaties lezen",
   "next.components.auth.Consent.scope.locationsWrite": "Je locaties aanmaken en bewerken",
+  "next.components.auth.Consent.scope.meRead": "De agenda's zien waarvan je lid bent en je rol daarin",
   "next.components.auth.Consent.scope.membersRead": "Agendaleden lezen",
   "next.components.auth.Consent.scope.membersWrite": "Agendaleden beheren",
   "next.components.auth.Consent.scope.offlineAccess": "Verbonden blijven wanneer je weg bent (toegang vernieuwen)",

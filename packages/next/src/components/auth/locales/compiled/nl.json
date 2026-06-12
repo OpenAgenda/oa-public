@@ -141,6 +141,12 @@
       "value": "Je locaties aanmaken en bewerken"
     }
   ],
+  "next.components.auth.Consent.scope.meRead": [
+    {
+      "type": 0,
+      "value": "De agenda's zien waarvan je lid bent en je rol daarin"
+    }
+  ],
   "next.components.auth.Consent.scope.membersRead": [
     {
       "type": 0,

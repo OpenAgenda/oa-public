@@ -141,6 +141,12 @@
       "value": "Crear e modificar vòstres luòcs"
     }
   ],
+  "next.components.auth.Consent.scope.meRead": [
+    {
+      "type": 0,
+      "value": "Veire los agendas que ne sètz membre e vòstre ròtle sus cadun"
+    }
+  ],
   "next.components.auth.Consent.scope.membersRead": [
     {
       "type": 0,

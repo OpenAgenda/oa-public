@@ -248,6 +248,7 @@ export default function Auth(options = {}) {
       'profile',
       'email',
       'offline_access',
+      'me:read',
       'events:read',
       'events:write',
       'events:transverse',

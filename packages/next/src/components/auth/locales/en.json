@@ -20,6 +20,7 @@
   "next.components.auth.Consent.scope.eventsWrite": "Create and edit your events",
   "next.components.auth.Consent.scope.locationsRead": "Read your locations",
   "next.components.auth.Consent.scope.locationsWrite": "Create and edit your locations",
+  "next.components.auth.Consent.scope.meRead": "See the agendas you are a member of and your role on them",
   "next.components.auth.Consent.scope.membersRead": "Read agenda members",
   "next.components.auth.Consent.scope.membersWrite": "Manage agenda members",
   "next.components.auth.Consent.scope.offlineAccess": "Stay connected when you are away (refresh access)",

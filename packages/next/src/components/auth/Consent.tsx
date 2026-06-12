@@ -92,6 +92,10 @@ const scopeMessages = defineMessages({
     id: 'next.components.auth.Consent.scope.offlineAccess',
     defaultMessage: 'Stay connected when you are away (refresh access)',
   },
+  'me:read': {
+    id: 'next.components.auth.Consent.scope.meRead',
+    defaultMessage: 'See the agendas you are a member of and your role on them',
+  },
   'events:read': {
     id: 'next.components.auth.Consent.scope.eventsRead',
     defaultMessage: 'Read your events',
@@ -138,6 +142,7 @@ const scopeIcons: Record<string, IconDefinition> = {
   profile: faUser,
   email: faEnvelope,
   offline_access: faArrowRotateRight,
+  'me:read': faIdBadge,
   'events:read': faCalendar,
   'events:write': faCalendarPen,
   'events:transverse': faLayerGroup,

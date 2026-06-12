@@ -20,6 +20,7 @@
   "next.components.auth.Consent.scope.eventsWrite": "Crear e modificar vòstres eveniments",
   "next.components.auth.Consent.scope.locationsRead": "Legir vòstres luòcs",
   "next.components.auth.Consent.scope.locationsWrite": "Crear e modificar vòstres luòcs",
+  "next.components.auth.Consent.scope.meRead": "Veire los agendas que ne sètz membre e vòstre ròtle sus cadun",
   "next.components.auth.Consent.scope.membersRead": "Legir los membres dels agendas",
   "next.components.auth.Consent.scope.membersWrite": "Gerir los membres dels agendas",
   "next.components.auth.Consent.scope.offlineAccess": "Demorar connectat en vòstra abséncia (accès renovelat)",

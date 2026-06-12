@@ -141,6 +141,12 @@
       "value": "Ihre Orte erstellen und bearbeiten"
     }
   ],
+  "next.components.auth.Consent.scope.meRead": [
+    {
+      "type": 0,
+      "value": "Die Agenden sehen, deren Mitglied Sie sind, und Ihre Rolle darin"
+    }
+  ],
   "next.components.auth.Consent.scope.membersRead": [
     {
       "type": 0,

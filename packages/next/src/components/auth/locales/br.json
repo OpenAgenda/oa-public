@@ -20,6 +20,7 @@
   "next.components.auth.Consent.scope.eventsWrite": "Krouiñ ha kemmañ hoc'h abadennoù",
   "next.components.auth.Consent.scope.locationsRead": "Lenn ho lec'hioù",
   "next.components.auth.Consent.scope.locationsWrite": "Krouiñ ha kemmañ ho lec'hioù",
+  "next.components.auth.Consent.scope.meRead": "Gwelet an deiziataerioù m'oc'h ezel anezho hag ho roll enno",
   "next.components.auth.Consent.scope.membersRead": "Lenn izili an deizataerioù",
   "next.components.auth.Consent.scope.membersWrite": "Merañ izili an deizataerioù",
   "next.components.auth.Consent.scope.offlineAccess": "Chom kennasket pa'z oc'h ezvezant (nevesaat an haeziñ)",

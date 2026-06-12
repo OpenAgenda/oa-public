@@ -141,6 +141,12 @@
       "value": "Crear y editar tus lugares"
     }
   ],
+  "next.components.auth.Consent.scope.meRead": [
+    {
+      "type": 0,
+      "value": "Ver las agendas de las que eres miembro y tu rol en ellas"
+    }
+  ],
   "next.components.auth.Consent.scope.membersRead": [
     {
       "type": 0,
