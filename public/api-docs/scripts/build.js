@@ -240,7 +240,7 @@ const html = `<!doctype html>
                   // OAuth 2.1 — the AS mandates PKCE (S256) for this public client.
                   'x-usePkce': 'SHA-256',
                   // Pre-tick the read scopes the current (read-only) surface uses.
-                  selectedScopes: ['agendas:read', 'events:read'],
+                  selectedScopes: ['agendas:read', 'events:read', 'locations:read', 'me:read'],
                   // RFC 8707 — carry the resource indicator on both legs so the
                   // issued token is a JWS bound to aud=v3 (offline-verified),
                   // not an unbound opaque token the API rejects as a stray key.
