@@ -12,9 +12,13 @@ export default (core, identifier) =>
 
     const { detailed } = validateOptions(options);
 
-    const user = await users.findOne({
-      query: validateIdentifier(identifier, { pickOne: true }),
-    });
+    // An already-loaded user object (it carries its uid) is used as-is — the
+    // API routes pass req.user, no point re-fetching it by uid.
+    const user = identifier instanceof Object && identifier.uid
+      ? identifier
+      : await users.findOne({
+        query: validateIdentifier(identifier, { pickOne: true }),
+      });
 
     if (!user) {
       throw new NotFound(

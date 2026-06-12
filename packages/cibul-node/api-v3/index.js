@@ -476,7 +476,9 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
         }
       }
 
-      const result = await core.users(req.user.uid).agendas.list(nav);
+      // Passing the loaded user object (not the uid) skips core's redundant
+      // user re-fetch.
+      const result = await core.users(req.user).agendas.list(nav);
 
       res.json(await buildMeAgendaList(core, result, { limit, detailed }));
     } catch (err) {

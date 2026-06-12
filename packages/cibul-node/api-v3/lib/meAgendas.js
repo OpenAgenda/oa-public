@@ -12,6 +12,21 @@
 import { mapAgendaSummary, mapAgendaDetailed } from './mapAgenda.js';
 import { encodeCursor } from './cursor.js';
 
+// Resolve `fn` over distinct values with bounded concurrency — the fallback
+// fan-out must stay flat even for a worst-case page of 100 private agendas.
+async function resolveEach(values, fn, { concurrency = 5 } = {}) {
+  const distinct = [...new Set(values.filter((v) => v != null))];
+  const resolved = new Map();
+  for (let i = 0; i < distinct.length; i += concurrency) {
+    await Promise.all(
+      distinct.slice(i, i + concurrency).map(async (value) => {
+        resolved.set(value, await fn(value));
+      }),
+    );
+  }
+  return resolved;
+}
+
 async function enrichAgendas(core, items, { detailed }) {
   const { services } = core;
   const byUid = new Map();
@@ -30,30 +45,41 @@ async function enrichAgendas(core, items, { detailed }) {
     byUid.set(agenda.uid, { agenda, private: false });
   }
 
-  await Promise.all(
-    items
-      .filter((i) => !byUid.has(i.uid))
-      .map(async (item) => {
-        const agenda = await services.agendas.get(
-          { uid: item.uid },
-          { private: null, internal: true, includeImagePath: true },
-        );
-        if (!agenda) {
-          return;
-        }
-        if (detailed) {
-          // The detailed tier resolves the network/locationSet refs the same
-          // way core's agenda get does (the SQL record only carries the uids).
-          agenda.network = agenda.networkUid
-            ? await services.networks.get(agenda.networkUid)
-            : null;
-          agenda.locationSet = await services.agendaLocations.sets.get(
-            agenda.locationSetUid,
-          );
-        }
-        byUid.set(item.uid, { agenda, private: !!agenda.private });
-      }),
+  const missingUids = items.map((i) => i.uid).filter((uid) => !byUid.has(uid));
+
+  if (!missingUids.length) {
+    return byUid;
+  }
+
+  // One SQL query for every index miss of the page.
+  const { agendas: rows = [] } = await services.agendas.list(
+    { uid: missingUids },
+    0,
+    missingUids.length,
+    { private: null, includeImagePath: true },
   );
+
+  if (detailed) {
+    // The detailed tier resolves the network/locationSet refs the same way
+    // core's agenda get does (the SQL record only carries the uids) —
+    // deduplicated and concurrency-bounded.
+    const networks = await resolveEach(
+      rows.map((a) => a.networkUid),
+      (uid) => services.networks.get(uid),
+    );
+    const locationSets = await resolveEach(
+      rows.map((a) => a.locationSetUid),
+      (uid) => services.agendaLocations.sets.get(uid),
+    );
+    for (const agenda of rows) {
+      agenda.network = networks.get(agenda.networkUid) ?? null;
+      agenda.locationSet = locationSets.get(agenda.locationSetUid) ?? null;
+    }
+  }
+
+  for (const agenda of rows) {
+    byUid.set(agenda.uid, { agenda, private: !!agenda.private });
+  }
 
   return byUid;
 }
