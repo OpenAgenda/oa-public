@@ -6,7 +6,7 @@ export default async (core, agendaOrUid, identifiers, options = {}) => {
   const { services } = core;
   const { members, users, custom, agendas } = services;
 
-  const { userUid: actingUserUid, silent } = options;
+  const { userUid: actingUserUid, silent, access } = options;
 
   if (!actingUserUid) {
     throw new BadRequest('userUid option is required');
@@ -38,7 +38,12 @@ export default async (core, agendaOrUid, identifiers, options = {}) => {
     throw new Forbidden('Not authorized to patch member');
   }
 
-  if (await isLastAdministrator(services, { agendaUid, member })) {
+  // Internal/superadmin flows (access: 'internal') may legitimately remove the
+  // last administrator (e.g. agenda deletion), mirroring members.create.
+  if (
+    access !== 'internal'
+    && await isLastAdministrator(services, { agendaUid, member })
+  ) {
     throw new Conflict(
       { info: { code: 'last-administrator' } },
       'Cannot remove the last administrator of the agenda',

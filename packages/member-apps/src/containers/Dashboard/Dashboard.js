@@ -638,6 +638,11 @@ class Dashboard extends Component {
               && removeModal.member.role === 2
               && totalAdministrator <= 1;
 
+            // Also honour the server's verdict: if the API refused with a 409
+            // (e.g. stats were stale and the client heuristic missed), show the
+            // same guidance rather than the generic error.
+            const showLastAdmin = lastAdminSelfRemoval || removeModal.lastAdmin;
+
             let content;
             if (removeModal.error) {
               content = (
@@ -655,7 +660,7 @@ class Dashboard extends Component {
                   </button>
                 </div>
               );
-            } else if (lastAdminSelfRemoval) {
+            } else if (showLastAdmin) {
               content = (
                 <div>
                   <p className="margin-top-sm">
@@ -698,8 +703,17 @@ class Dashboard extends Component {
                             await list(agenda, query);
                             await getStats(agenda);
                           })
-                          .catch(() =>
-                            setModal('removeMember', { error: true }))}
+                          .catch((error) => {
+                            const status = error?.response?.status
+                              ?? error?.status
+                              ?? error?.statusCode;
+                            setModal(
+                              'removeMember',
+                              status === 409
+                                ? { lastAdmin: true }
+                                : { error: true },
+                            );
+                          })}
                     >
                       {getLabel('removeMember')}
                     </button>
@@ -711,7 +725,7 @@ class Dashboard extends Component {
             return (
               <Modal
                 title={getLabel(
-                  lastAdminSelfRemoval ? 'lastAdminTitle' : 'removeMember',
+                  showLastAdmin ? 'lastAdminTitle' : 'removeMember',
                 )}
                 visible={removeModal.visible || false}
                 onClose={() => closeModal('removeMember')}

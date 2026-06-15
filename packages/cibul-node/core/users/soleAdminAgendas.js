@@ -1,4 +1,5 @@
 import { NotFound } from '@openagenda/verror';
+import countAdministrators from '../agendas/members/lib/countAdministrators.js';
 import validateIdentifier from './lib/validateIdentifier.js';
 
 /**
@@ -29,11 +30,7 @@ export default (core, identifier) => async () => {
   const soleAdminAgendas = [];
 
   for (const member of members) {
-    const { total } = await membersSvc.list(
-      { agendaUid: member.agendaUid, role: 'administrator' },
-      { limit: 1 },
-      { total: true },
-    );
+    const total = await countAdministrators(core.services, member.agendaUid);
 
     if (total <= 1 && member.agenda) {
       soleAdminAgendas.push({

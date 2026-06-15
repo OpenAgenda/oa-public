@@ -56,8 +56,11 @@ export default async (core, agendaOrUid, identifiers, data, options = {}) => {
     throw new Forbidden('Not authorized to patch member');
   }
 
+  // Internal/superadmin flows (access: 'internal') may legitimately demote the
+  // last administrator, mirroring members.create.
   if (
-    patchData.role !== undefined
+    access !== 'internal'
+    && patchData.role !== undefined
     && members.utils.getRoleSlug(patchData.role) !== 'administrator'
     && await isLastAdministrator(services, { agendaUid, member })
   ) {
