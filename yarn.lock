@@ -12681,7 +12681,6 @@ __metadata:
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     leaflet: "npm:^1.7.1"
-    locutus: "npm:^2.0.14"
     lodash: "npm:^4.17.15"
     moment-timezone: "npm:^0.5.31"
     msw: "npm:^2.3.0"
@@ -35111,7 +35110,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es6-promise@npm:^4.2.5, es6-promise@npm:^4.2.8":
+"es6-promise@npm:^4.2.8":
   version: 4.2.8
   resolution: "es6-promise@npm:4.2.8"
   checksum: 10c0/2373d9c5e9a93bdd9f9ed32ff5cb6dd3dd785368d1c21e9bbbfd07d16345b3774ae260f2bd24c8f836a6903f432b4151e7816a7fa8891ccb4e1a55a028ec42c3
@@ -45700,15 +45699,6 @@ __metadata:
   dependencies:
     signal-exit: "npm:^3.0.2"
   checksum: 10c0/80b7777ceb43105d9e588733c3efc2514653a5e3a0dae3e61347a1f5381da34dcaa2caaa60c39ed5d4ad31c1735a4831e5639a0ba1c508bfea8dbc9c89777b37
-  languageName: node
-  linkType: hard
-
-"locutus@npm:^2.0.14":
-  version: 2.0.14
-  resolution: "locutus@npm:2.0.14"
-  dependencies:
-    es6-promise: "npm:^4.2.5"
-  checksum: 10c0/c3ff8fe43f4a4a648965a7e71efdf7b470758307739fb5b47898b473deced827de1c8b44ae8bddc008b9fb4946f0994e3d2de14784513a2720a7595ed49ecbf4
   languageName: node
   linkType: hard
 
