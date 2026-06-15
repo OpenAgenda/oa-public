@@ -46,9 +46,11 @@ function loadAgendas() {
     const successDispatch = { type: actionTypes.LOAD_AGENDAS_SUCCESS };
 
     try {
-      const { network, agendas } = await ky(history.location.pathname).json();
+      const { network, agendas, credentialsSchema } = await ky(
+        history.location.pathname,
+      ).json();
 
-      _.assign(successDispatch, { network, agendas });
+      _.assign(successDispatch, { network, agendas, credentialsSchema });
     } catch (e) {
       return dispatchError(dispatch, e);
     }
@@ -57,13 +59,13 @@ function loadAgendas() {
   };
 }
 
-function submitAddAgenda(slugOrUrl) {
+function submitAddAgenda(slugOrUrl, { credentials, official } = {}) {
   return (dispatch, getState, history) =>
     _post({
       dispatch,
       successType: actionTypes.ADD_AGENDA_SUCCESS,
       res: `${history.location.pathname}/add`,
-      data: { slugOrUrl },
+      data: { slugOrUrl, credentials, official },
       failType: actionTypes.ADD_AGENDA_CLOSE,
     });
 }
@@ -143,6 +145,7 @@ export default (state = {}, action = {}) => {
       return ih(state, {
         agendas: { $set: action.agendas },
         network: { $set: action.network },
+        credentialsSchema: { $set: action.credentialsSchema },
       });
 
     case actionTypes.ADD_AGENDA_SHOW:

@@ -5,17 +5,32 @@ export default class AddAgenda extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { inputValue: '' };
+    const { credentialsSchema = {} } = props;
+
+    // Pre-check credentials that default to ON in the schema, matching the admin
+    // Features tab (which merges `def.default`). `official` defaults to true: the
+    // headline use case for this modal is to officialize an agenda on add.
+    this.state = {
+      inputValue: '',
+      official: true,
+      credentials: Object.fromEntries(
+        Object.entries(credentialsSchema).map(([key, def]) => [
+          key,
+          !!def.default,
+        ]),
+      ),
+    };
   }
 
-  componentDidMount() {
-    // not worthwile carrying this around
-    this.state = { inputValue: '' };
+  toggleCredential(key, checked) {
+    this.setState((state) => ({
+      credentials: { ...state.credentials, [key]: checked },
+    }));
   }
 
   render() {
-    const { onClose, onAdd } = this.props;
-    const { inputValue } = this.state;
+    const { onClose, onAdd, credentialsSchema = {} } = this.props;
+    const { inputValue, official, credentials } = this.state;
 
     return (
       <Modal onClose={onClose}>
@@ -30,10 +45,43 @@ export default class AddAgenda extends Component {
           className="form-control margin-bottom-sm"
           placeholder="Mettre un url ou un slug d'agenda"
         />
+
+        <div className="checkbox margin-bottom-sm">
+          <label>
+            <input
+              type="checkbox"
+              checked={official}
+              onChange={(e) => this.setState({ official: e.target.checked })}
+            />{' '}
+            Agenda officiel
+          </label>
+        </div>
+
+        {Object.keys(credentialsSchema).length ? (
+          <fieldset className="margin-bottom-sm">
+            <legend>Fonctionnalités</legend>
+            <ul className="list-unstyled">
+              {Object.entries(credentialsSchema).map(([key, def]) => (
+                <li key={key} className="checkbox">
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={!!credentials[key]}
+                      onChange={(e) =>
+                        this.toggleCredential(key, e.target.checked)}
+                    />{' '}
+                    {def.description || key}
+                  </label>
+                </li>
+              ))}
+            </ul>
+          </fieldset>
+        ) : null}
+
         <button
           type="button"
           className="btn btn-primary"
-          onClick={onAdd.bind(null, inputValue)}
+          onClick={() => onAdd(inputValue, { official, credentials })}
         >
           Ajouter
         </button>
