@@ -11702,7 +11702,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-stats@npm:^1.10.4, @openagenda/agenda-stats@workspace:packages/agenda-stats":
+"@openagenda/agenda-stats@npm:^1.10.5, @openagenda/agenda-stats@workspace:packages/agenda-stats":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-stats@workspace:packages/agenda-stats"
   dependencies:
@@ -11712,7 +11712,7 @@ __metadata:
     "@loadable/component": "npm:^5.14.1"
     "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/event-search": "npm:^2.8.2"
+    "@openagenda/event-search": "npm:^2.9.0"
     "@openagenda/intl": "npm:^1.1.6"
     "@openagenda/react-filters": "npm:^2.13.6"
     "@openagenda/react-shared": "npm:^2.4.6"
@@ -11978,7 +11978,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/cibul-templates@npm:^1.4.3, @openagenda/cibul-templates@workspace:packages/cibul-templates":
+"@openagenda/cibul-templates@npm:^1.4.4, @openagenda/cibul-templates@workspace:packages/cibul-templates":
   version: 0.0.0-use.local
   resolution: "@openagenda/cibul-templates@workspace:packages/cibul-templates"
   dependencies:
@@ -12005,7 +12005,7 @@ __metadata:
     "@openagenda/react-shared": "npm:^2.4.6"
     "@openagenda/tumblr-parser": "npm:^0.1.3"
     "@openagenda/utils": "npm:^1.3.0"
-    "@openagenda/widgets": "npm:^0.0.1"
+    "@openagenda/widgets": "npm:^0.0.2"
     babel-loader: "npm:^9.1.3"
     buffer: "npm:^6.0.3"
     classnames: "npm:^2.3.1"
@@ -12187,7 +12187,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/event-admin-apps@npm:^0.0.2, @openagenda/event-admin-apps@workspace:packages/event-admin-apps":
+"@openagenda/event-admin-apps@npm:^0.0.3, @openagenda/event-admin-apps@workspace:packages/event-admin-apps":
   version: 0.0.0-use.local
   resolution: "@openagenda/event-admin-apps@workspace:packages/event-admin-apps"
   dependencies:
@@ -12196,7 +12196,7 @@ __metadata:
     "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/common-labels": "npm:^1.0.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/event-search": "npm:^2.8.2"
+    "@openagenda/event-search": "npm:^2.9.0"
     "@openagenda/intl": "npm:^1.1.6"
     "@openagenda/react-filters": "npm:^2.13.6"
     "@openagenda/react-shared": "npm:^2.4.6"
@@ -12283,7 +12283,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/event-search@npm:^2.8.2, @openagenda/event-search@workspace:packages/event-search":
+"@openagenda/event-search@npm:^2.9.0, @openagenda/event-search@workspace:packages/event-search":
   version: 0.0.0-use.local
   resolution: "@openagenda/event-search@workspace:packages/event-search"
   dependencies:
@@ -12681,7 +12681,6 @@ __metadata:
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     leaflet: "npm:^1.7.1"
-    locutus: "npm:^2.0.14"
     lodash: "npm:^4.17.15"
     moment-timezone: "npm:^0.5.31"
     msw: "npm:^2.3.0"
@@ -12998,7 +12997,7 @@ __metadata:
     "@openagenda/mails": "npm:^5.0.0"
     "@openagenda/md": "npm:^1.0.1"
     "@openagenda/outdated-browser": "npm:^0.0.0"
-    "@openagenda/react": "npm:^0.0.3"
+    "@openagenda/react": "npm:^0.0.4"
     "@openagenda/react-filters": "npm:^2.13.6"
     "@openagenda/react-shared": "npm:^2.4.6"
     "@openagenda/registrations": "npm:^0.0.3"
@@ -13285,7 +13284,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-integration-app@npm:^1.6.4, @openagenda/react-integration-app@workspace:packages/react-integration-app":
+"@openagenda/react-integration-app@npm:^1.6.5, @openagenda/react-integration-app@workspace:packages/react-integration-app":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-integration-app@workspace:packages/react-integration-app"
   dependencies:
@@ -13299,11 +13298,11 @@ __metadata:
     "@openagenda/agenda-locations-app": "npm:^0.0.2"
     "@openagenda/agenda-schemas-app": "npm:^0.0.3"
     "@openagenda/agenda-settings": "npm:^1.4.2"
-    "@openagenda/agenda-stats": "npm:^1.10.4"
+    "@openagenda/agenda-stats": "npm:^1.10.5"
     "@openagenda/aggregator-sources": "npm:^1.3.3"
     "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/event-admin-apps": "npm:^0.0.2"
+    "@openagenda/event-admin-apps": "npm:^0.0.3"
     "@openagenda/home": "npm:^2.2.3"
     "@openagenda/inbox-apps": "npm:^1.2.3"
     "@openagenda/intl": "npm:^1.1.6"
@@ -13532,7 +13531,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react@npm:^0.0.3, @openagenda/react@workspace:public/react":
+"@openagenda/react@npm:^0.0.4, @openagenda/react@workspace:public/react":
   version: 0.0.0-use.local
   resolution: "@openagenda/react@workspace:public/react"
   dependencies:
@@ -13954,14 +13953,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/widgets@npm:^0.0.1, @openagenda/widgets@workspace:public/widgets":
+"@openagenda/widgets@npm:^0.0.2, @openagenda/widgets@workspace:public/widgets":
   version: 0.0.0-use.local
   resolution: "@openagenda/widgets@workspace:public/widgets"
   dependencies:
     "@babel/core": "npm:^7.28.4"
     "@iframe-resizer/parent": "npm:^5.4.6"
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/react": "npm:^0.0.3"
+    "@openagenda/react": "npm:^0.0.4"
     "@openagenda/react-filters": "npm:^2.13.6"
     "@openagenda/uikit": "npm:^0.0.4"
     "@storybook/html-vite": "npm:^10.2.0"
@@ -28574,7 +28573,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bn.js@npm:^4.0.0, bn.js@npm:^4.1.0, bn.js@npm:^4.1.1, bn.js@npm:^4.4.0":
+"bn.js@npm:^4.0.0, bn.js@npm:^4.1.0, bn.js@npm:^4.1.1":
   version: 4.11.8
   resolution: "bn.js@npm:4.11.8"
   checksum: 10c0/d1bd5f8721c9c101c5e5bb3077d8689b3116f618506c6dd009fee5701b8b116da373b35c60d437549c8c720b6b62a161ab070d6a8266a164ef4503a1582b634e
@@ -30186,18 +30185,18 @@ __metadata:
     "@openagenda/agenda-schemas-app": "npm:^0.0.3"
     "@openagenda/agenda-search": "npm:^1.4.1"
     "@openagenda/agenda-settings": "npm:^1.4.2"
-    "@openagenda/agenda-stats": "npm:^1.10.4"
+    "@openagenda/agenda-stats": "npm:^1.10.5"
     "@openagenda/agendas": "npm:^1.7.1"
     "@openagenda/aggregator-sources": "npm:^1.3.3"
     "@openagenda/aggregators": "npm:^1.11.7"
     "@openagenda/api-spec": "workspace:^"
     "@openagenda/auth": "npm:^0.1.0"
-    "@openagenda/cibul-templates": "npm:^1.4.3"
+    "@openagenda/cibul-templates": "npm:^1.4.4"
     "@openagenda/custom": "npm:^1.3.15"
     "@openagenda/date-range": "npm:^2.3.0"
     "@openagenda/discord": "npm:^1.0.0"
     "@openagenda/event-form": "npm:^1.5.4"
-    "@openagenda/event-search": "npm:^2.8.2"
+    "@openagenda/event-search": "npm:^2.9.0"
     "@openagenda/events": "npm:^3.0.2"
     "@openagenda/files": "npm:^3.1.0"
     "@openagenda/flat-exports": "npm:^1.4.2"
@@ -30222,7 +30221,7 @@ __metadata:
     "@openagenda/outdated-browser": "npm:^0.0.0"
     "@openagenda/pdf-exports": "npm:^0.0.3"
     "@openagenda/polyfills": "npm:^1.2.5"
-    "@openagenda/react-integration-app": "npm:^1.6.4"
+    "@openagenda/react-integration-app": "npm:^1.6.5"
     "@openagenda/react-layouts": "npm:^2.2.3"
     "@openagenda/react-shared": "npm:^2.4.6"
     "@openagenda/registrations": "npm:^0.0.3"
@@ -30330,12 +30329,13 @@ __metadata:
   linkType: soft
 
 "cipher-base@npm:^1.0.0, cipher-base@npm:^1.0.1, cipher-base@npm:^1.0.3":
-  version: 1.0.4
-  resolution: "cipher-base@npm:1.0.4"
+  version: 1.0.7
+  resolution: "cipher-base@npm:1.0.7"
   dependencies:
-    inherits: "npm:^2.0.1"
-    safe-buffer: "npm:^5.0.1"
-  checksum: 10c0/d8d005f8b64d8a77b3d3ce531301ae7b45902c9cab4ec8b66bdbd2bf2a1d9fceb9a2133c293eb3c060b2d964da0f14c47fb740366081338aa3795dd1faa8984b
+    inherits: "npm:^2.0.4"
+    safe-buffer: "npm:^5.2.1"
+    to-buffer: "npm:^1.2.2"
+  checksum: 10c0/53c5046a9d9b60c586479b8f13fde263c3f905e13f11e8e04c7a311ce399c91d9c3ec96642332e0de077d356e1014ee12bba96f74fbaad0de750f49122258836
   languageName: node
   linkType: hard
 
@@ -34292,37 +34292,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"elliptic@npm:^6.0.0":
-  version: 6.5.2
-  resolution: "elliptic@npm:6.5.2"
-  dependencies:
-    bn.js: "npm:^4.4.0"
-    brorand: "npm:^1.0.1"
-    hash.js: "npm:^1.0.0"
-    hmac-drbg: "npm:^1.0.0"
-    inherits: "npm:^2.0.1"
-    minimalistic-assert: "npm:^1.0.0"
-    minimalistic-crypto-utils: "npm:^1.0.0"
-  checksum: 10c0/079cd96066ef6567c6c2fa52d63fd888f9b8a8d2bbbfecb5b16c5a1c5355343238e065c4d9fe94fe2abebbf3d6bcb19f99b44437178fa39a4d9f97221c3f4df6
-  languageName: node
-  linkType: hard
-
-"elliptic@npm:^6.5.4":
-  version: 6.5.4
-  resolution: "elliptic@npm:6.5.4"
-  dependencies:
-    bn.js: "npm:^4.11.9"
-    brorand: "npm:^1.1.0"
-    hash.js: "npm:^1.0.0"
-    hmac-drbg: "npm:^1.0.1"
-    inherits: "npm:^2.0.4"
-    minimalistic-assert: "npm:^1.0.1"
-    minimalistic-crypto-utils: "npm:^1.0.1"
-  checksum: 10c0/5f361270292c3b27cf0843e84526d11dec31652f03c2763c6c2b8178548175ff5eba95341dd62baff92b2265d1af076526915d8af6cc9cb7559c44a62f8ca6e2
-  languageName: node
-  linkType: hard
-
-"elliptic@npm:^6.6.1":
+"elliptic@npm:^6.0.0, elliptic@npm:^6.5.4, elliptic@npm:^6.6.1":
   version: 6.6.1
   resolution: "elliptic@npm:6.6.1"
   dependencies:
@@ -35140,7 +35110,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es6-promise@npm:^4.2.5, es6-promise@npm:^4.2.8":
+"es6-promise@npm:^4.2.8":
   version: 4.2.8
   resolution: "es6-promise@npm:4.2.8"
   checksum: 10c0/2373d9c5e9a93bdd9f9ed32ff5cb6dd3dd785368d1c21e9bbbfd07d16345b3774ae260f2bd24c8f836a6903f432b4151e7816a7fa8891ccb4e1a55a028ec42c3
@@ -37795,13 +37765,15 @@ __metadata:
   linkType: hard
 
 "form-data@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "form-data@npm:3.0.0"
+  version: 3.0.5
+  resolution: "form-data@npm:3.0.5"
   dependencies:
     asynckit: "npm:^0.4.0"
     combined-stream: "npm:^1.0.8"
-    mime-types: "npm:^2.1.12"
-  checksum: 10c0/0091a12b4374099495da7e38cfcc984ff2aa938f2d0c44becb8fa200ab3018735ef35805be0e0c627f3565bf9a93c0b1c816cf602083b3178de71aa3e8611df8
+    es-set-tostringtag: "npm:^2.1.0"
+    hasown: "npm:^2.0.4"
+    mime-types: "npm:^2.1.35"
+  checksum: 10c0/899fdb1ee507f5d44159314a53d05d0c41cbf58f92f99b2dd258dd23a5d2d08d069046523b5f12f38f1870ea4f2338266dc0628ea7c8e9b440a4a31d9b88b4d5
   languageName: node
   linkType: hard
 
@@ -39394,6 +39366,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"hasown@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "hasown@npm:2.0.4"
+  dependencies:
+    function-bind: "npm:^1.1.2"
+  checksum: 10c0/2d8de939e270b70618f8cebb69746620db10617dbb495bc66ddad326955ea24d3ca4af133aff3eb7c1853e0218f867bc2b050ec26fe02e3aea58f880ffc5e506
+  languageName: node
+  linkType: hard
+
 "hast-util-embedded@npm:^3.0.0":
   version: 3.0.0
   resolution: "hast-util-embedded@npm:3.0.0"
@@ -39782,7 +39763,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hmac-drbg@npm:^1.0.0, hmac-drbg@npm:^1.0.1":
+"hmac-drbg@npm:^1.0.1":
   version: 1.0.1
   resolution: "hmac-drbg@npm:1.0.1"
   dependencies:
@@ -45730,15 +45711,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"locutus@npm:^2.0.14":
-  version: 2.0.14
-  resolution: "locutus@npm:2.0.14"
-  dependencies:
-    es6-promise: "npm:^4.2.5"
-  checksum: 10c0/c3ff8fe43f4a4a648965a7e71efdf7b470758307739fb5b47898b473deced827de1c8b44ae8bddc008b9fb4946f0994e3d2de14784513a2720a7595ed49ecbf4
-  languageName: node
-  linkType: hard
-
 "lodash-es@npm:^4.17.15, lodash-es@npm:^4.17.21":
   version: 4.17.21
   resolution: "lodash-es@npm:4.17.21"
@@ -48015,7 +47987,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mime-types@npm:2.1.35, mime-types@npm:^2.1.12, mime-types@npm:^2.1.18, mime-types@npm:^2.1.25, mime-types@npm:^2.1.27, mime-types@npm:^2.1.28, mime-types@npm:^2.1.30, mime-types@npm:^2.1.31, mime-types@npm:~2.1.17, mime-types@npm:~2.1.24, mime-types@npm:~2.1.34":
+"mime-types@npm:2.1.35, mime-types@npm:^2.1.12, mime-types@npm:^2.1.18, mime-types@npm:^2.1.25, mime-types@npm:^2.1.27, mime-types@npm:^2.1.28, mime-types@npm:^2.1.30, mime-types@npm:^2.1.31, mime-types@npm:^2.1.35, mime-types@npm:~2.1.17, mime-types@npm:~2.1.24, mime-types@npm:~2.1.34":
   version: 2.1.35
   resolution: "mime-types@npm:2.1.35"
   dependencies:
@@ -48197,7 +48169,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimalistic-crypto-utils@npm:^1.0.0, minimalistic-crypto-utils@npm:^1.0.1":
+"minimalistic-crypto-utils@npm:^1.0.1":
   version: 1.0.1
   resolution: "minimalistic-crypto-utils@npm:1.0.1"
   checksum: 10c0/790ecec8c5c73973a4fbf2c663d911033e8494d5fb0960a4500634766ab05d6107d20af896ca2132e7031741f19888154d44b2408ada0852446705441383e9f8
@@ -57719,19 +57691,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sha.js@npm:^2.4.0, sha.js@npm:^2.4.8, sha.js@npm:~2.4.4":
-  version: 2.4.11
-  resolution: "sha.js@npm:2.4.11"
-  dependencies:
-    inherits: "npm:^2.0.1"
-    safe-buffer: "npm:^5.0.1"
-  bin:
-    sha.js: ./bin.js
-  checksum: 10c0/b7a371bca8821c9cc98a0aeff67444a03d48d745cb103f17228b96793f455f0eb0a691941b89ea1e60f6359207e36081d9be193252b0f128e0daf9cfea2815a5
-  languageName: node
-  linkType: hard
-
-"sha.js@npm:^2.4.11":
+"sha.js@npm:^2.4.0, sha.js@npm:^2.4.11, sha.js@npm:^2.4.8, sha.js@npm:~2.4.4":
   version: 2.4.12
   resolution: "sha.js@npm:2.4.12"
   dependencies:
@@ -60712,6 +60672,17 @@ __metadata:
     safe-buffer: "npm:^5.2.1"
     typed-array-buffer: "npm:^1.0.3"
   checksum: 10c0/bbf07a2a7d6ff9e3ffe503c689176c7149cf3ec25887ce7c4aa5c4841a8845cc71121cd7b4a4769957f823b3f31dbf6b1be6e0a5955798ad864bf2245ee8b5e4
+  languageName: node
+  linkType: hard
+
+"to-buffer@npm:^1.2.2":
+  version: 1.2.2
+  resolution: "to-buffer@npm:1.2.2"
+  dependencies:
+    isarray: "npm:^2.0.5"
+    safe-buffer: "npm:^5.2.1"
+    typed-array-buffer: "npm:^1.0.3"
+  checksum: 10c0/56bc56352f14a2c4a0ab6277c5fc19b51e9534882b98eb068b39e14146591e62fa5b06bf70f7fed1626230463d7e60dca81e815096656e5e01c195c593873d12
   languageName: node
   linkType: hard
 

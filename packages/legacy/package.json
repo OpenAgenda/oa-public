@@ -37,7 +37,6 @@
     "immutability-helper": "^3.0.0",
     "knex": "^2.4.2",
     "leaflet": "^1.7.1",
-    "locutus": "^2.0.14",
     "lodash": "^4.17.15",
     "moment-timezone": "^0.5.31",
     "react-helmet-async": "^1.0.3",
