@@ -222,7 +222,26 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
       }
 
       expect(error?.name).toBe('BadRequest');
-      expect(error?.message).toContain('Already exists');
+      expect(error?.info?.code).toBe('already-exists');
+    });
+
+    it('skipValidation lets a self-add bypass required member fields', async () => {
+      // agenda 3 carries a custom member schema; adding as administrator with
+      // no member data must still succeed when skipValidation is set.
+      const member = await core
+        .agendas(3)
+        .members.create(70000778, 'administrator', null, {
+          userUid: 70000778,
+          access: 'internal',
+          skipValidation: true,
+        });
+
+      expect(member.role).toBe('administrator');
+
+      await core.services
+        .knex('reviewer')
+        .where({ agenda_uid: 3, user_uid: 70000778 })
+        .delete();
     });
   });
 

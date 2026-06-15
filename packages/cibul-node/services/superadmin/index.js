@@ -91,17 +91,15 @@ function plugApp(services, app, base = '/admin') {
       .members.create(req.user.uid, 'administrator', null, {
         userUid: req.user.uid,
         access: 'internal',
+        // staff add: don't require the agenda's contributor member fields
+        skipValidation: true,
         context: { user: req.user },
       })
       .then(
         (member) => res.json({ success: true, member }),
         (error) => {
-          // members.create wraps the duplicate-key error as a BadRequest whose
-          // (VError-concatenated) message contains 'Already exists'.
-          if (
-            error.name === 'BadRequest'
-            && error.message.includes('Already exists')
-          ) {
+          // members.create tags the duplicate-member case with this code.
+          if (error.info?.code === 'already-exists') {
             return res.json({ success: true, alreadyMember: true });
           }
           return next(error);

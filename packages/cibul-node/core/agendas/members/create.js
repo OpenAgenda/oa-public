@@ -63,7 +63,13 @@ export default async (core, agendaOrUid, userUid, role, data, options = {}) => {
 
   let cleanMemberData = null;
 
-  if (data || agenda.settings.contribution.useFields) {
+  // skipValidation lets trusted/internal callers (e.g. a superadmin adding
+  // themselves as administrator) create a membership without satisfying the
+  // agenda's required member fields, which are meant for contributors.
+  if (
+    !options.skipValidation
+    && (data || agenda.settings.contribution.useFields)
+  ) {
     try {
       const validate = new FormSchema(schemas.merged).getValidate();
       cleanMemberData = validate(memberData);
@@ -99,7 +105,11 @@ export default async (core, agendaOrUid, userUid, role, data, options = {}) => {
     );
   } catch (error) {
     if (error.message === 'Already exists') {
-      throw new BadRequest(error, 'Already exists');
+      // carry a stable code so callers don't have to string-match the message
+      throw new BadRequest(
+        { cause: error, info: { code: 'already-exists' } },
+        'Already exists',
+      );
     }
     throw new GeneralError(error, 'something went wrong');
   }
