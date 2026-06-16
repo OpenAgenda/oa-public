@@ -3,6 +3,7 @@ export function formatDSL(query, options = {}) {
     terms: {
       field: '_search_keywords',
       size: options.size,
+      missing: options.missing,
       exclude: 'accessibility.*',
     },
   };

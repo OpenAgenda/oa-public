@@ -3,6 +3,7 @@ export function formatDSL(query, options = {}) {
     terms: {
       field: '_search_languages',
       size: options.size,
+      missing: options.missing,
     },
   };
 }
