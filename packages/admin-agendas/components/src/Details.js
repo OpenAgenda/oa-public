@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import SwitchModule from 'rc-switch';
 import _ from 'lodash';
 import { Modal } from '@openagenda/react-shared';
@@ -32,6 +32,7 @@ export default function Details(props) {
     getMembersPage,
     displayConfirmDelete,
     setAgenda,
+    addMeAsAdmin,
     updateHref
   } = props;
 
@@ -39,6 +40,37 @@ export default function Details(props) {
   const initialQuery = getQuery();
   const [tab, setTab] = useState(() => (initialQuery && initialQuery.tab) || 'members');
   const [modalVisible, setModalVisible] = useState(false);
+  // 'idle' | 'adding' | 'done' | 'already' | 'error'
+  const [addMeState, setAddMeState] = useState('idle');
+
+  // Réinitialise le retour visuel quand on change d'agenda sélectionné
+  useEffect(() => {
+    setAddMeState('idle');
+  }, [agenda?.uid]);
+
+  const handleAddMeAsAdmin = async () => {
+    if (!agenda || !agenda.uid || addMeState === 'adding') return;
+    setAddMeState('adding');
+    try {
+      const result = await addMeAsAdmin();
+      setAddMeState(result && result.alreadyMember ? 'already' : 'done');
+    } catch (error) {
+      console.error("Erreur lors de l'ajout comme administrateur :", error);
+      setAddMeState('error');
+    }
+  };
+
+  const addMeLabels = {
+    idle: "M'ajouter comme admin",
+    adding: 'Ajout…',
+    done: '✓ Ajouté',
+    already: 'Déjà membre',
+    error: 'Échec, réessayer',
+  };
+  const addMeClasses = {
+    done: 'btn btn-success',
+    error: 'btn btn-danger',
+  };
   
   /**
    * Fonction pour gérer la resynchronisation
@@ -217,6 +249,16 @@ export default function Details(props) {
         <div className="container-fluid profile notheme">
           <div className="row">
             <div className="pull-right">
+              <button
+                type="button"
+                onClick={handleAddMeAsAdmin}
+                disabled={addMeState === 'adding'}
+                className={addMeClasses[addMeState] || 'btn btn-default'}
+                style={{ marginRight: '5px' }}
+                title="M'ajouter comme administrateur de cet agenda"
+              >
+                {addMeLabels[addMeState] || addMeLabels.idle}
+              </button>
               <button
                 type="button"
                 onClick={() => handleResync('rebuildSearch')}

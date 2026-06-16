@@ -31,8 +31,9 @@ async function createAgenda(services, networkUid, data, user) {
   });
 }
 
-async function addAgendaToNetwork(services, uid, dirtySlug) {
+async function addAgendaToNetwork(services, uid, dirtySlug, options = {}) {
   const { agendas, core } = services;
+  const { credentials, official } = options;
 
   const slug = dirtySlug.split('?').shift().split('/').pop();
 
@@ -44,7 +45,11 @@ async function addAgendaToNetwork(services, uid, dirtySlug) {
     throw new Error('Not found');
   }
 
-  await core.networks(uid).agendas.add(agenda.uid);
+  // The agenda update fires the core `onUpdate` hook, which already initializes
+  // the aggregation limit (-1/null) when `credentials.aggregator` flips — so no
+  // extra `aggregators.set` is needed here. A second write would run after
+  // `onUpdate` and clobber the correct limit with a coerced boolean.
+  await core.networks(uid).agendas.add(agenda.uid, { credentials, official });
 
   return agenda;
 }
@@ -66,6 +71,7 @@ export function init(config, services) {
         setNetworkSchemaFields: (uid, fields) =>
           services.core.networks(uid).schema.updateFields(fields),
         getNetworkAgendas: (uid) => services.core.networks(uid).agendas(),
+        getAgendaCredentialsSchema: () => services.agendas.utils.credentials,
         getLoggedUser: async (req) => req.user,
         addAgendaToNetwork: addAgendaToNetwork.bind(null, services),
         removeAgendaFromNetwork: (uid, agendaUid) =>

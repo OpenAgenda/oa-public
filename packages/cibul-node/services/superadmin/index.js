@@ -79,6 +79,32 @@ function plugApp(services, app, base = '/admin') {
     sendAgenda,
   );
   app.get(`${base}/agendas/members/search`, searchMembers);
+
+  // Lets a superadmin add themselves as administrator of any agenda. The
+  // `allowSuperAdmin` guard above already gates the whole `${base}` namespace,
+  // and access: 'internal' bypasses the per-agenda membership check in
+  // members.create. Idempotent: a superadmin already a member gets a clean
+  // alreadyMember response instead of an "Already exists" error.
+  app.post(`${base}/agendas/:uid/members/me`, getAgenda, (req, res, next) =>
+    core
+      .agendas(req.agenda.uid)
+      .members.create(req.user.uid, 'administrator', null, {
+        userUid: req.user.uid,
+        access: 'internal',
+        // staff add: don't require the agenda's contributor member fields
+        skipValidation: true,
+        context: { user: req.user },
+      })
+      .then(
+        (member) => res.json({ success: true, member }),
+        (error) => {
+          // members.create tags the duplicate-member case with this code.
+          if (error.info?.code === 'already-exists') {
+            return res.json({ success: true, alreadyMember: true });
+          }
+          return next(error);
+        },
+      ));
 }
 
 export function init(config, services) {

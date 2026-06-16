@@ -78,6 +78,41 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
       });
     });
 
+    describe('with feature options (official + credentials)', () => {
+      let result;
+      let stored;
+
+      beforeAll(async () => {
+        // Agenda 9's fixture lacks a description; the agenda update validates
+        // the whole merged agenda (description required), so seed one first.
+        await config
+          .knex('review')
+          .update({ description: 'desc' })
+          .where('uid', 9);
+
+        result = await core.networks(1).agendas.add(9, {
+          official: true,
+          credentials: { docxExport: true, showTotals: true },
+        });
+
+        stored = await core.agendas(9).get({ access: 'internal' });
+      });
+
+      it('adds the agenda to the network', () => {
+        expect(result.uid).toBe(9);
+        expect(result.networkUid).toBe(1);
+      });
+
+      it('marks the agenda as official', () => {
+        expect(stored.official).toBeTruthy();
+      });
+
+      it('sets the selected credentials', () => {
+        expect(stored.credentials.docxExport).toBe(true);
+        expect(stored.credentials.showTotals).toBe(true);
+      });
+    });
+
     describe('fail due to Agenda already being associated to a network', () => {
       let error;
 

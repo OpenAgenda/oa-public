@@ -126,6 +126,7 @@ router.get('/:uid/agendas', async (req, res, next) => {
     res.json({
       network: await router.service.getNetwork(uid),
       agendas: await router.service.getNetworkAgendas(uid),
+      credentialsSchema: await router.service.getAgendaCredentialsSchema(),
     });
   } catch (e) {
     next(e);
@@ -138,6 +139,10 @@ router.post('/:uid/agendas/add', async (req, res, next) => {
       await router.service.addAgendaToNetwork(
         parseInt(req.params.uid, 10),
         req.body.slugOrUrl.split('/').pop(),
+        {
+          credentials: req.body.credentials,
+          official: req.body.official,
+        },
       ),
     );
   } catch (e) {
@@ -177,7 +182,10 @@ router.post('/:uid/agendas', async (req, res, next) => {
 router.use((err, req, res, next) => {
   if (err.name === 'BadRequest') {
     res.status(400);
-    res.json(err.info);
+    // Validation errors carry `info.errors`; guard errors (e.g. "agenda is
+    // already in a network") only have a message — surface it either way so the
+    // 400 body is never empty.
+    res.json(err.info ?? { message: err.message });
     return;
   }
   if (req.headers.accept === 'application/json') {

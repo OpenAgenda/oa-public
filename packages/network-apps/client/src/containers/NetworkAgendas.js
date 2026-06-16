@@ -19,7 +19,7 @@ export class NetworkAgendasComponent extends Component {
 
   render() {
     const {
-      network: { agendas, add, create, remove },
+      network: { agendas, add, create, remove, credentialsSchema },
     } = this.props;
 
     const {
@@ -87,7 +87,13 @@ export class NetworkAgendasComponent extends Component {
           ) : (
             <Loading />
           )}
-          {add ? <AddAgenda onAdd={onAddSubmit} onClose={onAddClose} /> : null}
+          {add ? (
+            <AddAgenda
+              credentialsSchema={credentialsSchema}
+              onAdd={onAddSubmit}
+              onClose={onAddClose}
+            />
+          ) : null}
           {remove ? (
             <RemoveAgenda
               onRemove={() => onRemoveSubmit(remove)}
@@ -109,8 +115,8 @@ const NetworkAgendas = connect(
     onMount: () => dispatch(reducers.network.loadAgendas()),
     onAdd: () => dispatch(reducers.network.showAddAgenda()),
     onCreate: () => dispatch(reducers.network.showCreateAgenda()),
-    onAddSubmit: (slugOrUrl) =>
-      dispatch(reducers.network.submitAddAgenda(slugOrUrl)),
+    onAddSubmit: (slugOrUrl, features) =>
+      dispatch(reducers.network.submitAddAgenda(slugOrUrl, features)),
     onCreateSubmit: (agenda) =>
       dispatch(reducers.network.submitCreateAgenda(agenda)),
     onAddClose: () => dispatch(reducers.network.closeAddAgenda()),
