@@ -400,6 +400,11 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AgendaUid'
         - $ref: '#/components/parameters/Facets'
+        - $ref: '#/components/parameters/FacetSize'
+        - $ref: '#/components/parameters/FacetSizes'
+        - $ref: '#/components/parameters/FacetSort'
+        - $ref: '#/components/parameters/FacetSorts'
+        - $ref: '#/components/parameters/FacetMissing'
         - $ref: '#/components/parameters/GeohashZoom'
         - $ref: '#/components/parameters/TimingsInterval'
         - $ref: '#/components/parameters/Month'
@@ -446,6 +451,56 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FacetResults'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: agendas.events.facetsReport
+      tags: [Events]
+      summary: Named, repeatable facet aggregations for an agenda's events
+      x-synonyms:
+        [aggregate, stats, statistics, dashboard, report, group by, breakdown]
+      description: >
+        The analytical projection of the facets surface. Where the `GET` form
+        computes one bucket list per facet name, this `POST` form takes a JSON
+        body of **named, repeatable** aggregations: the same facet `type` may
+        appear several times under distinct `name` aliases, so a field can be
+        aggregated several ways in one request (e.g. `timings` by `month` AND by
+        `year`). Filters live under `filters` (the same shape as the
+        `agendas.events.list` query parameters) and scope every facet.
+
+
+        Each facet item is either a bare facet name (the simple form, identical
+        to the `GET` enum) or an object `{ name?, type, … }` carrying
+        per-instance options (`size`, `sort`, `missing`, `zoom`, `interval`,
+        `fields`). `facetSize`/`facetSort` at the top level set the request-wide
+        defaults an item overrides. The response is keyed by alias, each entry
+        tagged with its `type` so the value shape is unambiguous. Only published
+        events are counted.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - events:read
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FacetReportRequest'
+      responses:
+        '200':
+          description: Named facet results over the filtered set.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FacetReport'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -939,10 +994,11 @@ components:
         by `additionalFieldMetricsKeys`). Both honor per-field read access.
 
         Bucket-list facets (the term, provenance and `locations` families)
-        currently return the **top 10** buckets by event count; a way to
-        request more (a size parameter and/or facet pagination) is under
-        consideration. `additionalFields` is exhaustive (one bucket per
-        option). The
+        return the **top buckets by event count**, capped by `facetSize`
+        (default 10, max 250) and overridable per facet with
+        `facetSizes[<facet>]`; `facetSort` reorders them (`count` or `alpha`).
+        There is no bucket pagination — past the cap, narrow the filter instead. `additionalFields` is exhaustive (one bucket
+        per option). The
         fields, their option ids and their labels are the ones the agenda's
         event form schema declares (`GET /agendas/{agendaUid}/events/schema`).
       style: form
@@ -973,6 +1029,96 @@ components:
             - timespan
             - timings
             - dateRanges
+
+    FacetSize:
+      name: facetSize
+      in: query
+      required: false
+      description: >
+        Default maximum number of buckets for the bucket-list facets (the term,
+        provenance and `locations` families), ordered by event count. Override
+        a single facet with `facetSizes[<facet>]`. Out-of-range values are
+        clamped; the other families (geohash, viewport, timespan, timings,
+        dateRanges, `additionalFields`/`additionalFieldMetrics`) have their own
+        bounded shapes and ignore it.
+      schema:
+        type: integer
+        default: 10
+        minimum: 1
+        maximum: 250
+
+    FacetSizes:
+      name: facetSizes
+      in: query
+      required: false
+      description: >
+        Per-facet override of `facetSize`, keyed by facet name
+        (`facetSizes[cities]=50`). Precedence: per-facet override > `facetSize`
+        > default (10). Only applies to bucket-list facets; values are clamped
+        to [1, 250].
+      style: deepObject
+      explode: true
+      schema:
+        type: object
+        additionalProperties:
+          type: integer
+          minimum: 1
+          maximum: 250
+
+    FacetSort:
+      name: facetSort
+      in: query
+      required: false
+      description: >
+        Default ordering of the bucket-list facets. `count` (default) returns
+        the most frequent buckets first; `alpha` returns the same top-`facetSize`
+        buckets but ordered alphabetically by their display value (city/keyword
+        name, location name, agenda title) for readable scanning. Override a
+        single facet with `facetSorts[<facet>]`.
+      schema:
+        type: string
+        default: count
+        enum:
+          - count
+          - alpha
+
+    FacetSorts:
+      name: facetSorts
+      in: query
+      required: false
+      description: >
+        Per-facet override of `facetSort`, keyed by facet name
+        (`facetSorts[cities]=alpha`). Precedence: per-facet override >
+        `facetSort` > default (`count`).
+      style: deepObject
+      explode: true
+      schema:
+        type: object
+        additionalProperties:
+          type: string
+          enum:
+            - count
+            - alpha
+
+    FacetMissing:
+      name: facetMissing
+      in: query
+      required: false
+      description: >
+        Per-facet label for a synthetic bucket counting the filtered events that
+        have **no value** for the facet's field (`facetMissing[district]=Unknown`
+        adds an `{ value: "Unknown", count }` bucket). Honoured by the
+        value-keyed term facets (cities, regions, departments, districts,
+        countryCodes, keywords, languages, status, attendanceModes); ignored for
+        the others (the provenance and `locations` families key on an encoded
+        ref, so they carry no missing bucket). The bucket appears only when such
+        events exist.
+      style: deepObject
+      explode: true
+      schema:
+        type: object
+        additionalProperties:
+          type: string
 
     GeohashZoom:
       name: geohashZoom
@@ -3131,6 +3277,303 @@ components:
               - $ref: '#/components/schemas/EventSummary'
         pagination:
           $ref: '#/components/schemas/Pagination'
+
+    FacetName:
+      type: string
+      description: A facet type name (shared by the GET `facets` list and the POST report).
+      enum:
+        - additionalFields
+        - additionalFieldMetrics
+        - cities
+        - regions
+        - departments
+        - districts
+        - countryCodes
+        - keywords
+        - languages
+        - accessibilities
+        - status
+        - attendanceModes
+        - originAgendas
+        - sourceAgendas
+        - locations
+        - geohash
+        - viewport
+        - timespan
+        - timings
+        - dateRanges
+
+    FacetSpec:
+      type: object
+      required: [type]
+      additionalProperties: false
+      description: >
+        A single named aggregation in a facet report. `name` (the output key)
+        defaults to `type`; reuse a `type` under distinct `name`s to aggregate
+        the same field several ways in one request. Options not relevant to the
+        `type` are ignored.
+      properties:
+        name:
+          type: string
+          description: >
+            Output key (alias). Defaults to `type`. Must be unique within the
+            request — it is the key the result is returned under.
+        type:
+          $ref: '#/components/schemas/FacetName'
+        size:
+          type: integer
+          minimum: 1
+          maximum: 250
+          description: Max buckets (bucket-list families). Overrides `facetSize`.
+        sort:
+          type: string
+          enum: [count, alpha]
+          description: Bucket order. Overrides `facetSort`.
+        missing:
+          type: string
+          description: >
+            Label for a synthetic bucket counting events with no value for the
+            field (value-keyed term facets only; ignored elsewhere).
+        zoom:
+          type: integer
+          minimum: 1
+          description: Clustering zoom for the `geohash` facet.
+        interval:
+          type: string
+          enum: [hour, day, week, month, year]
+          description: Bucket width for the `timings` date histogram.
+        month:
+          type: string
+          description: Calendar month (`YYYY-MM`) for the `dateRanges` facet.
+        fields:
+          type: array
+          items: { type: string }
+          description: >
+            For `additionalFields`/`additionalFieldMetrics`: which agenda fields
+            to aggregate (default: all readable fields of the matching type).
+
+    FacetReportRequest:
+      type: object
+      required: [facets]
+      additionalProperties: false
+      description: Body of the named-aggregations facet report (`POST .../events/facets`).
+      example:
+        filters: { keyword: [concert] }
+        facets:
+          - cities
+          - { name: topKeywords, type: keywords, size: 20, sort: count }
+          - { name: byMonth, type: timings, interval: month }
+          - { name: byYear, type: timings, interval: year }
+      properties:
+        filters:
+          $ref: '#/components/schemas/EventFilters'
+        facetSize:
+          type: integer
+          minimum: 1
+          maximum: 250
+          default: 10
+          description: Request-wide default bucket size; a facet's own `size` overrides it.
+        facetSort:
+          type: string
+          enum: [count, alpha]
+          default: count
+          description: Request-wide default order; a facet's own `sort` overrides it.
+        facets:
+          type: array
+          minItems: 1
+          description: >
+            The aggregations to compute. Each item is either a bare facet name
+            (simple form) or a `FacetSpec` object (named, with options).
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/FacetName'
+              - $ref: '#/components/schemas/FacetSpec'
+
+    EventFilters:
+      type: object
+      description: >
+        Filters scoping the facet report — the same fields as the
+        `agendas.events.list` query parameters, in their native JSON types.
+        Unknown keys are ignored (forward-compatible).
+      properties:
+        search: { type: string }
+        uid: { type: array, items: { type: integer } }
+        slug: { type: array, items: { type: string } }
+        extId:
+          type: object
+          properties: { key: { type: string }, value: { type: string } }
+        keyword: { type: array, items: { type: string } }
+        language: { type: array, items: { type: string } }
+        accessibility:
+          type: array
+          items: { type: string, enum: [hi, ii, mi, pi, vi] }
+        status:
+          { type: array, items: { type: integer, enum: [1, 2, 3, 4, 5, 6] } }
+        attendanceMode:
+          { type: array, items: { type: integer, enum: [1, 2, 3] } }
+        featured: { type: boolean }
+        locationUid: { type: array, items: { type: integer } }
+        locationExtId:
+          type: object
+          properties: { key: { type: string }, value: { type: string } }
+        region: { type: array, items: { type: string } }
+        department: { type: array, items: { type: string } }
+        city: { type: array, items: { type: string } }
+        district: { type: array, items: { type: string } }
+        adminLevel3: { type: array, items: { type: string } }
+        adminLevel5: { type: array, items: { type: string } }
+        countryCode: { type: array, items: { type: string } }
+        bbox:
+          {
+            type: string,
+            description: '"west,south,east,north" in decimal degrees.',
+          }
+        near: { type: string, description: '"lat,lng" — requires `radius`.' }
+        radius: { type: integer, description: Metres; requires `near`. }
+        originAgendaUid: { type: array, items: { type: integer } }
+        originAgendaOfficial: { type: boolean }
+        sourceAgendaUid: { type: array, items: { type: integer } }
+        relative:
+          type: array
+          items: { type: string, enum: [passed, upcoming, current] }
+        timings: { $ref: '#/components/schemas/DateRangeFilter' }
+        createdAt: { $ref: '#/components/schemas/DateRangeFilter' }
+        updatedAt: { $ref: '#/components/schemas/DateRangeFilter' }
+        localTime:
+          type: object
+          properties: { gte: { type: integer }, lte: { type: integer } }
+        age:
+          type: object
+          properties: { gte: { type: integer }, lte: { type: integer } }
+        sort: { type: string }
+        additionalFields:
+          type: object
+          description: Per-field filters, keyed by agenda field name.
+
+    DateRangeFilter:
+      type: object
+      description: A date range; bounds are RFC 3339 (date or date-time with offset).
+      properties:
+        gte: { type: string }
+        lte: { type: string }
+
+    FacetReport:
+      type: object
+      required: [facets]
+      additionalProperties: false
+      description: Named facet results, keyed by each facet's `name` alias.
+      example:
+        facets:
+          cities: { type: cities, result: [{ value: Lyon, count: 42 }] }
+          byMonth:
+            type: timings
+            result:
+              [{ value: '2025-06', count: 18 }, { value: '2025-07', count: 31 }]
+      properties:
+        facets:
+          type: object
+          description: One entry per requested facet, keyed by its `name` alias.
+          additionalProperties:
+            $ref: '#/components/schemas/FacetReportEntry'
+
+    FacetReportEntry:
+      description: >
+        A facet result tagged with its `type`. The `type` tells the client how
+        to read `result` (a bucket array, a viewport/timespan object or `null`,
+        or a per-field map).
+      oneOf:
+        - type: object
+          required: [type, result]
+          additionalProperties: false
+          properties:
+            type:
+              type: string
+              enum:
+                [
+                  cities,
+                  regions,
+                  departments,
+                  districts,
+                  countryCodes,
+                  keywords,
+                  languages,
+                  accessibilities,
+                  status,
+                  attendanceModes,
+                  timings,
+                  dateRanges,
+                ]
+            result:
+              type: array
+              items: { $ref: '#/components/schemas/FacetBucket' }
+        - type: object
+          required: [type, result]
+          additionalProperties: false
+          properties:
+            type: { type: string, enum: [originAgendas] }
+            result:
+              type: array
+              items: { $ref: '#/components/schemas/AgendaFacetBucket' }
+        - type: object
+          required: [type, result]
+          additionalProperties: false
+          properties:
+            type: { type: string, enum: [sourceAgendas] }
+            result:
+              type: array
+              items: { $ref: '#/components/schemas/SourceAgendaFacetBucket' }
+        - type: object
+          required: [type, result]
+          additionalProperties: false
+          properties:
+            type: { type: string, enum: [locations] }
+            result:
+              type: array
+              items: { $ref: '#/components/schemas/LocationFacetBucket' }
+        - type: object
+          required: [type, result]
+          additionalProperties: false
+          properties:
+            type: { type: string, enum: [geohash] }
+            result:
+              type: array
+              items: { $ref: '#/components/schemas/GeoFacetBucket' }
+        - type: object
+          required: [type, result]
+          additionalProperties: false
+          properties:
+            type: { type: string, enum: [viewport] }
+            result:
+              oneOf:
+                - $ref: '#/components/schemas/Viewport'
+                - type: 'null'
+        - type: object
+          required: [type, result]
+          additionalProperties: false
+          properties:
+            type: { type: string, enum: [timespan] }
+            result:
+              oneOf:
+                - $ref: '#/components/schemas/Timespan'
+                - type: 'null'
+        - type: object
+          required: [type, result]
+          additionalProperties: false
+          properties:
+            type: { type: string, enum: [additionalFields] }
+            result:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/AdditionalFieldFacet'
+        - type: object
+          required: [type, result]
+          additionalProperties: false
+          properties:
+            type: { type: string, enum: [additionalFieldMetrics] }
+            result:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/AdditionalFieldMetricsFacet'
 
     FacetBucket:
       type: object
