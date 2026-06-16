@@ -91,6 +91,7 @@ export default async (core, agendaUid, eventUid, options = {}) => {
       member: actingMember,
       event,
       access,
+      userUid: actingUser?.uid,
     },
   );
 

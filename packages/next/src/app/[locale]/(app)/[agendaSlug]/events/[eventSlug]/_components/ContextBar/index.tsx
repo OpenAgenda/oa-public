@@ -18,6 +18,7 @@ import { faTurnLeft } from '@/src/icons/solid';
 import base64 from '@/src/utils/base64';
 import { FetchStatus } from '@/src/config/types';
 import useLocationQuery from '@/src/hooks/useLocationQuery';
+import useUser from '@/src/hooks/useUser';
 import isAdminMod from '@/src/utils/isAdminMod';
 import { useAgenda } from '../../_context/agenda';
 import useEvent from '../../_hooks/useEvent';
@@ -82,9 +83,17 @@ export default function ContextBar() {
   const searchParams = useSearchParams();
   const agenda = useAgenda();
   const { event } = useEvent();
-  const { me, status } = useMember();
+  const { me, member, status } = useMember();
+  const { user } = useUser();
 
   const ref = useRef<HTMLDivElement | null>(null);
+
+  const isEventContributor = member && member.userUid === me?.member?.userUid;
+  const isOwnerOnly =
+    !!user?.uid &&
+    user.uid === event.ownerUid &&
+    !isEventContributor &&
+    !isAdminMod(me?.member);
 
   const search = searchParams.toString();
   const currentUrl = search ? `${pathname}?${search}` : pathname;
@@ -99,6 +108,28 @@ export default function ContextBar() {
   }
 
   const editLink = `/${agenda.slug}/contribute/event/${event.uid}?redirect=${base64.encode(currentUrl)}`;
+
+  // The user is the owner of the event but is no longer a contributor /
+  // adminmod of its agenda (e.g. left a now-closed agenda). Surface a minimal
+  // bar so they can still duplicate their own event towards another agenda.
+  if (isOwnerOnly) {
+    return (
+      <Collapsible.Root open>
+        <Collapsible.Content>
+          <SimpleGrid columns={1} bg="white" gap="1px">
+            <Column>
+              <OtherActions
+                agenda={agenda}
+                editLink={editLink}
+                contextBarRef={ref}
+                ownerOnly
+              />
+            </Column>
+          </SimpleGrid>
+        </Collapsible.Content>
+      </Collapsible.Root>
+    );
+  }
 
   return (
     <Collapsible.Root open>
