@@ -25,7 +25,7 @@ export default async (
     : await events.get(eventOrUid, {
       private: null,
       access: 'internal',
-      includeFields: ['uid', 'private', 'ownerUid', 'draft'],
+      includeFields: ['uid', 'private', 'ownerUid', 'draft', 'agendaUid'],
     });
 
   if (!ae && !event.draft) {

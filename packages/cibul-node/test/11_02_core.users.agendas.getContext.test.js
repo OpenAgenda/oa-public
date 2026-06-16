@@ -123,6 +123,60 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
         expect(context.me.authorizations.canEditEvent).toBe(true);
       });
     });
+
+    // Event 19390293 is owned by user 63170203 and its origin agenda is
+    // 92983929, an agenda where that user is NOT a member (they are only a
+    // member of 17026855). This mirrors an ex-contributor who left the agenda.
+    describe('owner who is no longer a member of the event agenda', () => {
+      let context;
+
+      beforeAll(async () => {
+        context = await core
+          .users(63170203)
+          .agendas(92983929)
+          .events(19390293)
+          .getContext({
+            userUid: 63170203,
+          });
+      });
+
+      it('is not a member of the agenda', () => {
+        expect(context.me.member).toBeFalsy();
+      });
+
+      it('can delete their own event from its origin agenda', () => {
+        expect(context.me.authorizations.canDeleteEvent).toBe(true);
+      });
+
+      it('can read but cannot edit the published event as a non-member', () => {
+        expect(context.me.authorizations.canRead).toBe(true);
+        expect(context.me.authorizations.canEditEvent).toBe(false);
+      });
+    });
+
+    describe('non-owner who is not a member of the event agenda', () => {
+      let context;
+
+      beforeAll(async () => {
+        // user 1 is an admin of 17026855 only, not a member of 92983929, and
+        // does not own event 19390293.
+        context = await core
+          .users(1)
+          .agendas(92983929)
+          .events(19390293)
+          .getContext({
+            userUid: 1,
+          });
+      });
+
+      it('is not a member of the agenda', () => {
+        expect(context.me.member).toBeFalsy();
+      });
+
+      it('cannot delete an event they do not own', () => {
+        expect(context.me.authorizations.canDeleteEvent).toBe(false);
+      });
+    });
   });
 
   describe('agenda context', () => {
