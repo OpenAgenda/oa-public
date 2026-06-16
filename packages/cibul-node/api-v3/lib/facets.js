@@ -26,6 +26,7 @@
 
 import { BadRequest } from '@openagenda/verror';
 import { cleanAgendaRef } from './mapEvent.js';
+import { isPlainObject } from './queryValidation.js';
 
 // --- per-facet result mappers (input: the raw aggregation result for the facet)
 
@@ -142,6 +143,20 @@ const SCHEMA_FACETS = new Set(['additionalFields', 'additionalFieldMetrics']);
 
 const ALLOWED = new Set([...Object.keys(FACETS), ...SCHEMA_FACETS]);
 
+// Facets a `missing` bucket is safe for: the `mapTerms` family, whose bucket
+// key IS the displayed value (a plain string), so a synthetic missing bucket
+// maps cleanly. The encoded-key families (locations/provenance, via
+// mapLocations/mapAgendas) DECODE the bucket key, so a missing bucket there
+// would break decoding — they never receive `missing`. Derived from the
+// registry so there is no second list to keep in sync (a future term facet is
+// covered automatically; `accessibilities`, term-shaped but with a custom
+// builder that ignores options, simply yields no missing bucket).
+const MISSING_SAFE = new Set(
+  Object.entries(FACETS)
+    .filter(([, mapper]) => mapper === mapTerms)
+    .map(([name]) => name),
+);
+
 // Parse the CSV `facets` param into a validated, de-duplicated list. Required
 // (>= 1) and strictly validated — an unknown facet is a 400 with per-field
 // context, exactly like the list filters. Accepts the documented CSV form
@@ -170,6 +185,113 @@ export function parseFacets(rawFacets) {
   }
 
   return [...new Set(requested)];
+}
+
+// Bucket-size controls for the SIZEABLE facet families. `facetSize` is the
+// request-wide default; `facetSizes[<facet>]` overrides it per facet.
+// Precedence applied in buildAggregations: per-facet override > global >
+// native default (no size passed → Elasticsearch's default of 10). Lenient
+// like `limit` (clamp, no 400): both clamp to [1, MAX_FACET_SIZE]; an
+// absent/non-numeric value falls back to the native default. 250 covers every
+// real bounded vocabulary (101 French departments, ~200 country codes) while
+// staying orders of magnitude under `search.max_buckets`.
+const MIN_FACET_SIZE = 1;
+const MAX_FACET_SIZE = 250;
+
+function clampFacetSize(raw) {
+  if (Array.isArray(raw) || (raw !== null && typeof raw === 'object')) {
+    return undefined;
+  }
+  const value = parseInt(raw, 10);
+  if (Number.isNaN(value)) {
+    return undefined;
+  }
+  return Math.min(MAX_FACET_SIZE, Math.max(MIN_FACET_SIZE, value));
+}
+
+// Global default bucket size. Absent/invalid → undefined (native default).
+export function parseFacetSize(rawSize) {
+  if (rawSize === undefined) {
+    return undefined;
+  }
+  return clampFacetSize(rawSize);
+}
+
+// Per-facet overrides, from the `facetSizes` deepObject param (qs parses
+// `facetSizes[cities]=50` into `{ cities: '50' }`). Non-object input or
+// non-numeric entries are dropped; valid entries are clamped. Unknown facet
+// names are harmless (only consulted for requested SIZEABLE facets).
+export function parseFacetSizes(rawSizes) {
+  if (
+    rawSizes === null
+    || typeof rawSizes !== 'object'
+    || Array.isArray(rawSizes)
+  ) {
+    return {};
+  }
+  const out = {};
+  for (const [name, value] of Object.entries(rawSizes)) {
+    const size = clampFacetSize(value);
+    if (size !== undefined) {
+      out[name] = size;
+    }
+  }
+  return out;
+}
+
+// Bucket ordering for the bucket-list facets. `facetSort` is the request-wide
+// default; `facetSorts[<facet>]` overrides it per facet. `count` (default)
+// keeps Elasticsearch's count-descending order; `alpha` re-orders the returned
+// buckets by their display value (term `value`, `location.name`,
+// `agenda.title`) — applied AFTER the size cap, in mapFacets, on the decoded
+// buckets (so it never sorts on the internal base64 `_agg` key). Lenient: an
+// unknown value falls back to the default.
+const FACET_SORTS = new Set(['count', 'alpha']);
+
+// Global default sort. Absent/invalid → undefined (count-descending).
+export function parseFacetSort(rawSort) {
+  return FACET_SORTS.has(rawSort) ? rawSort : undefined;
+}
+
+// Per-facet overrides, from the `facetSorts` deepObject param. Non-object input
+// or unknown values are dropped.
+export function parseFacetSorts(rawSorts) {
+  if (
+    rawSorts === null
+    || typeof rawSorts !== 'object'
+    || Array.isArray(rawSorts)
+  ) {
+    return {};
+  }
+  const out = {};
+  for (const [name, value] of Object.entries(rawSorts)) {
+    if (FACET_SORTS.has(value)) {
+      out[name] = value;
+    }
+  }
+  return out;
+}
+
+// Per-facet `missing` bucket label, from the `facetMissing` deepObject param
+// (`facetMissing[district]=Unknown`). Adds a bucket under that label counting
+// the filtered events that have no value for the facet's field. Only the
+// value-keyed term facets honour it (see MISSING_SAFE); routed elsewhere it is
+// a no-op. Non-object input or non-scalar entries are dropped.
+export function parseFacetMissing(rawMissing) {
+  if (
+    rawMissing === null
+    || typeof rawMissing !== 'object'
+    || Array.isArray(rawMissing)
+  ) {
+    return {};
+  }
+  const out = {};
+  for (const [name, value] of Object.entries(rawMissing)) {
+    if (value !== undefined && value !== null && typeof value !== 'object') {
+      out[name] = String(value);
+    }
+  }
+  return out;
 }
 
 // Clustering zoom for the geohash facet. Lenient like `limit` (clamp, no 400):
@@ -359,7 +481,14 @@ export function resolveAdditionalFieldSelections(
 // the schema-driven families fan out to one mono-field entry per resolved field.
 export function buildAggregations(
   facets,
-  { geohashZoom, timingsInterval, afSelections = {} } = {},
+  {
+    geohashZoom,
+    timingsInterval,
+    afSelections = {},
+    facetSize,
+    facetSizes = {},
+    facetMissing = {},
+  } = {},
 ) {
   return facets.flatMap((name) => {
     if (name === 'geohash') {
@@ -392,17 +521,37 @@ export function buildAggregations(
         key: `additionalFieldMetrics:${f.field}`,
       }));
     }
-    return [name];
+    // Simple facet: route the resolved bucket size (per-facet override > global
+    // default) and, for value-keyed term facets, the missing-bucket label, as
+    // an object request the engine's getOptions merges into the aggregation. The
+    // bucket-list families (term/provenance/locations) consume size; the others
+    // reaching here (viewport, timespan, accessibilities) take no options and
+    // ignore it harmlessly — and the special-shaped families
+    // (geohash/timings/dateRanges/additionalField*) never reach this branch. No
+    // option resolved → bare name (native default 10, no missing bucket).
+    const size = facetSizes[name] ?? facetSize;
+    const missing = MISSING_SAFE.has(name) ? facetMissing[name] : undefined;
+    if (size === undefined && missing === undefined) {
+      return [name];
+    }
+    const request = { type: name };
+    if (size !== undefined) request.size = size;
+    if (missing !== undefined) request.missing = missing;
+    return [request];
   });
 }
 
 // additionalFields buckets per field: internally [{ ...option, eventCount }]
 // (the option already carries its localized `label`; booleans carry `key`
 // 'true'/'false' and no label).
-function mapAdditionalFields(aggregations, selection) {
+function mapAdditionalFields(
+  aggregations,
+  selection,
+  keyPrefix = 'additionalFields',
+) {
   const out = {};
   for (const { field, label } of selection) {
-    const values = aggregations?.[`additionalFields:${field}`] ?? [];
+    const values = aggregations?.[`${keyPrefix}:${field}`] ?? [];
     out[field] = {
       label: label ?? {},
       values: values.map((opt) => ({
@@ -417,10 +566,14 @@ function mapAdditionalFields(aggregations, selection) {
 
 // additionalFieldMetrics per field: internally { sum, avg, max, min } (any may
 // be null when no event in the set carries a value).
-function mapAdditionalFieldMetrics(aggregations, selection) {
+function mapAdditionalFieldMetrics(
+  aggregations,
+  selection,
+  keyPrefix = 'additionalFieldMetrics',
+) {
   const out = {};
   for (const { field, label } of selection) {
-    const m = aggregations?.[`additionalFieldMetrics:${field}`] ?? {};
+    const m = aggregations?.[`${keyPrefix}:${field}`] ?? {};
     out[field] = {
       label: label ?? {},
       metrics: {
@@ -434,10 +587,32 @@ function mapAdditionalFieldMetrics(aggregations, selection) {
   return out;
 }
 
+// Display value a bucket is alpha-sorted by, across the array-shaped families
+// (term → value, locations → name, provenance → title). Read off the DECODED
+// bucket, never the internal `_agg` key.
+const sortKey = (bucket) =>
+  bucket.value ?? bucket.location?.name ?? bucket.agenda?.title ?? '';
+
+// Apply `facetSort=alpha` to an array facet: re-order its buckets by display
+// value. The buckets are already the top `facetSize` by count from ES; alpha
+// re-orders THAT set for readable scanning (not the globally first-alphabetical
+// set). `count` (or a non-array result) passes through untouched.
+const applySort = (result, sort) => {
+  if (sort !== 'alpha' || !Array.isArray(result)) {
+    return result;
+  }
+  return [...result].sort((a, b) =>
+    String(sortKey(a)).localeCompare(String(sortKey(b))));
+};
+
 // Map core's aggregation results to the public `{ facets: { <name>: … } }`
 // shape. Simple facets go through their registered mapper; the schema-driven
 // families assemble a per-field map from their resolved selection.
-export function mapFacets(aggregations, facets, { afSelections = {} } = {}) {
+export function mapFacets(
+  aggregations,
+  facets,
+  { afSelections = {}, facetSort, facetSorts = {} } = {},
+) {
   const out = {};
   for (const name of facets) {
     if (name === 'additionalFields') {
@@ -451,8 +626,184 @@ export function mapFacets(aggregations, facets, { afSelections = {} } = {}) {
         afSelections.additionalFieldMetrics ?? [],
       );
     } else {
-      out[name] = FACETS[name](aggregations?.[name]);
+      const sort = facetSorts[name] ?? facetSort;
+      out[name] = applySort(FACETS[name](aggregations?.[name]), sort);
     }
   }
   return { facets: out };
+}
+
+// --- POST analytical surface (named, repeatable aggregations) ----------------
+//
+// The POST projection of the SAME facet model: a `facets` array whose items are
+// either a bare facet name (the simple form, identical to the GET enum) or an
+// object `{ name?, type, ...options }`. Two items may share a `type` under
+// distinct `name`s (the alias), so the same field can be aggregated several ways
+// in one request (e.g. `timings` by month AND by year). Output is keyed by the
+// alias, each entry tagged with its `type` so the client knows how to read it.
+
+// Parse + normalize the body `facets` array into validated specs. Strict on
+// structure (type must be known; aliases must be unique — they are the output
+// keys) but lenient on the per-instance options (clamp/fall back, like the GET
+// options). `facetSize`/`facetSort` are the request-wide defaults an item's own
+// `size`/`sort` overrides. `missing` only sticks for value-keyed term facets
+// (MISSING_SAFE), exactly as on the GET.
+export function parseFacetSpecs(rawFacets, { facetSize, facetSort } = {}) {
+  if (!Array.isArray(rawFacets) || rawFacets.length === 0) {
+    throw new BadRequest(
+      {
+        info: {
+          errors: [
+            {
+              field: 'facets',
+              message: 'facets is required (a non-empty array)',
+            },
+          ],
+        },
+      },
+      'Invalid request body',
+    );
+  }
+
+  const errors = [];
+  const specs = [];
+  const seen = new Set();
+
+  rawFacets.forEach((item, index) => {
+    let spec;
+    if (typeof item === 'string') {
+      spec = { name: item, type: item };
+    } else if (isPlainObject(item)) {
+      spec = {
+        name:
+          typeof item.name === 'string' && item.name ? item.name : item.type,
+        type: item.type,
+      };
+      const size = clampFacetSize(item.size);
+      if (size !== undefined) spec.size = size;
+      if (FACET_SORTS.has(item.sort)) spec.sort = item.sort;
+      if (
+        item.missing !== undefined
+        && item.missing !== null
+        && typeof item.missing !== 'object'
+      ) {
+        spec.missing = String(item.missing);
+      }
+      if (item.zoom !== undefined) spec.zoom = parseGeohashZoom(item.zoom);
+      if (item.interval !== undefined) {
+        spec.interval = parseTimingsInterval(item.interval);
+      }
+      if (item.month !== undefined) spec.month = parseMonthWindow(item.month);
+      if (item.fields !== undefined) spec.fields = parseFieldKeys(item.fields);
+    } else {
+      errors.push({
+        field: `facets[${index}]`,
+        message: 'each facet must be a name or an object',
+      });
+      return;
+    }
+
+    if (!ALLOWED.has(spec.type)) {
+      errors.push({
+        field: `facets[${index}]`,
+        message: `unknown facet "${spec.type}"`,
+      });
+      return;
+    }
+    if (seen.has(spec.name)) {
+      errors.push({
+        field: `facets[${index}].name`,
+        message: `duplicate facet name "${spec.name}"`,
+      });
+      return;
+    }
+    seen.add(spec.name);
+
+    // Apply request-wide defaults, then drop `missing` where it is unsafe.
+    if (spec.size === undefined && facetSize !== undefined) spec.size = facetSize;
+    if (spec.sort === undefined && facetSort !== undefined) spec.sort = facetSort;
+    if (spec.missing !== undefined && !MISSING_SAFE.has(spec.type)) {
+      delete spec.missing;
+    }
+
+    specs.push(spec);
+  });
+
+  if (errors.length) {
+    throw new BadRequest({ info: { errors } }, 'Invalid request body');
+  }
+  return specs;
+}
+
+// Build the event-search aggregation list from the specs, each keyed by its
+// alias so multi-instance results stay distinct. The schema-driven families
+// fan out to one mono-field entry per resolved field, namespaced under the
+// alias (`<alias>:<field>`); `spec.afSelection` is resolved by the route
+// against the access-filtered schema (same gate as the GET).
+export function buildReportAggregations(specs) {
+  return specs.flatMap((spec) => {
+    const { name, type } = spec;
+    if (type === 'geohash') {
+      return [{ type: 'geohash', key: name, zoom: spec.zoom ?? 1 }];
+    }
+    if (type === 'timings') {
+      const interval = spec.interval ?? DEFAULT_TIMINGS_INTERVAL;
+      return [
+        {
+          type: 'timings',
+          key: name,
+          interval,
+          format: TIMINGS_INTERVALS[interval],
+        },
+      ];
+    }
+    if (type === 'dateRanges') {
+      return [{ type: 'eventsByDateRanges', key: name }];
+    }
+    if (type === 'additionalFields') {
+      return (spec.afSelection ?? []).map((f) => ({
+        type: 'additionalFields',
+        field: f.field,
+        key: `${name}:${f.field}`,
+      }));
+    }
+    if (type === 'additionalFieldMetrics') {
+      return (spec.afSelection ?? []).map((f) => ({
+        type: 'additionalFieldMetrics',
+        field: f.field,
+        metrics: METRICS,
+        key: `${name}:${f.field}`,
+      }));
+    }
+    const request = { type, key: name };
+    if (spec.size !== undefined) request.size = spec.size;
+    if (spec.missing !== undefined) request.missing = spec.missing;
+    return [request];
+  });
+}
+
+// Map core's aggregation results to the report shape
+// `{ facets: { <alias>: { type, result } } }`, where `result` is the same shape
+// the GET produces for that facet type (bucket array, viewport/timespan object
+// or null, or the per-field additionalField* map). The `type` tag lets the
+// client read `result` without guessing.
+export function mapFacetReport(aggregations, specs) {
+  const facets = {};
+  for (const spec of specs) {
+    const { name, type, sort } = spec;
+    let result;
+    if (type === 'additionalFields') {
+      result = mapAdditionalFields(aggregations, spec.afSelection ?? [], name);
+    } else if (type === 'additionalFieldMetrics') {
+      result = mapAdditionalFieldMetrics(
+        aggregations,
+        spec.afSelection ?? [],
+        name,
+      );
+    } else {
+      result = applySort(FACETS[type](aggregations?.[name]), sort);
+    }
+    facets[name] = { type, result };
+  }
+  return { facets };
 }

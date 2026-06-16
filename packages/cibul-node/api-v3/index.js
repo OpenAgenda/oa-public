@@ -38,6 +38,11 @@ import {
 import buildMeAgendaList from './lib/meAgendas.js';
 import {
   parseFacets,
+  parseFacetSize,
+  parseFacetSizes,
+  parseFacetSort,
+  parseFacetSorts,
+  parseFacetMissing,
   parseGeohashZoom,
   parseTimingsInterval,
   parseMonthWindow,
@@ -45,6 +50,9 @@ import {
   resolveAdditionalFieldSelections,
   buildAggregations,
   mapFacets,
+  parseFacetSpecs,
+  buildReportAggregations,
+  mapFacetReport,
 } from './lib/facets.js';
 import { decodeCursor, decodeIntCursor } from './lib/cursor.js';
 import apiV3ErrorHandler from './errorHandler.js';
@@ -104,9 +112,16 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
     next();
   });
 
+  // JSON body parser for the write/analytical surfaces (the facets report POST).
+  // Harmless for the GET reads (no body). A malformed JSON body surfaces as a
+  // 400 through the v3 error handler.
+  app.use(express.json());
+
   // Auth resolution (publicKey / agenda-key / access token). Throws typed
   // errors (401 NotAuthenticated / 403 Forbidden) into the v3 error envelope.
+  // Wired for both verbs the surface uses (GET reads, POST facets report).
   app.get('*', createAuthenticate(core));
+  app.post('*', createAuthenticate(core));
 
   // Load the agenda for any route exposing :agendaUid, throwing typed errors
   // into the v3 envelope (see lib/loadAgenda.js).
@@ -248,6 +263,11 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
     async (req, res, next) => {
       try {
         const facets = parseFacets(req.query.facets);
+        const facetSize = parseFacetSize(req.query.facetSize);
+        const facetSizes = parseFacetSizes(req.query.facetSizes);
+        const facetSort = parseFacetSort(req.query.facetSort);
+        const facetSorts = parseFacetSorts(req.query.facetSorts);
+        const facetMissing = parseFacetMissing(req.query.facetMissing);
         const geohashZoom = parseGeohashZoom(req.query.geohashZoom);
         const timingsInterval = parseTimingsInterval(req.query.timingsInterval);
 
@@ -297,13 +317,98 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
               geohashZoom,
               timingsInterval,
               afSelections,
+              facetSize,
+              facetSizes,
+              facetMissing,
             }),
             userUid: req.user?.uid,
             agendaKey: req.agendaKey,
           },
         );
 
-        res.json(mapFacets(result.aggregations, facets, { afSelections }));
+        res.json(
+          mapFacets(result.aggregations, facets, {
+            afSelections,
+            facetSort,
+            facetSorts,
+          }),
+        );
+      } catch (err) {
+        next(err);
+      }
+    },
+  );
+
+  // POST /agendas/:agendaUid/events/facets
+  // Analytical projection of the same facet model: a JSON body of named,
+  // repeatable aggregations (the same field may be aggregated several ways
+  // under distinct `name` aliases — e.g. `timings` by month AND by year).
+  // Filters live under `filters` (the same shape as the list query params).
+  // Output is `{ facets: { <alias>: { type, result } } }`. Registered before
+  // the `/events/:eventUid` route is irrelevant here (distinct verb), but it
+  // shares the facet vocabulary, mappers and access gate with the GET.
+  app.post(
+    '/agendas/:agendaUid/events/facets',
+    requireScope('events:read'),
+    async (req, res, next) => {
+      try {
+        const body = req.body ?? {};
+        const facetSize = parseFacetSize(body.facetSize);
+        const facetSort = parseFacetSort(body.facetSort);
+        const specs = parseFacetSpecs(body.facets, { facetSize, facetSort });
+
+        // Resolve the schema-driven specs against the access-filtered schema
+        // (loaded once), so only fields the caller may read are aggregated —
+        // the same up-front gate as the GET. Each spec keeps its own selection.
+        const afSpecs = specs.filter(
+          (s) =>
+            s.type === 'additionalFields'
+            || s.type === 'additionalFieldMetrics',
+        );
+        if (afSpecs.length) {
+          const access = await loadSearchAccess(core, req.agenda.uid, {
+            userUid: req.user?.uid,
+            agendaKey: req.agendaKey,
+          }) ?? 'public';
+          const schema = await core
+            .agendas(req.agenda.uid)
+            .settings.schema.getMerged({ access });
+          for (const spec of afSpecs) {
+            const wantCounts = spec.type === 'additionalFields';
+            const selections = resolveAdditionalFieldSelections(schema, {
+              countsKeys: wantCounts ? spec.fields ?? null : null,
+              metricsKeys: wantCounts ? null : spec.fields ?? null,
+              wantCounts,
+              wantMetrics: !wantCounts,
+              access,
+            });
+            spec.afSelection = wantCounts
+              ? selections.additionalFields
+              : selections.additionalFieldMetrics;
+          }
+        }
+
+        const query = buildEventSearchQuery(body.filters ?? {});
+
+        // dateRanges scopes the filtered set to its month (like the GET). With
+        // several dateRanges specs the first windowed one wins — they all share
+        // the one filtered set.
+        const dateSpec = specs.find((s) => s.type === 'dateRanges' && s.month);
+        if (dateSpec) {
+          query.date = dateSpec.month;
+        }
+
+        const result = await core.agendas(req.agenda.uid).events.search(
+          query,
+          { size: 0 },
+          {
+            aggregations: buildReportAggregations(specs),
+            userUid: req.user?.uid,
+            agendaKey: req.agendaKey,
+          },
+        );
+
+        res.json(mapFacetReport(result.aggregations, specs));
       } catch (err) {
         next(err);
       }

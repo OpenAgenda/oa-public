@@ -49,6 +49,7 @@ const validateEvent = buildValidator('Event');
 const validateEventSummary = buildValidator('EventSummary');
 const validateEventList = buildValidator('EventList');
 const validateFacetResults = buildValidator('FacetResults');
+const validateFacetReport = buildValidator('FacetReport');
 const validateError = buildValidator('Error');
 
 function assertValid(validate, body, label) {
@@ -526,6 +527,109 @@ describe('90 - api-v3 - functional (server): events read endpoints', () => {
       expect(filtered.body.facets.locations).toEqual([top]);
     });
 
+    it('facetSize caps the bucket count; facetSizes overrides per facet', async () => {
+      const base = await facetsQ('?facets=locations');
+      const baseLen = base.body.facets.locations.length;
+      // The fixture gives agenda 2 events across >1 location, so the cap below
+      // is exercised, not vacuous.
+      expect(baseLen).toBeGreaterThan(1);
+
+      // Global default caps to 1 bucket, keeping the top (highest-count) one.
+      const capped = await facetsQ('?facets=locations&facetSize=1');
+      expect(capped.status).toBe(200);
+      assertValid(validateFacetResults, capped.body, 'FacetResults');
+      expect(capped.body.facets.locations.length).toBe(1);
+      expect(capped.body.facets.locations[0]).toEqual(
+        base.body.facets.locations[0],
+      );
+
+      // Per-facet override beats the global default (precedence).
+      const lifted = await facetsQ(
+        '?facets=locations&facetSize=1&facetSizes[locations]=250',
+      );
+      expect(lifted.status).toBe(200);
+      expect(lifted.body.facets.locations.length).toBe(baseLen);
+    });
+
+    it('is lenient on facetSize: clamps out-of-range, ignores non-numeric', async () => {
+      // 0 -> clamped to the minimum (1).
+      const zero = await facetsQ('?facets=locations&facetSize=0');
+      expect(zero.status).toBe(200);
+      expect(zero.body.facets.locations.length).toBe(1);
+
+      // 9999 -> clamped to 250, no 400 and no too_many_buckets failure.
+      const huge = await facetsQ('?facets=locations&facetSize=9999');
+      expect(huge.status).toBe(200);
+      assertValid(validateFacetResults, huge.body, 'FacetResults');
+
+      // Non-numeric -> ignored (native default), still a clean 200.
+      const bad = await facetsQ('?facets=locations&facetSize=abc');
+      expect(bad.status).toBe(200);
+      assertValid(validateFacetResults, bad.body, 'FacetResults');
+    });
+
+    it('ignores the size controls for non-bucket-list facets', async () => {
+      // viewport is a single object, not a bucket list — facetSize must not
+      // alter it (the aggregation ignores size).
+      const res = await facetsQ('?facets=viewport&facetSize=1');
+      expect(res.status).toBe(200);
+      assertValid(validateFacetResults, res.body, 'FacetResults');
+      expect(res.body.facets.viewport).not.toBeNull();
+    });
+
+    it('facetSort=alpha orders buckets by their decoded display value', async () => {
+      // locations sorts by location.name — proves the sort reads the DECODED
+      // bucket, not the internal base64 `_agg` key. >1 bucket (see size test).
+      const res = await facetsQ(
+        '?facets=locations&facetSort=alpha&facetSize=250',
+      );
+      expect(res.status).toBe(200);
+      assertValid(validateFacetResults, res.body, 'FacetResults');
+      const names = res.body.facets.locations.map((b) => b.location.name ?? '');
+      expect(names.length).toBeGreaterThan(1);
+      expect(names).toEqual([...names].sort((a, b) => a.localeCompare(b)));
+    });
+
+    it('facetSorts overrides facetSort per facet', async () => {
+      // Global alpha, but locations pinned back to count → identical to the
+      // default count-ordered response.
+      const base = await facetsQ('?facets=locations&facetSize=250');
+      const res = await facetsQ(
+        '?facets=locations&facetSort=alpha&facetSorts[locations]=count&facetSize=250',
+      );
+      expect(res.status).toBe(200);
+      expect(res.body.facets.locations).toEqual(base.body.facets.locations);
+    });
+
+    it('facetMissing adds a labelled bucket for events lacking the field', async () => {
+      // No fixture location sets a district -> every published event is
+      // "missing" it, so without missing the facet is empty and with it the
+      // whole set lands in one labelled bucket.
+      const without = await facetsQ('?facets=districts');
+      expect(without.body.facets.districts).toEqual([]);
+
+      const res = await facetsQ(
+        '?facets=districts&facetMissing[districts]=__none__',
+      );
+      expect(res.status).toBe(200);
+      assertValid(validateFacetResults, res.body, 'FacetResults');
+      expect(res.body.facets.districts).toHaveLength(1);
+      expect(res.body.facets.districts[0].value).toBe('__none__');
+      expect(res.body.facets.districts[0].count).toBeGreaterThan(0);
+    });
+
+    it('does not apply facetMissing to encoded-key facets (no decode crash)', async () => {
+      // locations decodes its bucket key (base64 _agg); a missing bucket there
+      // would break the mapper, so facetMissing must be a no-op for it.
+      const base = await facetsQ('?facets=locations');
+      const res = await facetsQ(
+        '?facets=locations&facetMissing[locations]=__none__',
+      );
+      expect(res.status).toBe(200);
+      assertValid(validateFacetResults, res.body, 'FacetResults');
+      expect(res.body.facets.locations).toEqual(base.body.facets.locations);
+    });
+
     it('mixes term and provenance facets in one call', async () => {
       const res = await facetsQ('?facets=cities,originAgendas');
 
@@ -744,6 +848,88 @@ describe('90 - api-v3 - functional (server): events read endpoints', () => {
       expect(res.status).toBe(400);
       assertValid(validateError, res.body, 'Error');
       expect(res.body.error.code).toBe('bad_request');
+    });
+  });
+
+  describe('POST /agendas/:agendaUid/events/facets (report)', () => {
+    const report = (agendaUid, body) =>
+      request(app)
+        .post(`/agendas/${agendaUid}/events/facets`)
+        .set('authorization', `Bearer ${USER_KEY}`)
+        .send(body);
+
+    it('aggregates the same type several ways under distinct aliases', async () => {
+      const res = await report(2, {
+        facets: [
+          'cities',
+          { name: 'byMonth', type: 'timings', interval: 'month' },
+          { name: 'byYear', type: 'timings', interval: 'year' },
+        ],
+      });
+
+      expect(res.status).toBe(200);
+      assertValid(validateFacetReport, res.body, 'FacetReport');
+      // Bare string -> alias defaults to the type.
+      expect(res.body.facets.cities.type).toBe('cities');
+      expect(Array.isArray(res.body.facets.cities.result)).toBe(true);
+      // Two timings instances, distinct aliases, both tagged timings.
+      expect(res.body.facets.byMonth.type).toBe('timings');
+      expect(res.body.facets.byYear.type).toBe('timings');
+      // Month buckets are keyed YYYY-MM, year buckets YYYY -> different grids.
+      const monthKeys = res.body.facets.byMonth.result.map((b) => b.value);
+      const yearKeys = res.body.facets.byYear.result.map((b) => b.value);
+      expect(monthKeys.some((k) => /^\d{4}-\d{2}$/.test(k))).toBe(true);
+      expect(yearKeys.every((k) => /^\d{4}$/.test(k))).toBe(true);
+    });
+
+    it('applies per-instance size and scopes to body filters', async () => {
+      const res = await report(2, {
+        filters: { keyword: ['zzzznosuchkeywordzzzz'] },
+        facets: [{ name: 'c', type: 'cities', size: 3 }],
+      });
+      expect(res.status).toBe(200);
+      assertValid(validateFacetReport, res.body, 'FacetReport');
+      // No event matches the filter -> the facet is empty over the scoped set.
+      expect(res.body.facets.c.result).toEqual([]);
+    });
+
+    it('honors the access-gated additionalFields family under an alias', async () => {
+      const res = await report(1, {
+        facets: [
+          { name: 'themes', type: 'additionalFields', fields: ['thematique'] },
+        ],
+      });
+      expect(res.status).toBe(200);
+      assertValid(validateFacetReport, res.body, 'FacetReport');
+      expect(res.body.facets.themes.type).toBe('additionalFields');
+      expect(res.body.facets.themes.result).toHaveProperty('thematique');
+      expect(res.body.facets.themes.result).not.toHaveProperty('note');
+    });
+
+    it('rejects duplicate aliases with 400', async () => {
+      const res = await report(2, {
+        facets: [
+          { name: 'x', type: 'cities' },
+          { name: 'x', type: 'keywords' },
+        ],
+      });
+      expect(res.status).toBe(400);
+      assertValid(validateError, res.body, 'Error');
+      expect(res.body.error.details.errors[0].field).toBe('facets[1].name');
+    });
+
+    it('rejects an unknown facet type with 400', async () => {
+      const res = await report(2, { facets: ['bogus'] });
+      expect(res.status).toBe(400);
+      assertValid(validateError, res.body, 'Error');
+      expect(res.body.error.details.errors[0].field).toBe('facets[0]');
+    });
+
+    it('rejects an empty/missing facets array with 400', async () => {
+      const res = await report(2, { facets: [] });
+      expect(res.status).toBe(400);
+      assertValid(validateError, res.body, 'Error');
+      expect(res.body.error.details.errors[0].field).toBe('facets');
     });
   });
 
