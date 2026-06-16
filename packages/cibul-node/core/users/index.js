@@ -7,6 +7,7 @@ import userEventsSearch from './userEventsSearch.js';
 import userDraftEvents from './userDraftEvents.js';
 import get from './get.js';
 import remove from './remove.js';
+import soleAdminAgendas from './soleAdminAgendas.js';
 import generateToken from './generateToken.js';
 
 export default (core) =>
@@ -44,6 +45,7 @@ export default (core) =>
           list: listUserAgendas(core, identifier),
         },
       ),
+      soleAdminAgendas: soleAdminAgendas(core, identifier),
       generateToken: generateToken.bind(null, core, identifier),
       canEditEvent: canEditEvent.bind(null, core, identifier),
     }),

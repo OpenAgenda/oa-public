@@ -58,6 +58,7 @@
   "next.components.settings.DeleteAccount.authError": "La contraseña enviada no es válida. Por favor, inténtelo de nuevo.",
   "next.components.settings.DeleteAccount.otherError": "Ocurrió un error durante el proceso de la operación, inténtalo nuevamente.",
   "next.components.settings.DeleteAccount.passwordLabel": "Escriba su contraseña para completar la operación",
+  "next.components.settings.DeleteAccount.soleAdminWarning": "Eres el único administrador de las agendas siguientes. Si eliminas tu cuenta, se quedarán sin ningún administrador. Añade otro administrador antes de eliminar tu cuenta para que sigan gestionadas.",
   "next.components.settings.DeleteAccount.submit": "Eliminar",
   "next.components.settings.DeleteAccount.title": "Eliminar mi cuenta",
   "next.components.settings.DeleteAccount.warning": "¿Está seguro de que quiere eliminar tu cuenta de forma permanente? Tus agendas y eventos permanecerán en línea, puedes eliminarlos manualmente si no deseas dejarlos en línea",

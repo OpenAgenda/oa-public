@@ -84,5 +84,9 @@
   "sortBy": "Order by",
   "removeFilter": "Remove filter",
   "subject": "Subject",
-  "sendAlsoToMe": "Send me this message"
+  "sendAlsoToMe": "Send me this message",
+  "lastAdminTitle": "You are the only administrator",
+  "lastAdminMessage": "You can't remove yourself while you are the only administrator of this agenda. Invite another administrator, or delete the agenda.",
+  "lastAdminInvite": "Invite another administrator",
+  "lastAdminDeleteAgenda": "Delete the agenda"
 }

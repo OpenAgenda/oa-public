@@ -58,6 +58,7 @@
   "next.components.settings.DeleteAccount.authError": "Lo senhal picat es pas valid. Tornatz ensajar.",
   "next.components.settings.DeleteAccount.otherError": "I a agut un problèma pendent lo tractament de l'operacion, tornatz ensajar lèu.",
   "next.components.settings.DeleteAccount.passwordLabel": "Picatz vòstre senhal per completar l'operacion.",
+  "next.components.settings.DeleteAccount.soleAdminWarning": "Sètz lo sol administrator de las agendas çai-jos. Se suprimissètz vòstre compte, demoraràn sens cap d'administrator. Apondètz un autre administrator abans de suprimir vòstre compte per que demòran gerits.",
   "next.components.settings.DeleteAccount.submit": "Suprimir",
   "next.components.settings.DeleteAccount.title": "Suprimir mon compte",
   "next.components.settings.DeleteAccount.warning": "Sètz segur·a de voler suprimir vòstre compte de biais definitiu ? Vòstres agendas e eveniments demoraràn en linha, los poiretz escafar manualament se los volètz pas daissar",

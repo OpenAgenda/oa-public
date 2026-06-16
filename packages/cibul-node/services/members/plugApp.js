@@ -1,5 +1,7 @@
 import _ from 'lodash';
+import { Conflict } from '@openagenda/verror';
 import { requireUser } from '../../lib/authGuards.js';
+import isLastAdministrator from '../../core/agendas/members/lib/isLastAdministrator.js';
 import streamCsv from './lib/streamCsv.js';
 import streamXlsx from './lib/streamXlsx.js';
 import * as mw from './middleware/index.js';
@@ -92,14 +94,30 @@ export default function plugApp(app) {
     '/:agendaSlug/admin/members/:id',
     mw.loadTarget.default.bind(null, members),
     mw.authorize.moderatorCannotEditAdministrator,
-    (req, res, next) =>
-      members
-        .remove(req.targetMember.id, {
+    async (req, res, next) => {
+      try {
+        // Same guard as the core remove path: never leave an agenda without an
+        // administrator (this legacy route calls the service directly).
+        if (
+          await isLastAdministrator(app.services, {
+            agendaUid: req.agenda.uid,
+            member: req.targetMember,
+          })
+        ) {
+          throw new Conflict(
+            { info: { code: 'last-administrator' } },
+            'Cannot remove the last administrator of the agenda',
+          );
+        }
+
+        await members.remove(req.targetMember.id, {
           context: { user: req.user },
-        })
-        .then(() => {
-          res.status(200).json({ message: 'done.' });
-        }, next),
+        });
+        res.status(200).json({ message: 'done.' });
+      } catch (error) {
+        next(error);
+      }
+    },
   );
 
   app.patch(
@@ -107,15 +125,36 @@ export default function plugApp(app) {
     mw.loadTarget.default.bind(null, members),
     mw.authorize.moderatorCannotEditAdministrator,
     mw.loadContext,
-    (req, res, next) =>
-      members
-        .patch(req.targetMember.id, req.body, {
+    async (req, res, next) => {
+      try {
+        const newRole = req.body?.role !== undefined
+          ? members.utils.getRoleCode(req.body.role)
+          : undefined;
+
+        // Block demoting the agenda's last administrator to a lower role.
+        if (
+          newRole !== undefined
+          && members.utils.getRoleSlug(newRole) !== 'administrator'
+          && await isLastAdministrator(app.services, {
+            agendaUid: req.agenda.uid,
+            member: req.targetMember,
+          })
+        ) {
+          throw new Conflict(
+            { info: { code: 'last-administrator' } },
+            'Cannot demote the last administrator of the agenda',
+          );
+        }
+
+        const result = await members.patch(req.targetMember.id, req.body, {
           context: req.context,
           requireCustom: false,
-        })
-        .then((result) => {
-          res.status(200).json(_.pick(result.member, ['custom', 'role']));
-        }, next),
+        });
+        res.status(200).json(_.pick(result.member, ['custom', 'role']));
+      } catch (error) {
+        next(error);
+      }
+    },
   );
 
   app.put(

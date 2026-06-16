@@ -181,6 +181,59 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
 
       expect(error.name).toBe('Forbidden');
     });
+
+    it('cannot demote the last administrator of an agenda', async () => {
+      let error;
+
+      try {
+        // lise (uid 50073466) is the only administrator of agenda 2
+        await core
+          .agendas(2)
+          .members.patch(
+            { userUid: 50073466 },
+            { role: 'moderator' },
+            { userUid: 50073466 },
+          );
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error?.name).toBe('Conflict');
+
+      const entry = await core.services.knex('reviewer').first().where({
+        agenda_uid: 2,
+        user_uid: 50073466,
+      });
+
+      expect(entry.credential).toBe(2);
+    });
+
+    it('can demote an administrator when another one remains', async () => {
+      // add a second administrator to agenda 2 alongside lise
+      await core.services.knex('reviewer').insert({
+        id: 888889,
+        agenda_uid: 2,
+        user_uid: 888889,
+        credential: 2,
+        created_at: '2017-10-30 14:21:07',
+        updated_at: '2017-10-30 14:21:07',
+      });
+
+      await core
+        .agendas(2)
+        .members.patch(
+          { userUid: 888889 },
+          { role: 'moderator' },
+          { userUid: 50073466 },
+        );
+
+      const entry = await core.services.knex('reviewer').first().where({
+        agenda_uid: 2,
+        user_uid: 888889,
+      });
+
+      expect(entry.credential).toBe(3);
+    });
   });
 
   describe('api', () => {

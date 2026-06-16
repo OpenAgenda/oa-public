@@ -84,5 +84,9 @@
   "subject": "Asunto",
   "total": "Total",
   "writeToHim": "Escribir a los miembros",
-  "writeToThem": "Escríbales"
+  "writeToThem": "Escríbales",
+  "lastAdminTitle": "Eres el único administrador",
+  "lastAdminMessage": "No puedes eliminarte mientras seas el único administrador de esta agenda. Invita a otro administrador o elimina la agenda.",
+  "lastAdminInvite": "Invitar a otro administrador",
+  "lastAdminDeleteAgenda": "Eliminar la agenda"
 }

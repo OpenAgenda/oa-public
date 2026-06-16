@@ -357,6 +357,12 @@
       "value": "Saisissez votre mot de passe pour compléter l'opération."
     }
   ],
+  "next.components.settings.DeleteAccount.soleAdminWarning": [
+    {
+      "type": 0,
+      "value": "Vous êtes le seul administrateur des agendas ci-dessous. Si vous supprimez votre compte, ils se retrouveront sans aucun administrateur. Ajoutez un autre administrateur avant de supprimer votre compte pour qu'ils restent gérés."
+    }
+  ],
   "next.components.settings.DeleteAccount.submit": [
     {
       "type": 0,

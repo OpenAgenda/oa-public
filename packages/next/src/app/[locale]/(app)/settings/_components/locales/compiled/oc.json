@@ -357,6 +357,12 @@
       "value": "Picatz vòstre senhal per completar l'operacion."
     }
   ],
+  "next.components.settings.DeleteAccount.soleAdminWarning": [
+    {
+      "type": 0,
+      "value": "Sètz lo sol administrator de las agendas çai-jos. Se suprimissètz vòstre compte, demoraràn sens cap d'administrator. Apondètz un autre administrator abans de suprimir vòstre compte per que demòran gerits."
+    }
+  ],
   "next.components.settings.DeleteAccount.submit": [
     {
       "type": 0,

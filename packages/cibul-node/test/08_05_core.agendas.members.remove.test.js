@@ -63,6 +63,92 @@ describe('08 - core - functional (server): core.agendas().members.remove', () =>
     });
   });
 
+  describe('last administrator guard', () => {
+    it('cannot remove the last administrator of an agenda', async () => {
+      let error;
+
+      try {
+        // lise (uid 50073466) is the only administrator of agenda 2
+        await core
+          .agendas(2)
+          .members.remove({ userUid: 50073466 }, { userUid: 50073466 });
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error?.name).toBe('Conflict');
+
+      const rows = await core.services.knex('reviewer').select().where({
+        agenda_uid: 2,
+        user_uid: 50073466,
+      });
+
+      expect(rows.length).toBe(1);
+    });
+
+    it('can remove an administrator when another one remains', async () => {
+      // add a second administrator to agenda 2 alongside lise
+      await core.services.knex('reviewer').insert({
+        id: 888888,
+        agenda_uid: 2,
+        user_uid: 888888,
+        credential: 2,
+        created_at: '2017-10-30 14:21:07',
+        updated_at: '2017-10-30 14:21:07',
+      });
+
+      await core
+        .agendas(2)
+        .members.remove({ userUid: 888888 }, { userUid: 50073466 });
+
+      const rows = await core.services.knex('reviewer').select().where({
+        agenda_uid: 2,
+        user_uid: 888888,
+      });
+
+      expect(rows.length).toBe(0);
+    });
+
+    it('does not count a pending admin invitation as an administrator', async () => {
+      // a pending admin invitation: administrator row with no user account yet
+      await core.services.knex('reviewer').insert({
+        id: 888887,
+        agenda_uid: 2,
+        user_uid: null,
+        credential: 2,
+        created_at: '2017-10-30 14:21:07',
+        updated_at: '2017-10-30 14:21:07',
+      });
+
+      try {
+        // lise is still the only *active* admin: removing her must be blocked
+        // even though a pending admin invite exists.
+        let error;
+        try {
+          await core
+            .agendas(2)
+            .members.remove({ userUid: 50073466 }, { userUid: 50073466 });
+        } catch (e) {
+          error = e;
+        }
+        expect(error?.name).toBe('Conflict');
+
+        // and the pending invitation itself can always be removed
+        await core
+          .agendas(2)
+          .members.remove({ id: 888887 }, { userUid: 50073466 });
+
+        const rows = await core.services
+          .knex('reviewer')
+          .select()
+          .where({ id: 888887 });
+        expect(rows.length).toBe(0);
+      } finally {
+        await core.services.knex('reviewer').where({ id: 888887 }).delete();
+      }
+    });
+  });
+
   describe('api', () => {
     let server;
     let accessToken;

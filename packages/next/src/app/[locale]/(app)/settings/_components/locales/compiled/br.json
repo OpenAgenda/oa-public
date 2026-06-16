@@ -357,6 +357,12 @@
       "value": "Skrivit ho ker-tremen evit klokaat an obererezh."
     }
   ],
+  "next.components.settings.DeleteAccount.soleAdminWarning": [
+    {
+      "type": 0,
+      "value": "C'hwi eo an hini nemetañ a verañ an deizataeroù amañ dindan. Ma tilamit ho kont, e chomint hep merour ebet. Ouzhpennit ur merour all a-raok dilemel ho kont evit ma vint miret atav."
+    }
+  ],
   "next.components.settings.DeleteAccount.submit": [
     {
       "type": 0,

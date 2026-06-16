@@ -1,12 +1,18 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import ky, { isHTTPError } from 'ky';
-import { Button, Field, Text, chakra } from '@openagenda/uikit';
+import { Button, Field, Link, List, Text, chakra } from '@openagenda/uikit';
 import { PasswordInput } from '@openagenda/uikit/snippets';
 import AccordionItem from '@/src/components/AccordionItem';
 import MessageAlert from '@/src/components/MessageAlert';
+
+type SoleAdminAgenda = {
+  uid: number;
+  slug: string;
+  title: string;
+};
 
 const messages = defineMessages({
   title: {
@@ -26,6 +32,11 @@ const messages = defineMessages({
     id: 'next.components.settings.DeleteAccount.submit',
     defaultMessage: 'Delete',
   },
+  soleAdminWarning: {
+    id: 'next.components.settings.DeleteAccount.soleAdminWarning',
+    defaultMessage:
+      'You are the only administrator of the agendas below. If you delete your account, they will be left without any administrator. Add another administrator before deleting your account to keep them managed.',
+  },
   authError: {
     id: 'next.components.settings.DeleteAccount.authError',
     defaultMessage: 'The submitted password is invalid. Please try again.',
@@ -42,6 +53,24 @@ export default function DeleteAccountSection() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<'auth' | 'other' | null>(null);
+  const [soleAdminAgendas, setSoleAdminAgendas] = useState<SoleAdminAgenda[]>(
+    [],
+  );
+
+  useEffect(() => {
+    let cancelled = false;
+    ky.get('/users/me/sole-admin-agendas')
+      .json<{ items: SoleAdminAgenda[] }>()
+      .then((data) => {
+        if (!cancelled) setSoleAdminAgendas(data.items ?? []);
+      })
+      // Non-blocking: the warning is advisory, so a failed fetch just hides it
+      // rather than preventing the user from deleting their account.
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -59,7 +88,9 @@ export default function DeleteAccountSection() {
     } catch (err) {
       // ky throws HTTPError on a non-2xx response; a 403 means the password
       // was wrong, anything else is an unexpected failure.
-      setError(isHTTPError(err) && err.response.status === 403 ? 'auth' : 'other');
+      setError(
+        isHTTPError(err) && err.response.status === 403 ? 'auth' : 'other',
+      );
     } finally {
       setLoading(false);
     }
@@ -78,6 +109,27 @@ export default function DeleteAccountSection() {
         <Text mb="4" whiteSpace="pre-line">
           {intl.formatMessage(messages.warning)}
         </Text>
+
+        {soleAdminAgendas.length > 0 && (
+          <MessageAlert
+            role="alert"
+            status="warning"
+            mb="4"
+            description={
+              <List.Root>
+                {soleAdminAgendas.map((agenda) => (
+                  <List.Item key={agenda.uid}>
+                    <Link href={`/${agenda.slug}/admin/contributors`}>
+                      {agenda.title}
+                    </Link>
+                  </List.Item>
+                ))}
+              </List.Root>
+            }
+          >
+            {intl.formatMessage(messages.soleAdminWarning)}
+          </MessageAlert>
+        )}
 
         <Field.Root
           required

@@ -81,5 +81,9 @@
   "string.tooshort": "La stringa è troppo corta",
   "total": "Totale",
   "writeToHim": "Scrivetegli",
-  "writeToThem": "Scrivi a loro"
+  "writeToThem": "Scrivi a loro",
+  "lastAdminTitle": "Sei l'unico amministratore",
+  "lastAdminMessage": "Non puoi rimuoverti finché sei l'unico amministratore di questa agenda. Invita un altro amministratore oppure elimina l'agenda.",
+  "lastAdminInvite": "Invita un altro amministratore",
+  "lastAdminDeleteAgenda": "Eliminare l'agenda"
 }

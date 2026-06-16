@@ -42,6 +42,23 @@ const messages = defineMessages({
     defaultMessage:
       'The request failed. Try again shortly. If this problem persists, send us a short message at support@openagenda.com',
   },
+  lastAdminTitle: {
+    id: 'MemberApps.Form.lastAdminTitle',
+    defaultMessage: 'You are the only administrator',
+  },
+  lastAdminMessage: {
+    id: 'MemberApps.Form.lastAdminMessage',
+    defaultMessage:
+      'You cannot leave this agenda while you are its only administrator. Appoint another administrator, or delete the agenda.',
+  },
+  lastAdminInvite: {
+    id: 'MemberApps.Form.lastAdminInvite',
+    defaultMessage: 'Invite another administrator',
+  },
+  lastAdminDeleteAgenda: {
+    id: 'MemberApps.Form.lastAdminDeleteAgenda',
+    defaultMessage: 'Delete the agenda',
+  },
   confirmRemoveInfo: {
     id: 'MemberApps.Form.confirmRemoveInfo',
     defaultMessage:
@@ -100,6 +117,7 @@ export default ({
   member, // optional preloaded member,
   schema, // optional preloaded member schema
   userRole,
+  agendaSlug, // optional: enables the last-administrator guidance on self-removal
 }) => {
   const query = operation === 'update' && !member
     ? useQuery('getMember', () => ky.get(getRes).json(), {
@@ -154,6 +172,42 @@ export default ({
     );
   }
 
+  if (step === 'removeLastAdmin') {
+    return Canvas(
+      m(messages.lastAdminTitle),
+      <div className="text-center padding-v-sm">
+        <p>{m(messages.lastAdminMessage)}</p>
+        {agendaSlug ? (
+          <div>
+            <a
+              className="btn btn-default margin-top-sm margin-right-xs"
+              href={`/${agendaSlug}/admin/contributors`}
+            >
+              {m(messages.lastAdminInvite)}
+            </a>
+            <a
+              className="btn btn-danger margin-top-sm"
+              href={`/${agendaSlug}/admin/settings`}
+            >
+              {m(messages.lastAdminDeleteAgenda)}
+            </a>
+          </div>
+        ) : null}
+        <div>
+          <button
+            type="button"
+            className="btn btn-link margin-top-sm"
+            onClick={() =>
+              (onCloseModalRequest ? onCloseModalRequest() : setStep('form'))}
+          >
+            {m(messages.cancel)}
+          </button>
+        </div>
+      </div>,
+      { mode, onClose: onCloseModalRequest },
+    );
+  }
+
   if (operation === 'remove' || step === 'confirmRemove') {
     return Canvas(
       null,
@@ -168,7 +222,14 @@ export default ({
                 .delete(saveRes)
                 .json()
                 .then(onRemove)
-                .catch(() => setStep('removeFail'))}
+                // 409 = the API refuses to remove the agenda's last
+                // administrator; guide the user instead of a generic failure.
+                .catch((error) =>
+                  setStep(
+                    error?.response?.status === 409
+                      ? 'removeLastAdmin'
+                      : 'removeFail',
+                  ))}
           >
             {m(messages.confirmRemove)}
           </button>

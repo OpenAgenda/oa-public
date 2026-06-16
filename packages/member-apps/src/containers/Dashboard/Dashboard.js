@@ -626,51 +626,114 @@ class Dashboard extends Component {
           />
         ) : null}
 
-        {removeModal.visible && (
-          <Modal
-            title={getLabel('removeMember')}
-            visible={removeModal.visible || false}
-            onClose={() => closeModal('removeMember')}
-          >
-            {removeModal.error ? (
-              <div className="text-center">
-                <div className="margin-v-sm">
-                  {getLabel('removeModalError')}
-                </div>
+        {removeModal.visible
+          && (() => {
+            // An agenda must keep at least one administrator. When the last
+            // administrator tries to remove themselves, block it and offer to
+            // either invite another administrator or delete the agenda. The API
+            // also refuses this (409), this is the UX in front of that guard.
+            // role 2 = administrator (see MemberItem).
+            const lastAdminSelfRemoval = removeModal.member
+              && user?.uid === removeModal.member.userUid
+              && removeModal.member.role === 2
+              && totalAdministrator <= 1;
 
-                <button
-                  type="button"
-                  onClick={() => closeModal('removeMember')}
-                  className="btn btn-danger"
-                >
-                  {getLabel('close')}
-                </button>
-              </div>
-            ) : (
-              <div>
-                <p className="margin-top-sm">
-                  {getLabel('removeConfirmMessage')}
-                </p>
+            // Also honour the server's verdict: if the API refused with a 409
+            // (e.g. stats were stale and the client heuristic missed), show the
+            // same guidance rather than the generic error.
+            const showLastAdmin = lastAdminSelfRemoval || removeModal.lastAdmin;
+
+            let content;
+            if (removeModal.error) {
+              content = (
                 <div className="text-center">
+                  <div className="margin-v-sm">
+                    {getLabel('removeModalError')}
+                  </div>
+
                   <button
                     type="button"
+                    onClick={() => closeModal('removeMember')}
                     className="btn btn-danger"
-                    onClick={() =>
-                      remove(agenda, removeModal.member.id)
-                        .then(async () => {
-                          closeModal('removeMember');
-                          await list(agenda, query);
-                          await getStats(agenda);
-                        })
-                        .catch(() => setModal('removeMember', { error: true }))}
                   >
-                    {getLabel('removeMember')}
+                    {getLabel('close')}
                   </button>
                 </div>
-              </div>
-            )}
-          </Modal>
-        )}
+              );
+            } else if (showLastAdmin) {
+              content = (
+                <div>
+                  <p className="margin-top-sm">
+                    {getLabel('lastAdminMessage')}
+                  </p>
+                  <div className="text-center margin-top-sm">
+                    <button
+                      type="button"
+                      className="btn btn-default margin-right-xs"
+                      onClick={() => {
+                        closeModal('removeMember');
+                        showModal('inviteMembers');
+                      }}
+                    >
+                      {getLabel('lastAdminInvite')}
+                    </button>
+                    <a
+                      className="btn btn-danger"
+                      href={`/${agenda.slug}/admin/settings`}
+                    >
+                      {getLabel('lastAdminDeleteAgenda')}
+                    </a>
+                  </div>
+                </div>
+              );
+            } else {
+              content = (
+                <div>
+                  <p className="margin-top-sm">
+                    {getLabel('removeConfirmMessage')}
+                  </p>
+                  <div className="text-center">
+                    <button
+                      type="button"
+                      className="btn btn-danger"
+                      onClick={() =>
+                        remove(agenda, removeModal.member.id)
+                          .then(async () => {
+                            closeModal('removeMember');
+                            await list(agenda, query);
+                            await getStats(agenda);
+                          })
+                          .catch((error) => {
+                            const status = error?.response?.status
+                              ?? error?.status
+                              ?? error?.statusCode;
+                            setModal(
+                              'removeMember',
+                              status === 409
+                                ? { lastAdmin: true }
+                                : { error: true },
+                            );
+                          })}
+                    >
+                      {getLabel('removeMember')}
+                    </button>
+                  </div>
+                </div>
+              );
+            }
+
+            return (
+              <Modal
+                title={getLabel(
+                  showLastAdmin ? 'lastAdminTitle' : 'removeMember',
+                )}
+                visible={removeModal.visible || false}
+                onClose={() => closeModal('removeMember')}
+              >
+                {content}
+              </Modal>
+            );
+          })()}
 
         {inviteMembersModal.visible && (
           <Modal

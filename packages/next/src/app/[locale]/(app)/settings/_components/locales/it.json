@@ -58,6 +58,7 @@
   "next.components.settings.DeleteAccount.authError": "La password inserita non è valida. Riprova.",
   "next.components.settings.DeleteAccount.otherError": "Si è verificato un problema durante l'elaborazione dell'operazione, riprova tra poco.",
   "next.components.settings.DeleteAccount.passwordLabel": "Inserisci la tua password per completare l'operazione.",
+  "next.components.settings.DeleteAccount.soleAdminWarning": "Sei l'unico amministratore delle agende qui sotto. Se elimini il tuo account, resteranno senza alcun amministratore. Aggiungi un altro amministratore prima di eliminare il tuo account per mantenerle gestite.",
   "next.components.settings.DeleteAccount.submit": "Cancellare",
   "next.components.settings.DeleteAccount.title": "Cancellare il mio account",
   "next.components.settings.DeleteAccount.warning": "Sei sicuro di voler cancellare il suo account in modo permanente? Le sue agende e i suoi eventi rimarranno online, potete cancellarli manualmente se non volete lasciarli online",

@@ -58,6 +58,7 @@
   "next.components.settings.DeleteAccount.authError": "Le mot de passe indiqué n'est pas valide. Veuillez réessayer.",
   "next.components.settings.DeleteAccount.otherError": "Il y a eu un problème lors du traitement de l'opération, veuillez réessayer dans un instant.",
   "next.components.settings.DeleteAccount.passwordLabel": "Saisissez votre mot de passe pour compléter l'opération.",
+  "next.components.settings.DeleteAccount.soleAdminWarning": "Vous êtes le seul administrateur des agendas ci-dessous. Si vous supprimez votre compte, ils se retrouveront sans aucun administrateur. Ajoutez un autre administrateur avant de supprimer votre compte pour qu'ils restent gérés.",
   "next.components.settings.DeleteAccount.submit": "Supprimer",
   "next.components.settings.DeleteAccount.title": "Supprimer mon compte",
   "next.components.settings.DeleteAccount.warning": "Êtes vous certain de vouloir supprimer votre compte de manière définitive ? Vos agendas et événements resteront en ligne, vous pouvez les supprimer manuellement si vous ne souhaitez pas les laisser en ligne",
