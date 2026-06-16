@@ -37,6 +37,8 @@
   ],
   "packageManager": "yarn@4.5.3",
   "resolutions": {
+    "fast-xml-parser": "^4.5.4",
+    "handlebars": "^4.7.9",
     "eslint-import-resolver-typescript": "3.5.1",
     "react": "19.2.2",
     "react-dom": "19.2.2",
