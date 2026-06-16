@@ -123,21 +123,20 @@ async function fetchAgendaForProxy(
   }
 }
 
-// better-auth writes the session-cache cookie with a `__Secure-` prefix
-// whenever the auth baseURL is https (`createCookieGetter`), but the standalone
-// `getCookieCache` reader only assumes that prefix when `NODE_ENV==='production'`
-// (or an explicit `isSecure`). On an https deployment running with
-// `NODE_ENV !== 'production'` (e.g. dev/staging) the unprefixed read misses the
-// `__Secure-oa.sess_data` cookie, so `userLocale` is lost and locale silently
-// falls back to `fr`. Read both name variants so the session survives regardless.
+// The session-cache cookie is always `__Secure-oa.sess_data`: better-auth
+// prefixes it because the auth baseURL is https (`createCookieGetter`). Pass
+// `isSecure: true` explicitly — otherwise the standalone `getCookieCache` reader
+// infers the prefix from `NODE_ENV === 'production'` and misses the cookie
+// outside production, dropping `userLocale` and silently falling back to `fr`.
 async function getOaSessionCache(req: NextRequest) {
   const secret = process.env.OA_AUTH_SECRET;
   if (!secret) return null;
-  const opts = { secret, cookiePrefix: 'oa', cookieName: 'sess_data' } as const;
-  return (
-    await getCookieCache(req, { ...opts, isSecure: true }) ??
-    await getCookieCache(req, { ...opts, isSecure: false })
-  );
+  return getCookieCache(req, {
+    secret,
+    cookiePrefix: 'oa',
+    cookieName: 'sess_data',
+    isSecure: true,
+  });
 }
 
 export async function proxy(req: NextRequest) {
