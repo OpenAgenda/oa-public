@@ -21,6 +21,7 @@ export default async function prepareConfig({ dir, envVars, nodes }) {
     STRAPI_API_AUTH_TOKEN: strapiAPIAuthToken,
     CRISP_WEBSITE_ID: crispWebsiteID,
     NEXT_VERIFIED_OAUTH_CLIENT_IDS: verifiedOAuthClientIds,
+    OA_AUTH_SECRET: authSecret,
   } = envVars;
 
   const nextEnvVars = [
@@ -52,6 +53,15 @@ export default async function prepareConfig({ dir, envVars, nodes }) {
     nextEnvVars.push(
       `NEXT_VERIFIED_OAUTH_CLIENT_IDS=${verifiedOAuthClientIds}`,
     );
+  }
+
+  // better-auth signing secret, read server-side by Next (`proxy.ts` /
+  // `getSession.ts`) to decode the `__Secure-oa.sess_data` session-cache cookie
+  // — the same secret cibul signs it with. Server-only — never NEXT_PUBLIC_
+  // (that would inline it into the client bundle). Without it the cookie is
+  // unreadable and the user's locale silently falls back to `fr`.
+  if (authSecret) {
+    nextEnvVars.push(`OA_AUTH_SECRET=${authSecret}`);
   }
 
   await fs.writeFile(`${dir}/oa/packages/next/.env.local`, nextEnvVars.join('\n'));
