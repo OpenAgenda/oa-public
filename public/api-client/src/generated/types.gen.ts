@@ -702,6 +702,197 @@ export type EventList = {
     pagination: Pagination;
 };
 
+/**
+ * A facet type name (shared by the GET `facets` list and the POST report).
+ */
+export type FacetName = 'additionalFields' | 'additionalFieldMetrics' | 'cities' | 'regions' | 'departments' | 'districts' | 'countryCodes' | 'keywords' | 'languages' | 'accessibilities' | 'status' | 'attendanceModes' | 'originAgendas' | 'sourceAgendas' | 'locations' | 'geohash' | 'viewport' | 'timespan' | 'timings' | 'dateRanges';
+
+/**
+ * A single named aggregation in a facet report. `name` (the output key) defaults to `type`; reuse a `type` under distinct `name`s to aggregate the same field several ways in one request. Options not relevant to the `type` are ignored.
+ *
+ */
+export type FacetSpec = {
+    /**
+     * Output key (alias). Defaults to `type`. Must be unique within the request — it is the key the result is returned under.
+     *
+     */
+    name?: string;
+    type: FacetName;
+    /**
+     * Max buckets (bucket-list families). Overrides `facetSize`.
+     */
+    size?: number;
+    /**
+     * Bucket order. Overrides `facetSort`.
+     */
+    sort?: 'count' | 'alpha';
+    /**
+     * Label for a synthetic bucket counting events with no value for the field (value-keyed term facets only; ignored elsewhere).
+     *
+     */
+    missing?: string;
+    /**
+     * Clustering zoom for the `geohash` facet.
+     */
+    zoom?: number;
+    /**
+     * Bucket width for the `timings` date histogram.
+     */
+    interval?: 'hour' | 'day' | 'week' | 'month' | 'year';
+    /**
+     * Calendar month (`YYYY-MM`) for the `dateRanges` facet.
+     */
+    month?: string;
+    /**
+     * For `additionalFields`/`additionalFieldMetrics`: which agenda fields to aggregate (default: all readable fields of the matching type).
+     *
+     */
+    fields?: Array<string>;
+};
+
+/**
+ * Body of the named-aggregations facet report (`POST .../events/facets`).
+ */
+export type FacetReportRequest = {
+    filters?: EventFilters;
+    /**
+     * Request-wide default bucket size; a facet's own `size` overrides it.
+     */
+    facetSize?: number;
+    /**
+     * Request-wide default order; a facet's own `sort` overrides it.
+     */
+    facetSort?: 'count' | 'alpha';
+    /**
+     * The aggregations to compute. Each item is either a bare facet name (simple form) or a `FacetSpec` object (named, with options).
+     *
+     */
+    facets: Array<FacetName | FacetSpec>;
+};
+
+/**
+ * Filters scoping the facet report — the same fields as the `agendas.events.list` query parameters, in their native JSON types. Unknown keys are ignored (forward-compatible).
+ *
+ */
+export type EventFilters = {
+    search?: string;
+    uid?: Array<number>;
+    slug?: Array<string>;
+    extId?: {
+        key?: string;
+        value?: string;
+    };
+    keyword?: Array<string>;
+    language?: Array<string>;
+    accessibility?: Array<'hi' | 'ii' | 'mi' | 'pi' | 'vi'>;
+    status?: Array<1 | 2 | 3 | 4 | 5 | 6>;
+    attendanceMode?: Array<1 | 2 | 3>;
+    featured?: boolean;
+    locationUid?: Array<number>;
+    locationExtId?: {
+        key?: string;
+        value?: string;
+    };
+    region?: Array<string>;
+    department?: Array<string>;
+    city?: Array<string>;
+    district?: Array<string>;
+    adminLevel3?: Array<string>;
+    adminLevel5?: Array<string>;
+    countryCode?: Array<string>;
+    /**
+     * "west,south,east,north" in decimal degrees.
+     */
+    bbox?: string;
+    /**
+     * "lat,lng" — requires `radius`.
+     */
+    near?: string;
+    /**
+     * Metres; requires `near`.
+     */
+    radius?: number;
+    originAgendaUid?: Array<number>;
+    originAgendaOfficial?: boolean;
+    sourceAgendaUid?: Array<number>;
+    relative?: Array<'passed' | 'upcoming' | 'current'>;
+    timings?: DateRangeFilter;
+    createdAt?: DateRangeFilter;
+    updatedAt?: DateRangeFilter;
+    localTime?: {
+        gte?: number;
+        lte?: number;
+    };
+    age?: {
+        gte?: number;
+        lte?: number;
+    };
+    sort?: string;
+    /**
+     * Per-field filters, keyed by agenda field name.
+     */
+    additionalFields?: {
+        [key: string]: unknown;
+    };
+};
+
+/**
+ * A date range; bounds are RFC 3339 (date or date-time with offset).
+ */
+export type DateRangeFilter = {
+    gte?: string;
+    lte?: string;
+};
+
+/**
+ * Named facet results, keyed by each facet's `name` alias.
+ */
+export type FacetReport = {
+    /**
+     * One entry per requested facet, keyed by its `name` alias.
+     */
+    facets: {
+        [key: string]: FacetReportEntry;
+    };
+};
+
+/**
+ * A facet result tagged with its `type`. The `type` tells the client how to read `result` (a bucket array, a viewport/timespan object or `null`, or a per-field map).
+ *
+ */
+export type FacetReportEntry = {
+    type: 'cities' | 'regions' | 'departments' | 'districts' | 'countryCodes' | 'keywords' | 'languages' | 'accessibilities' | 'status' | 'attendanceModes' | 'timings' | 'dateRanges';
+    result: Array<FacetBucket>;
+} | {
+    type: 'originAgendas';
+    result: Array<AgendaFacetBucket>;
+} | {
+    type: 'sourceAgendas';
+    result: Array<SourceAgendaFacetBucket>;
+} | {
+    type: 'locations';
+    result: Array<LocationFacetBucket>;
+} | {
+    type: 'geohash';
+    result: Array<GeoFacetBucket>;
+} | {
+    type: 'viewport';
+    result: Viewport | null;
+} | {
+    type: 'timespan';
+    result: Timespan | null;
+} | {
+    type: 'additionalFields';
+    result: {
+        [key: string]: AdditionalFieldFacet;
+    };
+} | {
+    type: 'additionalFieldMetrics';
+    result: {
+        [key: string]: AdditionalFieldMetricsFacet;
+    };
+};
+
 export type FacetBucket = {
     /**
      * The facet value — e.g. a city name, a keyword, a language code, a status. Always a string (numeric-keyed facets are stringified).
@@ -1165,10 +1356,46 @@ export type LocationBoundingBox = string;
 
 /**
  * Comma-separated list of facets to compute. Each returns an array of buckets over the filtered events, ordered by the facet's default ordering. Unknown facet names return `400`. Shapes by family: term facets yield `{ value, count }`; provenance (`originAgendas`, `sourceAgendas`) yields `{ agenda, count }`; `locations` yields `{ location: { uid, name }, count }` buckets (the uid feeds the `locationUid` filter); `geohash` yields geo cluster buckets (`{ value, count, latitude, longitude }`); `viewport` yields a single bounding box object (or `null`); `timespan` yields the earliest/latest event date as `{ first, last }` (or `null`); `timings` yields a date histogram as `{ value, count }` buckets (bucket width set by `timingsInterval`); `dateRanges` yields a **dense daily grid** of `{ value, count }` over a calendar month (one bucket per day, including zero-count days; month set by `month`); `additionalFields` yields, per agenda choice/boolean field, its option counts as `{ <field>: { label, values:[{ value, label, count }] } }` (fields named by `additionalFieldsKeys`, or all readable when omitted); `additionalFieldMetrics` yields, per agenda numeric field, summary stats as `{ <field>: { label, metrics:{ sum, avg, max, min } } }` (fields named by `additionalFieldMetricsKeys`). Both honor per-field read access.
- * Bucket-list facets (the term, provenance and `locations` families) currently return the **top 10** buckets by event count; a way to request more (a size parameter and/or facet pagination) is under consideration. `additionalFields` is exhaustive (one bucket per option). The fields, their option ids and their labels are the ones the agenda's event form schema declares (`GET /agendas/{agendaUid}/events/schema`).
+ * Bucket-list facets (the term, provenance and `locations` families) return the **top buckets by event count**, capped by `facetSize` (default 10, max 250) and overridable per facet with `facetSizes[<facet>]`; `facetSort` reorders them (`count` or `alpha`). There is no bucket pagination — past the cap, narrow the filter instead. `additionalFields` is exhaustive (one bucket per option). The fields, their option ids and their labels are the ones the agenda's event form schema declares (`GET /agendas/{agendaUid}/events/schema`).
  *
  */
 export type Facets = Array<'additionalFields' | 'additionalFieldMetrics' | 'cities' | 'regions' | 'departments' | 'districts' | 'countryCodes' | 'keywords' | 'languages' | 'accessibilities' | 'status' | 'attendanceModes' | 'originAgendas' | 'sourceAgendas' | 'locations' | 'geohash' | 'viewport' | 'timespan' | 'timings' | 'dateRanges'>;
+
+/**
+ * Default maximum number of buckets for the bucket-list facets (the term, provenance and `locations` families), ordered by event count. Override a single facet with `facetSizes[<facet>]`. Out-of-range values are clamped; the other families (geohash, viewport, timespan, timings, dateRanges, `additionalFields`/`additionalFieldMetrics`) have their own bounded shapes and ignore it.
+ *
+ */
+export type FacetSize = number;
+
+/**
+ * Per-facet override of `facetSize`, keyed by facet name (`facetSizes[cities]=50`). Precedence: per-facet override > `facetSize` > default (10). Only applies to bucket-list facets; values are clamped to [1, 250].
+ *
+ */
+export type FacetSizes = {
+    [key: string]: number;
+};
+
+/**
+ * Default ordering of the bucket-list facets. `count` (default) returns the most frequent buckets first; `alpha` returns the same top-`facetSize` buckets but ordered alphabetically by their display value (city/keyword name, location name, agenda title) for readable scanning. Override a single facet with `facetSorts[<facet>]`.
+ *
+ */
+export type FacetSort = 'count' | 'alpha';
+
+/**
+ * Per-facet override of `facetSort`, keyed by facet name (`facetSorts[cities]=alpha`). Precedence: per-facet override > `facetSort` > default (`count`).
+ *
+ */
+export type FacetSorts = {
+    [key: string]: 'count' | 'alpha';
+};
+
+/**
+ * Per-facet label for a synthetic bucket counting the filtered events that have **no value** for the facet's field (`facetMissing[district]=Unknown` adds an `{ value: "Unknown", count }` bucket). Honoured by the value-keyed term facets (cities, regions, departments, districts, countryCodes, keywords, languages, status, attendanceModes); ignored for the others (the provenance and `locations` families key on an encoded ref, so they carry no missing bucket). The bucket appears only when such events exist.
+ *
+ */
+export type FacetMissing = {
+    [key: string]: string;
+};
 
 /**
  * Clustering zoom level for the `geohash` facet (higher = finer grid, more clusters). Ignored unless `geohash` is requested.
@@ -1826,10 +2053,41 @@ export type AgendasEventsFacetsData = {
     query: {
         /**
          * Comma-separated list of facets to compute. Each returns an array of buckets over the filtered events, ordered by the facet's default ordering. Unknown facet names return `400`. Shapes by family: term facets yield `{ value, count }`; provenance (`originAgendas`, `sourceAgendas`) yields `{ agenda, count }`; `locations` yields `{ location: { uid, name }, count }` buckets (the uid feeds the `locationUid` filter); `geohash` yields geo cluster buckets (`{ value, count, latitude, longitude }`); `viewport` yields a single bounding box object (or `null`); `timespan` yields the earliest/latest event date as `{ first, last }` (or `null`); `timings` yields a date histogram as `{ value, count }` buckets (bucket width set by `timingsInterval`); `dateRanges` yields a **dense daily grid** of `{ value, count }` over a calendar month (one bucket per day, including zero-count days; month set by `month`); `additionalFields` yields, per agenda choice/boolean field, its option counts as `{ <field>: { label, values:[{ value, label, count }] } }` (fields named by `additionalFieldsKeys`, or all readable when omitted); `additionalFieldMetrics` yields, per agenda numeric field, summary stats as `{ <field>: { label, metrics:{ sum, avg, max, min } } }` (fields named by `additionalFieldMetricsKeys`). Both honor per-field read access.
-         * Bucket-list facets (the term, provenance and `locations` families) currently return the **top 10** buckets by event count; a way to request more (a size parameter and/or facet pagination) is under consideration. `additionalFields` is exhaustive (one bucket per option). The fields, their option ids and their labels are the ones the agenda's event form schema declares (`GET /agendas/{agendaUid}/events/schema`).
+         * Bucket-list facets (the term, provenance and `locations` families) return the **top buckets by event count**, capped by `facetSize` (default 10, max 250) and overridable per facet with `facetSizes[<facet>]`; `facetSort` reorders them (`count` or `alpha`). There is no bucket pagination — past the cap, narrow the filter instead. `additionalFields` is exhaustive (one bucket per option). The fields, their option ids and their labels are the ones the agenda's event form schema declares (`GET /agendas/{agendaUid}/events/schema`).
          *
          */
         facets: Array<'additionalFields' | 'additionalFieldMetrics' | 'cities' | 'regions' | 'departments' | 'districts' | 'countryCodes' | 'keywords' | 'languages' | 'accessibilities' | 'status' | 'attendanceModes' | 'originAgendas' | 'sourceAgendas' | 'locations' | 'geohash' | 'viewport' | 'timespan' | 'timings' | 'dateRanges'>;
+        /**
+         * Default maximum number of buckets for the bucket-list facets (the term, provenance and `locations` families), ordered by event count. Override a single facet with `facetSizes[<facet>]`. Out-of-range values are clamped; the other families (geohash, viewport, timespan, timings, dateRanges, `additionalFields`/`additionalFieldMetrics`) have their own bounded shapes and ignore it.
+         *
+         */
+        facetSize?: number;
+        /**
+         * Per-facet override of `facetSize`, keyed by facet name (`facetSizes[cities]=50`). Precedence: per-facet override > `facetSize` > default (10). Only applies to bucket-list facets; values are clamped to [1, 250].
+         *
+         */
+        facetSizes?: {
+            [key: string]: number;
+        };
+        /**
+         * Default ordering of the bucket-list facets. `count` (default) returns the most frequent buckets first; `alpha` returns the same top-`facetSize` buckets but ordered alphabetically by their display value (city/keyword name, location name, agenda title) for readable scanning. Override a single facet with `facetSorts[<facet>]`.
+         *
+         */
+        facetSort?: 'count' | 'alpha';
+        /**
+         * Per-facet override of `facetSort`, keyed by facet name (`facetSorts[cities]=alpha`). Precedence: per-facet override > `facetSort` > default (`count`).
+         *
+         */
+        facetSorts?: {
+            [key: string]: 'count' | 'alpha';
+        };
+        /**
+         * Per-facet label for a synthetic bucket counting the filtered events that have **no value** for the facet's field (`facetMissing[district]=Unknown` adds an `{ value: "Unknown", count }` bucket). Honoured by the value-keyed term facets (cities, regions, departments, districts, countryCodes, keywords, languages, status, attendanceModes); ignored for the others (the provenance and `locations` families key on an encoded ref, so they carry no missing bucket). The bucket appears only when such events exist.
+         *
+         */
+        facetMissing?: {
+            [key: string]: string;
+        };
         /**
          * Clustering zoom level for the `geohash` facet (higher = finer grid, more clusters). Ignored unless `geohash` is requested.
          *
@@ -2072,6 +2330,49 @@ export type AgendasEventsFacetsResponses = {
 };
 
 export type AgendasEventsFacetsResponse = AgendasEventsFacetsResponses[keyof AgendasEventsFacetsResponses];
+
+export type AgendasEventsFacetsReportData = {
+    body: FacetReportRequest;
+    path: {
+        /**
+         * Numeric uid of the agenda.
+         */
+        agendaUid: number;
+    };
+    query?: never;
+    url: '/agendas/{agendaUid}/events/facets';
+};
+
+export type AgendasEventsFacetsReportErrors = {
+    /**
+     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     *
+     */
+    400: Error;
+    /**
+     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     */
+    401: Error;
+    /**
+     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     */
+    403: Error;
+    /**
+     * Resource not found.
+     */
+    404: Error;
+};
+
+export type AgendasEventsFacetsReportError = AgendasEventsFacetsReportErrors[keyof AgendasEventsFacetsReportErrors];
+
+export type AgendasEventsFacetsReportResponses = {
+    /**
+     * Named facet results over the filtered set.
+     */
+    200: FacetReport;
+};
+
+export type AgendasEventsFacetsReportResponse = AgendasEventsFacetsReportResponses[keyof AgendasEventsFacetsReportResponses];
 
 export type AgendasEventsSchemaData = {
     body?: never;
