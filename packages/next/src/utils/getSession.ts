@@ -10,16 +10,17 @@ export async function getSessionFromRequest(
   request: RequestLike,
 ): Promise<{ user: Session['user']; session: Session['session'] } | null> {
   if (!secret) return null;
-  // Match the renamed session-cache cookie in `@openagenda/auth` (`oa.sess_data`,
-  // which avoids Sentry's sensitive-header filter on the `session` snippet).
-  // better-auth writes it with a `__Secure-` prefix when the auth baseURL is
-  // https, but `getCookieCache` only assumes that prefix under
-  // `NODE_ENV==='production'`. On an https stack with `NODE_ENV !== 'production'`
-  // the unprefixed read misses the cookie, so read both name variants.
-  const opts = { secret, cookiePrefix: 'oa', cookieName: 'sess_data' } as const;
-  const cached =
-    await getCookieCache(request, { ...opts, isSecure: true }) ??
-    await getCookieCache(request, { ...opts, isSecure: false });
+  // The cache cookie is always `__Secure-oa.sess_data`: better-auth prefixes it
+  // because the auth baseURL is https (and the custom name avoids Sentry's
+  // sensitive-header filter on the `session` snippet). Pass `isSecure: true`
+  // explicitly — otherwise `getCookieCache` infers the prefix from
+  // `NODE_ENV === 'production'` and misses the cookie outside production.
+  const cached = await getCookieCache(request, {
+    secret,
+    cookiePrefix: 'oa',
+    cookieName: 'sess_data',
+    isSecure: true,
+  });
   if (!cached) return null;
   return {
     user: cached.user as unknown as Session['user'],
