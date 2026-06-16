@@ -392,9 +392,11 @@ const additionalFieldsOf = (schema) =>
 // caller's access level must be listed. Same rule as event-search
 // `defineIncludes` / form-schemas `filterByAccess`. THIS is the security gate:
 // `settings.schema.getMerged({access})` does NOT drop restricted additional
-// fields, so v3 must filter them out before aggregating (a `pk` caller resolves
-// to `'public'`, so only public-readable fields are ever aggregated).
-const isReadableAt = (field, access) =>
+// fields (a bare-string `access` no-ops the merge filter), so v3 must filter
+// them out itself (a `pk` caller resolves to `'public'`, so only
+// public-readable fields are ever exposed). Exported so the `/events/schema`
+// route gates its served descriptors through the very same predicate.
+export const isReadableAt = (field, access) =>
   !field.read?.length || field.read.includes(access);
 
 // Parse a CSV field-list param. Absent → null (= "all readable of this type");

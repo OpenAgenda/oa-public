@@ -124,13 +124,19 @@ describe('90 - api-v3 - functional (server): GET /agendas/:agendaUid/events/sche
     expect(byName.get('location')).toHaveProperty('schema');
   });
 
-  it('serves the schema unfiltered — read-gated descriptors included', async () => {
+  it('filters read-gated descriptors by the caller access', async () => {
     const res = await get();
     const names = res.body.fields.map((f) => f.field);
 
-    // `read: ['moderator']` gates the VALUE on events, not the descriptor: a
-    // contributor needs it to fill the field. Served even to a pk caller.
-    expect(names).toContain('custom_description');
+    // `custom_description` is `read: ['moderator']` in the merged schema. Its
+    // descriptor (label, options, role map) is internal — the organiser's `read`
+    // array IS the declaration that it is not public — so a `pk` caller
+    // (resolving to `public`) must NOT receive it, matching the facets endpoint
+    // and the legacy `/:agendaSlug/settings/schema` façade.
+    expect(names).not.toContain('custom_description');
+    // Public descriptors stay: this is a gate, not an emptying.
+    expect(names).toContain('title');
+    expect(names).toContain('intermunicipal_interest');
   });
 
   it('is 404 on an unknown and on a private agenda', async () => {

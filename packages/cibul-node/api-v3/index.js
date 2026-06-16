@@ -48,6 +48,7 @@ import {
   parseMonthWindow,
   parseFieldKeys,
   resolveAdditionalFieldSelections,
+  isReadableAt,
   buildAggregations,
   mapFacets,
   parseFacetSpecs,
@@ -417,20 +418,28 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
 
   // GET /agendas/:agendaUid/events/schema
   // Registered BEFORE the `/events/:eventUid` route so `schema` is not
-  // captured as an event uid. Serves the agenda's merged event form schema
-  // RAW and UNFILTERED (the same declarative contract the OA UI builds the
-  // event form from): native fields + network/agenda declarations, with
-  // per-agenda overrides applied. The per-field `read` arrays gate the
-  // visibility of VALUES on events (the search projections and the facets
-  // enforce them) — not of the form itself: a contributor must see the
-  // descriptor of any field they can fill even when only moderators read its
-  // value, and a descriptor (name, label, options) is form metadata, not
-  // event data.
+  // captured as an event uid. Serves the agenda's merged event form schema (the
+  // declarative contract the OA UI builds the event form from): native fields +
+  // network/agenda declarations, with per-agenda overrides applied.
+  //
+  // The descriptors are gated by the caller's read access, exactly like the
+  // facets endpoint and the legacy `/:agendaSlug/settings/schema` façade: a
+  // restricted field's `read` array is the organiser's declaration that the
+  // field (its label, options and role mapping) is internal, so a public
+  // (`pk`) caller — resolving to `'public'` — only ever sees `read === null`
+  // descriptors. `getMerged` itself does NOT filter (a bare-string `access`
+  // no-ops its merge filter), so we apply the gate here through the shared
+  // `isReadableAt` predicate.
   app.get(
     '/agendas/:agendaUid/events/schema',
     requireScope('events:read'),
     async (req, res, next) => {
       try {
+        const access = await loadSearchAccess(core, req.agenda.uid, {
+          userUid: req.user?.uid,
+          agendaKey: req.agendaKey,
+        }) ?? 'public';
+
         // The loaded object (not the uid) skips getMergedSchema's agenda
         // re-fetch — req.agenda is rebuilt per request, so the internal
         // `_.isObject` fast path stays request-local.
@@ -438,7 +447,10 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
           .agendas(req.agenda)
           .settings.schema.getMerged({ includeEvent: true });
 
-        res.json(schema);
+        res.json({
+          ...schema,
+          fields: (schema.fields ?? []).filter((f) => isReadableAt(f, access)),
+        });
       } catch (err) {
         next(err);
       }
