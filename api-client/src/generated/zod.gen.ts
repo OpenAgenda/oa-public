@@ -515,6 +515,145 @@ export const zEventList = z.object({
     pagination: zPagination
 });
 
+/**
+ * A facet type name (shared by the GET `facets` list and the POST report).
+ */
+export const zFacetName = z.enum([
+    'additionalFields',
+    'additionalFieldMetrics',
+    'cities',
+    'regions',
+    'departments',
+    'districts',
+    'countryCodes',
+    'keywords',
+    'languages',
+    'accessibilities',
+    'status',
+    'attendanceModes',
+    'originAgendas',
+    'sourceAgendas',
+    'locations',
+    'geohash',
+    'viewport',
+    'timespan',
+    'timings',
+    'dateRanges'
+]);
+
+/**
+ * A single named aggregation in a facet report. `name` (the output key) defaults to `type`; reuse a `type` under distinct `name`s to aggregate the same field several ways in one request. Options not relevant to the `type` are ignored.
+ *
+ */
+export const zFacetSpec = z.object({
+    name: z.string().optional(),
+    type: zFacetName,
+    size: z.number().int().gte(1).lte(250).optional(),
+    sort: z.enum(['count', 'alpha']).optional(),
+    missing: z.string().optional(),
+    zoom: z.number().int().gte(1).optional(),
+    interval: z.enum([
+        'hour',
+        'day',
+        'week',
+        'month',
+        'year'
+    ]).optional(),
+    month: z.string().optional(),
+    fields: z.array(z.string()).optional()
+});
+
+/**
+ * A date range; bounds are RFC 3339 (date or date-time with offset).
+ */
+export const zDateRangeFilter = z.object({
+    gte: z.string().optional(),
+    lte: z.string().optional()
+});
+
+/**
+ * Filters scoping the facet report — the same fields as the `agendas.events.list` query parameters, in their native JSON types. Unknown keys are ignored (forward-compatible).
+ *
+ */
+export const zEventFilters = z.object({
+    search: z.string().optional(),
+    uid: z.array(z.number().int()).optional(),
+    slug: z.array(z.string()).optional(),
+    extId: z.object({
+        key: z.string().optional(),
+        value: z.string().optional()
+    }).optional(),
+    keyword: z.array(z.string()).optional(),
+    language: z.array(z.string()).optional(),
+    accessibility: z.array(z.enum([
+        'hi',
+        'ii',
+        'mi',
+        'pi',
+        'vi'
+    ])).optional(),
+    status: z.array(z.union([
+        z.literal(1),
+        z.literal(2),
+        z.literal(3),
+        z.literal(4),
+        z.literal(5),
+        z.literal(6)
+    ])).optional(),
+    attendanceMode: z.array(z.union([
+        z.literal(1),
+        z.literal(2),
+        z.literal(3)
+    ])).optional(),
+    featured: z.boolean().optional(),
+    locationUid: z.array(z.number().int()).optional(),
+    locationExtId: z.object({
+        key: z.string().optional(),
+        value: z.string().optional()
+    }).optional(),
+    region: z.array(z.string()).optional(),
+    department: z.array(z.string()).optional(),
+    city: z.array(z.string()).optional(),
+    district: z.array(z.string()).optional(),
+    adminLevel3: z.array(z.string()).optional(),
+    adminLevel5: z.array(z.string()).optional(),
+    countryCode: z.array(z.string()).optional(),
+    bbox: z.string().optional(),
+    near: z.string().optional(),
+    radius: z.number().int().optional(),
+    originAgendaUid: z.array(z.number().int()).optional(),
+    originAgendaOfficial: z.boolean().optional(),
+    sourceAgendaUid: z.array(z.number().int()).optional(),
+    relative: z.array(z.enum([
+        'passed',
+        'upcoming',
+        'current'
+    ])).optional(),
+    timings: zDateRangeFilter.optional(),
+    createdAt: zDateRangeFilter.optional(),
+    updatedAt: zDateRangeFilter.optional(),
+    localTime: z.object({
+        gte: z.number().int().optional(),
+        lte: z.number().int().optional()
+    }).optional(),
+    age: z.object({
+        gte: z.number().int().optional(),
+        lte: z.number().int().optional()
+    }).optional(),
+    sort: z.string().optional(),
+    additionalFields: z.record(z.unknown()).optional()
+});
+
+/**
+ * Body of the named-aggregations facet report (`POST .../events/facets`).
+ */
+export const zFacetReportRequest = z.object({
+    filters: zEventFilters.optional(),
+    facetSize: z.number().int().gte(1).lte(250).optional().default(10),
+    facetSort: z.enum(['count', 'alpha']).optional().default('count'),
+    facets: z.array(z.union([zFacetName, zFacetSpec])).min(1)
+});
+
 export const zFacetBucket = z.object({
     value: z.string(),
     count: z.number().int()
@@ -615,6 +754,69 @@ export const zViewport = z.object({
 export const zTimespan = z.object({
     first: z.string().datetime(),
     last: z.string().datetime()
+});
+
+/**
+ * A facet result tagged with its `type`. The `type` tells the client how to read `result` (a bucket array, a viewport/timespan object or `null`, or a per-field map).
+ *
+ */
+export const zFacetReportEntry = z.union([
+    z.object({
+        type: z.enum([
+            'cities',
+            'regions',
+            'departments',
+            'districts',
+            'countryCodes',
+            'keywords',
+            'languages',
+            'accessibilities',
+            'status',
+            'attendanceModes',
+            'timings',
+            'dateRanges'
+        ]),
+        result: z.array(zFacetBucket)
+    }),
+    z.object({
+        type: z.enum(['originAgendas']),
+        result: z.array(zAgendaFacetBucket)
+    }),
+    z.object({
+        type: z.enum(['sourceAgendas']),
+        result: z.array(zSourceAgendaFacetBucket)
+    }),
+    z.object({
+        type: z.enum(['locations']),
+        result: z.array(zLocationFacetBucket)
+    }),
+    z.object({
+        type: z.enum(['geohash']),
+        result: z.array(zGeoFacetBucket)
+    }),
+    z.object({
+        type: z.enum(['viewport']),
+        result: zViewport.nullable()
+    }),
+    z.object({
+        type: z.enum(['timespan']),
+        result: zTimespan.nullable()
+    }),
+    z.object({
+        type: z.enum(['additionalFields']),
+        result: z.record(zAdditionalFieldFacet)
+    }),
+    z.object({
+        type: z.enum(['additionalFieldMetrics']),
+        result: z.record(zAdditionalFieldMetricsFacet)
+    })
+]);
+
+/**
+ * Named facet results, keyed by each facet's `name` alias.
+ */
+export const zFacetReport = z.object({
+    facets: z.record(zFacetReportEntry)
 });
 
 export const zFacetResults = z.object({
@@ -887,7 +1089,7 @@ export const zLocationBoundingBox = z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+
 
 /**
  * Comma-separated list of facets to compute. Each returns an array of buckets over the filtered events, ordered by the facet's default ordering. Unknown facet names return `400`. Shapes by family: term facets yield `{ value, count }`; provenance (`originAgendas`, `sourceAgendas`) yields `{ agenda, count }`; `locations` yields `{ location: { uid, name }, count }` buckets (the uid feeds the `locationUid` filter); `geohash` yields geo cluster buckets (`{ value, count, latitude, longitude }`); `viewport` yields a single bounding box object (or `null`); `timespan` yields the earliest/latest event date as `{ first, last }` (or `null`); `timings` yields a date histogram as `{ value, count }` buckets (bucket width set by `timingsInterval`); `dateRanges` yields a **dense daily grid** of `{ value, count }` over a calendar month (one bucket per day, including zero-count days; month set by `month`); `additionalFields` yields, per agenda choice/boolean field, its option counts as `{ <field>: { label, values:[{ value, label, count }] } }` (fields named by `additionalFieldsKeys`, or all readable when omitted); `additionalFieldMetrics` yields, per agenda numeric field, summary stats as `{ <field>: { label, metrics:{ sum, avg, max, min } } }` (fields named by `additionalFieldMetricsKeys`). Both honor per-field read access.
- * Bucket-list facets (the term, provenance and `locations` families) currently return the **top 10** buckets by event count; a way to request more (a size parameter and/or facet pagination) is under consideration. `additionalFields` is exhaustive (one bucket per option). The fields, their option ids and their labels are the ones the agenda's event form schema declares (`GET /agendas/{agendaUid}/events/schema`).
+ * Bucket-list facets (the term, provenance and `locations` families) return the **top buckets by event count**, capped by `facetSize` (default 10, max 250) and overridable per facet with `facetSizes[<facet>]`; `facetSort` reorders them (`count` or `alpha`). There is no bucket pagination — past the cap, narrow the filter instead. `additionalFields` is exhaustive (one bucket per option). The fields, their option ids and their labels are the ones the agenda's event form schema declares (`GET /agendas/{agendaUid}/events/schema`).
  *
  */
 export const zFacets = z.array(z.enum([
@@ -912,6 +1114,36 @@ export const zFacets = z.array(z.enum([
     'timings',
     'dateRanges'
 ])).min(1);
+
+/**
+ * Default maximum number of buckets for the bucket-list facets (the term, provenance and `locations` families), ordered by event count. Override a single facet with `facetSizes[<facet>]`. Out-of-range values are clamped; the other families (geohash, viewport, timespan, timings, dateRanges, `additionalFields`/`additionalFieldMetrics`) have their own bounded shapes and ignore it.
+ *
+ */
+export const zFacetSize = z.number().int().gte(1).lte(250).default(10);
+
+/**
+ * Per-facet override of `facetSize`, keyed by facet name (`facetSizes[cities]=50`). Precedence: per-facet override > `facetSize` > default (10). Only applies to bucket-list facets; values are clamped to [1, 250].
+ *
+ */
+export const zFacetSizes = z.record(z.number().int().gte(1).lte(250));
+
+/**
+ * Default ordering of the bucket-list facets. `count` (default) returns the most frequent buckets first; `alpha` returns the same top-`facetSize` buckets but ordered alphabetically by their display value (city/keyword name, location name, agenda title) for readable scanning. Override a single facet with `facetSorts[<facet>]`.
+ *
+ */
+export const zFacetSort = z.enum(['count', 'alpha']).default('count');
+
+/**
+ * Per-facet override of `facetSort`, keyed by facet name (`facetSorts[cities]=alpha`). Precedence: per-facet override > `facetSort` > default (`count`).
+ *
+ */
+export const zFacetSorts = z.record(z.enum(['count', 'alpha']));
+
+/**
+ * Per-facet label for a synthetic bucket counting the filtered events that have **no value** for the facet's field (`facetMissing[district]=Unknown` adds an `{ value: "Unknown", count }` bucket). Honoured by the value-keyed term facets (cities, regions, departments, districts, countryCodes, keywords, languages, status, attendanceModes); ignored for the others (the provenance and `locations` families key on an encoded ref, so they carry no missing bucket). The bucket appears only when such events exist.
+ *
+ */
+export const zFacetMissing = z.record(z.string());
 
 /**
  * Clustering zoom level for the `geohash` facet (higher = finer grid, more clusters). Ignored unless `geohash` is requested.
@@ -1340,6 +1572,11 @@ export const zAgendasEventsFacetsQuery = z.object({
         'timings',
         'dateRanges'
     ])).min(1),
+    facetSize: z.number().int().gte(1).lte(250).optional().default(10),
+    facetSizes: z.record(z.number().int().gte(1).lte(250)).optional(),
+    facetSort: z.enum(['count', 'alpha']).optional().default('count'),
+    facetSorts: z.record(z.enum(['count', 'alpha'])).optional(),
+    facetMissing: z.record(z.string()).optional(),
     geohashZoom: z.number().int().gte(1).optional().default(1),
     timingsInterval: z.enum([
         'hour',
@@ -1419,6 +1656,17 @@ export const zAgendasEventsFacetsQuery = z.object({
  * Facet counts over the filtered set.
  */
 export const zAgendasEventsFacetsResponse = zFacetResults;
+
+export const zAgendasEventsFacetsReportBody = zFacetReportRequest;
+
+export const zAgendasEventsFacetsReportPath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
+});
+
+/**
+ * Named facet results over the filtered set.
+ */
+export const zAgendasEventsFacetsReportResponse = zFacetReport;
 
 export const zAgendasEventsSchemaPath = z.object({
     agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })

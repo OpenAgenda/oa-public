@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { AgendasEventsFacetsData, AgendasEventsFacetsErrors, AgendasEventsFacetsResponses, AgendasEventsGetData, AgendasEventsGetErrors, AgendasEventsGetResponses, AgendasEventsListData, AgendasEventsListErrors, AgendasEventsListResponses, AgendasEventsSchemaData, AgendasEventsSchemaErrors, AgendasEventsSchemaResponses, AgendasGetData, AgendasGetErrors, AgendasGetResponses, AgendasListData, AgendasListErrors, AgendasListResponses, AgendasLocationsGetData, AgendasLocationsGetErrors, AgendasLocationsGetResponses, AgendasLocationsListData, AgendasLocationsListErrors, AgendasLocationsListResponses, MeAgendasListData, MeAgendasListErrors, MeAgendasListResponses } from './types.gen';
+import type { AgendasEventsFacetsData, AgendasEventsFacetsErrors, AgendasEventsFacetsReportData, AgendasEventsFacetsReportErrors, AgendasEventsFacetsReportResponses, AgendasEventsFacetsResponses, AgendasEventsGetData, AgendasEventsGetErrors, AgendasEventsGetResponses, AgendasEventsListData, AgendasEventsListErrors, AgendasEventsListResponses, AgendasEventsSchemaData, AgendasEventsSchemaErrors, AgendasEventsSchemaResponses, AgendasGetData, AgendasGetErrors, AgendasGetResponses, AgendasListData, AgendasListErrors, AgendasListResponses, AgendasLocationsGetData, AgendasLocationsGetErrors, AgendasLocationsGetResponses, AgendasLocationsListData, AgendasLocationsListErrors, AgendasLocationsListResponses, MeAgendasListData, MeAgendasListErrors, MeAgendasListResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -98,6 +98,26 @@ export class Events extends HeyApiClient {
             security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
             url: '/agendas/{agendaUid}/events/facets',
             ...options
+        });
+    }
+    
+    /**
+     * Named, repeatable facet aggregations for an agenda's events
+     *
+     * The analytical projection of the facets surface. Where the `GET` form computes one bucket list per facet name, this `POST` form takes a JSON body of **named, repeatable** aggregations: the same facet `type` may appear several times under distinct `name` aliases, so a field can be aggregated several ways in one request (e.g. `timings` by `month` AND by `year`). Filters live under `filters` (the same shape as the `agendas.events.list` query parameters) and scope every facet.
+     *
+     * Each facet item is either a bare facet name (the simple form, identical to the `GET` enum) or an object `{ name?, type, … }` carrying per-instance options (`size`, `sort`, `missing`, `zoom`, `interval`, `fields`). `facetSize`/`facetSort` at the top level set the request-wide defaults an item overrides. The response is keyed by alias, each entry tagged with its `type` so the value shape is unambiguous. Only published events are counted.
+     *
+     */
+    public facetsReport<ThrowOnError extends boolean = false>(options: Options<AgendasEventsFacetsReportData, ThrowOnError>) {
+        return (options.client ?? this.client).post<AgendasEventsFacetsReportResponses, AgendasEventsFacetsReportErrors, ThrowOnError>({
+            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            url: '/agendas/{agendaUid}/events/facets',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
         });
     }
     
