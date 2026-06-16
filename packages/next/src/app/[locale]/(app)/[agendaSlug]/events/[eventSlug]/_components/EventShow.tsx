@@ -151,8 +151,10 @@ function EventShow() {
   useNcEffect({ agendaUid: agenda.uid, eventUid: event?.uid });
 
   const isEventContributor = member && member.userUid === me?.member?.userUid;
+  const isOwner = !!user?.uid && user.uid === event.ownerUid;
 
-  const displayContextBar = isEventContributor || isAdminMod(me?.member);
+  const displayContextBar =
+    isEventContributor || isAdminMod(me?.member) || isOwner;
 
   const isMobile = useBreakpointValue({ base: true, md: false });
   const isExtraLarge = useBreakpointValue({ base: false, xl: true });

@@ -66,12 +66,16 @@ function canRemoveEvent(services, { member, agendaEvent, access }) {
   return false;
 }
 
-function canDeleteEvent(services, { member, agendaEvent, event, access }) {
+function canDeleteEvent(
+  services,
+  { member, agendaEvent, event, access, userUid },
+) {
   if (!event) {
     return null;
   }
 
-  const isEventOwner = member?.userUid === event.ownerUid;
+  const actingUserUid = member?.userUid ?? userUid;
+  const isEventOwner = actingUserUid != null && String(event.ownerUid) === String(actingUserUid);
 
   if (event.draft) {
     return isEventOwner;
@@ -86,6 +90,12 @@ function canDeleteEvent(services, { member, agendaEvent, event, access }) {
   }
 
   const isOriginAgenda = event.agendaUid === agendaEvent.agendaUid;
+
+  // The owner can delete their own event from its origin agenda even when they
+  // are no longer a member (e.g. they left a now-closed agenda).
+  if (isEventOwner && isOriginAgenda) {
+    return true;
+  }
 
   if (!canRemoveEvent(services, { access, member, agendaEvent })) {
     return false;
@@ -212,6 +222,7 @@ async function fromMember(
       member,
       event,
       agendaEvent,
+      userUid,
     }),
     canContribute: canContribute(core.services, member, {
       agendaIsClosed,
