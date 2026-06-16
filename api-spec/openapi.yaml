@@ -544,18 +544,19 @@ paths:
         native event fields with the network's and the agenda's own
         declarations: an agenda can add its own additional fields and override
         natives (make one required, restrict its options, relabel it). This is
-        the same schema the OpenAgenda UI uses to build the event form, served
-        raw: use it to know which fields exist, which are required and what
+        the same schema the OpenAgenda UI uses to build the event form: use it
+        to know which fields exist, which are required and what
         their options are — e.g. to build payloads for the (upcoming) event
         write operations, to interpret `additionalFields` on events, or to
         discover the agenda-specific facets of the facets endpoint.
 
 
-        The schema is served complete: a field's `read` access levels gate the
-        visibility of its VALUE on events (the event reads enforce them), not
-        the visibility of its descriptor here — a contributor needs the
-        descriptor of every field they can fill, even when only moderators
-        read its value.
+        Descriptors are scoped to your read access: a field whose `read` access
+        levels restrict it (e.g. a moderator-only field) is part of the
+        organiser's internal structure, so its descriptor is omitted for callers
+        that may not read it — a public caller sees only the public fields. This
+        matches the facets endpoint and the per-field read access applied to
+        event values.
 
 
         The descriptors follow the OpenAgenda form-schema vocabulary
