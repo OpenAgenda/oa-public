@@ -25,8 +25,15 @@ import Wrapper from './Wrapper.js';
 
 const isDev = process.env.NODE_ENV === 'development';
 
-function AgendaItem({ agenda, res, getLabel }) {
-  const itemLink = res.agendas.contribute.replace(':slug', agenda.slug);
+function AgendaItem({ agenda, res, getLabel, duplicateEvent }) {
+  let itemLink = res.agendas.contribute.replace(':slug', agenda.slug);
+
+  if (duplicateEvent) {
+    itemLink += `?${qs.stringify({
+      agendaUid: duplicateEvent.agendaUid,
+      eventUid: duplicateEvent.uid,
+    })}`;
+  }
 
   return (
     <div className="agenda-item media" key={agenda.uid}>
@@ -87,6 +94,7 @@ class Events extends Component {
 
     this.state = {
       value: query && query.search ? query.search : undefined,
+      duplicateEvent: undefined,
     };
 
     this.debouncedSearch = debounce(this.search, 400);
@@ -146,6 +154,27 @@ class Events extends Component {
     this.props.nextPage({ search }, (page || 1) + 1);
   };
 
+  openCreateEvent = () => {
+    this.setState({ duplicateEvent: undefined }, () => {
+      this.props
+        .agendasLoad('selectAgendasForCreateEvent')
+        .then(() => this.props.showModal('selectAgenda'));
+    });
+  };
+
+  onDuplicate = (event) => {
+    this.setState({ duplicateEvent: event }, () => {
+      this.props
+        .agendasLoad('selectAgendasForCreateEvent')
+        .then(() => this.props.showModal('selectAgenda'));
+    });
+  };
+
+  closeSelectAgenda = () => {
+    this.props.closeModal('selectAgenda');
+    this.setState({ duplicateEvent: undefined });
+  };
+
   fieldIsVisible = () => {
     const { total, perPageLimit } = this.props;
     const { value, previousValue } = this.state;
@@ -166,13 +195,11 @@ class Events extends Component {
       listLoading,
       nextLoading,
       query,
-      showModal,
-      closeModal,
       modals,
-      agendasLoad,
       lang,
     } = this.props;
     const { getLabel } = this.context;
+    const { duplicateEvent } = this.state;
 
     const selectAgendasModal = modals.selectAgenda || {};
 
@@ -197,9 +224,7 @@ class Events extends Component {
               <div className="header padding-h-md">
                 <div className="hidden-xs pull-right">
                   <button
-                    onClick={() =>
-                      agendasLoad('selectAgendasForCreateEvent').then(() =>
-                        showModal('selectAgenda'))}
+                    onClick={this.openCreateEvent}
                     className="btn btn-primary"
                     type="button"
                   >
@@ -231,6 +256,7 @@ class Events extends Component {
                       res={res.events}
                       getLabel={getLabel}
                       lang={lang}
+                      onDuplicate={this.onDuplicate}
                     />
                   ))}
 
@@ -256,8 +282,12 @@ class Events extends Component {
 
               {selectAgendasModal.visible && (
                 <Modal
-                  title={getLabel('selectAgenda')}
-                  onClose={() => closeModal('selectAgenda')}
+                  title={getLabel(
+                    duplicateEvent
+                      ? 'selectAgendaForDuplicate'
+                      : 'selectAgenda',
+                  )}
+                  onClose={this.closeSelectAgenda}
                   classNames={{
                     overlay: 'popup-overlay big',
                   }}
@@ -278,6 +308,7 @@ class Events extends Component {
                                 agenda={agenda}
                                 res={res}
                                 getLabel={getLabel}
+                                duplicateEvent={duplicateEvent}
                               />
                             ))
                             : null}

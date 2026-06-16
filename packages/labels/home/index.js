@@ -260,6 +260,26 @@ module.exports = {
     "oc": "Causir una agenda per i crear l'eveniment",
     "nl": "Selecteer de agenda waarin u het evenement wilt aanmaken"
   },
+  "selectAgendaForDuplicate": {
+    "fr": "Sélectionner l'agenda dans lequel dupliquer l'événement",
+    "en": "Select an agenda in which to duplicate the event",
+    "de": "Wähle den Veranstaltungskalender, in dem du die Veranstaltung duplizieren möchtest.",
+    "br": "Diuzañ an deiziataer da eilañ an darvoud ennañ",
+    "es": "Seleccione la agenda en la que duplicar el evento",
+    "it": "Selezionare l'agenda in cui duplicare l'evento",
+    "oc": "Causir l'agenda per i duplicar l'eveniment",
+    "nl": "Selecteer de agenda waarin u het evenement wilt dupliceren"
+  },
+  "duplicate": {
+    "fr": "Dupliquer",
+    "en": "Duplicate",
+    "de": "Duplizieren",
+    "br": "Eilañ",
+    "es": "Duplicar",
+    "it": "Duplicare",
+    "oc": "Duplicar",
+    "nl": "Dupliceren"
+  },
   "privateAgenda": {
     "fr": "Agenda privé",
     "en": "Private agenda",

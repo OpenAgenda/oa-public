@@ -45,7 +45,7 @@ const getImagePath = (image) => {
   return `${base}/${filename}`;
 };
 
-function EventItem({ event, res, getLabel, lang }) {
+function EventItem({ event, res, getLabel, lang, onDuplicate }) {
   return (
     <li
       key={event.uid}
@@ -113,6 +113,15 @@ function EventItem({ event, res, getLabel, lang }) {
               >
                 {getLabel('modify')}
               </a>
+              {onDuplicate && event.agendaUid ? (
+                <button
+                  type="button"
+                  className="btn btn-link padding-top-xs padding-left-z"
+                  onClick={() => onDuplicate(event)}
+                >
+                  {getLabel('duplicate')}
+                </button>
+              ) : null}
             </div>
           ) : null}
         </div>
