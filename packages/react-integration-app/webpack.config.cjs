@@ -324,10 +324,6 @@ module.exports = (env = {}, argv = {}) => {
           __dirname,
           '../supervisor/src/app.js',
         ),
-        '@openagenda/user-apps$': path.join(
-          __dirname,
-          '../user-apps/src/app.js',
-        ),
         '@openagenda/react-layouts/layouts$': path.join(
           __dirname,
           '../react-layouts/src/layouts/index.js',

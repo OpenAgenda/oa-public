@@ -41,7 +41,6 @@ packages/react-integration-app/dist
 packages/react-layouts/dist
 packages/registration-apps/dist
 packages/supervisor/dist
-packages/user-apps/dist
 
 public/agenda-docx/client/build
 public/agenda-portal/assets

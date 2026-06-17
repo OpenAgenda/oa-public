@@ -177,27 +177,6 @@ const initialState = async (req) => {
         memberSchema: '/api/agendas/:agendaUid/settings/memberSchema',
       },
     },
-    userSettings: {
-      settings: {
-        prefix: '/settings',
-        apiRoot,
-      },
-      res: {
-        getMe: '/users/me',
-        updateProfile: '/users/me',
-        deleteAccount: '/users/me',
-        changeEmail: '/users/me/requestChangeEmail',
-        // changePassword now goes directly to better-auth (`/api/auth/change-password`)
-        // — no legacy Feathers route, no `res` entry needed.
-        keys: {
-          list: '/users/me/api-keys',
-          create: '/users/me/api-keys',
-          update: '/users/me/api-keys/:id',
-          remove: '/users/me/api-keys/:id',
-        },
-        unlinkFacebook: '/users/me/requestUnlinkFacebook',
-      },
-    },
     agendaSettingsNew: {
       settings: {
         prefix: '/agendas/new',

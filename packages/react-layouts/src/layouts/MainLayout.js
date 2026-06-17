@@ -314,10 +314,10 @@ function MainLayout({ childLayouts, children, extraProps, fallback, history }) {
                                 </a>
                               </li>
                               <li>
-                                <a
-                                  href="/settings"
-                                  onClick={panelLink('/settings')}
-                                >
+                                {/* Full navigation (no SPA push): /settings is
+                                    served by the Next app via the proxy redirect
+                                    to /:locale/settings. */}
+                                <a href="/settings">
                                   {intl.formatMessage(messages.settings)}
                                 </a>
                               </li>
