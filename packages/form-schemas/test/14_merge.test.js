@@ -784,5 +784,106 @@ describe('unit - assigning schema properties to another schema', () => {
         },
       ]);
     });
+
+    it('purges a default that references an option removed by allowedOptions', () => {
+      const schema = {
+        id: 1,
+        fields: [
+          {
+            field: 'pickmany',
+            fieldType: 'checkbox',
+            optional: true,
+            options: [
+              { label: 'A', id: 1 },
+              { label: 'B', id: 2 },
+              { label: 'C', id: 3 },
+            ],
+            default: [1, 2],
+          },
+        ],
+      };
+
+      const restrictiveSchema = {
+        id: 2,
+        fields: [
+          {
+            field: 'pickmany',
+            fieldType: 'abstract',
+            allowedOptions: [3],
+          },
+        ],
+      };
+
+      const [field] = merge(schema, restrictiveSchema).fields;
+      expect(field.options).toStrictEqual([{ label: 'C', id: 3 }]);
+      // 1 and 2 no longer resolve to an option -> nothing left -> null
+      expect(field.default).toBeNull();
+    });
+
+    it('scrubs an inherited default when a child overrides options', () => {
+      const schema = {
+        id: 1,
+        fields: [
+          {
+            field: 'pickmany',
+            fieldType: 'checkbox',
+            optional: true,
+            options: [
+              { label: 'A', id: 1 },
+              { label: 'B', id: 2 },
+            ],
+            default: [1, 2],
+          },
+        ],
+      };
+
+      const childSchema = {
+        id: 2,
+        fields: [
+          {
+            field: 'pickmany',
+            fieldType: 'abstract',
+            options: [{ label: 'A', id: 1 }],
+          },
+        ],
+      };
+
+      const [field] = merge(schema, childSchema).fields;
+      expect(field.options).toStrictEqual([{ label: 'A', id: 1 }]);
+      // default inherited from parent, with the orphaned token (2) dropped
+      expect(field.default).toStrictEqual([1]);
+    });
+
+    it('leaves a consistent default untouched', () => {
+      const schema = {
+        id: 1,
+        fields: [
+          {
+            field: 'pickmany',
+            fieldType: 'checkbox',
+            optional: true,
+            options: [
+              { label: 'A', id: 1 },
+              { label: 'B', id: 2 },
+            ],
+            default: [1],
+          },
+        ],
+      };
+
+      const relabelSchema = {
+        id: 2,
+        fields: [
+          {
+            field: 'pickmany',
+            fieldType: 'abstract',
+            label: 'Pick many',
+          },
+        ],
+      };
+
+      const [field] = merge(schema, relabelSchema).fields;
+      expect(field.default).toStrictEqual([1]);
+    });
   });
 });
