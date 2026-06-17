@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
-import { scrubDefaultValue } from './fieldOptions.js';
 
 const getIsAbstract = ({ fieldType, type }) => {
   if (type === 'abstract') {
@@ -73,31 +72,6 @@ function mergeField(field, mergeWithField) {
     update.related = {
       $set: mergeRelated([field.related, mergeWithField.related]),
     };
-  }
-
-  // Merging can leave `default` referencing options that no longer exist —
-  // e.g. an inheriting schema restricts options via `allowedOptions`, or
-  // overrides `options` while inheriting the parent's `default`. Purge the
-  // orphaned tokens so the effective schema stays consistent (and the builder
-  // preview doesn't crash rendering a default that resolves to no option).
-  // Resolve a key's value once the merge is applied: a staged $set wins, then
-  // an explicit override on mergeWithField, then the base field.
-  const mergedValue = (key) => {
-    if (update[key]) {
-      return update[key].$set;
-    }
-    if (mergeWithField[key] !== undefined) {
-      return mergeWithField[key];
-    }
-    return field[key];
-  };
-  const mergedDefault = mergedValue('default');
-  const scrubbedDefault = scrubDefaultValue(mergedDefault, mergedValue('options'));
-  const defaultChanged = Array.isArray(mergedDefault)
-    ? scrubbedDefault === null || scrubbedDefault.length !== mergedDefault.length
-    : scrubbedDefault !== mergedDefault;
-  if (defaultChanged) {
-    update.default = { $set: scrubbedDefault };
   }
 
   if (!_.keys(update).length) return field;

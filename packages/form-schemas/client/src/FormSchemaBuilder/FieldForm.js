@@ -5,7 +5,6 @@ import makeLabelGetter from '@openagenda/labels/makeLabelGetter.js';
 import FormSchemaComponent from '../index.js';
 
 import merge from '../iso/merge.js';
-import { scrubDefaultValue } from '../iso/fieldOptions.js';
 import flattenLabels from '../lib/flatten.js';
 import slugFromLabel from './lib/slugFromLabel.js';
 import fg from './lib/fieldGroups.js';
@@ -209,6 +208,20 @@ const resolveOptioned = (type, parentsField, values) => {
     ? parentsField.options || []
     : values?.options || [];
   return { optionedType, options };
+};
+
+// Drop default tokens that no longer resolve to an existing option (e.g. an
+// option that was set as default and then removed). A token matches either an
+// option id or, for not-yet-persisted options, its value.
+const scrubDefaultValue = (rawDefault, options) => {
+  if (rawDefault === null || rawDefault === undefined) return rawDefault;
+  const resolves = (token) =>
+    (options || []).some((o) => o && (o.id === token || o.value === token));
+  if (Array.isArray(rawDefault)) {
+    const kept = rawDefault.filter(resolves);
+    return kept.length ? kept : null;
+  }
+  return resolves(rawDefault) ? rawDefault : null;
 };
 
 const buildSchema = (
