@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/react-filters",
-  "version": "2.13.6",
+  "version": "2.13.7",
   "type": "module",
   "main": "./build/index.cjs",
   "module": "./build/index.mjs",
@@ -43,11 +43,11 @@
     "@babel/runtime-corejs3": "^7.28.4",
     "@emotion/react": "^11.11.1",
     "@formatjs/cli": "^2.11.3",
-    "@openagenda/intl": "^1.1.6",
+    "@openagenda/intl": "^2.0.0",
     "@openagenda/leaflet-gesture-handling": "^1.5.0",
     "@openagenda/react-date-range": "^2.0.2",
-    "@openagenda/react-portal-ssr": "^1.0.3",
-    "@openagenda/react-shared": "^2.4.6",
+    "@openagenda/react-portal-ssr": "^1.1.0",
+    "@openagenda/react-shared": "^3.0.0",
     "@openagenda/verror": "^3.2.0",
     "classnames": "^2.3.1",
     "core-js": "^3.29.1",
@@ -72,7 +72,7 @@
     "use-local-storage-state": "^19.5.0"
   },
   "devDependencies": {
-    "@openagenda/eslint-config": "^1.4.0",
+    "@openagenda/eslint-config": "^2.0.0",
     "@storybook/addon-webpack5-compiler-babel": "^4.0.0",
     "@storybook/react-webpack5": "^10.2.0",
     "babel-loader": "^9.1.3",

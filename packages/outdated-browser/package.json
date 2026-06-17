@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.28.4",
-    "@openagenda/babel-preset": "^1.5.0",
+    "@openagenda/babel-preset": "^2.0.0",
     "clean-webpack-plugin": "^4.0.0",
     "mini-css-extract-plugin": "^2.7.3",
     "terser-webpack-plugin": "^5.3.9",

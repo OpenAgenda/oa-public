@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/react-layouts",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "private": true,
   "type": "module",
   "main": "./dist/index.js",
@@ -20,12 +20,12 @@
     "extract-messages": "oa-intl --esm"
   },
   "dependencies": {
-    "@openagenda/activity-apps": "^1.2.3",
+    "@openagenda/activity-apps": "^1.2.4",
     "@openagenda/auth": "^0.1.0",
-    "@openagenda/bs-templates": "^2.5.1",
-    "@openagenda/intl": "^1.1.6",
-    "@openagenda/members": "^1.15.14",
-    "@openagenda/react-shared": "^2.4.6",
+    "@openagenda/bs-templates": "^2.6.0",
+    "@openagenda/intl": "^2.0.0",
+    "@openagenda/members": "^1.15.15",
+    "@openagenda/react-shared": "^3.0.0",
     "@sentry/react": "^10.31.0",
     "classnames": "^2.3.1",
     "core-js": "^3.29.1",
@@ -49,7 +49,7 @@
     "shallowequal": "^1.1.0"
   },
   "devDependencies": {
-    "@openagenda/eslint-config": "^1.4.0",
+    "@openagenda/eslint-config": "^2.0.0",
     "@storybook/addon-webpack5-compiler-babel": "^4.0.0",
     "@storybook/react-webpack5": "^10.2.0",
     "history": "^4.10.1",

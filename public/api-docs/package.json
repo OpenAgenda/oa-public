@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/api-docs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "OpenAgenda v3 API reference — static Scalar docs built from @openagenda/api-spec (source of truth: the OpenAPI contract).",
   "license": "MIT",
   "repository": {
@@ -24,7 +24,7 @@
   "devDependencies": {
     "@fontsource-variable/noto-sans": "^5.2.10",
     "@fontsource-variable/ubuntu-sans": "^5.2.10",
-    "@openagenda/api-spec": "^0.1.0",
+    "@openagenda/api-spec": "^0.2.0",
     "@scalar/api-reference": "^1.59.0"
   }
 }

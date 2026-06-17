@@ -1,7 +1,7 @@
 {
   "name": "@openagenda/usage-counters",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "author": "",
   "description": "",
@@ -19,12 +19,12 @@
     ".": "./index.js"
   },
   "dependencies": {
-    "@openagenda/logs": "^1.1.10",
+    "@openagenda/logs": "^1.2.0",
     "lodash": "^4.17.21",
     "why": "^0.6.2"
   },
   "devDependencies": {
-    "@openagenda/eslint-config": "^1.4.0",
+    "@openagenda/eslint-config": "^2.0.0",
     "ioredis": "^5.10.1",
     "jest": "^29.7.0",
     "knex": "^2.4.2",

@@ -1,5 +1,27 @@
 # Change Log
 
+## 1.6.6
+
+### Patch Changes
+
+- Updated dependencies [[`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9), [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9)]:
+  - @openagenda/intl@2.0.0
+  - @openagenda/react-shared@3.0.0
+  - @openagenda/event-admin-apps@0.0.4
+  - @openagenda/agenda-locations-app@0.0.3
+  - @openagenda/activity-apps@1.2.4
+  - @openagenda/agenda-contribute@1.5.6
+  - @openagenda/agenda-schemas-app@0.0.4
+  - @openagenda/agenda-settings@1.4.3
+  - @openagenda/agenda-stats@1.10.6
+  - @openagenda/aggregator-sources@1.3.4
+  - @openagenda/home@2.2.4
+  - @openagenda/inbox-apps@1.2.4
+  - @openagenda/legacy@1.11.3
+  - @openagenda/member-apps@2.1.4
+  - @openagenda/react-layouts@2.2.4
+  - @openagenda/supervisor@1.3.4
+
 ## 1.6.5
 
 ### Patch Changes

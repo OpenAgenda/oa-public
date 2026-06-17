@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.9.5
+
+### Patch Changes
+
+- Updated dependencies [[`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9), [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9), [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9), [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9)]:
+  - @openagenda/intl@2.0.0
+  - @openagenda/logs@1.2.0
+  - @openagenda/md@2.0.0
+  - @openagenda/react-shared@3.0.0
+
 ## 1.9.4
 
 ### Patch Changes

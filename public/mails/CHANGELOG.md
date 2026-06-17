@@ -1,5 +1,21 @@
 # Change Log
 
+## 6.0.0
+
+### Major Changes
+
+- [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Upgrade `nodemailer` 6 → 7 — its option and behavior changes pass through to consumers providing transport configuration.
+
+  - Fix an inverted condition: the "createWorker method has not been implemented" error was raised when `createWorker` **was** provided, and queue setups without it went undetected.
+  - Normalize `references` / `in-reply-to` headers (via `_encodeHeaderValue`) so Mailgun accepts them; `references` accepts arrays.
+  - `@openagenda/verror` ^3.2.0.
+
+### Patch Changes
+
+- Updated dependencies [[`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9), [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9)]:
+  - @openagenda/intl@2.0.0
+  - @openagenda/logs@1.2.0
+
 ## 5.0.0
 
 ### Major Changes

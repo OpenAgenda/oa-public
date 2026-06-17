@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/simple-cache",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "private": true,
   "description": "Redis wrapper to provide simple to use interface for http caching.",
   "type": "module",
@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@openagenda/logs": "^1.1.10",
+    "@openagenda/logs": "^1.2.0",
     "@openagenda/verror": "^3.2.0"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/date-utils",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -39,8 +39,8 @@
   "devDependencies": {
     "@babel/core": "^7.28.4",
     "@babel/preset-env": "^7.28.3",
-    "@openagenda/babel-preset": "^1.5.0",
-    "@openagenda/eslint-config": "^1.4.0",
+    "@openagenda/babel-preset": "^2.0.0",
+    "@openagenda/eslint-config": "^2.0.0",
     "@openagenda/tsconfig": "^0.0.0",
     "babel-jest": "^29.6.3",
     "eslint": "^8.36.0",
