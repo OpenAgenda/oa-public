@@ -38,6 +38,11 @@ export type Pagination = {
      *
      */
     total?: number;
+    /**
+     * Whether `total` is the exact count (`exact`) or a lower bound (`atLeast`). Very large result sets are counted only up to a limit; past it `total` is the floor, not the precise number. Present whenever `total` is.
+     *
+     */
+    totalRelation?: 'exact' | 'atLeast';
 };
 
 /**
