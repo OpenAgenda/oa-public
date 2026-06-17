@@ -123,6 +123,11 @@ paths:
         filters (they are not encoded in the cursor).
 
 
+        When `search` is set, results are ranked by relevance by default;
+        otherwise they are ordered by `createdAt.desc`. Override with `sort`
+        (see the parameter for the allowed values).
+
+
         By default items are the lighter `AgendaSummary`; pass `detailed=true`
         for `AgendaDetailed` (adds `createdAt`, `network`, `locationSet` — the
         search-index detailed projection). The full canonical record (with
@@ -140,6 +145,7 @@ paths:
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/Detailed'
         - $ref: '#/components/parameters/AgendaSearch'
+        - $ref: '#/components/parameters/AgendaSort'
         - $ref: '#/components/parameters/AgendaFilterUid'
         - $ref: '#/components/parameters/AgendaFilterSlug'
         - $ref: '#/components/parameters/AgendaFilterOfficial'
@@ -871,6 +877,21 @@ components:
         double quotes for an exact phrase match.
       schema:
         type: string
+
+    AgendaSort:
+      name: sort
+      in: query
+      required: false
+      description: >
+        Sort order. When omitted, results are ranked by relevance if `search`
+        is set, otherwise by `createdAt` descending. Set
+        `recentlyAddedEvents.desc` to surface the agendas with the most recent
+        activity first.
+      schema:
+        type: string
+        enum:
+          - createdAt.desc
+          - recentlyAddedEvents.desc
 
     AgendaFilterUid:
       name: uid
