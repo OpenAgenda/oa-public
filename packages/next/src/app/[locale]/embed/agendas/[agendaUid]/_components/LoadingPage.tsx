@@ -7,10 +7,18 @@ import {
   SimpleGrid,
 } from '@openagenda/uikit';
 
-export function EventSkeleton() {
+export function EventSkeleton({ isHorizontal = false }) {
   return (
-    <Flex direction="column" border="1px solid #00000026">
-      <Skeleton h="170px" />
+    <Flex
+      direction={isHorizontal ? { base: 'column', sm: 'row' } : 'column'}
+      border="1px solid #00000026"
+    >
+      <Skeleton
+        flexShrink={isHorizontal ? '0' : undefined}
+        alignSelf={isHorizontal ? 'stretch' : undefined}
+        w={isHorizontal ? { base: '100%', sm: '280px' } : undefined}
+        h={isHorizontal ? { base: '170px', sm: 'auto' } : '170px'}
+      />
       <Flex direction="column" p="6" gap="2" grow="1" minH="170px">
         <SkeletonText height="3" />
         <SkeletonText mt="auto" noOfLines={1} w="40%" />
@@ -19,21 +27,20 @@ export function EventSkeleton() {
   );
 }
 
-export function EventsSkeleton() {
+export function EventsSkeleton({ isHorizontal = false }) {
   return (
     <SimpleGrid
-      templateColumns="repeat(auto-fill, minmax(min(290px, 100%), 1fr))"
+      templateColumns={
+        isHorizontal
+          ? '1fr'
+          : 'repeat(auto-fill, minmax(min(290px, 100%), 1fr))'
+      }
       columnGap="10"
       rowGap="6"
     >
-      <EventSkeleton />
-      <EventSkeleton />
-      <EventSkeleton />
-      <EventSkeleton />
-      <EventSkeleton />
-      <EventSkeleton />
-      <EventSkeleton />
-      <EventSkeleton />
+      {Array.from({ length: 8 }, (_, index) => (
+        <EventSkeleton key={index} isHorizontal={isHorizontal} />
+      ))}
     </SimpleGrid>
   );
 }
