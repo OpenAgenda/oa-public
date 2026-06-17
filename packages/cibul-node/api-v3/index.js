@@ -76,6 +76,42 @@ function resolveLimit(rawLimit) {
   return Math.min(MAX_LIMIT, Math.max(MIN_LIMIT, value));
 }
 
+// Contract: the `/agendas` list `?sort` allowlist. `createdAt.desc` is the
+// stable browse default — an immutable keyset, ideal for the search_after
+// cursor. `recentlyAddedEvents.desc` is opt-in discovery: it ranks on a
+// volatile boolean (`_recentlyAddedEvents`), so its keyset drifts — shallow
+// pagination only. Relevance (`_score`) is NOT a `?sort` value: it is the
+// implicit default when `?search` is present, obtained by passing no sort to
+// agenda-search (its own search default). Mirrors agenda-search's nav
+// validator regex, but as an explicit route-owned gate with a v3 400 envelope.
+const AGENDA_SORTS = new Set(['createdAt.desc', 'recentlyAddedEvents.desc']);
+
+// Parse `?sort` on the agenda list. `undefined` → no explicit sort (the
+// conditional default applies). A value outside the allowlist is a 400, like
+// `detailed` — a sort the contract doesn't offer is a bad request, not a
+// silently-ignored filter.
+function resolveAgendaSort(rawSort) {
+  if (rawSort === undefined) {
+    return undefined;
+  }
+  if (typeof rawSort === 'string' && AGENDA_SORTS.has(rawSort)) {
+    return rawSort;
+  }
+  throw new BadRequest(
+    {
+      info: {
+        errors: [
+          {
+            field: 'sort',
+            message: `sort must be one of: ${[...AGENDA_SORTS].join(', ')}`,
+          },
+        ],
+      },
+    },
+    'Invalid query parameters',
+  );
+}
+
 // `detailed` is a strict boolean view toggle (contract default `false`): when
 // true, list items are the full `Event` instead of `EventSummary`. Unlike the
 // filters (which the translator ignores when unknown), a malformed boolean here
@@ -148,14 +184,30 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
 
       const query = buildAgendaSearchQuery(req.query);
 
-      // Default to a deterministic sort so the search_after cursor is stable;
-      // the cursor carries the sort that produced the previous page and wins.
-      const nav = { size: limit, sort: 'createdAt.desc' };
+      // Sort resolution. Explicit `?sort` (allowlist) wins; else relevance
+      // (`_score`) when `?search` is present — obtained by passing NO sort, so
+      // agenda-search takes its own search default instead of the previous
+      // hard-coded `createdAt.desc` that silently buried text matches; else the
+      // stable `createdAt.desc` browse order. The cursor's pinned sort (below)
+      // wins over all of this so a page sequence stays coherent.
+      const nav = { size: limit };
+      const sort = resolveAgendaSort(req.query.sort);
+      if (sort) {
+        nav.sort = sort;
+      } else if (query.search === undefined) {
+        nav.sort = 'createdAt.desc';
+      }
+
       if (req.query.after !== undefined) {
         const decoded = decodeCursor(req.query.after);
         if (decoded) {
           nav.after = decoded.after;
-          if (decoded.sort) nav.sort = decoded.sort;
+          // The cursor pins the sort that produced the previous page. Re-check
+          // it against the allowlist: a forged cursor must not smuggle an
+          // out-of-contract sort into core (an unknown key 500s in queryToDSL).
+          if (decoded.sort && AGENDA_SORTS.has(decoded.sort)) {
+            nav.sort = decoded.sort;
+          }
         }
       }
 
