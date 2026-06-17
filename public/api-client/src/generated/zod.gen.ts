@@ -13,7 +13,8 @@ export const zError = z.object({
 export const zPagination = z.object({
     after: z.string().nullable(),
     limit: z.number().int(),
-    total: z.number().int().optional()
+    total: z.number().int().optional(),
+    totalRelation: z.enum(['exact', 'atLeast']).optional()
 });
 
 /**
