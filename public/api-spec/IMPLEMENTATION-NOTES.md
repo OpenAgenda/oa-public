@@ -97,7 +97,24 @@ historique inchangé), `auto` (coupure dynamique), ou un nombre ≥ 0 (plancher
   `relevanceMinDrop` à l'instanciation du service event-search → param `minDrop`
   de `computeRelevanceCutoff`). Défaut `0.3` défini à la déstructuration des
   options du service (`event-search/index.js`) ; env var non/mal renseignée ⇒
-  `undefined` côté config ⇒ le service applique son défaut. À caler sur Nantes.
+  `undefined` côté config ⇒ le service applique son défaut.
+- **Valeur calibrée : `0.5`** (env var, 2026-06-17), mesurée sur Nantes Métropole
+  (prod, `upcoming`-only — ce que la page agenda interroge). `topDrop` = plus gros
+  décrochage normalisé du top-20 :
+
+  | requête          | total | topDrop | auto@0.3 | auto@0.5 |
+  | ---------------- | ----: | ------: | -------: | -------: |
+  | balade photo     |    62 |    0.99 |        1 |        1 |
+  | Rezé             |    15 |    0.43 |        1 |       15 |
+  | concert          |   178 |    0.27 |      178 |      178 |
+  | théâtre          |   104 |    0.14 |      104 |      104 |
+
+  `0.5` tombe dans l'intervalle entre le 0.43 de Rezé (à garder) et le 0.99 de
+  « balade photo » (à couper) : on ne coupe que les falaises franches, les
+  recherches ordinaires restent intactes. Le `0.3` initial sur-coupait l'« épaule »
+  type Rezé à un seul résultat. Référence exécutable : le suite de tests
+  `packages/event-search/test/02_relevance_threshold_behavior.test.js` rejoue ces
+  trois formes (falaise / épaule / plateau) en `off` (scores visibles) vs `auto`.
 
 ---
 
