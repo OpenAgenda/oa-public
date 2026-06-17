@@ -1793,6 +1793,7 @@ components:
         after: eyJ1aWQiOjIzNDU2fQ
         limit: 20
         total: 342
+        totalRelation: exact
       properties:
         after:
           type: [string, 'null']
@@ -1807,6 +1808,14 @@ components:
           description: >
             Total number of matching records. May be omitted when counting is
             too expensive.
+        totalRelation:
+          type: string
+          enum: [exact, atLeast]
+          description: >
+            Whether `total` is the exact count (`exact`) or a lower bound
+            (`atLeast`). Very large result sets are counted only up to a limit;
+            past it `total` is the floor, not the precise number. Present
+            whenever `total` is.
 
     LocalizedString:
       type: object
