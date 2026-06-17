@@ -39,6 +39,27 @@ function fieldAssignOptionIds(field, nextOptionId) {
   return nextId;
 }
 
+// Drop default tokens that no longer resolve to an existing option (e.g. an
+// option that was set as default and then removed, or pruned away by an
+// inheriting schema via `allowedOptions`). A token matches either an option id
+// or, for not-yet-persisted options, its value. Returns null when nothing is
+// left so callers can treat the field as having no default.
+//
+// IMPORTANT: only meaningful for optioned fields (radio/checkbox/select/
+// multiselect). A non-optioned field (text, number, …) has a free-value default
+// and no options, so every token would "fail to resolve" and be wiped — callers
+// MUST guard on field type before calling this.
+function scrubDefaultValue(rawDefault, options) {
+  if (rawDefault === null || rawDefault === undefined) return rawDefault;
+  const resolves = (token) =>
+    (options || []).some((o) => o && (o.id === token || o.value === token));
+  if (Array.isArray(rawDefault)) {
+    const kept = rawDefault.filter(resolves);
+    return kept.length ? kept : null;
+  }
+  return resolves(rawDefault) ? rawDefault : null;
+}
+
 function extractNextOptionId(formSchemaData) {
   const definedNextOptionId = formSchemaData?.nextOptionId ?? 0;
 
@@ -63,4 +84,5 @@ export {
   fieldHasUnnassignedOptions,
   fieldAssignOptionIds,
   fieldHasSuperiorOptions,
+  scrubDefaultValue,
 };
