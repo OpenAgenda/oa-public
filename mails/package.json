@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/mails",
-  "version": "5.0.0",
+  "version": "6.0.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -20,8 +20,8 @@
   },
   "dependencies": {
     "@formatjs/intl": "^2.2.1",
-    "@openagenda/intl": "^1.1.6",
-    "@openagenda/logs": "^1.1.10",
+    "@openagenda/intl": "^2.0.0",
+    "@openagenda/logs": "^1.2.0",
     "@openagenda/verror": "^3.2.0",
     "ejs": "^3.1.9",
     "emoji-regex": "^10.3.0",
@@ -34,7 +34,7 @@
     "tlds": "^1.253.0"
   },
   "devDependencies": {
-    "@openagenda/eslint-config": "^1.4.0",
+    "@openagenda/eslint-config": "^2.0.0",
     "bullmq": "^5.65.1",
     "jest": "^29.7.0"
   }

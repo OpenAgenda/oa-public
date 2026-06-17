@@ -1,5 +1,23 @@
 # Change Log
 
+## 6.15.0
+
+### Minor Changes
+
+- [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Brand update: primary color switches from `#41acdd` to `#1d77ce`. The consent banner is imported through the `@openagenda/react-shared` bare specifier (compatible with its new exports map), and the client bundles are rebuilt with `react-intl` 10 and React 19.2.
+
+### Patch Changes
+
+- Updated dependencies [[`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9), [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9), [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9), [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9), [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9), [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9), [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9)]:
+  - @openagenda/babel-preset@2.0.0
+  - @openagenda/browserslist-config@2.0.0
+  - @openagenda/intl@2.0.0
+  - @openagenda/logs@1.2.0
+  - @openagenda/md@2.0.0
+  - @openagenda/react-portal-ssr@1.1.0
+  - @openagenda/react-shared@3.0.0
+  - @openagenda/react-filters@2.13.7
+
 ## 6.14.0
 
 ### Minor Changes

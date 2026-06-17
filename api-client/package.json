@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/api-client",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "OpenAgenda v3 API client — generated from @openagenda/api-spec via Hey API (typed SDK + zod validators). Source of truth for the MCP's oa client.",
   "license": "MIT",
   "repository": {
@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@hey-api/openapi-ts": "^0.97.3",
-    "@openagenda/api-spec": "^0.1.0",
+    "@openagenda/api-spec": "^0.2.0",
     "tsdown": "^0.22.0",
     "typescript": "^5.6.3"
   }

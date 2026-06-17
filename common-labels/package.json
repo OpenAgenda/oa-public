@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/common-labels",
-  "version": "1.2.4",
+  "version": "2.0.0",
   "type": "module",
   "author": "Kévin Berthommier <kevin.bertho@gmail.com>",
   "homepage": "https://github.com/OpenAgenda/oa-public",
@@ -31,7 +31,7 @@
     "clean": "rimraf locales-compiled"
   },
   "devDependencies": {
-    "@openagenda/intl": "^1.1.6",
+    "@openagenda/intl": "^2.0.0",
     "glob": "^8.0.1",
     "lodash": "^4.17.21",
     "mkdirp": "^3.0.1",

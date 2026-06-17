@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/mails-editor",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "license": "MIT",
   "type": "module",
   "main": "app.js",
@@ -28,9 +28,9 @@
     "walk": "^2.3.14"
   },
   "devDependencies": {
-    "@openagenda/eslint-config": "^1.4.0"
+    "@openagenda/eslint-config": "^2.0.0"
   },
   "peerDependencies": {
-    "@openagenda/mails": "^5.0.0"
+    "@openagenda/mails": "^6.0.0"
   }
 }

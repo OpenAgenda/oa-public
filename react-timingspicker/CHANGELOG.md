@@ -1,5 +1,20 @@
 # Change Log
 
+## 2.0.0
+
+### Major Changes
+
+- [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `TimingsPicker` is now a named export: `import { TimingsPicker } from '@openagenda/react-timingspicker'` (the default export is gone, `classNames` is also exported).
+
+  - Explicit import-only `exports` map over `.mjs` files; the stylesheet stays available at `./App.css`.
+  - Build moves from tsup to tsdown; `react-intl` 6 → 10.
+
+### Patch Changes
+
+- Updated dependencies [[`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9), [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9)]:
+  - @openagenda/intl@2.0.0
+  - @openagenda/react-shared@3.0.0
+
 ## 1.4.3
 
 ### Patch Changes

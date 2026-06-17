@@ -1,5 +1,25 @@
 # Change Log
 
+## 3.0.0
+
+### Major Changes
+
+- [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9) Thanks [@bertho-zero](https://github.com/bertho-zero)! - The build moves from Babel to tsdown and ships `.mjs` files behind an explicit `exports` map.
+
+  - Deep imports must use bare subpaths (`@openagenda/react-shared/components/ConsentBanner`) — `/dist/….js` paths no longer resolve. SCSS and CSS remain available under `./scss/*` and `./css/*`.
+  - `axios` is replaced with `ky`.
+  - `react-intl` 6 → 10.
+  - Primary color updated from `#41acdd` to `#1d77ce`, including the react-date-range theme (new `--rdr-*` variables).
+  - Refreshed br/ca/es translations.
+
+### Patch Changes
+
+- Updated dependencies [[`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9), [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9), [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9), [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9)]:
+  - @openagenda/common-labels@2.0.0
+  - @openagenda/intl@2.0.0
+  - @openagenda/md@2.0.0
+  - @openagenda/uikit@0.1.0
+
 ## 2.4.5
 
 ### Patch Changes
