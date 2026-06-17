@@ -14,6 +14,7 @@
   "react.components.AgendaExportModal.exportSelection": "Exportar la seleccion actuala d'eveniments",
   "react.components.AgendaExportModal.gcalStep2": "Dins la seccion a esquèrra, dobrissètz \"Autres calendièrs > Apondre per URL\".",
   "react.components.AgendaExportModal.gcalStep3": "Seguissètz las instruccions en pegant lo ligam que copièretz a l'etapa 1",
+  "react.components.AgendaExportModal.horizontalLayout": "Afichar los eveniments coma cartas orizontalas",
   "react.components.AgendaExportModal.inputField": "Seleccionatz los camps d'exportar",
   "react.components.AgendaExportModal.inputFormat": "Causir un format",
   "react.components.AgendaExportModal.instructions": "Instruccions",
