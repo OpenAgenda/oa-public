@@ -1,5 +1,14 @@
 # Change Log
 
+## 3.0.3
+
+### Patch Changes
+
+- Updated dependencies [[`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9), [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9)]:
+  - @openagenda/logs@1.2.0
+  - @openagenda/md@2.0.0
+  - @openagenda/form-schemas@1.9.5
+
 ## 3.0.2
 
 ### Patch Changes

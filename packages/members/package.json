@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/members",
-  "version": "1.15.14",
+  "version": "1.15.15",
   "private": true,
   "type": "module",
   "main": "index.js",
@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@openagenda/labels": "^2.3.0",
-    "@openagenda/logs": "^1.1.10",
+    "@openagenda/logs": "^1.2.0",
     "@openagenda/validators": "^2.4.0",
     "@openagenda/verror": "^3.2.0",
     "immutability-helper": "^3.0.1",
@@ -17,7 +17,7 @@
     "slugify": "^1.4.5"
   },
   "devDependencies": {
-    "@openagenda/eslint-config": "^1.4.0",
+    "@openagenda/eslint-config": "^2.0.0",
     "jest": "^29.7.0",
     "knex": "^2.4.2",
     "mysql2": "^3.15.1",

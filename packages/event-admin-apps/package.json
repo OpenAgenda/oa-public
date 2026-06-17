@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/event-admin-apps",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": true,
   "description": "",
   "repository": {
@@ -28,13 +28,13 @@
     "extract-messages": "oa-intl --esm"
   },
   "dependencies": {
-    "@openagenda/agenda-docx": "^1.2.2",
-    "@openagenda/common-labels": "^1.0.0",
-    "@openagenda/event-search": "^2.9.0",
-    "@openagenda/intl": "^1.1.6",
-    "@openagenda/react-filters": "^2.13.6",
-    "@openagenda/react-shared": "^2.4.6",
-    "@openagenda/registrations": "^0.0.3",
+    "@openagenda/agenda-docx": "^2.0.0",
+    "@openagenda/common-labels": "^2.0.0",
+    "@openagenda/event-search": "^2.9.1",
+    "@openagenda/intl": "^2.0.0",
+    "@openagenda/react-filters": "^2.13.7",
+    "@openagenda/react-shared": "^3.0.0",
+    "@openagenda/registrations": "^0.0.4",
     "classnames": "^2.3.1",
     "core-js": "^3.29.1",
     "date-fns": "^2.11.1",
@@ -54,8 +54,8 @@
   },
   "devDependencies": {
     "@loadable/component": "^5.14.1",
-    "@openagenda/bs-templates": "^2.5.1",
-    "@openagenda/eslint-config": "^1.4.0",
+    "@openagenda/bs-templates": "^2.6.0",
+    "@openagenda/eslint-config": "^2.0.0",
     "@storybook/addon-webpack5-compiler-babel": "^4.0.0",
     "@storybook/react-webpack5": "^10.2.0",
     "history": "^4.10.1",

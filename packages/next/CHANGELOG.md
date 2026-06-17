@@ -1,5 +1,25 @@
 # @openagenda/next
 
+## 0.0.7
+
+### Patch Changes
+
+- Updated dependencies [[`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9), [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9), [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9), [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9), [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9), [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9), [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9), [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9), [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9)]:
+  - @openagenda/browserslist-config@2.0.0
+  - @openagenda/common-labels@2.0.0
+  - @openagenda/date-utils@0.0.2
+  - @openagenda/intl@2.0.0
+  - @openagenda/logs@1.2.0
+  - @openagenda/mails@6.0.0
+  - @openagenda/md@2.0.0
+  - @openagenda/react-shared@3.0.0
+  - @openagenda/uikit@0.1.0
+  - @openagenda/activity-apps@1.2.4
+  - @openagenda/react@0.0.5
+  - @openagenda/registrations@0.0.4
+  - @openagenda/react-filters@2.13.7
+  - @openagenda/sdk-js@3.0.1
+
 ## 0.0.6
 
 ### Patch Changes

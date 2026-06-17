@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/registrations",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": true,
   "type": "module",
   "main": "index.js",
@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@inquirer/prompts": "^7.5.3",
-    "@openagenda/logs": "^1.1.10",
+    "@openagenda/logs": "^1.2.0",
     "@openagenda/verror": "^3.2.0",
     "chalk": "^5.4.1",
     "date-fns": "^2.11.1",
@@ -30,7 +30,7 @@
     "strip-markdown": "^5.0.1"
   },
   "devDependencies": {
-    "@openagenda/eslint-config": "^1.4.0",
+    "@openagenda/eslint-config": "^2.0.0",
     "dotenv": "^16.3.1",
     "image-type": "^5.2.0",
     "is-base64": "^1.1.0",

@@ -1,5 +1,17 @@
 # Change Log
 
+## 2.0.0
+
+### Major Changes
+
+- [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Modernize the preset for current Babel:
+
+  - Add `@babel/preset-typescript`.
+  - Remove the deprecated proposal plugins (class-properties, optional-chaining, nullish-coalescing, decorators, do-expressions, function-bind, pipeline-operator, export-default-from, …). Code relying on proposals that never reached `@babel/preset-env` (function bind `::`, pipeline `|>`, do-expressions) must migrate.
+  - Switch from `babel-plugin-lodash` to `@openagenda/babel-plugin-lodash` and drop the `babel-plugin-dynamic-import-node` fallback.
+  - Honor caller-provided `targets` instead of hardcoding them, and only apply the react-intl plugin outside the `test` environment.
+  - Upgrade all `@babel/*` dependencies to the 7.28 range.
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 

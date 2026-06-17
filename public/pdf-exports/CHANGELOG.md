@@ -1,5 +1,21 @@
 # @openagenda/pdf-exports
 
+## 0.0.4
+
+### Patch Changes
+
+- [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Robustness and i18n fixes:
+
+  - Guard against a potential infinite loop in `addParentElement` when no progress is made.
+  - Handle empty image buffers, null registration entries and zero available height.
+  - Smarter long-word splitting in `addText` (degenerate cases, line-fit rounding).
+  - The "Contact details" label is internationalized (new `contactDetails` message); br/es locales are filled in and `nl` is added.
+
+- Updated dependencies [[`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9), [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9), [`0e637d9`](https://github.com/OpenAgenda/oa/commit/0e637d97919b2e83de5a7d9e3216bf3fd8dcf2f9)]:
+  - @openagenda/date-utils@0.0.2
+  - @openagenda/intl@2.0.0
+  - @openagenda/logs@1.2.0
+
 ## 0.0.3
 
 ### Patch Changes

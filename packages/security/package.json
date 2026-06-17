@@ -23,7 +23,7 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
-    "@openagenda/eslint-config": "^1.4.0",
+    "@openagenda/eslint-config": "^2.0.0",
     "dotenv": "^16.3.1",
     "jest": "^29.7.0"
   }

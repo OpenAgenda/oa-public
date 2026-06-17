@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-events",
-  "version": "1.11.15",
+  "version": "1.11.16",
   "private": true,
   "description": "Store agenda-event references",
   "type": "module",
@@ -9,7 +9,7 @@
     "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --runInBand --detectOpenHandles --forceExit"
   },
   "dependencies": {
-    "@openagenda/logs": "^1.1.10",
+    "@openagenda/logs": "^1.2.0",
     "@openagenda/validators": "^2.4.0",
     "@openagenda/verror": "^3.2.0",
     "immutability-helper": "^2.2.2",

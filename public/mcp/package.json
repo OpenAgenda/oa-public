@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/mcp",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "OpenAgenda v3 MCP server — code-mode tools over the v3 API, with a pluggable sandbox executor",
   "keywords": [
     "mcp",
@@ -55,8 +55,8 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",
-    "@openagenda/api-spec": "^0.1.0",
-    "@openagenda/logs": "^1.1.10",
+    "@openagenda/api-spec": "^0.2.0",
+    "@openagenda/logs": "^1.2.0",
     "@opentelemetry/api": "^1.9.1",
     "@opentelemetry/exporter-logs-otlp-proto": "^0.218.0",
     "@opentelemetry/exporter-metrics-otlp-proto": "^0.218.0",
@@ -78,7 +78,7 @@
     "microsandbox": "^0.5.4"
   },
   "devDependencies": {
-    "@openagenda/api-client": "^0.1.0",
+    "@openagenda/api-client": "^0.2.0",
     "@opentelemetry/api-logs": "^0.218.0",
     "@opentelemetry/context-async-hooks": "^2.7.1",
     "@opentelemetry/core": "^2.7.1",
