@@ -32,7 +32,6 @@ import {
 } from '@openagenda/react-layouts/layouts';
 
 import createHomeApp from '@openagenda/home';
-import createUserSettingsApp from '@openagenda/user-apps';
 import createAgendaSettingsNewApp from '@openagenda/agenda-settings/createApp';
 import createAgendaSettingsEditApp from '@openagenda/agenda-settings/editApp';
 import createUserActivitiesApp from '@openagenda/activity-apps/client/apps/user';
@@ -106,7 +105,6 @@ export default function match({ initialState, publicPath, apiRoot }) {
 
       const apps = [
         ['home', createHomeApp, [MainLayout, RequiredUser]],
-        ['userSettings', createUserSettingsApp, [MainLayout, RequiredUser]],
         [
           'agendaSettingsNew',
           createAgendaSettingsNewApp,

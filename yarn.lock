@@ -13313,7 +13313,6 @@ __metadata:
     "@openagenda/react-layouts": "npm:^2.2.3"
     "@openagenda/react-shared": "npm:^2.4.6"
     "@openagenda/supervisor": "npm:^1.3.3"
-    "@openagenda/user-apps": "npm:^1.2.3"
     "@pmmmwh/react-refresh-webpack-plugin": "npm:^0.5.4"
     "@sentry/core": "npm:^10.31.0"
     "@sentry/react": "npm:^10.31.0"
@@ -13832,49 +13831,6 @@ __metadata:
     lodash: "npm:^4.17.21"
     mysql2: "npm:^3.15.1"
     why: "npm:^0.6.2"
-  languageName: unknown
-  linkType: soft
-
-"@openagenda/user-apps@npm:^1.2.3, @openagenda/user-apps@workspace:packages/user-apps":
-  version: 0.0.0-use.local
-  resolution: "@openagenda/user-apps@workspace:packages/user-apps"
-  dependencies:
-    "@openagenda/abilities": "npm:^1.3.3"
-    "@openagenda/bs-templates": "npm:^2.5.1"
-    "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/intl": "npm:^1.1.6"
-    "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/react-shared": "npm:^2.4.6"
-    "@openagenda/users": "npm:^3.1.1"
-    "@openagenda/utils": "npm:^1.3.0"
-    "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
-    "@storybook/react-webpack5": "npm:^10.2.0"
-    final-form: "npm:^4.20.2"
-    history: "npm:^4.10.1"
-    ky: "npm:^1.14.0"
-    lodash: "npm:^4.17.15"
-    msw: "npm:^2.3.0"
-    msw-storybook-addon: "npm:^2.0.6"
-    qs: "npm:^6.9.4"
-    react: "npm:^19.2.2"
-    react-dom: "npm:^19.2.2"
-    react-final-form: "npm:^6.5.3"
-    react-intl: "npm:^10.1.1"
-    react-redux: "npm:^7.1.3"
-    react-router: "npm:^5.1.2"
-    react-router-config: "npm:^5.1.1"
-    react-router-dom: "npm:^5.1.2"
-    redial: "npm:^0.5.0"
-    redux: "npm:^4.0.5"
-    redux-form: "npm:^8.1.0"
-    storybook: "npm:^10.2.0"
-    tsdown: "npm:^0.22.0"
-  peerDependencies:
-    "@loadable/component": ^5.12.0
-    react: ^19.2.2
-    react-router: ^5.0.0
-    react-router-dom: ^5.0.0
-    redux: ^4.0.5
   languageName: unknown
   linkType: soft
 
