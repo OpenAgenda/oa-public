@@ -1040,6 +1040,12 @@ export const zDetailed = z.boolean().default(false);
 export const zAgendaSearch = z.string();
 
 /**
+ * Sort order. When omitted, results are ranked by relevance if `search` is set, otherwise by `createdAt` descending. Set `recentlyAddedEvents.desc` to surface the agendas with the most recent activity first.
+ *
+ */
+export const zAgendaSort = z.enum(['createdAt.desc', 'recentlyAddedEvents.desc']);
+
+/**
  * Restrict to these agenda uids. Repeat the parameter for multiple values.
  */
 export const zAgendaFilterUid = z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }));
@@ -1426,6 +1432,7 @@ export const zAgendasListQuery = z.object({
     limit: z.number().int().gte(1).lte(100).optional().default(20),
     detailed: z.boolean().optional().default(false),
     search: z.string().optional(),
+    sort: z.enum(['createdAt.desc', 'recentlyAddedEvents.desc']).optional(),
     uid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
     slug: z.array(z.string()).optional(),
     official: z.boolean().optional()
