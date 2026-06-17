@@ -4,29 +4,34 @@
 // `AgendaDetailed` (the search-index detailed projection).
 
 import { mapAgendaSummary, mapAgendaDetailed } from './mapAgenda.js';
-import { encodeCursor } from './cursor.js';
+import buildPagination from './pagination.js';
 
 export default function buildAgendaListEnvelope(
   result,
   { limit, detailed = false },
 ) {
-  const { agendas = [], total, after = null, sort = null } = result ?? {};
+  const {
+    agendas = [],
+    total,
+    totalRelation,
+    after = null,
+    sort = null,
+  } = result ?? {};
 
   const mapItem = detailed ? mapAgendaDetailed : mapAgendaSummary;
 
-  // Unlike core's event search (which returns after:null on the last page), the
-  // agenda search returns the last hit's search_after even at the end. So we
-  // can't trust a null sentinel: a short page (< limit) is the last page →
-  // emit after:null per the contract ("null when there are no more results").
-  // A full page that happens to be the last costs one extra empty request.
-  const isLastPage = agendas.length < limit;
-
   return {
     data: agendas.map(mapItem),
-    pagination: {
-      after: isLastPage || after == null ? null : encodeCursor({ after, sort }),
+    // Unlike core's event search, the agenda search returns the last hit's
+    // search_after even at the end — the short-page sentinel is the "no more
+    // results" signal (see pagination.js).
+    pagination: buildPagination({
+      after,
+      sort,
+      isLastPage: agendas.length < limit,
       limit,
-      ...total === undefined ? {} : { total },
-    },
+      total,
+      totalRelation,
+    }),
   };
 }

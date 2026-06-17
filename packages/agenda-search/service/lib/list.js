@@ -41,12 +41,18 @@ export default async (
     throw error;
   }
 
+  // ES does not exhaustively count past its `track_total_hits` limit: beyond
+  // it, `total.value` is a floor and `total.relation` is `gte`. Surface that as
+  // a neutral flag so the count is not mistaken for exact (`eq` -> exact).
+  const { value: total, relation } = result.body.hits.total;
+
   return {
     after: _.last(result.body.hits.hits)?.sort,
     sort: cleanNav.sort,
     agendas: result.body.hits.hits
       .map((hit) => hit._source)
       .map((agenda) => cleanIndexedAgenda(agenda, cleanOptions)),
-    total: result.body.hits.total.value,
+    total,
+    totalRelation: relation === 'gte' ? 'atLeast' : 'exact',
   };
 };

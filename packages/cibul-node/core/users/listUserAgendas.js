@@ -12,9 +12,16 @@ export default (core, identifier) =>
 
     const { detailed } = validateOptions(options);
 
-    const user = await users.findOne({
-      query: validateIdentifier(identifier, { pickOne: true }),
-    });
+    // An object identifier is the LOADED-user fast path (the API routes pass
+    // req.user; no point re-fetching it by uid) and is used as-is: no type
+    // validation, no existence check. Callers that only hold a uid must pass
+    // the scalar, which keeps the validateIdentifier + findOne path and its
+    // NotFound on unknown users.
+    const user = identifier instanceof Object && identifier.uid
+      ? identifier
+      : await users.findOne({
+        query: validateIdentifier(identifier, { pickOne: true }),
+      });
 
     if (!user) {
       throw new NotFound(

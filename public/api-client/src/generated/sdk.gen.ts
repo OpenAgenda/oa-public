@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { AgendasEventsFacetsData, AgendasEventsFacetsErrors, AgendasEventsFacetsResponses, AgendasEventsGetData, AgendasEventsGetErrors, AgendasEventsGetResponses, AgendasEventsListData, AgendasEventsListErrors, AgendasEventsListResponses, AgendasGetData, AgendasGetErrors, AgendasGetResponses, AgendasListData, AgendasListErrors, AgendasListResponses } from './types.gen';
+import type { AgendasEventsFacetsData, AgendasEventsFacetsErrors, AgendasEventsFacetsReportData, AgendasEventsFacetsReportErrors, AgendasEventsFacetsReportResponses, AgendasEventsFacetsResponses, AgendasEventsGetData, AgendasEventsGetErrors, AgendasEventsGetResponses, AgendasEventsListData, AgendasEventsListErrors, AgendasEventsListResponses, AgendasEventsSchemaData, AgendasEventsSchemaErrors, AgendasEventsSchemaResponses, AgendasGetData, AgendasGetErrors, AgendasGetResponses, AgendasListData, AgendasListErrors, AgendasListResponses, AgendasLocationsGetData, AgendasLocationsGetErrors, AgendasLocationsGetResponses, AgendasLocationsListData, AgendasLocationsListErrors, AgendasLocationsListResponses, MeAgendasListData, MeAgendasListErrors, MeAgendasListResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -79,9 +79,11 @@ export class Events extends HeyApiClient {
     }
     
     /**
-     * Faceted counts for an agenda's events
+     * Faceted counts for an agenda's events — native facets plus its `additionalFields`
      *
      * Returns event counts grouped by the requested facets, computed over the **same filtered set** as `agendas.events.list`. Pass the same filter parameters to scope the counts (e.g. `?keyword=concert` then facet on `cities`). No event data is returned — only `{ value, count }` buckets per facet.
+     *
+     * The native facets are not the whole story: the agenda's own fields (its categories, labels…) are faceted by `additionalFields` — request it too for an agenda-wide stats overview (`additionalFieldMetrics` covers its numeric fields). The fields themselves are declared by the agenda's event form schema (`GET /agendas/{agendaUid}/events/schema`).
      *
      * Only published events are counted. `facets` selects which facets to compute; an unknown facet name returns `400`. There is no pagination: facets describe the whole filtered set.
      *
@@ -98,6 +100,82 @@ export class Events extends HeyApiClient {
             ...options
         });
     }
+    
+    /**
+     * Named, repeatable facet aggregations for an agenda's events
+     *
+     * The analytical projection of the facets surface. Where the `GET` form computes one bucket list per facet name, this `POST` form takes a JSON body of **named, repeatable** aggregations: the same facet `type` may appear several times under distinct `name` aliases, so a field can be aggregated several ways in one request (e.g. `timings` by `month` AND by `year`). Filters live under `filters` (the same shape as the `agendas.events.list` query parameters) and scope every facet.
+     *
+     * Each facet item is either a bare facet name (the simple form, identical to the `GET` enum) or an object `{ name?, type, … }` carrying per-instance options (`size`, `sort`, `missing`, `zoom`, `interval`, `fields`). `facetSize`/`facetSort` at the top level set the request-wide defaults an item overrides. The response is keyed by alias, each entry tagged with its `type` so the value shape is unambiguous. Only published events are counted.
+     *
+     */
+    public facetsReport<ThrowOnError extends boolean = false>(options: Options<AgendasEventsFacetsReportData, ThrowOnError>) {
+        return (options.client ?? this.client).post<AgendasEventsFacetsReportResponses, AgendasEventsFacetsReportErrors, ThrowOnError>({
+            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            url: '/agendas/{agendaUid}/events/facets',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+    
+    /**
+     * Event form schema of an agenda
+     *
+     * Returns the agenda's **merged event form schema** — the dynamic contract the events of this agenda follow. It merges the platform's native event fields with the network's and the agenda's own declarations: an agenda can add its own additional fields and override natives (make one required, restrict its options, relabel it). This is the same schema the OpenAgenda UI uses to build the event form: use it to know which fields exist, which are required and what their options are — e.g. to build payloads for the (upcoming) event write operations, to interpret `additionalFields` on events, or to discover the agenda-specific facets of the facets endpoint.
+     *
+     * Descriptors are scoped to your read access: a field whose `read` access levels restrict it (e.g. a moderator-only field) is part of the organiser's internal structure, so its descriptor is omitted for callers that may not read it — a public caller sees only the public fields. This matches the facets endpoint and the per-field read access applied to event values.
+     *
+     * The descriptors follow the OpenAgenda form-schema vocabulary (`field`, `fieldType`, `label`, `options`, `optional`, …). The properties documented here are stable; descriptors may carry further engine-specific keys.
+     *
+     */
+    public schema<ThrowOnError extends boolean = false>(options: Options<AgendasEventsSchemaData, ThrowOnError>) {
+        return (options.client ?? this.client).get<AgendasEventsSchemaResponses, AgendasEventsSchemaErrors, ThrowOnError>({
+            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            url: '/agendas/{agendaUid}/events/schema',
+            ...options
+        });
+    }
+}
+
+export class Locations extends HeyApiClient {
+    /**
+     * List an agenda's locations
+     *
+     * Returns a cursor-paginated list of the agenda's locations, newest first (insertion order — this matches creation date except for records whose `createdAt` was backfilled, e.g. imports preserving source dates). Pass the `after` cursor returned in `pagination.after` to fetch the next page; resend the same filters (they are not encoded in the cursor).
+     *
+     * By default items are the lighter `LocationSummary`; pass `detailed=true` for the full `Location` (the same shape as the single-location get).
+     *
+     * When the agenda shares its locations through a location set, the whole set is listed — including locations contributed by the other agendas of the set (their `setUid` carries the set's uid).
+     *
+     * Malformed filter values return `400`.
+     *
+     */
+    public list<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsListData, ThrowOnError>) {
+        return (options.client ?? this.client).get<AgendasLocationsListResponses, AgendasLocationsListErrors, ThrowOnError>({
+            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            url: '/agendas/{agendaUid}/locations',
+            ...options
+        });
+    }
+    
+    /**
+     * Get a location
+     *
+     * Returns a single location of the agenda (or of its shared location set) in the full `Location` shape.
+     *
+     * A location that was merged into another one answers `404` with the machine-readable code `merged` and the surviving location's uid in `error.details.mergedIn` — use it to repair stale references. Any other deleted or unknown uid is a plain `404` with code `not_found`.
+     *
+     */
+    public get<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsGetData, ThrowOnError>) {
+        return (options.client ?? this.client).get<AgendasLocationsGetResponses, AgendasLocationsGetErrors, ThrowOnError>({
+            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            url: '/agendas/{agendaUid}/locations/{locationUid}',
+            ...options
+        });
+    }
 }
 
 export class Agendas extends HeyApiClient {
@@ -105,6 +183,8 @@ export class Agendas extends HeyApiClient {
      * List agendas
      *
      * Returns a cursor-paginated list of agendas. Pass the `after` cursor returned in `pagination.after` to fetch the next page; resend the same filters (they are not encoded in the cursor).
+     *
+     * When `search` is set, results are ranked by relevance by default; otherwise they are ordered by `createdAt.desc`. Override with `sort` (see the parameter for the allowed values).
      *
      * By default items are the lighter `AgendaSummary`; pass `detailed=true` for `AgendaDetailed` (adds `createdAt`, `network`, `locationSet` — the search-index detailed projection). The full canonical record (with `url`, `updatedAt`, `officializedAt`, `private`, `indexed`) is only available via the single-agenda `GET /agendas/{agendaUid}`.
      *
@@ -137,6 +217,38 @@ export class Agendas extends HeyApiClient {
     get events(): Events {
         return this._events ??= new Events({ client: this.client });
     }
+    
+    private _locations?: Locations;
+    get locations(): Locations {
+        return this._locations ??= new Locations({ client: this.client });
+    }
+}
+
+export class Agendas2 extends HeyApiClient {
+    /**
+     * List the agendas you are a member of
+     *
+     * Returns a cursor-paginated list of the agendas the authenticated user is a member of, with their role on each. Private agendas the user belongs to ARE included (each item carries a `private` flag).
+     *
+     * By default items carry the `AgendaSummary` base fields; pass `detailed=true` to add `createdAt`, `network` and `locationSet`.
+     *
+     * Requires a user identity: a secret key (`oa_sk_…`) or an OAuth access token granted the `me:read` scope. A publishable key (`oa_pk_…`) carries no identity and is answered `401`.
+     *
+     */
+    public list<ThrowOnError extends boolean = false>(options?: Options<MeAgendasListData, ThrowOnError>) {
+        return (options?.client ?? this.client).get<MeAgendasListResponses, MeAgendasListErrors, ThrowOnError>({
+            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            url: '/me/agendas',
+            ...options
+        });
+    }
+}
+
+export class Me extends HeyApiClient {
+    private _agendas?: Agendas2;
+    get agendas(): Agendas2 {
+        return this._agendas ??= new Agendas2({ client: this.client });
+    }
 }
 
 export class OpenAgenda extends HeyApiClient {
@@ -153,5 +265,10 @@ export class OpenAgenda extends HeyApiClient {
     private _agendas?: Agendas;
     get agendas(): Agendas {
         return this._agendas ??= new Agendas({ client: this.client });
+    }
+    
+    private _me?: Me;
+    get me(): Me {
+        return this._me ??= new Me({ client: this.client });
     }
 }

@@ -5,7 +5,7 @@ const log = logs('services/behavioralEmails/isInactiveContributor');
 export default async function checkIsInactiveContributor(services, userUid) {
   try {
     const { items: agendas } = await services.core
-      .users({ uid: userUid })
+      .users(userUid)
       .agendas.list({ size: 20 });
 
     const events = await services.events.list(

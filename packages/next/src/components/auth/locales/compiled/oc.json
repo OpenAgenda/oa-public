@@ -96,13 +96,13 @@
   "next.components.auth.Consent.scope.agendasRead": [
     {
       "type": 0,
-      "value": "Legir vòstres agendas"
+      "value": "Legir los agendas"
     }
   ],
   "next.components.auth.Consent.scope.agendasWrite": [
     {
       "type": 0,
-      "value": "Crear e modificar vòstres agendas"
+      "value": "Crear e modificar d'agendas"
     }
   ],
   "next.components.auth.Consent.scope.email": [
@@ -114,31 +114,37 @@
   "next.components.auth.Consent.scope.eventsRead": [
     {
       "type": 0,
-      "value": "Legir vòstres eveniments"
+      "value": "Legir los eveniments"
     }
   ],
   "next.components.auth.Consent.scope.eventsTransverse": [
     {
       "type": 0,
-      "value": "Accedir als eveniments de totes vòstres agendas"
+      "value": "Cercar d'eveniments sus l'ensemble dels agendas"
     }
   ],
   "next.components.auth.Consent.scope.eventsWrite": [
     {
       "type": 0,
-      "value": "Crear e modificar vòstres eveniments"
+      "value": "Crear e modificar d'eveniments"
     }
   ],
   "next.components.auth.Consent.scope.locationsRead": [
     {
       "type": 0,
-      "value": "Legir vòstres luòcs"
+      "value": "Legir los luòcs"
     }
   ],
   "next.components.auth.Consent.scope.locationsWrite": [
     {
       "type": 0,
-      "value": "Crear e modificar vòstres luòcs"
+      "value": "Crear e modificar de luòcs"
+    }
+  ],
+  "next.components.auth.Consent.scope.meRead": [
+    {
+      "type": 0,
+      "value": "Veire los agendas que ne sètz membre"
     }
   ],
   "next.components.auth.Consent.scope.membersRead": [

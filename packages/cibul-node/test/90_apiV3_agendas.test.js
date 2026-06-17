@@ -7,6 +7,7 @@ import addFormats from 'ajv-formats';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
 import instanciateApiV3 from '../api-v3/index.js';
+import { decodeCursor } from '../api-v3/lib/cursor.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 
@@ -117,6 +118,10 @@ describe('90 - api-v3 - functional (server): agendas read endpoints', () => {
       expect(Array.isArray(res.body.data)).toBe(true);
       expect(res.body.pagination).toHaveProperty('after');
       expect(res.body.pagination).toHaveProperty('limit');
+      // The total is qualified: the fixture set is well under the ES count cap,
+      // so it is exact (a >10000 result set would report `atLeast`).
+      expect(res.body.pagination.total).toBeGreaterThanOrEqual(2);
+      expect(res.body.pagination.totalRelation).toBe('exact');
       // Both fixture agendas (uid 1 & 2) are indexed and public.
       expect(res.body.data.length).toBeGreaterThanOrEqual(2);
       // …but the private agenda never surfaces (the reindex source skips
@@ -169,6 +174,64 @@ describe('90 - api-v3 - functional (server): agendas read endpoints', () => {
       expect(res.status).toBe(400);
       assertValid(validateError, res.body, 'Error');
       expect(res.body.error.code).toBe('bad_request');
+    });
+
+    describe('sort', () => {
+      // The sort that produced a page is pinned into the opaque cursor; decode
+      // it to assert the ordering applied — robust to the 2-agenda fixture set,
+      // which is too small to assert a relevance ranking by row order.
+      const cursorSort = (after) => decodeCursor(after)?.sort ?? null;
+
+      it('orders the browse list by createdAt.desc by default', async () => {
+        const res = await listQ('?limit=1');
+        expect(res.status).toBe(200);
+        expect(cursorSort(res.body.pagination.after)).toBe('createdAt.desc');
+      });
+
+      it('ranks ?search results by relevance (no createdAt sort pinned)', async () => {
+        // The bug: the list forced createdAt.desc unconditionally, burying text
+        // matches. Relevance leaves the sort unset (core ranks by _score), so
+        // the cursor carries no pinned sort.
+        const res = await listQ('?search=commune&limit=1');
+        expect(res.status).toBe(200);
+        expect(res.body.data.length).toBe(1);
+        expect(cursorSort(res.body.pagination.after)).toBeNull();
+      });
+
+      it('accepts an explicit ?sort=createdAt.desc even when searching', async () => {
+        const res = await listQ('?search=commune&sort=createdAt.desc&limit=1');
+        expect(res.status).toBe(200);
+        expect(cursorSort(res.body.pagination.after)).toBe('createdAt.desc');
+      });
+
+      it('accepts the opt-in ?sort=recentlyAddedEvents.desc', async () => {
+        const res = await listQ('?sort=recentlyAddedEvents.desc&limit=1');
+        expect(res.status).toBe(200);
+        expect(cursorSort(res.body.pagination.after)).toBe(
+          'recentlyAddedEvents.desc',
+        );
+      });
+
+      it('pins the cursor sort across a page sequence', async () => {
+        const first = await listQ('?sort=recentlyAddedEvents.desc&limit=1');
+        expect(first.status).toBe(200);
+        const next = await listQ(
+          `?limit=1&after=${encodeURIComponent(first.body.pagination.after)}`,
+        );
+        expect(next.status).toBe(200);
+        // The cursor's sort wins over the (absent) ?sort on the follow-up.
+        expect(cursorSort(next.body.pagination.after)).toBe(
+          'recentlyAddedEvents.desc',
+        );
+      });
+
+      it('rejects an out-of-allowlist ?sort with 400 + per-field details', async () => {
+        const res = await listQ('?sort=relevance');
+        expect(res.status).toBe(400);
+        assertValid(validateError, res.body, 'Error');
+        expect(res.body.error.code).toBe('bad_request');
+        expect(res.body.error.details.errors[0].field).toBe('sort');
+      });
     });
 
     describe('detailed view', () => {

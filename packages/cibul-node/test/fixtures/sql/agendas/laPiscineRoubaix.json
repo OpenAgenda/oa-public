@@ -11,7 +11,7 @@
   "uid": 79017343,
   "official": 1,
   "credentials": "{\"premiumCustomFields\":true,\"moderators\":true,\"tags\":false,\"aggregator\":false,\"invitationMessage\":false,\"docxExport\":false,\"eventOwnershipTransfer\":false}",
-  "settings": "{\"tracking\":{\"googleAnalytics\":null},\"lab\":{\"eventAdmin\":false},\"inbox\":{\"mailto\":{\"enabled\":false,\"email\":null,\"subject\":null,\"body\":null}},\"contribution\":{\"type\":2,\"defaultState\":0,\"canPublish\":[\"administrators\",\"moderators\"],\"moderateOnChangeBy\":[],\"defaultLang\":null,\"allowLocationCreate\":true,\"messages\":{\"instructions\":null,\"complete\":null,\"publication\":null},\"useFields\":false,\"authorizedIPAddresses\":[]},\"registration\":{\"passCulture\":{\"enabled\":true,\"apiKey\":\"test-api-key\",\"venueId\":548}}}",
+  "settings": "{\"tracking\":{\"googleAnalytics\":null},\"lab\":{\"eventAdmin\":false},\"inbox\":{\"mailto\":{\"enabled\":false,\"email\":null,\"subject\":null,\"body\":null}},\"contribution\":{\"type\":2,\"defaultState\":0,\"canPublish\":[\"administrators\",\"moderators\"],\"moderateOnChangeBy\":[],\"defaultLang\":null,\"allowLocationCreate\":true,\"messages\":{\"instructions\":null,\"complete\":null,\"publication\":null},\"useFields\":false,\"authorizedIPAddresses\":[]},\"registration\":{\"passCulture\":{\"siren\":[\"778742372\"],\"bookingEmail\":null,\"access\":[\"administrator\",\"moderator\",\"contributor\"],\"defaultVenueId\":548}}}",
   "private": 0,
   "officialized_at": "2018-05-28 08:40:31",
   "indexed": 1,

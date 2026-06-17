@@ -20,6 +20,7 @@
   "next.components.auth.Consent.scope.eventsWrite": "",
   "next.components.auth.Consent.scope.locationsRead": "",
   "next.components.auth.Consent.scope.locationsWrite": "",
+  "next.components.auth.Consent.scope.meRead": "",
   "next.components.auth.Consent.scope.membersRead": "",
   "next.components.auth.Consent.scope.membersWrite": "",
   "next.components.auth.Consent.scope.offlineAccess": "",

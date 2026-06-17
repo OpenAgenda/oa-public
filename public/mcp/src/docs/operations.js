@@ -32,11 +32,16 @@ import MiniSearch from 'minisearch';
  * @property {number} [max]
  * @property {string} description
  *
+ * @typedef {object} Field
+ * @property {string} name
+ * @property {string} type
+ * @property {string} description     The property's own description ('' when none).
+ *
  * @typedef {object} ResponseShape
  * @property {string|null} root        Schema name of the 200 body.
  * @property {'list'|'object'} kind
- * @property {{name:string,type:string}[]} [fields]   Top-level fields (object kind).
- * @property {{variants:string[], fields:{name:string,type:string}[]}} [item]  List item (list kind).
+ * @property {Field[]} [fields]        Top-level fields (object kind).
+ * @property {{variants:string[], fields:Field[]}} [item]  List item (list kind).
  * @property {boolean} pagination
  *
  * @typedef {object} Operation
@@ -49,6 +54,7 @@ import MiniSearch from 'minisearch';
  * @property {string[]} scopes      OAuth scopes the operation requires.
  * @property {Param[]} params
  * @property {ResponseShape|null} response
+ * @property {string[]} componentRefs  Component schemas the 200 body references (transitive, discovery order).
  * @property {string} example       A runnable `oa.…` snippet (curated or skeleton).
  * @property {string[]} keywords    Cheap relevance matching for search_docs.
  */
@@ -101,16 +107,16 @@ const oneLine = (text) =>
 
 // Render a JSON Schema as a short, human type string (no recursion into
 // sub-objects — `search_docs` describes the surface, `execute` runs the code).
+// A $ref keeps its component name everywhere — params and responses alike:
+// every name a card renders is defined in the Components section of the same
+// search_docs response, so the name is never opaque, and the same field reads
+// identically as a filter (`status (EventStatus[])`), as a response field
+// (`status (EventStatus)`) and as a validator (`schemas.zEventStatus`). Params
+// additionally inline their passable values on the param line, so writing a
+// call never requires the jump.
 function resolveType(schema) {
   if (!schema) return 'any';
   if (schema.$ref) {
-    const target = resolveRef(schema.$ref);
-    // A $ref to a bare enum reads as its primitive JSON type (`integer`,
-    // `string`) — what the caller actually passes — not the opaque component
-    // name. Object refs keep their name so the shape stays inspectable.
-    if (target && target.enum && target.type && target.type !== 'object') {
-      return resolveType(target);
-    }
     return refName(schema.$ref);
   }
   if (schema.oneOf) {
@@ -165,11 +171,64 @@ function deriveParams(op) {
   });
 }
 
+// Fields carry the property's OWN description only: a bare `$ref` property
+// reads as its component, whose semantics live in the Components section, not
+// repeated on every field that uses it.
 const topLevelFields = (schema) =>
   Object.entries(schema?.properties || {}).map(([name, s]) => ({
     name,
     type: resolveType(s),
+    description: oneLine(s.description),
   }));
+
+// Names of every component schema transitively referenced by `schema`, in
+// discovery order. Drives the Components section: each named type a rich card
+// surfaces — in its response shape OR its param types — gets defined once in
+// the same search_docs response, so no rendered name dangles. `seen` guards
+// against $ref cycles.
+function collectComponentRefs(schema, names = [], seen = new Set()) {
+  if (!schema || typeof schema !== 'object') return names;
+  if (schema.$ref) {
+    if (seen.has(schema.$ref)) return names;
+    seen.add(schema.$ref);
+    if (schema.$ref.startsWith('#/components/schemas/')) {
+      const name = refName(schema.$ref);
+      if (!names.includes(name)) names.push(name);
+    }
+    return collectComponentRefs(resolveRef(schema.$ref), names, seen);
+  }
+  for (const key of ['allOf', 'oneOf', 'anyOf']) {
+    for (const member of schema[key] || []) {
+      collectComponentRefs(member, names, seen);
+    }
+  }
+  collectComponentRefs(schema.items, names, seen);
+  for (const s of Object.values(schema.properties || {})) {
+    collectComponentRefs(s, names, seen);
+  }
+  if (typeof schema.additionalProperties === 'object') {
+    collectComponentRefs(schema.additionalProperties, names, seen);
+  }
+  return names;
+}
+
+// Every component an operation's card can name: its 200 body first (the shape
+// the LLM reads), then its param schemas (a $ref'd filter enum like
+// `status (EventStatus[])` needs its definition too). One shared `seen` so a
+// component referenced by both sides is collected once.
+function componentRefsFor(op) {
+  const names = [];
+  const seen = new Set();
+  collectComponentRefs(
+    op.responses?.['200']?.content?.['application/json']?.schema,
+    names,
+    seen,
+  );
+  for (const p of (op.parameters || []).map(deref)) {
+    collectComponentRefs(p.schema, names, seen);
+  }
+  return names;
+}
 
 // Resolve the 200 body into a shallow shape. List endpoints wrap their rows in
 // `data: array<oneOf[Summary, Detailed]>` + `pagination`; we surface the DEFAULT
@@ -187,11 +246,26 @@ function deriveResponse(op) {
   const props = schema?.properties || {};
   const { data } = props;
   if (data?.type === 'array' && Array.isArray(data.items?.oneOf)) {
-    const variants = data.items.oneOf.map((v) => resolveType(v));
+    // Normalize variants to [summary, detailed] regardless of contract order:
+    // the summary branch is the one with the smaller property set (detailed is
+    // a strict superset). The spec lists the DETAILED branch first (the
+    // generated zod client returns the first union match and strips unknown
+    // keys), while these docs lead with the default (summary) shape — so the
+    // order must be derived structurally, not positionally.
+    const branches = data.items.oneOf
+      .map((v) => ({ name: resolveType(v), schema: deref(v) }))
+      .sort(
+        (a, b) =>
+          Object.keys(a.schema?.properties ?? {}).length
+          - Object.keys(b.schema?.properties ?? {}).length,
+      );
     return {
       root,
       kind: 'list',
-      item: { variants, fields: topLevelFields(deref(data.items.oneOf[0])) },
+      item: {
+        variants: branches.map((b) => b.name),
+        fields: topLevelFields(branches[0].schema),
+      },
       pagination: !!props.pagination,
     };
   }
@@ -356,6 +430,7 @@ function deriveOperations() {
         scopes,
         params,
         response: deriveResponse(op),
+        componentRefs: componentRefsFor(op),
         example: exampleFor(op, op.operationId, params),
         keywords: [...new Set([...keywords, ...synonyms])],
       });
@@ -435,24 +510,31 @@ export function searchOperations(query) {
 // compacted. Keeps the payload bounded as the catalogue grows.
 const RICH_RANK_CUTOFF = 3;
 
+// `value = label` (not `value (label)`): the `=` keeps the raw value
+// unmistakable from its gloss — the LLM sends/reads `1`, never `"Scheduled"`.
+// A value missing from the labels map falls back to the bare value (still a
+// usable value), never a literal `?` gloss.
+function enumGloss(values, labels) {
+  if (!labels) {
+    // Bare values render raw (passed, upcoming) — except null, which Array
+    // joining would silently turn into an empty string.
+    return values.map((v) => (v === null ? 'null' : v)).join(', ');
+  }
+  return values
+    .map((v) => {
+      const label = labels[v] ?? labels[String(v)];
+      return label ? `${JSON.stringify(v)} = ${label}` : JSON.stringify(v);
+    })
+    .join(', ');
+}
+
 // Render a param verbatim: when an op is surfaced as a top hit, the LLM needs
 // its full semantics to call it correctly — depth-by-rank bounds the payload by
 // op COUNT (only the top few render rich), never by truncating a single op.
 function renderParamLine(p) {
   const meta = [];
   if (p.enum) {
-    const d = p.enumDescriptions;
-    // `value = label` (not `value (label)`): the `=` keeps the passable value
-    // unmistakable from its gloss, so the LLM sends `1`, never `"Scheduled"`.
-    const values = d
-      ? p.enum.map((v) => {
-        // A value missing from x-enum-descriptions falls back to the bare
-        // value (still a passable input), never a literal `?` gloss.
-        const label = d[v] ?? d[String(v)];
-        return label ? `${JSON.stringify(v)} = ${label}` : JSON.stringify(v);
-      })
-      : p.enum;
-    meta.push(`one of: ${values.join(', ')}`);
+    meta.push(`one of: ${enumGloss(p.enum, p.enumDescriptions)}`);
   }
   if (p.default !== undefined) meta.push(`default ${JSON.stringify(p.default)}`);
   if (p.min !== undefined || p.max !== undefined) {
@@ -462,6 +544,55 @@ function renderParamLine(p) {
     .filter(Boolean)
     .join(' ');
   return `- \`${p.name}\` (${p.type}${p.required ? ', required' : ''})${tail ? ` — ${tail}` : ''}`;
+}
+
+// A response field line: `- name (Type) — its own description`. The type names
+// are join keys: every component named here is defined in the Components
+// section of the same search_docs response (or is the inline root itself).
+const renderFieldLine = (f) =>
+  `- ${f.name} (${f.type})${f.description ? ` — ${f.description}` : ''}`;
+
+// One definition per named type the rich cards reference. Enum components get
+// their decode table — the response-side complement of the params' inline
+// `one of:` lists (an LLM reading `status: 6` off an `execute` result must be
+// able to decode it from the same search_docs payload). Object components get
+// their description and per-property typed lines — this is where component
+// property semantics (e.g. FormSchemaField.schemaId marking additional fields)
+// surface, without duplicating them into every operation's prose.
+export function renderComponentDef(name) {
+  const schema = spec.components?.schemas?.[name];
+  if (!schema) return '';
+  const description = oneLine(schema.description);
+  if (schema.enum) {
+    const gloss = `Values: ${enumGloss(schema.enum, schema['x-enum-descriptions'])}.`;
+    return `\`${name}\` (${schema.type}) — ${[description, gloss].filter(Boolean).join(' ')}`;
+  }
+  const props = Object.entries(schema.properties || {});
+  if (!props.length) {
+    const type = resolveType(schema);
+    return `\`${name}\` (${type})${description ? ` — ${description}` : ''}`;
+  }
+  const lines = props.map(([prop, s]) => {
+    const meta = [];
+    // An enum declared inline on the property has no named component to point
+    // to — decode it here. A $ref'd enum keeps its name; its table is its own
+    // definition in this section.
+    let inline;
+    if (s.enum) {
+      inline = s;
+    } else if (s.items?.enum) {
+      inline = s.items;
+    }
+    if (inline) {
+      meta.push(
+        `[one of: ${enumGloss(inline.enum, inline['x-enum-descriptions'])}]`,
+      );
+    }
+    const tail = [oneLine(s.description), ...meta].filter(Boolean).join(' ');
+    return `- ${prop} (${resolveType(s)})${tail ? ` — ${tail}` : ''}`;
+  });
+  const head = `\`${name}\`${description ? ` — ${description}` : ''}`;
+  return [head, ...lines].join('\n');
 }
 
 function renderResponse(response) {
@@ -474,14 +605,19 @@ function renderResponse(response) {
     const upgrade = detailed
       ? ` (+ \`${detailed}\` fields when \`detailed=true\`)`
       : '';
-    const fields = response.item.fields.map((f) => f.name).join(', ');
     const head = `Response: \`${root}\` → { data: \`${summary}\`[]${upgrade}, pagination }`;
-    return fields ? `${head}\n\`${summary}\` fields: ${fields}` : head;
+    // The summary item IS this operation's payload — same locality rule as
+    // object roots: its full definition renders here, and the Components
+    // section excludes it (it would be a duplicate).
+    const def = summary ? renderComponentDef(summary) : '';
+    return def ? `${head}\n${def}` : head;
   }
-  const fields = response.fields.map((f) => f.name).join(', ');
-  return fields
-    ? `Response: \`${root}\` → { ${fields} }`
-    : `Response: \`${root}\``;
+  // Object kind: the root component is rendered inline, field by field, typed
+  // and described — it IS this operation's payload, so it gets the locality;
+  // the components those fields reference are defined in the shared section.
+  if (!response.fields.length) return `Response: \`${root}\``;
+  const lines = response.fields.map(renderFieldLine);
+  return `Response: \`${root}\` →\n${lines.join('\n')}`;
 }
 
 // A param is "notable" (worth a full line in the rich block) when it carries
@@ -520,6 +656,26 @@ function renderRich(op) {
 
 const renderCompact = (op) => `### ${op.id} — ${op.summary}\n\`${op.call}\``;
 
+// The Components section: defines, once per search response, every named type
+// the rich cards reference — so no rendered type name dangles. Types already
+// rendered field-by-field on their card are excluded (they'd be duplicates):
+// object roots AND the list cards' summary item variants.
+// Render-only, never indexed: shared components must not leak relevance credit
+// between the operations that use them (same rule as the prose descriptions).
+function renderComponentsSection(hits) {
+  const rich = hits.slice(0, RICH_RANK_CUTOFF);
+  const inline = new Set(
+    rich.flatMap((op) => [op.response?.root, op.response?.item?.variants?.[0]]),
+  );
+  const defs = [...new Set(rich.flatMap((op) => op.componentRefs))]
+    .filter((name) => !inline.has(name))
+    .map(renderComponentDef)
+    .filter(Boolean);
+  return defs.length
+    ? `Components — the named types used above:\n\n${defs.join('\n\n')}`
+    : '';
+}
+
 /**
  * Render one operation, modulated by its rank: the top hits get the full block
  * (params, enums, response shape, example), the long tail a one-line entry.
@@ -535,12 +691,16 @@ const SCHEMAS_FOOTER = 'Validators: a `schemas` namespace of zod validators is a
   + `${SCHEMA_VALIDATORS.join(', ')}.`;
 
 /**
- * Render a full search_docs response: each hit by rank, plus the validators
- * footer. Single round-trip — everything the LLM needs to call `execute`.
+ * Render a full search_docs response: each hit by rank, the component
+ * definitions the rich hits reference, plus the validators footer. Single
+ * round-trip — everything the LLM needs to call `execute` AND to read what
+ * comes back (decode tables, field semantics).
  * @param {Operation[]} hits
  */
 export function renderSearch(hits) {
   if (!hits.length) return SCHEMAS_FOOTER;
   const body = hits.map((op, i) => renderOperation(op, i)).join('\n\n---\n\n');
-  return `${body}\n\n---\n\n${SCHEMAS_FOOTER}`;
+  return [body, renderComponentsSection(hits), SCHEMAS_FOOTER]
+    .filter(Boolean)
+    .join('\n\n---\n\n');
 }

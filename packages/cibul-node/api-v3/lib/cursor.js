@@ -46,3 +46,21 @@ export function decodeCursor(cursor) {
 
   return { after: parsed.after, sort: parsed.sort ?? null };
 }
+
+// The SQL-keyset lists (locations, /me/agendas) position on a single integer
+// row key. Gate the element type here so a forged-but-decodable cursor fails
+// as the contract 400 instead of reaching a service whose validators throw
+// non-Error shapes the error handler can't map.
+export function decodeIntCursor(cursor) {
+  const decoded = decodeCursor(cursor);
+
+  if (decoded == null) {
+    return null;
+  }
+
+  if (decoded.after.length !== 1 || !Number.isInteger(decoded.after[0])) {
+    throw new BadRequest('invalid "after" cursor');
+  }
+
+  return decoded.after[0];
+}

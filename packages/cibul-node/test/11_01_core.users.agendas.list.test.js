@@ -99,6 +99,14 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
         expect(Object.keys(items[0]).includes(field)).toBe(true);
       });
     });
+
+    it('a scalar identifier keeps the existence check (NotFound)', async () => {
+      // Object identifiers are the loaded-user fast path (no findOne); the
+      // scalar path still validates and 404s an unknown uid.
+      await expect(
+        core.users(999999999).agendas.list({ limit: 1 }),
+      ).rejects.toThrow('user not found');
+    });
   });
 
   describe('navigation', () => {

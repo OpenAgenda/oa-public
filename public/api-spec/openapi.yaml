@@ -70,18 +70,29 @@ servers:
 tags:
   - name: Agendas
     description: >
-      Agendas are the calendars that hold events. List and inspect them, then
-      drill into the events they publish.
+      Agendas hold and publish events. List and inspect them, then drill into
+      the events they publish.
   - name: Events
     description: Events published in an agenda.
+  - name: Locations
+    description: >
+      Where events happen. Each agenda has its own pool of locations —
+      or shares one with other agendas through a location set.
+  - name: Me
+    description: >
+      The authenticated caller: the agendas they are a member of and their
+      role on each. Requires a user identity — a secret key or an OAuth
+      token; a publishable (`oa_pk_…`) key carries no identity and is denied.
 
 # Groups the resource tags under a "Resources" heading in the Scalar sidebar.
-# Forward-compatible with the upcoming locations/members surfaces (see scopes).
+# Forward-compatible with the upcoming members surface (see scopes).
 x-tagGroups:
   - name: Resources
     tags:
       - Agendas
       - Events
+      - Locations
+      - Me
 
 # Authenticate every request with either an API key or an OAuth2 token,
 # both carried as `Authorization: Bearer <token>`.
@@ -96,7 +107,7 @@ paths:
       operationId: agendas.list
       tags: [Agendas]
       summary: List agendas
-      x-synonyms: [directory, catalogue, catalog, browse, find, all]
+      x-synonyms: [calendars, directory, catalogue, catalog, browse, find, all]
       x-codeSamples:
         - lang: TypeScript
           label: List official agendas
@@ -110,6 +121,11 @@ paths:
         Returns a cursor-paginated list of agendas. Pass the `after` cursor
         returned in `pagination.after` to fetch the next page; resend the same
         filters (they are not encoded in the cursor).
+
+
+        When `search` is set, results are ranked by relevance by default;
+        otherwise they are ordered by `createdAt.desc`. Override with `sort`
+        (see the parameter for the allowed values).
 
 
         By default items are the lighter `AgendaSummary`; pass `detailed=true`
@@ -129,6 +145,7 @@ paths:
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/Detailed'
         - $ref: '#/components/parameters/AgendaSearch'
+        - $ref: '#/components/parameters/AgendaSort'
         - $ref: '#/components/parameters/AgendaFilterUid'
         - $ref: '#/components/parameters/AgendaFilterSlug'
         - $ref: '#/components/parameters/AgendaFilterOfficial'
@@ -151,7 +168,8 @@ paths:
       operationId: agendas.get
       tags: [Agendas]
       summary: Get one agenda
-      x-synonyms: [detail, single, one, by id, uid, fetch, retrieve, lookup]
+      x-synonyms:
+        [calendar, detail, single, one, by id, uid, fetch, retrieve, lookup]
       x-codeSamples:
         - lang: TypeScript
           label: Get one agenda by uid
@@ -325,7 +343,8 @@ paths:
     get:
       operationId: agendas.events.facets
       tags: [Events]
-      summary: Faceted counts for an agenda's events
+      summary: Faceted counts for an agenda's events — native facets plus its
+        `additionalFields`
       x-synonyms:
         [
           aggregate,
@@ -341,6 +360,17 @@ paths:
           top,
         ]
       x-codeSamples:
+        - lang: TypeScript
+          label: Stats overview of an agenda
+          source: |
+            const { data, error } = await oa.agendas.events.facets({
+              path: { agendaUid: 12345 },
+              query: {
+                facets: ['cities', 'keywords', 'timespan', 'additionalFields', 'additionalFieldMetrics'],
+              },
+            });
+            if (error) throw error;
+            return data.facets;
         - lang: TypeScript
           label: How many concert events per city
           source: |
@@ -358,6 +388,14 @@ paths:
         per facet.
 
 
+        The native facets are not the whole story: the agenda's own fields
+        (its categories, labels…) are faceted by `additionalFields` — request
+        it too for an agenda-wide stats overview (`additionalFieldMetrics`
+        covers its numeric fields). The fields themselves are declared by the
+        agenda's event form schema
+        (`GET /agendas/{agendaUid}/events/schema`).
+
+
         Only published events are counted. `facets` selects which facets to
         compute; an unknown facet name returns `400`. There is no pagination:
         facets describe the whole filtered set.
@@ -368,6 +406,11 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AgendaUid'
         - $ref: '#/components/parameters/Facets'
+        - $ref: '#/components/parameters/FacetSize'
+        - $ref: '#/components/parameters/FacetSizes'
+        - $ref: '#/components/parameters/FacetSort'
+        - $ref: '#/components/parameters/FacetSorts'
+        - $ref: '#/components/parameters/FacetMissing'
         - $ref: '#/components/parameters/GeohashZoom'
         - $ref: '#/components/parameters/TimingsInterval'
         - $ref: '#/components/parameters/Month'
@@ -422,6 +465,323 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
+    post:
+      operationId: agendas.events.facetsReport
+      tags: [Events]
+      summary: Named, repeatable facet aggregations for an agenda's events
+      x-synonyms:
+        [aggregate, stats, statistics, dashboard, report, group by, breakdown]
+      description: >
+        The analytical projection of the facets surface. Where the `GET` form
+        computes one bucket list per facet name, this `POST` form takes a JSON
+        body of **named, repeatable** aggregations: the same facet `type` may
+        appear several times under distinct `name` aliases, so a field can be
+        aggregated several ways in one request (e.g. `timings` by `month` AND by
+        `year`). Filters live under `filters` (the same shape as the
+        `agendas.events.list` query parameters) and scope every facet.
+
+
+        Each facet item is either a bare facet name (the simple form, identical
+        to the `GET` enum) or an object `{ name?, type, … }` carrying
+        per-instance options (`size`, `sort`, `missing`, `zoom`, `interval`,
+        `fields`). `facetSize`/`facetSort` at the top level set the request-wide
+        defaults an item overrides. The response is keyed by alias, each entry
+        tagged with its `type` so the value shape is unambiguous. Only published
+        events are counted.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - events:read
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FacetReportRequest'
+      responses:
+        '200':
+          description: Named facet results over the filtered set.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FacetReport'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /agendas/{agendaUid}/events/schema:
+    get:
+      operationId: agendas.events.schema
+      tags: [Events]
+      summary: Event form schema of an agenda
+      x-synonyms:
+        [
+          form,
+          fields,
+          additional fields,
+          custom fields,
+          required,
+          validate,
+          structure,
+          topology,
+          definition,
+        ]
+      x-codeSamples:
+        - lang: TypeScript
+          label: List the agenda's additional event fields
+          source: |
+            const { data, error } = await oa.agendas.events.schema({
+              path: { agendaUid: 12345 },
+            });
+            if (error) throw error;
+            return data.fields
+              .filter((f) => f.schemaId != null)
+              .map((f) => ({ name: f.field, type: f.fieldType }));
+      description: >
+        Returns the agenda's **merged event form schema** — the dynamic
+        contract the events of this agenda follow. It merges the platform's
+        native event fields with the network's and the agenda's own
+        declarations: an agenda can add its own additional fields and override
+        natives (make one required, restrict its options, relabel it). This is
+        the same schema the OpenAgenda UI uses to build the event form: use it
+        to know which fields exist, which are required and what
+        their options are — e.g. to build payloads for the (upcoming) event
+        write operations, to interpret `additionalFields` on events, or to
+        discover the agenda-specific facets of the facets endpoint.
+
+
+        Descriptors are scoped to your read access: a field whose `read` access
+        levels restrict it (e.g. a moderator-only field) is part of the
+        organiser's internal structure, so its descriptor is omitted for callers
+        that may not read it — a public caller sees only the public fields. This
+        matches the facets endpoint and the per-field read access applied to
+        event values.
+
+
+        The descriptors follow the OpenAgenda form-schema vocabulary
+        (`field`, `fieldType`, `label`, `options`, `optional`, …). The
+        properties documented here are stable; descriptors may carry further
+        engine-specific keys.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - events:read
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+      responses:
+        '200':
+          description: The merged event form schema.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventFormSchema'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /me/agendas:
+    get:
+      operationId: me.agendas.list
+      tags: [Me]
+      summary: List the agendas you are a member of
+      x-synonyms:
+        [
+          my agendas,
+          memberships,
+          my role,
+          mine,
+          which agendas,
+          can I,
+          permissions,
+        ]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Which agendas can I write to?
+          source: |
+            const { data, error } = await oa.me.agendas.list({});
+            if (error) throw error;
+            return data.data
+              .filter((a) => a.role !== 'reader')
+              .map((a) => ({ uid: a.uid, title: a.title, role: a.role }));
+      description: >
+        Returns a cursor-paginated list of the agendas the authenticated user
+        is a member of, with their role on each. Private agendas the user
+        belongs to ARE included (each item carries a `private` flag).
+
+
+        By default items carry the `AgendaSummary` base fields; pass
+        `detailed=true` to add `createdAt`, `network` and `locationSet`.
+
+
+        Requires a user identity: a secret key (`oa_sk_…`) or an OAuth access
+        token granted the `me:read` scope. A publishable key (`oa_pk_…`)
+        carries no identity and is answered `401`.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - me:read
+      parameters:
+        - $ref: '#/components/parameters/AfterCursor'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Detailed'
+      responses:
+        '200':
+          description: A page of the caller's agenda memberships.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeAgendaList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /agendas/{agendaUid}/locations:
+    get:
+      operationId: agendas.locations.list
+      tags: [Locations]
+      summary: List an agenda's locations
+      x-synonyms: [venues, places, addresses, map, where, browse, all]
+      x-codeSamples:
+        - lang: TypeScript
+          label: List the most recent locations
+          source: |
+            const { data, error } = await oa.agendas.locations.list({
+              path: { agendaUid: 12345 },
+              query: { limit: 20 },
+            });
+            if (error) throw error;
+            return data.data.map((l) => ({ uid: l.uid, name: l.name }));
+      description: >
+        Returns a cursor-paginated list of the agenda's locations, newest
+        first (insertion order — this matches creation date except for
+        records whose `createdAt` was backfilled, e.g. imports preserving
+        source dates). Pass the `after` cursor returned in `pagination.after`
+        to fetch the next page; resend the same filters (they are not encoded
+        in the cursor).
+
+
+        By default items are the lighter `LocationSummary`; pass
+        `detailed=true` for the full `Location` (the same shape as the
+        single-location get).
+
+
+        When the agenda shares its locations through a location set, the whole
+        set is listed — including locations contributed by the other agendas
+        of the set (their `setUid` carries the set's uid).
+
+
+        Malformed filter values return `400`.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - locations:read
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+        - $ref: '#/components/parameters/AfterCursor'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Detailed'
+        - $ref: '#/components/parameters/LocationSearch'
+        - $ref: '#/components/parameters/LocationFilterUid'
+        - $ref: '#/components/parameters/LocationFilterExtId'
+        - $ref: '#/components/parameters/LocationBoundingBox'
+        - $ref: '#/components/parameters/FilterCreatedAt'
+        - $ref: '#/components/parameters/FilterUpdatedAt'
+      responses:
+        '200':
+          description: A page of locations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /agendas/{agendaUid}/locations/{locationUid}:
+    get:
+      operationId: agendas.locations.get
+      tags: [Locations]
+      summary: Get a location
+      x-synonyms: [venue, place, address, detail]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Fetch one location
+          source: |
+            const { data, error } = await oa.agendas.locations.get({
+              path: { agendaUid: 12345, locationUid: 67890 },
+            });
+            if (error) throw error;
+            return data;
+      description: >
+        Returns a single location of the agenda (or of its shared location
+        set) in the full `Location` shape.
+
+
+        A location that was merged into another one answers `404` with the
+        machine-readable code `merged` and the surviving location's uid in
+        `error.details.mergedIn` — use it to repair stale references. Any
+        other deleted or unknown uid is a plain `404` with code `not_found`.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - locations:read
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+        - $ref: '#/components/parameters/LocationUid'
+      responses:
+        '200':
+          description: The location.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          description: >
+            Agenda or location not found — or location merged into another
+            one (`code: merged`, surviving uid in `details.mergedIn`).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                merged:
+                  summary: Location merged into another one
+                  value:
+                    error:
+                      code: merged
+                      message: location merged into another location
+                      details:
+                        mergedIn: 11111111
+                notFound:
+                  summary: Unknown location
+                  value:
+                    error:
+                      code: not_found
+                      message: location not found
 
 components:
   securitySchemes:
@@ -448,6 +808,8 @@ components:
           tokenUrl: https://openagenda.com/api/auth/oauth2/token
           refreshUrl: https://openagenda.com/api/auth/oauth2/token
           scopes:
+            me:read: >-
+              List the caller's agenda memberships and their role on each.
             agendas:read: Read agendas
             agendas:write: Create and modify agendas
             events:read: Read events
@@ -516,6 +878,21 @@ components:
       schema:
         type: string
 
+    AgendaSort:
+      name: sort
+      in: query
+      required: false
+      description: >
+        Sort order. When omitted, results are ranked by relevance if `search`
+        is set, otherwise by `createdAt` descending. Set
+        `recentlyAddedEvents.desc` to surface the agendas with the most recent
+        activity first.
+      schema:
+        type: string
+        enum:
+          - createdAt.desc
+          - recentlyAddedEvents.desc
+
     AgendaFilterUid:
       name: uid
       in: query
@@ -547,6 +924,71 @@ components:
       schema:
         type: boolean
 
+    LocationUid:
+      name: locationUid
+      in: path
+      required: true
+      description: Numeric uid of the location.
+      schema:
+        type: integer
+        format: int64
+
+    LocationSearch:
+      name: search
+      in: query
+      required: false
+      description: >
+        Free-text search over the locations' name, address, city, region and
+        department.
+      schema:
+        type: string
+
+    LocationFilterUid:
+      name: uid
+      in: query
+      required: false
+      description: >
+        Restrict to the given location uid(s). Repeat the parameter
+        (`uid=123&uid=456`) for multiple values.
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: integer
+          format: int64
+
+    LocationFilterExtId:
+      name: extId
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: >
+        Match a location by an external identifier:
+        `extId[key]=<system>&extId[value]=<id>`. Both parts are required.
+      schema:
+        type: object
+        additionalProperties: false
+        required: [key, value]
+        properties:
+          key:
+            type: string
+          value:
+            type: string
+
+    LocationBoundingBox:
+      name: bbox
+      in: query
+      required: false
+      description: >
+        Restrict to locations within a bounding box, given as
+        `west,south,east,north` in decimal degrees (WGS84). Example:
+        `bbox=2.224,48.815,2.469,48.902`.
+      schema:
+        type: string
+        pattern: '^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$'
+
     Facets:
       name: facets
       in: query
@@ -556,7 +998,9 @@ components:
         buckets over the filtered events, ordered by the facet's default
         ordering. Unknown facet names return `400`. Shapes by family: term facets
         yield `{ value, count }`; provenance (`originAgendas`, `sourceAgendas`)
-        yields `{ agenda, count }`; `geohash` yields geo cluster buckets
+        yields `{ agenda, count }`; `locations` yields
+        `{ location: { uid, name }, count }` buckets (the uid feeds the
+        `locationUid` filter); `geohash` yields geo cluster buckets
         (`{ value, count, latitude, longitude }`); `viewport` yields a single
         bounding box object (or `null`); `timespan` yields the earliest/latest
         event date as `{ first, last }` (or `null`); `timings` yields a date
@@ -570,6 +1014,15 @@ components:
         `additionalFieldMetrics` yields, per agenda numeric field, summary stats
         as `{ <field>: { label, metrics:{ sum, avg, max, min } } }` (fields named
         by `additionalFieldMetricsKeys`). Both honor per-field read access.
+
+        Bucket-list facets (the term, provenance and `locations` families)
+        return the **top buckets by event count**, capped by `facetSize`
+        (default 10, max 250) and overridable per facet with
+        `facetSizes[<facet>]`; `facetSort` reorders them (`count` or `alpha`).
+        There is no bucket pagination — past the cap, narrow the filter instead. `additionalFields` is exhaustive (one bucket
+        per option). The
+        fields, their option ids and their labels are the ones the agenda's
+        event form schema declares (`GET /agendas/{agendaUid}/events/schema`).
       style: form
       explode: false
       schema:
@@ -578,6 +1031,8 @@ components:
         items:
           type: string
           enum:
+            - additionalFields
+            - additionalFieldMetrics
             - cities
             - regions
             - departments
@@ -590,13 +1045,102 @@ components:
             - attendanceModes
             - originAgendas
             - sourceAgendas
+            - locations
             - geohash
             - viewport
             - timespan
             - timings
             - dateRanges
-            - additionalFields
-            - additionalFieldMetrics
+
+    FacetSize:
+      name: facetSize
+      in: query
+      required: false
+      description: >
+        Default maximum number of buckets for the bucket-list facets (the term,
+        provenance and `locations` families), ordered by event count. Override
+        a single facet with `facetSizes[<facet>]`. Out-of-range values are
+        clamped; the other families (geohash, viewport, timespan, timings,
+        dateRanges, `additionalFields`/`additionalFieldMetrics`) have their own
+        bounded shapes and ignore it.
+      schema:
+        type: integer
+        default: 10
+        minimum: 1
+        maximum: 250
+
+    FacetSizes:
+      name: facetSizes
+      in: query
+      required: false
+      description: >
+        Per-facet override of `facetSize`, keyed by facet name
+        (`facetSizes[cities]=50`). Precedence: per-facet override > `facetSize`
+        > default (10). Only applies to bucket-list facets; values are clamped
+        to [1, 250].
+      style: deepObject
+      explode: true
+      schema:
+        type: object
+        additionalProperties:
+          type: integer
+          minimum: 1
+          maximum: 250
+
+    FacetSort:
+      name: facetSort
+      in: query
+      required: false
+      description: >
+        Default ordering of the bucket-list facets. `count` (default) returns
+        the most frequent buckets first; `alpha` returns the same top-`facetSize`
+        buckets but ordered alphabetically by their display value (city/keyword
+        name, location name, agenda title) for readable scanning. Override a
+        single facet with `facetSorts[<facet>]`.
+      schema:
+        type: string
+        default: count
+        enum:
+          - count
+          - alpha
+
+    FacetSorts:
+      name: facetSorts
+      in: query
+      required: false
+      description: >
+        Per-facet override of `facetSort`, keyed by facet name
+        (`facetSorts[cities]=alpha`). Precedence: per-facet override >
+        `facetSort` > default (`count`).
+      style: deepObject
+      explode: true
+      schema:
+        type: object
+        additionalProperties:
+          type: string
+          enum:
+            - count
+            - alpha
+
+    FacetMissing:
+      name: facetMissing
+      in: query
+      required: false
+      description: >
+        Per-facet label for a synthetic bucket counting the filtered events that
+        have **no value** for the facet's field (`facetMissing[district]=Unknown`
+        adds an `{ value: "Unknown", count }` bucket). Honoured by the
+        value-keyed term facets (cities, regions, departments, districts,
+        countryCodes, keywords, languages, status, attendanceModes); ignored for
+        the others (the provenance and `locations` families key on an encoded
+        ref, so they carry no missing bucket). The bucket appears only when such
+        events exist.
+      style: deepObject
+      explode: true
+      schema:
+        type: object
+        additionalProperties:
+          type: string
 
     GeohashZoom:
       name: geohashZoom
@@ -647,9 +1191,11 @@ components:
       required: false
       description: >
         Comma-separated agenda choice/boolean field names to compute the
-        `additionalFields` facet on. Omit to get every such field readable at the
-        caller's access level. An unknown or non-readable field name returns
-        `400`. Ignored unless `additionalFields` is requested.
+        `additionalFields` facet on — the names the agenda's event form schema
+        declares (`GET /agendas/{agendaUid}/events/schema`). Omit to get every
+        such field readable at the caller's access level. An unknown or
+        non-readable field name returns `400`. Ignored unless `additionalFields`
+        is requested.
       style: form
       explode: false
       schema:
@@ -663,9 +1209,11 @@ components:
       required: false
       description: >
         Comma-separated agenda numeric field names to compute the
-        `additionalFieldMetrics` facet on. Omit to get every numeric field
-        readable at the caller's access level. An unknown or non-readable field
-        name returns `400`. Ignored unless `additionalFieldMetrics` is requested.
+        `additionalFieldMetrics` facet on — the names the agenda's event form
+        schema declares (`GET /agendas/{agendaUid}/events/schema`). Omit to get
+        every numeric field readable at the caller's access level. An unknown or
+        non-readable field name returns `400`. Ignored unless
+        `additionalFieldMetrics` is requested.
       style: form
       explode: false
       schema:
@@ -701,8 +1249,8 @@ components:
           lastTimingWithFeatured.asc: By last occurrence, featured events first
           updatedAt.asc: Least recently updated first
           updatedAt.desc: Most recently updated first
-          location.name.asc: By venue name, A→Z
-          location.name.desc: By venue name, Z→A
+          location.name.asc: By location name, A→Z
+          location.name.desc: By location name, Z→A
           location.city.asc: By city, A→Z
           location.city.desc: By city, Z→A
           score: By search relevance (only meaningful with `search`)
@@ -1041,7 +1589,8 @@ components:
       description: >
         Restrict to events having a timing that begins within the range, as
         RFC 3339 date-times: `timings[gte]=…&timings[lte]=…`. For now-relative
-        windows, prefer `relative`.
+        windows, prefer `relative`. Date-times must carry an explicit offset
+        (e.g. `Z`); a bare date (`YYYY-MM-DD`) is read as UTC midnight.
       schema:
         type: object
         additionalProperties: false
@@ -1084,7 +1633,9 @@ components:
       explode: true
       description: >
         Restrict by creation date, as RFC 3339 date-times:
-        `createdAt[gte]=…&createdAt[lte]=…`.
+        `createdAt[gte]=…&createdAt[lte]=…`. Date-times must carry an
+        explicit offset (e.g. `Z`); a bare date (`YYYY-MM-DD`) is read as
+        UTC midnight.
       schema:
         type: object
         additionalProperties: false
@@ -1105,6 +1656,8 @@ components:
       description: >
         Restrict by last-update date, as RFC 3339 date-times:
         `updatedAt[gte]=…&updatedAt[lte]=…`. Useful for incremental sync.
+        Date-times must carry an explicit offset (e.g. `Z`); a bare date
+        (`YYYY-MM-DD`) is read as UTC midnight.
       schema:
         type: object
         additionalProperties: false
@@ -1145,8 +1698,8 @@ components:
       description: >
         Filter on agenda-specific additional fields, addressed by field name:
         `additionalFields[<fieldName>]=<value>`. Available fields and their value
-        types come from the agenda's event schema
-        (GET /agendas/{agendaUid}/settings/eventSchema). For numeric fields, use
+        types come from the agenda's event form schema
+        (`GET /agendas/{agendaUid}/events/schema`). For numeric fields, use
         a range object:
         `additionalFields[<fieldName>][gte]=…&additionalFields[<fieldName>][lte]=…`.
       schema:
@@ -1157,8 +1710,9 @@ components:
   responses:
     BadRequest:
       description: >
-        Malformed request — an invalid `after` cursor, or an unknown/malformed
-        filter value. Per-field context is provided under `error.details`.
+        Malformed request — an invalid `after` cursor, a malformed path
+        identifier, or an unknown/malformed filter value. Per-field context is
+        provided under `error.details`.
       content:
         application/json:
           schema:
@@ -1239,6 +1793,7 @@ components:
         after: eyJ1aWQiOjIzNDU2fQ
         limit: 20
         total: 342
+        totalRelation: exact
       properties:
         after:
           type: [string, 'null']
@@ -1253,6 +1808,14 @@ components:
           description: >
             Total number of matching records. May be omitted when counting is
             too expensive.
+        totalRelation:
+          type: string
+          enum: [exact, atLeast]
+          description: >
+            Whether `total` is the exact count (`exact`) or a lower bound
+            (`atLeast`). Very large result sets are counted only up to a limit;
+            past it `total` is the floor, not the precise number. Present
+            whenever `total` is.
 
     LocalizedString:
       type: object
@@ -1314,8 +1877,13 @@ components:
                   height:
                     type: [integer, 'null']
 
-    Location:
+    EventLocation:
       type: object
+      description: >
+        The denormalized location snapshot an event carries — a nullable
+        subset captured at indexing time. The canonical, full record is the
+        `Location` resource (`GET /agendas/{agendaUid}/locations/{locationUid}`,
+        same `uid`).
       additionalProperties: false
       properties:
         uid:
@@ -1357,6 +1925,527 @@ components:
         timezone:
           type: [string, 'null']
           description: IANA time zone of the location.
+
+    LocationSummary:
+      type: object
+      description: >
+        Compact location representation returned by the list endpoint
+        (`detailed: false`) — identity, coordinates and verification status
+        only; fetch with `detailed=true` or the single-location get for the
+        full record.
+
+
+        Empty-as-empty rule: every field is always present; singular optional
+        values are present as `null` when absent.
+      additionalProperties: false
+      example:
+        uid: 67890
+        name: Château des Lèbres
+        address: Naves, 07140 Les Vans
+        latitude: 44.388303
+        longitude: 4.105528
+        verified: true
+      required:
+        - uid
+        - name
+        - address
+        - latitude
+        - longitude
+        - verified
+      properties:
+        uid:
+          type: integer
+          format: int64
+          readOnly: true
+        name:
+          type: string
+        address:
+          type: [string, 'null']
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        verified:
+          type: boolean
+          description: Whether the location was verified by an agenda moderator.
+
+    Location:
+      type: object
+      description: >
+        Full location representation returned by the single-get endpoint and
+        by the list when `detailed=true` — the canonical record (the events'
+        embedded `EventLocation` is a nullable snapshot of it).
+
+
+        Empty-as-empty rule: every field is always present. Collections are
+        never null/omitted (arrays → `[]`, localized maps → `{}`); singular
+        optional values are present as `null` when absent.
+      additionalProperties: false
+      example:
+        uid: 67890
+        slug: chateau-des-lebres_4421007
+        setUid: null
+        name: Château des Lèbres
+        address: Naves, 07140 Les Vans
+        city: Les Vans
+        district: null
+        region: Auvergne-Rhône-Alpes
+        department: Ardèche
+        adminLevel3: null
+        adminLevel5: null
+        postalCode: '07140'
+        insee: '07334'
+        countryCode: FR
+        latitude: 44.388303
+        longitude: 4.105528
+        timezone: Europe/Paris
+        description:
+          fr: Ancienne maison forte des comtes du Roure.
+        access: {}
+        image: https://cdn.openagenda.com/main/locations/67890.jpg
+        imageCredits: null
+        website: http://www.domainedeslebres.com/
+        email: null
+        phone: '0475363414'
+        links:
+          - https://fr-fr.facebook.com/domainedeslebres/
+        extIds:
+          - key: legacy
+            value: '4421007'
+        additionalFields:
+          tags:
+            - id: 2
+              label: Château, hôtel urbain, palais, manoir
+        siret: null
+        verified: true
+        createdAt: '2017-10-30T14:21:07.000Z'
+        updatedAt: '2019-04-29T15:40:33.000Z'
+      required:
+        - uid
+        - slug
+        - setUid
+        - name
+        - address
+        - city
+        - district
+        - region
+        - department
+        - adminLevel3
+        - adminLevel5
+        - postalCode
+        - insee
+        - countryCode
+        - latitude
+        - longitude
+        - timezone
+        - description
+        - access
+        - image
+        - imageCredits
+        - website
+        - email
+        - phone
+        - links
+        - extIds
+        - additionalFields
+        - siret
+        - verified
+        - createdAt
+        - updatedAt
+      properties:
+        uid:
+          type: integer
+          format: int64
+          readOnly: true
+        slug:
+          type: string
+          readOnly: true
+        setUid:
+          type: [integer, 'null']
+          format: int64
+          readOnly: true
+          description: >
+            Uid of the shared location set this location belongs to, or `null`
+            when it belongs to a single agenda's own pool.
+        name:
+          type: string
+        address:
+          type: [string, 'null']
+        city:
+          type: [string, 'null']
+        district:
+          type: [string, 'null']
+        region:
+          type: [string, 'null']
+        department:
+          type: [string, 'null']
+        adminLevel3:
+          type: [string, 'null']
+        adminLevel5:
+          type: [string, 'null']
+        postalCode:
+          type: [string, 'null']
+        insee:
+          type: [string, 'null']
+          description: INSEE code of the French municipality, when known.
+        countryCode:
+          type: [string, 'null']
+          description: ISO 3166-1 alpha-2 country code.
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        timezone:
+          type: [string, 'null']
+          description: IANA time zone of the location.
+        description:
+          $ref: '#/components/schemas/LocalizedString'
+        access:
+          allOf:
+            - $ref: '#/components/schemas/LocalizedString'
+          description: >
+            Localized practical information on how to reach the location.
+        image:
+          type: [string, 'null']
+          description: Absolute URL of the location's image.
+        imageCredits:
+          type: [string, 'null']
+        website:
+          type: [string, 'null']
+        email:
+          type: [string, 'null']
+        phone:
+          type: [string, 'null']
+        links:
+          type: array
+          items:
+            type: string
+        extIds:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationExtId'
+        additionalFields:
+          $ref: '#/components/schemas/LocationAdditionalFields'
+        siret:
+          type: [string, 'null']
+          description: >-
+            SIRET number (French establishment id) of the location's
+            operator, when provided.
+        verified:
+          type: boolean
+          description: Whether the location was verified by an agenda moderator.
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+
+    LocationExtId:
+      type: object
+      description: >
+        An external identifier mapping this location to a third-party system.
+      additionalProperties: false
+      properties:
+        key:
+          type: string
+        value:
+          type: [string, 'null']
+
+    LocationAdditionalFields:
+      type: object
+      description: >
+        Agenda-specific additional fields of the location. Today this carries
+        a single `tags` key — the location's tags filtered against the tag set
+        declared in the agenda's schema. As the platform converges legacy tags
+        into real additional fields, agenda-defined keys will appear here
+        (non-breaking).
+      properties:
+        tags:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              id:
+                type: integer
+              label:
+                description: >
+                  Display label of the tag — a plain string or a localized
+                  map, as stored.
+                oneOf:
+                  - type: string
+                  - $ref: '#/components/schemas/LocalizedString'
+      additionalProperties:
+        x-additionalPropertiesName: fieldName
+
+    LocationList:
+      type: object
+      required: [data, pagination]
+      additionalProperties: false
+      properties:
+        data:
+          type: array
+          description: >
+            `LocationSummary` items by default, or full `Location` items when
+            `detailed=true`.
+          items:
+            # Detailed branch FIRST: order is irrelevant to JSON Schema (the
+            # branches are mutually exclusive) but the generated zod client
+            # returns the first match and strips unknown keys — summary-first
+            # would silently strip the detailed-only fields. Same rule on every
+            # summary/detailed pair.
+            oneOf:
+              - $ref: '#/components/schemas/Location'
+              - $ref: '#/components/schemas/LocationSummary'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+
+    EventFormSchema:
+      type: object
+      required: [fields]
+      # Served raw from the form engine: top-level keys beyond `fields` may
+      # appear (engine vocabulary); only `fields` is contractual.
+      additionalProperties: true
+      properties:
+        fields:
+          type: array
+          description: >
+            Every field of the merged schema — native event fields (with any
+            per-agenda overrides applied) and the agenda's/network's
+            additional fields (`schemaId` non-null). Served complete: a
+            field's `read` access levels gate the visibility of its VALUE on
+            events, not the presence of its descriptor here.
+          items:
+            $ref: '#/components/schemas/FormSchemaField'
+
+    FormSchemaField:
+      type: object
+      description: >
+        A descriptor in the OpenAgenda form-schema vocabulary, served raw.
+        Two kinds share the array: **data field descriptors** (carrying
+        `field`, the key the value lives under on events) and **section
+        separators** (`type: 'section'`, no `field` — structure the form into
+        titled groups). The properties below are the stable core; descriptors
+        may carry further engine-specific keys (conditions, display hints,
+        sub-schemas such as `schema` on the `location` field, …).
+      additionalProperties: true
+      example:
+        field: thematique
+        fieldType: radio
+        label: { fr: 'Thématique', en: 'Theme' }
+        schemaId: 10522
+        schemaType: agenda
+        options:
+          - id: 42
+            value: concert
+            label: { fr: 'Concert' }
+      properties:
+        field:
+          type: string
+          description: >
+            Field name — the key the value is carried under on events. Absent
+            on section separators.
+        fieldType:
+          type: string
+          description: >
+            Field kind in the form-schema vocabulary, e.g. `text`, `textarea`,
+            `multilingual`, `radio`, `checkbox`, `select`, `number`, `date`,
+            `image`, `link`, `abstract` (structural)…
+        type:
+          type: string
+          description: >
+            Descriptor kind marker — `section` for section separators; data
+            fields usually omit it.
+        slug:
+          type: string
+          description: Stable identifier of a section separator.
+        label:
+          description: Localized display label, when the descriptor carries one.
+          oneOf:
+            - $ref: '#/components/schemas/LocalizedString'
+            - type: string
+            - type: 'null'
+        optional:
+          type: boolean
+          description: >
+            `false` means the field is required (possibly a per-agenda
+            override of a native field).
+        display:
+          description: Whether the field is shown on the form (default true).
+        enable:
+          type: boolean
+          description: Whether the field is enabled (default true).
+        enableWith:
+          description: >
+            The field is only active when another field has a value: either
+            that field's name, or `{ field, value }` to require specific
+            values (e.g. `onlineAccessLink` enabled when `attendanceMode` is
+            online or mixed).
+        optionalWith:
+          description: >
+            The field is only required when another field (same reference
+            forms as `enableWith`) has a value.
+        origin:
+          type: [string, 'null']
+          enum: [tags, categories, custom, null]
+          description: >
+            For converted legacy fields, what they were converted from.
+        options:
+          type: array
+          description: Allowed choices for choice-like field kinds.
+          items:
+            type: object
+            additionalProperties: true
+            properties:
+              id:
+                type: integer
+              value:
+                type: string
+              label:
+                oneOf:
+                  - $ref: '#/components/schemas/LocalizedString'
+                  - type: string
+        schemaId:
+          type: [integer, 'null']
+          description: >
+            Identifier of the declaring agenda/network schema. Non-null marks
+            an **additional field**; `null`/absent marks a native one.
+        schemaType:
+          type: [string, 'null']
+          enum: [agenda, network, event, null]
+          description: >
+            Which level declared the field: `agenda`/`network` for additional
+            fields, `event` for the platform's native event fields.
+
+    MemberRole:
+      type: string
+      enum: [administrator, moderator, contributor, reader]
+      x-enum-descriptions:
+        administrator: Full control of the agenda, its settings and members
+        moderator: Moderates contributed events and manages content
+        contributor: Can contribute events to the agenda
+        reader: Read-only member
+
+    MeAgendaItem:
+      type: object
+      description: >
+        An agenda the authenticated user is a member of: the AgendaSummary
+        base fields plus the user's `role` and the agenda's `private` flag
+        (private agendas the user belongs to are listed).
+
+
+        Empty-as-empty rule: every field is always present; singular optional
+        values are present as `null` when absent.
+      additionalProperties: false
+      example:
+        uid: 12345
+        slug: festival-des-lumieres
+        title: Festival des Lumières
+        description: La programmation du festival.
+        image: https://cdn.openagenda.com/main/12345.jpg
+        official: false
+        private: false
+        role: administrator
+      required:
+        - uid
+        - slug
+        - title
+        - description
+        - image
+        - official
+        - private
+        - role
+      properties:
+        uid:
+          type: integer
+          format: int64
+          readOnly: true
+        slug:
+          type: string
+          readOnly: true
+        title:
+          type: [string, 'null']
+        description:
+          type: [string, 'null']
+        image:
+          type: [string, 'null']
+        official:
+          type: boolean
+        private:
+          type: boolean
+        role:
+          $ref: '#/components/schemas/MemberRole'
+
+    MeAgendaItemDetailed:
+      type: object
+      description: >
+        The `detailed=true` variant of `MeAgendaItem`: the membership item
+        plus `createdAt`, `network` and `locationSet`.
+      additionalProperties: false
+      required:
+        - uid
+        - slug
+        - title
+        - description
+        - image
+        - official
+        - private
+        - role
+        - createdAt
+        - network
+        - locationSet
+      properties:
+        uid:
+          type: integer
+          format: int64
+          readOnly: true
+        slug:
+          type: string
+          readOnly: true
+        title:
+          type: [string, 'null']
+        description:
+          type: [string, 'null']
+        image:
+          type: [string, 'null']
+        official:
+          type: boolean
+        private:
+          type: boolean
+        role:
+          $ref: '#/components/schemas/MemberRole'
+        createdAt:
+          type: [string, 'null']
+          format: date-time
+        network:
+          $ref: '#/components/schemas/AgendaNetworkRef'
+        locationSet:
+          $ref: '#/components/schemas/AgendaLocationSetRef'
+
+    MeAgendaList:
+      type: object
+      required: [data, pagination]
+      additionalProperties: false
+      properties:
+        data:
+          type: array
+          description: >
+            `MeAgendaItem` items by default, or `MeAgendaItemDetailed` items
+            when `detailed=true`.
+          items:
+            # Detailed branch first — see LocationList for why.
+            oneOf:
+              - $ref: '#/components/schemas/MeAgendaItemDetailed'
+              - $ref: '#/components/schemas/MeAgendaItem'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
 
     Timing:
       type: object
@@ -1477,8 +2566,8 @@ components:
       type: object
       description: >
         Agenda-specific additional fields. The available keys and the shape of
-        each value are defined by the agenda's event schema (see
-        GET /agendas/{agendaUid}/settings/eventSchema). Each value follows its
+        each value are defined by the agenda's event form schema (see
+        `GET /agendas/{agendaUid}/events/schema`). Each value follows its
         field's fieldType (text, choice, multilingual, …).
       additionalProperties:
         x-additionalPropertiesName: fieldName
@@ -1712,9 +2801,10 @@ components:
             `AgendaSummary` items by default, or `AgendaDetailed` items when
             `detailed=true`.
           items:
+            # Detailed branch first — see LocationList for why.
             oneOf:
-              - $ref: '#/components/schemas/AgendaSummary'
               - $ref: '#/components/schemas/AgendaDetailed'
+              - $ref: '#/components/schemas/AgendaSummary'
         pagination:
           $ref: '#/components/schemas/Pagination'
 
@@ -1912,7 +3002,7 @@ components:
             $ref: '#/components/schemas/Timing'
         location:
           oneOf:
-            - $ref: '#/components/schemas/Location'
+            - $ref: '#/components/schemas/EventLocation'
             - type: 'null'
         timezone:
           type: [string, 'null']
@@ -2124,7 +3214,7 @@ components:
             $ref: '#/components/schemas/Timing'
         location:
           oneOf:
-            - $ref: '#/components/schemas/Location'
+            - $ref: '#/components/schemas/EventLocation'
             - type: 'null'
         timezone:
           type: [string, 'null']
@@ -2212,11 +3302,309 @@ components:
             (`additionalProperties: false`), so each item validates against
             exactly one branch.
           items:
+            # Detailed branch first — see LocationList for why.
             oneOf:
-              - $ref: '#/components/schemas/EventSummary'
               - $ref: '#/components/schemas/Event'
+              - $ref: '#/components/schemas/EventSummary'
         pagination:
           $ref: '#/components/schemas/Pagination'
+
+    FacetName:
+      type: string
+      description: A facet type name (shared by the GET `facets` list and the POST report).
+      enum:
+        - additionalFields
+        - additionalFieldMetrics
+        - cities
+        - regions
+        - departments
+        - districts
+        - countryCodes
+        - keywords
+        - languages
+        - accessibilities
+        - status
+        - attendanceModes
+        - originAgendas
+        - sourceAgendas
+        - locations
+        - geohash
+        - viewport
+        - timespan
+        - timings
+        - dateRanges
+
+    FacetSpec:
+      type: object
+      required: [type]
+      additionalProperties: false
+      description: >
+        A single named aggregation in a facet report. `name` (the output key)
+        defaults to `type`; reuse a `type` under distinct `name`s to aggregate
+        the same field several ways in one request. Options not relevant to the
+        `type` are ignored.
+      properties:
+        name:
+          type: string
+          description: >
+            Output key (alias). Defaults to `type`. Must be unique within the
+            request — it is the key the result is returned under.
+        type:
+          $ref: '#/components/schemas/FacetName'
+        size:
+          type: integer
+          minimum: 1
+          maximum: 250
+          description: Max buckets (bucket-list families). Overrides `facetSize`.
+        sort:
+          type: string
+          enum: [count, alpha]
+          description: Bucket order. Overrides `facetSort`.
+        missing:
+          type: string
+          description: >
+            Label for a synthetic bucket counting events with no value for the
+            field (value-keyed term facets only; ignored elsewhere).
+        zoom:
+          type: integer
+          minimum: 1
+          description: Clustering zoom for the `geohash` facet.
+        interval:
+          type: string
+          enum: [hour, day, week, month, year]
+          description: Bucket width for the `timings` date histogram.
+        month:
+          type: string
+          description: Calendar month (`YYYY-MM`) for the `dateRanges` facet.
+        fields:
+          type: array
+          items: { type: string }
+          description: >
+            For `additionalFields`/`additionalFieldMetrics`: which agenda fields
+            to aggregate (default: all readable fields of the matching type).
+
+    FacetReportRequest:
+      type: object
+      required: [facets]
+      additionalProperties: false
+      description: Body of the named-aggregations facet report (`POST .../events/facets`).
+      example:
+        filters: { keyword: [concert] }
+        facets:
+          - cities
+          - { name: topKeywords, type: keywords, size: 20, sort: count }
+          - { name: byMonth, type: timings, interval: month }
+          - { name: byYear, type: timings, interval: year }
+      properties:
+        filters:
+          $ref: '#/components/schemas/EventFilters'
+        facetSize:
+          type: integer
+          minimum: 1
+          maximum: 250
+          default: 10
+          description: Request-wide default bucket size; a facet's own `size` overrides it.
+        facetSort:
+          type: string
+          enum: [count, alpha]
+          default: count
+          description: Request-wide default order; a facet's own `sort` overrides it.
+        facets:
+          type: array
+          minItems: 1
+          description: >
+            The aggregations to compute. Each item is either a bare facet name
+            (simple form) or a `FacetSpec` object (named, with options).
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/FacetName'
+              - $ref: '#/components/schemas/FacetSpec'
+
+    EventFilters:
+      type: object
+      description: >
+        Filters scoping the facet report — the same fields as the
+        `agendas.events.list` query parameters, in their native JSON types.
+        Unknown keys are ignored (forward-compatible).
+      properties:
+        search: { type: string }
+        uid: { type: array, items: { type: integer } }
+        slug: { type: array, items: { type: string } }
+        extId:
+          type: object
+          properties: { key: { type: string }, value: { type: string } }
+        keyword: { type: array, items: { type: string } }
+        language: { type: array, items: { type: string } }
+        accessibility:
+          type: array
+          items: { type: string, enum: [hi, ii, mi, pi, vi] }
+        status:
+          { type: array, items: { type: integer, enum: [1, 2, 3, 4, 5, 6] } }
+        attendanceMode:
+          { type: array, items: { type: integer, enum: [1, 2, 3] } }
+        featured: { type: boolean }
+        locationUid: { type: array, items: { type: integer } }
+        locationExtId:
+          type: object
+          properties: { key: { type: string }, value: { type: string } }
+        region: { type: array, items: { type: string } }
+        department: { type: array, items: { type: string } }
+        city: { type: array, items: { type: string } }
+        district: { type: array, items: { type: string } }
+        adminLevel3: { type: array, items: { type: string } }
+        adminLevel5: { type: array, items: { type: string } }
+        countryCode: { type: array, items: { type: string } }
+        bbox:
+          {
+            type: string,
+            description: '"west,south,east,north" in decimal degrees.',
+          }
+        near: { type: string, description: '"lat,lng" — requires `radius`.' }
+        radius: { type: integer, description: Metres; requires `near`. }
+        originAgendaUid: { type: array, items: { type: integer } }
+        originAgendaOfficial: { type: boolean }
+        sourceAgendaUid: { type: array, items: { type: integer } }
+        relative:
+          type: array
+          items: { type: string, enum: [passed, upcoming, current] }
+        timings: { $ref: '#/components/schemas/DateRangeFilter' }
+        createdAt: { $ref: '#/components/schemas/DateRangeFilter' }
+        updatedAt: { $ref: '#/components/schemas/DateRangeFilter' }
+        localTime:
+          type: object
+          properties: { gte: { type: integer }, lte: { type: integer } }
+        age:
+          type: object
+          properties: { gte: { type: integer }, lte: { type: integer } }
+        sort: { type: string }
+        additionalFields:
+          type: object
+          description: Per-field filters, keyed by agenda field name.
+
+    DateRangeFilter:
+      type: object
+      description: A date range; bounds are RFC 3339 (date or date-time with offset).
+      properties:
+        gte: { type: string }
+        lte: { type: string }
+
+    FacetReport:
+      type: object
+      required: [facets]
+      additionalProperties: false
+      description: Named facet results, keyed by each facet's `name` alias.
+      example:
+        facets:
+          cities: { type: cities, result: [{ value: Lyon, count: 42 }] }
+          byMonth:
+            type: timings
+            result:
+              [{ value: '2025-06', count: 18 }, { value: '2025-07', count: 31 }]
+      properties:
+        facets:
+          type: object
+          description: One entry per requested facet, keyed by its `name` alias.
+          additionalProperties:
+            $ref: '#/components/schemas/FacetReportEntry'
+
+    FacetReportEntry:
+      description: >
+        A facet result tagged with its `type`. The `type` tells the client how
+        to read `result` (a bucket array, a viewport/timespan object or `null`,
+        or a per-field map).
+      oneOf:
+        - type: object
+          required: [type, result]
+          additionalProperties: false
+          properties:
+            type:
+              type: string
+              enum:
+                [
+                  cities,
+                  regions,
+                  departments,
+                  districts,
+                  countryCodes,
+                  keywords,
+                  languages,
+                  accessibilities,
+                  status,
+                  attendanceModes,
+                  timings,
+                  dateRanges,
+                ]
+            result:
+              type: array
+              items: { $ref: '#/components/schemas/FacetBucket' }
+        - type: object
+          required: [type, result]
+          additionalProperties: false
+          properties:
+            type: { type: string, enum: [originAgendas] }
+            result:
+              type: array
+              items: { $ref: '#/components/schemas/AgendaFacetBucket' }
+        - type: object
+          required: [type, result]
+          additionalProperties: false
+          properties:
+            type: { type: string, enum: [sourceAgendas] }
+            result:
+              type: array
+              items: { $ref: '#/components/schemas/SourceAgendaFacetBucket' }
+        - type: object
+          required: [type, result]
+          additionalProperties: false
+          properties:
+            type: { type: string, enum: [locations] }
+            result:
+              type: array
+              items: { $ref: '#/components/schemas/LocationFacetBucket' }
+        - type: object
+          required: [type, result]
+          additionalProperties: false
+          properties:
+            type: { type: string, enum: [geohash] }
+            result:
+              type: array
+              items: { $ref: '#/components/schemas/GeoFacetBucket' }
+        - type: object
+          required: [type, result]
+          additionalProperties: false
+          properties:
+            type: { type: string, enum: [viewport] }
+            result:
+              oneOf:
+                - $ref: '#/components/schemas/Viewport'
+                - type: 'null'
+        - type: object
+          required: [type, result]
+          additionalProperties: false
+          properties:
+            type: { type: string, enum: [timespan] }
+            result:
+              oneOf:
+                - $ref: '#/components/schemas/Timespan'
+                - type: 'null'
+        - type: object
+          required: [type, result]
+          additionalProperties: false
+          properties:
+            type: { type: string, enum: [additionalFields] }
+            result:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/AdditionalFieldFacet'
+        - type: object
+          required: [type, result]
+          additionalProperties: false
+          properties:
+            type: { type: string, enum: [additionalFieldMetrics] }
+            result:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/AdditionalFieldMetricsFacet'
 
     FacetBucket:
       type: object
@@ -2309,6 +3697,9 @@ components:
             sourceAgendas:
               type: array
               items: { $ref: '#/components/schemas/SourceAgendaFacetBucket' }
+            locations:
+              type: array
+              items: { $ref: '#/components/schemas/LocationFacetBucket' }
             geohash:
               type: array
               items: { $ref: '#/components/schemas/GeoFacetBucket' }
@@ -2433,6 +3824,30 @@ components:
         count:
           type: integer
           description: Number of events in the filtered set from this source agenda.
+
+    LocationFacetBucket:
+      type: object
+      required: [location, count]
+      additionalProperties: false
+      description: >
+        A location facet bucket — events grouped by their attached location.
+        `location` carries only what the aggregation indexes (uid and name),
+        narrower than events' `location`. Use the uid with the `locationUid`
+        filter.
+      properties:
+        location:
+          type: object
+          required: [uid, name]
+          additionalProperties: false
+          properties:
+            uid:
+              type: integer
+              format: int64
+            name:
+              type: [string, 'null']
+        count:
+          type: integer
+          description: Number of events in the filtered set at this location.
 
     GeoPoint:
       type: object
