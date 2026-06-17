@@ -20,6 +20,7 @@ export default function buildPagination({
   isLastPage = false,
   limit,
   total,
+  totalRelation,
 }) {
   return {
     after:
@@ -30,6 +31,12 @@ export default function buildPagination({
           sort,
         }),
     limit,
-    ...total === undefined ? {} : { total },
+    // `totalRelation` qualifies `total`: `exact` (the default — SQL counts and
+    // ES searches that count exhaustively) or `atLeast` when the backing store
+    // stops counting past a limit and `total` is only a floor. Emitted with
+    // `total`, never without it.
+    ...total === undefined
+      ? {}
+      : { total, totalRelation: totalRelation ?? 'exact' },
   };
 }

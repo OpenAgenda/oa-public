@@ -10,7 +10,13 @@ export default function buildAgendaListEnvelope(
   result,
   { limit, detailed = false },
 ) {
-  const { agendas = [], total, after = null, sort = null } = result ?? {};
+  const {
+    agendas = [],
+    total,
+    totalRelation,
+    after = null,
+    sort = null,
+  } = result ?? {};
 
   const mapItem = detailed ? mapAgendaDetailed : mapAgendaSummary;
 
@@ -25,6 +31,7 @@ export default function buildAgendaListEnvelope(
       isLastPage: agendas.length < limit,
       limit,
       total,
+      totalRelation,
     }),
   };
 }

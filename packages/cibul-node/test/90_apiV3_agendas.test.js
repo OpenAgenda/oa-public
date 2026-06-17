@@ -118,6 +118,10 @@ describe('90 - api-v3 - functional (server): agendas read endpoints', () => {
       expect(Array.isArray(res.body.data)).toBe(true);
       expect(res.body.pagination).toHaveProperty('after');
       expect(res.body.pagination).toHaveProperty('limit');
+      // The total is qualified: the fixture set is well under the ES count cap,
+      // so it is exact (a >10000 result set would report `atLeast`).
+      expect(res.body.pagination.total).toBeGreaterThanOrEqual(2);
+      expect(res.body.pagination.totalRelation).toBe('exact');
       // Both fixture agendas (uid 1 & 2) are indexed and public.
       expect(res.body.data.length).toBeGreaterThanOrEqual(2);
       // …but the private agenda never surfaces (the reindex source skips
