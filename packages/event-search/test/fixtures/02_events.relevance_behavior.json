@@ -1,0 +1,67 @@
+{
+  "lastId": -1,
+  "events": [
+    {
+      "uid": 1,
+      "state": 2,
+      "title": { "fr": "cliffterm cliffterm cliffterm cliffterm cliffterm cliffterm" }
+    },
+    {
+      "uid": 2,
+      "state": 2,
+      "title": { "fr": "un compte rendu detaille dans lequel le mot cliffterm apparait une seule fois noye parmi beaucoup d autres mots de remplissage sans aucun rapport" }
+    },
+    {
+      "uid": 3,
+      "state": 2,
+      "title": { "fr": "autre long paragraphe ou cliffterm est mentionne incidemment au milieu de contenu sans rapport destine a diluer fortement le score de pertinence" }
+    },
+    {
+      "uid": 4,
+      "state": 2,
+      "title": { "fr": "encore un texte volumineux contenant cliffterm perdu dans une masse de termes additionnels servant a abaisser nettement la pertinence du document" }
+    },
+
+    {
+      "uid": 11,
+      "state": 2,
+      "title": { "fr": "shoulderterm" }
+    },
+    {
+      "uid": 12,
+      "state": 2,
+      "title": { "fr": "shoulderterm atelier decouverte du quartier propose ensemble le matin pour les familles et le jeune public curieux venu nombreux" }
+    },
+    {
+      "uid": 13,
+      "state": 2,
+      "title": { "fr": "shoulderterm visite guidee conviviale ouverte a tous les publics avec une rencontre autour du patrimoine local et regional remarquable" }
+    },
+    {
+      "uid": 14,
+      "state": 2,
+      "title": { "fr": "shoulderterm rencontre festive proposee dans le centre ville avec animations musicales restauration et de nombreuses activites pour les enfants" }
+    },
+
+    {
+      "uid": 21,
+      "state": 2,
+      "title": { "fr": "flatterm atelier decouverte initiation matinale" }
+    },
+    {
+      "uid": 22,
+      "state": 2,
+      "title": { "fr": "flatterm visite guidee conviviale ensemble" }
+    },
+    {
+      "uid": 23,
+      "state": 2,
+      "title": { "fr": "flatterm rencontre festive ouverte tous" }
+    },
+    {
+      "uid": 24,
+      "state": 2,
+      "title": { "fr": "flatterm balade nature plein decouverte" }
+    }
+  ]
+}
