@@ -50,11 +50,16 @@ function AgendaItem({ agenda, res, getLabel, duplicateEvent }) {
           />
         </Link>
       </div>
-      <div className="media-body">
+      <div className="media-body" style={{ overflow: 'hidden', minWidth: 0 }}>
         <div className="title media-heading">
           <Link
             to={itemLink}
             className="btn btn-link padding-left-z padding-top-z"
+            style={{
+              whiteSpace: 'normal',
+              overflowWrap: 'anywhere',
+              textAlign: 'left',
+            }}
           >
             <strong>{agenda.title}</strong>
             {!!agenda.official && (
@@ -298,6 +303,19 @@ class Events extends Component {
                     fieldProps={this.searchInputProps}
                     render={({ state, form, nextPage }) => (
                       <div>
+                        {duplicateEvent ? (
+                          <div className="padding-bottom-sm">
+                            <p>
+                              <strong>
+                                {getLabel('duplicateModalBigSentence')}
+                              </strong>
+                            </p>
+                            <p className="text-muted">
+                              {getLabel('duplicateModalReminder')}
+                            </p>
+                          </div>
+                        ) : null}
+
                         {form}
 
                         <div>
