@@ -6,6 +6,10 @@ The package manager for all packages in oa is **yarn**. Always use `yarn` instea
 
 Any PR that touches a published package under `public/` must include a changeset (run `yarn changeset`) — the release workflow versions and publishes from it.
 
+## Commits
+
+Commits follow [Conventional Commits](https://www.conventionalcommits.org/) and are linted by `commitlint` (see `public/commitlint.config.js`). The **scope must be a workspace package name** — i.e. the part after `@openagenda/` for a scoped package (`react-integration-app`, `next`, `cibul-node`, `react-layouts`, …). The allowed list is derived dynamically from `yarn workspaces list`, so a non-package scope (e.g. a feature name like `settings`) is rejected with `scope must be one of […] [scope-enum]`. For changes spanning several packages, pick the most central package as the scope.
+
 ## Locales
 
 Relevant languages across the codebase: **fr, en, de, es, it, nl, br, oc**. Fill all of them when adding new labels (best-effort translations are fine — they can be refined later via crowdin). The legacy `io` key in `packages/labels/` is a crowdin placeholder and can be left as a `crwdns…` token or omitted.
