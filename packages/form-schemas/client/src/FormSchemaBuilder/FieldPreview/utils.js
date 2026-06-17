@@ -46,8 +46,9 @@ export function getDefaultValueLabel(field, lang) {
       return field.default
         .map((value) => {
           const option = field.options.find((obj) => obj.id === value);
-          return getLocaleValue(option.label, lang);
+          return option ? getLocaleValue(option.label, lang) : value;
         })
+        .filter(Boolean)
         .join(', ');
     }
   }
@@ -61,7 +62,9 @@ export function getDefaultValueLabel(field, lang) {
     const specificValuesFromOptions = field.options.find(
       (obj) => obj.id === defaultValue,
     );
-    return getLocaleValue(specificValuesFromOptions.label, lang);
+    return specificValuesFromOptions
+      ? getLocaleValue(specificValuesFromOptions.label, lang)
+      : defaultValue;
   }
 
   return defaultValue;
@@ -113,45 +116,3 @@ export function allowItemDisplayToggle(field) {
 }
 
 export const isAccessUndefined = (field) => !field.read && !field.write;
-export function getFieldAccess(field, lang) {
-  const multilingual = {
-    administrator: getLabel('adminAccess', lang),
-    moderator: getLabel('moderatorAccess', lang),
-    contributor: getLabel('contributorAccess', lang),
-  };
-
-  const writeFieldAccess = field?.write
-    ?.map((access) => multilingual[access])
-    .join(', ');
-  const readFieldAccess = field?.read
-    ?.map((access) => multilingual[access])
-    .join(', ');
-
-  if (field.write && !field.read) {
-    return (
-      <>
-        {getLabel('writeAccess', lang)}: {writeFieldAccess}
-      </>
-    );
-  }
-  if (field.read && !field.write) {
-    return (
-      <>
-        {getLabel('readAccess', lang)}: {readFieldAccess}
-      </>
-    );
-  }
-  if (field.write && field.read) {
-    return (
-      <>
-        <span>
-          {getLabel('readAccess', lang)}: {readFieldAccess}
-        </span>
-        <span> / </span>
-        <span>
-          {getLabel('writeAccess', lang)}: {writeFieldAccess}
-        </span>
-      </>
-    );
-  }
-}

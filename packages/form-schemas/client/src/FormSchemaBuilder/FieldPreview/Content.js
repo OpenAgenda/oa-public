@@ -12,8 +12,9 @@ import {
   getFieldTypeIcon,
   allowItemDisplayToggle,
   isAccessUndefined,
-  getFieldAccess,
 } from './utils.js';
+
+import { getFieldAccess } from './getFieldAccess.js';
 
 import {
   getSummary as getLinkedFieldSummaryLabel,
