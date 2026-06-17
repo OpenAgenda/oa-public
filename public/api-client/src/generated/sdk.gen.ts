@@ -184,6 +184,8 @@ export class Agendas extends HeyApiClient {
      *
      * Returns a cursor-paginated list of agendas. Pass the `after` cursor returned in `pagination.after` to fetch the next page; resend the same filters (they are not encoded in the cursor).
      *
+     * When `search` is set, results are ranked by relevance by default; otherwise they are ordered by `createdAt.desc`. Override with `sort` (see the parameter for the allowed values).
+     *
      * By default items are the lighter `AgendaSummary`; pass `detailed=true` for `AgendaDetailed` (adds `createdAt`, `network`, `locationSet` — the search-index detailed projection). The full canonical record (with `url`, `updatedAt`, `officializedAt`, `private`, `indexed`) is only available via the single-agenda `GET /agendas/{agendaUid}`.
      *
      * Unknown or malformed filter values return `400`.

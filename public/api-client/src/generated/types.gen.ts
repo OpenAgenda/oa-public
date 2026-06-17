@@ -1307,6 +1307,12 @@ export type Detailed = boolean;
 export type AgendaSearch = string;
 
 /**
+ * Sort order. When omitted, results are ranked by relevance if `search` is set, otherwise by `createdAt` descending. Set `recentlyAddedEvents.desc` to surface the agendas with the most recent activity first.
+ *
+ */
+export type AgendaSort = 'createdAt.desc' | 'recentlyAddedEvents.desc';
+
+/**
  * Restrict to these agenda uids. Repeat the parameter for multiple values.
  */
 export type AgendaFilterUid = Array<number>;
@@ -1672,6 +1678,11 @@ export type AgendasListData = {
          *
          */
         search?: string;
+        /**
+         * Sort order. When omitted, results are ranked by relevance if `search` is set, otherwise by `createdAt` descending. Set `recentlyAddedEvents.desc` to surface the agendas with the most recent activity first.
+         *
+         */
+        sort?: 'createdAt.desc' | 'recentlyAddedEvents.desc';
         /**
          * Restrict to these agenda uids. Repeat the parameter for multiple values.
          */
