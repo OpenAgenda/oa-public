@@ -13,27 +13,35 @@ KEYCDN_ZONE_URL="assets-1cb1b.kxcdn.com"
 PURGE_BATCH_SIZE=20
 PURGE_SLEEP_INTERVAL=1 # en secondes
 
-echo "🔐 Récupération de la clé API KeyCDN depuis 1Password..."
+# Clé API KeyCDN : déjà fournie par l'environnement (CI, via le secret
+# KEYCDN_API_KEY) ? on l'utilise telle quelle. Sinon, en local, on la lit
+# depuis 1Password.
+if [ -n "$KEYCDN_API_KEY" ]; then
+  echo "🔐 Clé API KeyCDN fournie par l'environnement."
+else
+  echo "🔐 Récupération de la clé API KeyCDN depuis 1Password..."
 
-# Vérification que la commande 'op' existe
-if ! command -v op &> /dev/null; then
-  echo "Erreur : Le CLI 1Password ('op') n'est pas installé ou non trouvé dans le PATH."
-  echo "Veuillez suivre les instructions sur https://developer.1password.com/docs/cli"
-  exit 1
-fi
-
-# Syntax: op://<nom_du_coffre>/<nom_de_l'élément>/<nom_du_champ>
-KEYCDN_API_KEY=$(op read --account openagenda.1password.eu "$KEYCDN_API_KEY_REF" 2>/dev/null)
-
-if [ -z "$KEYCDN_API_KEY" ]; then
-    echo "❌ Erreur : Impossible de récupérer la clé API KeyCDN depuis 1Password."
-    echo "   Veuillez vérifier les points suivants :"
-    echo "   1. Êtes-vous connecté à 1Password ? (essayez 'op signin')"
-    echo "   2. La référence '$KEYCDN_API_KEY_REF' est-elle correcte ?"
+  # Vérification que la commande 'op' existe
+  if ! command -v op &> /dev/null; then
+    echo "Erreur : Le CLI 1Password ('op') n'est pas installé ou non trouvé dans le PATH."
+    echo "Veuillez suivre les instructions sur https://developer.1password.com/docs/cli"
+    echo "(En CI, fournissez plutôt la variable d'environnement KEYCDN_API_KEY.)"
     exit 1
-fi
+  fi
 
-echo "   Clé API récupérée avec succès."
+  # Syntax: op://<nom_du_coffre>/<nom_de_l'élément>/<nom_du_champ>
+  KEYCDN_API_KEY=$(op read --account openagenda.1password.eu "$KEYCDN_API_KEY_REF" 2>/dev/null)
+
+  if [ -z "$KEYCDN_API_KEY" ]; then
+      echo "❌ Erreur : Impossible de récupérer la clé API KeyCDN depuis 1Password."
+      echo "   Veuillez vérifier les points suivants :"
+      echo "   1. Êtes-vous connecté à 1Password ? (essayez 'op signin')"
+      echo "   2. La référence '$KEYCDN_API_KEY_REF' est-elle correcte ?"
+      exit 1
+  fi
+
+  echo "   Clé API récupérée avec succès."
+fi
 
 echo "📁 Configuration de l'upload:"
 echo "  Dossier local: $LOCAL_SOURCE_DIR"
@@ -110,9 +118,16 @@ echo ""
   echo "Commande exécutée (formattée) : $COMMAND_STRING"
 
   # Exécution de la commande swift upload avec les arguments construits
+  # On capture la liste des objets uploadés tout en l'affichant. `tee /dev/tty`
+  # échoue hors d'un terminal (CI) : on n'écho en direct que si un tty existe,
+  # sinon on laisse simplement passer la sortie dans la variable.
   OBJECT_LIST=$(
     cd "$LOCAL_SOURCE_DIR" || exit 1
-    swift upload "${ARGS[@]}" | tee /dev/tty
+    if [ -t 1 ]; then
+      swift upload "${ARGS[@]}" | tee /dev/tty
+    else
+      swift upload "${ARGS[@]}"
+    fi
   )
 
   if [ $? -eq 0 ]; then
@@ -142,6 +157,14 @@ fi
 if [ -z "$OBJECT_LIST" ]; then
   echo "Aucun objet trouvé. Aucune purge nécessaire."
 else
+  # En CI (pas de tty) la sortie de `swift upload` n'a pas été affichée en
+  # direct : on la trace ici pour garder une trace des objets uploadés.
+  if [ ! -t 1 ]; then
+    echo "Objets uploadés :"
+    echo "$OBJECT_LIST"
+    echo ""
+  fi
+
   echo "Construction de la liste des URLs à purger..."
   URLS_TO_PURGE=()
 
