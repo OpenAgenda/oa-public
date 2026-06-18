@@ -2,11 +2,10 @@ import { Forbidden, NotFound } from '@openagenda/verror';
 import logs from '@openagenda/logs';
 import membersSvc from '@openagenda/members';
 import getAgenda from '../utils/getAgenda.js';
-import createPayload from '../utils/createPayload.js';
-import convertLocationAdditionalFields from '../utils/convertLocationAdditionalFields.js';
 import formatError from '../utils/formatError.js';
 import extractActingFromContext from './lib/extractActingFromContext.js';
 import createTransferOwnershipActivity from './lib/createTransferOwnershipActivity.js';
+import { resyncEvent } from './search.js';
 
 const log = logs('core/agendas/events/transferOwnership');
 
@@ -36,7 +35,7 @@ export default async function transferOwnership(
     throw new NotFound({ info: { uid: eventUid } }, 'event not found');
   }
 
-  const agendaEvent = await agendaEvents(agendaUid).get(eventUid, {
+  await agendaEvents(agendaUid).get(eventUid, {
     throwOnNotFound: true,
   });
 
@@ -127,7 +126,6 @@ export default async function transferOwnership(
     access: 'internal',
     private: null,
   });
-  const refreshedAgendaEvent = await agendaEvents(agendaUid).get(eventUid);
 
   try {
     await createTransferOwnershipActivity(core.services, {
@@ -164,27 +162,13 @@ export default async function transferOwnership(
     }
   }
 
-  const payload = createPayload(core, agenda);
-  payload.setItem('event', event, refreshedEvent);
-  payload.setItem('agendaEvent', agendaEvent, refreshedAgendaEvent);
-
+  // Reindex through resyncEvent, which rebuilds the full search document from
+  // the database — including custom (additional) fields and location additional
+  // fields. The owner patch is already committed above, so the current state is
+  // the post-transfer state. This avoids re-implementing the payload
+  // reconstruction (and missing parts of it, as a hand-rolled reindex did).
   try {
-    const formSchema = await payload.getFormSchema({ access: 'internal' });
-    const response = await payload.getResponse('event', {
-      access: 'internal',
-      load: { valid: true },
-    });
-    const fullEventAfter = await payload.getCompiledEvent('after', null, null, {
-      valid: true,
-    });
-
-    await core.services.eventSearch.update({
-      ...response,
-      formSchema,
-      event: fullEventAfter.location
-        ? convertLocationAdditionalFields(formSchema, fullEventAfter)
-        : fullEventAfter,
-    });
+    await resyncEvent(core, agendaUid, eventUid);
   } catch (e) {
     log(
       'error',
