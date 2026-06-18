@@ -270,6 +270,26 @@ module.exports = {
     "oc": "Causir l'agenda per i duplicar l'eveniment",
     "nl": "Selecteer de agenda waarin u het evenement wilt dupliceren"
   },
+  "duplicateModalBigSentence": {
+    "fr": "Vous êtes sur le point de créer un nouvel événement sur la base d’un précédent.",
+    "en": "You are about to create a new event based on a precedent.",
+    "de": "Du bist dabei, eine neue Veranstaltung auf der Grundlage einen Präzedenzfalls zu schaffen.",
+    "br": "Emaoc'h o vont da grouiñ un darvoud nevez diazezet war un darvoud kent.",
+    "es": "Vas a crear un nuevo evento en la base de un precedente.",
+    "it": "State per creare un nuovo evento basato su un evento precedente.",
+    "oc": "Sètz a mand de crear un eveniment novèl sus la basa d'un precedent.",
+    "nl": "U staat op het punt een nieuw evenement aan te maken op basis van een voorgaand evenement."
+  },
+  "duplicateModalReminder": {
+    "fr": "Rappel : un événement unique peut être partagé sur plusieurs agendas. Ne créez pas de doublon ! La duplication permet de créer une annonce différente, généralement pour une nouvelle édition ailleurs dans le temps ou l’espace, en évitant des copier-coller.",
+    "en": "Reminder: A single event can be shared across multiple agendas. Do not create a duplicate! Duplication creates a different ad, usually for a new edition elsewhere in time or space, avoiding copying and pasting.",
+    "de": "Zur Erinnerung: Eine einzelne Veranstaltung kann über mehrere Veranstaltungskalender gemeinsam genutzt werden. Erstelle bitte kein Duplikat, dies würde sonst als neues Event angezeigt werden.",
+    "br": "Koun : un darvoud hepken a c'hall bezañ rannet war meur a deiziataer. Arabat krouiñ un doubladenn ! An doubladenn a dalvez da grouiñ ur c'hemenn disheñvel, peurliesañ evit un embannadur nevez e lec'h all en amzer pe el lec'h, en ur chom hep eilañ-pegañ.",
+    "es": "Recordatorio: un solo evento puede ser compartida en múltiples agendas. ¡No crear un duplicado! Duplicar crea un anuncio diferente, por lo general para una nueva edición en todo el tiempo o el espacio, evitando copiar y pegar.",
+    "it": "Promemoria: un singolo evento può essere condiviso su più calendari. Non creare duplicati! La duplicazione permette di creare un annuncio diverso, di solito per una nuova edizione altrove nel tempo o nello spazio, evitando il copia e incolla.",
+    "oc": "Rebrembon : un eveniment se pòt partejar sus maitas agendas. Faguetz pas de doblon ! La duplicacion crèa una anóncia diferenta, en general per una edicion novèla endacòm mai dins lo temps e l'espaci, en evitant los copiar-pegar.",
+    "nl": "Herinnering: een enkel evenement kan gedeeld worden over meerdere agenda's. Maak geen duplicaat! Dupliceren maakt een andere aankondiging, meestal voor een nieuwe editie elders in tijd of ruimte, zonder kopiëren en plakken."
+  },
   "duplicate": {
     "fr": "Dupliquer",
     "en": "Duplicate",

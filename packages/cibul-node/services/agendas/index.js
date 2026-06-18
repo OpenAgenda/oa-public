@@ -4,6 +4,7 @@ import resetCache from './lib/resetCache.js';
 import onCreate from './onCreate.js';
 import onUpdate from './onUpdate.js';
 import onRemove from './onRemove.js';
+import registerAgendaTasks from './tasks.js';
 import plugApp from './plugApp.js';
 
 export function init(config, services) {
@@ -26,6 +27,7 @@ export function init(config, services) {
     ...agendasSvc,
     mw: middleware(agendasSvc),
     resetCache: resetCache.bind(null, services),
+    registerTasks: () => registerAgendaTasks(services),
     plugApp,
   };
 }

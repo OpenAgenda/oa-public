@@ -64,12 +64,7 @@ function LinkMenuItem({ value, action, description, href, rel = null }) {
   );
 }
 
-export default function OtherActions({
-  agenda,
-  editLink,
-  contextBarRef,
-  ownerOnly = false,
-}) {
+export default function OtherActions({ agenda, editLink, contextBarRef }) {
   const intl = useIntl();
 
   const triggerId = useId();
@@ -86,8 +81,7 @@ export default function OtherActions({
   const isAdminMod = getIsAdminMod(me?.member);
   const isEventContributor = member && member.userUid === me?.member?.userUid;
   const isOriginAgenda = event.originAgenda?.uid === agenda.uid;
-  const { canEditEvent = false, canDeleteEvent = false } =
-    me?.authorizations ?? {};
+  const { canEditEvent = false } = me?.authorizations ?? {};
   const enabledStatuses = agenda.settings?.contribution?.status?.enabled || [
     2, 5, 6,
   ];
@@ -152,10 +146,7 @@ export default function OtherActions({
     }
   };
 
-  const displayRemove =
-    isAdminMod ||
-    isEventContributor ||
-    (ownerOnly && isOriginAgenda && !!canDeleteEvent);
+  const displayRemove = isAdminMod || isEventContributor;
   const displayRequestEditionRights = isAdminMod && !canEditEvent;
   const allowTransferOwnership = isAdminMod && canEditEvent;
 
@@ -249,7 +240,7 @@ export default function OtherActions({
             action={intl.formatMessage(messages.duplicate)}
             description={intl.formatMessage(messages.duplicateInfo)}
           />
-          {canEditEvent && !ownerOnly ? (
+          {canEditEvent ? (
             <>
               <MenuSeparator />
               <ButtonMenuItem
