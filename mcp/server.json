@@ -7,7 +7,7 @@
     "url": "https://github.com/OpenAgenda/oa-public",
     "source": "github"
   },
-  "version": "1.0.0",
+  "version": "1.2.0",
   "websiteUrl": "https://mcp.openagenda.com",
   "icons": [
     {
@@ -31,7 +31,7 @@
     {
       "registryType": "npm",
       "identifier": "@openagenda/mcp",
-      "version": "1.0.0",
+      "version": "1.2.0",
       "runtimeHint": "npx",
       "transport": {
         "type": "stdio"
