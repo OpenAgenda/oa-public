@@ -55,6 +55,36 @@ client supporting remote MCP + OAuth works.
 Prefer running it yourself? `npx -y @openagenda/mcp` speaks MCP over stdio
 with an API key — see [Quickstart (local)](#quickstart-local).
 
+## Build with the API
+
+This server is for **agents** exploring and prototyping against OpenAgenda. To
+**ship** a site or tool, use the same operations as a typed SDK on npm,
+[`@openagenda/api-client`](https://www.npmjs.com/package/@openagenda/api-client) —
+it is the very SDK the `execute` sandbox bundles, so code that an agent prototypes
+here runs unchanged in your app. The only delta from an `execute` body is the
+one-time client setup:
+
+```sh
+npm install @openagenda/api-client
+```
+
+```ts
+import { OpenAgenda, client } from '@openagenda/api-client';
+
+client.setConfig({ baseUrl: 'https://api.openagenda.com/v3', auth: 'oa_pk_…' });
+const oa = new OpenAgenda();
+
+const { data, error } = await oa.agendas.events.list({
+  path: { agendaUid },
+  query: { relative: ['upcoming'] },
+});
+```
+
+Use a read-only publishable key (`oa_pk_…`, safe in browsers) for reads, a secret
+key (`oa_sk_…`, server-only) for writes. The `schemas` zod validators are exported
+from the package too. `search_docs` (and Scalar at the API docs) is the operation
+reference; the calls it shows are the SDK's.
+
 ## Architecture
 
 ```

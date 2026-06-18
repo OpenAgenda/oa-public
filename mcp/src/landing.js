@@ -137,6 +137,16 @@ export function landingPage({ resourceUrl }) {
   <p>The server is open source and on npm: <code>OA_API_KEY=… npx -y @openagenda/mcp</code> speaks MCP over stdio against the public API with your API key. Source, docs and threat model: <a href="https://github.com/OpenAgenda/oa-public">github.com/OpenAgenda/oa-public</a> · <a href="https://www.npmjs.com/package/@openagenda/mcp">npm</a>.</p>
   <p><strong>Claude Desktop, one-click</strong> — the local path, packaged: <a class="btn" href="${MCPB_URL}">Download openagenda.mcpb</a><br>Double-click it (or drag it into Settings); Desktop runs the npx server above and prompts for your API key. Prefer no key? Use the hosted connector above instead.</p>
 
+  <h2>Build with the API</h2>
+  <p>Beyond chat: the same operations ship as a typed SDK on npm, <code>@openagenda/api-client</code>, so you can build your own site or tool. Code that an agent prototypes through this server's <code>execute</code> tool runs unchanged in your app — only the one-time client setup differs:</p>
+  <pre><code>npm i @openagenda/api-client
+
+import { OpenAgenda, client } from '@openagenda/api-client';
+client.setConfig({ baseUrl: 'https://api.openagenda.com/v3', auth: 'oa_pk_…' });
+const oa = new OpenAgenda();
+const { data, error } = await oa.agendas.events.list({ path: { agendaUid }, query: { relative: ['upcoming'] } });</code></pre>
+  <p>Use a read-only publishable key (<code>oa_pk_…</code>, safe in browsers) for reads, a secret key (<code>oa_sk_…</code>, server-only) for writes. <a href="https://www.npmjs.com/package/@openagenda/api-client">npm</a>.</p>
+
   <footer><a href="https://openagenda.com">openagenda.com</a></footer>
 </main>
 </body>

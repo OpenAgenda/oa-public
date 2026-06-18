@@ -690,6 +690,36 @@ const SCHEMAS_FOOTER = 'Validators: a `schemas` namespace of zod validators is a
   + 'to parse payloads (e.g. `schemas.zEvent.parse(data)`). Available: '
   + `${SCHEMA_VALIDATORS.join(', ')}.`;
 
+// The SDK frame, rendered FIRST so it sets the lens for everything below: the
+// `oa.*` calls in this payload ARE the public surface of @openagenda/api-client
+// (the very SDK the `execute` sandbox bundles and runs). Framed up front, an
+// agent building a durable site or tool reproduces these as SDK calls instead of
+// hand-rolled `fetch`. It also states the WIRE AUTH CONTRACT, because models have
+// a strong prior to write vanilla fetch for "frontend code" regardless of how the
+// SDK is framed — and then guess v2's `?key=` query auth, which the v3 contract
+// does not define (its only schemes are Bearer + OAuth). Stating `Authorization:
+// Bearer` catches that path; the SDK sets it from `auth`. Leading, not trailing: a
+// closing note after ~25 KB of operation
+// detail is the weakest position — by then the model has chosen its shape. The
+// only delta from an `execute` body is the one-time client setup (the sandbox
+// bakes baseUrl + key; a shipped app supplies its own).
+const SDK_LEAD = [
+  'The operations below are the `@openagenda/api-client` npm SDK — the same `oa` '
+    + 'client the `execute` tool runs, so code prototyped here ships unchanged in your '
+    + 'own site or tool. One-time setup, then call exactly as shown below:',
+  '```ts',
+  "import { OpenAgenda, client } from '@openagenda/api-client';",
+  "client.setConfig({ baseUrl: 'https://api.openagenda.com/v3', auth: 'oa_pk_…' });",
+  'const oa = new OpenAgenda();',
+  '```',
+  'Auth: every request goes in the `Authorization: Bearer <key>` header — v3 takes '
+    + 'the key (or an OAuth token) there, not as a `key` query parameter or header. The '
+    + 'SDK sets it from `auth`; with raw fetch you add the header yourself. Use a '
+    + 'read-only publishable key (`oa_pk_…`, safe in browsers) for reads, a secret key '
+    + '(`oa_sk_…`, server-only) for writes. The `schemas` zod validators are exported '
+    + 'from the package too.',
+].join('\n');
+
 /**
  * Render a full search_docs response: each hit by rank, the component
  * definitions the rich hits reference, plus the validators footer. Single
@@ -698,9 +728,9 @@ const SCHEMAS_FOOTER = 'Validators: a `schemas` namespace of zod validators is a
  * @param {Operation[]} hits
  */
 export function renderSearch(hits) {
-  if (!hits.length) return SCHEMAS_FOOTER;
+  if (!hits.length) return [SDK_LEAD, SCHEMAS_FOOTER].join('\n\n---\n\n');
   const body = hits.map((op, i) => renderOperation(op, i)).join('\n\n---\n\n');
-  return [body, renderComponentsSection(hits), SCHEMAS_FOOTER]
+  return [SDK_LEAD, body, renderComponentsSection(hits), SCHEMAS_FOOTER]
     .filter(Boolean)
     .join('\n\n---\n\n');
 }
