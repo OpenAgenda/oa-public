@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.10.7
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @openagenda/event-search@2.9.2
+
 ## 1.10.6
 
 ### Patch Changes

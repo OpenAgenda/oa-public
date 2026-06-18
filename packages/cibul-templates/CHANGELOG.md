@@ -1,5 +1,16 @@
 # Change Log
 
+## 1.4.6
+
+### Patch Changes
+
+- Updated dependencies [[`eb6ee10`](https://github.com/OpenAgenda/oa/commit/eb6ee10ca6b05737575dd7fef467ce59827602a1)]:
+  - @openagenda/widgets@0.0.4
+  - @openagenda/activity-apps@1.2.5
+  - @openagenda/inbox-apps@1.2.5
+  - @openagenda/member-apps@2.1.5
+  - @openagenda/home@2.2.5
+
 ## 1.4.5
 
 ### Patch Changes

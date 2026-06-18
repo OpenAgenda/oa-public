@@ -1,7 +1,7 @@
 {
   "name": "@openagenda/usage-counters",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": true,
   "author": "",
   "description": "",
@@ -19,7 +19,7 @@
     ".": "./index.js"
   },
   "dependencies": {
-    "@openagenda/logs": "^1.2.0",
+    "@openagenda/logs": "^1.2.1",
     "lodash": "^4.17.21",
     "why": "^0.6.2"
   },

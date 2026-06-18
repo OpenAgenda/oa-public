@@ -1,5 +1,13 @@
 # @openagenda/agenda-locations-app
 
+## 0.0.4
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @openagenda/activity-apps@1.2.5
+  - @openagenda/agenda-locations@2.1.5
+
 ## 0.0.3
 
 ### Patch Changes

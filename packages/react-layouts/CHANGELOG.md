@@ -1,5 +1,13 @@
 # Change Log
 
+## 2.2.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @openagenda/activity-apps@1.2.5
+  - @openagenda/members@1.15.16
+
 ## 2.2.4
 
 ### Patch Changes

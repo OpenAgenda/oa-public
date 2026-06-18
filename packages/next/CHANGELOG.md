@@ -1,5 +1,16 @@
 # @openagenda/next
 
+## 0.0.8
+
+### Patch Changes
+
+- Updated dependencies [[`a3bd9bd`](https://github.com/OpenAgenda/oa/commit/a3bd9bd75ac41e5f5c62bc7e43efcd8b376ffa99)]:
+  - @openagenda/logs@1.2.1
+  - @openagenda/activity-apps@1.2.5
+  - @openagenda/registrations@0.0.5
+  - @openagenda/mails@6.0.1
+  - @openagenda/react@0.0.6
+
 ## 0.0.7
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/users",
-  "version": "3.1.2",
+  "version": "3.1.3",
   "private": true,
   "repository": {
     "type": "git",
@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@feathersjs/hooks": "^0.4.0-alpha.0",
-    "@openagenda/logs": "^1.2.0",
+    "@openagenda/logs": "^1.2.1",
     "@openagenda/validators": "^2.4.0",
     "@openagenda/verror": "^3.2.0",
     "feathers-hooks-common": "^5.0.2",

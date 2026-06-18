@@ -1,5 +1,14 @@
 # @openagenda/event-admin-apps
 
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @openagenda/event-search@2.9.2
+  - @openagenda/registrations@0.0.5
+  - @openagenda/agenda-docx@2.0.1
+
 ## 0.0.4
 
 ### Patch Changes
