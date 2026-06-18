@@ -439,7 +439,6 @@ export default function Signin({
               variant="link"
               type="button"
               onClick={() => setView('lost')}
-              color="primary.500"
             >
               {intl.formatMessage(messages.resetPassword)}
             </Button>
@@ -504,18 +503,13 @@ export default function Signin({
           <Field.ErrorText>{errors.password}</Field.ErrorText>
         )}
         <Field.HelperText>
-          <Button
-            variant="link"
-            type="button"
-            onClick={() => setView('lost')}
-            color="primary.500"
-          >
+          <Button variant="link" type="button" onClick={() => setView('lost')}>
             {intl.formatMessage(messages.forgotPassword)}
           </Button>
         </Field.HelperText>
       </Field.Root>
 
-      <Button type="submit" colorPalette="blue" w="full" loading={loading}>
+      <Button type="submit" w="full" loading={loading}>
         {intl.formatMessage(messages.submitLabel)}
       </Button>
 
@@ -524,7 +518,6 @@ export default function Signin({
           variant="link"
           type="button"
           onClick={() => setView('magic')}
-          color="primary.500"
           disabled={loading}
         >
           {intl.formatMessage(messages.signinByEmail)}
@@ -569,7 +562,6 @@ export default function Signin({
             variant="link"
             type="button"
             onClick={() => onViewChange('signup')}
-            color="primary.500"
           >
             {intl.formatMessage(messages.createAccount)}
           </Button>
@@ -580,7 +572,7 @@ export default function Signin({
                 ? `/auth/signup?redirect=${btoa(`/${agenda.slug}/contribute`)}`
                 : '/auth/signup'
             }
-            color="primary.500"
+            variant="plain"
           >
             {intl.formatMessage(messages.createAccount)}
           </Link>

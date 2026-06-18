@@ -165,7 +165,6 @@ export default function SignupComplete({
           <Button
             variant="link"
             type="button"
-            color="primary.500"
             onClick={handleResend}
             disabled={isDisabled}
             aria-busy={loading || undefined}
@@ -211,7 +210,7 @@ export default function SignupComplete({
         </Text>
         <Text as="li">
           {intl.formatMessage(messages.step4Prefix)}
-          <Link href={`mailto:${SUPPORT_EMAIL}`} color="primary.500">
+          <Link href={`mailto:${SUPPORT_EMAIL}`} variant="plain">
             {SUPPORT_EMAIL}
           </Link>
         </Text>

@@ -207,7 +207,7 @@ export default function MagicLink({
         >
           {intl.formatMessage(messages.cancelLabel)}
         </Button>
-        <Button type="submit" colorPalette="blue" flex="1" loading={loading}>
+        <Button type="submit" flex="1" loading={loading}>
           {intl.formatMessage(messages.submitLabel)}
         </Button>
       </HStack>
