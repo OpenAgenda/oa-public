@@ -4,32 +4,6 @@ import resetCache from './lib/resetCache.js';
 
 const log = logs('services/agendas/onRemove');
 
-let taskRegistered = false;
-
-function registerRemoveMembersTask(services) {
-  if (taskRegistered) return;
-  taskRegistered = true;
-
-  const { members } = services;
-
-  services.core.tasks.register({
-    async removeAgendaMembers({ agendaUid }) {
-      const memberStream = members.stream({ agendaUid });
-      for await (const member of memberStream) {
-        try {
-          await members.remove(member.id, { context: { silent: true } });
-        } catch (error) {
-          log.error('failed to remove member during agenda removal', {
-            memberId: member.id,
-            agendaUid,
-            error,
-          });
-        }
-      }
-    },
-  });
-}
-
 export default async (services, agenda) => {
   const {
     inboxes: { Inbox },
@@ -85,7 +59,8 @@ export default async (services, agenda) => {
   }
 
   try {
-    registerRemoveMembersTask(services);
+    // The processor is registered in the worker process (see
+    // services/agendas/tasks.js, wired from task.js) — here we only enqueue.
     await services.core.tasks.enqueue('removeAgendaMembers', {
       agendaUid: agenda.uid,
     });

@@ -73,6 +73,11 @@ describe('core - functional (server): core.agendas().remove()', () => {
     });
 
     it('removes agenda and cleans up members via background task', async () => {
+      // mirror prod wiring: the worker process registers the agenda task
+      // processors before starting the worker (see task.js). Without this the
+      // worker would drop `removeAgendaMembers` as an "Unknown job".
+      core.services.agendas.registerTasks();
+
       await new Promise((resolve, reject) => {
         // start the worker before triggering the remove so the task
         // is picked up as soon as onRemove enqueues it

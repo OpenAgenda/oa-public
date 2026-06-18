@@ -101,6 +101,8 @@ export default (config, core, services, tasksList) => {
 
     services.members.task();
 
+    services.agendas.registerTasks();
+
     core.tasks();
 
     // core.agendas.utils.clearAgendasCache();
