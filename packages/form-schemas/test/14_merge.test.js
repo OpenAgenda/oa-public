@@ -785,4 +785,125 @@ describe('unit - assigning schema properties to another schema', () => {
       ]);
     });
   });
+
+  describe('default value scrubbing during merge', () => {
+    // Non-regression for the #157 production incident: scrubbing must NEVER
+    // touch the default of a non-optioned field (it has a free-value default
+    // and no options, so it would always be wiped). See PR #161 revert.
+    it('keeps a text field string default through merge', () => {
+      const schema = {
+        id: 1,
+        fields: [{ field: 'intro', fieldType: 'text', default: 'Bonjour' }],
+      };
+      const childSchema = {
+        id: 2,
+        fields: [{ field: 'intro', fieldType: 'abstract', optional: true }],
+      };
+
+      const [field] = merge(schema, childSchema).fields;
+      expect(field.default).toBe('Bonjour');
+    });
+
+    it('keeps a number field default through merge', () => {
+      const schema = {
+        id: 1,
+        fields: [{ field: 'capacity', fieldType: 'number', default: 42 }],
+      };
+      const childSchema = {
+        id: 2,
+        fields: [{ field: 'capacity', fieldType: 'abstract', optional: true }],
+      };
+
+      const [field] = merge(schema, childSchema).fields;
+      expect(field.default).toBe(42);
+    });
+
+    it('purges an optioned default referencing an option removed by allowedOptions', () => {
+      const schema = {
+        id: 1,
+        fields: [
+          {
+            field: 'pickmany',
+            fieldType: 'checkbox',
+            optional: true,
+            options: [
+              { label: 'A', id: 1 },
+              { label: 'B', id: 2 },
+              { label: 'C', id: 3 },
+            ],
+            default: [1, 2],
+          },
+        ],
+      };
+      const restrictiveSchema = {
+        id: 2,
+        fields: [
+          { field: 'pickmany', fieldType: 'abstract', allowedOptions: [3] },
+        ],
+      };
+
+      const [field] = merge(schema, restrictiveSchema).fields;
+      expect(field.options).toStrictEqual([{ label: 'C', id: 3 }]);
+      expect(field.default).toBeNull();
+    });
+
+    it('keeps surviving optioned default tokens, drops only orphans', () => {
+      const schema = {
+        id: 1,
+        fields: [
+          {
+            field: 'pickmany',
+            fieldType: 'checkbox',
+            optional: true,
+            options: [
+              { label: 'A', id: 1 },
+              { label: 'B', id: 2 },
+            ],
+            default: [1, 2],
+          },
+        ],
+      };
+      const childSchema = {
+        id: 2,
+        fields: [
+          {
+            field: 'pickmany',
+            fieldType: 'abstract',
+            options: [{ label: 'A', id: 1 }],
+          },
+        ],
+      };
+
+      const [field] = merge(schema, childSchema).fields;
+      expect(field.options).toStrictEqual([{ label: 'A', id: 1 }]);
+      expect(field.default).toStrictEqual([1]);
+    });
+
+    it('leaves a fully valid optioned default untouched', () => {
+      const schema = {
+        id: 1,
+        fields: [
+          {
+            field: 'pickmany',
+            fieldType: 'checkbox',
+            optional: true,
+            options: [
+              { label: 'A', id: 1 },
+              { label: 'B', id: 2 },
+            ],
+            default: [1],
+          },
+        ],
+      };
+      const relabelSchema = {
+        id: 2,
+        fields: [
+          { field: 'pickmany', fieldType: 'abstract', label: 'Pick many' },
+        ],
+      };
+
+      const [field] = merge(schema, relabelSchema).fields;
+      expect(field.default).toStrictEqual([1]);
+    });
+  });
 });

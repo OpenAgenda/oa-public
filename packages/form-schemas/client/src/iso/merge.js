@@ -1,5 +1,8 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
+import { scrubDefaultValue } from './fieldOptions.js';
+
+const OPTIONED_TYPES = ['radio', 'checkbox', 'select', 'multiselect'];
 
 const getIsAbstract = ({ fieldType, type }) => {
   if (type === 'abstract') {
@@ -72,6 +75,40 @@ function mergeField(field, mergeWithField) {
     update.related = {
       $set: mergeRelated([field.related, mergeWithField.related]),
     };
+  }
+
+  // For optioned fields only, drop default tokens that don't resolve to an
+  // option in the merged result — e.g. an inheriting schema restricts options
+  // via `allowedOptions`, or overrides `options`, leaving the inherited default
+  // pointing at options that no longer exist. Scoped strictly to optioned types:
+  // a non-optioned field (text, number, …) has a free-value default and no
+  // options, so scrubbing it would wipe a perfectly valid default.
+  const isOptioned = OPTIONED_TYPES.includes(field.fieldType)
+    || OPTIONED_TYPES.includes(mergeWithField.fieldType);
+  if (isOptioned) {
+    // Resolve a key's value once the merge is applied: a staged $set wins, then
+    // an explicit override on mergeWithField, then the base field.
+    const mergedValue = (key) => {
+      if (update[key]) {
+        return update[key].$set;
+      }
+      if (mergeWithField[key] !== undefined) {
+        return mergeWithField[key];
+      }
+      return field[key];
+    };
+    const mergedOptions = mergedValue('options');
+    if (Array.isArray(mergedOptions) && mergedOptions.length) {
+      const mergedDefault = mergedValue('default');
+      const scrubbedDefault = scrubDefaultValue(mergedDefault, mergedOptions);
+      const defaultChanged = Array.isArray(mergedDefault)
+        ? scrubbedDefault === null
+          || scrubbedDefault.length !== mergedDefault.length
+        : scrubbedDefault !== mergedDefault;
+      if (defaultChanged) {
+        update.default = { $set: scrubbedDefault };
+      }
+    }
   }
 
   if (!_.keys(update).length) return field;
