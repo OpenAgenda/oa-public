@@ -27,6 +27,7 @@ import { contextBar as messages } from '../../messages';
 import StateSelector from './StateSelector';
 import ContextBarButton from './ContextBarButton';
 import OtherActions from './OtherActions';
+import OwnerActions from './OwnerActions';
 import Edit from './Edit';
 
 const Column = chakra('div', {
@@ -116,16 +117,7 @@ export default function ContextBar() {
     return (
       <Collapsible.Root open>
         <Collapsible.Content>
-          <SimpleGrid columns={1} bg="white" gap="1px">
-            <Column>
-              <OtherActions
-                agenda={agenda}
-                editLink={editLink}
-                contextBarRef={ref}
-                ownerOnly
-              />
-            </Column>
-          </SimpleGrid>
+          <OwnerActions />
         </Collapsible.Content>
       </Collapsible.Root>
     );
