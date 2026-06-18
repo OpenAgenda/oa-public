@@ -1,5 +1,12 @@
 # @openagenda/react
 
+## 0.0.6
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @openagenda/mails@6.0.1
+
 ## 0.0.5
 
 ### Patch Changes

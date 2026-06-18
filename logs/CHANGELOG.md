@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.2.1
+
+### Patch Changes
+
+- [#171](https://github.com/OpenAgenda/oa/pull/171) [`a3bd9bd`](https://github.com/OpenAgenda/oa/commit/a3bd9bd75ac41e5f5c62bc7e43efcd8b376ffa99) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Fix a `RangeError: Maximum call stack size exceeded` crash on Windows when resolving the caller's module. `getModule` now terminates at the filesystem root on every platform (`path.dirname` returns the drive root unchanged on Windows, so the old `dir === '/'` check never matched and recursed infinitely), and `getCallerFile` converts `file://` URLs with `url.fileURLToPath` instead of a naive string replace, which previously produced invalid `/C:/…` paths that `path.resolve` mangled on Windows.
+
 ## 1.2.0
 
 ### Minor Changes
