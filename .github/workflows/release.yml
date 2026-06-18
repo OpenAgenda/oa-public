@@ -71,6 +71,11 @@ jobs:
           retention-days: 1
 
       - name: Sync to public
+        # Run even if `changeset publish` exited non-zero: a single package
+        # failing to publish must not strand the public mirror. The action sets
+        # its outputs before propagating the exit code, and this script is
+        # idempotent (it only syncs tags missing from oa-public).
+        if: ${{ !cancelled() }}
         run: |
           git checkout main
           ./scripts/sync-releases-to-public.sh
@@ -83,7 +88,10 @@ jobs:
       # shows the release version; the bundle stays a thin `npx @openagenda/mcp`
       # launcher, so it always pulls that version's code from npm at runtime.
       - name: Attach Claude Desktop bundle to the public release
-        if: steps.changesets.outputs.published == 'true' && contains(fromJSON(steps.changesets.outputs.publishedPackages).*.name, '@openagenda/mcp')
+        # `!cancelled()` so a partial publish failure on an unrelated package
+        # doesn't skip this; the publishedPackages gate still scopes it to a real
+        # mcp publish (outputs are set even when the publish step exits non-zero).
+        if: ${{ !cancelled() && steps.changesets.outputs.published == 'true' && contains(fromJSON(steps.changesets.outputs.publishedPackages).*.name, '@openagenda/mcp') }}
         working-directory: public/mcp
         run: |
           VERSION=$(echo "$PUBLISHED_PACKAGES" | jq -r '.[] | select(.name == "@openagenda/mcp") | .version')
@@ -104,7 +112,9 @@ jobs:
       # MCP_PUBLISHER_PRIVATE_KEY secret and must match the TXT record on
       # openagenda.com (runbook: wiki/mcp-registry.md).
       - name: Publish to MCP Registry
-        if: steps.changesets.outputs.published == 'true' && contains(fromJSON(steps.changesets.outputs.publishedPackages).*.name, '@openagenda/mcp')
+        # See "Attach Claude Desktop bundle": run on partial failure too, gated
+        # on a real mcp publish — npm and the MCP registry should never diverge.
+        if: ${{ !cancelled() && steps.changesets.outputs.published == 'true' && contains(fromJSON(steps.changesets.outputs.publishedPackages).*.name, '@openagenda/mcp') }}
         working-directory: public/mcp
         run: |
           VERSION=$(echo "$PUBLISHED_PACKAGES" | jq -r '.[] | select(.name == "@openagenda/mcp") | .version')
@@ -130,7 +140,9 @@ jobs:
       # then re-run ./scripts/upload.sh locally) but never blocks the npm, sync or
       # mcp publishes that ran above.
       - name: Publish widgets to CDN
-        if: steps.changesets.outputs.published == 'true' && contains(fromJSON(steps.changesets.outputs.publishedPackages).*.name, '@openagenda/widgets')
+        # See "Attach Claude Desktop bundle": run on partial failure too, gated
+        # on a real widgets publish.
+        if: ${{ !cancelled() && steps.changesets.outputs.published == 'true' && contains(fromJSON(steps.changesets.outputs.publishedPackages).*.name, '@openagenda/widgets') }}
         working-directory: public/widgets
         run: |
           sudo apt-get update
