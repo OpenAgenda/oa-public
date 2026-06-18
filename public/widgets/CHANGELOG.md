@@ -1,5 +1,14 @@
 # @openagenda/widgets
 
+## 0.0.4
+
+### Patch Changes
+
+- [#168](https://github.com/OpenAgenda/oa/pull/168) [`eb6ee10`](https://github.com/OpenAgenda/oa/commit/eb6ee10ca6b05737575dd7fef467ce59827602a1) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Automate the CDN deployment of the widgets bundle on release. The release workflow now uploads the freshly built `dist/` to the OpenStack Swift `js` container and purges the KeyCDN `assets` zone whenever `@openagenda/widgets` is published, reusing `scripts/upload.sh` (made CI-aware: KeyCDN key and Swift credentials come from the environment, with the 1Password path kept as the local fallback).
+
+- Updated dependencies []:
+  - @openagenda/react@0.0.6
+
 ## 0.0.3
 
 ### Patch Changes

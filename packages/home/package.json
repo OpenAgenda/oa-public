@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/home",
-  "version": "2.2.4",
+  "version": "2.2.5",
   "private": true,
   "description": "Oh la home",
   "type": "module",
@@ -26,8 +26,8 @@
     "@openagenda/bs-templates": "^2.6.0",
     "@openagenda/intl": "^2.0.0",
     "@openagenda/labels": "^2.3.0",
-    "@openagenda/member-apps": "^2.1.4",
-    "@openagenda/members": "^1.15.15",
+    "@openagenda/member-apps": "^2.1.5",
+    "@openagenda/members": "^1.15.16",
     "@openagenda/react-shared": "^3.0.0",
     "classnames": "^2.3.1",
     "final-form": "^4.20.2",

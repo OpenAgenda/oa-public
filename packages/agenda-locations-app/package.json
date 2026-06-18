@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-locations-app",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": true,
   "description": "",
   "repository": {
@@ -25,8 +25,8 @@
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
-    "@openagenda/activity-apps": "^1.2.4",
-    "@openagenda/agenda-locations": "^2.1.4",
+    "@openagenda/activity-apps": "^1.2.5",
+    "@openagenda/agenda-locations": "^2.1.5",
     "@openagenda/bs-templates": "^2.6.0",
     "@openagenda/countries": "^0.1.1",
     "@openagenda/intl": "^2.0.0",

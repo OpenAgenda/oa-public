@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/registration-apps",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": true,
   "type": "module",
   "main": "./dist/index.js",
@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@openagenda/react-shared": "^3.0.0",
-    "@openagenda/registrations": "^0.0.4",
+    "@openagenda/registrations": "^0.0.5",
     "autosize": "^6.0.1",
     "classnames": "^2.5.1",
     "fastest-levenshtein": "^1.0.16",

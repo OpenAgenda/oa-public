@@ -1,5 +1,15 @@
 # Change Log
 
+## 2.1.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @openagenda/activity-apps@1.2.5
+  - @openagenda/form-schemas@1.9.6
+  - @openagenda/members@1.15.16
+  - @openagenda/mails@6.0.1
+
 ## 2.1.4
 
 ### Patch Changes

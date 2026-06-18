@@ -1,5 +1,16 @@
 # Change Log
 
+## 1.5.6
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @openagenda/agenda-locations@2.1.5
+  - @openagenda/events@3.0.4
+  - @openagenda/form-schemas@1.9.6
+  - @openagenda/agenda-locations-app@0.0.4
+  - @openagenda/registration-apps@0.0.4
+
 ## 1.5.5
 
 ### Patch Changes

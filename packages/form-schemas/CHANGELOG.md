@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.9.6
+
+### Patch Changes
+
+- Updated dependencies [[`a3bd9bd`](https://github.com/OpenAgenda/oa/commit/a3bd9bd75ac41e5f5c62bc7e43efcd8b376ffa99)]:
+  - @openagenda/logs@1.2.1
+
 ## 1.9.5
 
 ### Patch Changes

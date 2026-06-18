@@ -1,5 +1,23 @@
 # Change Log
 
+## 1.6.7
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @openagenda/activity-apps@1.2.5
+  - @openagenda/agenda-contribute@1.5.7
+  - @openagenda/agenda-settings@1.4.4
+  - @openagenda/inbox-apps@1.2.5
+  - @openagenda/legacy@1.11.4
+  - @openagenda/agenda-locations-app@0.0.4
+  - @openagenda/member-apps@2.1.5
+  - @openagenda/react-layouts@2.2.5
+  - @openagenda/agenda-stats@1.10.7
+  - @openagenda/event-admin-apps@0.0.5
+  - @openagenda/agenda-schemas-app@0.0.5
+  - @openagenda/home@2.2.5
+
 ## 1.6.6
 
 ### Patch Changes

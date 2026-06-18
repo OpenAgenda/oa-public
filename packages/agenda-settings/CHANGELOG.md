@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.4.4
+
+### Patch Changes
+
+- Updated dependencies [[`a3bd9bd`](https://github.com/OpenAgenda/oa/commit/a3bd9bd75ac41e5f5c62bc7e43efcd8b376ffa99)]:
+  - @openagenda/logs@1.2.1
+  - @openagenda/agendas@1.7.3
+  - @openagenda/registration-apps@0.0.4
+
 ## 1.4.3
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @openagenda/agenda-schemas-app
 
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @openagenda/form-schemas@1.9.6
+  - @openagenda/event-form@1.5.6
+
 ## 0.0.4
 
 ### Patch Changes

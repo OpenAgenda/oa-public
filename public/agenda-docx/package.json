@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-docx",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "type": "module",
   "main": "server/index.js",
   "author": "Kaoré <support@openagenda.com>",
@@ -19,7 +19,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.705.0",
     "@aws-sdk/lib-storage": "^3.705.0",
-    "@openagenda/logs": "^1.2.0",
+    "@openagenda/logs": "^1.2.1",
     "@openagenda/verror": "^3.2.0",
     "angular-expressions": "^1.5.5",
     "date-fns": "^4.1.0",

@@ -1,5 +1,52 @@
 # Change Log
 
+## 0.15.9
+
+### Patch Changes
+
+- Updated dependencies [[`a3bd9bd`](https://github.com/OpenAgenda/oa/commit/a3bd9bd75ac41e5f5c62bc7e43efcd8b376ffa99)]:
+  - @openagenda/logs@1.2.1
+  - @openagenda/abilities@1.3.5
+  - @openagenda/activities@2.3.3
+  - @openagenda/activity-apps@1.2.5
+  - @openagenda/agenda-contribute@1.5.7
+  - @openagenda/agenda-events@1.11.17
+  - @openagenda/agenda-locations@2.1.5
+  - @openagenda/agenda-search@1.4.3
+  - @openagenda/agenda-settings@1.4.4
+  - @openagenda/agendas@1.7.3
+  - @openagenda/aggregators@1.11.9
+  - @openagenda/custom@1.3.17
+  - @openagenda/event-search@2.9.2
+  - @openagenda/events@3.0.4
+  - @openagenda/form-schemas@1.9.6
+  - @openagenda/inbox-apps@1.2.5
+  - @openagenda/inboxes@1.1.17
+  - @openagenda/invitations@1.1.10
+  - @openagenda/legacy@1.11.4
+  - @openagenda/members@1.15.16
+  - @openagenda/network-apps@1.1.18
+  - @openagenda/networks@1.2.17
+  - @openagenda/oembed@2.2.4
+  - @openagenda/registrations@0.0.5
+  - @openagenda/simple-cache@2.1.3
+  - @openagenda/usage-counters@0.0.4
+  - @openagenda/users@3.1.3
+  - @openagenda/agenda-docx@2.0.1
+  - @openagenda/agenda-portal@6.15.1
+  - @openagenda/mails@6.0.1
+  - @openagenda/pdf-exports@0.0.5
+  - @openagenda/cibul-templates@1.4.6
+  - @openagenda/agenda-locations-app@0.0.4
+  - @openagenda/member-apps@2.1.5
+  - @openagenda/react-integration-app@1.6.7
+  - @openagenda/react-layouts@2.2.5
+  - @openagenda/event-form@1.5.6
+  - @openagenda/agenda-stats@1.10.7
+  - @openagenda/agenda-schemas-app@0.0.5
+  - @openagenda/flat-exports@1.4.4
+  - @openagenda/home@2.2.5
+
 ## 0.15.8
 
 ### Patch Changes
