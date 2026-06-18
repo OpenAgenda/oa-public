@@ -15,7 +15,7 @@
     "build": "webpack-cli --config bin/webpack.build.js",
     "prepack": "yarn build",
     "prepack-deps": "yarn workspaces foreach -Rpv --topological-dev run prepack",
-    "publish": "NODE_ENV=production yarn prepack-deps && NODE_ENV=production yarn npm publish"
+    "prepublishOnly": "NODE_ENV=production yarn prepack-deps"
   },
   "files": [
     "index.js",
