@@ -73,6 +73,9 @@ export function executeTool(limits, sandboxFacts) {
         'complete event payloads.',
         'Write an async body and `return` the value you want back (JSON-serialised).',
         'Compose freely: fetch, filter and aggregate in one script; return only what you need.',
+        'The `oa` client is the `@openagenda/api-client` npm package: code you prototype here '
+          + 'runs unchanged in a real site or tool — building one? Emit that SDK, not raw fetch '
+          + '(search_docs shows the one-time setup).',
         sandboxLine(limits, sandboxFacts),
       ].join('\n'),
       inputSchema: {

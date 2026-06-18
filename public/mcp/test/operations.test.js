@@ -446,6 +446,21 @@ describe('renderSearch', () => {
     expect(text).toContain('zEvent');
   });
 
+  // The SDK handoff: every search_docs response LEADS with the frame that the
+  // rendered `oa.*` calls are the npm package, so an agent building a durable
+  // tool reproduces them as SDK calls instead of hand-rolled fetch. Leading,
+  // not trailing — the frame must precede the operation detail it qualifies.
+  it('leads with the SDK frame pointing at @openagenda/api-client', () => {
+    const text = renderSearch(searchOperations('events'));
+    expect(text).toContain('@openagenda/api-client');
+    expect(text).toContain('client.setConfig(');
+    expect(text).toContain('new OpenAgenda()');
+    // Precedes the first operation card, not buried after the catalogue.
+    expect(text.indexOf('@openagenda/api-client')).toBeLessThan(
+      text.indexOf('### '),
+    );
+  });
+
   // The list card renders its summary item in full (locality rule); the
   // Components section must not define it a second time.
   it('does not re-define the inline-rendered summary variant in Components', () => {
