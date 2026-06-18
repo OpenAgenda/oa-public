@@ -117,3 +117,26 @@ jobs:
         env:
           PUBLISHED_PACKAGES: ${{ steps.changesets.outputs.publishedPackages }}
           MCP_PUBLISHER_PRIVATE_KEY: ${{ secrets.MCP_PUBLISHER_PRIVATE_KEY }}
+
+      # Publish the freshly built widgets bundle to the CDN. Gated on a real
+      # @openagenda/widgets publish so a release that doesn't bump widgets never
+      # touches the CDN. The dist/ uploaded here is the one `yarn turbo prepack`
+      # built above (same artefact npm published). The script uploads dist/ to
+      # the OpenStack Swift `js` container and purges the KeyCDN `assets` zone.
+      # Auth comes from two secrets: KEYCDN_API_KEY (instead of 1Password) and
+      # OPENSTACK_RC — the full application-credential openrc, sourced here so the
+      # region and endpoint are whatever that file declares (no hard-coded OS_*).
+      # Kept LAST and blocking on purpose: a CDN failure is loud (red job, fix it
+      # then re-run ./scripts/upload.sh locally) but never blocks the npm, sync or
+      # mcp publishes that ran above.
+      - name: Publish widgets to CDN
+        if: steps.changesets.outputs.published == 'true' && contains(fromJSON(steps.changesets.outputs.publishedPackages).*.name, '@openagenda/widgets')
+        working-directory: public/widgets
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-swiftclient python3-keystoneclient
+          set -a; eval "$OPENSTACK_RC"; set +a
+          ./scripts/upload.sh
+        env:
+          KEYCDN_API_KEY: ${{ secrets.KEYCDN_API_KEY }}
+          OPENSTACK_RC: ${{ secrets.OPENSTACK_RC }}
