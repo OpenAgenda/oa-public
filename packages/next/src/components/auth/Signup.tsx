@@ -507,9 +507,9 @@ export default function Signup({
         aria-label={intl.formatMessage(messages.formTitle)}
       >
         <Box
-          bg="gray.50"
+          bg="bg.subtle"
           borderWidth="1px"
-          borderColor="gray.200"
+          borderColor="border"
           borderRadius="md"
           p="3"
           mb="6"
@@ -525,14 +525,13 @@ export default function Signup({
           {onViewChange ? (
             <Button
               type="button"
-              colorPalette="blue"
               size="sm"
               onClick={() => onViewChange('signin')}
             >
               {intl.formatMessage(messages.signinLink)}
             </Button>
           ) : (
-            <Button asChild colorPalette="blue" size="sm">
+            <Button asChild size="sm">
               <a href={agenda ? `/${agenda.slug}/signin` : '/signin'}>
                 {intl.formatMessage(messages.signinLink)}
               </a>
@@ -582,7 +581,7 @@ export default function Signup({
                 href="https://doc.openagenda.com/confidentialite/#votre-compte-utilisateur"
                 target="_blank"
                 rel="noopener noreferrer"
-                color="primary.500"
+                variant="plain"
                 fontSize="inherit"
                 display="inline"
               >
@@ -717,7 +716,7 @@ export default function Signup({
                 href="https://doc.openagenda.com/conditions/"
                 target="_blank"
                 rel="noopener noreferrer"
-                color="primary.500"
+                variant="plain"
                 fontSize="inherit"
                 display="inline"
               >
@@ -733,7 +732,7 @@ export default function Signup({
                 href="https://doc.openagenda.com/confidentialite/"
                 target="_blank"
                 rel="noopener noreferrer"
-                color="primary.500"
+                variant="plain"
                 fontSize="inherit"
                 display="inline"
               >
@@ -747,7 +746,7 @@ export default function Signup({
           })}
         </Text>
 
-        <Button type="submit" colorPalette="blue" w="full" loading={loading}>
+        <Button type="submit" w="full" loading={loading}>
           {intl.formatMessage(messages.submitLabel)}
         </Button>
       </chakra.form>
@@ -777,14 +776,13 @@ export default function Signup({
             variant="link"
             type="button"
             onClick={() => onViewChange('signin')}
-            color="primary.500"
           >
             {intl.formatMessage(messages.signinLink)}
           </Button>
         ) : (
           <Link
             href={agenda ? `/${agenda.slug}/signin` : '/signin'}
-            color="primary.500"
+            variant="plain"
           >
             {intl.formatMessage(messages.signinLink)}
           </Link>

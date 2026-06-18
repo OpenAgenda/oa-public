@@ -284,8 +284,8 @@ export default function Consent({
             align="center"
             justify="center"
             borderRadius="2xl"
-            bg="gray.100"
-            color="gray.700"
+            bg="bg.muted"
+            color="fg"
             fontSize="2xl"
             fontWeight="bold"
             aria-hidden="true"
@@ -390,7 +390,7 @@ export default function Consent({
               py="2"
               borderRadius="md"
               transition="background 0.15s"
-              _hover={{ bg: 'gray.50' }}
+              _hover={{ bg: 'bg.subtle' }}
             >
               <Flex
                 flexShrink={0}
@@ -399,8 +399,8 @@ export default function Consent({
                 w="9"
                 h="9"
                 borderRadius="lg"
-                bg="blue.50"
-                color="blue.600"
+                bg="primary.subtle"
+                color="primary.fg"
                 fontSize="sm"
                 aria-hidden="true"
               >
@@ -423,7 +423,6 @@ export default function Consent({
         </Button>
         <Button
           variant="solid"
-          colorPalette="blue"
           size="lg"
           onClick={() => submit(true)}
           loading={submitting}

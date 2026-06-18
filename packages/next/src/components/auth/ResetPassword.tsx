@@ -200,7 +200,7 @@ export default function ResetPassword({ token }: ResetPasswordProps) {
         />
       </Field.Root>
 
-      <Button type="submit" colorPalette="blue" w="full" loading={loading}>
+      <Button type="submit" w="full" loading={loading}>
         {intl.formatMessage(messages.submitLabel)}
       </Button>
     </chakra.form>

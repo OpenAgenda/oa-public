@@ -1,5 +1,7 @@
-import { chakra, SystemStyleObject } from '@openagenda/uikit';
+import { Surface, SystemStyleObject } from '@openagenda/uikit';
 
+// Surface owns the panel look (bg + radius, flat); this only adds the
+// error-state layout: a centred, content-width block with generous margins.
 const errorContainerStyles: SystemStyleObject = {
   minW: 'xl',
   maxW: 'full',
@@ -9,8 +11,6 @@ const errorContainerStyles: SystemStyleObject = {
   mb: '16',
   py: '8',
   px: '4',
-  bg: 'white',
-  borderRadius: 'base',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -20,8 +20,8 @@ const errorContainerStyles: SystemStyleObject = {
 
 export default function ErrorContainer({ children, ...rest }) {
   return (
-    <chakra.div {...rest} css={errorContainerStyles}>
+    <Surface {...rest} css={errorContainerStyles}>
       {children}
-    </chakra.div>
+    </Surface>
   );
 }

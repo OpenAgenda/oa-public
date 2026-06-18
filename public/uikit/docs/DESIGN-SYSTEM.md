@@ -42,7 +42,7 @@ uikit, not `@chakra-ui/react`). Source of truth:
 | Multi-part variants  | [`src/theme/recipes/`](../src/theme/recipes/) (slot recipes) | accordion, checkbox, menu, radioGroup, select, list, blockquote                                     |
 | Global CSS           | [`src/theme/globalCss.ts`](../src/theme/globalCss.ts)        | base/reset styles                                                                                   |
 | Composed system      | [`src/theme/index.ts`](../src/theme/index.ts)                | assembles all of the above into `system`                                                            |
-| Prebuilt components  | [`src/components/`](../src/components/)                      | OA-authored (`Heading`, `NoBreak`)                                                                  |
+| Prebuilt components  | [`src/components/`](../src/components/)                      | OA-authored (`Heading`, `NoBreak`, `Surface`)                                                       |
 | Snippets             | [`src/snippets/`](../src/snippets/)                          | Chakra composition snippets (Dialog, Field, Tooltip, Tag, …)                                        |
 
 ### Import surfaces
@@ -75,6 +75,19 @@ single, swappable entry point.
 5. **App-only composition stays in the app.** How a specific app arranges pages or
    wires a particular dialog is _not_ portable — keep it in that app's guidelines,
    not here.
+6. **Don't hand-roll surfaces.** A panel/card sitting on the page background (auth
+   forms, error/empty states, …) is a `<Surface>` — flat by default (`bg.panel` plus
+   a subtle radius, no border, no shadow). Don't rebuild one from a `Box`/`Container`
+   with a background, border, radius and shadow; reach for `<Surface>` and pass only
+   layout (padding, width, margins). New surface looks are variants on the `surface`
+   recipe, never inline props.
+
+> **Not yet themed: elevation & radius.** `tokens/` defines only `colors`, `cursor`,
+> and `fonts` — there are no shadow or radius tokens, so `boxShadow`/`borderRadius`
+> resolve to Chakra's built-in scales (and `borderRadius="base"` silently resolves to
+> nothing — it is not a token). Prefer the semantic radii (`l1`/`l2`/`l3`); if a design
+> needs consistent elevation or radius, add tokens in `tokens/` rather than reaching for
+> a Chakra default ad hoc.
 
 ---
 
