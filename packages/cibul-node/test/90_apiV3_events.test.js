@@ -203,6 +203,46 @@ describe('90 - api-v3 - functional (server): events read endpoints', () => {
       }
     });
 
+    // Regression: the summary must carry a real `timezone` (event-search used to
+    // strip it alongside `timings`, leaving it always null) and must NOT carry
+    // the full `timings` array (now detailed-only). Tie the summary tz to the
+    // detailed view so it is proven populated, not merely present.
+    it('summary keeps the real timezone but drops the full timings array', async () => {
+      const [summary, detailed] = await Promise.all([
+        request(app)
+          .get('/agendas/2/events?detailed=false')
+          .set('authorization', `Bearer ${USER_KEY}`),
+        request(app)
+          .get('/agendas/2/events?detailed=true')
+          .set('authorization', `Bearer ${USER_KEY}`),
+      ]);
+
+      expect(summary.status).toBe(200);
+      expect(detailed.status).toBe(200);
+
+      const detailedByUid = new Map(detailed.body.data.map((e) => [e.uid, e]));
+
+      let sawPopulatedTimezone = false;
+      for (const event of summary.body.data) {
+        // the full occurrence array is gone from the light view...
+        expect(event).not.toHaveProperty('timings');
+        // ...but timezone is present and matches the detailed projection.
+        expect(event).toHaveProperty('timezone');
+        // When the same event is on the detailed page, its timezone must match;
+        // when it isn't, compare against itself (a no-op) so the assertion stays
+        // unconditional (jest/no-conditional-expect).
+        const counterpart = detailedByUid.get(event.uid);
+        expect(event.timezone).toBe(
+          counterpart ? counterpart.timezone : event.timezone,
+        );
+        if (event.timezone != null) sawPopulatedTimezone = true;
+      }
+
+      // The fixture's published events carry a timezone, so at least one summary
+      // must expose a non-null one (the bug made every one null).
+      expect(sawPopulatedTimezone).toBe(true);
+    });
+
     it('rejects a non-boolean detailed with 400 + per-field details', async () => {
       const res = await request(app)
         .get('/agendas/2/events?detailed=yes')

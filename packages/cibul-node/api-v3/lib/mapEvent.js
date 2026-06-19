@@ -29,7 +29,9 @@
 // Nested objects/arrays are then allowlist-cleaned (see CLEANERS) so internal
 // subfields never leak.
 
-// Base (EventSummary) field set: searchIncludes.json "base".
+// Base (EventSummary) field set: searchIncludes.json "base", minus `timings`
+// (event-search strips the full array from the light projection — it is
+// detailed-only here; see DETAILED_FIELDS).
 const BASE_FIELDS = {
   uid: 'scalar',
   slug: 'scalar',
@@ -42,8 +44,11 @@ const BASE_FIELDS = {
   imageCredits: 'nullable-scalar',
   keywords: 'map',
   originAgenda: 'object',
-  timings: 'array',
   location: 'object',
+  // timezone stays in the summary (a single IANA name): the compact view's
+  // firstTiming/lastTiming/nextTiming are instants that need it to render
+  // correctly across DST. The full `timings` array, by contrast, is
+  // detailed-only (see DETAILED_FIELDS).
   timezone: 'nullable-scalar',
   attendanceMode: 'scalar',
   onlineAccessLink: 'nullable-scalar',
@@ -53,7 +58,12 @@ const BASE_FIELDS = {
 };
 
 // Detailed-only fields, added on top of the base set for `Event`.
+// `timings` is here (not in BASE_FIELDS): event-search strips the full array
+// from the non-detailed projection, and the compact list speaks dates through
+// firstTiming/lastTiming/nextTiming instead. A summary would otherwise coerce
+// the absent array to `[]` and misreport it as "no occurrences".
 const DETAILED_FIELDS = {
+  timings: 'array',
   longDescription: 'map',
   conditions: 'map',
   country: 'object',
