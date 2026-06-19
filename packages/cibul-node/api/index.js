@@ -1234,10 +1234,7 @@ export default (core, { useRouter = true } = {}) => {
     (req, res, next) =>
       core
         .networks(req.params.uid)
-        .agendas.create(
-          { title: req.body.title, description: req.body.description },
-          { userUid: req.user.uid },
-        )
+        .agendas.create(req.parsedData, { userUid: req.user.uid })
         .then((agenda) => res.json(agenda), next),
   ]);
 

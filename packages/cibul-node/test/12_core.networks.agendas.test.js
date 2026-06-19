@@ -299,6 +299,23 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
       expect(resp.title).toBe('new agenda');
     });
 
+    it('agenda creation honours the provided slug', async () => {
+      const resp = await ky
+        .post('http://localhost:4000/networks/1/agendas', {
+          headers: {
+            'access-token': accessToken,
+          },
+          json: {
+            title: 'Agenda with explicit slug',
+            description: 'an agenda whose slug differs from its title',
+            slug: 'my-explicit-slug',
+          },
+        })
+        .json();
+
+      expect(resp.slug).toBe('my-explicit-slug');
+    });
+
     it('GET network eventSchema configure - returns schema with parents', async () => {
       const res = await ky
         .get(
