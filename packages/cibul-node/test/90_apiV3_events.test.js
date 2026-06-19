@@ -288,6 +288,61 @@ describe('90 - api-v3 - functional (server): events read endpoints', () => {
     });
   });
 
+  describe('GET /agendas/:agendaUid/events — fields (sparse selection)', () => {
+    it('trims each item to the selected fields, always keeping uid', async () => {
+      const res = await request(app)
+        .get('/agendas/2/events?fields=title,location')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.length).toBeGreaterThan(0);
+      for (const event of res.body.data) {
+        expect(Object.keys(event).sort()).toEqual(['location', 'title', 'uid']);
+      }
+    });
+
+    it('selecting uid alone returns single-key items', async () => {
+      const res = await request(app)
+        .get('/agendas/2/events?fields=uid')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(200);
+      for (const event of res.body.data) {
+        expect(Object.keys(event)).toEqual(['uid']);
+      }
+    });
+
+    it('is a subset of the ACTIVE view — a detailed-only field is 400 on summary', async () => {
+      const res = await request(app)
+        .get('/agendas/2/events?fields=longDescription')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(400);
+      expect(res.body.error.details.errors[0].field).toBe('fields');
+    });
+
+    it('but that same detailed-only field is selectable with detailed=true', async () => {
+      const res = await request(app)
+        .get('/agendas/2/events?detailed=true&fields=longDescription')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(200);
+      for (const event of res.body.data) {
+        expect(Object.keys(event).sort()).toEqual(['longDescription', 'uid']);
+      }
+    });
+
+    it('rejects an unknown field with 400 + per-field details', async () => {
+      const res = await request(app)
+        .get('/agendas/2/events?fields=title,nope')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(400);
+      assertValid(validateError, res.body, 'Error');
+      expect(res.body.error.details.errors[0].field).toBe('fields');
+    });
+  });
+
   describe('GET /agendas/:agendaUid/events — filtering', () => {
     // agenda 2 published events: uids 2, 7, 8 (event 1 is state 0). Events 7/8
     // are at location 1 (Paris), event 2 has no resolvable coordinates. All

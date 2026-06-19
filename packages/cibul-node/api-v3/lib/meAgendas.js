@@ -11,6 +11,7 @@
 
 import { mapAgendaSummary, mapAgendaDetailed } from './mapAgenda.js';
 import buildPagination from './pagination.js';
+import { pickSelected } from './selectFields.js';
 
 // Resolve `fn` over distinct values with bounded concurrency — the fallback
 // fan-out must stay flat even for a worst-case page of 100 private agendas.
@@ -112,7 +113,7 @@ function mapItem(item, enriched, { detailed }) {
 export default async function buildMeAgendaList(
   core,
   result,
-  { limit, detailed = false },
+  { limit, detailed = false, fields = null },
 ) {
   const { items = [], total, after = null } = result ?? {};
 
@@ -127,8 +128,9 @@ export default async function buildMeAgendaList(
   const enriched = await enrichAgendas(core, liveItems, { detailed });
 
   return {
+    // `fields` (when set) trims each item to the selected top-level subset.
     data: liveItems.map((item) =>
-      mapItem(item, enriched.get(item.uid), { detailed })),
+      pickSelected(mapItem(item, enriched.get(item.uid), { detailed }), fields)),
     // The members listing returns the last row's `order` (a scalar) even on
     // the last full page — short-page sentinel, gauged on the RAW page size:
     // stale rows were fetched, only their rendering is skipped.

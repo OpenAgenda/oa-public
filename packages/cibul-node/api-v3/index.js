@@ -22,10 +22,14 @@ import loadSearchAccess from '../core/agendas/events/lib/loadSearchAccess.js';
 import createAuthenticate from './lib/authenticate.js';
 import requireScope from './lib/requireScope.js';
 import createLoadAgenda from './lib/loadAgenda.js';
-import mapEvent from './lib/mapEvent.js';
-import mapAgenda from './lib/mapAgenda.js';
+import mapEvent, { mapEventSummary } from './lib/mapEvent.js';
+import mapAgenda, {
+  mapAgendaSummary,
+  mapAgendaDetailed,
+} from './lib/mapAgenda.js';
 import mapAgendaOverview from './lib/mapAgendaOverview.js';
-import mapLocation from './lib/mapLocation.js';
+import mapLocation, { mapLocationSummary } from './lib/mapLocation.js';
+import { resolveFields, fieldNamesOf } from './lib/selectFields.js';
 import buildListEnvelope from './lib/envelope.js';
 import buildAgendaListEnvelope from './lib/agendaEnvelope.js';
 import buildLocationListEnvelope from './lib/locationEnvelope.js';
@@ -202,6 +206,10 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
     try {
       const limit = resolveLimit(req.query.limit);
       const detailed = resolveDetailed(req.query.detailed);
+      const fields = resolveFields(
+        req.query.fields,
+        fieldNamesOf(detailed ? mapAgendaDetailed : mapAgendaSummary),
+      );
 
       const query = buildAgendaSearchQuery(req.query);
 
@@ -240,7 +248,7 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
         access: 'public',
       });
 
-      res.json(buildAgendaListEnvelope(result, { limit, detailed }));
+      res.json(buildAgendaListEnvelope(result, { limit, detailed, fields }));
     } catch (err) {
       next(err);
     }
@@ -311,6 +319,10 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
       try {
         const limit = resolveLimit(req.query.limit);
         const detailed = resolveDetailed(req.query.detailed);
+        const fields = resolveFields(
+          req.query.fields,
+          fieldNamesOf(detailed ? mapEvent : mapEventSummary),
+        );
 
         const nav = { size: limit };
 
@@ -350,7 +362,7 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
             agendaKey: req.agendaKey,
           });
 
-        res.json(buildListEnvelope(result, { limit, detailed }));
+        res.json(buildListEnvelope(result, { limit, detailed, fields }));
       } catch (err) {
         next(err);
       }
@@ -593,6 +605,10 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
       try {
         const limit = resolveLimit(req.query.limit);
         const detailed = resolveDetailed(req.query.detailed);
+        const fields = resolveFields(
+          req.query.fields,
+          fieldNamesOf(detailed ? mapLocation : mapLocationSummary),
+        );
 
         const query = buildLocationListQuery(req.query);
 
@@ -619,7 +635,9 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
           },
         );
 
-        res.json(buildLocationListEnvelope(result, { limit, detailed }));
+        res.json(
+          buildLocationListEnvelope(result, { limit, detailed, fields }),
+        );
       } catch (err) {
         next(err);
       }
@@ -686,6 +704,15 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
 
       const limit = resolveLimit(req.query.limit);
       const detailed = resolveDetailed(req.query.detailed);
+      // /me items graft `role` + `private` onto the agenda shape (see
+      // meAgendas.js), so they join the selectable names.
+      const fields = resolveFields(
+        req.query.fields,
+        fieldNamesOf(detailed ? mapAgendaDetailed : mapAgendaSummary, [
+          'private',
+          'role',
+        ]),
+      );
 
       const nav = { size: limit };
       // The memberships keyset position is a scalar (the last row's `order`),
@@ -699,7 +726,9 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
       // user re-fetch.
       const result = await core.users(req.user).agendas.list(nav);
 
-      res.json(await buildMeAgendaList(core, result, { limit, detailed }));
+      res.json(
+        await buildMeAgendaList(core, result, { limit, detailed, fields }),
+      );
     } catch (err) {
       next(err);
     }
