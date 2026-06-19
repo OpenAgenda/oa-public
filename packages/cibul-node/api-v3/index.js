@@ -65,15 +65,35 @@ const DEFAULT_LIMIT = 20;
 const MIN_LIMIT = 1;
 const MAX_LIMIT = 100;
 
+// Resolve `?limit`. Absent → the default (an omission is not an invalid value).
+// Anything else must be an integer within [MIN_LIMIT, MAX_LIMIT]: a non-integer
+// or an out-of-range value is a 400, never a silent coercion. Clamping
+// `limit=300` down to 100 would hand back a truncated page that looks complete
+// to the caller — hiding data with no signal. Rejecting is consistent with the
+// `detailed`/`sort` gate (an out-of-contract value is a bad request) and means
+// the cap is real: cursor pagination is how bulk/sync reads many pages, not a
+// single oversized one.
 function resolveLimit(rawLimit) {
   if (rawLimit === undefined) {
     return DEFAULT_LIMIT;
   }
-  const value = parseInt(rawLimit, 10);
-  if (Number.isNaN(value)) {
-    return DEFAULT_LIMIT;
+  const value = Number(rawLimit);
+  if (!Number.isInteger(value) || value < MIN_LIMIT || value > MAX_LIMIT) {
+    throw new BadRequest(
+      {
+        info: {
+          errors: [
+            {
+              field: 'limit',
+              message: `limit must be an integer between ${MIN_LIMIT} and ${MAX_LIMIT}`,
+            },
+          ],
+        },
+      },
+      'Invalid query parameters',
+    );
   }
-  return Math.min(MAX_LIMIT, Math.max(MIN_LIMIT, value));
+  return value;
 }
 
 // Contract: the `/agendas` list `?sort` allowlist. `createdAt.desc` is the

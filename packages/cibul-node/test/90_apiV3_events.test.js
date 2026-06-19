@@ -126,6 +126,39 @@ describe('90 - api-v3 - functional (server): events read endpoints', () => {
       expect(res.body.data.length).toBeLessThanOrEqual(1);
     });
 
+    it('accepts the maximum limit (100)', async () => {
+      const res = await request(app)
+        .get('/agendas/2/events?limit=100')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(200);
+      expect(res.body.pagination.limit).toBe(100);
+    });
+
+    // The cap is enforced by rejection, NOT silent clamping: a truncated page
+    // looks complete to the caller. Out-of-range and non-integer limits are 400,
+    // consistent with the detailed/sort gate.
+    it.each([
+      ['above the max', '101'],
+      ['far above the max (the v2 300)', '300'],
+      ['zero', '0'],
+      ['negative', '-5'],
+      ['non-integer', 'abc'],
+      ['fractional', '10.5'],
+    ])(
+      'rejects a limit %s with a 400 + per-field details',
+      async (_label, value) => {
+        const res = await request(app)
+          .get(`/agendas/2/events?limit=${value}`)
+          .set('authorization', `Bearer ${USER_KEY}`);
+
+        expect(res.status).toBe(400);
+        assertValid(validateError, res.body, 'Error');
+        expect(res.body.error.code).toBe('bad_request');
+        expect(res.body.error.details.errors[0].field).toBe('limit');
+      },
+    );
+
     it('each event in data validates against the EventSummary schema', async () => {
       const res = await request(app)
         .get('/agendas/2/events')
