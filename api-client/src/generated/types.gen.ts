@@ -773,6 +773,8 @@ export type AccessibilityCode = 'hi' | 'ii' | 'mi' | 'pi' | 'vi';
 /**
  * Compact event representation returned by the list endpoint (`detailed: false`). It carries the base field set only — the detailed fields (longDescription, conditions, country, registration, createdAt, updatedAt, accessibility, age, state, links, extIds, sourceAgendas) are NOT present here; fetch a single event for those.
  *
+ * The full `timings` array is also detailed-only: the compact view exposes the occurrence span through `firstTiming`/`lastTiming`/`nextTiming` instead, interpreted in `timezone` (the IANA name needed to render those instants correctly across DST). Fetch a single event for the full list of occurrences.
+ *
  * Empty-as-empty rule: every field is always present. Collections are never null/omitted (arrays → `[]`, localized maps → `{}`); singular optional values are present as `null` when absent. `additionalFields` is typically `{}` in summaries because agenda additional fields are detailed-level.
  *
  */
@@ -794,7 +796,6 @@ export type EventSummary = {
      * The agenda the event was originally created in.
      */
     readonly originAgenda: AgendaRef | null;
-    timings: Array<Timing>;
     location: EventLocation | null;
     /**
      * IANA time zone the timings are expressed in (null when unset).
@@ -1398,6 +1399,8 @@ export type MeAgendaListWritable = {
 /**
  * Compact event representation returned by the list endpoint (`detailed: false`). It carries the base field set only — the detailed fields (longDescription, conditions, country, registration, createdAt, updatedAt, accessibility, age, state, links, extIds, sourceAgendas) are NOT present here; fetch a single event for those.
  *
+ * The full `timings` array is also detailed-only: the compact view exposes the occurrence span through `firstTiming`/`lastTiming`/`nextTiming` instead, interpreted in `timezone` (the IANA name needed to render those instants correctly across DST). Fetch a single event for the full list of occurrences.
+ *
  * Empty-as-empty rule: every field is always present. Collections are never null/omitted (arrays → `[]`, localized maps → `{}`); singular optional values are present as `null` when absent. `additionalFields` is typically `{}` in summaries because agenda additional fields are detailed-level.
  *
  */
@@ -1408,7 +1411,6 @@ export type EventSummaryWritable = {
     image: Image | null;
     imageCredits: string | null;
     keywords: LocalizedStringArray;
-    timings: Array<Timing>;
     location: EventLocationWritable | null;
     attendanceMode: AttendanceMode;
     onlineAccessLink: string | null;
