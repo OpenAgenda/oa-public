@@ -899,7 +899,10 @@ components:
       name: limit
       in: query
       required: false
-      description: Maximum number of items to return per page.
+      description: >
+        Maximum number of items to return per page. An out-of-range or
+        non-integer value is rejected with `400`, never clamped; use the `after`
+        cursor to page further.
       schema:
         type: integer
         default: 20
