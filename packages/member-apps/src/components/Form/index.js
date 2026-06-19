@@ -187,7 +187,7 @@ export default ({
             </a>
             <a
               className="btn btn-danger margin-top-sm"
-              href={`/${agendaSlug}/admin/settings`}
+              href={`/${agendaSlug}/admin/settings/advanced#delete`}
             >
               {m(messages.lastAdminDeleteAgenda)}
             </a>

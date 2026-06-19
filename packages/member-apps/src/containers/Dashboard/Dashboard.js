@@ -662,11 +662,9 @@ class Dashboard extends Component {
               );
             } else if (showLastAdmin) {
               content = (
-                <div>
-                  <p className="margin-top-sm">
-                    {getLabel('lastAdminMessage')}
-                  </p>
-                  <div className="text-center margin-top-sm">
+                <div className="text-center padding-v-sm">
+                  <p>{getLabel('lastAdminMessage')}</p>
+                  <div className="margin-top-sm">
                     <button
                       type="button"
                       className="btn btn-default margin-right-xs"
@@ -679,7 +677,7 @@ class Dashboard extends Component {
                     </button>
                     <a
                       className="btn btn-danger"
-                      href={`/${agenda.slug}/admin/settings`}
+                      href={`/${agenda.slug}/admin/settings/advanced#delete`}
                     >
                       {getLabel('lastAdminDeleteAgenda')}
                     </a>
