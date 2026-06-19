@@ -11,6 +11,7 @@ import rebuild from './rebuild.js';
 import flattenMemberInfo from './utils/flattenMemberInfo.js';
 import clearAgendasCache from './utils/clearAgendasCache.js';
 import loadSummary from './utils/loadSummary.js';
+import loadOverview from './utils/loadOverview.js';
 import sources from './sources/index.js';
 
 export default (core) => {
@@ -28,6 +29,7 @@ export default (core) => {
       settings: settings(agendaUid),
       sources: sources(core, agendaUid),
       summary: loadSummary.agendaAndSummary.bind(null, core, agendaUid),
+      overview: loadOverview.agendaAndOverview.bind(null, core, agendaUid),
     };
 
     endpoints.rebuild = rebuild(core, endpoints, agendaUid);

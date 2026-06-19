@@ -24,6 +24,7 @@ import requireScope from './lib/requireScope.js';
 import createLoadAgenda from './lib/loadAgenda.js';
 import mapEvent from './lib/mapEvent.js';
 import mapAgenda from './lib/mapAgenda.js';
+import mapAgendaOverview from './lib/mapAgendaOverview.js';
 import mapLocation from './lib/mapLocation.js';
 import buildListEnvelope from './lib/envelope.js';
 import buildAgendaListEnvelope from './lib/agendaEnvelope.js';
@@ -246,6 +247,36 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
         }
 
         res.json(mapAgenda(agenda));
+      } catch (err) {
+        next(err);
+      }
+    },
+  );
+
+  // GET /agendas/:agendaUid/overview
+  // Live activity overview of one agenda (event counts, distributions, viewport,
+  // keywords). Computed live (never the index-time snapshot) so access-gated data
+  // never leaks through a cache. Two visibility scopes: `events.published` for
+  // every caller; `events.all` (all states — moderation/refused included) ONLY
+  // for administrator|moderator|internal, absent otherwise. Same `loadSearchAccess`
+  // gate as the other v3 reads. Registered as a literal 3-segment path, so it
+  // never collides with `/agendas/:agendaUid` (2-segment) nor the `/events*`
+  // routes.
+  app.get(
+    '/agendas/:agendaUid/overview',
+    requireScope('agendas:read'),
+    async (req, res, next) => {
+      try {
+        const access = await loadSearchAccess(core, req.agenda.uid, {
+          userUid: req.user?.uid,
+          agendaKey: req.agendaKey,
+        }) ?? 'public';
+
+        // Pass the already-loaded agenda object (not the uid) so overview()
+        // reuses it instead of re-fetching the agenda from SQL per request.
+        const overview = await core.agendas(req.agenda).overview({ access });
+
+        res.json(mapAgendaOverview(overview));
       } catch (err) {
         next(err);
       }

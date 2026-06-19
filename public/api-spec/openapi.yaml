@@ -202,6 +202,56 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 
+  /agendas/{agendaUid}/overview:
+    get:
+      operationId: agendas.overview
+      tags: [Agendas]
+      summary: Get an agenda's activity overview
+      x-synonyms:
+        [summary, stats, statistics, metrics, counts, activity, dashboard, kpi]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Overview of one agenda
+          source: |
+            const { data, error } = await oa.agendas.overview({
+              path: { agendaUid: 12345 },
+            });
+            if (error) throw error;
+            return data;
+      description: >
+        Returns a live activity overview of the agenda: event volume,
+        distributions (by language, source, end-day…), spatial viewport and
+        thematic keywords.
+
+
+        Two visibility scopes. `events.published` (publicly visible events) is
+        returned to every caller. `events.all` (events of any moderation state,
+        moderation/refused included) is returned ONLY to
+        `administrator|moderator|internal` callers and is absent otherwise.
+
+
+        Always computed live, so access-gated figures never leak through a stale
+        cache.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - agendas:read
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+      responses:
+        '200':
+          description: The agenda overview.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgendaOverview'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
   /agendas/{agendaUid}/events:
     get:
       operationId: agendas.events.list
@@ -2807,6 +2857,254 @@ components:
               - $ref: '#/components/schemas/AgendaSummary'
         pagination:
           $ref: '#/components/schemas/Pagination'
+
+    # The two visibility scopes of an agenda's events share a metric vocabulary
+    # (scalar totals, `by<Dimension>` maps of `key → count`, a spatial `viewport`,
+    # a thematic `keywords` list) but are DISTINCT schemas, each fully-required so
+    # the SDK types every field as present (not `T | undefined`). They differ only
+    # by their scope-specific keys: `published` carries the exact distinct counts
+    # `locations`/`creators`; `all` carries the per-moderation-state `byState`.
+    # The whole `all` scope is the single optional — it is gated by access (see
+    # AgendaOverview), so a consumer reasons about its presence from the access it
+    # holds, while every field WITHIN a returned scope is guaranteed.
+    PublishedEventStats:
+      type: object
+      additionalProperties: false
+      description: >
+        Statistics over an agenda's **publicly visible** events (`events.published`),
+        returned to every caller. Carries the exact distinct counts `locations`
+        and `creators` (computed over the published set).
+      required:
+        - total
+        - locations
+        - creators
+        - timeline
+        - byLanguage
+        - bySource
+        - byEndDay
+        - laterDays
+        - viewport
+        - keywords
+      example:
+        total: 28727
+        locations: 456
+        creators: 79
+        timeline: { current: 27, passed: 7, upcoming: 28693 }
+        byLanguage: { fr: 28100, en: 627 }
+        bySource: { contribution: 879, shared: 0, aggregation: 27848 }
+        byEndDay: { '2026-06-17': 12, '2026-06-18': 30 }
+        laterDays: 28685
+        viewport:
+          topLeft: { latitude: 51.09, longitude: -5.14 }
+          bottomRight: { latitude: 41.33, longitude: 9.56 }
+        keywords: [Paris, Théâtre, Culture]
+      properties:
+        total:
+          type: integer
+          description: Total number of published events.
+        locations:
+          type: integer
+          description: Distinct published-event locations (exact).
+        creators:
+          type: integer
+          description: Distinct published-event creators (exact).
+        timeline:
+          type: object
+          additionalProperties: false
+          description: Event counts relative to now.
+          required: [current, passed, upcoming]
+          properties:
+            current:
+              type: integer
+              description: Events happening now (started, not yet ended).
+            passed:
+              type: integer
+              description: Events already ended.
+            upcoming:
+              type: integer
+              description: Events not yet started.
+        byLanguage:
+          type: object
+          description: Event count per language code.
+          additionalProperties:
+            type: integer
+        bySource:
+          type: object
+          description: >
+            Event count per add method (`contribution`, `shared`, `aggregation`).
+            The three known methods are always present (0 when absent).
+          additionalProperties:
+            type: integer
+        byEndDay:
+          type: object
+          description: >
+            Per-day count of events ending within the next 30 days, keyed by
+            `YYYY-MM-DD`. Use `laterDays` for the residual past that horizon.
+          additionalProperties:
+            type: integer
+        laterDays:
+          type: integer
+          description: Count of events ending past the 30-day `byEndDay` horizon.
+        viewport:
+          oneOf:
+            - $ref: '#/components/schemas/Viewport'
+            - type: 'null'
+          description: >
+            Bounding box enclosing this scope's events with coordinates, or `null`
+            when none has any.
+        keywords:
+          type: array
+          description: >
+            De-duplicated thematic terms (cities, departments, regions and
+            keywords) characterising this scope's events.
+          items:
+            type: string
+
+    AllEventStats:
+      type: object
+      additionalProperties: false
+      description: >
+        Statistics over an agenda's events of **any moderation state** (moderation
+        and refused included) — `events.all`. Returned ONLY to
+        `administrator|moderator|internal` callers. Carries `byState` (the
+        per-moderation-state breakdown). It does NOT carry the distinct
+        `locations`/`creators` counts: an exact distinct count over the all-states
+        population is intentionally not computed (cost).
+      required:
+        - total
+        - byState
+        - timeline
+        - byLanguage
+        - bySource
+        - byEndDay
+        - laterDays
+        - viewport
+        - keywords
+      example:
+        total: 1248000
+        byState: { '-1': 5000, '1': 200000, '2': 1043000 }
+        timeline: { current: 30, passed: 900000, upcoming: 348000 }
+        byLanguage: { fr: 1200000, en: 48000 }
+        bySource: { contribution: 50000, shared: 12, aggregation: 1198000 }
+        byEndDay: { '2026-06-17': 40 }
+        laterDays: 347900
+        viewport: null
+        keywords: [Lyon, Concert]
+      properties:
+        total:
+          type: integer
+          description: Total number of events across all moderation states.
+        byState:
+          type: object
+          description: >
+            Event count per moderation state (`ModerationState` codes as keys).
+          additionalProperties:
+            type: integer
+        timeline:
+          type: object
+          additionalProperties: false
+          description: Event counts relative to now.
+          required: [current, passed, upcoming]
+          properties:
+            current:
+              type: integer
+              description: Events happening now (started, not yet ended).
+            passed:
+              type: integer
+              description: Events already ended.
+            upcoming:
+              type: integer
+              description: Events not yet started.
+        byLanguage:
+          type: object
+          description: Event count per language code.
+          additionalProperties:
+            type: integer
+        bySource:
+          type: object
+          description: >
+            Event count per add method (`contribution`, `shared`, `aggregation`).
+            The three known methods are always present (0 when absent).
+          additionalProperties:
+            type: integer
+        byEndDay:
+          type: object
+          description: >
+            Per-day count of events ending within the next 30 days, keyed by
+            `YYYY-MM-DD`. Use `laterDays` for the residual past that horizon.
+          additionalProperties:
+            type: integer
+        laterDays:
+          type: integer
+          description: Count of events ending past the 30-day `byEndDay` horizon.
+        viewport:
+          oneOf:
+            - $ref: '#/components/schemas/Viewport'
+            - type: 'null'
+          description: >
+            Bounding box enclosing this scope's events with coordinates, or `null`
+            when none has any.
+        keywords:
+          type: array
+          description: >
+            De-duplicated thematic terms (cities, departments, regions and
+            keywords) characterising this scope's events.
+          items:
+            type: string
+
+    RecentlyAddedStats:
+      type: object
+      additionalProperties: false
+      description: >
+        A windowed slice of the agenda's own recent contributions — published
+        events added within the recent window and not yet ended — broken down by
+        add method. Published-only for every caller (a single-meaning public
+        stat, never an access-dependent value). A time-slice, not a visibility
+        scope, hence hoisted to the root of `AgendaOverview`.
+      required: [window, bySource]
+      example:
+        window: 14
+        bySource: { contribution: 12, shared: 0, aggregation: 3 }
+      properties:
+        window:
+          type: integer
+          description: >
+            Width of the slice in days (server-configured) — makes the counts
+            interpretable.
+        bySource:
+          type: object
+          description: >
+            Event count per add method (`contribution`, `shared`, `aggregation`).
+          additionalProperties:
+            type: integer
+
+    AgendaOverview:
+      type: object
+      additionalProperties: false
+      description: >
+        Live activity overview of one agenda: event volume, distributions,
+        spatial extent and thematic keywords, organised along two orthogonal axes
+        — **visibility scope** (`events.published` / `events.all`) × a shared
+        **metric vocabulary** — plus a hoisted `recentlyAdded` slice.
+
+
+        Always computed live (never from the search-index snapshot), so
+        access-gated data cannot leak through a stale cache. `events.published`
+        (`PublishedEventStats`) is always present; `events.all` (`AllEventStats`)
+        is present only for `administrator|moderator|internal` callers.
+      required: [events, recentlyAdded]
+      properties:
+        events:
+          type: object
+          additionalProperties: false
+          required: [published]
+          properties:
+            published:
+              $ref: '#/components/schemas/PublishedEventStats'
+            all:
+              $ref: '#/components/schemas/AllEventStats'
+        recentlyAdded:
+          $ref: '#/components/schemas/RecentlyAddedStats'
 
     # Shared enum types — one home for the values AND their meaning
     # (x-enum-descriptions, rendered per-value by Scalar and surfaced by the MCP).
