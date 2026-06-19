@@ -80,12 +80,13 @@ const messages = defineMessages({
 
 const BlankComponent = (schema) => <FormSchemaComponent schema={schema} />;
 
-const Canvas = (title, content, { mode, onClose }) =>
+const Canvas = (title, content, { mode, onClose, titleClassName }) =>
   (mode === 'modal' ? (
     <Modal
       onClose={onClose}
       classNames={{
         overlay: 'popup-overlay big',
+        ...(titleClassName ? { title: titleClassName } : {}),
       }}
       title={title}
       disableBodyScroll
@@ -175,18 +176,18 @@ export default ({
   if (step === 'removeLastAdmin') {
     return Canvas(
       m(messages.lastAdminTitle),
-      <div className="text-center padding-v-sm">
+      <div className="text-center">
         <p>{m(messages.lastAdminMessage)}</p>
         {agendaSlug ? (
-          <div>
+          <div className="margin-top-sm">
             <a
-              className="btn btn-default margin-top-sm margin-right-xs"
+              className="btn btn-default margin-right-xs"
               href={`/${agendaSlug}/admin/contributors`}
             >
               {m(messages.lastAdminInvite)}
             </a>
             <a
-              className="btn btn-danger margin-top-sm"
+              className="btn btn-danger"
               href={`/${agendaSlug}/admin/settings/advanced#delete`}
             >
               {m(messages.lastAdminDeleteAgenda)}
@@ -204,7 +205,12 @@ export default ({
           </button>
         </div>
       </div>,
-      { mode, onClose: onCloseModalRequest },
+      // Tighten the title↔text gap (32px → 16px) for this text-only modal.
+      {
+        mode,
+        onClose: onCloseModalRequest,
+        titleClassName: 'popup-title padding-bottom-z',
+      },
     );
   }
 

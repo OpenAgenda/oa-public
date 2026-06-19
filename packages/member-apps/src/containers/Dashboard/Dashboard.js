@@ -662,7 +662,7 @@ class Dashboard extends Component {
               );
             } else if (showLastAdmin) {
               content = (
-                <div className="text-center padding-v-sm">
+                <div className="text-center">
                   <p>{getLabel('lastAdminMessage')}</p>
                   <div className="margin-top-sm">
                     <button
@@ -727,6 +727,16 @@ class Dashboard extends Component {
                 )}
                 visible={removeModal.visible || false}
                 onClose={() => closeModal('removeMember')}
+                // Tighten the title↔text gap for the (text-only) last-admin
+                // modal: drop the title's bottom padding (32px → 16px).
+                {...(showLastAdmin
+                  ? {
+                    classNames: {
+                      overlay: 'popup-overlay',
+                      title: 'popup-title padding-bottom-z',
+                    },
+                  }
+                  : {})}
               >
                 {content}
               </Modal>
