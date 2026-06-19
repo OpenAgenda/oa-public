@@ -1,22 +1,26 @@
 import {
-  fieldNamesOf,
   resolveFields,
   pickSelected,
   selectionToIncludes,
   selectsTop,
+  fieldNamesOf,
 } from '../api-v3/lib/selectFields.js';
-import mapEvent, {
-  mapEventSummary,
-  EVENT_SELECT,
-  CLEANERS,
-} from '../api-v3/lib/mapEvent.js';
+import {
+  buildFieldTree,
+  EVENT_FIELD_TREE,
+  AGENDA_FIELD_TREE,
+  LOCATION_FIELD_TREE,
+  ME_FIELD_TREE,
+} from '../api-v3/lib/specFieldTree.js';
+import mapEvent, { EVENT_SELECT } from '../api-v3/lib/mapEvent.js';
 import { mapAgendaDetailed, AGENDA_SELECT } from '../api-v3/lib/mapAgenda.js';
 import mapLocation, { LOCATION_SELECT } from '../api-v3/lib/mapLocation.js';
 
 // Unit coverage for the v3 `?fields=` sparse selector. The gate
-// (`resolveFields`, incl. strict nested leaves), the trimmer (`pickSelected`),
-// the drift-proof view introspection (`fieldNamesOf`) and the generic store
-// pushdown translation (`selectionToIncludes`) are pure — no container needed.
+// (`resolveFields`, total nested-leaf validation against the spec-derived tree),
+// the trimmer (`pickSelected`), the tree builder (`buildFieldTree`) and the
+// generic store pushdown translation (`selectionToIncludes`) are pure — no
+// container needed.
 
 function expect400(fn) {
   try {
@@ -29,125 +33,185 @@ function expect400(fn) {
   throw new Error('expected resolveFields to throw a 400');
 }
 
+// A throwaway tree marking every name OPEN — enough for the trim tests, which
+// only need resolveFields to BUILD the selection Set (validation is exercised
+// against the real spec tree separately).
+const openTree = (names) => Object.fromEntries(names.map((n) => [n, true]));
+
 describe('api-v3 selectFields', () => {
-  describe('fieldNamesOf', () => {
-    test('mirrors the mapper key set (no separate allowlist to drift)', () => {
-      const names = fieldNamesOf(mapEventSummary);
-      // Probing the empty-tolerant mapper yields its full emitted key set.
-      expect(names).toEqual(Object.keys(mapEventSummary({})));
-      expect(names).toContain('uid');
-      expect(names).toContain('additionalFields');
-    });
+  describe('buildFieldTree (spec → field tree)', () => {
+    // A self-contained schema set exercising every shape the resolver unwraps.
+    const schemas = {
+      Root: {
+        type: 'object',
+        additionalProperties: false,
+        properties: {
+          id: { type: 'integer' },
+          title: { $ref: '#/components/schemas/LocalizedString' },
+          nullableRef: {
+            oneOf: [{ $ref: '#/components/schemas/Ref' }, { type: 'null' }],
+          },
+          composed: { allOf: [{ $ref: '#/components/schemas/Ref' }] },
+          list: {
+            type: 'array',
+            items: { $ref: '#/components/schemas/Ref' },
+          },
+          bag: { $ref: '#/components/schemas/OpenBag' },
+        },
+      },
+      Ref: {
+        type: 'object',
+        additionalProperties: false,
+        properties: { uid: { type: 'integer' }, name: { type: 'string' } },
+      },
+      LocalizedString: {
+        type: 'object',
+        additionalProperties: { type: 'string' },
+      },
+      OpenBag: {
+        type: 'object',
+        properties: { known: { type: 'string' } },
+        additionalProperties: true,
+      },
+    };
 
-    test('the full mapper exposes the detailed-only fields too', () => {
-      // The route passes the RICHEST mapper as the universe, so detailed-only
-      // fields are selectable without `detailed=true`.
-      expect(fieldNamesOf(mapEvent)).toContain('longDescription');
-    });
+    const tree = buildFieldTree(schemas, 'Root');
 
-    test('appends route-grafted names (e.g. /me role/private)', () => {
-      const names = fieldNamesOf(mapAgendaDetailed, ['private', 'role']);
-      expect(names).toContain('role');
-      expect(names).toContain('private');
-      expect(names).toContain('createdAt');
+    test('scalar → closed leaf (no descent)', () => {
+      expect(tree.id).toEqual({});
+    });
+    test('localized map ($ref to additionalProperties map) → OPEN', () => {
+      expect(tree.title).toBe(true);
+    });
+    test('unwraps oneOf:[ref, null] to the ref', () => {
+      expect(tree.nullableRef).toEqual({ uid: {}, name: {} });
+    });
+    test('unwraps allOf:[ref]', () => {
+      expect(tree.composed).toEqual({ uid: {}, name: {} });
+    });
+    test('array descends into its items', () => {
+      expect(tree.list).toEqual({ uid: {}, name: {} });
+    });
+    test('object with truthy additionalProperties → OPEN (even with properties)', () => {
+      expect(tree.bag).toBe(true);
     });
   });
 
-  describe('SELECT descriptors stay in lockstep with their mappers', () => {
-    // The selection metadata is an overlay on the mapper-derived universe: every
-    // field it declares children/renames for MUST be a real emitted field, or it
-    // silently does nothing. These guards fail fast on a rename/typo drift.
-    const universeOf = (map, extra) => new Set(fieldNamesOf(map, extra));
-
-    test('event children + bag are real Event fields', () => {
-      const universe = universeOf(mapEvent);
-      for (const field of Object.keys(EVENT_SELECT.children)) {
-        expect(universe.has(field)).toBe(true);
-      }
-      for (const field of Object.keys(EVENT_SELECT.derives)) {
-        expect(universe.has(field)).toBe(true);
-      }
-      expect(universe.has(EVENT_SELECT.bag)).toBe(true);
-    });
-
-    test('agenda children are real AgendaDetailed fields', () => {
-      const universe = universeOf(mapAgendaDetailed);
-      for (const field of Object.keys(AGENDA_SELECT.children)) {
-        expect(universe.has(field)).toBe(true);
-      }
-    });
-
-    test('location children + renamed fields are real Location fields', () => {
-      const universe = universeOf(mapLocation);
-      for (const field of Object.keys(LOCATION_SELECT.children)) {
-        expect(universe.has(field)).toBe(true);
-      }
-      for (const field of Object.keys(LOCATION_SELECT.store)) {
-        expect(universe.has(field)).toBe(true);
-      }
-    });
-
-    test('event children cover EXACTLY the mapper-allowlisted (CLEANERS) fields', () => {
-      // The converse of the membership checks above: a CLEANERS-backed field
-      // that lacks a children entry would silently lose strict-leaf validation,
-      // and a children entry with no cleaner would validate against a keyset the
-      // mapper never enforces. Both are drift; pin them equal.
-      expect(Object.keys(EVENT_SELECT.children).sort()).toEqual(
-        Object.keys(CLEANERS).sort(),
+  describe('spec-derived trees stay in lockstep with their mappers', () => {
+    // The contract is the single source of truth for validation; these guards
+    // fail fast if the spec and a mapper drift — a top-level field, a nested
+    // keyset, or the open/closed nature of a node disagreeing.
+    test('event universe = the Event mapper key set', () => {
+      expect(Object.keys(EVENT_FIELD_TREE).sort()).toEqual(
+        Object.keys(mapEvent({})).sort(),
       );
     });
+    test('agenda universe = the AgendaDetailed mapper key set', () => {
+      expect(Object.keys(AGENDA_FIELD_TREE).sort()).toEqual(
+        Object.keys(mapAgendaDetailed({})).sort(),
+      );
+    });
+    test('location universe = the Location mapper key set', () => {
+      expect(Object.keys(LOCATION_FIELD_TREE).sort()).toEqual(
+        Object.keys(mapLocation({})).sort(),
+      );
+    });
+    test('/me universe = the agenda shape + grafted role/private', () => {
+      const meKeys = [...Object.keys(mapAgendaDetailed({})), 'private', 'role'];
+      expect(Object.keys(ME_FIELD_TREE).sort()).toEqual(meKeys.sort());
+    });
 
-    test('declared children keysets match the keys the mappers actually emit', () => {
-      // Probe each mapper with an over-populated nested value and assert the
-      // emitted sub-keys equal the declared keyset — catches a hand-written
-      // children literal drifting from refOrNull / the extIds / CLEANERS shape.
+    test('event nested keysets match the keys the mapper emits', () => {
+      // Probe each mapper-allowlisted (CLEANERS) field with an over-populated
+      // nested value; the emitted sub-keys must equal the spec tree's children —
+      // so a renamed/dropped key in either source fails here.
       const fill = (keys) =>
         Object.fromEntries([...keys, '__extra__'].map((k) => [k, 1]));
 
-      const eventLocation = mapEvent({
-        location: fill(EVENT_SELECT.children.location),
-      }).location;
-      expect(Object.keys(eventLocation).sort()).toEqual(
-        [...EVENT_SELECT.children.location].sort(),
-      );
+      for (const field of ['location', 'originAgenda', 'image']) {
+        const childKeys = Object.keys(EVENT_FIELD_TREE[field]);
+        const emitted = mapEvent({ [field]: fill(childKeys) })[field];
+        expect(Object.keys(emitted).sort()).toEqual([...childKeys].sort());
+      }
+      for (const field of [
+        'sourceAgendas',
+        'registration',
+        'links',
+        'extIds',
+      ]) {
+        const childKeys = Object.keys(EVENT_FIELD_TREE[field]);
+        const emitted = mapEvent({ [field]: [fill(childKeys)] })[field][0];
+        expect(Object.keys(emitted).sort()).toEqual([...childKeys].sort());
+      }
+    });
 
+    test('agenda + location nested keysets match the mappers', () => {
       const agendaNetwork = mapAgendaDetailed({
         network: { uid: 1, title: 't', __extra__: 9 },
       }).network;
       expect(Object.keys(agendaNetwork).sort()).toEqual(
-        [...AGENDA_SELECT.children.network].sort(),
+        Object.keys(AGENDA_FIELD_TREE.network).sort(),
       );
 
       const locationExtId = mapLocation({
         extIds: [{ key: 'k', value: 'v', __extra__: 9 }],
       }).extIds[0];
       expect(Object.keys(locationExtId).sort()).toEqual(
-        [...LOCATION_SELECT.children.extIds].sort(),
+        Object.keys(LOCATION_FIELD_TREE.extIds).sort(),
       );
+    });
+
+    test('the contract open containers are OPEN nodes', () => {
+      // The additional-fields bag and localized text maps are
+      // `additionalProperties: true` in the contract → best-effort leaves.
+      expect(EVENT_FIELD_TREE.additionalFields).toBe(true);
+      expect(EVENT_FIELD_TREE.title).toBe(true); // LocalizedString
+      expect(EVENT_FIELD_TREE.location.country).toBe(true); // nested localized
+      expect(LOCATION_FIELD_TREE.additionalFields).toBe(true);
+      expect(LOCATION_FIELD_TREE.description).toBe(true);
+    });
+
+    test('closed nested objects stay strict (deep)', () => {
+      // image.variants is a closed object → its leaves are validated.
+      expect(EVENT_FIELD_TREE.image.variants).toEqual({
+        type: {},
+        filename: {},
+        size: { width: {}, height: {} },
+      });
+    });
+  });
+
+  describe('fieldNamesOf', () => {
+    test('mirrors the mapper key set (used by the /me pushdown strip)', () => {
+      const names = fieldNamesOf(mapAgendaDetailed);
+      expect(names).toEqual(Object.keys(mapAgendaDetailed({})));
+    });
+    test('appends route-grafted names (e.g. /me role/private)', () => {
+      const names = fieldNamesOf(mapAgendaDetailed, ['private', 'role']);
+      expect(names).toContain('role');
+      expect(names).toContain('private');
     });
   });
 
   describe('resolveFields', () => {
-    // The universe is the resource's FULL field set (richest mapper), not a
-    // `detailed`-gated tier.
-    const allowed = fieldNamesOf(mapEvent);
+    const tree = EVENT_FIELD_TREE;
 
     test('absent → null (no trimming)', () => {
-      expect(resolveFields(undefined, allowed)).toBeNull();
+      expect(resolveFields(undefined, tree)).toBeNull();
     });
 
     test('CSV list → Set of names, uid always retained', () => {
-      const selected = resolveFields('title,location', allowed);
+      const selected = resolveFields('title,location', tree);
       expect([...selected].sort()).toEqual(['location', 'title', 'uid']);
     });
 
     test('a detailed-only field is selectable over the full universe', () => {
-      const selected = resolveFields('longDescription', allowed);
+      const selected = resolveFields('longDescription', tree);
       expect([...selected].sort()).toEqual(['longDescription', 'uid']);
     });
 
-    test('dotted paths are accepted (top-level segment validated)', () => {
-      const selected = resolveFields('location.name,location.city', allowed);
+    test('dotted paths are accepted (each segment validated)', () => {
+      const selected = resolveFields('location.name,location.city', tree);
       expect([...selected].sort()).toEqual([
         'location.city',
         'location.name',
@@ -156,73 +220,83 @@ describe('api-v3 selectFields', () => {
     });
 
     test('a dotted path under an UNKNOWN top-level segment → 400', () => {
-      const err = expect400(() => resolveFields('nope.deep', allowed));
+      const err = expect400(() => resolveFields('nope.deep', tree));
       expect(err.info.errors[0].message).toContain('nope.deep');
     });
 
     test('repeated param (qs array) is accepted too', () => {
-      const selected = resolveFields(['title', 'location'], allowed);
+      const selected = resolveFields(['title', 'location'], tree);
       expect(selected.has('title')).toBe(true);
       expect(selected.has('location')).toBe(true);
       expect(selected.has('uid')).toBe(true);
     });
 
     test('whitespace and empty tokens are tolerated', () => {
-      const selected = resolveFields(' title , , location ', allowed);
+      const selected = resolveFields(' title , , location ', tree);
       expect([...selected].sort()).toEqual(['location', 'title', 'uid']);
     });
 
     test('unknown field (not in the universe) → 400 naming the offender', () => {
-      const err = expect400(() => resolveFields('title,nope', allowed));
+      const err = expect400(() => resolveFields('title,nope', tree));
       expect(err.info.errors[0].message).toContain('nope');
     });
 
     test('empty value → 400', () => {
-      expect(expect400(() => resolveFields('', allowed)).name).toBe(
-        'BadRequest',
-      );
-      expect(expect400(() => resolveFields('  ,  ', allowed)).name).toBe(
+      expect(expect400(() => resolveFields('', tree)).name).toBe('BadRequest');
+      expect(expect400(() => resolveFields('  ,  ', tree)).name).toBe(
         'BadRequest',
       );
     });
 
     test('bracketed/object form → 400', () => {
-      const err = expect400(() => resolveFields({ gte: 'title' }, allowed));
+      const err = expect400(() => resolveFields({ gte: 'title' }, tree));
       expect(err.info.errors[0].message).toContain('comma-separated');
     });
 
-    describe('strict nested leaves (children keysets)', () => {
-      const { children } = EVENT_SELECT;
-
+    describe('total strict nested leaves (from the spec tree)', () => {
       test('a known nested leaf is accepted', () => {
-        const selected = resolveFields('location.name', allowed, children);
-        expect(selected.has('location.name')).toBe(true);
+        expect(resolveFields('location.name', tree).has('location.name')).toBe(
+          true,
+        );
       });
 
-      test('an unknown nested leaf under a declared keyset → 400', () => {
-        const err = expect400(() =>
-          resolveFields('location.zzz', allowed, children));
+      test('an unknown nested leaf at a closed level → 400', () => {
+        const err = expect400(() => resolveFields('location.zzz', tree));
         expect(err.info.errors[0].message).toContain('location.zzz');
       });
 
       test('a leaf under an OPEN field (the bag) stays best-effort', () => {
-        const selected = resolveFields(
-          'additionalFields.myCustom',
-          allowed,
-          children,
-        );
-        expect(selected.has('additionalFields.myCustom')).toBe(true);
+        expect(
+          resolveFields('additionalFields.myCustom', tree).has(
+            'additionalFields.myCustom',
+          ),
+        ).toBe(true);
       });
 
-      test('a leaf under a field with no declared keyset stays best-effort', () => {
-        // `age` is a pass-through object (no CLEANERS allowlist) → not validated.
-        const selected = resolveFields('age.min', allowed, children);
-        expect(selected.has('age.min')).toBe(true);
+      test('a leaf under a localized map (title) stays best-effort', () => {
+        expect(resolveFields('title.fr', tree).has('title.fr')).toBe(true);
       });
 
-      test('only the FIRST nested segment is validated (deeper is best-effort)', () => {
-        const selected = resolveFields('image.variants.zzz', allowed, children);
-        expect(selected.has('image.variants.zzz')).toBe(true);
+      test('a closed pass-through object IS validated (age is strict now)', () => {
+        // `age` has no mapper allowlist, but the contract (AgeRange) is closed.
+        expect(resolveFields('age.min', tree).has('age.min')).toBe(true);
+        expect400(() => resolveFields('age.zzz', tree));
+      });
+
+      test('validation is TOTAL — a deep closed leaf is checked', () => {
+        // image.variants is a closed object: a bad deep leaf 400s, a good one
+        // passes — the previous "only the first nested segment" leniency is gone.
+        expect(
+          resolveFields('image.variants.type', tree).has('image.variants.type'),
+        ).toBe(true);
+        const err = expect400(() => resolveFields('image.variants.zzz', tree));
+        expect(err.info.errors[0].message).toContain('image.variants.zzz');
+      });
+
+      test('a dotted leaf under a scalar → 400', () => {
+        // `uid` is a scalar — it has no sub-fields.
+        const err = expect400(() => resolveFields('uid.x', tree));
+        expect(err.info.errors[0].message).toContain('uid.x');
       });
     });
   });
@@ -254,9 +328,6 @@ describe('api-v3 selectFields', () => {
     });
 
     test('events: the bare bag with an EMPTY bagKeys array also bails to null', () => {
-      // An agenda with zero custom fields yields bagKeys=[]; the bag must still
-      // bail (full fetch keeps any orphan _source keys) rather than push an
-      // override that erases the bag.
       expect(
         selectionToIncludes(new Set(['uid', 'additionalFields']), {
           ...EVENT_SELECT,
@@ -268,10 +339,7 @@ describe('api-v3 selectFields', () => {
     test('events: the bare bag expands to the supplied bagKeys', () => {
       const includes = selectionToIncludes(
         new Set(['uid', 'additionalFields']),
-        {
-          ...EVENT_SELECT,
-          bagKeys: ['fieldA', 'fieldB'],
-        },
+        { ...EVENT_SELECT, bagKeys: ['fieldA', 'fieldB'] },
       );
       expect(includes).toEqual(
         expect.arrayContaining(['uid', 'fieldA', 'fieldB']),
@@ -308,7 +376,6 @@ describe('api-v3 selectFields', () => {
     test('null selection means everything → true', () => {
       expect(selectsTop(null, 'network')).toBe(true);
     });
-
     test('matches the top-level segment of a dotted path', () => {
       const selected = new Set(['uid', 'network.uid']);
       expect(selectsTop(selected, 'network')).toBe(true);
@@ -324,12 +391,10 @@ describe('api-v3 selectFields', () => {
     });
 
     test('keeps only selected keys, preserving original order', () => {
-      const selected = resolveFields('location,title', [
-        'uid',
-        'title',
-        'location',
-        'extra',
-      ]);
+      const selected = resolveFields(
+        'location,title',
+        openTree(['uid', 'title', 'location', 'extra']),
+      );
       expect(pickSelected(item, selected)).toEqual({
         uid: 1,
         title: { fr: 'x' },
@@ -347,10 +412,10 @@ describe('api-v3 selectFields', () => {
         uid: 1,
         location: { uid: 9, name: 'X', city: 'Y', latitude: 1.2 },
       };
-      const selected = resolveFields('location.name,location.city', [
-        'uid',
-        'location',
-      ]);
+      const selected = resolveFields(
+        'location.name,location.city',
+        openTree(['uid', 'location']),
+      );
       expect(pickSelected(nested, selected)).toEqual({
         uid: 1,
         location: { name: 'X', city: 'Y' },
@@ -365,7 +430,10 @@ describe('api-v3 selectFields', () => {
           { begin: 'c', end: 'd' },
         ],
       };
-      const selected = resolveFields('timings.begin', ['uid', 'timings']);
+      const selected = resolveFields(
+        'timings.begin',
+        openTree(['uid', 'timings']),
+      );
       expect(pickSelected(withArray, selected)).toEqual({
         uid: 1,
         timings: [{ begin: 'a' }, { begin: 'c' }],
@@ -374,10 +442,10 @@ describe('api-v3 selectFields', () => {
 
     test('a bare field wins over a deeper path (whole object kept)', () => {
       const nested = { uid: 1, location: { uid: 9, name: 'X' } };
-      const selected = resolveFields('location,location.name', [
-        'uid',
-        'location',
-      ]);
+      const selected = resolveFields(
+        'location,location.name',
+        openTree(['uid', 'location']),
+      );
       expect(pickSelected(nested, selected)).toEqual({
         uid: 1,
         location: { uid: 9, name: 'X' },

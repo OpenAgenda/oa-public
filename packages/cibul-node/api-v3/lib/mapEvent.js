@@ -195,16 +195,11 @@ export const CLEANERS = {
   extIds: (arr) => arr.map((e) => pick(e, EXT_ID_KEYS)),
 };
 
-// Selection descriptor for the `?fields=` selector (see lib/selectFields.js):
-// the single source, ALONGSIDE the mapper, for how a sparse selection is
-// validated and pushed down to the ES `_source`. The selectable universe stays
-// mapper-derived (`fieldNamesOf`, drift-proof); this overlay only declares the
-// fields that need MORE than identity:
-//   - `children`: the allowlisted nested keys per field — exactly the CLEANERS
-//     keysets, so strict-leaf validation can never drift from what the mapper
-//     actually emits. A dotted leaf outside them is a 400; fields without an
-//     allowlist (localized maps, pass-through objects like age/accessibility)
-//     keep best-effort leaves.
+// Pushdown descriptor for the `?fields=` selector (see lib/selectFields.js):
+// how a resolved selection is translated to the ES `_source` projection.
+// Validation of the selection is separate — it runs against the spec-derived
+// field tree (lib/specFieldTree.js), the single source of truth. This descriptor
+// only carries what the pushdown needs:
 //   - `derives`: store fields a contract field is COMPUTED from by event-search
 //     (nextTiming is always recomputed from the full `timings` array; first/last
 //     fall back to it). event-search only auto-projects `timings` for
@@ -216,15 +211,6 @@ export const CLEANERS = {
 export const EVENT_SELECT = {
   granularity: 'path',
   bag: 'additionalFields',
-  children: {
-    location: LOCATION_KEYS,
-    originAgenda: AGENDA_REF_KEYS,
-    sourceAgendas: AGENDA_REF_KEYS,
-    image: IMAGE_KEYS,
-    registration: REGISTRATION_KEYS,
-    links: ENRICHED_LINK_KEYS,
-    extIds: EXT_ID_KEYS,
-  },
   derives: {
     firstTiming: ['timings'],
     lastTiming: ['timings'],

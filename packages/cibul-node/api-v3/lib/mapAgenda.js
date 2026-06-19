@@ -20,9 +20,6 @@ const toIso = (v) => {
   return v instanceof Date ? v.toISOString() : String(v);
 };
 
-// The two ref relations expose exactly these keys (see refOrNull).
-const REF_KEYS = ['uid', 'title'];
-
 // A network / locationSet relation -> compact `{ uid, title }` ref, or `null`.
 // Drops any extra indexed/SQL fields (e.g. network.formSchemaId) so only the
 // contract shape leaks.
@@ -33,16 +30,13 @@ function refOrNull(rel) {
   return { uid: rel.uid, title: rel.title ?? null };
 }
 
-// Selection descriptor for `?fields=` (see lib/selectFields.js): the network/
-// locationSet refs are the only nested objects. Pushdown is top-level
-// (`onlyIncludeFields` projects the whole subtree), with no per-field renames
-// or derived deps — the AgendaDetailed names map 1:1 onto the index fields.
+// Pushdown descriptor for `?fields=` (see lib/selectFields.js). Pushdown is
+// top-level (`onlyIncludeFields` projects the whole subtree), with no per-field
+// renames or derived deps — the AgendaDetailed names map 1:1 onto the index
+// fields. Selection validation runs separately against the spec-derived field
+// tree (lib/specFieldTree.js).
 export const AGENDA_SELECT = {
   granularity: 'top',
-  children: {
-    network: REF_KEYS,
-    locationSet: REF_KEYS,
-  },
 };
 
 // The fields shared by every shape (the search-index base projection).

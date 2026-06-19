@@ -9,12 +9,14 @@
 // mirroring the `limit`/`detailed`/`sort` gates; `uid` is always retained.
 //
 // Dotted paths (`location.name`, `additionalFields.x`) descend into nested
-// objects/arrays. The TOP-LEVEL segment is always validated against the
-// universe (a `nope.x` is a 400). The first NESTED segment is validated too
-// wherever the resource declares a `children` keyset (so `location.zzz` is a
-// 400) — the keysets are exactly the mapper's allowlists, so they can't drift.
-// A leaf under an OPEN field (the `additionalFields` bag, a localized map, a
-// pass-through object the mapper doesn't allowlist) stays best-effort.
+// objects/arrays. Validation is TOTAL against the spec-derived field tree (see
+// lib/specFieldTree.js): EVERY segment is checked against the contract at its
+// level — `nope` (top), `location.zzz`, `image.variants.zzz` are all 400s. The
+// only best-effort nodes are the contract's real open containers (a node the
+// tree marks OPEN: the `additionalFields` bag, a localized text map, any
+// `additionalProperties: true` object) — under one, every deeper leaf is
+// accepted. The frontier is the contract's, not which fields have a mapper
+// allowlist.
 //
 // Where it can, the route pushes the selection down to the store so the heavy
 // fields are never fetched. One generic translator (`selectionToIncludes`),
@@ -125,13 +127,14 @@ export function selectsTop(selected, name) {
 //
 // Accepts a comma-separated list (`fields=uid,title`) or repeated params
 // (`fields=uid&fields=title`, which `qs` yields as an array). A bracketed/object
-// form, an empty list, or a path whose TOP-LEVEL segment is outside `universe`
-// (the resource's full field set) is a `400`. A dotted path is also a `400` when
-// its FIRST nested segment is outside the resource's declared `children` keyset
-// for that field (`location.zzz`); a leaf under a field WITHOUT a declared
-// keyset (the open bag, a localized map, a pass-through object) stays
-// best-effort.
-export function resolveFields(rawFields, universe, children = {}) {
+// form or an empty list is a `400`. Each path is then validated SEGMENT BY
+// SEGMENT against the resource's spec-derived field tree (see specFieldTree.js):
+// an unknown top-level field (`nope`) or an unknown nested sub-field at any
+// closed level (`location.zzz`, `image.variants.zzz`) is a `400`. Descent stops
+// at an OPEN node (a node valued `true`: the additional-fields bag, a localized
+// map, any `additionalProperties: true` object), under which every leaf is
+// accepted best-effort.
+export function resolveFields(rawFields, fieldTree) {
   if (rawFields === undefined) {
     return null;
   }
@@ -163,29 +166,34 @@ export function resolveFields(rawFields, universe, children = {}) {
 
   const distinct = [...new Set(tokens)];
 
-  const universeSet = new Set(universe);
-  const unknown = distinct.filter((path) => !universeSet.has(topSegment(path)));
-  if (unknown.length) {
-    fail(`unknown field(s): ${unknown.join(', ')}`);
+  // Walk each dotted path through the field tree. A node is either `true`
+  // (OPEN — accept the rest of the path) or a closed `{ subField: node }` map
+  // whose keys gate the next segment.
+  const unknownTop = [];
+  const unknownNested = [];
+  for (const path of distinct) {
+    const segments = path.split('.');
+    let node = fieldTree[segments[0]];
+    if (node === undefined) {
+      unknownTop.push(path);
+      continue;
+    }
+    for (let i = 1; i < segments.length; i += 1) {
+      if (node === true) {
+        break; // OPEN container — every deeper leaf is best-effort.
+      }
+      node = node[segments[i]];
+      if (node === undefined) {
+        unknownNested.push(path);
+        break;
+      }
+    }
   }
-
-  // Strict leaf: reject the first nested segment when the field declares a
-  // keyset and the segment is outside it. Fields with no declared keyset (open
-  // bag, localized map, pass-through object) keep best-effort leaves.
-  const badLeaf = distinct.filter((path) => {
-    const dot = path.indexOf('.');
-    if (dot === -1) {
-      return false;
-    }
-    const allowed = children[path.slice(0, dot)];
-    if (!allowed) {
-      return false;
-    }
-    const leaf = path.slice(dot + 1).split('.')[0];
-    return !allowed.includes(leaf);
-  });
-  if (badLeaf.length) {
-    fail(`unknown nested field(s): ${badLeaf.join(', ')}`);
+  if (unknownTop.length) {
+    fail(`unknown field(s): ${unknownTop.join(', ')}`);
+  }
+  if (unknownNested.length) {
+    fail(`unknown nested field(s): ${unknownNested.join(', ')}`);
   }
 
   return new Set([IDENTITY_FIELD, ...tokens]);

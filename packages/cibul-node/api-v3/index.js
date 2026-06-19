@@ -23,17 +23,16 @@ import createAuthenticate from './lib/authenticate.js';
 import requireScope from './lib/requireScope.js';
 import createLoadAgenda from './lib/loadAgenda.js';
 import mapEvent, { EVENT_SELECT } from './lib/mapEvent.js';
-import mapAgenda, {
-  mapAgendaDetailed,
-  AGENDA_SELECT,
-} from './lib/mapAgenda.js';
+import mapAgenda, { AGENDA_SELECT } from './lib/mapAgenda.js';
 import mapAgendaOverview from './lib/mapAgendaOverview.js';
 import mapLocation, { LOCATION_SELECT } from './lib/mapLocation.js';
+import { resolveFields, selectionToIncludes } from './lib/selectFields.js';
 import {
-  resolveFields,
-  fieldNamesOf,
-  selectionToIncludes,
-} from './lib/selectFields.js';
+  EVENT_FIELD_TREE,
+  AGENDA_FIELD_TREE,
+  LOCATION_FIELD_TREE,
+  ME_FIELD_TREE,
+} from './lib/specFieldTree.js';
 import buildListEnvelope from './lib/envelope.js';
 import buildAgendaListEnvelope from './lib/agendaEnvelope.js';
 import buildLocationListEnvelope from './lib/locationEnvelope.js';
@@ -70,14 +69,11 @@ import apiV3ErrorHandler from './errorHandler.js';
 
 const log = logs('api-v3');
 
-// The selectable `?fields=` universe per resource = the richest mapper's emitted
-// key set (drift-proof via `fieldNamesOf`). Fixed for the process, so probe the
-// mappers once at import rather than on every list request. `/me` grafts
-// `role`/`private` onto the agenda shape, so they join its universe.
-const EVENT_FIELD_NAMES = fieldNamesOf(mapEvent);
-const AGENDA_FIELD_NAMES = fieldNamesOf(mapAgendaDetailed);
-const LOCATION_FIELD_NAMES = fieldNamesOf(mapLocation);
-const ME_FIELD_NAMES = fieldNamesOf(mapAgendaDetailed, ['private', 'role']);
+// The selectable `?fields=` universe + nested keysets per resource are derived
+// from the OpenAPI contract at import (see lib/specFieldTree.js) — the single
+// source of truth. The universe is the RICHEST shape (the selector is not gated
+// by `detailed`); `/me`'s tree (MeAgendaItemDetailed) already carries the
+// grafted `role`/`private` alongside the agenda fields.
 
 // Contract: limit default 20, min 1, max 100.
 const DEFAULT_LIMIT = 20;
@@ -224,11 +220,7 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
       // projection — the richest the list can serve); when present it picks the
       // shape outright, so we fetch that richest projection and trim. The
       // single-get carries the fields the index lacks (url/private/indexed/…).
-      const fields = resolveFields(
-        req.query.fields,
-        AGENDA_FIELD_NAMES,
-        AGENDA_SELECT.children,
-      );
+      const fields = resolveFields(req.query.fields, AGENDA_FIELD_TREE);
       const effectiveDetailed = fields ? true : detailed;
 
       const query = buildAgendaSearchQuery(req.query);
@@ -358,11 +350,7 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
         // down to the ES `_source`, map with the full mapper, then trim. The
         // `includeFields` override is built below (it needs the resolved access
         // to enumerate the `additionalFields` bag).
-        const fields = resolveFields(
-          req.query.fields,
-          EVENT_FIELD_NAMES,
-          EVENT_SELECT.children,
-        );
+        const fields = resolveFields(req.query.fields, EVENT_FIELD_TREE);
         const effectiveDetailed = fields ? true : detailed;
 
         const nav = { size: limit };
@@ -683,11 +671,7 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
         // `fields` selects over the full Location universe; when present it picks
         // the shape outright, so we fetch the full projection (and its merged
         // form schema, for `additionalFields`) and trim.
-        const fields = resolveFields(
-          req.query.fields,
-          LOCATION_FIELD_NAMES,
-          LOCATION_SELECT.children,
-        );
+        const fields = resolveFields(req.query.fields, LOCATION_FIELD_TREE);
         const effectiveDetailed = fields ? true : detailed;
 
         const query = buildLocationListQuery(req.query);
@@ -805,11 +789,7 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
       // meAgendas.js), so they join the selectable names. `fields` selects over
       // the full universe; when present we enrich at the detailed tier (so any
       // requested field is available) and trim.
-      const fields = resolveFields(
-        req.query.fields,
-        ME_FIELD_NAMES,
-        AGENDA_SELECT.children,
-      );
+      const fields = resolveFields(req.query.fields, ME_FIELD_TREE);
       const effectiveDetailed = fields ? true : detailed;
 
       const nav = { size: limit };
