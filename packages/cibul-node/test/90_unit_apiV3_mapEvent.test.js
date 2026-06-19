@@ -48,7 +48,6 @@ const BASE_REQUIRED = [
   'imageCredits',
   'keywords',
   'originAgenda',
-  'timings',
   'location',
   'timezone',
   'attendanceMode',
@@ -59,6 +58,9 @@ const BASE_REQUIRED = [
   'additionalFields',
 ];
 const DETAILED_ONLY_REQUIRED = [
+  // `timings` is detailed-only: the full occurrence array is stripped from the
+  // light projection; the summary speaks dates through first/last/nextTiming.
+  'timings',
   'longDescription',
   'conditions',
   'country',
@@ -238,6 +240,22 @@ describe('90 - api-v3 unit - mapEvent / mapEventSummary', () => {
       for (const key of [...BASE_REQUIRED, ...DETAILED_ONLY_REQUIRED]) {
         expect(key in event).toBe(true);
       }
+    });
+
+    // The summary keeps `timezone` (needed to interpret first/last/nextTiming
+    // across DST) but drops the full `timings` array (detailed-only). Regression
+    // guard for the two EventSummary contract bugs.
+    it('summary keeps timezone but not the full timings array', () => {
+      const summary = mapEventSummary(projectedEvents[0]);
+      expect(summary.timezone).toBe('Europe/Paris');
+      expect('timings' in summary).toBe(false);
+      // the compact date trio still carries the occurrence span
+      expect('firstTiming' in summary).toBe(true);
+      expect('nextTiming' in summary).toBe(true);
+      // and the full array is present on the detailed Event
+      expect(mapEvent(projectedEvents[0]).timings).toEqual(
+        projectedEvents[0].timings,
+      );
     });
   });
 

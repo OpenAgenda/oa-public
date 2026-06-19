@@ -102,12 +102,12 @@ historique inchangé), `auto` (coupure dynamique), ou un nombre ≥ 0 (plancher
   (prod, `upcoming`-only — ce que la page agenda interroge). `topDrop` = plus gros
   décrochage normalisé du top-20 :
 
-  | requête          | total | topDrop | auto@0.3 | auto@0.5 |
-  | ---------------- | ----: | ------: | -------: | -------: |
-  | balade photo     |    62 |    0.99 |        1 |        1 |
-  | Rezé             |    15 |    0.43 |        1 |       15 |
-  | concert          |   178 |    0.27 |      178 |      178 |
-  | théâtre          |   104 |    0.14 |      104 |      104 |
+  | requête      | total | topDrop | auto@0.3 | auto@0.5 |
+  | ------------ | ----: | ------: | -------: | -------: |
+  | balade photo |    62 |    0.99 |        1 |        1 |
+  | Rezé         |    15 |    0.43 |        1 |       15 |
+  | concert      |   178 |    0.27 |      178 |      178 |
+  | théâtre      |   104 |    0.14 |      104 |      104 |
 
   `0.5` tombe dans l'intervalle entre le 0.43 de Rezé (à garder) et le 0.99 de
   « balade photo » (à couper) : on ne coupe que les falaises franches, les
@@ -268,9 +268,11 @@ Un seul schéma ne peut donc pas honnêtement servir les deux sous la règle « 
 forcer ces champs à `[]`/`{}`/`null` en liste **mentirait**. D'où **deux schémas plats** :
 
 - `EventSummary` (liste, base include) : `uid, slug, title, description, status, dateRange, featured,
-image, imageCredits, keywords, originAgenda, timings, location, timezone, attendanceMode,
-onlineAccessLink, first/last/nextTiming` + `custom`.
-- `Event` (get, base + detailed) : EventSummary + `longDescription, conditions, country, registration,
+image, imageCredits, keywords, originAgenda, location, timezone, attendanceMode,
+onlineAccessLink, first/last/nextTiming` + `custom`. Le tableau `timings` complet est **detailed-only**
+  (event-search le retire de la projection légère ; la liste parle dates via `first/last/nextTiming`,
+  interprétés dans `timezone`) — le forcer à `[]` en liste mentirait, justement.
+- `Event` (get, base + detailed) : EventSummary + `timings, longDescription, conditions, country, registration,
 createdAt, updatedAt, accessibility, age, state, links, extIds, sourceAgendas`.
 
 `EventList.data` → `EventSummary[]` ; get → `Event`. Les deux en `additionalProperties: false`,

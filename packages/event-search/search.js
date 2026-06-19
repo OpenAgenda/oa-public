@@ -59,15 +59,16 @@ function buildEventParsers({
   }
 
   if (!detailed) {
+    // Drop the full `timings` array from the light projection (the compact view
+    // speaks dates through firstTiming/lastTiming/nextTiming). `timezone` is NOT
+    // dropped: it is a single IANA name and those compact timings are instants
+    // that need it to render correctly across DST — stripping it alongside
+    // timings made it useless. An explicit `requestedIncludes` still keeps the
+    // full array.
     parsers.push((e) => {
-      const fieldsToRemove = ['timings', 'timezone'].filter(
-        (f) => !(requestedIncludes || []).includes(f),
-      );
-      if (!fieldsToRemove.length) return e;
+      if ((requestedIncludes || []).includes('timings')) return e;
       const result = { ...e };
-      for (const f of fieldsToRemove) {
-        delete result[f];
-      }
+      delete result.timings;
       return result;
     });
   }

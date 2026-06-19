@@ -453,6 +453,8 @@ export const zAccessibilityCode = z.enum([
 /**
  * Compact event representation returned by the list endpoint (`detailed: false`). It carries the base field set only — the detailed fields (longDescription, conditions, country, registration, createdAt, updatedAt, accessibility, age, state, links, extIds, sourceAgendas) are NOT present here; fetch a single event for those.
  *
+ * The full `timings` array is also detailed-only: the compact view exposes the occurrence span through `firstTiming`/`lastTiming`/`nextTiming` instead, interpreted in `timezone` (the IANA name needed to render those instants correctly across DST). Fetch a single event for the full list of occurrences.
+ *
  * Empty-as-empty rule: every field is always present. Collections are never null/omitted (arrays → `[]`, localized maps → `{}`); singular optional values are present as `null` when absent. `additionalFields` is typically `{}` in summaries because agenda additional fields are detailed-level.
  *
  */
@@ -468,7 +470,6 @@ export const zEventSummary = z.object({
     imageCredits: z.string().max(255).nullable(),
     keywords: zLocalizedStringArray,
     originAgenda: zAgendaRef.nullable(),
-    timings: z.array(zTiming),
     location: zEventLocation.nullable(),
     timezone: z.string().readonly().nullable(),
     attendanceMode: zAttendanceMode,
@@ -1023,6 +1024,8 @@ export const zMeAgendaListWritable = z.object({
 /**
  * Compact event representation returned by the list endpoint (`detailed: false`). It carries the base field set only — the detailed fields (longDescription, conditions, country, registration, createdAt, updatedAt, accessibility, age, state, links, extIds, sourceAgendas) are NOT present here; fetch a single event for those.
  *
+ * The full `timings` array is also detailed-only: the compact view exposes the occurrence span through `firstTiming`/`lastTiming`/`nextTiming` instead, interpreted in `timezone` (the IANA name needed to render those instants correctly across DST). Fetch a single event for the full list of occurrences.
+ *
  * Empty-as-empty rule: every field is always present. Collections are never null/omitted (arrays → `[]`, localized maps → `{}`); singular optional values are present as `null` when absent. `additionalFields` is typically `{}` in summaries because agenda additional fields are detailed-level.
  *
  */
@@ -1033,7 +1036,6 @@ export const zEventSummaryWritable = z.object({
     image: zImage.nullable(),
     imageCredits: z.string().max(255).nullable(),
     keywords: zLocalizedStringArray,
-    timings: z.array(zTiming),
     location: zEventLocationWritable.nullable(),
     attendanceMode: zAttendanceMode,
     onlineAccessLink: z.string().url().nullable(),

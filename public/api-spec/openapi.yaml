@@ -3160,6 +3160,13 @@ components:
         NOT present here; fetch a single event for those.
 
 
+        The full `timings` array is also detailed-only: the compact view exposes
+        the occurrence span through `firstTiming`/`lastTiming`/`nextTiming`
+        instead, interpreted in `timezone` (the IANA name needed to render those
+        instants correctly across DST). Fetch a single event for the full list
+        of occurrences.
+
+
         Empty-as-empty rule: every field is always present. Collections are
         never null/omitted (arrays → `[]`, localized maps → `{}`); singular
         optional values are present as `null` when absent. `additionalFields` is
@@ -3178,7 +3185,6 @@ components:
         - imageCredits
         - keywords
         - originAgenda
-        - timings
         - location
         - timezone
         - attendanceMode
@@ -3219,9 +3225,6 @@ components:
           image: https://cdn.openagenda.com/main/12345.jpg
           url: https://openagenda.com/festival-des-lumieres
           official: true
-        timings:
-          - begin: '2025-06-20T18:00:00+02:00'
-            end: '2025-06-20T22:00:00+02:00'
         location:
           uid: 55512
           name: Parc de la Tête d'Or
@@ -3294,10 +3297,6 @@ components:
           oneOf:
             - $ref: '#/components/schemas/AgendaRef'
             - type: 'null'
-        timings:
-          type: array
-          items:
-            $ref: '#/components/schemas/Timing'
         location:
           oneOf:
             - $ref: '#/components/schemas/EventLocation'
