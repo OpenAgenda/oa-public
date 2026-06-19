@@ -1102,6 +1102,12 @@ export const zLimit = z.number().int().gte(1).lte(100).default(20);
 export const zDetailed = z.boolean().default(false);
 
 /**
+ * Comma-separated subset of top-level fields to keep on each `data` item, to shrink the payload of large pages. It only restricts the active representation (`detailed` chooses the representation; `fields` keeps a subset of it): a name outside that representation is rejected with `400`. `uid` is always returned. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
+ *
+ */
+export const zFields = z.array(z.string());
+
+/**
  * Full-text search across agenda title and description. Wrap the value in double quotes for an exact phrase match.
  *
  */
@@ -1499,6 +1505,7 @@ export const zAgendasListQuery = z.object({
     after: z.string().optional(),
     limit: z.number().int().gte(1).lte(100).optional().default(20),
     detailed: z.boolean().optional().default(false),
+    fields: z.array(z.string()).optional(),
     search: z.string().optional(),
     sort: z.enum(['createdAt.desc', 'recentlyAddedEvents.desc']).optional(),
     uid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
@@ -1537,6 +1544,7 @@ export const zAgendasEventsListQuery = z.object({
     after: z.string().optional(),
     limit: z.number().int().gte(1).lte(100).optional().default(20),
     detailed: z.boolean().optional().default(false),
+    fields: z.array(z.string()).optional(),
     sort: z.enum([
         'timings.asc',
         'timingsWithFeatured.asc',
@@ -1764,7 +1772,8 @@ export const zAgendasEventsSchemaResponse = zEventFormSchema;
 export const zMeAgendasListQuery = z.object({
     after: z.string().optional(),
     limit: z.number().int().gte(1).lte(100).optional().default(20),
-    detailed: z.boolean().optional().default(false)
+    detailed: z.boolean().optional().default(false),
+    fields: z.array(z.string()).optional()
 });
 
 /**
@@ -1780,6 +1789,7 @@ export const zAgendasLocationsListQuery = z.object({
     after: z.string().optional(),
     limit: z.number().int().gte(1).lte(100).optional().default(20),
     detailed: z.boolean().optional().default(false),
+    fields: z.array(z.string()).optional(),
     search: z.string().optional(),
     uid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
     extId: z.object({

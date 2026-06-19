@@ -1481,6 +1481,12 @@ export type Limit = number;
 export type Detailed = boolean;
 
 /**
+ * Comma-separated subset of top-level fields to keep on each `data` item, to shrink the payload of large pages. It only restricts the active representation (`detailed` chooses the representation; `fields` keeps a subset of it): a name outside that representation is rejected with `400`. `uid` is always returned. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
+ *
+ */
+export type Fields = Array<string>;
+
+/**
  * Full-text search across agenda title and description. Wrap the value in double quotes for an exact phrase match.
  *
  */
@@ -1855,6 +1861,11 @@ export type AgendasListData = {
          */
         detailed?: boolean;
         /**
+         * Comma-separated subset of top-level fields to keep on each `data` item, to shrink the payload of large pages. It only restricts the active representation (`detailed` chooses the representation; `fields` keeps a subset of it): a name outside that representation is rejected with `400`. `uid` is always returned. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
+         *
+         */
+        fields?: Array<string>;
+        /**
          * Full-text search across agenda title and description. Wrap the value in double quotes for an exact phrase match.
          *
          */
@@ -2008,6 +2019,11 @@ export type AgendasEventsListData = {
          *
          */
         detailed?: boolean;
+        /**
+         * Comma-separated subset of top-level fields to keep on each `data` item, to shrink the payload of large pages. It only restricts the active representation (`detailed` chooses the representation; `fields` keeps a subset of it): a name outside that representation is rejected with `400`. `uid` is always returned. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
+         *
+         */
+        fields?: Array<string>;
         /**
          * Ordering of the results. Defaults to `timingsWithFeatured.asc`, or to `score` (relevance) when `search` is set and no `sort` is given.
          *
@@ -2662,6 +2678,11 @@ export type MeAgendasListData = {
          *
          */
         detailed?: boolean;
+        /**
+         * Comma-separated subset of top-level fields to keep on each `data` item, to shrink the payload of large pages. It only restricts the active representation (`detailed` chooses the representation; `fields` keeps a subset of it): a name outside that representation is rejected with `400`. `uid` is always returned. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
+         *
+         */
+        fields?: Array<string>;
     };
     url: '/me/agendas';
 };
@@ -2717,6 +2738,11 @@ export type AgendasLocationsListData = {
          *
          */
         detailed?: boolean;
+        /**
+         * Comma-separated subset of top-level fields to keep on each `data` item, to shrink the payload of large pages. It only restricts the active representation (`detailed` chooses the representation; `fields` keeps a subset of it): a name outside that representation is rejected with `400`. `uid` is always returned. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
+         *
+         */
+        fields?: Array<string>;
         /**
          * Free-text search over the locations' name, address, city, region and department.
          *
