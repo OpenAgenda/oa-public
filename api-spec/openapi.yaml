@@ -144,6 +144,7 @@ paths:
         - $ref: '#/components/parameters/AfterCursor'
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/Detailed'
+        - $ref: '#/components/parameters/Fields'
         - $ref: '#/components/parameters/AgendaSearch'
         - $ref: '#/components/parameters/AgendaSort'
         - $ref: '#/components/parameters/AgendaFilterUid'
@@ -296,6 +297,7 @@ paths:
         - $ref: '#/components/parameters/AfterCursor'
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/Detailed'
+        - $ref: '#/components/parameters/Fields'
         - $ref: '#/components/parameters/Sort'
         # text & identity
         - $ref: '#/components/parameters/Search'
@@ -684,6 +686,7 @@ paths:
         - $ref: '#/components/parameters/AfterCursor'
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/Detailed'
+        - $ref: '#/components/parameters/Fields'
       responses:
         '200':
           description: A page of the caller's agenda memberships.
@@ -743,6 +746,7 @@ paths:
         - $ref: '#/components/parameters/AfterCursor'
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/Detailed'
+        - $ref: '#/components/parameters/Fields'
         - $ref: '#/components/parameters/LocationSearch'
         - $ref: '#/components/parameters/LocationFilterUid'
         - $ref: '#/components/parameters/LocationFilterExtId'
@@ -920,6 +924,26 @@ components:
       schema:
         type: boolean
         default: false
+
+    Fields:
+      name: fields
+      in: query
+      required: false
+      description: >
+        Comma-separated subset of top-level fields to keep on each `data` item,
+        to shrink the payload of large pages. It only restricts the active
+        representation (`detailed` chooses the representation; `fields` keeps a
+        subset of it): a name outside that representation is rejected with
+        `400`. `uid` is always returned. Response schemas stay complete, so a
+        generated client still types the omitted fields as present — read them
+        as optional on this path.
+      schema:
+        type: array
+        items:
+          type: string
+        example: [uid, title, location]
+      style: form
+      explode: false
 
     AgendaSearch:
       name: search
