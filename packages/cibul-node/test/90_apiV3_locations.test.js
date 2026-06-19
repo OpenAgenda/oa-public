@@ -179,6 +179,47 @@ describe('90 - api-v3 - functional (server): locations read endpoints', () => {
       }
     });
 
+    describe('fields (sparse selection)', () => {
+      it('trims to top-level columns (geo-only), always keeping uid', async () => {
+        const res = await get(
+          `/agendas/${AGENDA_UID}/locations`,
+          '?fields=name,latitude,longitude',
+        );
+        expect(res.status).toBe(200);
+        expect(res.body.data.length).toBeGreaterThan(0);
+        for (const location of res.body.data) {
+          expect(Object.keys(location).sort()).toEqual([
+            'latitude',
+            'longitude',
+            'name',
+            'uid',
+          ]);
+        }
+      });
+
+      it('selects a store-backed field without detailed (full universe)', async () => {
+        // `verified` (the service `state`) is detailed-only on the contract, yet
+        // selectable here — the route fetches the full projection and trims.
+        const res = await get(
+          `/agendas/${AGENDA_UID}/locations`,
+          '?fields=verified',
+        );
+        expect(res.status).toBe(200);
+        for (const location of res.body.data) {
+          expect(Object.keys(location).sort()).toEqual(['uid', 'verified']);
+        }
+      });
+
+      it('rejects an unknown field with 400 + per-field details', async () => {
+        const res = await get(
+          `/agendas/${AGENDA_UID}/locations`,
+          '?fields=name,nope',
+        );
+        expect(res.status).toBe(400);
+        expect(res.body.error.details.errors[0].field).toBe('fields');
+      });
+    });
+
     it('search is a text search — an all-digits term is NOT a uid filter', async () => {
       const text = await get(
         `/agendas/${AGENDA_UID}/locations`,

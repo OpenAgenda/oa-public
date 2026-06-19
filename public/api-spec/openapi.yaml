@@ -930,13 +930,16 @@ components:
       in: query
       required: false
       description: >
-        Comma-separated subset of top-level fields to keep on each `data` item,
-        to shrink the payload of large pages. It only restricts the active
-        representation (`detailed` chooses the representation; `fields` keeps a
-        subset of it): a name outside that representation is rejected with
-        `400`. `uid` is always returned. Response schemas stay complete, so a
-        generated client still types the omitted fields as present — read them
-        as optional on this path.
+        Comma-separated list of fields to keep on each `data` item, to shrink the
+        payload of large pages. When set, it selects the response shape directly
+        over the resource's full field set, so `detailed` no longer applies (it
+        only governs the default shape when `fields` is omitted) and `fields`
+        wins if both are given. Dotted paths descend into nested objects
+        (`location.name`, `additionalFields.myField`). A top-level name the
+        resource cannot expose is rejected with `400` (an unknown nested leaf is
+        ignored); `uid` is always returned. Response schemas stay complete, so a
+        generated client still types the omitted fields as present — read them as
+        optional on this path.
       schema:
         type: array
         items:

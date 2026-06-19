@@ -312,23 +312,57 @@ describe('90 - api-v3 - functional (server): events read endpoints', () => {
       }
     });
 
-    it('is a subset of the ACTIVE view — a detailed-only field is 400 on summary', async () => {
+    it('selects a detailed-only field WITHOUT detailed (full universe)', async () => {
+      // `fields` picks the shape over the full Event universe; `detailed` is
+      // moot. longDescription is a detailed-only field, yet selectable here.
       const res = await request(app)
         .get('/agendas/2/events?fields=longDescription')
         .set('authorization', `Bearer ${USER_KEY}`);
 
-      expect(res.status).toBe(400);
-      expect(res.body.error.details.errors[0].field).toBe('fields');
+      expect(res.status).toBe(200);
+      expect(res.body.data.length).toBeGreaterThan(0);
+      for (const event of res.body.data) {
+        expect(Object.keys(event).sort()).toEqual(['longDescription', 'uid']);
+      }
     });
 
-    it('but that same detailed-only field is selectable with detailed=true', async () => {
+    it('fields wins over detailed when both are given', async () => {
       const res = await request(app)
-        .get('/agendas/2/events?detailed=true&fields=longDescription')
+        .get('/agendas/2/events?detailed=true&fields=uid')
         .set('authorization', `Bearer ${USER_KEY}`);
 
       expect(res.status).toBe(200);
       for (const event of res.body.data) {
-        expect(Object.keys(event).sort()).toEqual(['longDescription', 'uid']);
+        expect(Object.keys(event)).toEqual(['uid']);
+      }
+    });
+
+    it('derives a timing field from the pushed-down timings (no detailed)', async () => {
+      // nextTiming is computed from the full `timings` array; the pushdown must
+      // still project `timings` for the parser, while the output stays trimmed.
+      const res = await request(app)
+        .get('/agendas/2/events?fields=nextTiming')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.length).toBeGreaterThan(0);
+      for (const event of res.body.data) {
+        expect(Object.keys(event).sort()).toEqual(['nextTiming', 'uid']);
+      }
+    });
+
+    it('dotted paths trim into nested objects', async () => {
+      const res = await request(app)
+        .get('/agendas/2/events?fields=location.name')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.length).toBeGreaterThan(0);
+      for (const event of res.body.data) {
+        expect(Object.keys(event).sort()).toEqual(['location', 'uid']);
+        // location is trimmed to just `name` (or null when the event has none).
+        const locationKeys = event.location ? Object.keys(event.location) : [];
+        expect(locationKeys.filter((key) => key !== 'name')).toEqual([]);
       }
     });
 

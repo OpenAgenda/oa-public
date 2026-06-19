@@ -19,6 +19,13 @@ export default schemas({
     type: 'choice',
     options: paths,
   },
+  // Restrictive counterpart of `includeFields`: when set, ONLY these fields are
+  // projected (overrides base/detailed). Implemented in defineIncludes; exposed
+  // here so the v3 `?fields=` selector can push its selection down to `_source`.
+  onlyIncludeFields: {
+    type: 'choice',
+    options: paths,
+  },
   useDefaultImage: {
     type: 'boolean',
     default: false,
