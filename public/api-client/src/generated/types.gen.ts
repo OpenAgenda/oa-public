@@ -579,6 +579,178 @@ export type AgendaList = {
 };
 
 /**
+ * Statistics over an agenda's **publicly visible** events (`events.published`), returned to every caller. Carries the exact distinct counts `locations` and `creators` (computed over the published set).
+ *
+ */
+export type PublishedEventStats = {
+    /**
+     * Total number of published events.
+     */
+    total: number;
+    /**
+     * Distinct published-event locations (exact).
+     */
+    locations: number;
+    /**
+     * Distinct published-event creators (exact).
+     */
+    creators: number;
+    /**
+     * Event counts relative to now.
+     */
+    timeline: {
+        /**
+         * Events happening now (started, not yet ended).
+         */
+        current: number;
+        /**
+         * Events already ended.
+         */
+        passed: number;
+        /**
+         * Events not yet started.
+         */
+        upcoming: number;
+    };
+    /**
+     * Event count per language code.
+     */
+    byLanguage: {
+        [key: string]: number;
+    };
+    /**
+     * Event count per add method (`contribution`, `shared`, `aggregation`). The three known methods are always present (0 when absent).
+     *
+     */
+    bySource: {
+        [key: string]: number;
+    };
+    /**
+     * Per-day count of events ending within the next 30 days, keyed by `YYYY-MM-DD`. Use `laterDays` for the residual past that horizon.
+     *
+     */
+    byEndDay: {
+        [key: string]: number;
+    };
+    /**
+     * Count of events ending past the 30-day `byEndDay` horizon.
+     */
+    laterDays: number;
+    /**
+     * Bounding box enclosing this scope's events with coordinates, or `null` when none has any.
+     *
+     */
+    viewport: Viewport | null;
+    /**
+     * De-duplicated thematic terms (cities, departments, regions and keywords) characterising this scope's events.
+     *
+     */
+    keywords: Array<string>;
+};
+
+/**
+ * Statistics over an agenda's events of **any moderation state** (moderation and refused included) — `events.all`. Returned ONLY to `administrator|moderator|internal` callers. Carries `byState` (the per-moderation-state breakdown). It does NOT carry the distinct `locations`/`creators` counts: an exact distinct count over the all-states population is intentionally not computed (cost).
+ *
+ */
+export type AllEventStats = {
+    /**
+     * Total number of events across all moderation states.
+     */
+    total: number;
+    /**
+     * Event count per moderation state (`ModerationState` codes as keys).
+     *
+     */
+    byState: {
+        [key: string]: number;
+    };
+    /**
+     * Event counts relative to now.
+     */
+    timeline: {
+        /**
+         * Events happening now (started, not yet ended).
+         */
+        current: number;
+        /**
+         * Events already ended.
+         */
+        passed: number;
+        /**
+         * Events not yet started.
+         */
+        upcoming: number;
+    };
+    /**
+     * Event count per language code.
+     */
+    byLanguage: {
+        [key: string]: number;
+    };
+    /**
+     * Event count per add method (`contribution`, `shared`, `aggregation`). The three known methods are always present (0 when absent).
+     *
+     */
+    bySource: {
+        [key: string]: number;
+    };
+    /**
+     * Per-day count of events ending within the next 30 days, keyed by `YYYY-MM-DD`. Use `laterDays` for the residual past that horizon.
+     *
+     */
+    byEndDay: {
+        [key: string]: number;
+    };
+    /**
+     * Count of events ending past the 30-day `byEndDay` horizon.
+     */
+    laterDays: number;
+    /**
+     * Bounding box enclosing this scope's events with coordinates, or `null` when none has any.
+     *
+     */
+    viewport: Viewport | null;
+    /**
+     * De-duplicated thematic terms (cities, departments, regions and keywords) characterising this scope's events.
+     *
+     */
+    keywords: Array<string>;
+};
+
+/**
+ * A windowed slice of the agenda's own recent contributions — published events added within the recent window and not yet ended — broken down by add method. Published-only for every caller (a single-meaning public stat, never an access-dependent value). A time-slice, not a visibility scope, hence hoisted to the root of `AgendaOverview`.
+ *
+ */
+export type RecentlyAddedStats = {
+    /**
+     * Width of the slice in days (server-configured) — makes the counts interpretable.
+     *
+     */
+    window: number;
+    /**
+     * Event count per add method (`contribution`, `shared`, `aggregation`).
+     *
+     */
+    bySource: {
+        [key: string]: number;
+    };
+};
+
+/**
+ * Live activity overview of one agenda: event volume, distributions, spatial extent and thematic keywords, organised along two orthogonal axes — **visibility scope** (`events.published` / `events.all`) × a shared **metric vocabulary** — plus a hoisted `recentlyAdded` slice.
+ *
+ * Always computed live (never from the search-index snapshot), so access-gated data cannot leak through a stale cache. `events.published` (`PublishedEventStats`) is always present; `events.all` (`AllEventStats`) is present only for `administrator|moderator|internal` callers.
+ *
+ */
+export type AgendaOverview = {
+    events: {
+        published: PublishedEventStats;
+        all?: AllEventStats;
+    };
+    recentlyAdded: RecentlyAddedStats;
+};
+
+/**
  * Publication status of the event.
  */
 export type EventStatus = 1 | 2 | 3 | 4 | 5 | 6;
@@ -1769,6 +1941,44 @@ export type AgendasGetResponses = {
 };
 
 export type AgendasGetResponse = AgendasGetResponses[keyof AgendasGetResponses];
+
+export type AgendasOverviewData = {
+    body?: never;
+    path: {
+        /**
+         * Numeric uid of the agenda.
+         */
+        agendaUid: number;
+    };
+    query?: never;
+    url: '/agendas/{agendaUid}/overview';
+};
+
+export type AgendasOverviewErrors = {
+    /**
+     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     */
+    401: Error;
+    /**
+     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     */
+    403: Error;
+    /**
+     * Resource not found.
+     */
+    404: Error;
+};
+
+export type AgendasOverviewError = AgendasOverviewErrors[keyof AgendasOverviewErrors];
+
+export type AgendasOverviewResponses = {
+    /**
+     * The agenda overview.
+     */
+    200: AgendaOverview;
+};
+
+export type AgendasOverviewResponse = AgendasOverviewResponses[keyof AgendasOverviewResponses];
 
 export type AgendasEventsListData = {
     body?: never;

@@ -399,6 +399,15 @@ export const zAgendaList = z.object({
 });
 
 /**
+ * A windowed slice of the agenda's own recent contributions — published events added within the recent window and not yet ended — broken down by add method. Published-only for every caller (a single-meaning public stat, never an access-dependent value). A time-slice, not a visibility scope, hence hoisted to the root of `AgendaOverview`.
+ *
+ */
+export const zRecentlyAddedStats = z.object({
+    window: z.number().int(),
+    bySource: z.record(z.number().int())
+});
+
+/**
  * Publication status of the event.
  */
 export const zEventStatus = z.union([
@@ -746,6 +755,61 @@ export const zGeoFacetBucket = z.object({
 export const zViewport = z.object({
     topLeft: zGeoPoint,
     bottomRight: zGeoPoint
+});
+
+/**
+ * Statistics over an agenda's **publicly visible** events (`events.published`), returned to every caller. Carries the exact distinct counts `locations` and `creators` (computed over the published set).
+ *
+ */
+export const zPublishedEventStats = z.object({
+    total: z.number().int(),
+    locations: z.number().int(),
+    creators: z.number().int(),
+    timeline: z.object({
+        current: z.number().int(),
+        passed: z.number().int(),
+        upcoming: z.number().int()
+    }),
+    byLanguage: z.record(z.number().int()),
+    bySource: z.record(z.number().int()),
+    byEndDay: z.record(z.number().int()),
+    laterDays: z.number().int(),
+    viewport: zViewport.nullable(),
+    keywords: z.array(z.string())
+});
+
+/**
+ * Statistics over an agenda's events of **any moderation state** (moderation and refused included) — `events.all`. Returned ONLY to `administrator|moderator|internal` callers. Carries `byState` (the per-moderation-state breakdown). It does NOT carry the distinct `locations`/`creators` counts: an exact distinct count over the all-states population is intentionally not computed (cost).
+ *
+ */
+export const zAllEventStats = z.object({
+    total: z.number().int(),
+    byState: z.record(z.number().int()),
+    timeline: z.object({
+        current: z.number().int(),
+        passed: z.number().int(),
+        upcoming: z.number().int()
+    }),
+    byLanguage: z.record(z.number().int()),
+    bySource: z.record(z.number().int()),
+    byEndDay: z.record(z.number().int()),
+    laterDays: z.number().int(),
+    viewport: zViewport.nullable(),
+    keywords: z.array(z.string())
+});
+
+/**
+ * Live activity overview of one agenda: event volume, distributions, spatial extent and thematic keywords, organised along two orthogonal axes — **visibility scope** (`events.published` / `events.all`) × a shared **metric vocabulary** — plus a hoisted `recentlyAdded` slice.
+ *
+ * Always computed live (never from the search-index snapshot), so access-gated data cannot leak through a stale cache. `events.published` (`PublishedEventStats`) is always present; `events.all` (`AllEventStats`) is present only for `administrator|moderator|internal` callers.
+ *
+ */
+export const zAgendaOverview = z.object({
+    events: z.object({
+        published: zPublishedEventStats,
+        all: zAllEventStats.optional()
+    }),
+    recentlyAdded: zRecentlyAddedStats
 });
 
 /**
@@ -1452,6 +1516,15 @@ export const zAgendasGetPath = z.object({
  * The agenda.
  */
 export const zAgendasGetResponse = zAgenda;
+
+export const zAgendasOverviewPath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
+});
+
+/**
+ * The agenda overview.
+ */
+export const zAgendasOverviewResponse = zAgendaOverview;
 
 export const zAgendasEventsListPath = z.object({
     agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
