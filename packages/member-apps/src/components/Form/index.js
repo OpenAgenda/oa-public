@@ -194,16 +194,6 @@ export default ({
             </a>
           </div>
         ) : null}
-        <div>
-          <button
-            type="button"
-            className="btn btn-link margin-top-sm"
-            onClick={() =>
-              (onCloseModalRequest ? onCloseModalRequest() : setStep('form'))}
-          >
-            {m(messages.cancel)}
-          </button>
-        </div>
       </div>,
       // Tighten the title↔text gap (32px → 16px) for this text-only modal.
       {
