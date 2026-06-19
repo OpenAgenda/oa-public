@@ -1469,8 +1469,7 @@ export type EventUid = number;
 export type AfterCursor = string;
 
 /**
- * Maximum number of items to return per page. An out-of-range or non-integer value is rejected with `400`, never clamped; use the `after` cursor to page further.
- *
+ * Maximum number of items to return per page.
  */
 export type Limit = number;
 
@@ -1845,8 +1844,7 @@ export type AgendasListData = {
          */
         after?: string;
         /**
-         * Maximum number of items to return per page. An out-of-range or non-integer value is rejected with `400`, never clamped; use the `after` cursor to page further.
-         *
+         * Maximum number of items to return per page.
          */
         limit?: number;
         /**
@@ -1999,8 +1997,7 @@ export type AgendasEventsListData = {
          */
         after?: string;
         /**
-         * Maximum number of items to return per page. An out-of-range or non-integer value is rejected with `400`, never clamped; use the `after` cursor to page further.
-         *
+         * Maximum number of items to return per page.
          */
         limit?: number;
         /**
@@ -2653,8 +2650,7 @@ export type MeAgendasListData = {
          */
         after?: string;
         /**
-         * Maximum number of items to return per page. An out-of-range or non-integer value is rejected with `400`, never clamped; use the `after` cursor to page further.
-         *
+         * Maximum number of items to return per page.
          */
         limit?: number;
         /**
@@ -2708,8 +2704,7 @@ export type AgendasLocationsListData = {
          */
         after?: string;
         /**
-         * Maximum number of items to return per page. An out-of-range or non-integer value is rejected with `400`, never clamped; use the `after` cursor to page further.
-         *
+         * Maximum number of items to return per page.
          */
         limit?: number;
         /**

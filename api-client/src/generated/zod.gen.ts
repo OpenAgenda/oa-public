@@ -1090,8 +1090,7 @@ export const zEventUid = z.coerce.bigint().min(BigInt('-9223372036854775808'), {
 export const zAfterCursor = z.string();
 
 /**
- * Maximum number of items to return per page. An out-of-range or non-integer value is rejected with `400`, never clamped; use the `after` cursor to page further.
- *
+ * Maximum number of items to return per page.
  */
 export const zLimit = z.number().int().gte(1).lte(100).default(20);
 
