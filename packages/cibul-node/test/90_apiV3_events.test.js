@@ -375,6 +375,33 @@ describe('90 - api-v3 - functional (server): events read endpoints', () => {
       assertValid(validateError, res.body, 'Error');
       expect(res.body.error.details.errors[0].field).toBe('fields');
     });
+
+    it('rejects an unknown nested leaf under a known keyset with 400', async () => {
+      // `location` declares a children keyset, so a bogus sub-key is a 400 —
+      // not a silently-dropped best-effort leaf.
+      const res = await request(app)
+        .get('/agendas/2/events?fields=location.zzz')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(400);
+      assertValid(validateError, res.body, 'Error');
+      expect(res.body.error.details.errors[0].field).toBe('fields');
+    });
+
+    it('pushes the additionalFields bag down (enumerated from the schema)', async () => {
+      // Agenda 1 / event 1 carries the `thematique` custom field. Selecting the
+      // bare bag enumerates the merged form schema and projects its custom
+      // fields, so the value survives the trim.
+      const res = await request(app)
+        .get('/agendas/1/events?fields=additionalFields')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(200);
+      const event1 = res.body.data.find((e) => e.uid === 1);
+      expect(event1).toBeDefined();
+      expect(Object.keys(event1).sort()).toEqual(['additionalFields', 'uid']);
+      expect(event1.additionalFields.thematique).toBe(2);
+    });
   });
 
   describe('GET /agendas/:agendaUid/events — filtering', () => {

@@ -42,6 +42,27 @@ const orNull = (v) => (v === undefined || v === '' ? null : v);
 const localizedMap = (v) =>
   (v && typeof v === 'object' && !Array.isArray(v) ? v : {});
 
+// The extIds entries expose exactly these keys (see the mapper below).
+const EXT_ID_KEYS = ['key', 'value'];
+
+// Selection descriptor for `?fields=` (see lib/selectFields.js). Two fields are
+// renamed onto their service columns for the SQL pushdown: the opaque `state`
+// flag is exposed as `verified`, and the `additionalFields` bag is backed by
+// the single `tags` column (so selecting it — or its `tags` sub-key — projects
+// `tags`). Pushdown is top-level (one SQL column per field).
+//
+// `additionalFields` is deliberately NOT in `children`: it is an OPEN container
+// (the contract documents it as gaining agenda-defined keys non-breakingly), so
+// its leaves stay best-effort — same as the events `additionalFields` bag —
+// rather than 400-ing a future custom key.
+export const LOCATION_SELECT = {
+  granularity: 'top',
+  store: { verified: 'state', additionalFields: 'tags' },
+  children: {
+    extIds: EXT_ID_KEYS,
+  },
+};
+
 export function mapLocationSummary(location) {
   return {
     uid: location.uid,

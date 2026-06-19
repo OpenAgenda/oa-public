@@ -218,6 +218,27 @@ describe('90 - api-v3 - functional (server): locations read endpoints', () => {
         expect(res.status).toBe(400);
         expect(res.body.error.details.errors[0].field).toBe('fields');
       });
+
+      it('rejects an unknown nested leaf under a known keyset with 400', async () => {
+        // `extIds` declares a children keyset ({ key, value }), so a bogus
+        // sub-key is a 400, not a silent best-effort drop.
+        const res = await get(
+          `/agendas/${AGENDA_UID}/locations`,
+          '?fields=extIds.zzz',
+        );
+        expect(res.status).toBe(400);
+        expect(res.body.error.details.errors[0].field).toBe('fields');
+      });
+
+      it('accepts a best-effort leaf under the open additionalFields container', async () => {
+        // `additionalFields` is an open, extensible container — its leaves are
+        // best-effort (like the events bag), never a 400.
+        const res = await get(
+          `/agendas/${AGENDA_UID}/locations`,
+          '?fields=additionalFields.somethingFuture',
+        );
+        expect(res.status).toBe(200);
+      });
     });
 
     it('search is a text search — an all-digits term is NOT a uid filter', async () => {

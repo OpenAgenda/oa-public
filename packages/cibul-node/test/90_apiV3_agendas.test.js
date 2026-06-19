@@ -312,6 +312,17 @@ describe('90 - api-v3 - functional (server): agendas read endpoints', () => {
         expect(res.status).toBe(400);
         expect(res.body.error.details.errors[0].field).toBe('fields');
       });
+
+      it('trims a known nested ref leaf, rejecting an unknown one', async () => {
+        const ok = await listQ('?fields=network.title');
+        expect(ok.status).toBe(200);
+
+        // `network` declares a children keyset ({ uid, title }), so a bogus
+        // sub-key is a 400, not a silent best-effort drop.
+        const bad = await listQ('?fields=network.zzz');
+        expect(bad.status).toBe(400);
+        expect(bad.body.error.details.errors[0].field).toBe('fields');
+      });
     });
 
     describe('filtering', () => {

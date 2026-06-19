@@ -183,7 +183,9 @@ function cleanImage(img) {
 }
 
 // Per-field allowlist cleaners, applied after coercion to a non-null value.
-const CLEANERS = {
+// Exported so the SELECT descriptor's `children` (and its lockstep test) can be
+// pinned to exactly the fields the mapper allowlists.
+export const CLEANERS = {
   location: (l) => pick(l, LOCATION_KEYS),
   originAgenda: cleanAgendaRef,
   sourceAgendas: (arr) => arr.map(cleanAgendaRef),
@@ -191,6 +193,43 @@ const CLEANERS = {
   registration: (arr) => arr.map((r) => pick(r, REGISTRATION_KEYS)),
   links: (arr) => arr.map((l) => pick(l, ENRICHED_LINK_KEYS)),
   extIds: (arr) => arr.map((e) => pick(e, EXT_ID_KEYS)),
+};
+
+// Selection descriptor for the `?fields=` selector (see lib/selectFields.js):
+// the single source, ALONGSIDE the mapper, for how a sparse selection is
+// validated and pushed down to the ES `_source`. The selectable universe stays
+// mapper-derived (`fieldNamesOf`, drift-proof); this overlay only declares the
+// fields that need MORE than identity:
+//   - `children`: the allowlisted nested keys per field — exactly the CLEANERS
+//     keysets, so strict-leaf validation can never drift from what the mapper
+//     actually emits. A dotted leaf outside them is a 400; fields without an
+//     allowlist (localized maps, pass-through objects like age/accessibility)
+//     keep best-effort leaves.
+//   - `derives`: store fields a contract field is COMPUTED from by event-search
+//     (nextTiming is always recomputed from the full `timings` array; first/last
+//     fall back to it). event-search only auto-projects `timings` for
+//     `nextTiming`, so we must request it for ANY of the three.
+//   - `bag`: the open additional-fields container — its sub-keys map to flat
+//     `_source` keys; the bare bag needs the form schema to enumerate (route).
+//   - `granularity: 'path'`: event-search projects dotted `_source` paths, so
+//     the pushdown keeps `location.name` rather than collapsing to `location`.
+export const EVENT_SELECT = {
+  granularity: 'path',
+  bag: 'additionalFields',
+  children: {
+    location: LOCATION_KEYS,
+    originAgenda: AGENDA_REF_KEYS,
+    sourceAgendas: AGENDA_REF_KEYS,
+    image: IMAGE_KEYS,
+    registration: REGISTRATION_KEYS,
+    links: ENRICHED_LINK_KEYS,
+    extIds: EXT_ID_KEYS,
+  },
+  derives: {
+    firstTiming: ['timings'],
+    lastTiming: ['timings'],
+    nextTiming: ['timings'],
+  },
 };
 
 // Coerce a single native value by its declared kind, applying the

@@ -9,18 +9,25 @@
 // mirroring the `limit`/`detailed`/`sort` gates; `uid` is always retained.
 //
 // Dotted paths (`location.name`, `additionalFields.x`) descend into nested
-// objects/arrays. Validation is strict on the TOP-LEVEL segment (a `nope.x` is a
-// 400) and best-effort on the leaf (an unknown sub-key just yields nothing) —
-// enumerating every nested sub-schema would be disproportionate, and this
-// matches the v2 selector.
+// objects/arrays. The TOP-LEVEL segment is always validated against the
+// universe (a `nope.x` is a 400). The first NESTED segment is validated too
+// wherever the resource declares a `children` keyset (so `location.zzz` is a
+// 400) — the keysets are exactly the mapper's allowlists, so they can't drift.
+// A leaf under an OPEN field (the `additionalFields` bag, a localized map, a
+// pass-through object the mapper doesn't allowlist) stays best-effort.
 //
 // Where it can, the route pushes the selection down to the store so the heavy
-// fields are never fetched: events → ES `_source` (`eventFieldsToIncludes`),
-// agendas → ES `onlyIncludeFields` (`agendaFieldsToOnlyIncludes`). Locations and
-// /me fetch the richest projection and this module trims the mapped item — same
-// observable result, just not lighter on the wire (their SQL stores don't
-// restrict columns cleanly: the locations keyset needs the internal `id`, and
-// the members projection only ADDS columns).
+// fields are never fetched. One generic translator (`selectionToIncludes`),
+// driven by each resource's SELECT descriptor (co-located with its mapper),
+// covers all three: events → ES `_source` (dotted paths kept, `additionalFields`
+// sub-keys flattened, derived timings pull `timings`), agendas → ES
+// `onlyIncludeFields` (top-level), locations → SQL `includeFields` (top-level,
+// `verified`/`additionalFields` renamed to their columns). /me reuses the agenda
+// translator for its public-index search; its SQL fallback only ADDS columns, so
+// there the win is skipping the network/locationSet ref resolution (see
+// meAgendas.js). `pickSelected` trims the mapped item regardless — the
+// empty-as-empty rule reseeds absent fields, so the post-map trim is always
+// required even when the pushdown narrowed the store read.
 //
 // The response SCHEMA is unchanged (still fully `required`): `fields` is a
 // best-effort payload optimisation, documented as such. The generated SDK type
@@ -36,18 +43,6 @@ import { BadRequest } from '@openagenda/verror';
 // selection — selecting it or not is a no-op.
 const IDENTITY_FIELD = 'uid';
 
-// Event fields the search service DERIVES from the full `timings` array (a
-// post-search parser computes them), so requesting any of them must still
-// project `timings` into the `_source` even when the caller didn't ask for it.
-const TIMING_DERIVED = ['firstTiming', 'lastTiming', 'nextTiming'];
-
-// Contract field -> agenda-locations service field, for the few that differ.
-// `verified` reads the service's `state` flag; `additionalFields` wraps `tags`.
-const LOCATION_FIELD_TO_SERVICE = {
-  verified: 'state',
-  additionalFields: 'tags',
-};
-
 const topSegment = (path) => path.split('.')[0];
 
 // The selectable top-level field names of a view = exactly the keys its mapper
@@ -61,56 +56,68 @@ export function fieldNamesOf(mapItem, extra = []) {
   return [...Object.keys(mapItem({})), ...extra];
 }
 
-// Translate a resolved event field selection into the event-search
-// `includeFields` (an OVERRIDE of the `_source`: only these are fetched). Mostly
-// identity — the contract names (incl. dotted, e.g. `location.name`) match the
-// `_source` names — plus two provenance rules:
-//   - a derived timing field also pulls `timings` (the parser needs it);
-//   - `additionalFields.<key>` maps to the flat custom field `<key>`, but the
-//     whole `additionalFields` bag can't be enumerated here (its keys come from
-//     the form schema), so it bails to `null` = "no pushdown for this request":
-//     the route fetches the normal projection and the mapped item is still
-//     trimmed. Common payload-shrinking selections never hit this.
-export function eventFieldsToIncludes(selected) {
+// Translate a resolved field selection into the store-projection list a service
+// understands (event-search `includeFields`, agenda-search `onlyIncludeFields`,
+// agenda-locations `includeFields`). One generic pass, driven by the resource's
+// SELECT descriptor:
+//   - `granularity: 'path'` keeps dotted paths (event-search projects sub-paths
+//     of the `_source`); `'top'` collapses to the distinct top-level segments
+//     (the others project whole subtrees / whole columns, and `pickSelected`
+//     trims any dotted leaf afterwards).
+//   - `store[top]` renames a contract field onto its store field/column.
+//   - `derives[top]` adds the store fields a contract field is computed from.
+//   - `bag` is the open additional-fields container: a sub-key (`bag.x`) maps to
+//     the flat store key `x`; the bare bag needs its keys enumerated — the route
+//     passes them as `bagKeys` (from the form schema), and without them the
+//     selection can't be pushed down, so it returns `null` (= "fetch the normal
+//     projection, rely on the post-map trim").
+export function selectionToIncludes(
+  selected,
+  {
+    granularity = 'top',
+    store = {},
+    derives = {},
+    bag = null,
+    bagKeys = null,
+  } = {},
+) {
   const includes = new Set();
   for (const path of selected) {
     const top = topSegment(path);
-    if (top === 'additionalFields') {
-      if (path === 'additionalFields') {
-        return null;
+    if (bag && top === bag) {
+      if (path === bag) {
+        // The bare bag needs its keys enumerated; with none (not supplied, or
+        // the agenda has no custom fields) we can't build an override that
+        // KEEPS the bag, so bail to "no pushdown" — the full projection is
+        // fetched and the post-map trim keeps whatever the bag holds.
+        if (!bagKeys || bagKeys.length === 0) {
+          return null;
+        }
+        bagKeys.forEach((key) => includes.add(key));
+      } else {
+        includes.add(path.slice(bag.length + 1));
       }
-      includes.add(path.slice('additionalFields.'.length));
       continue;
     }
-    includes.add(path);
-    if (TIMING_DERIVED.includes(top)) {
-      includes.add('timings');
-    }
+    includes.add(store[top] ?? (granularity === 'path' ? path : top));
+    (derives[top] ?? []).forEach((dep) => includes.add(dep));
   }
   return [...includes];
 }
 
-// Translate a resolved agenda field selection into the agenda-search
-// `onlyIncludeFields` (an OVERRIDE of the `_source`). The AgendaDetailed names
-// map 1:1 onto the index fields; a bare top-level name projects its whole
-// subtree (e.g. `network` -> network.uid/title), so we only need the distinct
-// top-level segments and let `pickSelected` trim any dotted leaf.
-export function agendaFieldsToOnlyIncludes(selected) {
-  return [...new Set([...selected].map(topSegment))];
-}
-
-// Translate a resolved location field selection into the agenda-locations
-// service `includeFields` (RESTRICTS the SQL columns). Mostly identity, with the
-// two renamed fields mapped to their service names.
-export function locationFieldsToIncludes(selected) {
-  return [
-    ...new Set(
-      [...selected].map((path) => {
-        const top = topSegment(path);
-        return LOCATION_FIELD_TO_SERVICE[top] ?? top;
-      }),
-    ),
-  ];
+// Does the selection include this top-level field? `null` (no selection) means
+// "everything is selected" → true. Lets a route skip work for a field the
+// caller didn't ask for (e.g. /me's network/locationSet ref resolution).
+export function selectsTop(selected, name) {
+  if (!selected) {
+    return true;
+  }
+  for (const path of selected) {
+    if (topSegment(path) === name) {
+      return true;
+    }
+  }
+  return false;
 }
 
 // Parse `?fields=` into the Set of field paths to keep, or `null` when the param
@@ -118,9 +125,13 @@ export function locationFieldsToIncludes(selected) {
 //
 // Accepts a comma-separated list (`fields=uid,title`) or repeated params
 // (`fields=uid&fields=title`, which `qs` yields as an array). A bracketed/object
-// form, an empty list, or a path whose TOP-LEVEL segment is outside `allowed`
-// (the resource's full field universe) is a `400`.
-export function resolveFields(rawFields, allowed) {
+// form, an empty list, or a path whose TOP-LEVEL segment is outside `universe`
+// (the resource's full field set) is a `400`. A dotted path is also a `400` when
+// its FIRST nested segment is outside the resource's declared `children` keyset
+// for that field (`location.zzz`); a leaf under a field WITHOUT a declared
+// keyset (the open bag, a localized map, a pass-through object) stays
+// best-effort.
+export function resolveFields(rawFields, universe, children = {}) {
   if (rawFields === undefined) {
     return null;
   }
@@ -150,12 +161,31 @@ export function resolveFields(rawFields, allowed) {
     fail('fields must list at least one field name');
   }
 
-  const allowedSet = new Set(allowed);
-  const unknown = [...new Set(tokens)].filter(
-    (path) => !allowedSet.has(topSegment(path)),
-  );
+  const distinct = [...new Set(tokens)];
+
+  const universeSet = new Set(universe);
+  const unknown = distinct.filter((path) => !universeSet.has(topSegment(path)));
   if (unknown.length) {
     fail(`unknown field(s): ${unknown.join(', ')}`);
+  }
+
+  // Strict leaf: reject the first nested segment when the field declares a
+  // keyset and the segment is outside it. Fields with no declared keyset (open
+  // bag, localized map, pass-through object) keep best-effort leaves.
+  const badLeaf = distinct.filter((path) => {
+    const dot = path.indexOf('.');
+    if (dot === -1) {
+      return false;
+    }
+    const allowed = children[path.slice(0, dot)];
+    if (!allowed) {
+      return false;
+    }
+    const leaf = path.slice(dot + 1).split('.')[0];
+    return !allowed.includes(leaf);
+  });
+  if (badLeaf.length) {
+    fail(`unknown nested field(s): ${badLeaf.join(', ')}`);
   }
 
   return new Set([IDENTITY_FIELD, ...tokens]);
@@ -210,6 +240,20 @@ function pickTree(value, tree) {
   return out;
 }
 
+// `pickSelected` runs once per item, but `selected` is invariant across a page
+// (the same Set instance is passed for every row). Cache the compiled pick-tree
+// by that Set so a 100-item page builds it once, not 100×. Keyed weakly so the
+// per-request Set is collected with the request.
+const treeCache = new WeakMap();
+function selectionTree(selected) {
+  let tree = treeCache.get(selected);
+  if (tree === undefined) {
+    tree = pathsToTree(selected);
+    treeCache.set(selected, tree);
+  }
+  return tree;
+}
+
 // Trim one mapped item to the selected fields/paths. `selected` is the Set
 // returned by `resolveFields`, or `null` for no trimming (returns the item
 // untouched). Top-level order follows the item's own keys.
@@ -217,5 +261,5 @@ export function pickSelected(item, selected) {
   if (!selected || item == null || typeof item !== 'object') {
     return item;
   }
-  return pickTree(item, pathsToTree(selected));
+  return pickTree(item, selectionTree(selected));
 }

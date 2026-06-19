@@ -22,16 +22,17 @@ import loadSearchAccess from '../core/agendas/events/lib/loadSearchAccess.js';
 import createAuthenticate from './lib/authenticate.js';
 import requireScope from './lib/requireScope.js';
 import createLoadAgenda from './lib/loadAgenda.js';
-import mapEvent from './lib/mapEvent.js';
-import mapAgenda, { mapAgendaDetailed } from './lib/mapAgenda.js';
+import mapEvent, { EVENT_SELECT } from './lib/mapEvent.js';
+import mapAgenda, {
+  mapAgendaDetailed,
+  AGENDA_SELECT,
+} from './lib/mapAgenda.js';
 import mapAgendaOverview from './lib/mapAgendaOverview.js';
-import mapLocation from './lib/mapLocation.js';
+import mapLocation, { LOCATION_SELECT } from './lib/mapLocation.js';
 import {
   resolveFields,
   fieldNamesOf,
-  eventFieldsToIncludes,
-  agendaFieldsToOnlyIncludes,
-  locationFieldsToIncludes,
+  selectionToIncludes,
 } from './lib/selectFields.js';
 import buildListEnvelope from './lib/envelope.js';
 import buildAgendaListEnvelope from './lib/agendaEnvelope.js';
@@ -55,6 +56,7 @@ import {
   parseTimingsInterval,
   parseMonthWindow,
   parseFieldKeys,
+  additionalFieldsOf,
   resolveAdditionalFieldSelections,
   isReadableAt,
   buildAggregations,
@@ -67,6 +69,15 @@ import { decodeCursor, decodeIntCursor } from './lib/cursor.js';
 import apiV3ErrorHandler from './errorHandler.js';
 
 const log = logs('api-v3');
+
+// The selectable `?fields=` universe per resource = the richest mapper's emitted
+// key set (drift-proof via `fieldNamesOf`). Fixed for the process, so probe the
+// mappers once at import rather than on every list request. `/me` grafts
+// `role`/`private` onto the agenda shape, so they join its universe.
+const EVENT_FIELD_NAMES = fieldNamesOf(mapEvent);
+const AGENDA_FIELD_NAMES = fieldNamesOf(mapAgendaDetailed);
+const LOCATION_FIELD_NAMES = fieldNamesOf(mapLocation);
+const ME_FIELD_NAMES = fieldNamesOf(mapAgendaDetailed, ['private', 'role']);
 
 // Contract: limit default 20, min 1, max 100.
 const DEFAULT_LIMIT = 20;
@@ -215,7 +226,8 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
       // single-get carries the fields the index lacks (url/private/indexed/…).
       const fields = resolveFields(
         req.query.fields,
-        fieldNamesOf(mapAgendaDetailed),
+        AGENDA_FIELD_NAMES,
+        AGENDA_SELECT.children,
       );
       const effectiveDetailed = fields ? true : detailed;
 
@@ -256,7 +268,10 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
       // pagination is unaffected).
       const searchOptions = { detailed: effectiveDetailed, access: 'public' };
       if (fields) {
-        searchOptions.onlyIncludeFields = agendaFieldsToOnlyIncludes(fields);
+        searchOptions.onlyIncludeFields = selectionToIncludes(
+          fields,
+          AGENDA_SELECT,
+        );
       }
 
       const result = await core.agendas.search(query, nav, searchOptions);
@@ -340,13 +355,15 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
         const detailed = resolveDetailed(req.query.detailed);
         // `fields` selects over the full Event universe and, when present, picks
         // the shape outright (`detailed` becomes moot). We push the selection
-        // down to the ES `_source` (`includeFields` — only those are fetched),
-        // map with the full mapper, then trim. `eventFieldsToIncludes` returns
-        // null only when the whole `additionalFields` bag is asked for (its keys
-        // aren't enumerable here) — then we skip the pushdown and just trim.
-        const fields = resolveFields(req.query.fields, fieldNamesOf(mapEvent));
+        // down to the ES `_source`, map with the full mapper, then trim. The
+        // `includeFields` override is built below (it needs the resolved access
+        // to enumerate the `additionalFields` bag).
+        const fields = resolveFields(
+          req.query.fields,
+          EVENT_FIELD_NAMES,
+          EVENT_SELECT.children,
+        );
         const effectiveDetailed = fields ? true : detailed;
-        const includeFields = fields ? eventFieldsToIncludes(fields) : null;
 
         const nav = { size: limit };
 
@@ -376,6 +393,27 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
           agendaKey: req.agendaKey,
         }) ?? 'public';
 
+        // Override the ES `_source` to the requested fields. The bare
+        // `additionalFields` bag can't be named field-by-field from here, so when
+        // it is selected we enumerate the agenda's merged form-schema custom
+        // fields (the same set `defineIncludes` would project) and push those;
+        // `defineIncludes` still access-gates them. selectionToIncludes returns
+        // null only if the bag is selected and there are no enumerable keys to
+        // override with — then we skip the override and rely on the post-map trim.
+        let bagKeys = null;
+        if (fields && fields.has(EVENT_SELECT.bag)) {
+          // Pass the already-loaded agenda object (not the uid) so getMerged
+          // skips re-fetching it. `additionalFieldsOf` is the shared
+          // (facets/event-search) "custom field carries a schemaId" predicate.
+          const schema = await core
+            .agendas(req.agenda)
+            .settings.schema.getMerged({ access });
+          bagKeys = additionalFieldsOf(schema).map((field) => field.field);
+        }
+        const includeFields = fields
+          ? selectionToIncludes(fields, { ...EVENT_SELECT, bagKeys })
+          : null;
+
         const searchOptions = {
           useAfterKey: true,
           detailed: effectiveDetailed,
@@ -383,10 +421,8 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
           userUid: req.user?.uid,
           agendaKey: req.agendaKey,
         };
-        // Override the ES `_source` to the requested fields when we could
-        // translate them (null = the whole additionalFields bag, see
-        // eventFieldsToIncludes). The access-gating in `defineIncludes` still
-        // applies, so this can't pull read-gated additional fields.
+        // The access-gating in `defineIncludes` still applies to the override, so
+        // this can't pull read-gated additional fields.
         if (includeFields) {
           searchOptions.includeFields = includeFields;
         }
@@ -649,7 +685,8 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
         // form schema, for `additionalFields`) and trim.
         const fields = resolveFields(
           req.query.fields,
-          fieldNamesOf(mapLocation),
+          LOCATION_FIELD_NAMES,
+          LOCATION_SELECT.children,
         );
         const effectiveDetailed = fields ? true : detailed;
 
@@ -679,7 +716,10 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
         // win is real for top-level columns; the JSON `store`-backed fields share
         // one column, so selecting any of them still reads the whole blob.
         if (fields) {
-          listOptions.includeFields = locationFieldsToIncludes(fields);
+          listOptions.includeFields = selectionToIncludes(
+            fields,
+            LOCATION_SELECT,
+          );
         }
 
         const result = await locationEndpoints(core, req.agenda).list(
@@ -767,7 +807,8 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
       // requested field is available) and trim.
       const fields = resolveFields(
         req.query.fields,
-        fieldNamesOf(mapAgendaDetailed, ['private', 'role']),
+        ME_FIELD_NAMES,
+        AGENDA_SELECT.children,
       );
       const effectiveDetailed = fields ? true : detailed;
 
