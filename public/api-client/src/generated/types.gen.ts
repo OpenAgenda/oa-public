@@ -1481,7 +1481,7 @@ export type Limit = number;
 export type Detailed = boolean;
 
 /**
- * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` no longer applies (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. Dotted paths descend into nested objects (`location.name`, `additionalFields.myField`). A top-level name the resource cannot expose is rejected with `400` (an unknown nested leaf is ignored); `uid` is always returned. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
+ * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` no longer applies (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. `uid` is always returned. Dotted paths descend into nested objects and arrays (`location.name`, `timings.begin`, `additionalFields.myField`). An unknown top-level field is rejected with `400`; an unknown nested sub-field may be too (e.g. `location.zzz`), except under an open container — the `additionalFields` custom-field bag or a localized text map — where any sub-key is accepted and yields nothing when absent. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
  *
  */
 export type Fields = Array<string>;
@@ -1861,7 +1861,7 @@ export type AgendasListData = {
          */
         detailed?: boolean;
         /**
-         * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` no longer applies (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. Dotted paths descend into nested objects (`location.name`, `additionalFields.myField`). A top-level name the resource cannot expose is rejected with `400` (an unknown nested leaf is ignored); `uid` is always returned. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
+         * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` no longer applies (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. `uid` is always returned. Dotted paths descend into nested objects and arrays (`location.name`, `timings.begin`, `additionalFields.myField`). An unknown top-level field is rejected with `400`; an unknown nested sub-field may be too (e.g. `location.zzz`), except under an open container — the `additionalFields` custom-field bag or a localized text map — where any sub-key is accepted and yields nothing when absent. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
          *
          */
         fields?: Array<string>;
@@ -2020,7 +2020,7 @@ export type AgendasEventsListData = {
          */
         detailed?: boolean;
         /**
-         * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` no longer applies (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. Dotted paths descend into nested objects (`location.name`, `additionalFields.myField`). A top-level name the resource cannot expose is rejected with `400` (an unknown nested leaf is ignored); `uid` is always returned. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
+         * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` no longer applies (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. `uid` is always returned. Dotted paths descend into nested objects and arrays (`location.name`, `timings.begin`, `additionalFields.myField`). An unknown top-level field is rejected with `400`; an unknown nested sub-field may be too (e.g. `location.zzz`), except under an open container — the `additionalFields` custom-field bag or a localized text map — where any sub-key is accepted and yields nothing when absent. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
          *
          */
         fields?: Array<string>;
@@ -2679,7 +2679,7 @@ export type MeAgendasListData = {
          */
         detailed?: boolean;
         /**
-         * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` no longer applies (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. Dotted paths descend into nested objects (`location.name`, `additionalFields.myField`). A top-level name the resource cannot expose is rejected with `400` (an unknown nested leaf is ignored); `uid` is always returned. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
+         * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` no longer applies (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. `uid` is always returned. Dotted paths descend into nested objects and arrays (`location.name`, `timings.begin`, `additionalFields.myField`). An unknown top-level field is rejected with `400`; an unknown nested sub-field may be too (e.g. `location.zzz`), except under an open container — the `additionalFields` custom-field bag or a localized text map — where any sub-key is accepted and yields nothing when absent. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
          *
          */
         fields?: Array<string>;
@@ -2739,7 +2739,7 @@ export type AgendasLocationsListData = {
          */
         detailed?: boolean;
         /**
-         * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` no longer applies (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. Dotted paths descend into nested objects (`location.name`, `additionalFields.myField`). A top-level name the resource cannot expose is rejected with `400` (an unknown nested leaf is ignored); `uid` is always returned. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
+         * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` no longer applies (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. `uid` is always returned. Dotted paths descend into nested objects and arrays (`location.name`, `timings.begin`, `additionalFields.myField`). An unknown top-level field is rejected with `400`; an unknown nested sub-field may be too (e.g. `location.zzz`), except under an open container — the `additionalFields` custom-field bag or a localized text map — where any sub-key is accepted and yields nothing when absent. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
          *
          */
         fields?: Array<string>;
