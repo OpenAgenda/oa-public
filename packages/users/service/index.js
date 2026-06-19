@@ -210,19 +210,33 @@ class Users extends Service {
 
     const password = typeof data === 'string' ? data : data.password;
 
-    // Users created (or password-reset) via better-auth no longer have a
-    // legacy `user.password` value — BA owns `account.password` instead.
-    // When the legacy column is empty, delegate to the BA-backed verifier
-    // wired by the consumer (see `cibul-node/services/users/index.js` →
-    // `interfaces.verifyPassword`). This restores password challenges
-    // (delete agenda, change email, delete account, change password) for
-    // BA-only users without breaking legacy SHA-256/SHA-1 accounts that
-    // still hold their hash here.
+    // Verify against better-auth FIRST: `account.password` is the source of
+    // truth for any user who signed up or changed their password through the
+    // `next` / BA flows (sign-in reads it exclusively). The legacy
+    // `user.password` column can be stale because the password dual-write is
+    // one-directional, legacy → BA only (see
+    // `cibul-node/services/users/hooks/dualWriteLegacyPassword.js`): a BA-side
+    // change updates `account.password` but never the legacy column. Reading
+    // legacy first rejected the current password on the change-email /
+    // delete-agenda / delete-account challenges (the desync bug) while sign-in
+    // kept working.
+    const externalVerify = this.config.interfaces?.verifyPassword;
+    if (
+      typeof externalVerify === 'function'
+      && await externalVerify(user, password)
+    ) {
+      return true;
+    }
+
+    // Then fall back to the legacy hash. `account.password` coverage is NOT
+    // total: a handful of accounts have a legacy hash with no credential row
+    // (backfill gaps, and SHA-1 writes are excluded from the dual-write
+    // `HEX64` gate), and they are still reachable on challenges via password-
+    // free sessions (magic-link / OAuth) or access-token auth — so a pure
+    // BA-only check would reject their correct current password. Verifying
+    // BA-first then legacy accepts both an up-to-date BA password and a
+    // still-valid legacy one, and only rejects when neither matches.
     if (typeof user.password !== 'string' || user.password.length === 0) {
-      const externalVerify = this.config.interfaces?.verifyPassword;
-      if (typeof externalVerify === 'function') {
-        return externalVerify(user, password);
-      }
       return false;
     }
 
