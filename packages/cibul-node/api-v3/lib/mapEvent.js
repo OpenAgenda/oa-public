@@ -208,7 +208,12 @@ export const CLEANERS = {
 //     `_source` keys; the bare bag needs the form schema to enumerate (route).
 //   - `granularity: 'path'`: event-search projects dotted `_source` paths, so
 //     the pushdown keeps `location.name` rather than collapsing to `location`.
+//   - `option`: the event-search projection option the v3 boundary sets to push
+//     the selection down (`includeFields` — an override on this service). The
+//     boundary speaks one intent ("project only these"); each descriptor names
+//     the native option that expresses it (see `applyProjection`).
 export const EVENT_SELECT = {
+  option: 'includeFields',
   granularity: 'path',
   bag: 'additionalFields',
   derives: {

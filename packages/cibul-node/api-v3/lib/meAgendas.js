@@ -18,7 +18,7 @@ import buildPagination from './pagination.js';
 import {
   pickSelected,
   selectsTop,
-  selectionToIncludes,
+  applyProjection,
   fieldNamesOf,
 } from './selectFields.js';
 
@@ -66,12 +66,11 @@ async function enrichAgendas(core, items, { detailed, fields = null }) {
   // `_source` (stripped to agenda fields — `uid` is always retained, so the
   // keyed merge below still works).
   const searchOptions = { detailed, indexed: null, private: null };
-  if (fields) {
-    searchOptions.onlyIncludeFields = selectionToIncludes(
-      agendaOnlySelection(fields),
-      AGENDA_SELECT,
-    );
-  }
+  applyProjection(
+    searchOptions,
+    fields ? agendaOnlySelection(fields) : null,
+    AGENDA_SELECT,
+  );
 
   const { agendas = [] } = await core.agendas.search(
     { uid: items.map((i) => i.uid) },

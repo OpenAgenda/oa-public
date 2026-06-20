@@ -49,8 +49,11 @@ const localizedMap = (v) =>
 // `tags`). Pushdown is top-level (one SQL column per field). Selection
 // validation runs separately against the spec-derived field tree
 // (lib/specFieldTree.js), where the contract marks `additionalFields` an OPEN
-// container so its leaves stay best-effort.
+// container so its leaves stay best-effort. `option` names the agenda-locations
+// projection option the v3 boundary sets (`includeFields` — restrictive over the
+// SQL columns; the service force-keeps the keyset separately via `include`).
 export const LOCATION_SELECT = {
+  option: 'includeFields',
   granularity: 'top',
   store: { verified: 'state', additionalFields: 'tags' },
 };

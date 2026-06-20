@@ -31,6 +31,18 @@
 // empty-as-empty rule reseeds absent fields, so the post-map trim is always
 // required even when the pushdown narrowed the store read.
 //
+// The boundary speaks ONE projection intent — "project only these fields" — via
+// `applyProjection`. The three services name that intent differently in their
+// own signatures (events/locations `includeFields`, agendas `onlyIncludeFields`),
+// so each SELECT descriptor carries the native `option` and the helper sets it.
+// The convergence lives HERE, at the v3 boundary, not in the service signatures:
+// those option names are load-bearing for ~26 internal callers, and
+// event-search's `includeFields` doubles as the public v2 `/events?if=` query
+// param — renaming them would break consumers for a gain invisible to the v3
+// contract (see docs/design-v3-field-selection.md, Lot A verdict). v3 only ever
+// needs the RESTRICTIVE axis; the ADDITIVE one (`include`) is an internal-
+// consumer concern these services keep to themselves.
+//
 // The response SCHEMA is unchanged (still fully `required`): `fields` is a
 // best-effort payload optimisation, documented as such. The generated SDK type
 // therefore over-promises on the `fields` path — a caller that trims a field
@@ -105,6 +117,31 @@ export function selectionToIncludes(
     (derives[top] ?? []).forEach((dep) => includes.add(dep));
   }
   return [...includes];
+}
+
+// Push a resolved `?fields=` selection down to a service's native restrictive
+// projection option, mutating and returning `options`. This is the v3 boundary
+// expressing one intent ("project only these") uniformly across the three
+// services: the resource's SELECT descriptor names the service option
+// (`descriptor.option` — events/locations `includeFields`, agendas
+// `onlyIncludeFields`) and `selectionToIncludes` (driven by the same descriptor)
+// builds the value. `extra` carries per-call descriptor overrides (events pass
+// the enumerated `bagKeys`). A `null` selection (no `?fields=`) is a no-op; a
+// `null` translation (the bare additional-fields bag with no enumerable keys)
+// leaves the option unset, so the route falls back to the normal projection and
+// relies on the post-map `pickSelected` trim.
+export function applyProjection(options, fields, descriptor, extra) {
+  if (!fields) {
+    return options;
+  }
+  const includes = selectionToIncludes(
+    fields,
+    extra ? { ...descriptor, ...extra } : descriptor,
+  );
+  if (includes) {
+    options[descriptor.option] = includes;
+  }
+  return options;
 }
 
 // Does the selection include this top-level field? `null` (no selection) means

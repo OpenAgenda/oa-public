@@ -26,7 +26,7 @@ import mapEvent, { EVENT_SELECT } from './lib/mapEvent.js';
 import mapAgenda, { AGENDA_SELECT } from './lib/mapAgenda.js';
 import mapAgendaOverview from './lib/mapAgendaOverview.js';
 import mapLocation, { LOCATION_SELECT } from './lib/mapLocation.js';
-import { resolveFields, selectionToIncludes } from './lib/selectFields.js';
+import { resolveFields, applyProjection } from './lib/selectFields.js';
 import {
   EVENT_FIELD_TREE,
   AGENDA_FIELD_TREE,
@@ -259,12 +259,7 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
       // — the index sort the cursor pages on is independent of `_source`, so
       // pagination is unaffected).
       const searchOptions = { detailed: effectiveDetailed, access: 'public' };
-      if (fields) {
-        searchOptions.onlyIncludeFields = selectionToIncludes(
-          fields,
-          AGENDA_SELECT,
-        );
-      }
+      applyProjection(searchOptions, fields, AGENDA_SELECT);
 
       const result = await core.agendas.search(query, nav, searchOptions);
 
@@ -398,9 +393,6 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
             .settings.schema.getMerged({ access });
           bagKeys = additionalFieldsOf(schema).map((field) => field.field);
         }
-        const includeFields = fields
-          ? selectionToIncludes(fields, { ...EVENT_SELECT, bagKeys })
-          : null;
 
         const searchOptions = {
           useAfterKey: true,
@@ -409,11 +401,10 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
           userUid: req.user?.uid,
           agendaKey: req.agendaKey,
         };
-        // The access-gating in `defineIncludes` still applies to the override, so
-        // this can't pull read-gated additional fields.
-        if (includeFields) {
-          searchOptions.includeFields = includeFields;
-        }
+        // Push the selection down to the ES `_source` override. The access-gating
+        // in `defineIncludes` still applies, so this can't pull read-gated
+        // additional fields.
+        applyProjection(searchOptions, fields, EVENT_SELECT, { bagKeys });
 
         const result = await core
           .agendas(req.agenda.uid)
@@ -699,12 +690,7 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
         // cursor is unaffected; access-gating still drops non-public fields. The
         // win is real for top-level columns; the JSON `store`-backed fields share
         // one column, so selecting any of them still reads the whole blob.
-        if (fields) {
-          listOptions.includeFields = selectionToIncludes(
-            fields,
-            LOCATION_SELECT,
-          );
-        }
+        applyProjection(listOptions, fields, LOCATION_SELECT);
 
         const result = await locationEndpoints(core, req.agenda).list(
           query,

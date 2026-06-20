@@ -2,6 +2,7 @@ import {
   resolveFields,
   pickSelected,
   selectionToIncludes,
+  applyProjection,
   selectsTop,
   fieldNamesOf,
 } from '../api-v3/lib/selectFields.js';
@@ -369,6 +370,63 @@ describe('api-v3 selectFields', () => {
         LOCATION_SELECT,
       );
       expect(includes.sort()).toEqual(['tags', 'uid']);
+    });
+  });
+
+  describe('applyProjection (v3 boundary → native service option)', () => {
+    // Each descriptor names the service's native restrictive projection option;
+    // the boundary speaks one intent and the helper sets the right key.
+    test('descriptors carry their native option name', () => {
+      expect(EVENT_SELECT.option).toBe('includeFields');
+      expect(AGENDA_SELECT.option).toBe('onlyIncludeFields');
+      expect(LOCATION_SELECT.option).toBe('includeFields');
+    });
+
+    test('a null selection is a no-op (no option set)', () => {
+      const options = { detailed: true };
+      expect(applyProjection(options, null, AGENDA_SELECT)).toBe(options);
+      expect(options).toEqual({ detailed: true });
+    });
+
+    test('agendas: sets onlyIncludeFields from the selection', () => {
+      const options = {};
+      applyProjection(options, new Set(['uid', 'title']), AGENDA_SELECT);
+      expect(options.onlyIncludeFields.sort()).toEqual(['title', 'uid']);
+      expect('includeFields' in options).toBe(false);
+    });
+
+    test('events: sets includeFields, honouring the bagKeys extra', () => {
+      const options = {};
+      applyProjection(
+        options,
+        new Set(['uid', 'additionalFields']),
+        EVENT_SELECT,
+        { bagKeys: ['fieldA'] },
+      );
+      expect(options.includeFields).toEqual(
+        expect.arrayContaining(['uid', 'fieldA']),
+      );
+    });
+
+    test('events: the bare bag without keys leaves the option unset', () => {
+      // selectionToIncludes returns null → no pushdown, fall back to post-trim.
+      const options = {};
+      applyProjection(
+        options,
+        new Set(['uid', 'additionalFields']),
+        EVENT_SELECT,
+      );
+      expect('includeFields' in options).toBe(false);
+    });
+
+    test('locations: sets includeFields with the store renames', () => {
+      const options = {};
+      applyProjection(
+        options,
+        new Set(['uid', 'verified', 'name']),
+        LOCATION_SELECT,
+      );
+      expect(options.includeFields.sort()).toEqual(['name', 'state', 'uid']);
     });
   });
 
