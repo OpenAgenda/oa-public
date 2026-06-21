@@ -206,11 +206,26 @@ export function resolveFields(rawFields, fieldTree) {
   // Walk each dotted path through the field tree. A node is either `true`
   // (OPEN — accept the rest of the path) or a closed `{ subField: node }` map
   // whose keys gate the next segment.
+  // Membership is tested with `Object.hasOwn`, never `tree[seg]`/`seg in tree`:
+  // the spec trees are plain objects, so a bare index would resolve inherited
+  // `Object.prototype` members (`constructor`, `toString`, `__proto__`, …) to a
+  // truthy node and wave those names through as valid fields (a 200 where the
+  // contract mandates a 400). Own-key checks gate strictly on the real schema.
   const unknownTop = [];
   const unknownNested = [];
+  const malformed = [];
   for (const path of distinct) {
     const segments = path.split('.');
-    let node = fieldTree[segments[0]];
+    // An empty segment (`title.`, `a..b`) is a malformed path. Under a closed
+    // node it already 400s (the empty key is unknown); rejecting it here makes
+    // OPEN nodes consistent instead of silently emptying them (`title.` → `{}`).
+    if (segments.some((segment) => segment === '')) {
+      malformed.push(path);
+      continue;
+    }
+    let node = Object.hasOwn(fieldTree, segments[0])
+      ? fieldTree[segments[0]]
+      : undefined;
     if (node === undefined) {
       unknownTop.push(path);
       continue;
@@ -219,12 +234,15 @@ export function resolveFields(rawFields, fieldTree) {
       if (node === true) {
         break; // OPEN container — every deeper leaf is best-effort.
       }
-      node = node[segments[i]];
+      node = Object.hasOwn(node, segments[i]) ? node[segments[i]] : undefined;
       if (node === undefined) {
         unknownNested.push(path);
         break;
       }
     }
+  }
+  if (malformed.length) {
+    fail(`malformed field path(s): ${malformed.join(', ')}`);
   }
   if (unknownTop.length) {
     fail(`unknown field(s): ${unknownTop.join(', ')}`);
@@ -241,7 +259,12 @@ export function resolveFields(rawFields, fieldTree) {
 // path (`location`) wins over a deeper one (`location.name`) — the whole object
 // is kept.
 function pathsToTree(paths) {
-  const tree = {};
+  // Null-prototype nodes: a selected path can carry a prototype-member name
+  // (`additionalFields.toString` — a custom field really named `toString`), and
+  // a plain `{}` would resolve `node.toString` to the inherited method, so the
+  // `=== undefined` branch below would never create the sub-node and the path
+  // would be silently dropped. `Object.create(null)` keeps own-keys-only.
+  const tree = Object.create(null);
   for (const path of paths) {
     const segments = path.split('.');
     let node = tree;
@@ -254,7 +277,7 @@ function pathsToTree(paths) {
           break;
         }
         if (node[segment] === undefined) {
-          node[segment] = {};
+          node[segment] = Object.create(null);
         }
         node = node[segment];
       }
@@ -277,8 +300,13 @@ function pickTree(value, tree) {
     return value;
   }
   const out = {};
+  // `Object.hasOwn`, never `key in tree`: a mapped item can carry a data key
+  // named like a prototype member (a custom `additionalFields` field called
+  // `toString`/`constructor`/…), and `in` walks the prototype chain — an
+  // unselected such key would leak into the response (and an object-valued one
+  // would be recursed into `tree[key]`'s inherited method and mangled to `{}`).
   for (const key of Object.keys(value)) {
-    if (key in tree) {
+    if (Object.hasOwn(tree, key)) {
       out[key] = pickTree(value[key], tree[key]);
     }
   }

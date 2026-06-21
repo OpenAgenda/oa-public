@@ -300,6 +300,36 @@ describe('api-v3 selectFields', () => {
         expect(err.info.errors[0].message).toContain('uid.x');
       });
     });
+
+    describe('prototype-member names are not valid fields', () => {
+      // The spec trees are plain objects; membership MUST be own-key, never a
+      // bare index that resolves inherited `Object.prototype` members and waves
+      // them through as a 200 where the contract mandates a 400.
+      test.each(['toString', 'constructor', '__proto__', 'hasOwnProperty'])(
+        'top-level %s → 400',
+        (name) => {
+          expect400(() => resolveFields(name, tree));
+        },
+      );
+
+      test('nested prototype member at a closed level → 400', () => {
+        const err = expect400(() =>
+          resolveFields('location.constructor', tree));
+        expect(err.info.errors[0].message).toContain('location.constructor');
+      });
+    });
+
+    describe('malformed (empty-segment) paths → 400', () => {
+      // A trailing/empty dotted segment is rejected at every level, OPEN
+      // included — `title.` used to be accepted and silently emptied the map.
+      test.each(['title.', 'a..b', 'location.', '.title'])(
+        '%s → 400',
+        (path) => {
+          const err = expect400(() => resolveFields(path, tree));
+          expect(err.info.errors[0].message).toContain('malformed');
+        },
+      );
+    });
   });
 
   describe('selectionToIncludes (generic store pushdown)', () => {
@@ -507,6 +537,40 @@ describe('api-v3 selectFields', () => {
       expect(pickSelected(nested, selected)).toEqual({
         uid: 1,
         location: { uid: 9, name: 'X' },
+      });
+    });
+
+    test('an unselected key named like a prototype member does not leak', () => {
+      // A custom additional field really named `toString`/`constructor` must be
+      // trimmed like any other unselected key — `key in tree` would have walked
+      // the prototype chain and kept (and mangled) it.
+      const withProtoKeys = {
+        uid: 1,
+        additionalFields: {
+          foo: 'keep',
+          toString: 'LEAK',
+          constructor: { x: 9 },
+        },
+      };
+      const selected = resolveFields(
+        'additionalFields.foo',
+        openTree(['uid', 'additionalFields']),
+      );
+      expect(pickSelected(withProtoKeys, selected)).toEqual({
+        uid: 1,
+        additionalFields: { foo: 'keep' },
+      });
+    });
+
+    test('a selected additional field named like a prototype member is kept', () => {
+      const withProtoKey = { uid: 1, additionalFields: { toString: 'v' } };
+      const selected = resolveFields(
+        'additionalFields.toString',
+        openTree(['uid', 'additionalFields']),
+      );
+      expect(pickSelected(withProtoKey, selected)).toEqual({
+        uid: 1,
+        additionalFields: { toString: 'v' },
       });
     });
   });
