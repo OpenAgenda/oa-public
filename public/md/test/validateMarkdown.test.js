@@ -34,6 +34,37 @@ This is **bold**, \`code\`, and a list:
     expect(() => validateMarkdown('[X](java&#x73;cript:alert(1))')).toThrow();
   });
 
+  test('rejects &colon;-encoded javascript: links', () => {
+    expect(() => validateMarkdown('[X](javascript&colon;alert(1))')).toThrow();
+  });
+
+  test('rejects javascript: in reference-style links', () => {
+    expect(() =>
+      validateMarkdown('[X][ref]\n\n[ref]: javascript:alert(1)')).toThrow();
+  });
+
+  test('rejects javascript: in reference-style images', () => {
+    expect(() =>
+      validateMarkdown('![X][img]\n\n[img]: javascript:alert(1)')).toThrow();
+  });
+
+  test('rejects javascript: autolinks', () => {
+    expect(() => validateMarkdown('<javascript:alert(1)>')).toThrow();
+  });
+
+  test('rejects angle-bracketed javascript: destinations', () => {
+    expect(() => validateMarkdown('[X](<javascript:alert(1)>)')).toThrow();
+  });
+
+  test('rejects javascript: in inline images', () => {
+    expect(() => validateMarkdown('![X](javascript:alert(1))')).toThrow();
+  });
+
+  test('rejects data: in reference-style links', () => {
+    expect(() =>
+      validateMarkdown('[X][r]\n\n[r]: data:text/html;base64,abc')).toThrow();
+  });
+
   test('rejects data: links', () => {
     expect(() => validateMarkdown('[X](data:text/html;base64,abc)')).toThrow();
   });
@@ -44,17 +75,21 @@ This is **bold**, \`code\`, and a list:
 
   test('allows relative links with selfDomain', () => {
     expect(() =>
-      validateMarkdown('[About](/about)', { selfDomain })).not.toThrow();
+      validateMarkdown('[About](/about)', 'desc', { selfDomain })).not.toThrow();
   });
 
   test('allows internal absolute links with selfDomain', () => {
     expect(() =>
-      validateMarkdown('[Home](https://example.com/home)', { selfDomain })).not.toThrow();
+      validateMarkdown('[Home](https://example.com/home)', 'desc', {
+        selfDomain,
+      })).not.toThrow();
   });
 
   test('rejects external links with selfDomain', () => {
     expect(() =>
-      validateMarkdown('[Bad](https://evil.com)', { selfDomain })).toThrow();
+      validateMarkdown('[Bad](https://evil.com)', 'desc', {
+        selfDomain,
+      })).toThrow();
   });
 
   test('rejects svg payloads', () => {
