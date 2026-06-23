@@ -59,20 +59,13 @@ export default function tasks(services) {
     {
       register: (fns) => Object.assign(jobProcessors, fns),
       enqueue: (...args) => queue.add(...args),
+      // `clear()` (en cours de suite) vide les jobs mais GARDE la queue et le
+      // worker utilisables — d'où `drain()`, pas `obliterate()`. Le teardown
+      // complet, lui, passe par `stop({ clear })` ci-dessous (obliterate).
       clear: async () => {
         await queue.drain();
       },
-      stop: async (options = {}) => {
-        // Fermer le worker AVANT de purger : plus aucun job n'est récupéré et le
-        // job en cours se termine. Sur `clear` (tests), on obliterate la queue
-        // entière — un `drain()` ne retire que les jobs en attente à l'instant T,
-        // laissant fuiter dans la suite suivante un job enqueué pendant la
-        // fermeture (→ worker d'une autre suite qui traite un agenda déjà wipé).
-        await worker.close();
-        if (options.clear) {
-          await queue.obliterate({ force: true });
-        }
-      },
+      stop: (options) => bull.teardownQueues(worker, queue, options),
     },
   );
 }

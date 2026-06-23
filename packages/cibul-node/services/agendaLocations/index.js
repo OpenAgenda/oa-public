@@ -89,14 +89,7 @@ export async function init(config, services) {
     ),
     shutdown: async (options = {}) => {
       log('stopping task');
-      // Fermer le worker AVANT de purger ; sur `clear`/`reset` (tests), obliterate la
-      // queue entière plutôt qu'un `drain()` qui laisse fuiter un job vers la suite suivante.
-      await worker.close();
-
-      if (options.clear || options.reset) {
-        await queue.obliterate({ force: true });
-      }
-
+      await bull.teardownQueues(worker, queue, options);
       log('task stopped');
     },
     task: Object.assign(

@@ -199,19 +199,19 @@ export async function init(config, services) {
       search: transverseIndex.search,
     },
     shutdown: async (options) => {
-      // Fermer les workers AVANT de purger : plus aucun job n'est récupéré et le
-      // job en cours se termine. Sur `clear` (tests), on obliterate les queues
-      // entières — un `drain()` ne retire que les jobs en attente à l'instant T et
-      // laisse fuiter dans la suite suivante un job enqueué pendant la fermeture.
-      await worker.close();
-      await rebuildWorker.close();
-
-      if (options.clear) {
-        await queue.obliterate({ force: true });
-        await rebuildQueue.obliterate({ force: true });
+      // `rebuildWorker` ré-enqueue dans `queue`, donc on ferme les DEUX workers
+      // avant d'obliterer l'une ou l'autre queue (teardownQueues le garantit).
+      // `finally` : le client Elasticsearch est fermé même si un obliterate jette,
+      // pour ne pas fuiter la connexion ni interrompre le reste du shutdown.
+      try {
+        await bull.teardownQueues(
+          [worker, rebuildWorker],
+          [queue, rebuildQueue],
+          options,
+        );
+      } finally {
+        await service.getConfig().client.close();
       }
-
-      await service.getConfig().client.close();
     },
     apps: {
       agendas: agendaRoutes(config, services),

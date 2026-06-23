@@ -226,15 +226,8 @@ export function init(config, services) {
   return {
     plugApp: plugApp.bind(null, config),
     ...aggregators,
-    shutdown: async (options) => {
-      // if (!aggregators.worker.isRunning()) return;
-      // Fermer le worker AVANT de purger ; sur `clear` (tests), obliterate la queue
-      // entière plutôt qu'un `drain()` qui laisse fuiter un job vers la suite suivante.
-      await aggregators.worker.close();
-      if (options.clear) {
-        await queue.obliterate({ force: true });
-      }
-    },
+    shutdown: (options) =>
+      bull.teardownQueues(aggregators.worker, queue, options),
     task: () => {
       aggregators.worker.run();
     },

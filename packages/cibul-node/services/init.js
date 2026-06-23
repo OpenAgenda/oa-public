@@ -108,6 +108,14 @@ function filterServices(config, options = {}) {
 
 function applyShutdown(services) {
   services.shutdown = async (options = {}) => {
+    // Fermer tous les workers BullMQ AVANT de purger quoi que ce soit : aucune
+    // queue n'est obliterée tant qu'un worker tourne, ce qui élimine la fuite
+    // inter-suites où un job en vol (y compris un producteur d'un autre service)
+    // ré-enqueue dans une queue déjà purgée. Voir services/bull/closeWorkers.
+    if (services.bull?.closeWorkers) {
+      await services.bull.closeWorkers();
+    }
+
     for (const name of Object.keys(services).reverse()) {
       const service = services[name];
       if (service.shutdown) {
