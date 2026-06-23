@@ -2,7 +2,7 @@ import ky from 'ky';
 import Core from '../core/index.js';
 import Services from '../services/init.js';
 import api from '../api/index.js';
-import startTestServer from './helpers/startTestServer.js';
+import { withTestServer } from './helpers/startTestServer.js';
 import eventFixtures from './fixtures/events/index.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
@@ -116,23 +116,15 @@ describe('core - functional (server): core.agendas().events.setByExtId()', () =>
 
   describe('api', () => {
     const secret = 'STt5KTzxPJHUG6N0ty3poxN896UseQhM';
-    let server;
-    let baseUrl;
     let accessToken;
     let response;
     let event;
 
-    beforeAll(async () => {
-      ({ server, baseUrl } = await startTestServer(
-        api(core, { useRouter: false }),
-      ));
-    });
-
-    afterAll(() => server.close());
+    const ctx = withTestServer(() => api(core, { useRouter: false }));
 
     beforeAll(async () => {
       const tokenResponse = await ky
-        .post(`${baseUrl}/requestAccessToken`, {
+        .post(`${ctx.baseUrl}/requestAccessToken`, {
           json: {
             code: secret,
           },
@@ -153,7 +145,7 @@ describe('core - functional (server): core.agendas().events.setByExtId()', () =>
 
     it('create', async () => {
       response = await ky
-        .put(`${baseUrl}/agendas/17026855/events/ext/test/something`, {
+        .put(`${ctx.baseUrl}/agendas/17026855/events/ext/test/something`, {
           headers: {
             'access-token': accessToken,
           },
@@ -197,7 +189,7 @@ describe('core - functional (server): core.agendas().events.setByExtId()', () =>
 
     it('update', async () => {
       response = await ky
-        .put(`${baseUrl}/agendas/17026855/events/ext/test/thing`, {
+        .put(`${ctx.baseUrl}/agendas/17026855/events/ext/test/thing`, {
           headers: {
             'access-token': accessToken,
           },

@@ -2,7 +2,7 @@ import ky from 'ky';
 import api from '../api/index.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
-import startTestServer from './helpers/startTestServer.js';
+import { withTestServer } from './helpers/startTestServer.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 
@@ -151,21 +151,13 @@ describe('08 - core - functional (server): core.agendas().members.remove', () =>
   });
 
   describe('api', () => {
-    let server;
-    let baseUrl;
     let accessToken;
 
-    beforeAll(async () => {
-      ({ server, baseUrl } = await startTestServer(
-        api(core, { useRouter: false }),
-      ));
-    });
-
-    afterAll(() => server.close());
+    const ctx = withTestServer(() => api(core, { useRouter: false }));
 
     beforeAll(async () => {
       const tokenResponse = await ky
-        .post(`${baseUrl}/requestAccessToken`, {
+        .post(`${ctx.baseUrl}/requestAccessToken`, {
           json: {
             code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhL',
           },
@@ -177,7 +169,7 @@ describe('08 - core - functional (server): core.agendas().members.remove', () =>
     describe('successfull call', () => {
       beforeAll(async () => {
         await ky
-          .delete(`${baseUrl}/agendas/2/members/5`, {
+          .delete(`${ctx.baseUrl}/agendas/2/members/5`, {
             headers: {
               'access-token': accessToken,
             },

@@ -4,7 +4,7 @@ import { produce } from 'immer';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
 import api from '../api/index.js';
-import startTestServer from './helpers/startTestServer.js';
+import { withTestServer } from './helpers/startTestServer.js';
 
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
@@ -197,20 +197,12 @@ describe('07 - core - functional (server): core.agendas().update', () => {
   });
 
   describe('api', () => {
-    let server;
-    let baseUrl;
     let accessToken;
 
-    beforeAll(async () => {
-      ({ server, baseUrl } = await startTestServer(
-        api(core, { useRouter: false }),
-      ));
-    });
-
-    afterAll(() => server.close());
+    const ctx = withTestServer(() => api(core, { useRouter: false }));
 
     beforeAll(async () => {
-      const tokenResponse = await fetch(`${baseUrl}/requestAccessToken`, {
+      const tokenResponse = await fetch(`${ctx.baseUrl}/requestAccessToken`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -240,7 +232,7 @@ describe('07 - core - functional (server): core.agendas().update', () => {
       form.append('access_token', accessToken);
       form.append('data', JSON.stringify({ title: 'Agenda avec image' }));
 
-      const response = await fetch(`${baseUrl}/agendas/92983929`, {
+      const response = await fetch(`${ctx.baseUrl}/agendas/92983929`, {
         method: 'PATCH',
         body: form,
       }).then((r) => r.json());

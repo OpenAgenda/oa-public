@@ -2,7 +2,7 @@ import ky from 'ky';
 import Core from '../core/index.js';
 import api from '../api/index.js';
 import Services from '../services/init.js';
-import startTestServer from './helpers/startTestServer.js';
+import { withTestServer } from './helpers/startTestServer.js';
 import setup from './fixtures/setup.js';
 import testConfig from './testConfig.js';
 
@@ -28,8 +28,6 @@ const enabled = [
 
 describe('api: contributor access to their own events based on state', () => {
   let core;
-  let server;
-  let baseUrl;
   let accessToken;
   let otherContributorToken;
 
@@ -65,16 +63,12 @@ describe('api: contributor access to their own events based on state', () => {
     await core.agendas(3).events.search.rebuild();
   });
 
-  beforeAll(async () => {
-    ({ server, baseUrl } = await startTestServer(
-      api(core, { useRouter: false }),
-    ));
-  });
+  const ctx = withTestServer(() => api(core, { useRouter: false }));
 
   beforeAll(async () => {
     // Request access token for user 1 (creator)
     const creatorTokenResponse = await ky
-      .post(`${baseUrl}/requestAccessToken`, {
+      .post(`${ctx.baseUrl}/requestAccessToken`, {
         json: {
           code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
         },
@@ -84,7 +78,7 @@ describe('api: contributor access to their own events based on state', () => {
 
     // Request access token for user 2 (other contributor, not creator)
     const otherTokenResponse = await ky
-      .post(`${baseUrl}/requestAccessToken`, {
+      .post(`${ctx.baseUrl}/requestAccessToken`, {
         json: {
           code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhN',
         },
@@ -93,13 +87,11 @@ describe('api: contributor access to their own events based on state', () => {
     otherContributorToken = otherTokenResponse.access_token;
   });
 
-  afterAll(() => server.close());
-
   afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('Bug demonstration: contributor access based on event state', () => {
     it('state filter is cleaned for contrib', async () => {
-      const response = await ky.get(`${baseUrl}/agendas/3/events`, {
+      const response = await ky.get(`${ctx.baseUrl}/agendas/3/events`, {
         headers: {
           authorization: `Bearer ${accessToken}`,
         },
@@ -115,7 +107,7 @@ describe('api: contributor access to their own events based on state', () => {
     });
 
     it('state filter is not cleaned if member filter is seet and the same has acting member', async () => {
-      const response = await ky.get(`${baseUrl}/agendas/3/events`, {
+      const response = await ky.get(`${ctx.baseUrl}/agendas/3/events`, {
         headers: {
           authorization: `Bearer ${accessToken}`,
         },
@@ -132,7 +124,7 @@ describe('api: contributor access to their own events based on state', () => {
     });
 
     it('state filter is clean if member filter is set but not the same as acting member', async () => {
-      const response = await ky.get(`${baseUrl}/agendas/3/events`, {
+      const response = await ky.get(`${ctx.baseUrl}/agendas/3/events`, {
         headers: {
           authorization: `Bearer ${otherContributorToken}`,
         },

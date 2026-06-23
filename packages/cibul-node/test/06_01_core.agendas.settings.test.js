@@ -2,7 +2,7 @@ import ky from 'ky';
 import api from '../api/index.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
-import startTestServer from './helpers/startTestServer.js';
+import { withTestServer } from './helpers/startTestServer.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 
@@ -143,20 +143,16 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
   });
 
   describe('api', () => {
-    let server;
-    let baseUrl;
     const administratorKey = 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9';
 
     let adminAccessToken;
     let contribAccessToken;
 
-    beforeAll(async () => {
-      ({ server, baseUrl } = await startTestServer(
-        api(core, { useRouter: false }),
-      ));
+    const ctx = withTestServer(() => api(core, { useRouter: false }));
 
+    beforeAll(async () => {
       const adminTokenResponse = await ky
-        .post(`${baseUrl}/requestAccessToken`, {
+        .post(`${ctx.baseUrl}/requestAccessToken`, {
           json: {
             code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
           },
@@ -166,7 +162,7 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
 
       try {
         const contribTokenResponse = await ky
-          .post(`${baseUrl}/requestAccessToken`, {
+          .post(`${ctx.baseUrl}/requestAccessToken`, {
             json: {
               code: 'STt5KTzxPJHUG6N0ty3poxN896UseQhM',
             },
@@ -178,11 +174,9 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
       }
     });
 
-    afterAll(() => server.close());
-
     it('get settings eventSchema for configuration', async () => {
       const res = await ky
-        .get(`${baseUrl}/agendas/60935574/settings/eventSchema/configure`, {
+        .get(`${ctx.baseUrl}/agendas/60935574/settings/eventSchema/configure`, {
           searchParams: { key: administratorKey, lang: 'en' },
         })
         .json();
@@ -193,7 +187,7 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
     it('get settings eventSchema without split options', async () => {
       const res = await ky
         .get(
-          `${baseUrl}/agendas/60935574/settings/eventSchema?key=${administratorKey}`,
+          `${ctx.baseUrl}/agendas/60935574/settings/eventSchema?key=${administratorKey}`,
         )
         .json();
       expect(res.fields).toBeTruthy();
@@ -203,14 +197,17 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
       let result;
       try {
         result = await ky
-          .post(`${baseUrl}/agendas/60935574/settings/eventSchema/configure`, {
-            headers: {
-              'access-token': adminAccessToken,
+          .post(
+            `${ctx.baseUrl}/agendas/60935574/settings/eventSchema/configure`,
+            {
+              headers: {
+                'access-token': adminAccessToken,
+              },
+              json: {
+                fields: [{ field: 'phone', optional: false }],
+              },
             },
-            json: {
-              fields: [{ field: 'phone', optional: false }],
-            },
-          })
+          )
           .json();
       } catch (error) {
         // console.log(error);
@@ -220,14 +217,17 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
 
     it('unsuccessfull post eventSchema from contrib', async () => {
       const response = await ky
-        .post(`${baseUrl}/agendas/60935574/settings/eventSchema/configure`, {
-          headers: {
-            'access-token': contribAccessToken,
+        .post(
+          `${ctx.baseUrl}/agendas/60935574/settings/eventSchema/configure`,
+          {
+            headers: {
+              'access-token': contribAccessToken,
+            },
+            json: {
+              fields: [{ field: 'phone', optional: false }],
+            },
           },
-          json: {
-            fields: [{ field: 'phone', optional: false }],
-          },
-        })
+        )
         .json()
         .then(
           () => {},

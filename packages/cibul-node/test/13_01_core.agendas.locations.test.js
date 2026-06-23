@@ -6,7 +6,7 @@ import logs from '@openagenda/logs';
 import api from '../api/index.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
-import startTestServer from './helpers/startTestServer.js';
+import { withTestServer } from './helpers/startTestServer.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 
@@ -257,22 +257,14 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
   });
 
   describe('api', () => {
-    let server;
-    let baseUrl;
     let accessToken;
     let response;
 
-    beforeAll(async () => {
-      ({ server, baseUrl } = await startTestServer(
-        api(core, { useRouter: false }),
-      ));
-    });
-
-    afterAll(() => server.close());
+    const ctx = withTestServer(() => api(core, { useRouter: false }));
 
     beforeAll(async () => {
       const tokenResponse = await ky
-        .post(`${baseUrl}/requestAccessToken`, {
+        .post(`${ctx.baseUrl}/requestAccessToken`, {
           json: {
             code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
           },
@@ -285,7 +277,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       beforeAll(async () => {
         try {
           response = await ky
-            .post(`${baseUrl}/agendas/17026855/locations`, {
+            .post(`${ctx.baseUrl}/agendas/17026855/locations`, {
               headers: {
                 'access-token': accessToken,
               },
@@ -320,7 +312,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     describe('bad requests', () => {
       it('Wrong route throws 404', async () => {
         const errorResponse = await ky
-          .post(`${baseUrl}/17026855/locations`, {
+          .post(`${ctx.baseUrl}/17026855/locations`, {
             json: {
               access_token: accessToken,
               data: {
@@ -343,7 +335,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
       it('Double-encoded JSON throws bad request error', async () => {
         const errorResponse = await ky
-          .post(`${baseUrl}/agendas/17026855/locations`, {
+          .post(`${ctx.baseUrl}/agendas/17026855/locations`, {
             body: JSON.stringify(
               JSON.stringify({
                 access_token: accessToken,
@@ -372,7 +364,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
       beforeAll(async () => {
         const contributorTokenResponse = await ky
-          .post(`${baseUrl}/requestAccessToken`, {
+          .post(`${ctx.baseUrl}/requestAccessToken`, {
             json: {
               code: 'STt5KTzxPJHUG6N0ty3poxN896UseQhM',
             },
@@ -384,7 +376,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       beforeAll(async () => {
         try {
           response = await ky
-            .post(`${baseUrl}/agendas/93399464/locations`, {
+            .post(`${ctx.baseUrl}/agendas/93399464/locations`, {
               headers: {
                 'access-token': contributorAccessToken,
               },
@@ -409,7 +401,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       let error;
       beforeAll(async () => {
         error = await ky
-          .post(`${baseUrl}/agendas/17026855/locations`, {
+          .post(`${ctx.baseUrl}/agendas/17026855/locations`, {
             headers: {
               'access-token': accessToken,
             },
@@ -435,7 +427,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       let error;
       beforeAll(async () => {
         error = await ky
-          .post(`${baseUrl}/agendas/17026855/locations`, {
+          .post(`${ctx.baseUrl}/agendas/17026855/locations`, {
             headers: {
               'access-token': accessToken,
             },
@@ -462,7 +454,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       let error;
       beforeAll(async () => {
         error = await ky
-          .post(`${baseUrl}/agendas/17026855/locations`, {
+          .post(`${ctx.baseUrl}/agendas/17026855/locations`, {
             headers: {
               'access-token': accessToken,
             },
@@ -512,7 +504,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           );
 
           response = await ky
-            .post(`${baseUrl}/agendas/17026855/locations`, {
+            .post(`${ctx.baseUrl}/agendas/17026855/locations`, {
               body: form,
             })
             .json();
@@ -547,7 +539,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           );
 
           createdLocation = await ky
-            .post(`${baseUrl}/agendas/17026855/locations`, {
+            .post(`${ctx.baseUrl}/agendas/17026855/locations`, {
               body: form,
             })
             .json();
@@ -569,7 +561,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       beforeAll(async () => {
         try {
           emojiLocation = await ky
-            .post(`${baseUrl}/agendas/17026855/locations`, {
+            .post(`${ctx.baseUrl}/agendas/17026855/locations`, {
               headers: {
                 'access-token': accessToken,
               },
@@ -603,7 +595,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
       beforeAll(async () => {
         error = await ky
-          .post(`${baseUrl}/agendas/17026855/locations`, {
+          .post(`${ctx.baseUrl}/agendas/17026855/locations`, {
             headers: {
               'access-token': accessToken,
             },
@@ -637,7 +629,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       beforeAll(async () => {
         try {
           createResp = await ky
-            .put(`${baseUrl}/agendas/17026855/locations/ext/ard44`, {
+            .put(`${ctx.baseUrl}/agendas/17026855/locations/ext/ard44`, {
               headers: {
                 'access-token': accessToken,
               },
@@ -661,7 +653,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
         try {
           updateResp = await ky
-            .put(`${baseUrl}/agendas/17026855/locations/ext/ard44`, {
+            .put(`${ctx.baseUrl}/agendas/17026855/locations/ext/ard44`, {
               headers: {
                 'access-token': accessToken,
               },
@@ -694,7 +686,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       beforeAll(async () => {
         try {
           response = await ky
-            .post(`${baseUrl}/agendas/17026855/locations/24505639`, {
+            .post(`${ctx.baseUrl}/agendas/17026855/locations/24505639`, {
               headers: {
                 'access-token': accessToken,
               },
@@ -735,7 +727,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       beforeAll(async () => {
         try {
           response = await ky
-            .patch(`${baseUrl}/agendas/17026855/locations/24505639`, {
+            .patch(`${ctx.baseUrl}/agendas/17026855/locations/24505639`, {
               headers: {
                 'access-token': accessToken,
               },
@@ -759,7 +751,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       beforeAll(async () => {
         try {
           patchResponse = await ky
-            .patch(`${baseUrl}/agendas/17026855/locations/ext/ard02`, {
+            .patch(`${ctx.baseUrl}/agendas/17026855/locations/ext/ard02`, {
               headers: {
                 'access-token': accessToken,
               },
@@ -786,7 +778,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       it('location is given using account key', async () => {
         const getResponse = await ky
           .get(
-            `${baseUrl}/agendas/17026855/locations/95455142?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9`,
+            `${ctx.baseUrl}/agendas/17026855/locations/95455142?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9`,
           )
           .json();
 
@@ -797,7 +789,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
       it('location is given using access token', async () => {
         const getResponse = await ky
-          .get(`${baseUrl}/agendas/17026855/locations/95455142`, {
+          .get(`${ctx.baseUrl}/agendas/17026855/locations/95455142`, {
             headers: {
               'access-token': accessToken,
             },
@@ -812,7 +804,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       it('location chan be fetched using a slug', async () => {
         const getResponse = await ky
           .get(
-            `${baseUrl}/agendas/17026855/locations/slug/cabane-des-eveques?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9`,
+            `${ctx.baseUrl}/agendas/17026855/locations/slug/cabane-des-eveques?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9`,
           )
           .json();
 
@@ -824,7 +816,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       it('location can be fetched using an default extId with value', async () => {
         const getResponse = await ky
           .get(
-            `${baseUrl}/agendas/17026855/locations/ext/ard02?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9`,
+            `${ctx.baseUrl}/agendas/17026855/locations/ext/ard02?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9`,
           )
           .json();
 
@@ -836,7 +828,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       it('location chan be fetched using an extId whit key and value', async () => {
         const getResponse = await ky
           .get(
-            `${baseUrl}/agendas/17026855/locations/ext/default/ard02?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9`,
+            `${ctx.baseUrl}/agendas/17026855/locations/ext/default/ard02?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9`,
           )
           .json();
 
@@ -847,7 +839,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
       it('latitude and longitude are numbers not strings', async () => {
         const getResponse = await ky
-          .get(`${baseUrl}/agendas/17026855/locations/95455142`, {
+          .get(`${ctx.baseUrl}/agendas/17026855/locations/95455142`, {
             headers: {
               'access-token': accessToken,
             },
@@ -867,7 +859,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
       beforeAll(async () => {
         allResults = await ky
-          .get(`${baseUrl}/agendas/17026855/locations`, {
+          .get(`${ctx.baseUrl}/agendas/17026855/locations`, {
             searchParams: {
               key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
             },
@@ -875,7 +867,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           .json();
 
         result = await ky
-          .get(`${baseUrl}/agendas/17026855/locations`, {
+          .get(`${ctx.baseUrl}/agendas/17026855/locations`, {
             searchParams: {
               key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
               limit: 1,
@@ -905,7 +897,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
       it('detailed option is useful to retrieve all location info', async () => {
         const detailedResults = await ky
-          .get(`${baseUrl}/agendas/17026855/locations`, {
+          .get(`${ctx.baseUrl}/agendas/17026855/locations`, {
             searchParams: {
               key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
               limit: 1,
@@ -959,7 +951,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
       it('state filter limits result set to requested state', async () => {
         const { locations: verifiedLocations } = await ky
-          .get(`${baseUrl}/agendas/99501607/locations`, {
+          .get(`${ctx.baseUrl}/agendas/99501607/locations`, {
             searchParams: {
               key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
               limit: 1,
@@ -973,7 +965,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
       it('eventCounts option is accessible', async () => {
         const { locations } = await ky
-          .get(`${baseUrl}/agendas/99501607/locations`, {
+          .get(`${ctx.baseUrl}/agendas/99501607/locations`, {
             searchParams: {
               key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
               limit: 1,
@@ -987,7 +979,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
       it('value provided in after key can be used to fetch next location values', async () => {
         const nextResults = await ky
-          .get(`${baseUrl}/agendas/17026855/locations`, {
+          .get(`${ctx.baseUrl}/agendas/17026855/locations`, {
             searchParams: {
               key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
               limit: 1, // legacy
@@ -1004,7 +996,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
       it('from and size can also be used for navigation', async () => {
         const nextResults = await ky
-          .get(`${baseUrl}/agendas/17026855/locations`, {
+          .get(`${ctx.baseUrl}/agendas/17026855/locations`, {
             searchParams: {
               key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
               size: 1,
@@ -1021,7 +1013,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
       it('order by name.asc provides ordered locations and an after key', async () => {
         const { locations, after } = await ky
-          .get(`${baseUrl}/agendas/17026855/locations`, {
+          .get(`${ctx.baseUrl}/agendas/17026855/locations`, {
             searchParams: {
               key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
               order: 'name.asc',
@@ -1048,11 +1040,11 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           },
         });
         const geoResults = await ky
-          .get(`${baseUrl}/agendas/17026855/locations?${geoParams}`)
+          .get(`${ctx.baseUrl}/agendas/17026855/locations?${geoParams}`)
           .json();
 
         const noFilterResults = await ky
-          .get(`${baseUrl}/agendas/17026855/locations`, {
+          .get(`${ctx.baseUrl}/agendas/17026855/locations`, {
             searchParams: {
               key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
             },
@@ -1063,7 +1055,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
       it('hasNull malformed filter with detailed and eventCounts options', async () => {
         const { locations, total } = await ky
-          .get(`${baseUrl}/agendas/17026855/locations`, {
+          .get(`${ctx.baseUrl}/agendas/17026855/locations`, {
             searchParams: {
               key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
               detailed: 1,
@@ -1096,7 +1088,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         let error;
 
         try {
-          await ky.get(`${baseUrl}/agendas/17026855/locations`, {
+          await ky.get(`${ctx.baseUrl}/agendas/17026855/locations`, {
             searchParams: {
               key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
               itemsKey: 'items',
@@ -1125,7 +1117,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     describe('head', () => {
       it('location is given using account key', async () => {
         const headResponse = await ky.head(
-          `${baseUrl}/agendas/17026855/locations/95455142?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9`,
+          `${ctx.baseUrl}/agendas/17026855/locations/95455142?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9`,
         );
 
         expect(headResponse.status).toBe(200);
@@ -1133,7 +1125,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
       it('location is given using access token', async () => {
         const headResponse = await ky.head(
-          `${baseUrl}/agendas/17026855/locations/95455142`,
+          `${ctx.baseUrl}/agendas/17026855/locations/95455142`,
           {
             headers: {
               'access-token': accessToken,
@@ -1146,7 +1138,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
       it('no location is found', async () => {
         const error = await ky
-          .head(`${baseUrl}/agendas/17026855/locations/456489786456`, {
+          .head(`${ctx.baseUrl}/agendas/17026855/locations/456489786456`, {
             headers: {
               'access-token': accessToken,
             },
@@ -1163,7 +1155,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       beforeAll(async () => {
         try {
           removeResponse = await ky
-            .delete(`${baseUrl}/agendas/17026855/locations/95455142`, {
+            .delete(`${ctx.baseUrl}/agendas/17026855/locations/95455142`, {
               headers: {
                 'access-token': accessToken,
               },
@@ -1183,7 +1175,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       let error;
       beforeAll(async () => {
         error = await ky
-          .post(`${baseUrl}/agendas/17026855/locations`, {
+          .post(`${ctx.baseUrl}/agendas/17026855/locations`, {
             headers: {
               'access-token': accessToken,
             },

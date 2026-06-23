@@ -3,7 +3,7 @@ import ky from 'ky';
 import api from '../api/index.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
-import startTestServer from './helpers/startTestServer.js';
+import { withTestServer } from './helpers/startTestServer.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 
@@ -132,23 +132,14 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
     const administratorKey = 'egP36aMb0toI8hAhFOm1if8auC1Vg1NL';
     const nonMemberKey = 'oI8hAhFOm1if8auC1Vg1NLegP36aMb0t';
 
-    let server;
-    let baseUrl;
-
-    beforeAll(async () => {
-      ({ server, baseUrl } = await startTestServer(
-        api(core, { useRouter: false }),
-      ));
-    });
-
-    afterAll(() => server.close());
+    const ctx = withTestServer(() => api(core, { useRouter: false }));
 
     describe('successful call', () => {
       let member;
 
       beforeAll(async () => {
         member = await ky
-          .get(`${baseUrl}/agendas/2/members/1?key=${contributorKey}`)
+          .get(`${ctx.baseUrl}/agendas/2/members/1?key=${contributorKey}`)
           .json();
       });
 
@@ -171,7 +162,7 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
       const mail = 'lise.p@grois.fr';
       const res = await ky
         .get(
-          `${baseUrl}/agendas/2/members/email/${mail}?key=${administratorKey}`,
+          `${ctx.baseUrl}/agendas/2/members/email/${mail}?key=${administratorKey}`,
         )
         .json();
       expect(_.omit(res, ['updatedAt'])).toEqual({
@@ -190,7 +181,7 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
     describe('unsuccessful calls', () => {
       it('404', async () => {
         const response = await ky
-          .get(`${baseUrl}/agendas/2/members/8978?key=${administratorKey}`)
+          .get(`${ctx.baseUrl}/agendas/2/members/8978?key=${administratorKey}`)
           .json()
           .then(
             () => {},
@@ -202,7 +193,7 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
 
       it('403 - contributor does not have access to other members data', async () => {
         const response = await ky
-          .get(`${baseUrl}/agendas/2/members/5?key=${contributorKey}`)
+          .get(`${ctx.baseUrl}/agendas/2/members/5?key=${contributorKey}`)
           .json()
           .then(
             () => {},
@@ -215,7 +206,7 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
       it('404 on getByEmail', async () => {
         const response = await ky
           .get(
-            `${baseUrl}/agendas/2/members/email/test@toto.com?key=${administratorKey}`,
+            `${ctx.baseUrl}/agendas/2/members/email/test@toto.com?key=${administratorKey}`,
           )
           .json()
           .then(
@@ -228,7 +219,7 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
 
       it('Non-member does not have access to get', async () => {
         const response = await ky
-          .get(`${baseUrl}/agendas/2/members/8978?key=${nonMemberKey}`)
+          .get(`${ctx.baseUrl}/agendas/2/members/8978?key=${nonMemberKey}`)
           .json()
           .then(
             () => {},

@@ -2,7 +2,7 @@ import ky from 'ky';
 import Services from '../services/init.js';
 import api from '../api/index.js';
 import Core from '../core/index.js';
-import startTestServer from './helpers/startTestServer.js';
+import { withTestServer } from './helpers/startTestServer.js';
 import setup from './fixtures/setup.js';
 import testConfig from './testConfig.js';
 
@@ -102,23 +102,15 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
   });
 
   describe('api', () => {
-    let server;
-    let baseUrl;
     let adminAccessToken;
     let contributorAccessToken;
 
-    beforeAll(async () => {
-      ({ server, baseUrl } = await startTestServer(
-        api(core, { useRouter: false }),
-      ));
-    });
-
-    afterAll(() => server.close());
+    const ctx = withTestServer(() => api(core, { useRouter: false }));
 
     beforeAll(async () => {
       // Get admin access token
       const adminTokenResponse = await ky
-        .post(`${baseUrl}/requestAccessToken`, {
+        .post(`${ctx.baseUrl}/requestAccessToken`, {
           json: {
             code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhL', // admin code
           },
@@ -128,7 +120,7 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
 
       // Get contributor access token
       const contributorTokenResponse = await ky
-        .post(`${baseUrl}/requestAccessToken`, {
+        .post(`${ctx.baseUrl}/requestAccessToken`, {
           json: {
             code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM', // contributor code
           },
@@ -143,7 +135,7 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
         beforeAll(async () => {
           try {
             createResponse = await ky
-              .put(`${baseUrl}/agendas/1234/locations/ext/gareDeRedon`, {
+              .put(`${ctx.baseUrl}/agendas/1234/locations/ext/gareDeRedon`, {
                 headers: {
                   'access-token': adminAccessToken,
                 },
@@ -170,7 +162,7 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
         beforeAll(async () => {
           try {
             updateResponse = await ky
-              .put(`${baseUrl}/agendas/1234/locations/ext/laPiscine`, {
+              .put(`${ctx.baseUrl}/agendas/1234/locations/ext/laPiscine`, {
                 headers: {
                   'access-token': adminAccessToken,
                 },
@@ -201,7 +193,7 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
           try {
             createResponse = await ky
               .put(
-                `${baseUrl}/agendas/1234/locations/ext/contributorNewLocation`,
+                `${ctx.baseUrl}/agendas/1234/locations/ext/contributorNewLocation`,
                 {
                   headers: {
                     'access-token': contributorAccessToken,
@@ -241,7 +233,7 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
           try {
             // Try to update the location that was created by the admin in the previous test
             updateResponse = await ky
-              .put(`${baseUrl}/agendas/1234/locations/ext/laPiscine`, {
+              .put(`${ctx.baseUrl}/agendas/1234/locations/ext/laPiscine`, {
                 headers: {
                   'access-token': contributorAccessToken,
                 },

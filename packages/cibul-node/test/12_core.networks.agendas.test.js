@@ -2,7 +2,7 @@ import ky from 'ky';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
 import api from '../api/index.js';
-import startTestServer from './helpers/startTestServer.js';
+import { withTestServer } from './helpers/startTestServer.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 import waitFor from './helpers/waitFor.js';
@@ -267,16 +267,14 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
   });
 
   describe('api', () => {
-    let server;
-    let baseUrl;
     let accessToken;
     const superAdminSecret = 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM';
+
+    const ctx = withTestServer(() => api(core, { useRouter: false }));
+
     beforeAll(async () => {
-      ({ server, baseUrl } = await startTestServer(
-        api(core, { useRouter: false }),
-      ));
       const tokenResponse = await ky
-        .post(`${baseUrl}/requestAccessToken`, {
+        .post(`${ctx.baseUrl}/requestAccessToken`, {
           json: {
             code: superAdminSecret,
           },
@@ -285,11 +283,9 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
       accessToken = tokenResponse.access_token;
     });
 
-    afterAll(() => server.close());
-
     it('agenda creation', async () => {
       const resp = await ky
-        .post(`${baseUrl}/networks/1/agendas`, {
+        .post(`${ctx.baseUrl}/networks/1/agendas`, {
           headers: {
             'access-token': accessToken,
           },
@@ -305,7 +301,7 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
 
     it('GET network eventSchema configure - returns schema with parents', async () => {
       const res = await ky
-        .get(`${baseUrl}/networks/1/settings/eventSchema/configure`, {
+        .get(`${ctx.baseUrl}/networks/1/settings/eventSchema/configure`, {
           headers: {
             'access-token': accessToken,
           },
@@ -327,7 +323,7 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
       };
 
       const result = await ky
-        .post(`${baseUrl}/networks/1/settings/eventSchema/configure`, {
+        .post(`${ctx.baseUrl}/networks/1/settings/eventSchema/configure`, {
           headers: {
             'access-token': accessToken,
           },
@@ -349,7 +345,7 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
     it('POST network eventSchema configure - updates cascade to child agendas', async () => {
       // Add a field to network
       await ky
-        .post(`${baseUrl}/networks/1/settings/eventSchema/configure`, {
+        .post(`${ctx.baseUrl}/networks/1/settings/eventSchema/configure`, {
           headers: {
             'access-token': accessToken,
           },

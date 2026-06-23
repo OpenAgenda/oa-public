@@ -3,7 +3,7 @@ import ky from 'ky';
 import api from '../api/index.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
-import startTestServer from './helpers/startTestServer.js';
+import { withTestServer } from './helpers/startTestServer.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 
@@ -312,22 +312,14 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
   });
 
   describe('api', () => {
-    let server;
-    let baseUrl;
     let adminAccessToken;
     let nonMemberAccessToken;
 
-    beforeAll(async () => {
-      ({ server, baseUrl } = await startTestServer(
-        api(core, { useRouter: false }),
-      ));
-    });
-
-    afterAll(() => server.close());
+    const ctx = withTestServer(() => api(core, { useRouter: false }));
 
     beforeAll(async () => {
       const adminTokenResponse = await ky
-        .post(`${baseUrl}/requestAccessToken`, {
+        .post(`${ctx.baseUrl}/requestAccessToken`, {
           json: {
             code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhL',
           },
@@ -336,7 +328,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
       adminAccessToken = adminTokenResponse.access_token;
 
       const nonMemberTokenResponse = await ky
-        .post(`${baseUrl}/requestAccessToken`, {
+        .post(`${ctx.baseUrl}/requestAccessToken`, {
           json: {
             code: 'N0ty3poxNSTt5KTzxPJseQhLHUG6896U',
           },
@@ -348,7 +340,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
     describe('successfull call', () => {
       beforeAll(async () => {
         await ky
-          .post(`${baseUrl}/agendas/2/members`, {
+          .post(`${ctx.baseUrl}/agendas/2/members`, {
             headers: {
               'access-token': adminAccessToken,
             },
@@ -375,7 +367,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
       });
 
       it('member invite', async () => {
-        await ky.post(`${baseUrl}/agendas/2/members/invite`, {
+        await ky.post(`${ctx.baseUrl}/agendas/2/members/invite`, {
           headers: {
             'access-token': adminAccessToken,
           },
@@ -405,7 +397,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
         const newEmail = 'new.member@openagenda.com';
 
         // Create the existing member first
-        await ky.post(`${baseUrl}/agendas/2/members/invite`, {
+        await ky.post(`${ctx.baseUrl}/agendas/2/members/invite`, {
           headers: {
             'access-token': adminAccessToken,
           },
@@ -424,7 +416,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
 
         // Now invite both the existing member and a new member
         const resp = await ky
-          .post(`${baseUrl}/agendas/2/members/invite`, {
+          .post(`${ctx.baseUrl}/agendas/2/members/invite`, {
             headers: {
               'access-token': adminAccessToken,
             },
@@ -465,7 +457,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
 
       it('can create member with silent option through API', async () => {
         await ky
-          .post(`${baseUrl}/agendas/2/members?silent=1`, {
+          .post(`${ctx.baseUrl}/agendas/2/members?silent=1`, {
             headers: {
               'access-token': adminAccessToken,
             },
@@ -501,7 +493,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
     describe('non member call', () => {
       it('user can add himself on open agenda through api', async () => {
         await ky
-          .post(`${baseUrl}/agendas/48353388/members`, {
+          .post(`${ctx.baseUrl}/agendas/48353388/members`, {
             headers: {
               'access-token': nonMemberAccessToken,
             },
@@ -529,7 +521,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
     describe('unsuccessful calls', () => {
       it('non-member cannot create member other than himself', async () => {
         const response = await ky
-          .post(`${baseUrl}/agendas/2/members`, {
+          .post(`${ctx.baseUrl}/agendas/2/members`, {
             headers: {
               'access-token': nonMemberAccessToken,
             },
@@ -551,7 +543,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
 
       it('creating a member that already exists returns 400', async () => {
         const response = await ky
-          .post(`${baseUrl}/agendas/2/members`, {
+          .post(`${ctx.baseUrl}/agendas/2/members`, {
             headers: {
               'access-token': adminAccessToken,
             },
@@ -572,7 +564,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
 
       it('contributor cannot create member', async () => {
         const contributorTokenResponse = await ky
-          .post(`${baseUrl}/requestAccessToken`, {
+          .post(`${ctx.baseUrl}/requestAccessToken`, {
             json: {
               code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
             },
@@ -581,7 +573,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
         const contributorAccessToken = contributorTokenResponse.access_token;
 
         const response = await ky
-          .post(`${baseUrl}/agendas/2/members`, {
+          .post(`${ctx.baseUrl}/agendas/2/members`, {
             headers: {
               'access-token': contributorAccessToken,
             },

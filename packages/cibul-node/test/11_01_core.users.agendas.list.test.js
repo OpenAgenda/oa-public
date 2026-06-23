@@ -3,7 +3,7 @@ import ky from 'ky';
 import api from '../api/index.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
-import startTestServer from './helpers/startTestServer.js';
+import { withTestServer } from './helpers/startTestServer.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 
@@ -152,21 +152,13 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
 
   describe('api', () => {
     const key = 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9';
-    let server;
-    let baseUrl;
     let response;
 
-    beforeAll(async () => {
-      ({ server, baseUrl } = await startTestServer(
-        api(core, { useRouter: false }),
-      ));
-    });
-
-    afterAll(() => server.close());
+    const ctx = withTestServer(() => api(core, { useRouter: false }));
 
     describe('successful call', () => {
       beforeAll(async () => {
-        response = await ky.get(`${baseUrl}/me/agendas?key=${key}`).json();
+        response = await ky.get(`${ctx.baseUrl}/me/agendas?key=${key}`).json();
       });
 
       it('response includes a success, total, a list of items and an after key', () => {

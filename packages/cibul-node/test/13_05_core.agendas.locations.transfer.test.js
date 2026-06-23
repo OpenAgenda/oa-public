@@ -1,6 +1,6 @@
 import Services from '../services/init.js';
 import Core from '../core/index.js';
-import startTestServer from './helpers/startTestServer.js';
+import { withTestServer } from './helpers/startTestServer.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 
@@ -244,23 +244,17 @@ describe('13 - core - functional(server): core.agendas().locations.transfer', ()
   });
 
   describe('api', () => {
-    let server;
-    let baseUrl;
     let accessToken;
 
-    beforeAll(async () => {
+    const ctx = withTestServer(async () => {
       const api = (await import('../api/index.js')).default;
-      ({ server, baseUrl } = await startTestServer(
-        api(core, { useRouter: false }),
-      ));
+      return api(core, { useRouter: false });
     });
-
-    afterAll(() => server.close());
 
     beforeAll(async () => {
       const ky = (await import('ky')).default;
       const tokenResponse = await ky
-        .post(`${baseUrl}/requestAccessToken`, {
+        .post(`${ctx.baseUrl}/requestAccessToken`, {
           json: {
             code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
           },
@@ -276,11 +270,14 @@ describe('13 - core - functional(server): core.agendas().locations.transfer', ()
       beforeAll(async () => {
         const ky = (await import('ky')).default;
         transferResponse = await ky
-          .post(`${baseUrl}/agendas/17026855/locations/123/transfer/93399464`, {
-            headers: {
-              'access-token': accessToken,
+          .post(
+            `${ctx.baseUrl}/agendas/17026855/locations/123/transfer/93399464`,
+            {
+              headers: {
+                'access-token': accessToken,
+              },
             },
-          })
+          )
           .json();
 
         dbEntry = await config.knex('location').first().where('uid', 123);
@@ -309,7 +306,7 @@ describe('13 - core - functional(server): core.agendas().locations.transfer', ()
         try {
           // Use location 9955517 which exists in fixtures
           await ky.post(
-            `${baseUrl}/agendas/17026855/locations/9955517/transfer/99999999`,
+            `${ctx.baseUrl}/agendas/17026855/locations/9955517/transfer/99999999`,
             {
               headers: {
                 'access-token': accessToken,
@@ -339,7 +336,7 @@ describe('13 - core - functional(server): core.agendas().locations.transfer', ()
         const ky = (await import('ky')).default;
         try {
           await ky.post(
-            `${baseUrl}/agendas/17026855/locations/99999999/transfer/93399464`,
+            `${ctx.baseUrl}/agendas/17026855/locations/99999999/transfer/93399464`,
             {
               headers: {
                 'access-token': accessToken,
@@ -369,7 +366,7 @@ describe('13 - core - functional(server): core.agendas().locations.transfer', ()
         const ky = (await import('ky')).default;
         try {
           await ky.post(
-            `${baseUrl}/agendas/17026855/locations/60763722/transfer/93399464`,
+            `${ctx.baseUrl}/agendas/17026855/locations/60763722/transfer/93399464`,
           );
         } catch (e) {
           error = e;

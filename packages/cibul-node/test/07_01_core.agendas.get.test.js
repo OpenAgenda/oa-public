@@ -3,7 +3,7 @@ import ky from 'ky';
 import api from '../api/index.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
-import startTestServer from './helpers/startTestServer.js';
+import { withTestServer } from './helpers/startTestServer.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 
@@ -227,24 +227,16 @@ describe('07 - core - functional (server): core.agendas().get', () => {
   });
 
   describe('api', () => {
-    let server;
-    let baseUrl;
     const contributorKey = 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9';
 
-    beforeAll(async () => {
-      ({ server, baseUrl } = await startTestServer(
-        api(core, { useRouter: false }),
-      ));
-    });
-
-    afterAll(() => server.close());
+    const ctx = withTestServer(() => api(core, { useRouter: false }));
 
     describe('get from non-administrator', () => {
       let agenda;
 
       beforeAll(async () => {
         agenda = await ky
-          .get(`${baseUrl}/agendas/92983929`, {
+          .get(`${ctx.baseUrl}/agendas/92983929`, {
             searchParams: { key: contributorKey },
           })
           .json();
@@ -264,7 +256,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
       it('get from non-administrator with includeMemberSchema option', async () => {
         const res = await ky
-          .get(`${baseUrl}/agendas/92983929`, {
+          .get(`${ctx.baseUrl}/agendas/92983929`, {
             searchParams: { key: contributorKey, includeMemberSchema: true },
           })
           .json();
@@ -277,21 +269,21 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
       it('get from administrator provides administrator-access field', async () => {
         const agenda = await ky
-          .get(`${baseUrl}/agendas/92983929?key=${administratorKey}`)
+          .get(`${ctx.baseUrl}/agendas/92983929?key=${administratorKey}`)
           .json();
         expect(agenda.settings.contribution.authorizedIPAddresses).toEqual([]);
       });
 
       it('fix: get on private agenda', async () => {
         const agenda = await ky
-          .get(`${baseUrl}/agendas/78971487?key=${administratorKey}`)
+          .get(`${ctx.baseUrl}/agendas/78971487?key=${administratorKey}`)
           .json();
         expect(agenda.title).toBe('Un agenda privé');
       });
 
       it('get from administrator with includeMemberSchema option', async () => {
         const res = await ky
-          .get(`${baseUrl}/agendas/92983929`, {
+          .get(`${ctx.baseUrl}/agendas/92983929`, {
             searchParams: { key: administratorKey, includeMemberSchema: true },
           })
           .json();
@@ -305,7 +297,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       beforeAll(async () => {
         agenda = await ky
           .get(
-            `${baseUrl}/agendas/slug/agenda-champ-contributeur?key=${contributorKey}`,
+            `${ctx.baseUrl}/agendas/slug/agenda-champ-contributeur?key=${contributorKey}`,
           )
           .json();
       });
