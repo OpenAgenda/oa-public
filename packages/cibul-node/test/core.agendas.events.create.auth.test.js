@@ -2,6 +2,7 @@ import ky from 'ky';
 import api from '../api/index.js';
 import Core from '../core/index.js';
 import Services from '../services/init.js';
+import startTestServer from './helpers/startTestServer.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 
@@ -114,9 +115,12 @@ describe('core - functional (server): core.agendas().events.create api authentic
   describe('api', () => {
     describe('errors', () => {
       let server;
+      let baseUrl;
 
       beforeAll(async () => {
-        server = await api(core, { useRouter: false }).listen(4000);
+        ({ server, baseUrl } = await startTestServer(
+          api(core, { useRouter: false }),
+        ));
       });
 
       afterAll(() => server.close());
@@ -126,7 +130,7 @@ describe('core - functional (server): core.agendas().events.create api authentic
 
         beforeAll(async () => {
           const result = await ky
-            .post('http://localhost:4000/requestAccessToken', {
+            .post(`${baseUrl}/requestAccessToken`, {
               json: {
                 code: 'N0ty3poxNSTtdPJHUG6896UseQhM',
               },
@@ -156,7 +160,7 @@ describe('core - functional (server): core.agendas().events.create api authentic
 
         beforeAll(async () => {
           const tokenResponse = await ky
-            .post('http://localhost:4000/requestAccessToken', {
+            .post(`${baseUrl}/requestAccessToken`, {
               json: {
                 code: 'STt5KTzxPJHUG6N0ty3poxN896UseQhM',
               },
@@ -167,7 +171,7 @@ describe('core - functional (server): core.agendas().events.create api authentic
 
         beforeAll(async () => {
           response = await ky
-            .post('http://localhost:4000/agendas/17026855/events', {
+            .post(`${baseUrl}/agendas/17026855/events`, {
               headers: {
                 'access-token': accessToken,
               },

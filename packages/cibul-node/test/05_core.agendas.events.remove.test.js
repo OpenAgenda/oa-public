@@ -2,6 +2,7 @@ import ky from 'ky';
 import api from '../api/index.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
+import startTestServer from './helpers/startTestServer.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 
@@ -139,18 +140,21 @@ describe('core - functional (server): core agendas() events.remove()', () => {
 
   describe('api', () => {
     let server;
+    let baseUrl;
     let accessToken;
     let response;
 
     beforeAll(async () => {
-      server = api(core, { useRouter: false }).listen(4000);
+      ({ server, baseUrl } = await startTestServer(
+        api(core, { useRouter: false }),
+      ));
     });
 
     afterAll(() => server.close());
 
     beforeAll(async () => {
       const tokenResponse = await ky
-        .post('http://localhost:4000/requestAccessToken', {
+        .post(`${baseUrl}/requestAccessToken`, {
           json: {
             code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
           },
@@ -161,7 +165,7 @@ describe('core - functional (server): core agendas() events.remove()', () => {
 
     beforeAll(async () => {
       response = await ky
-        .delete('http://localhost:4000/agendas/17026855/events/90298390', {
+        .delete(`${baseUrl}/agendas/17026855/events/90298390`, {
           headers: {
             'access-token': accessToken,
           },
@@ -179,7 +183,7 @@ describe('core - functional (server): core agendas() events.remove()', () => {
 
     it('deleting non-existant event returns 404', async () => {
       const errorResponse = await ky
-        .delete('http://localhost:4000/agendas/17026855/events/90298390', {
+        .delete(`${baseUrl}/agendas/17026855/events/90298390`, {
           headers: {
             'access-token': accessToken,
           },
@@ -195,7 +199,7 @@ describe('core - functional (server): core agendas() events.remove()', () => {
 
     it('user with no relevent authorization cannot delete event', async () => {
       const tokenResponse = await ky
-        .post('http://localhost:4000/requestAccessToken', {
+        .post(`${baseUrl}/requestAccessToken`, {
           json: {
             code: 'STt5KTzxPJHUG6N0ty3poxN896UseQhM',
           },
@@ -204,7 +208,7 @@ describe('core - functional (server): core agendas() events.remove()', () => {
       const anotherAccessToken = tokenResponse.access_token;
 
       const { error, result } = await ky
-        .delete('http://localhost:4000/agendas/17026855/events/789456', {
+        .delete(`${baseUrl}/agendas/17026855/events/789456`, {
           headers: {
             'access-token': anotherAccessToken,
           },

@@ -2,6 +2,7 @@ import ky from 'ky';
 import api from '../api/index.js';
 import Core from '../core/index.js';
 import Services from '../services/init.js';
+import startTestServer from './helpers/startTestServer.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 
@@ -37,7 +38,7 @@ describe('core.agendas.loadSummary - Core and API tests', () => {
     cachePrefix: 'core_agendas_loadSummary_test',
   });
 
-  const baseUrl = 'http://localhost:4002';
+  let baseUrl;
 
   beforeAll(async () => {
     await setup({
@@ -66,7 +67,9 @@ describe('core.agendas.loadSummary - Core and API tests', () => {
   });
 
   beforeAll(async () => {
-    server = await api(core, { useRouter: false }).listen(4002);
+    ({ server, baseUrl } = await startTestServer(
+      api(core, { useRouter: false }),
+    ));
   });
 
   beforeAll(async () => {

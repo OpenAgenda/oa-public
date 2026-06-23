@@ -2,6 +2,7 @@ import ky from 'ky';
 import Core from '../core/index.js';
 import api from '../api/index.js';
 import Services from '../services/init.js';
+import startTestServer from './helpers/startTestServer.js';
 import setup from './fixtures/setup.js';
 import testConfig from './testConfig.js';
 
@@ -72,11 +73,14 @@ describe('core - functional: core.agendas().events.conversations', () => {
 
   describe('api', () => {
     let server;
+    let baseUrl;
     let adminAccessToken;
     let contributorAccessToken;
 
     beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(4000);
+      ({ server, baseUrl } = await startTestServer(
+        api(core, { useRouter: false }),
+      ));
     });
 
     afterAll(() => server.close());
@@ -84,7 +88,7 @@ describe('core - functional: core.agendas().events.conversations', () => {
     beforeAll(async () => {
       // Get admin access token
       const adminTokenResponse = await ky
-        .post('http://localhost:4000/requestAccessToken', {
+        .post(`${baseUrl}/requestAccessToken`, {
           json: {
             code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhL',
           },
@@ -94,7 +98,7 @@ describe('core - functional: core.agendas().events.conversations', () => {
 
       // Get contributor access token
       const contributorTokenResponse = await ky
-        .post('http://localhost:4000/requestAccessToken', {
+        .post(`${baseUrl}/requestAccessToken`, {
           json: {
             code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
           },
@@ -107,7 +111,7 @@ describe('core - functional: core.agendas().events.conversations', () => {
       it('admin can create conversation via API endpoint', async () => {
         try {
           const response = await ky.post(
-            'http://localhost:4000/agendas/1001/events/1/conversations',
+            `${baseUrl}/agendas/1001/events/1/conversations`,
             {
               headers: {
                 'access-token': adminAccessToken,
@@ -138,7 +142,7 @@ describe('core - functional: core.agendas().events.conversations', () => {
 
         try {
           await ky
-            .post('http://localhost:4000/agendas/1001/events/1/conversations', {
+            .post(`${baseUrl}/agendas/1001/events/1/conversations`, {
               headers: {
                 'access-token': contributorAccessToken,
               },

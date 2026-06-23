@@ -2,6 +2,7 @@ import ky from 'ky';
 import api from '../api/index.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
+import startTestServer from './helpers/startTestServer.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 
@@ -238,17 +239,20 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
 
   describe('api', () => {
     let server;
+    let baseUrl;
     let accessToken;
 
     beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(4000);
+      ({ server, baseUrl } = await startTestServer(
+        api(core, { useRouter: false }),
+      ));
     });
 
     afterAll(() => server.close());
 
     beforeAll(async () => {
       const tokenResponse = await ky
-        .post('http://localhost:4000/requestAccessToken', {
+        .post(`${baseUrl}/requestAccessToken`, {
           json: {
             code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhL',
           },
@@ -260,7 +264,7 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
     describe('successfull call', () => {
       beforeAll(async () => {
         await ky
-          .patch('http://localhost:4000/agendas/2/members/1', {
+          .patch(`${baseUrl}/agendas/2/members/1`, {
             headers: {
               'access-token': accessToken,
             },

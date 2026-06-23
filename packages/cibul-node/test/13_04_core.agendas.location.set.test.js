@@ -2,6 +2,7 @@ import ky from 'ky';
 import Services from '../services/init.js';
 import api from '../api/index.js';
 import Core from '../core/index.js';
+import startTestServer from './helpers/startTestServer.js';
 import setup from './fixtures/setup.js';
 import testConfig from './testConfig.js';
 
@@ -102,11 +103,14 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
 
   describe('api', () => {
     let server;
+    let baseUrl;
     let adminAccessToken;
     let contributorAccessToken;
 
     beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(4000);
+      ({ server, baseUrl } = await startTestServer(
+        api(core, { useRouter: false }),
+      ));
     });
 
     afterAll(() => server.close());
@@ -114,7 +118,7 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
     beforeAll(async () => {
       // Get admin access token
       const adminTokenResponse = await ky
-        .post('http://localhost:4000/requestAccessToken', {
+        .post(`${baseUrl}/requestAccessToken`, {
           json: {
             code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhL', // admin code
           },
@@ -124,7 +128,7 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
 
       // Get contributor access token
       const contributorTokenResponse = await ky
-        .post('http://localhost:4000/requestAccessToken', {
+        .post(`${baseUrl}/requestAccessToken`, {
           json: {
             code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM', // contributor code
           },
@@ -139,21 +143,18 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
         beforeAll(async () => {
           try {
             createResponse = await ky
-              .put(
-                'http://localhost:4000/agendas/1234/locations/ext/gareDeRedon',
-                {
-                  headers: {
-                    'access-token': adminAccessToken,
-                  },
-                  json: {
-                    name: 'Gare de Redon',
-                    address: 'quai de la gare, Redon',
-                    latitude: 1,
-                    longitude: 1,
-                    countryCode: 'FR',
-                  },
+              .put(`${baseUrl}/agendas/1234/locations/ext/gareDeRedon`, {
+                headers: {
+                  'access-token': adminAccessToken,
                 },
-              )
+                json: {
+                  name: 'Gare de Redon',
+                  address: 'quai de la gare, Redon',
+                  latitude: 1,
+                  longitude: 1,
+                  countryCode: 'FR',
+                },
+              })
               .json();
           } catch (e) {
             // console.log(e.response.data.message);
@@ -169,21 +170,18 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
         beforeAll(async () => {
           try {
             updateResponse = await ky
-              .put(
-                'http://localhost:4000/agendas/1234/locations/ext/laPiscine',
-                {
-                  headers: {
-                    'access-token': adminAccessToken,
-                  },
-                  json: {
-                    name: 'La piscine mise à jour',
-                    address: 'bord de la piscine, Roubaix',
-                    latitude: 1,
-                    longitude: 1,
-                    countryCode: 'FR',
-                  },
+              .put(`${baseUrl}/agendas/1234/locations/ext/laPiscine`, {
+                headers: {
+                  'access-token': adminAccessToken,
                 },
-              )
+                json: {
+                  name: 'La piscine mise à jour',
+                  address: 'bord de la piscine, Roubaix',
+                  latitude: 1,
+                  longitude: 1,
+                  countryCode: 'FR',
+                },
+              })
               .json();
           } catch (e) {
             // console.log(e.response.data.message);
@@ -203,7 +201,7 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
           try {
             createResponse = await ky
               .put(
-                'http://localhost:4000/agendas/1234/locations/ext/contributorNewLocation',
+                `${baseUrl}/agendas/1234/locations/ext/contributorNewLocation`,
                 {
                   headers: {
                     'access-token': contributorAccessToken,
@@ -243,21 +241,18 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
           try {
             // Try to update the location that was created by the admin in the previous test
             updateResponse = await ky
-              .put(
-                'http://localhost:4000/agendas/1234/locations/ext/laPiscine',
-                {
-                  headers: {
-                    'access-token': contributorAccessToken,
-                  },
-                  json: {
-                    name: 'Contributor Trying to Update',
-                    address: 'Should not be allowed, Test City',
-                    latitude: 1,
-                    longitude: 1,
-                    countryCode: 'FR',
-                  },
+              .put(`${baseUrl}/agendas/1234/locations/ext/laPiscine`, {
+                headers: {
+                  'access-token': contributorAccessToken,
                 },
-              )
+                json: {
+                  name: 'Contributor Trying to Update',
+                  address: 'Should not be allowed, Test City',
+                  latitude: 1,
+                  longitude: 1,
+                  countryCode: 'FR',
+                },
+              })
               .json();
           } catch (e) {
             updateError = await e.response?.json().catch(() => e.message);

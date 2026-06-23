@@ -2,6 +2,7 @@ import ky from 'ky';
 import api from '../api/index.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
+import startTestServer from './helpers/startTestServer.js';
 import setup from './fixtures/setup.js';
 import testConfig from './testConfig.js';
 
@@ -108,17 +109,20 @@ describe('10 - core - functional (server): core.users().remove()', () => {
 
   describe('api', () => {
     let server;
+    let baseUrl;
     let accessToken;
 
     beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(4000);
+      ({ server, baseUrl } = await startTestServer(
+        api(core, { useRouter: false }),
+      ));
     });
 
     afterAll(() => server.close());
 
     beforeAll(async () => {
       const tokenResponse = await ky
-        .post('http://localhost:4000/requestAccessToken', {
+        .post(`${baseUrl}/requestAccessToken`, {
           json: {
             code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
           },
@@ -135,7 +139,7 @@ describe('10 - core - functional (server): core.users().remove()', () => {
         core.services.tracker.on('users.anonymizeDeletedUser.done', rs);
       });
 
-      await ky.delete('http://localhost:4000/me', {
+      await ky.delete(`${baseUrl}/me`, {
         headers: {
           'access-token': accessToken,
         },

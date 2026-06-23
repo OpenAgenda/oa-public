@@ -2,6 +2,7 @@ import ky from 'ky';
 import Core from '../core/index.js';
 import Services from '../services/init.js';
 import api from '../api/index.js';
+import startTestServer from './helpers/startTestServer.js';
 import eventFixtures from './fixtures/events/index.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
@@ -116,19 +117,22 @@ describe('core - functional (server): core.agendas().events.setByExtId()', () =>
   describe('api', () => {
     const secret = 'STt5KTzxPJHUG6N0ty3poxN896UseQhM';
     let server;
+    let baseUrl;
     let accessToken;
     let response;
     let event;
 
     beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(4000);
+      ({ server, baseUrl } = await startTestServer(
+        api(core, { useRouter: false }),
+      ));
     });
 
     afterAll(() => server.close());
 
     beforeAll(async () => {
       const tokenResponse = await ky
-        .post('http://localhost:4000/requestAccessToken', {
+        .post(`${baseUrl}/requestAccessToken`, {
           json: {
             code: secret,
           },
@@ -149,43 +153,40 @@ describe('core - functional (server): core.agendas().events.setByExtId()', () =>
 
     it('create', async () => {
       response = await ky
-        .put(
-          'http://localhost:4000/agendas/17026855/events/ext/test/something',
-          {
-            headers: {
-              'access-token': accessToken,
-            },
-            json: {
-              state: 0,
-              featured: true,
-              title: {
-                fr: "Un événement mis à jour via l'api",
-                en: 'An updated event through the api',
-              },
-              description: {
-                fr: 'Une description',
-                en: 'A desc',
-              },
-              location: {
-                uid: 123,
-              },
-              timings: [
-                {
-                  begin: new Date('2019-05-06T10:00:00'),
-                  end: new Date('2019-05-06T11:00:00'),
-                },
-                {
-                  begin: new Date('2019-05-06T12:00:00'),
-                  end: new Date('2019-05-06T13:00:00'),
-                },
-              ],
-              custom_description: 'Meh',
-              'categories-agenda-metropolitain': 43,
-              'thematiques-bordeaux-metropole': [3],
-              extIds: [{ key: 'test', value: 'something' }],
-            },
+        .put(`${baseUrl}/agendas/17026855/events/ext/test/something`, {
+          headers: {
+            'access-token': accessToken,
           },
-        )
+          json: {
+            state: 0,
+            featured: true,
+            title: {
+              fr: "Un événement mis à jour via l'api",
+              en: 'An updated event through the api',
+            },
+            description: {
+              fr: 'Une description',
+              en: 'A desc',
+            },
+            location: {
+              uid: 123,
+            },
+            timings: [
+              {
+                begin: new Date('2019-05-06T10:00:00'),
+                end: new Date('2019-05-06T11:00:00'),
+              },
+              {
+                begin: new Date('2019-05-06T12:00:00'),
+                end: new Date('2019-05-06T13:00:00'),
+              },
+            ],
+            custom_description: 'Meh',
+            'categories-agenda-metropolitain': 43,
+            'thematiques-bordeaux-metropole': [3],
+            extIds: [{ key: 'test', value: 'something' }],
+          },
+        })
         .json()
         .catch((e) => console.log(e));
 
@@ -196,7 +197,7 @@ describe('core - functional (server): core.agendas().events.setByExtId()', () =>
 
     it('update', async () => {
       response = await ky
-        .put('http://localhost:4000/agendas/17026855/events/ext/test/thing', {
+        .put(`${baseUrl}/agendas/17026855/events/ext/test/thing`, {
           headers: {
             'access-token': accessToken,
           },
