@@ -63,10 +63,15 @@ export default function tasks(services) {
         await queue.drain();
       },
       stop: async (options = {}) => {
-        if (options.clear) {
-          await queue.drain();
-        }
+        // Fermer le worker AVANT de purger : plus aucun job n'est récupéré et le
+        // job en cours se termine. Sur `clear` (tests), on obliterate la queue
+        // entière — un `drain()` ne retire que les jobs en attente à l'instant T,
+        // laissant fuiter dans la suite suivante un job enqueué pendant la
+        // fermeture (→ worker d'une autre suite qui traite un agenda déjà wipé).
         await worker.close();
+        if (options.clear) {
+          await queue.obliterate({ force: true });
+        }
       },
     },
   );

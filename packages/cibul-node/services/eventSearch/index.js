@@ -199,13 +199,17 @@ export async function init(config, services) {
       search: transverseIndex.search,
     },
     shutdown: async (options) => {
-      if (options.clear) {
-        await queue.drain();
-        await rebuildQueue.drain();
-      }
-
+      // Fermer les workers AVANT de purger : plus aucun job n'est récupéré et le
+      // job en cours se termine. Sur `clear` (tests), on obliterate les queues
+      // entières — un `drain()` ne retire que les jobs en attente à l'instant T et
+      // laisse fuiter dans la suite suivante un job enqueué pendant la fermeture.
       await worker.close();
       await rebuildWorker.close();
+
+      if (options.clear) {
+        await queue.obliterate({ force: true });
+        await rebuildQueue.obliterate({ force: true });
+      }
 
       await service.getConfig().client.close();
     },

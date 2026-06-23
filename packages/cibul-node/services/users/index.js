@@ -144,10 +144,12 @@ export async function init(config, services) {
   service.plugApp = plugApp;
 
   service.shutdown = async (options = {}) => {
-    if (options.clear) {
-      await queue.drain();
-    }
+    // Fermer le worker AVANT de purger ; sur `clear` (tests), obliterate la queue
+    // entière plutôt qu'un `drain()` qui laisse fuiter un job vers la suite suivante.
     await worker.close();
+    if (options.clear) {
+      await queue.obliterate({ force: true });
+    }
   };
 
   return service;

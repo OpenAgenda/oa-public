@@ -143,9 +143,15 @@ function task({ enqueue, services, registrations, queue }) {
     log.debug(job.name, 'completed', prev));
 
   return {
-    shutdown: async () => {
+    shutdown: async (options = {}) => {
+      // Fermer le worker AVANT de purger ; sur `clear` (tests), obliterate la queue
+      // entière plutôt qu'un `drain()` qui laisse fuiter un job vers la suite suivante.
+      // En prod, on ne purge rien : les offres en attente survivent au restart
+      // (l'ancien `drain()` inconditionnel les détruisait — scorie corrigée).
       await worker.close();
-      await queue.drain();
+      if (options.clear) {
+        await queue.obliterate({ force: true });
+      }
     },
   };
 }
@@ -175,6 +181,6 @@ export default function ProcessPassPendingOffers({
 
       shutdownTask = handlers.shutdown;
     },
-    shutdown: () => (shutdownTask ? shutdownTask() : null),
+    shutdown: (options) => (shutdownTask ? shutdownTask(options) : null),
   };
 }

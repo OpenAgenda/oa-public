@@ -228,10 +228,12 @@ export function init(config, services) {
     ...aggregators,
     shutdown: async (options) => {
       // if (!aggregators.worker.isRunning()) return;
-      if (options.clear) {
-        await queue.drain();
-      }
+      // Fermer le worker AVANT de purger ; sur `clear` (tests), obliterate la queue
+      // entière plutôt qu'un `drain()` qui laisse fuiter un job vers la suite suivante.
       await aggregators.worker.close();
+      if (options.clear) {
+        await queue.obliterate({ force: true });
+      }
     },
     task: () => {
       aggregators.worker.run();
