@@ -2,8 +2,12 @@
 
 import mapEvent, { mapEventSummary } from './mapEvent.js';
 import buildPagination from './pagination.js';
+import { pickSelected } from './selectFields.js';
 
-export default function buildListEnvelope(result, { limit, detailed = false }) {
+export default function buildListEnvelope(
+  result,
+  { limit, detailed = false, fields = null },
+) {
   const { events = [], total, after = null, sort = null } = result ?? {};
 
   // `detailed=true` returns full `Event` items (same shape as the single-get),
@@ -13,7 +17,8 @@ export default function buildListEnvelope(result, { limit, detailed = false }) {
   const mapItem = detailed ? mapEvent : mapEventSummary;
 
   return {
-    data: events.map(mapItem),
+    // `fields` (when set) trims each item to the selected top-level subset.
+    data: events.map((event) => pickSelected(mapItem(event), fields)),
     // `core` returns `after: null` on the last page itself — no short-page
     // sentinel needed here.
     pagination: buildPagination({ after, sort, limit, total }),

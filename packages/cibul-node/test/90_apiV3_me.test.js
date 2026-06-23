@@ -200,6 +200,49 @@ describe('90 - api-v3 - functional (server): /me/agendas', () => {
     expect(byUid.get(PRIVATE_UID)?.network).toEqual(PRIVATE_NETWORK);
   });
 
+  describe('fields (sparse selection)', () => {
+    it('trims each item to the selection, always keeping uid', async () => {
+      const res = await get('?fields=title,role');
+      expect(res.status).toBe(200);
+      expect(res.body.data.length).toBe(TOTAL_MEMBERSHIPS);
+      for (const agenda of res.body.data) {
+        expect(Object.keys(agenda).sort()).toEqual(['role', 'title', 'uid']);
+      }
+    });
+
+    it('selects a ref WITHOUT detailed, resolving it for the private fallback', async () => {
+      // `network` is a detailed-only ref; selecting it makes the SQL fallback
+      // resolve it (the pushdown keeps it when asked), and the private agenda's
+      // value still comes through.
+      const res = await get('?fields=network&limit=100');
+      expect(res.status).toBe(200);
+      const byUid = new Map(res.body.data.map((a) => [a.uid, a]));
+      for (const agenda of res.body.data) {
+        expect(Object.keys(agenda).sort()).toEqual(['network', 'uid']);
+      }
+      expect(byUid.get(PRIVATE_UID)?.network).toEqual(PRIVATE_NETWORK);
+    });
+
+    it('omitting a ref still yields correct summary data (refs skipped)', async () => {
+      // `network`/`locationSet` are NOT selected: the route skips their SQL ref
+      // resolution entirely, yet the selected fields stay correct — incl. the
+      // private agenda resolved through the SQL fallback.
+      const res = await get('?fields=title&limit=100');
+      expect(res.status).toBe(200);
+      const byUid = new Map(res.body.data.map((a) => [a.uid, a]));
+      for (const agenda of res.body.data) {
+        expect(Object.keys(agenda).sort()).toEqual(['title', 'uid']);
+      }
+      expect(byUid.get(PRIVATE_UID)?.title).toBe('Agenda privé (gating test)');
+    });
+
+    it('rejects an unknown field with 400 + per-field details', async () => {
+      const res = await get('?fields=title,nope');
+      expect(res.status).toBe(400);
+      expect(res.body.error.details.errors[0].field).toBe('fields');
+    });
+  });
+
   it('answers 401 to a publishable key (no user identity) and to anonymous', async () => {
     const pk = await get('', USER_PK);
     expect(pk.status).toBe(401);

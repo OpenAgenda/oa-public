@@ -9,8 +9,28 @@
 // index is public by construction (`private: false`); a SQL row carries its
 // own flag.
 
-import { mapAgendaSummary, mapAgendaDetailed } from './mapAgenda.js';
+import {
+  mapAgendaSummary,
+  mapAgendaDetailed,
+  AGENDA_SELECT,
+} from './mapAgenda.js';
 import buildPagination from './pagination.js';
+import {
+  pickSelected,
+  selectsTop,
+  applyProjection,
+  fieldNamesOf,
+} from './selectFields.js';
+
+// The agenda field universe (drift-proof, from the mapper). A /me selection
+// also carries `role`/`private` (grafted from the membership row, not the
+// agenda index), so it is stripped to the agenda fields before being pushed
+// down to the public-agenda search.
+const AGENDA_UNIVERSE = new Set(fieldNamesOf(mapAgendaDetailed));
+const agendaOnlySelection = (fields) =>
+  new Set(
+    [...fields].filter((path) => AGENDA_UNIVERSE.has(path.split('.')[0])),
+  );
 
 // Resolve `fn` over distinct values with bounded concurrency — the fallback
 // fan-out must stay flat even for a worst-case page of 100 private agendas.
@@ -27,7 +47,7 @@ async function resolveEach(values, fn, { concurrency = 5 } = {}) {
   return resolved;
 }
 
-async function enrichAgendas(core, items, { detailed }) {
+async function enrichAgendas(core, items, { detailed, fields = null }) {
   const { services } = core;
   const byUid = new Map();
 
@@ -35,10 +55,27 @@ async function enrichAgendas(core, items, { detailed }) {
     return byUid;
   }
 
+  // The network/locationSet refs are detailed-only AND each costs a SQL get per
+  // distinct uid in the fallback below. When `fields` is set and doesn't ask for
+  // a ref, skip resolving it entirely — the real /me pushdown win (items are
+  // tiny, so the `_source` saving is marginal by comparison).
+  const wantNetwork = detailed && selectsTop(fields, 'network');
+  const wantLocationSet = detailed && selectsTop(fields, 'locationSet');
+
+  // Public agendas come from the index; push the selection down to the
+  // `_source` (stripped to agenda fields — `uid` is always retained, so the
+  // keyed merge below still works).
+  const searchOptions = { detailed, indexed: null, private: null };
+  applyProjection(
+    searchOptions,
+    fields ? agendaOnlySelection(fields) : null,
+    AGENDA_SELECT,
+  );
+
   const { agendas = [] } = await core.agendas.search(
     { uid: items.map((i) => i.uid) },
     { size: items.length },
-    { detailed, indexed: null, private: null },
+    searchOptions,
   );
 
   for (const agenda of agendas) {
@@ -52,8 +89,8 @@ async function enrichAgendas(core, items, { detailed }) {
   }
 
   // One SQL query for every index miss of the page. `networkUid` is excluded
-  // from the service's default list projection (`list: false`); the detailed
-  // tier needs it to resolve the network ref below.
+  // from the service's default list projection (`list: false`); request it only
+  // when the network ref will actually be resolved below.
   const { agendas: rows = [] } = await services.agendas.list(
     { uid: missingUids },
     0,
@@ -61,28 +98,36 @@ async function enrichAgendas(core, items, { detailed }) {
     {
       private: null,
       includeImagePath: true,
-      includeFields: ['networkUid'],
+      includeFields: wantNetwork ? ['networkUid'] : [],
     },
   );
 
-  if (detailed) {
-    // The detailed tier resolves the network/locationSet refs the same way
-    // core's agenda get does (the SQL record only carries the uids) —
-    // deduplicated and concurrency-bounded. The two ref families are
-    // independent, so they resolve in parallel (≤5 in flight each).
+  if (wantNetwork || wantLocationSet) {
+    // Resolve the requested ref families the same way core's agenda get does
+    // (the SQL record only carries the uids) — deduplicated and
+    // concurrency-bounded. The two families are independent, so they resolve in
+    // parallel (≤5 in flight each); an unselected one is skipped.
     const [networks, locationSets] = await Promise.all([
-      resolveEach(
-        rows.map((a) => a.networkUid),
-        (uid) => services.networks.get(uid),
-      ),
-      resolveEach(
-        rows.map((a) => a.locationSetUid),
-        (uid) => services.agendaLocations.sets.get(uid),
-      ),
+      wantNetwork
+        ? resolveEach(
+          rows.map((a) => a.networkUid),
+          (uid) => services.networks.get(uid),
+        )
+        : Promise.resolve(new Map()),
+      wantLocationSet
+        ? resolveEach(
+          rows.map((a) => a.locationSetUid),
+          (uid) => services.agendaLocations.sets.get(uid),
+        )
+        : Promise.resolve(new Map()),
     ]);
     for (const agenda of rows) {
-      agenda.network = networks.get(agenda.networkUid) ?? null;
-      agenda.locationSet = locationSets.get(agenda.locationSetUid) ?? null;
+      if (wantNetwork) {
+        agenda.network = networks.get(agenda.networkUid) ?? null;
+      }
+      if (wantLocationSet) {
+        agenda.locationSet = locationSets.get(agenda.locationSetUid) ?? null;
+      }
     }
   }
 
@@ -112,7 +157,7 @@ function mapItem(item, enriched, { detailed }) {
 export default async function buildMeAgendaList(
   core,
   result,
-  { limit, detailed = false },
+  { limit, detailed = false, fields = null },
 ) {
   const { items = [], total, after = null } = result ?? {};
 
@@ -124,11 +169,12 @@ export default async function buildMeAgendaList(
   // catches up.
   const liveItems = items.filter((item) => item.uid != null);
 
-  const enriched = await enrichAgendas(core, liveItems, { detailed });
+  const enriched = await enrichAgendas(core, liveItems, { detailed, fields });
 
   return {
+    // `fields` (when set) trims each item to the selected top-level subset.
     data: liveItems.map((item) =>
-      mapItem(item, enriched.get(item.uid), { detailed })),
+      pickSelected(mapItem(item, enriched.get(item.uid), { detailed }), fields)),
     // The members listing returns the last row's `order` (a scalar) even on
     // the last full page — short-page sentinel, gauged on the RAW page size:
     // stale rows were fetched, only their rendering is skipped.

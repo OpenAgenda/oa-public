@@ -383,7 +383,7 @@ const METRICS = ['sum', 'avg', 'max', 'min'];
 
 // Agenda-specific (custom) fields carry a non-null `schemaId`; native fields
 // don't. Mirrors event-search `getFormSchemaAdditionalFields`.
-const additionalFieldsOf = (schema) =>
+export const additionalFieldsOf = (schema) =>
   (schema?.fields ?? []).filter(
     (f) => f.schemaId !== undefined && f.schemaId !== null,
   );
