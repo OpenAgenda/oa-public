@@ -175,7 +175,19 @@ export default function tokenExchangePlugin({
           const client = creds && Object.hasOwn(clients, creds.clientId)
             ? clients[creds.clientId]
             : null;
+          // Structured failure event for the security-relevant denials below (bad
+          // client auth, forged/expired/cross-bound subject token, revoked user).
+          // RGPD: no token material. Request-validation 400s (grant_type,
+          // token_type, target) are client bugs, not denials — left unlogged.
+          const denyExchange = () =>
+            ctx.context.logger?.warn?.('auth.signin.failure', {
+              event: 'auth.signin.failure',
+              method: 'oidc_token_exchange',
+              ...creds?.clientId ? { client_id: creds.clientId } : {},
+              reason: 'token_exchange_denied',
+            });
           if (!client || !secretMatches(creds.clientSecret, client.secret)) {
+            denyExchange();
             throw new APIError('UNAUTHORIZED', {
               error: 'invalid_client',
               error_description: 'invalid or missing client credentials',
@@ -225,6 +237,7 @@ export default function tokenExchangePlugin({
             ? await verifySubject(subjectToken)
             : null;
           if (!subject) {
+            denyExchange();
             throw new APIError('BAD_REQUEST', {
               error: 'invalid_request',
               error_description: 'subject_token is invalid or not exchangeable',
@@ -237,6 +250,7 @@ export default function tokenExchangePlugin({
           // gateway B's resource issued to it. Unconditional: `subjectResource` is
           // guaranteed non-empty by the construction-time check above.
           if (!subject.audiences.includes(client.subjectResource)) {
+            denyExchange();
             throw new APIError('BAD_REQUEST', {
               error: 'invalid_request',
               error_description: 'subject_token is not bound to this client',
@@ -255,6 +269,7 @@ export default function tokenExchangePlugin({
           if (checkActive) {
             const active = await checkActive(subject.userUid);
             if (!active) {
+              denyExchange();
               throw new APIError('BAD_REQUEST', {
                 error: 'invalid_request',
                 error_description: 'subject is no longer authorized',
@@ -301,6 +316,25 @@ export default function tokenExchangePlugin({
               exp: iat + tokenTtl,
             },
           });
+
+          // Structured login-analytics event (machine-to-machine sign-in via
+          // RFC 8693). Inlined rather than routed through index.js's
+          // logSigninSuccess: there is no session/user row here, only the
+          // verified subject uid + the exchanging confidential client. RGPD: no
+          // token material is logged. Best-effort like logSigninSuccess: the
+          // token is already minted, so a logging failure must NOT break the
+          // exchange. See docs/plan-auth-signin-logging.md.
+          try {
+            ctx.context.logger?.info?.('auth.signin.success', {
+              event: 'auth.signin.success',
+              method: 'oidc_token_exchange',
+              client_id: creds.clientId,
+              is_new: false,
+              user_uid: subject.userUid,
+            });
+          } catch {
+            // swallow — never fail an already-successful exchange on a log error
+          }
 
           return ctx.json({
             access_token: accessToken,
