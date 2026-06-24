@@ -98,6 +98,13 @@ async function evaluateCaptcha({ body, mtCaptcha }) {
 export async function init(config, services) {
   const { schemas, mtCaptcha } = config;
 
+  // Route the whole auth domain through ONE logger with its own InsightOps
+  // stream: this service's diagnostics AND the structured auth.signin.* events
+  // emitted inside @openagenda/auth (the same `log` is injected below). Same
+  // getLogConfig('svc', …) convention as the other services; set here because
+  // getLogConfig needs the runtime config.
+  log.setConfig(config.getLogConfig('svc', 'auth'));
+
   const mysqlPool = mysql.createPool({
     ...config.db,
     waitForConnections: true,
@@ -172,14 +179,15 @@ export async function init(config, services) {
     });
   };
 
-  const authLogger = { log: logs('auth') };
-
   const auth = Auth({
     mysqlPool,
     redis: services.redis,
     secret: config.auth.secret,
     baseURL: config.root,
-    logger: authLogger,
+    // Same logger as this service's own diagnostics → a single auth stream.
+    // better-auth uses `log(level, message, ...args)`; `logs('services/auth')`
+    // is callable with exactly that shape.
+    logger: { log },
     // The in-process API resource (v3) auth protects + mints exchanged tokens
     // for. The MCP resource is no longer a top-level option — it rides in the
     // exchange registry as the MCP client's `subjectResource`.
