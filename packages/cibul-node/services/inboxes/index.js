@@ -254,12 +254,7 @@ export async function init(config, services) {
     task: () => {
       service.worker.run();
     },
-    shutdown: async (options = {}) => {
-      if (options.reset) {
-        await queue.drain();
-      }
-      await service.worker.close();
-    },
+    shutdown: (options) => bull.teardownQueues(service.worker, queue, options),
   });
 
   return service;

@@ -143,10 +143,11 @@ function task({ enqueue, services, registrations, queue }) {
     log.debug(job.name, 'completed', prev));
 
   return {
-    shutdown: async () => {
-      await worker.close();
-      await queue.drain();
-    },
+    // En prod (`options` sans `clear`/`reset`) on ne purge rien : les offres en
+    // attente survivent au restart. L'ancien `drain()` inconditionnel détruisait
+    // les offres fraîchement enqueuées (état `wait`) à chaque restart — scorie
+    // corrigée. Le teardown de test, lui, obliterate via `clear`.
+    shutdown: (options) => bull.teardownQueues(worker, queue, options),
   };
 }
 
@@ -175,6 +176,6 @@ export default function ProcessPassPendingOffers({
 
       shutdownTask = handlers.shutdown;
     },
-    shutdown: () => (shutdownTask ? shutdownTask() : null),
+    shutdown: (options) => (shutdownTask ? shutdownTask(options) : null),
   };
 }

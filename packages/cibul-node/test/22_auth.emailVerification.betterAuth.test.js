@@ -5,6 +5,22 @@ import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 import buildApp from './helpers/buildApp.js';
 import flushRateLimit from './helpers/rateLimit.js';
+import waitFor from './helpers/waitFor.js';
+
+// runOnActivation provisions the user Inbox with a fire-and-forget
+// `Inbox.create().then()`, so the verify-email response can return before the
+// inbox row lands. Poll for it instead of reading once (flaky under load).
+const waitForUserInbox = (services, uid) =>
+  waitFor(
+    async () => {
+      const inbox = await new services.inboxes.Inbox({
+        type: 'user',
+        identifier: uid,
+      })._get();
+      return inbox.data ? inbox : null;
+    },
+    { message: `user ${uid} inbox provisioned by runOnActivation` },
+  );
 
 const enabled = [
   'knex',
@@ -157,10 +173,7 @@ describe('22 - auth email verification via better-auth (phase 3b)', () => {
     expect(dbUser.is_activated).toBe(1);
 
     // runOnActivation side-effect: the user Inbox is provisioned.
-    const inbox = await new services.inboxes.Inbox({
-      type: 'user',
-      identifier: dbUser.uid,
-    })._get();
+    const inbox = await waitForUserInbox(services, dbUser.uid);
     expect(inbox.data).toBeTruthy();
   });
 
@@ -191,10 +204,7 @@ describe('22 - auth email verification via better-auth (phase 3b)', () => {
       .where({ email })
       .first();
 
-    const firstInbox = await new services.inboxes.Inbox({
-      type: 'user',
-      identifier: dbUser.uid,
-    })._get();
+    const firstInbox = await waitForUserInbox(services, dbUser.uid);
     expect(firstInbox.data).toBeTruthy();
 
     const second = await request(app).get(pathAndQuery);

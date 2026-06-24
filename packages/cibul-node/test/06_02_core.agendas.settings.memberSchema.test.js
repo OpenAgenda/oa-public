@@ -2,6 +2,7 @@ import ky from 'ky';
 import api from '../api/index.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
+import { withTestServer } from './helpers/startTestServer.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 
@@ -64,17 +65,16 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
   });
 
   describe('api', () => {
-    let server;
     const administratorKey = 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9';
 
     let adminAccessToken;
     let contribAccessToken;
 
-    beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(4000);
+    const ctx = withTestServer(() => api(core, { useRouter: false }));
 
+    beforeAll(async () => {
       const adminTokenResponse = await ky
-        .post('http://localhost:4000/requestAccessToken', {
+        .post(`${ctx.baseUrl}/requestAccessToken`, {
           json: {
             code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
           },
@@ -84,7 +84,7 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
 
       try {
         const contribTokenResponse = await ky
-          .post('http://localhost:4000/requestAccessToken', {
+          .post(`${ctx.baseUrl}/requestAccessToken`, {
             json: {
               code: 'STt5KTzxPJHUG6N0ty3poxN896UseQhM',
             },
@@ -96,12 +96,10 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
       }
     });
 
-    afterAll(() => server.close());
-
     it('get settings memberSchema for configuration with adminKey', async () => {
       const res = await ky
         .get(
-          `http://localhost:4000/agendas/60935574/settings/memberSchema/configure?key=${administratorKey}`,
+          `${ctx.baseUrl}/agendas/60935574/settings/memberSchema/configure?key=${administratorKey}`,
         )
         .json();
       expect(res.parents.length).toBe(1);
@@ -111,7 +109,7 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
     it('get settings memberSchema for member with andminKey', async () => {
       const res = await ky
         .get(
-          `http://localhost:4000/agendas/60935574/settings/memberSchema?key=${administratorKey}`,
+          `${ctx.baseUrl}/agendas/60935574/settings/memberSchema?key=${administratorKey}`,
         )
         .json();
       expect(res.merged.fields).toBeTruthy();
@@ -122,7 +120,7 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
       try {
         result = await ky
           .post(
-            'http://localhost:4000/agendas/60935574/settings/memberSchema/configure',
+            `${ctx.baseUrl}/agendas/60935574/settings/memberSchema/configure`,
             {
               headers: {
                 'access-token': adminAccessToken,
@@ -142,7 +140,7 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
     it('unsuccessfull post memberSchema from contrib', async () => {
       const response = await ky
         .post(
-          'http://localhost:4000/agendas/60935574/settings/memberSchema/configure',
+          `${ctx.baseUrl}/agendas/60935574/settings/memberSchema/configure`,
           {
             headers: {
               'access-token': contribAccessToken,

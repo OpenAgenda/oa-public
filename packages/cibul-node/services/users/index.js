@@ -143,12 +143,7 @@ export async function init(config, services) {
 
   service.plugApp = plugApp;
 
-  service.shutdown = async (options = {}) => {
-    if (options.clear) {
-      await queue.drain();
-    }
-    await worker.close();
-  };
+  service.shutdown = (options) => bull.teardownQueues(worker, queue, options);
 
   return service;
 }

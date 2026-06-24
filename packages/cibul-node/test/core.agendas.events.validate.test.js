@@ -2,6 +2,7 @@ import ky from 'ky';
 import api from '../api/index.js';
 import Core from '../core/index.js';
 import Services from '../services/init.js';
+import { withTestServer } from './helpers/startTestServer.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 
@@ -32,7 +33,6 @@ const enabled = [
 
 describe('core - functional (server): POST /agendas/:agendaUid/events/validate', () => {
   let core;
-  let server;
   let accessToken;
 
   const config = testConfig.extendWith({
@@ -59,13 +59,11 @@ describe('core - functional (server): POST /agendas/:agendaUid/events/validate',
     await services.formSchemas.clearCache();
   });
 
-  beforeAll(async () => {
-    server = await api(core, { useRouter: false }).listen(4000);
-  });
+  const ctx = withTestServer(() => api(core, { useRouter: false }));
 
   beforeAll(async () => {
     const tokenResponse = await ky
-      .post('http://localhost:4000/requestAccessToken', {
+      .post(`${ctx.baseUrl}/requestAccessToken`, {
         json: {
           code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
         },
@@ -74,8 +72,6 @@ describe('core - functional (server): POST /agendas/:agendaUid/events/validate',
     accessToken = tokenResponse.access_token;
   });
 
-  afterAll(() => server.close());
-
   afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('valid complete event', () => {
@@ -83,7 +79,7 @@ describe('core - functional (server): POST /agendas/:agendaUid/events/validate',
 
     beforeAll(async () => {
       response = await ky
-        .post('http://localhost:4000/agendas/17026855/events/validate', {
+        .post(`${ctx.baseUrl}/agendas/17026855/events/validate`, {
           headers: {
             'access-token': accessToken,
           },
@@ -129,19 +125,16 @@ describe('core - functional (server): POST /agendas/:agendaUid/events/validate',
 
     beforeAll(async () => {
       response = await ky
-        .post(
-          'http://localhost:4000/agendas/17026855/events/validate?draft=true',
-          {
-            headers: {
-              'access-token': accessToken,
-            },
-            json: {
-              title: {
-                fr: 'Un brouillon',
-              },
+        .post(`${ctx.baseUrl}/agendas/17026855/events/validate?draft=true`, {
+          headers: {
+            'access-token': accessToken,
+          },
+          json: {
+            title: {
+              fr: 'Un brouillon',
             },
           },
-        )
+        })
         .json();
     });
 
@@ -159,7 +152,7 @@ describe('core - functional (server): POST /agendas/:agendaUid/events/validate',
 
     beforeAll(async () => {
       response = await ky
-        .post('http://localhost:4000/agendas/17026855/events/validate', {
+        .post(`${ctx.baseUrl}/agendas/17026855/events/validate`, {
           headers: {
             'access-token': accessToken,
           },
@@ -190,7 +183,7 @@ describe('core - functional (server): POST /agendas/:agendaUid/events/validate',
 
     beforeAll(async () => {
       await ky
-        .post('http://localhost:4000/agendas/17026855/events/validate', {
+        .post(`${ctx.baseUrl}/agendas/17026855/events/validate`, {
           headers: {
             'access-token': accessToken,
           },
@@ -218,7 +211,7 @@ describe('core - functional (server): POST /agendas/:agendaUid/events/validate',
   describe('authentication', () => {
     it('returns 401 without access token', async () => {
       const response = await ky
-        .post('http://localhost:4000/agendas/17026855/events/validate', {
+        .post(`${ctx.baseUrl}/agendas/17026855/events/validate`, {
           json: {
             title: { fr: 'Test' },
           },

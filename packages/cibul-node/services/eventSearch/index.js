@@ -199,15 +199,19 @@ export async function init(config, services) {
       search: transverseIndex.search,
     },
     shutdown: async (options) => {
-      if (options.clear) {
-        await queue.drain();
-        await rebuildQueue.drain();
+      // `rebuildWorker` ré-enqueue dans `queue`, donc on ferme les DEUX workers
+      // avant d'obliterer l'une ou l'autre queue (teardownQueues le garantit).
+      // `finally` : le client Elasticsearch est fermé même si un obliterate jette,
+      // pour ne pas fuiter la connexion ni interrompre le reste du shutdown.
+      try {
+        await bull.teardownQueues(
+          [worker, rebuildWorker],
+          [queue, rebuildQueue],
+          options,
+        );
+      } finally {
+        await service.getConfig().client.close();
       }
-
-      await worker.close();
-      await rebuildWorker.close();
-
-      await service.getConfig().client.close();
     },
     apps: {
       agendas: agendaRoutes(config, services),

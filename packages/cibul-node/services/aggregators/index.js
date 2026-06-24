@@ -226,13 +226,8 @@ export function init(config, services) {
   return {
     plugApp: plugApp.bind(null, config),
     ...aggregators,
-    shutdown: async (options) => {
-      // if (!aggregators.worker.isRunning()) return;
-      if (options.clear) {
-        await queue.drain();
-      }
-      await aggregators.worker.close();
-    },
+    shutdown: (options) =>
+      bull.teardownQueues(aggregators.worker, queue, options),
     task: () => {
       aggregators.worker.run();
     },

@@ -59,15 +59,13 @@ export default function tasks(services) {
     {
       register: (fns) => Object.assign(jobProcessors, fns),
       enqueue: (...args) => queue.add(...args),
+      // `clear()` (en cours de suite) vide les jobs mais GARDE la queue et le
+      // worker utilisables — d'où `drain()`, pas `obliterate()`. Le teardown
+      // complet, lui, passe par `stop({ clear })` ci-dessous (obliterate).
       clear: async () => {
         await queue.drain();
       },
-      stop: async (options = {}) => {
-        if (options.clear) {
-          await queue.drain();
-        }
-        await worker.close();
-      },
+      stop: (options) => bull.teardownQueues(worker, queue, options),
     },
   );
 }

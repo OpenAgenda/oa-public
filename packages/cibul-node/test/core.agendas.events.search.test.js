@@ -3,6 +3,7 @@ import qs from 'qs';
 import api from '../api/index.js';
 import Core from '../core/index.js';
 import Services from '../services/init.js';
+import { withTestServer } from './helpers/startTestServer.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 
@@ -478,18 +479,13 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
   });
 
   describe('api', () => {
-    let server;
     let accessToken;
 
-    beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(4000);
-    });
-
-    afterAll(() => server.close());
+    const ctx = withTestServer(() => api(core, { useRouter: false }));
 
     beforeAll(async () => {
       const tokenResponse = await ky
-        .post('http://localhost:4000/requestAccessToken', {
+        .post(`${ctx.baseUrl}/requestAccessToken`, {
           json: {
             code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
           },
@@ -504,7 +500,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       beforeAll(async () => {
         try {
           response = await ky
-            .get('http://localhost:4000/agendas/2/events', {
+            .get(`${ctx.baseUrl}/agendas/2/events`, {
               headers: {
                 'access-token': accessToken,
               },
@@ -539,7 +535,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       beforeAll(async () => {
         response = await ky
-          .post('http://localhost:4000/agendas/2/events/search', {
+          .post(`${ctx.baseUrl}/agendas/2/events/search`, {
             headers: {
               'access-token': accessToken,
             },
@@ -568,7 +564,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       beforeAll(async () => {
         try {
           response = await ky
-            .get('http://localhost:4000/agendas/2/events/1', {
+            .get(`${ctx.baseUrl}/agendas/2/events/1`, {
               headers: {
                 'access-token': accessToken,
               },
@@ -593,7 +589,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       // ce même événement et qui ne voit pas le champ admin
       it('administrators have access to restricted admin field', async () => {
         const response = await ky
-          .get('http://localhost:4000/agendas/2/events/1', {
+          .get(`${ctx.baseUrl}/agendas/2/events/1`, {
             headers: {
               'access-token': accessToken,
             },
@@ -612,7 +608,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       beforeAll(async () => {
         const responseData = await ky
           .get(
-            'http://localhost:4000/agendas/2/events/1?detailed=1&useDateHoursMinutesFormat=1',
+            `${ctx.baseUrl}/agendas/2/events/1?detailed=1&useDateHoursMinutesFormat=1`,
             {
               headers: {
                 'access-token': accessToken,
@@ -642,7 +638,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       beforeAll(async () => {
         try {
           response = await ky
-            .get('http://localhost:4000/agendas/2/events', {
+            .get(`${ctx.baseUrl}/agendas/2/events`, {
               searchParams: qs.stringify({
                 key: '1hFOmegP30toI8hA1if8auC6aMbVg1N9',
                 detailed: '1',
@@ -669,7 +665,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
         try {
           await ky
-            .get('http://localhost:4000/agendas/2/events/1', {
+            .get(`${ctx.baseUrl}/agendas/2/events/1`, {
               searchParams: {
                 key: nonAdminModKey,
               },
@@ -684,7 +680,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       it('published events are gettable by non adminmods', async () => {
         const response = await ky
-          .get('http://localhost:4000/agendas/2/events/2', {
+          .get(`${ctx.baseUrl}/agendas/2/events/2`, {
             searchParams: {
               key: nonAdminModKey,
             },
@@ -696,7 +692,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       it('administrator field is not visible to non adminmod', async () => {
         const response = await ky
-          .get('http://localhost:4000/agendas/2/events/1', {
+          .get(`${ctx.baseUrl}/agendas/2/events/1`, {
             searchParams: {
               key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
             },
@@ -708,7 +704,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       it('get by slug', async () => {
         const response = await ky
-          .get('http://localhost:4000/agendas/2/events/slug/event-2', {
+          .get(`${ctx.baseUrl}/agendas/2/events/slug/event-2`, {
             searchParams: {
               key: nonAdminModKey,
             },
@@ -721,7 +717,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       it('get by agenda slug and event slug', async () => {
         const response = await ky
           .get(
-            'http://localhost:4000/agendas/slug/un-agenda-thematique/events/slug/event-2',
+            `${ctx.baseUrl}/agendas/slug/un-agenda-thematique/events/slug/event-2`,
             {
               searchParams: {
                 key: nonAdminModKey,
@@ -735,14 +731,11 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       it('get by agenda slug and event uid', async () => {
         const response = await ky
-          .get(
-            'http://localhost:4000/agendas/slug/un-agenda-thematique/events/2',
-            {
-              searchParams: {
-                key: nonAdminModKey,
-              },
+          .get(`${ctx.baseUrl}/agendas/slug/un-agenda-thematique/events/2`, {
+            searchParams: {
+              key: nonAdminModKey,
             },
-          )
+          })
           .json();
 
         expect(response.event.uid).toBe(2);
@@ -750,7 +743,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       it('includeFields: get by slug with additional field labels', async () => {
         const response = await ky
-          .get('http://localhost:4000/agendas/2/events/slug/event-1', {
+          .get(`${ctx.baseUrl}/agendas/2/events/slug/event-1`, {
             searchParams: {
               key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
               detailed: -1,
@@ -767,7 +760,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       it('get can provide origin and source agenda data', async () => {
         const response = await ky
-          .get('http://localhost:4000/agendas/2/events/2?detailed=1', {
+          .get(`${ctx.baseUrl}/agendas/2/events/2?detailed=1`, {
             searchParams: {
               key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
             },
@@ -780,7 +773,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       it('unpublished event is gettable by owning contributor', async () => {
         const responseData = await ky
-          .get('http://localhost:4000/agendas/2/events/1', {
+          .get(`${ctx.baseUrl}/agendas/2/events/1`, {
             searchParams: {
               key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
             },
@@ -796,7 +789,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
         try {
           await ky
-            .get('http://localhost:4000/agendas/2/events/1', {
+            .get(`${ctx.baseUrl}/agendas/2/events/1`, {
               searchParams: {
                 key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1NL',
               },
@@ -813,7 +806,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         let error;
         try {
           await ky
-            .get('http://localhost:4000/agendas/1/events/3', {
+            .get(`${ctx.baseUrl}/agendas/1/events/3`, {
               searchParams: {
                 key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
               },
@@ -827,27 +820,21 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       });
 
       it('draft event is gettable by contributing contributor', async () => {
-        const response = await ky.get(
-          'http://localhost:4000/agendas/2/events/3',
-          {
-            searchParams: {
-              key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
-            },
+        const response = await ky.get(`${ctx.baseUrl}/agendas/2/events/3`, {
+          searchParams: {
+            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
           },
-        );
+        });
 
         expect(response.status).toBe(200);
       });
 
       it('draft event restricted data is gettable by credded user', async () => {
-        const response = await ky.get(
-          'http://localhost:4000/agendas/1/events/4',
-          {
-            searchParams: {
-              key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
-            },
+        const response = await ky.get(`${ctx.baseUrl}/agendas/1/events/4`, {
+          searchParams: {
+            key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
           },
-        );
+        });
         const responseData = await response.json();
 
         expect(responseData.event.note).toBe('Une autre note interne');
@@ -858,7 +845,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
         try {
           await ky
-            .get('http://localhost:4000/agendas/2/events/3', {
+            .get(`${ctx.baseUrl}/agendas/2/events/3`, {
               searchParams: {
                 key: '1hFOmegP30toI8hA1if8auC6aMbVg1N9',
               },
@@ -889,7 +876,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       it('returns 404 with X-Resource-Gone:1', async () => {
         const response = await ky.get(
-          'http://localhost:4000/agendas/slug/un-agenda-thematique/events/2',
+          `${ctx.baseUrl}/agendas/slug/un-agenda-thematique/events/2`,
           {
             searchParams: { key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz' },
             throwHttpErrors: false,
@@ -916,7 +903,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         try {
           responses.push(
             await ky
-              .get('http://localhost:4000/agendas/2/events', {
+              .get(`${ctx.baseUrl}/agendas/2/events`, {
                 searchParams: qs.stringify(searchParams),
               })
               .json(),
@@ -926,7 +913,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
           responses.push(
             await ky
-              .get('http://localhost:4000/agendas/2/events', {
+              .get(`${ctx.baseUrl}/agendas/2/events`, {
                 searchParams: qs.stringify({
                   ...searchParams,
                   after,
@@ -941,7 +928,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         try {
           responses.push(
             await ky
-              .get('http://localhost:4000/agendas/2/events', {
+              .get(`${ctx.baseUrl}/agendas/2/events`, {
                 searchParams: qs.stringify({
                   ...searchParams,
                   size: 2,
@@ -968,7 +955,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
     describe('options', () => {
       it('aggregations can be requested through query params', async () => {
         const response = await ky
-          .get('http://localhost:4000/agendas/2/events', {
+          .get(`${ctx.baseUrl}/agendas/2/events`, {
             searchParams: qs.stringify({
               key: '1hFOmegP30toI8hA1if8auC6aMbVg1N9',
               detailed: '1',
@@ -983,7 +970,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       it('removed option at true', async () => {
         const response = await ky
-          .get('http://localhost:4000/agendas/1/events', {
+          .get(`${ctx.baseUrl}/agendas/1/events`, {
             searchParams: {
               key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
               removed: 1,
@@ -995,7 +982,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       it('default removed option at false', async () => {
         const response = await ky
-          .get('http://localhost:4000/agendas/1/events', {
+          .get(`${ctx.baseUrl}/agendas/1/events`, {
             searchParams: {
               key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
             },
@@ -1006,7 +993,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       it('removed option at null', async () => {
         const response = await ky
-          .get('http://localhost:4000/agendas/1/events', {
+          .get(`${ctx.baseUrl}/agendas/1/events`, {
             searchParams: {
               key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
               removed: 'null',
@@ -1018,7 +1005,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       it('sort by location fields', async () => {
         const response = await ky
-          .get('http://localhost:4000/agendas/2/events', {
+          .get(`${ctx.baseUrl}/agendas/2/events`, {
             searchParams: {
               key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
               sort: 'location.department.asc',
@@ -1030,7 +1017,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       it('get by extIds', async () => {
         const response = await ky
-          .get('http://localhost:4000/agendas/1/events/ext/test/1234', {
+          .get(`${ctx.baseUrl}/agendas/1/events/ext/test/1234`, {
             searchParams: {
               key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
             },

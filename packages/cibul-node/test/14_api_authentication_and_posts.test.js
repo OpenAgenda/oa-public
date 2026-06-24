@@ -2,6 +2,7 @@ import ky from 'ky';
 import Core from '../core/index.js';
 import api from '../api/index.js';
 import Services from '../services/init.js';
+import { withTestServer } from './helpers/startTestServer.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 
@@ -27,7 +28,6 @@ const enabled = [
 
 describe('14 - core - functional(server): api authentication and posts', () => {
   let core;
-  let server;
   let accessToken;
 
   const config = testConfig.extendWith({
@@ -61,12 +61,10 @@ describe('14 - core - functional(server): api authentication and posts', () => {
     await core.agendas(123).events.search.rebuild();
   });
 
-  beforeAll(async () => {
-    server = await api(core, { useRouter: false }).listen(4000);
-  });
+  const ctx = withTestServer(() => api(core, { useRouter: false }));
 
   const tokenRequest = () =>
-    ky.post('http://localhost:4000/requestAccessToken', {
+    ky.post(`${ctx.baseUrl}/requestAccessToken`, {
       json: {
         code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
       },
@@ -76,8 +74,6 @@ describe('14 - core - functional(server): api authentication and posts', () => {
     const tokenResponse = await tokenRequest().json();
     accessToken = tokenResponse.access_token;
   });
-
-  afterAll(() => server.close());
 
   afterAll(() => core.services.shutdown({ clear: true }));
 
@@ -101,7 +97,7 @@ describe('14 - core - functional(server): api authentication and posts', () => {
       form.append('code', 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM');
 
       const tokenResponse = await ky
-        .post('http://localhost:4000/requestAccessToken', {
+        .post(`${ctx.baseUrl}/requestAccessToken`, {
           body: form,
         })
         .json();
@@ -119,14 +115,11 @@ describe('14 - core - functional(server): api authentication and posts', () => {
     });
 
     it('access token can be used via header authorization', async () => {
-      const response = await ky.get(
-        'http://localhost:4000/agendas/123/events',
-        {
-          headers: {
-            authorization: `Bearer ${accessToken}`,
-          },
+      const response = await ky.get(`${ctx.baseUrl}/agendas/123/events`, {
+        headers: {
+          authorization: `Bearer ${accessToken}`,
         },
-      );
+      });
 
       expect(response.status).toBe(200);
     });
@@ -134,7 +127,7 @@ describe('14 - core - functional(server): api authentication and posts', () => {
 
   describe('root landing', () => {
     it('GET / returns the public API landing without a key (no message)', async () => {
-      const response = await ky.get('http://localhost:4000/');
+      const response = await ky.get(`${ctx.baseUrl}/`);
 
       expect(response.status).toBe(200);
       expect(await response.json()).toEqual({
@@ -144,7 +137,7 @@ describe('14 - core - functional(server): api authentication and posts', () => {
     });
 
     it('GET / still returns 200 when a key is present, noting it is ignored', async () => {
-      const response = await ky.get('http://localhost:4000/?key=nonsense');
+      const response = await ky.get(`${ctx.baseUrl}/?key=nonsense`);
 
       expect(response.status).toBe(200);
       expect(await response.json()).toEqual({
@@ -159,30 +152,25 @@ describe('14 - core - functional(server): api authentication and posts', () => {
   describe('agenda key', () => {
     it('agenda key can be used for read operations', async () => {
       const response = await ky.get(
-        'http://localhost:4000/agendas/123/events?key=e830934e9d1848189ac74de3bfa7df0a',
+        `${ctx.baseUrl}/agendas/123/events?key=e830934e9d1848189ac74de3bfa7df0a`,
       );
 
       expect(response.status).toBe(200);
     });
 
     it('agenda key can be used for read operations - header authorization', async () => {
-      const response = await ky.get(
-        'http://localhost:4000/agendas/123/events',
-        {
-          headers: {
-            authorization: 'Bearer e830934e9d1848189ac74de3bfa7df0a',
-          },
+      const response = await ky.get(`${ctx.baseUrl}/agendas/123/events`, {
+        headers: {
+          authorization: 'Bearer e830934e9d1848189ac74de3bfa7df0a',
         },
-      );
+      });
 
       expect(response.status).toBe(200);
     });
 
     it('an agenda key on a /me/agendas call should throw a 403', async () => {
       const error = await ky
-        .get(
-          'http://localhost:4000/me/agendas?key=e830934e9d1848189ac74de3bfa7df0a',
-        )
+        .get(`${ctx.baseUrl}/me/agendas?key=e830934e9d1848189ac74de3bfa7df0a`)
         .json()
         .then(
           () => {},
@@ -202,7 +190,7 @@ describe('14 - core - functional(server): api authentication and posts', () => {
 
     it('/me/agendas route is not accessible if no key is provided', async () => {
       const error = await ky
-        .get('http://localhost:4000/me/agendas')
+        .get(`${ctx.baseUrl}/me/agendas`)
         .json()
         .then(
           () => {},
@@ -217,7 +205,7 @@ describe('14 - core - functional(server): api authentication and posts', () => {
     });
 
     it('a public key provided in header authorization can be used to access /me/agendas route', async () => {
-      const response = await ky.get('http://localhost:4000/me/agendas', {
+      const response = await ky.get(`${ctx.baseUrl}/me/agendas`, {
         headers: {
           authorization: `Bearer ${userKey}`,
         },
@@ -227,15 +215,13 @@ describe('14 - core - functional(server): api authentication and posts', () => {
     });
 
     it('a public key provided in query can be used to access /me/agendas route', async () => {
-      const response = await ky.get(
-        `http://localhost:4000/me/agendas?key=${userKey}`,
-      );
+      const response = await ky.get(`${ctx.baseUrl}/me/agendas?key=${userKey}`);
 
       expect(response.status).toBe(200);
     });
 
     it('a public key provided in query can be placed in headers to access /me/agendas route', async () => {
-      const response = await ky.get('http://localhost:4000/me/agendas', {
+      const response = await ky.get(`${ctx.baseUrl}/me/agendas`, {
         headers: {
           key: userKey,
         },
