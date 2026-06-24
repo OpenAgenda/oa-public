@@ -19,7 +19,6 @@
   "react.components.AgendaExportModal.filterSelectSub": "Trascinare e rilasciare i filtri per regolare l'ordine",
   "react.components.AgendaExportModal.gcalStep2": "Nella sezione sinistra, apri \"Altri calendari > Aggiungi per URL\".",
   "react.components.AgendaExportModal.gcalStep3": "Segui le istruzioni incollando il link che hai copiato al punto 1",
-  "react.components.AgendaExportModal.horizontalLayout": "Mostra gli eventi come schede orizzontali",
   "react.components.AgendaExportModal.inputField": "Selezionare i campi da esportare",
   "react.components.AgendaExportModal.inputFormat": "Scegliere un formatto",
   "react.components.AgendaExportModal.instructions": "Istruzioni",

@@ -48,7 +48,6 @@ function getEmbedCode({
   selectedFilters,
   contributionButton,
   openEventsOnOA,
-  horizontalLayout,
   primaryColor,
   lang,
 }: {
@@ -59,7 +58,6 @@ function getEmbedCode({
   selectedFilters: string[];
   contributionButton: boolean;
   openEventsOnOA: boolean;
-  horizontalLayout: boolean;
   primaryColor: string;
   lang: string;
 }): string {
@@ -71,10 +69,6 @@ function getEmbedCode({
 
   if (contributionButton) {
     attributes.push('data-contribution-button="true"');
-  }
-
-  if (horizontalLayout) {
-    attributes.push('data-item-layout="horizontal"');
   }
 
   if (openEventsOnOA) {
@@ -122,7 +116,6 @@ export default function EmbedAccordionItem({
     agenda.settings?.contribution?.type === 1 || false,
   );
   const [openEventsOnOA, setOpenEventsOnOA] = useState(true);
-  const [horizontalLayout, setHorizontalLayout] = useState(false);
   const [primaryColor, setPrimaryColor] = useState(DEFAULT_COLOR);
   const [lang, setLang] = useState('');
 
@@ -144,7 +137,6 @@ export default function EmbedAccordionItem({
     selectedFilters,
     contributionButton,
     openEventsOnOA,
-    horizontalLayout,
     primaryColor,
     lang,
   });
@@ -202,14 +194,6 @@ export default function EmbedAccordionItem({
           w="fit-content"
         >
           {intl.formatMessage(messages.openInSamePage)}
-        </Checkbox>
-
-        <Checkbox
-          checked={horizontalLayout}
-          onCheckedChange={(e) => setHorizontalLayout(!!e.checked)}
-          w="fit-content"
-        >
-          {intl.formatMessage(messages.horizontalLayout)}
         </Checkbox>
 
         <Flex

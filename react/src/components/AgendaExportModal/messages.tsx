@@ -204,10 +204,6 @@ const messages: Record<string, MessageDescriptor> = defineMessages({
     id: 'react.components.AgendaExportModal.showContributionButton',
     defaultMessage: 'Show contribution button',
   },
-  horizontalLayout: {
-    id: 'react.components.AgendaExportModal.horizontalLayout',
-    defaultMessage: 'Display events as horizontal cards',
-  },
 });
 
 export default messages;

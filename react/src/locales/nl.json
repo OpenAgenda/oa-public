@@ -24,7 +24,6 @@
   "react.components.AgendaExportModal.filterSelectSub": "Klik en sleep de filters om de volgorde aan te passen",
   "react.components.AgendaExportModal.gcalStep2": "Open in de linkersectie \"Andere agenda's > Toevoegen via URL\".",
   "react.components.AgendaExportModal.gcalStep3": "Volg de instructies door de link die u in stap 1 hebt gekopieerd te plakken",
-  "react.components.AgendaExportModal.horizontalLayout": "Evenementen als horizontale kaarten weergeven",
   "react.components.AgendaExportModal.inputField": "Selecteer de velden om te exporteren",
   "react.components.AgendaExportModal.inputFormat": "Selecteer een formaat",
   "react.components.AgendaExportModal.instructions": "Instructies",

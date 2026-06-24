@@ -1,7 +1,5 @@
 // src/validateMarkdown.js
 
-import extractLinksAsInMarkdown from './utils/extractLinksAsInMarkdown.js';
-
 const ERROR = (value, field) => [
   {
     message: 'Unsafe content detected',
@@ -45,35 +43,14 @@ function hasEventHandlers(md) {
   return /\son\w+\s*=/i.test(md);
 }
 
-// Destinations marked() will turn into an href/src, across every link syntax:
-// inline `[t](dest)` / `![a](dest)`, reference definitions `[id]: dest`, and
-// autolinks `<scheme:...>`. The angle brackets around a destination are stripped
-// so `[t](<javascript:...>)` is inspected as `javascript:...`.
-const INLINE_LINK = /!?\[[^\]]*\]\(\s*<?([^)\s>]+)/g;
-const REFERENCE_DEF = /^[ \t]{0,3}\[[^\]]+\]:\s*<?([^\s>]+)/gm;
-const AUTOLINK = /<([a-z][a-z0-9+.-]*:[^>\s]+)>/gi;
-
 function extractLinks(md) {
-  const links = new Set();
-
-  // markdown-link-extractor resolves every standard link/image syntax
-  // (inline, reference, autolink) the way a renderer would.
-  for (const href of extractLinksAsInMarkdown(md)) {
-    links.add(href);
+  const links = [];
+  const regex = /\[([^\]]*)\]\(([^)]+)\)/g;
+  let match;
+  while ((match = regex.exec(md)) !== null) {
+    links.push(match[2].trim());
   }
-
-  // Belt-and-braces regex pass: the library normalises destinations and drops
-  // ones it cannot parse (e.g. HTML-entity-encoded `java&#x73;cript:` payloads),
-  // but marked() still renders those into live hrefs. Capture the raw
-  // destinations so isUnsafeProtocol() can decode and reject them.
-  for (const regex of [INLINE_LINK, REFERENCE_DEF, AUTOLINK]) {
-    let match;
-    while ((match = regex.exec(md)) !== null) {
-      links.add(match[1].trim());
-    }
-  }
-
-  return [...links];
+  return links;
 }
 
 function isExternalToSelfDomain(href, selfDomain) {
