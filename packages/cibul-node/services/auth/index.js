@@ -172,11 +172,14 @@ export async function init(config, services) {
     });
   };
 
+  const authLogger = { log: logs('auth') };
+
   const auth = Auth({
     mysqlPool,
     redis: services.redis,
     secret: config.auth.secret,
     baseURL: config.root,
+    logger: authLogger,
     // The in-process API resource (v3) auth protects + mints exchanged tokens
     // for. The MCP resource is no longer a top-level option — it rides in the
     // exchange registry as the MCP client's `subjectResource`.
