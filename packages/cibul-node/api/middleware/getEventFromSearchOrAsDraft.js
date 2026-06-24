@@ -30,6 +30,9 @@ export default async function getEventFromSearchOrAsDraft(req, res, next) {
         },
         userUid: req.user?.uid,
         longDescriptionFormat: req.query.longDescriptionFormat,
+        includeLongDescriptionHtml: boolQuery(req.query.includeLongDescriptionHtml, {
+          defaultValue: false,
+        }),
         useDateHoursMinutesFormat: req.query.useDateHoursMinutesFormat,
         includeLabels: req.query.includeLabels,
         monolingual: req.query.monolingual,

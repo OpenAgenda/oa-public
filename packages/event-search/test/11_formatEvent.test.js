@@ -159,6 +159,28 @@ describe('11 - event-search - unit: formatEvent', () => {
       expect(formatted.someAdditionalValue).toBe('oa@oa.com');
     });
 
+    it('longDescriptionHtml is unset when the event has no longDescription', () => {
+      expect(formatted.longDescriptionHtml).toBeUndefined();
+    });
+
+    it('longDescriptionHtml pre-computes the HTML per language', () => {
+      const withLongDescription = produce(event, (draft) => {
+        draft.longDescription = {
+          fr: '**gras**',
+          en: 'a [link](https://example.com)',
+        };
+      });
+
+      const result = formatEvent(withLongDescription, { formSchema });
+
+      expect(result.longDescriptionHtml.fr).toContain('<strong>gras</strong>');
+      expect(result.longDescriptionHtml.en).toContain(
+        '<a href="https://example.com">link</a>',
+      );
+      // markdown is left untouched alongside the HTML
+      expect(result.longDescription.fr).toBe('**gras**');
+    });
+
     it('originAgenda._agg is a string with info on agenda', () => {
       expect(formatted.originAgenda._agg).toEqual(
         'eyJ1aWQiOjEyMzQ1NiwidGl0bGUiOiJMJ2FnZW5kYSBkJ29yaWdpbmUgamUgY3JvaXMiLCJpbWFnZSI6Imh0dHBzOi8vZmRxZmRxLmpwZyJ9',

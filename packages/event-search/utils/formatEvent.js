@@ -1,4 +1,5 @@
 import moment from 'moment-timezone';
+import { fromMarkdownToHTML } from '@openagenda/md';
 import dateRangeInLocale from '@openagenda/date-range';
 import addRegistrationType from '@openagenda/utils/registration/addType.js';
 import { produce } from 'immer';
@@ -18,6 +19,23 @@ const multilingualFieldHasValue = (v) => {
     return false;
   }
   return Object.keys(v).filter((k) => (v[k] ?? '').length);
+};
+
+// Pre-computes the HTML variant of a markdown longDescription so the API does not
+// have to convert markdown→HTML on every request (see
+// docs/design/lag-loop-stocker-html-dans-index.md). Must replay the EXACT same
+// conversion the read path uses in cibul-node's convertLongDescription.js, i.e.
+// fromMarkdownToHTML(md) with default options (sanitize: true, no selfDomain) — any
+// divergence would change the rendered/sanitized output between index and read time.
+const toLongDescriptionHtml = (longDescription) => {
+  if (typeof longDescription === 'string') {
+    return fromMarkdownToHTML(longDescription);
+  }
+  return Object.keys(longDescription).reduce(
+    (html, lang) =>
+      Object.assign(html, { [lang]: fromMarkdownToHTML(longDescription[lang]) }),
+    {},
+  );
 };
 
 const dateRange = (timings = [], timezone = 'Europe/Paris', languages = []) =>
@@ -160,6 +178,10 @@ export default (data, options = {}) => {
       event._search_description_filtered = cleanTextForSearch(data.description);
     } else {
       event._search_empty_fields.push('description');
+    }
+
+    if (event.longDescription) {
+      event.longDescriptionHtml = toLongDescriptionHtml(event.longDescription);
     }
 
     event._search_keywords = [];

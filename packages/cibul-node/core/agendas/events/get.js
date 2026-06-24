@@ -24,6 +24,7 @@ export default async (core, agendaUid, eventUid, options = {}) => {
     useDateHoursMinutesFormat,
     useLocationObjectFormat,
     longDescriptionFormat,
+    includeLongDescriptionHtml,
     includeEmbedScripts,
     cspNonce,
     private: loadPrivate,
@@ -36,6 +37,7 @@ export default async (core, agendaUid, eventUid, options = {}) => {
     useDateHoursMinutesFormat: false,
     useLocationObjectFormat: false,
     longDescriptionFormat: null,
+    includeLongDescriptionHtml: false,
     includeEmbedScripts: true,
     cspNonce: null,
     private: false,
@@ -43,6 +45,10 @@ export default async (core, agendaUid, eventUid, options = {}) => {
   };
 
   const load = eventLoadOptions.get(options);
+
+  // Additive longDescriptionHtml is re-attached after the schema merge below,
+  // which only keeps schema-defined fields.
+  let longDescriptionHtmlValue;
 
   const agenda = await getAgenda(services, agendaUid, { detailed: true });
   stopwatch('agenda');
@@ -81,12 +87,22 @@ export default async (core, agendaUid, eventUid, options = {}) => {
         longDescriptionFormat,
       )
     ) {
-      event.longDescription = convertLongDescription.default(event, {
+      const converted = convertLongDescription.default(event, {
         services,
         conversion: longDescriptionFormat,
         includeEmbedScripts,
         cspNonce,
       });
+
+      if (includeLongDescriptionHtml) {
+        // Additive: keep the markdown in longDescription, expose the HTML
+        // variant separately (markdown + HTML in a single call). Drafts loaded
+        // here are not indexed, so the HTML is converted on the fly. Stashed and
+        // re-attached after the schema merge, which drops non-schema fields.
+        longDescriptionHtmlValue = converted;
+      } else {
+        event.longDescription = converted;
+      }
     }
 
     log('event fetched');
@@ -144,6 +160,10 @@ export default async (core, agendaUid, eventUid, options = {}) => {
     load,
     times: stopwatch.getTimes(),
   });
+
+  if (longDescriptionHtmlValue !== undefined && result.event) {
+    result.event.longDescriptionHtml = longDescriptionHtmlValue;
+  }
 
   return returnPayload ? result : result.event;
 };
