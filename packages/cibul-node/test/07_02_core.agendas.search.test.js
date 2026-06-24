@@ -179,7 +179,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
           .json();
       });
 
-      it('agendas, total, success and after keys are provided in response', async () => {
+      it('agendas, total, totalRelation, success and after keys are provided in response', async () => {
         expect(Object.keys(response)).toEqual([
           'after',
           'agendas',
