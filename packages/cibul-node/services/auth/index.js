@@ -145,6 +145,17 @@ export async function init(config, services) {
     });
 
     if (!oaUser) {
+      // Signup-funnel signal, NOT a sign-in failure: there is no account to sign
+      // into, but it's benign — the inbox owner gets an invite, not an error.
+      // Emitted at `info` (distinct event, not `auth.signin.failure`) so it stays
+      // OUT of the failure-rate dashboards while still being countable. Internal
+      // log only; the HTTP response is identical to the existing-account branch,
+      // so anti-enumeration is preserved (same rationale as the barred
+      // `account_unavailable` log on /sign-in/email).
+      log('info', 'auth.signin.no_account', {
+        event: 'auth.signin.no_account',
+        method: 'magic_link',
+      });
       // Unknown email → token-less CTA to the standard signup form. Harmless to
       // a third party (only the inbox owner sees it); useful to the legitimate
       // owner who expected a link.
@@ -161,8 +172,18 @@ export async function init(config, services) {
     }
 
     // Primary gate (the authoritative one is the BA after-hook on
-    // /magic-link/verify): never send a link to a banned account.
-    if (oaUser.isBlacklisted || oaUser.isRemoved) return;
+    // /magic-link/verify): never send a link to a banned account. A barred
+    // account never gets a link, so the verify-time `account_unavailable` log
+    // can't fire for it — this is the only place the attempt is observable.
+    if (oaUser.isBlacklisted || oaUser.isRemoved) {
+      log('warn', 'auth.signin.failure', {
+        event: 'auth.signin.failure',
+        method: 'magic_link',
+        reason: 'account_unavailable',
+        user_uid: oaUser.uid,
+      });
+      return;
+    }
 
     // callbackURL is the one the UI passed to /sign-in/magic-link (BA echoes it
     // into `url`); we route it through the confirm-page fragment unchanged.

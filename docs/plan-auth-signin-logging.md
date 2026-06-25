@@ -143,9 +143,21 @@ log.warn('auth.signin.failure', {
   method:   <même domaine que ci-dessus>,
   provider: <si applicable>,
   reason:   'invalid_credentials' | 'email_not_verified' | 'account_unavailable'
-          | 'unknown_email' | 'rate_limited' | 'oauth_callback_error'
+          | 'rate_limited' | 'oauth_callback_error'
           | 'magic_link_invalid' | 'token_exchange_denied',
   user_uid: number | undefined,   // si l'utilisateur a pu être résolu
+});
+
+// magic-link sur compte inexistant — PAS un échec (entrée de funnel signup :
+// l'inbox reçoit un email d'inscription, pas une erreur). Event distinct, en
+// `info`, pour rester HORS du taux d'échec tout en étant comptable. Émis au
+// SEND (`deliverMagicLink`, cibul-node services/auth) car c'est le seul endroit
+// qui connaît l'existence du compte (`disableSignUp:true` → l'inconnu n'a jamais
+// de token à vérifier). Distinct du `magic_link_invalid` (lien mauvais/expiré,
+// lui au verify). Log interne uniquement → anti-énumération préservée.
+log.info('auth.signin.no_account', {
+  event:  'auth.signin.no_account',
+  method: 'magic_link',
 });
 ```
 
