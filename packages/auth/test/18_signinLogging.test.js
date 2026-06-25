@@ -271,7 +271,7 @@ describe('auth.signin.failure emission', () => {
     );
   });
 
-  it('logs no_account on /sign-in/email when the email was unknown', async () => {
+  it('emits auth.signin.no_account (not a failure) on /sign-in/email when the email was unknown', async () => {
     const logger = spyLogger();
     await afterHookOf()({
       path: '/sign-in/email',
@@ -285,9 +285,15 @@ describe('auth.signin.failure emission', () => {
         logger,
       },
     });
-    expect(logger.warn).toHaveBeenCalledWith(
-      'auth.signin.failure',
-      expect.objectContaining({ method: 'password', reason: 'no_account' }),
+    // Unknown email is not a failed sign-in → distinct info event, out of the
+    // failure rate (same model as the magic-link send branch).
+    expect(logger.warn).not.toHaveBeenCalled();
+    expect(logger.info).toHaveBeenCalledWith(
+      'auth.signin.no_account',
+      expect.objectContaining({
+        event: 'auth.signin.no_account',
+        method: 'password',
+      }),
     );
   });
 

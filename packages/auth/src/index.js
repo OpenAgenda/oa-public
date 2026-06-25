@@ -164,6 +164,22 @@ function logSigninFailure(ctx, { method, provider, reason, fallback, user }) {
   }
 }
 
+// `auth.signin.no_account`: a sign-in attempt against an email with no account.
+// NOT a failure — there is nothing to authenticate, the user is routed to
+// signup. Kept out of the failure rate (which should mean real users failing to
+// get in), at info level. Mirrors the magic-link send-side equivalent in
+// cibul-node so unknown-email is the same event across every method.
+function logSigninNoAccount(ctx, { method }) {
+  try {
+    ctx.context.logger?.info?.('auth.signin.no_account', {
+      event: 'auth.signin.no_account',
+      method,
+    });
+  } catch (err) {
+    ctx.context.logger?.error?.('auth.signin.no_account log failed', { err });
+  }
+}
+
 export default function Auth(options = {}) {
   const {
     mysqlPool,
@@ -844,14 +860,16 @@ export default function Auth(options = {}) {
             // after-hooks still run with ctx.context.returned = the APIError.
             // An unknown email and a wrong password both surface as
             // INVALID_EMAIL_OR_PASSWORD (anti-enumeration) — split them via the
-            // existence flag stashed by the before-hook. `no_account` only when
-            // the lookup found nothing; otherwise the code maps to
-            // invalid_credentials / email_not_verified as before.
+            // existence flag stashed by the before-hook. An unknown email is not
+            // a failed sign-in (no account to authenticate) → the benign
+            // `no_account` event, OUT of the failure rate; a wrong password (the
+            // account exists) stays a real failure.
+            if (ctx.context.oaSigninEmailKnown === false) {
+              logSigninNoAccount(ctx, { method: 'password' });
+              return;
+            }
             logSigninFailure(ctx, {
               method: 'password',
-              ...ctx.context.oaSigninEmailKnown === false
-                ? { reason: 'no_account' }
-                : {},
               fallback: 'invalid_credentials',
             });
             return;

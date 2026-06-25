@@ -143,27 +143,29 @@ log.warn('auth.signin.failure', {
   method:   <même domaine que ci-dessus>,
   provider: <si applicable>,
   reason:   'invalid_credentials' | 'email_not_verified' | 'account_unavailable'
-          | 'no_account' | 'rate_limited' | 'oauth_callback_error'
+          | 'rate_limited' | 'oauth_callback_error'
           | 'magic_link_invalid' | 'token_exchange_denied',
-          // `no_account` (password) : email inconnu sur /sign-in/email, distinct
-          // d'un mauvais mot de passe (`invalid_credentials`, compte existant).
-          // Reste un échec (compte dans le taux d'échec, contrairement au
-          // `auth.signin.no_account` magic-link). Distinction via le flag
-          // d'existence stashé par le before-hook (lookup barré → 0 requête
-          // ajoutée) ; réponse HTTP inchangée (anti-énumération).
   user_uid: number | undefined,   // si l'utilisateur a pu être résolu
 });
 
-// magic-link sur compte inexistant — PAS un échec (entrée de funnel signup :
-// l'inbox reçoit un email d'inscription, pas une erreur). Event distinct, en
-// `info`, pour rester HORS du taux d'échec tout en étant comptable. Émis au
-// SEND (`deliverMagicLink`, cibul-node services/auth) car c'est le seul endroit
-// qui connaît l'existence du compte (`disableSignUp:true` → l'inconnu n'a jamais
-// de token à vérifier). Distinct du `magic_link_invalid` (lien mauvais/expiré,
-// lui au verify). Log interne uniquement → anti-énumération préservée.
+// Compte inexistant — TROISIÈME issue d'une tentative, ni succès ni échec :
+// il n'y a rien à authentifier, l'utilisateur est routé vers l'inscription.
+// Donc un EVENT distinct (pas un `reason` de failure), en `info`, HORS du taux
+// d'échec — qui doit mesurer « de vrais users qui n'arrivent pas à entrer ».
+// Même event pour TOUTES les méthodes (cohérence : email inconnu = email
+// inconnu, quel que soit le chemin) :
+//   - magic_link : émis au SEND (`deliverMagicLink`, cibul-node) — seul endroit
+//     qui connaît l'existence (`disableSignUp:true` → pas de token à vérifier) ;
+//     l'inbox reçoit un mail d'inscription.
+//   - password : émis à l'échec `/sign-in/email` quand le flag d'existence
+//     stashé par le before-hook (lookup barré, 0 requête ajoutée) dit « inconnu ».
+//     Distinct du mauvais mot de passe (compte existant → `invalid_credentials`).
+// Signal sécu (ex. spray password sur emails inconnus) toujours requêtable :
+//   where(message=auth.signin.no_account AND meta.method=password).
+// Log interne uniquement, réponse HTTP inchangée → anti-énumération préservée.
 log.info('auth.signin.no_account', {
   event:  'auth.signin.no_account',
-  method: 'magic_link',
+  method: 'password' | 'magic_link',
 });
 ```
 
@@ -286,8 +288,9 @@ les `after` hooks ? Si oui, logger `rate_limited` au niveau du rate-limiter.
   délibérément les deux en `INVALID_EMAIL_OR_PASSWORD` au niveau RÉPONSE (anti-énumération,
   `dist/api/routes/sign-in.mjs:209/215/221/228`). Séparés côté LOG sans requête supplémentaire :
   le before-hook (garde barré) fait déjà `findUserByEmail` → on stashe `oaSigninEmailKnown` sur
-  `ctx.context`, et l'after-hook d'échec émet `reason:'no_account'` si l'email était inconnu, sinon
-  `invalid_credentials`. La réponse HTTP reste identique (anti-énumération préservée).
+  `ctx.context`, et l'after-hook d'échec émet l'event `auth.signin.no_account` si l'email était
+  inconnu (issue distincte, hors taux d'échec), sinon `auth.signin.failure{invalid_credentials}`.
+  La réponse HTTP reste identique (anti-énumération préservée).
 - **Throws maison OA sans `code`** : les rejets isRemoved/isBlacklisted (`src/index.js:588`) font
   `new APIError('UNAUTHORIZED', { message })` sans `code` → `body.code` undefined. → leur ajouter
   un `code` `ACCOUNT_UNAVAILABLE` (tâche 10).
