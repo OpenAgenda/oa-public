@@ -271,6 +271,76 @@ describe('auth.signin.failure emission', () => {
     );
   });
 
+  it('logs no_account on /sign-in/email when the email was unknown', async () => {
+    const logger = spyLogger();
+    await afterHookOf()({
+      path: '/sign-in/email',
+      body: {},
+      context: {
+        newSession: undefined,
+        // Same response code as a wrong password (anti-enumeration); the
+        // before-hook stash is what disambiguates.
+        returned: { body: { code: 'INVALID_EMAIL_OR_PASSWORD' } },
+        oaSigninEmailKnown: false,
+        logger,
+      },
+    });
+    expect(logger.warn).toHaveBeenCalledWith(
+      'auth.signin.failure',
+      expect.objectContaining({ method: 'password', reason: 'no_account' }),
+    );
+  });
+
+  it('keeps invalid_credentials on /sign-in/email when the email was known', async () => {
+    const logger = spyLogger();
+    await afterHookOf()({
+      path: '/sign-in/email',
+      body: {},
+      context: {
+        newSession: undefined,
+        returned: { body: { code: 'INVALID_EMAIL_OR_PASSWORD' } },
+        oaSigninEmailKnown: true,
+        logger,
+      },
+    });
+    expect(logger.warn).toHaveBeenCalledWith(
+      'auth.signin.failure',
+      expect.objectContaining({
+        method: 'password',
+        reason: 'invalid_credentials',
+      }),
+    );
+  });
+
+  it('stashes oaSigninEmailKnown in the /sign-in/email before-hook', async () => {
+    const beforeHook = beforeHookOf();
+    const unknownCtx = {
+      path: '/sign-in/email',
+      body: { email: 'ghost@oa.test' },
+      context: {
+        internalAdapter: { findUserByEmail: async () => null },
+        logger: spyLogger(),
+      },
+    };
+    await beforeHook(unknownCtx);
+    expect(unknownCtx.context.oaSigninEmailKnown).toBe(false);
+
+    const knownCtx = {
+      path: '/sign-in/email',
+      body: { email: 'real@oa.test' },
+      context: {
+        internalAdapter: {
+          findUserByEmail: async () => ({
+            user: { id: 7, uid: 77, isRemoved: false, isBlacklisted: false },
+          }),
+        },
+        logger: spyLogger(),
+      },
+    };
+    await beforeHook(knownCtx);
+    expect(knownCtx.context.oaSigninEmailKnown).toBe(true);
+  });
+
   it('logs account_unavailable for a barred user in the /sign-in/email before-hook', async () => {
     const logger = spyLogger();
     const beforeHook = beforeHookOf();

@@ -714,6 +714,10 @@ export default function Auth(options = {}) {
           if (typeof email !== 'string') return;
           const found = await ctx.context.internalAdapter.findUserByEmail(email);
           const user = found?.user;
+          // Stash existence for the failure after-hook so it can split a wrong
+          // password (account exists) from an unknown email — no second query,
+          // this barred-guard lookup already resolved it.
+          ctx.context.oaSigninEmailKnown = !!user;
           if (user && isUserBarred(user)) {
             // Log the true reason internally (account_unavailable) while the HTTP
             // response stays INVALID_EMAIL_OR_PASSWORD. A before-hook throw skips
@@ -838,8 +842,16 @@ export default function Auth(options = {}) {
           if (!newSession) {
             // Endpoint threw (wrong password, unverified email, rate-limited):
             // after-hooks still run with ctx.context.returned = the APIError.
+            // An unknown email and a wrong password both surface as
+            // INVALID_EMAIL_OR_PASSWORD (anti-enumeration) — split them via the
+            // existence flag stashed by the before-hook. `no_account` only when
+            // the lookup found nothing; otherwise the code maps to
+            // invalid_credentials / email_not_verified as before.
             logSigninFailure(ctx, {
               method: 'password',
+              ...ctx.context.oaSigninEmailKnown === false
+                ? { reason: 'no_account' }
+                : {},
               fallback: 'invalid_credentials',
             });
             return;

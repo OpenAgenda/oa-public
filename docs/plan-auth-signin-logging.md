@@ -143,8 +143,14 @@ log.warn('auth.signin.failure', {
   method:   <même domaine que ci-dessus>,
   provider: <si applicable>,
   reason:   'invalid_credentials' | 'email_not_verified' | 'account_unavailable'
-          | 'rate_limited' | 'oauth_callback_error'
+          | 'no_account' | 'rate_limited' | 'oauth_callback_error'
           | 'magic_link_invalid' | 'token_exchange_denied',
+          // `no_account` (password) : email inconnu sur /sign-in/email, distinct
+          // d'un mauvais mot de passe (`invalid_credentials`, compte existant).
+          // Reste un échec (compte dans le taux d'échec, contrairement au
+          // `auth.signin.no_account` magic-link). Distinction via le flag
+          // d'existence stashé par le before-hook (lookup barré → 0 requête
+          // ajoutée) ; réponse HTTP inchangée (anti-énumération).
   user_uid: number | undefined,   // si l'utilisateur a pu être résolu
 });
 
@@ -276,10 +282,12 @@ les `after` hooks ? Si oui, logger `rate_limited` au niveau du rate-limiter.
 
 ### 5.bis Caveats issus de la recherche (intégrés au schéma)
 
-- **`unknown_email` non séparable du mauvais mot de passe** sur `/sign-in/email` : better-auth
-  collapse délibérément les deux en `INVALID_EMAIL_OR_PASSWORD` (anti-énumération,
-  `dist/api/routes/sign-in.mjs:209/215/221/228`). → mapper les deux vers `invalid_credentials` ;
-  réserver `unknown_email` au seul callback OAuth (`USER_EMAIL_NOT_FOUND`) si utile, sinon le retirer.
+- **Email inconnu vs mauvais mot de passe** sur `/sign-in/email` : better-auth collapse
+  délibérément les deux en `INVALID_EMAIL_OR_PASSWORD` au niveau RÉPONSE (anti-énumération,
+  `dist/api/routes/sign-in.mjs:209/215/221/228`). Séparés côté LOG sans requête supplémentaire :
+  le before-hook (garde barré) fait déjà `findUserByEmail` → on stashe `oaSigninEmailKnown` sur
+  `ctx.context`, et l'after-hook d'échec émet `reason:'no_account'` si l'email était inconnu, sinon
+  `invalid_credentials`. La réponse HTTP reste identique (anti-énumération préservée).
 - **Throws maison OA sans `code`** : les rejets isRemoved/isBlacklisted (`src/index.js:588`) font
   `new APIError('UNAUTHORIZED', { message })` sans `code` → `body.code` undefined. → leur ajouter
   un `code` `ACCOUNT_UNAVAILABLE` (tâche 10).
