@@ -1,6 +1,30 @@
 import validateQuery from '../utils/validateQuery.js';
 import getDSLQueryPart from '../utils/getDSLQueryPart.js';
 
+// Soft-delete exclusion now lives in filter context (cacheable, unscored): it is
+// appended as the last `filter` clause instead of a scored top-level `should`.
+const removedFilter = {
+  bool: {
+    should: [
+      {
+        bool: {
+          must_not: {
+            exists: {
+              field: 'removed',
+            },
+          },
+        },
+      },
+      {
+        term: {
+          removed: false,
+        },
+      },
+    ],
+    minimum_should_match: 1,
+  },
+};
+
 describe('event-search - unit: utils - getDSLQueryPart', () => {
   it('filtering by uid only', () => {
     expect(getDSLQueryPart(validateQuery({ uid: 123 }))).toEqual({
@@ -12,23 +36,7 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
           {
             terms: { state: [2] },
           },
-        ],
-        minimum_should_match: 1,
-        should: [
-          {
-            bool: {
-              must_not: {
-                exists: {
-                  field: 'removed',
-                },
-              },
-            },
-          },
-          {
-            term: {
-              removed: false,
-            },
-          },
+          removedFilter,
         ],
       },
     });
@@ -48,23 +56,7 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
               state: [2],
             },
           },
-        ],
-        minimum_should_match: 1,
-        should: [
-          {
-            bool: {
-              must_not: {
-                exists: {
-                  field: 'removed',
-                },
-              },
-            },
-          },
-          {
-            term: {
-              removed: false,
-            },
-          },
+          removedFilter,
         ],
       },
     });
@@ -81,8 +73,8 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
               state: [2],
             },
           },
+          removedFilter,
         ],
-        minimum_should_match: 1,
         must_not: {
           bool: {
             filter: [
@@ -103,22 +95,6 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
             ],
           },
         },
-        should: [
-          {
-            bool: {
-              must_not: {
-                exists: {
-                  field: 'removed',
-                },
-              },
-            },
-          },
-          {
-            term: {
-              removed: false,
-            },
-          },
-        ],
       },
     });
   });
@@ -139,23 +115,7 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
               state: [2],
             },
           },
-        ],
-        minimum_should_match: 1,
-        should: [
-          {
-            bool: {
-              must_not: {
-                exists: {
-                  field: 'removed',
-                },
-              },
-            },
-          },
-          {
-            term: {
-              removed: false,
-            },
-          },
+          removedFilter,
         ],
       },
     });
@@ -172,8 +132,8 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
               state: [2],
             },
           },
+          removedFilter,
         ],
-        minimum_should_match: 1,
         must_not: {
           bool: {
             filter: [
@@ -185,22 +145,6 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
             ],
           },
         },
-        should: [
-          {
-            bool: {
-              must_not: {
-                exists: {
-                  field: 'removed',
-                },
-              },
-            },
-          },
-          {
-            term: {
-              removed: false,
-            },
-          },
-        ],
       },
     });
   });
@@ -214,7 +158,7 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
       }),
     );
 
-    expect(DSL.bool.filter.find((f) => f.term['originAgenda.uid'])).toEqual({
+    expect(DSL.bool.filter.find((f) => f.term?.['originAgenda.uid'])).toEqual({
       term: {
         'originAgenda.uid': 123,
       },
@@ -242,23 +186,7 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
           {
             terms: { state: [2] },
           },
-        ],
-        minimum_should_match: 1,
-        should: [
-          {
-            bool: {
-              must_not: {
-                exists: {
-                  field: 'removed',
-                },
-              },
-            },
-          },
-          {
-            term: {
-              removed: false,
-            },
-          },
+          removedFilter,
         ],
       },
     });
@@ -321,8 +249,8 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
               state: [2],
             },
           },
+          removedFilter,
         ],
-        minimum_should_match: 1,
         must_not: {
           bool: {
             filter: [
@@ -334,22 +262,6 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
             ],
           },
         },
-        should: [
-          {
-            bool: {
-              must_not: {
-                exists: {
-                  field: 'removed',
-                },
-              },
-            },
-          },
-          {
-            term: {
-              removed: false,
-            },
-          },
-        ],
       },
     });
   });

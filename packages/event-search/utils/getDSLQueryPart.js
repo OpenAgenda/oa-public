@@ -662,11 +662,22 @@ function _getQueryMustNotFilterParts(cleanQuery) {
   return parts;
 }
 
-function shouldParts() {
-  return [
-    { bool: { must_not: { exists: { field: 'removed' } } } },
-    { term: { removed: false } },
-  ];
+// Soft-delete exclusion. A pure boolean predicate that carries no relevance
+// signal, so it belongs in filter context: ES caches it as a per-segment bitset
+// and reuses it across every search, instead of (re)scoring it on each request.
+// The `must_not exists` arm covers legacy docs indexed before `removed`
+// defaulted to false; `minimum_should_match` stays local to this sub-bool so it
+// no longer leaks onto the top-level bool.
+function removedFilterPart() {
+  return {
+    bool: {
+      should: [
+        { bool: { must_not: { exists: { field: 'removed' } } } },
+        { term: { removed: false } },
+      ],
+      minimum_should_match: 1,
+    },
+  };
 }
 
 export default function getDSLQueryPart(cleanQuery, options = {}) {
@@ -685,6 +696,10 @@ export default function getDSLQueryPart(cleanQuery, options = {}) {
     removed,
   });
 
+  if (removed === false) {
+    filterParts.push(removedFilterPart());
+  }
+
   const mustNotFilterParts = _getQueryMustNotFilterParts(cleanQuery);
 
   if (mustParts.length === 1 && !filterParts.length) {
@@ -699,11 +714,6 @@ export default function getDSLQueryPart(cleanQuery, options = {}) {
 
   if (mustNotFilterParts.length) {
     _.set(query, 'bool.must_not.bool.filter', mustNotFilterParts);
-  }
-
-  if (removed === false) {
-    _.set(query, 'bool.should', shouldParts());
-    _.set(query, 'bool.minimum_should_match', 1);
   }
 
   return query;
