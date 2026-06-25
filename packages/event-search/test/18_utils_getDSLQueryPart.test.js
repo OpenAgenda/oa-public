@@ -1,27 +1,13 @@
 import validateQuery from '../utils/validateQuery.js';
 import getDSLQueryPart from '../utils/getDSLQueryPart.js';
 
-// Soft-delete exclusion now lives in filter context (cacheable, unscored): it is
-// appended as the last `filter` clause instead of a scored top-level `should`.
+// Soft-delete exclusion now lives in filter context (cacheable, unscored): a
+// plain term appended as the last `filter` clause, instead of a scored
+// top-level `should`. The index is normalised (every doc has `removed`), so no
+// `exists` fallback is needed.
 const removedFilter = {
-  bool: {
-    should: [
-      {
-        bool: {
-          must_not: {
-            exists: {
-              field: 'removed',
-            },
-          },
-        },
-      },
-      {
-        term: {
-          removed: false,
-        },
-      },
-    ],
-    minimum_should_match: 1,
+  term: {
+    removed: false,
   },
 };
 

@@ -662,24 +662,6 @@ function _getQueryMustNotFilterParts(cleanQuery) {
   return parts;
 }
 
-// Soft-delete exclusion. A pure boolean predicate that carries no relevance
-// signal, so it belongs in filter context: ES caches it as a per-segment bitset
-// and reuses it across every search, instead of (re)scoring it on each request.
-// The `must_not exists` arm covers legacy docs indexed before `removed`
-// defaulted to false; `minimum_should_match` stays local to this sub-bool so it
-// no longer leaks onto the top-level bool.
-function removedFilterPart() {
-  return {
-    bool: {
-      should: [
-        { bool: { must_not: { exists: { field: 'removed' } } } },
-        { term: { removed: false } },
-      ],
-      minimum_should_match: 1,
-    },
-  };
-}
-
 export default function getDSLQueryPart(cleanQuery, options = {}) {
   const { formSchema, emptyValue, removed = false, access } = options;
 
@@ -696,8 +678,14 @@ export default function getDSLQueryPart(cleanQuery, options = {}) {
     removed,
   });
 
+  // Soft-delete exclusion. A pure boolean predicate carrying no relevance
+  // signal, so it lives in filter context where ES caches it as a per-segment
+  // bitset and reuses it across every search instead of scoring it per request.
+  // A plain term suffices: every doc is indexed through formatEvent, which
+  // always sets `removed` (false by default), and the index has been fully
+  // rebuilt since — so no legacy doc is missing the field.
   if (removed === false) {
-    filterParts.push(removedFilterPart());
+    filterParts.push({ term: { removed: false } });
   }
 
   const mustNotFilterParts = _getQueryMustNotFilterParts(cleanQuery);
