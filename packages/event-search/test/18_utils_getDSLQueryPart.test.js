@@ -251,4 +251,73 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
       },
     });
   });
+
+  describe('relative time filters use the injected `now`', () => {
+    // search.js injects a minute-floored timestamp so identical requests share
+    // an ES cache entry. When no `now` is injected we fall back to the ES `now`
+    // token (covered by the cases above); here we assert the injected value is
+    // threaded verbatim into every relative branch.
+    const now = '2026-06-25T08:59:00.000Z';
+
+    it('upcoming -> _search_first_timing gt now', () => {
+      const DSL = getDSLQueryPart(validateQuery({ relative: ['upcoming'] }), {
+        now,
+      });
+      expect(DSL.bool.filter).toContainEqual({
+        range: { _search_first_timing: { gt: now } },
+      });
+    });
+
+    it('passed -> _search_last_timing lt now', () => {
+      const DSL = getDSLQueryPart(validateQuery({ relative: ['passed'] }), {
+        now,
+      });
+      expect(DSL.bool.filter).toContainEqual({
+        range: { _search_last_timing: { lt: now } },
+      });
+    });
+
+    it('current -> last gt now and first lt now', () => {
+      const DSL = getDSLQueryPart(validateQuery({ relative: ['current'] }), {
+        now,
+      });
+      expect(DSL.bool.filter).toContainEqual({
+        range: { _search_last_timing: { gt: now } },
+      });
+      expect(DSL.bool.filter).toContainEqual({
+        range: { _search_first_timing: { lt: now } },
+      });
+    });
+
+    it('upcoming + current -> nested timings.end gte now', () => {
+      const DSL = getDSLQueryPart(
+        validateQuery({ relative: ['upcoming', 'current'] }),
+        { now },
+      );
+      expect(DSL.bool.filter).toContainEqual({
+        nested: {
+          path: 'timings',
+          query: { range: { 'timings.end': { gte: now } } },
+        },
+      });
+    });
+
+    it('passed + upcoming -> must_not range bounds use now', () => {
+      const DSL = getDSLQueryPart(
+        validateQuery({ relative: ['passed', 'upcoming'] }),
+        { now },
+      );
+      expect(DSL.bool.must_not.bool.filter).toEqual([
+        { range: { _search_first_timing: { lte: now } } },
+        { range: { _search_last_timing: { gte: now } } },
+      ]);
+    });
+
+    it('falls back to the ES `now` token when not injected', () => {
+      const DSL = getDSLQueryPart(validateQuery({ relative: ['upcoming'] }));
+      expect(DSL.bool.filter).toContainEqual({
+        range: { _search_first_timing: { gt: 'now' } },
+      });
+    });
+  });
 });

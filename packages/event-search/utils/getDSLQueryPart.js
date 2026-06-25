@@ -195,26 +195,26 @@ function _extIdFilter(extId, type = 'event') {
   };
 }
 
-function _havingUpcomingAndCurrentTimings() {
+function _havingUpcomingAndCurrentTimings(now) {
   return {
     nested: {
       path: 'timings',
       query: {
         range: {
-          'timings.end': { gte: 'now' },
+          'timings.end': { gte: now },
         },
       },
     },
   };
 }
 
-function _havingPassedTimings() {
+function _havingPassedTimings(now) {
   return {
     nested: {
       path: 'timings',
       query: {
         range: {
-          'timings.end': { lte: 'now' },
+          'timings.end': { lte: now },
         },
       },
     },
@@ -472,7 +472,7 @@ function _addAdditionalFieldsToFilterParts(
 
 function _getQueryFilterParts(
   cleanQuery,
-  { additionalAndSchemaFields, emptyValue, removed = false },
+  { additionalAndSchemaFields, emptyValue, removed = false, now = 'now' },
 ) {
   const parts = [];
   const { relative, addMethod } = cleanQuery;
@@ -514,16 +514,16 @@ function _getQueryFilterParts(
   } else if (relative.includes('passed') && relative.includes('upcoming')) {
     // defined in should, not filter part
   } else if (relative.includes('passed') && relative.includes('current')) {
-    parts.push(_havingPassedTimings());
+    parts.push(_havingPassedTimings(now));
   } else if (relative.includes('passed')) {
-    parts.push(_timestampFilter('_search_last_timing', { lt: 'now' }));
+    parts.push(_timestampFilter('_search_last_timing', { lt: now }));
   } else if (relative.includes('upcoming') && relative.includes('current')) {
-    parts.push(_havingUpcomingAndCurrentTimings());
+    parts.push(_havingUpcomingAndCurrentTimings(now));
   } else if (relative.includes('upcoming')) {
-    parts.push(_timestampFilter('_search_first_timing', { gt: 'now' }));
+    parts.push(_timestampFilter('_search_first_timing', { gt: now }));
   } else if (relative.includes('current')) {
-    parts.push(_timestampFilter('_search_last_timing', { gt: 'now' }));
-    parts.push(_timestampFilter('_search_first_timing', { lt: 'now' }));
+    parts.push(_timestampFilter('_search_last_timing', { gt: now }));
+    parts.push(_timestampFilter('_search_first_timing', { lt: now }));
   }
 
   if (cleanQuery.featured !== null) {
@@ -634,7 +634,7 @@ function _getQueryFilterParts(
   return parts;
 }
 
-function _getQueryMustNotFilterParts(cleanQuery) {
+function _getQueryMustNotFilterParts(cleanQuery, { now = 'now' } = {}) {
   const parts = [];
   const hasPassedAndUpcoming = cleanQuery.relative.filter((r) => ['passed', 'upcoming'].includes(r))
     .length === 2;
@@ -643,12 +643,12 @@ function _getQueryMustNotFilterParts(cleanQuery) {
   if (hasPassedAndUpcoming && !hasCurrent) {
     parts.push({
       range: {
-        _search_first_timing: { lte: 'now' },
+        _search_first_timing: { lte: now },
       },
     });
     parts.push({
       range: {
-        _search_last_timing: { gte: 'now' },
+        _search_last_timing: { gte: now },
       },
     });
   }
@@ -663,7 +663,19 @@ function _getQueryMustNotFilterParts(cleanQuery) {
 }
 
 export default function getDSLQueryPart(cleanQuery, options = {}) {
-  const { formSchema, emptyValue, removed = false, access } = options;
+  // `now` is the reference instant for relative time filters (upcoming/passed/
+  // current). The caller (search.js) injects it floored to the minute so that
+  // every request within the same minute produces an identical DSL — ES then
+  // serves the temporal filter from its query cache instead of recomputing it
+  // on each request (ES date-math `now` is per-request and defeats the cache).
+  // Defaults to the ES `now` token to keep direct callers behaviour-compatible.
+  const {
+    formSchema,
+    emptyValue,
+    removed = false,
+    access,
+    now = 'now',
+  } = options;
 
   const query = {};
   const additionalAndSchemaFields = getFormSchemaAdditionalFields(
@@ -676,6 +688,7 @@ export default function getDSLQueryPart(cleanQuery, options = {}) {
     additionalAndSchemaFields,
     emptyValue,
     removed,
+    now,
   });
 
   // Soft-delete exclusion. A pure boolean predicate carrying no relevance
@@ -688,7 +701,7 @@ export default function getDSLQueryPart(cleanQuery, options = {}) {
     filterParts.push({ term: { removed: false } });
   }
 
-  const mustNotFilterParts = _getQueryMustNotFilterParts(cleanQuery);
+  const mustNotFilterParts = _getQueryMustNotFilterParts(cleanQuery, { now });
 
   if (mustParts.length === 1 && !filterParts.length) {
     _.extend(query, mustParts[0]);

@@ -11,6 +11,9 @@ export default (query = {}, nav = {}, options = {}) => {
     removed = false,
     valid = null,
     access,
+    // Reference instant for relative time filters, injected by search.js floored
+    // to the minute so identical requests share an ES cache entry.
+    now,
     // Callers that already resolved the sort (e.g. search.js, to size the
     // cutoff cursor) pass it in to avoid building the nested-sort DSL twice.
     sort = getDSLSortPart(query),
@@ -24,6 +27,7 @@ export default (query = {}, nav = {}, options = {}) => {
       removed,
       valid,
       access,
+      now,
     }),
     _source: getDSLSourcePart(includes),
   };
