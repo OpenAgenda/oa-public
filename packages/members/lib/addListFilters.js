@@ -4,6 +4,7 @@ import integer from '@openagenda/validators/integer';
 import choice from '@openagenda/validators/choice';
 import text from '@openagenda/validators/text';
 import boolean from '@openagenda/validators/boolean';
+import emailValidator from '@openagenda/validators/email';
 import roles from '../iso/roles.js';
 
 schema.register({
@@ -11,6 +12,7 @@ schema.register({
   choice,
   text,
   boolean,
+  email: emailValidator,
 });
 
 const validate = schema({
@@ -62,6 +64,12 @@ const validate = schema({
     type: 'text',
     max: 255,
   },
+  email: {
+    type: 'email',
+    list: {
+      default: null,
+    },
+  },
 });
 
 function _extractLegacyParts(query) {
@@ -83,6 +91,7 @@ export default (k, query) => {
     userUid,
     role,
     search,
+    email,
     withUser,
     deletedUser,
     withActions,
@@ -90,8 +99,10 @@ export default (k, query) => {
     Object.keys(legacyParts).length ? { ...query, ...legacyParts } : query,
   );
 
-  if (!agendaUid && !userUid && !id) {
-    throw new Error('neither agendaUid or userUid are specified');
+  // `email` is a selective predicate, so it satisfies the scope requirement on
+  // its own — it enables a cross-agenda lookup the other scopes cannot express.
+  if (!agendaUid && !userUid && !id && !(email && email.length)) {
+    throw new Error('neither agendaUid, userUid, id nor email are specified');
   }
 
   if (agendaUid && agendaUid.length === 1) {
@@ -130,6 +141,16 @@ export default (k, query) => {
 
   if (search) {
     k.andWhere('store', 'like', `%${search}%`);
+  }
+
+  // Match the legacy additional-info email at its JSON path (precise field
+  // match, not a substring of the raw store blob). Accepts several addresses.
+  if (email && email.length) {
+    const placeholders = email.map(() => '?').join(', ');
+    k.whereRaw(
+      `LOWER(JSON_UNQUOTE(JSON_EXTRACT(\`store\`, '$.custom_fields.email'))) IN (${placeholders})`,
+      email.map((e) => e.toLowerCase()),
+    );
   }
 
   if (role.length) {

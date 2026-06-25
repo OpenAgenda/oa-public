@@ -9,6 +9,7 @@ import boolQuery from '../lib/boolQuery.js';
 import * as mw from './middleware/index.js';
 import getSettingsEndpoint from './endpoints/settingsGet.js';
 import getSettingsResyncEndpoint from './endpoints/settingsResync.js';
+import supervisorLookup from './endpoints/supervisorLookup.js';
 import apiErrorHandler from './errorHandler.js';
 
 const log = logs('api');
@@ -1310,6 +1311,11 @@ export default (core, { useRouter = true } = {}) => {
           includeSupervisorLink: true,
         })
         .then((result) => res.json(result)),
+  ]);
+
+  app.get('/supervisor/lookup', [
+    allowSuperAdmin({ jsonResponse: true }),
+    supervisorLookup,
   ]);
 
   log('done');
