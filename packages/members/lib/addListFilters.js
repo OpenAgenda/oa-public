@@ -65,7 +65,11 @@ const validate = schema({
     max: 255,
   },
   email: {
-    type: 'email',
+    // A tolerant search predicate, not a write validation: a blank or
+    // malformed value must yield no match rather than throw, because the
+    // supervisor lookup feeds it the (possibly wrong) email a visitor typed
+    // into Crisp. Cleaned below before use.
+    type: 'text',
     list: {
       default: null,
     },
@@ -99,9 +103,15 @@ export default (k, query) => {
     Object.keys(legacyParts).length ? { ...query, ...legacyParts } : query,
   );
 
-  // `email` is a selective predicate, so it satisfies the scope requirement on
-  // its own — it enables a cross-agenda lookup the other scopes cannot express.
-  if (!agendaUid && !userUid && !id && !(email && email.length)) {
+  // Drop blank/whitespace entries (and lowercase) so a stray `?email=` neither
+  // crashes on a null element nor — on its own — authorizes an unscoped scan.
+  const emails = (email ?? [])
+    .map((e) => (e == null ? '' : String(e).trim().toLowerCase()))
+    .filter(Boolean);
+
+  // A non-empty `email` is a selective predicate, so it satisfies the scope
+  // requirement on its own — a cross-agenda lookup the other scopes cannot do.
+  if (!agendaUid && !userUid && !id && !emails.length) {
     throw new Error('neither agendaUid, userUid, id nor email are specified');
   }
 
@@ -145,11 +155,11 @@ export default (k, query) => {
 
   // Match the legacy additional-info email at its JSON path (precise field
   // match, not a substring of the raw store blob). Accepts several addresses.
-  if (email && email.length) {
-    const placeholders = email.map(() => '?').join(', ');
+  if (emails.length) {
+    const placeholders = emails.map(() => '?').join(', ');
     k.whereRaw(
       `LOWER(JSON_UNQUOTE(JSON_EXTRACT(\`store\`, '$.custom_fields.email'))) IN (${placeholders})`,
-      email.map((e) => e.toLowerCase()),
+      emails,
     );
   }
 

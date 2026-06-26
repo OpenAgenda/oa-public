@@ -14,7 +14,37 @@ import { Alert } from '@openagenda/uikit/snippets';
 import { useQuery, useInfiniteQuery } from 'react-query';
 import { useApiClient } from '@openagenda/react-shared';
 import { useHistory, useLocation } from 'react-router-dom';
+import { LuShield, LuEye } from 'react-icons/lu';
 import qs from 'qs';
+
+// The two user surfaces for a resolved account: the legacy superadmin page and
+// the supervisor SPA users page. Each link carries the param its target reads
+// (admin → uid, supervisor → userUid), supplied by the endpoint.
+function UserLinks({ user }) {
+  if (!user) return '—';
+  return (
+    <HStack gap={3}>
+      <Link
+        href={user.adminLink}
+        display="inline-flex"
+        alignItems="center"
+        gap={1}
+        title="Page admin/users"
+      >
+        <LuShield /> admin
+      </Link>
+      <Link
+        href={user.supervisorLink}
+        display="inline-flex"
+        alignItems="center"
+        gap={1}
+        title="Page supervisor/users"
+      >
+        <LuEye /> supervisor
+      </Link>
+    </HStack>
+  );
+}
 
 // One paginated section of matched members (legacy store or schema-form),
 // loaded incrementally by id cursor. `query` is its useInfiniteQuery result.
@@ -23,17 +53,26 @@ function MembersSection({ title, query }) {
     data,
     error,
     isLoading,
+    isFetching,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
   } = query;
   const members = (data?.pages ?? []).flatMap((p) => p.members ?? []);
+  // keepPreviousData keeps the prior search's rows on screen during a refetch;
+  // flag it so the count/table aren't misread as the new query's results.
+  const isRefreshing = isFetching && !isLoading && !isFetchingNextPage;
 
   return (
     <>
       <Heading size="md" mb={3}>
         {title} — {members.length}
         {hasNextPage ? '+' : ''}
+        {isRefreshing ? (
+          <Text as="span" fontSize="sm" color="gray.500" ml={2}>
+            actualisation…
+          </Text>
+        ) : null}
       </Heading>
       {error ? (
         <Alert status="error" mb={4}>
@@ -50,7 +89,7 @@ function MembersSection({ title, query }) {
               <Table.ColumnHeader>Email membre</Table.ColumnHeader>
               <Table.ColumnHeader>Source / correspond à</Table.ColumnHeader>
               <Table.ColumnHeader>Utilisateur</Table.ColumnHeader>
-              <Table.ColumnHeader>Admin</Table.ColumnHeader>
+              <Table.ColumnHeader>Liens</Table.ColumnHeader>
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -85,10 +124,7 @@ function MembersSection({ title, query }) {
                   )}
                 </Table.Cell>
                 <Table.Cell>
-                  {m.user ? (
-                    <Link href={m.user.adminLink}>admin/users</Link>
-                  )
-                    : '—'}
+                  <UserLinks user={m.user} />
                 </Table.Cell>
               </Table.Row>
             ))}
@@ -261,7 +297,7 @@ export default function Lookup() {
                     <Table.ColumnHeader>Nom</Table.ColumnHeader>
                     <Table.ColumnHeader>Email</Table.ColumnHeader>
                     <Table.ColumnHeader>Correspond à</Table.ColumnHeader>
-                    <Table.ColumnHeader>Admin</Table.ColumnHeader>
+                    <Table.ColumnHeader>Liens</Table.ColumnHeader>
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
@@ -277,7 +313,7 @@ export default function Lookup() {
                         {(u.matchedEmails ?? []).join(', ')}
                       </Table.Cell>
                       <Table.Cell>
-                        <Link href={u.adminLink}>admin/users</Link>
+                        <UserLinks user={u} />
                       </Table.Cell>
                     </Table.Row>
                   ))}

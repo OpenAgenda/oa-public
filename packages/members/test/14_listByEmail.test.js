@@ -64,4 +64,20 @@ describe('members - functional - list by email', () => {
 
     expect(found).toEqual([]);
   });
+
+  // The supervisor lookup feeds this filter the (often wrong) email a visitor
+  // typed into Crisp, so a malformed value must yield no match, never throw.
+  test('does not throw on a malformed email, just returns no match', async () => {
+    const found = await svc.list({ email: 'not-an-email' });
+
+    expect(found).toEqual([]);
+  });
+
+  // Blank/whitespace entries used to validate to null and crash on
+  // `null.toLowerCase()`; they must now be dropped, keeping the valid ones.
+  test('drops blank entries instead of crashing on a mixed list', async () => {
+    const found = await svc.list({ email: ['', '  ', 'janine@ponceau.fr'] });
+
+    expect(found.map((m) => m.id)).toEqual([1]);
+  });
 });
