@@ -628,6 +628,54 @@ describe('90 - api-v3 - functional (server): events read endpoints', () => {
     });
   });
 
+  describe('GET /agendas/:agendaUid/events/ext/:extKey/:extId', () => {
+    // Fixture event uid 6 (agenda 1) carries extIds [{ key: 'test', value: '1234' }].
+    it('returns 200 with a bare Event resolved by its external id', async () => {
+      const res = await request(app)
+        .get('/agendas/1/events/ext/test/1234')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(200);
+      // bare Event, like the by-uid get — not wrapped in { data } or { event }
+      expect(res.body.data).toBeUndefined();
+      expect(res.body.success).toBeUndefined();
+      expect(res.body.extIds).toContainEqual({ key: 'test', value: '1234' });
+      assertValid(validateEvent, res.body, 'single Event');
+    });
+
+    it('resolves to the exact same event as the by-uid get', async () => {
+      const byExt = await request(app)
+        .get('/agendas/1/events/ext/test/1234')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      const byUid = await request(app)
+        .get(`/agendas/1/events/${byExt.body.uid}`)
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(byUid.status).toBe(200);
+      expect(byExt.body).toEqual(byUid.body);
+    });
+
+    it('returns a 404 with the { error } shape for an unknown external id', async () => {
+      const res = await request(app)
+        .get('/agendas/1/events/ext/test/does-not-exist')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(404);
+      assertValid(validateError, res.body, 'Error');
+      expect(res.body.error.code).toBe('not_found');
+    });
+
+    it('does not match when the key differs but the value collides', async () => {
+      const res = await request(app)
+        .get('/agendas/1/events/ext/wrong-key/1234')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(404);
+      expect(res.body.error.code).toBe('not_found');
+    });
+  });
+
   describe('GET /agendas/:agendaUid/events/facets', () => {
     const facetsQ = (qs) =>
       request(app)
