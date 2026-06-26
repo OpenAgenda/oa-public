@@ -54,7 +54,11 @@ export default async (core, userIdentifier, eventObj) => {
     draft: isDraft,
   } = await loadEvent(core, eventObj);
 
-  if (isDraft && user.uid === ownerUid) {
+  // ownerUid and user.uid may differ in type (one stored as a string, the
+  // other as a number), so compare as strings — mirrors canDeleteEvent.
+  const isOwner = user.uid != null && String(user.uid) === String(ownerUid);
+
+  if (isDraft && isOwner) {
     log('user %s is owner of event %s, can edit', user.uid, eventUid);
     return true;
   }
@@ -80,7 +84,6 @@ export default async (core, userIdentifier, eventObj) => {
     }
 
     const isContributor = member.role === members.utils.roles.CONTRIBUTOR;
-    const isOwner = user.uid === ownerUid;
 
     if (isContributor && isOwner) {
       log('user is contributor of agenda and owner of event');
