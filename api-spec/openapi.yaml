@@ -812,6 +812,87 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 
+  /agendas/{agendaUid}/locations/ext/{extKey}/{extId}:
+    get:
+      operationId: agendas.locations.getByExtId
+      tags: [Locations]
+      summary: Get a single location by external id
+      x-synonyms:
+        [
+          ext,
+          external id,
+          by ext,
+          sync,
+          source id,
+          lookup,
+          resolve,
+          venue,
+          place,
+        ]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Resolve a location by the id it carries in a sync source
+          source: |
+            const { data, error } = await oa.agendas.locations.getByExtId({
+              path: { agendaUid: 12345, extKey: 'my-system', extId: 'abc-123' },
+            });
+            if (error) throw error;
+            return data;
+      description: >
+        Returns a single location by its external identifier within the given
+        agenda — the `(key, value)` pair an `ExtId` mapping carries on the
+        location (see `extIds` on the `Location` schema). Use this when you sync
+        from your own system and hold its id rather than the OpenAgenda uid.
+        Resolves to the same `Location` as the by-uid get.
+
+
+        A location that was merged into another one answers `404` with the
+        machine-readable code `merged` and the surviving location's uid in
+        `error.details.mergedIn` — use it to repair stale references. Any other
+        deleted or unknown pair is a plain `404` with code `not_found`.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - locations:read
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+        - $ref: '#/components/parameters/ExtKey'
+        - $ref: '#/components/parameters/ExtIdValue'
+      responses:
+        '200':
+          description: The location.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          description: >
+            Agenda or location not found — or location merged into another
+            one (`code: merged`, surviving uid in `details.mergedIn`).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                merged:
+                  summary: Location merged into another one
+                  value:
+                    error:
+                      code: merged
+                      message: location merged into another location
+                      details:
+                        mergedIn: 11111111
+                notFound:
+                  summary: Unknown location
+                  value:
+                    error:
+                      code: not_found
+                      message: location not found
+
   /agendas/{agendaUid}/locations/{locationUid}:
     get:
       operationId: agendas.locations.get
