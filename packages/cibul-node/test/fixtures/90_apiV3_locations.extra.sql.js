@@ -1,7 +1,8 @@
 // Extra location rows for the v3 locations read tests (on top of 014.sql.js):
 // agenda 17026855 (id 218) gains an imported location carrying a JSON ext_ids
-// entry (extId filter), a soft-deleted one (plain 404) and a merged one
-// (404 + `merged` code + `details.mergedIn`).
+// entry (extId filter + by-ext get), a soft-deleted one (plain 404) and a
+// merged one — itself carrying an ext_ids entry so the by-ext get reaches the
+// same `merged` 404 (404 + `merged` code + `details.mergedIn`) as the by-uid get.
 
 export default async (knex) => {
   await knex('location').insert([
@@ -35,6 +36,7 @@ export default async (knex) => {
       store: '{}',
       deleted: 1,
       merged_in: 123,
+      ext_ids: '{"identifiers":["import->loc-99"]}',
       created_at: '2026-01-02 00:00:00',
       updated_at: '2026-01-02 00:00:00',
     },
