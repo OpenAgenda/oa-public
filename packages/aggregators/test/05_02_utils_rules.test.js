@@ -361,6 +361,36 @@ describe('05_02 - utils - rules', () => {
 
       expect(rules(ruleset, null, null, input)).toBeNull();
     });
+
+    test('featured filter matches a featured source event', () => {
+      expect(
+        rules([{ query: { featured: true } }], null, null, { featured: true }),
+      ).toEqual({});
+    });
+
+    test('featured filter does not match a non-featured source event', () => {
+      expect(
+        rules([{ query: { featured: true } }], null, null, { featured: false }),
+      ).toBeNull();
+    });
+
+    test('DRAC reuse: featured source events are featured on the aggregator', () => {
+      const ruleset = [
+        {
+          query: { featured: true },
+          actions: [{ field: 'featured', values: { $set: true } }],
+          required: false,
+        },
+      ];
+
+      // a featured source event gets the featured flag on the aggregator
+      expect(rules(ruleset, null, null, { featured: true })).toEqual({
+        featured: true,
+      });
+
+      // a non-featured source event is left untouched (rule not required)
+      expect(rules(ruleset, null, null, { featured: false })).toEqual({});
+    });
   });
 
   describe('actions', () => {
@@ -604,6 +634,28 @@ describe('05_02 - utils - rules', () => {
       expect(
         rules([{ actions: [{ booleanField: true }] }], null, null, {}),
       ).toEqual({ booleanField: true });
+    });
+
+    test('featured action sets the featured flag (mise en une)', () => {
+      expect(
+        rules(
+          [{ actions: [{ field: 'featured', values: { $set: true } }] }],
+          null,
+          null,
+          {},
+        ),
+      ).toEqual({ featured: true });
+    });
+
+    test('featured action can copy the source featured flag', () => {
+      expect(
+        rules(
+          [{ actions: [{ field: 'featured', values: { $copy: 'featured' } }] }],
+          null,
+          null,
+          { featured: true },
+        ),
+      ).toEqual({ featured: true });
     });
 
     test('action on text Field copy from source additional text field short version', () => {

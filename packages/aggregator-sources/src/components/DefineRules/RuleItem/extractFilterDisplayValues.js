@@ -58,7 +58,7 @@ function getFilterType(rule) {
 
   const key = Object.keys(rule.query)[0];
 
-  return ['location', 'tags', 'text', 'languages', 'timings'].includes(key)
+  return ['location', 'tags', 'text', 'languages', 'timings', 'featured'].includes(key)
     ? key
     : 'choice';
 }
@@ -163,6 +163,18 @@ const languagesFilter = ({ intl, rule }) => {
   };
 };
 
+const featuredFilter = ({ intl, rule }) => {
+  const value = [].concat(rule.query.featured)[0];
+  const booleanValue = value === true || value === 'true';
+
+  return {
+    label: intl.formatMessage(messages.featuredFilter),
+    value: intl.formatMessage(
+      booleanValue ? messages.selected : messages.notSelected,
+    ),
+  };
+};
+
 const timingsFilter = ({ intl, rule }) => {
   const value = rule.query.timings;
 
@@ -192,6 +204,9 @@ export default ({ intl, sourceAgenda, sourceAgendaSchema, rule }) => {
     }
     case 'timings': {
       return timingsFilter({ intl, rule });
+    }
+    case 'featured': {
+      return featuredFilter({ intl, rule });
     }
     default:
       return choiceFilter({

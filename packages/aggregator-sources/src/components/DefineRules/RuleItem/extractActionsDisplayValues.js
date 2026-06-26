@@ -24,6 +24,10 @@ function getType(action, aggregatorAgendaSchema) {
     return 'state';
   }
 
+  if (action.field === 'featured') {
+    return 'featured';
+  }
+
   // Check if the field is a boolean type
   const field = (aggregatorAgendaSchema?.fields || [])
     .filter((f) => f.field === action.field)
@@ -94,6 +98,18 @@ function stateAction({ intl, action }) {
   };
 }
 
+function featuredAction({ intl, action }) {
+  const value = getValues(action).pop();
+  const booleanValue = value === true || value === 'true';
+  const messageId = booleanValue ? 'selected' : 'notSelected';
+
+  return {
+    label: intl.formatMessage(messages.featured),
+    value: intl.formatMessage(messages[messageId]),
+    detail: intl.formatMessage(messages.actionFeaturedDetail),
+  };
+}
+
 function booleanAction({ intl, action, field, aggregatorAgenda }) {
   const value = getValues(action).pop();
   const booleanValue = value === true || value === 'true';
@@ -131,6 +147,13 @@ export default ({
     return {
       ...base,
       ...stateAction({ intl, action }),
+    };
+  }
+
+  if (type === 'featured') {
+    return {
+      ...base,
+      ...featuredAction({ intl, action }),
     };
   }
 

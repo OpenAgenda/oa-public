@@ -204,4 +204,16 @@ export default defineMessages({
     id: 'aggregator-sources.DefineRules.notSelected',
     defaultMessage: 'Not selected',
   },
+  featured: {
+    id: 'aggregator-sources.DefineRules.featured',
+    defaultMessage: 'Featured',
+  },
+  featuredFilter: {
+    id: 'aggregator-sources.DefineRules.featuredFilter',
+    defaultMessage: 'Featured filter',
+  },
+  actionFeaturedDetail: {
+    id: 'aggregator-sources.DefineRules.actionFeaturedDetail',
+    defaultMessage: 'The featured status is applied to the aggregated event',
+  },
 });

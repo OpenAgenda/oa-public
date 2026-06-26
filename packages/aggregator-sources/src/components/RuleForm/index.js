@@ -15,6 +15,7 @@ import Radio from './Radio.js';
 import TagsFormPart from './TagsFormPart.js';
 import LanguagesFormPart from './LanguagesFormPart.js';
 import TimingsFormPart from './TimingsFormPart.js';
+import FeaturedFormPart from './FeaturedFormPart.js';
 
 export default function RuleForm({
   SubmitButton,
@@ -193,6 +194,25 @@ export default function RuleForm({
           {values.type === 'timings' ? (
             <div className="radio-sub-block">
               <TimingsFormPart />
+            </div>
+          ) : null}
+
+          <Field
+            component={Radio}
+            name="type"
+            type="radio"
+            label={intl.formatMessage(messages.featuredFilter)}
+            value="featured"
+            classNameGroup={classNames('radio')}
+            helpBlock={(
+              <div className="radio-sub-block text-muted">
+                {intl.formatMessage(messages.helpFilterFeatured)}
+              </div>
+            )}
+          />
+          {values.type === 'featured' ? (
+            <div className="radio-sub-block">
+              <FeaturedFormPart />
             </div>
           ) : null}
 
