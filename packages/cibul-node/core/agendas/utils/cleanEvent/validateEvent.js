@@ -154,7 +154,40 @@ export default function validateEvent(
   // excluded from schema validation (size is bytes, not {width,height}).
   // The image will be processed later by processImage.
   const rawImage = data?.image?.transformAndUpload ? data.image : null;
-  const dataForValidation = rawImage ? _.omit(data, ['image']) : data;
+  let dataForValidation = rawImage ? _.omit(data, ['image']) : data;
+
+  // Drafts validate partially (`validate.part`), which does not apply schema
+  // defaults. Combined with non-null column defaults in the database (e.g.
+  // `attendance_mode` defaults to 1/offline), a draft gets persisted with the
+  // base column default instead of the agenda's configured default — so an
+  // agenda pinned to "online" yields an "offline" draft that then fails
+  // `location.required` on publish. Seed the schema defaults for fields the
+  // user left untouched (absent from both the submitted data and the stored
+  // draft) so the draft is saved consistently with the agenda configuration.
+  // Values the user actually filled are never overridden. System fields are
+  // already excluded from `consolidatedSchema` (excludeSystemFields), so this
+  // cannot touch control fields like `draft`. Fields with a write restriction
+  // are skipped: seeding one would make it present in the input and trip the
+  // field-level authorization check (`extractUnauthorized`), turning a routine
+  // draft save into a "not authorized to edit this field" failure for any
+  // writer not listed in `field.write`.
+  if (validateAsDraft) {
+    const seededDefaults = consolidatedSchema.fields.reduce((acc, field) => {
+      const isWriteRestricted = (field.write ?? []).length > 0;
+      const isUntouched = data[field.field] === undefined
+        && (!storedData || storedData[field.field] === undefined);
+
+      if (field.default !== undefined && !isWriteRestricted && isUntouched) {
+        acc[field.field] = field.default;
+      }
+
+      return acc;
+    }, {});
+
+    if (!_.isEmpty(seededDefaults)) {
+      dataForValidation = { ...seededDefaults, ...dataForValidation };
+    }
+  }
 
   try {
     const consolidatedClean = validateBySchema(
