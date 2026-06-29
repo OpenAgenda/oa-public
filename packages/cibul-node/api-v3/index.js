@@ -172,32 +172,19 @@ function resolveDetailed(rawDetailed) {
 
 // Resolve a single location by any identifier (`{ uid }`, `{ extId }`, …) and
 // return its full `Location` shape, or throw the 404 the route should answer.
-// Reads with `deleted: null` so a soft-deleted record surfaces as the service's
-// `{ uid, deleted, mergedIn? }` stub instead of a bare miss: a merged location
-// answers 404 with the machine-readable `merged` code and the surviving uid in
-// `details.mergedIn` (sync clients repair their references with it); any other
-// deleted or unknown record is a plain 404.
-async function resolveLocationOr404(core, agenda, identifier) {
-  const location = await locationEndpoints(core, agenda).get(identifier, {
+// Reads the full `Location` for a single-location route. `deleted: null` +
+// `throwOnNotFound: true` let the service own the 404 semantics: a merged
+// location throws a typed 404 (`merged` code + surviving uid in
+// `details.mergedIn`, which the error handler forwards), any other deleted or
+// unknown record a plain 404. The form schema is passed as a thunk so its
+// (uncached) build never runs on a miss — only on the hit, for tag filtering.
+const readLocationOr404 = (core, agenda, identifier) =>
+  locationEndpoints(core, agenda).get(identifier, {
     includeImagePath: true,
     deleted: null,
-    formSchema: await loadLocationFormSchema(core, agenda),
+    throwOnNotFound: true,
+    formSchema: () => loadLocationFormSchema(core, agenda),
   });
-
-  if (!location || location.deleted) {
-    const merged = location?.mergedIn != null;
-    throw new NotFound(
-      {
-        info: merged
-          ? { code: 'merged', details: { mergedIn: location.mergedIn } }
-          : {},
-      },
-      merged ? 'location merged into another location' : 'location not found',
-    );
-  }
-
-  return location;
-}
 
 // The `{ extId }` service identifier built from the `ext/:extKey/:extId` path
 // params, shared by the event and location by-ext routes.
@@ -744,9 +731,10 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
           includeImagePath: true,
           detailed: effectiveDetailed,
           // The full shape carries `additionalFields` (the legacy tags,
-          // filtered against the agenda's merged schema).
+          // filtered against the agenda's merged schema). Passed as a thunk the
+          // service resolves once per page, only when items survive filtering.
           formSchema: effectiveDetailed
-            ? await loadLocationFormSchema(core, req.agenda)
+            ? () => loadLocationFormSchema(core, req.agenda)
             : null,
         };
         // Restrict the SQL columns to the selection. The service force-keeps the
@@ -791,7 +779,7 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
     requireScope('locations:read'),
     async (req, res, next) => {
       try {
-        const location = await resolveLocationOr404(
+        const location = await readLocationOr404(
           core,
           req.agenda,
           extIdFromParams(req),
@@ -806,13 +794,14 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
 
   // GET /agendas/:agendaUid/locations/:locationUid
   // Single location, full `Location` shape. The merged/not-found 404 logic
-  // lives in `resolveLocationOr404` (shared with the by-ext route above).
+  // lives in the service (shared with the by-ext route above via
+  // `readLocationOr404`).
   app.get(
     '/agendas/:agendaUid/locations/:locationUid',
     requireScope('locations:read'),
     async (req, res, next) => {
       try {
-        const location = await resolveLocationOr404(core, req.agenda, {
+        const location = await readLocationOr404(core, req.agenda, {
           uid: req.params.locationUid,
         });
 
