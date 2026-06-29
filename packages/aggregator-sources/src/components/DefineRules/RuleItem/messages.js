@@ -62,6 +62,10 @@ export default defineMessages({
     id: 'aggregator-sources.DefineRules.district',
     defaultMessage: 'District',
   },
+  postalCode: {
+    id: 'aggregator-sources.DefineRules.postalCode',
+    defaultMessage: 'Postal code',
+  },
   name: {
     id: 'aggregator-sources.DefineRules.name',
     defaultMessage: 'Location name',

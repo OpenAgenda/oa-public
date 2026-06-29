@@ -1,8 +1,10 @@
 {
   "aggregator-sources.DefineRules.automatic": "Automatisch",
   "aggregator-sources.DefineRules.notSelected": "Nicht ausgewählt",
+  "aggregator-sources.DefineRules.postalCode": "Postleitzahl",
   "aggregator-sources.DefineRules.selected": "Auswählen",
   "aggregator-sources.DefineRules.toModerate": "Zu moderieren",
   "aggregator-sources.RuleForm.notSelected": "Nicht ausgewählt",
+  "aggregator-sources.RuleForm.postalCode": "Postleitzahl",
   "aggregator-sources.RuleForm.selected": "Auswählen"
 }
