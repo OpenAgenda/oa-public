@@ -18,20 +18,34 @@ import initServices from '../services/init.js';
  *      `terms` would silently truncate).
  *   3. A set `agendas_<uid>` whose uid is not in the allowlist is an orphan
  *      (covers both soft-deleted agendas and rows that no longer exist).
- *   4. Delete each orphan set with `delete_by_query` scoped by `_set` term and
- *      `routing=<set>` so only the relevant shard is hit.
+ *   4. Delete each orphan set with `delete_by_query` scoped by the `_set` term.
+ *      NO `routing` is passed, on purpose: routing was only added to indexing
+ *      in 2020 (event-search afeed7ae4b), so the oldest orphans — never
+ *      reindexed, which is exactly this script's target — may sit on a
+ *      default-routed shard; a routed delete would silently miss them. This
+ *      mirrors the shared clear.js helper, which omits routing for the same
+ *      reason. Deletes run asynchronously (wait_for_completion:false) and are
+ *      polled, so the client request timeout (30s) is never hit on the large
+ *      (~100k-doc) sets, and the deleted count stays accurate.
  *
  * Dry-run by default: it reports what it WOULD delete and deletes nothing.
  * Pass `--apply` to actually delete.
  *
+ * Safety: refuses to run on an empty allowlist, and (in --apply) refuses when
+ * an implausibly high share of agenda sets look orphan — a strong signal the
+ * allowlist is incomplete (wrong/lagging DB, index shared across environments).
+ * Override that ratio guard with `--force` once you've confirmed the DB.
+ *
  * Usage:
  *   node scripts/cleanOrphanEvents.js                 # dry-run
  *   node scripts/cleanOrphanEvents.js --apply         # actually delete
+ *   node scripts/cleanOrphanEvents.js --apply --force # skip the ratio guard
  *   node scripts/cleanOrphanEvents.js --page-size 2000
  */
 
 const args = process.argv.slice(2);
 const APPLY = args.includes('--apply');
+const FORCE = args.includes('--force');
 const PAGE_SIZE = (() => {
   const i = args.indexOf('--page-size');
   const n = i !== -1 ? parseInt(args[i + 1], 10) : NaN;
@@ -39,10 +53,57 @@ const PAGE_SIZE = (() => {
 })();
 
 const SET_PREFIX = 'agendas_';
+// Above this share of orphan agenda sets, abort unless --force: such a ratio
+// almost always means the live-agenda allowlist is incomplete, not that the
+// index is genuinely that stale.
+const MAX_ORPHAN_RATIO = 0.9;
+const POLL_INTERVAL_MS = 2000;
+
+const sleep = (ms) =>
+  new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
 
 function log(...a) {
   // eslint-disable-next-line no-console
   console.log(...a);
+}
+
+// Delete every document of a set, scoped by the `_set` term (no routing — see
+// header). Runs the delete asynchronously and polls the task so a multi-minute
+// delete over a large set never trips the client request timeout. Returns the
+// number of documents actually deleted.
+async function deleteSet(esClient, index, set) {
+  const { body: started } = await esClient.deleteByQuery({
+    index,
+    conflicts: 'proceed',
+    slices: 'auto',
+    wait_for_completion: false,
+    body: { query: { term: { _set: set } } },
+  });
+
+  const taskId = started.task;
+  for (;;) {
+    // eslint-disable-next-line no-await-in-loop
+    const { body: task } = await esClient.tasks.get({ task_id: taskId });
+    if (task.completed) {
+      if (task.error) {
+        const err = new Error(task.error.reason || 'delete_by_query failed');
+        err.meta = { body: { error: task.error } };
+        throw err;
+      }
+      const failures = task.response?.failures ?? [];
+      if (failures.length) {
+        log(
+          `[cleanOrphanEvents] set ${set}: ${failures.length} delete failures`
+            + ` (e.g. ${failures[0]?.cause?.reason ?? 'unknown'})`,
+        );
+      }
+      return task.response?.deleted ?? task.task?.status?.deleted ?? 0;
+    }
+    // eslint-disable-next-line no-await-in-loop
+    await sleep(POLL_INTERVAL_MS);
+  }
 }
 
 async function main() {
@@ -120,19 +181,33 @@ async function main() {
       afterKey = agg.after_key;
     } while (afterKey);
 
+    const agendaSets = scannedSets - skippedNonAgendaSets;
     const totalOrphanDocs = orphanSets.reduce((acc, o) => acc + o.docCount, 0);
+    const orphanRatio = agendaSets > 0 ? orphanSets.length / agendaSets : 0;
     log(
       `[cleanOrphanEvents] scanned ${scannedSets} distinct sets`
         + ` (${skippedNonAgendaSets} non-"${SET_PREFIX}*" skipped)`,
     );
     log(
-      `[cleanOrphanEvents] orphan sets: ${orphanSets.length}`
-        + ` totalling ${totalOrphanDocs} documents`,
+      `[cleanOrphanEvents] orphan sets: ${orphanSets.length}/${agendaSets}`
+        + ` (${(orphanRatio * 100).toFixed(1)}%) totalling ${totalOrphanDocs} documents`,
     );
 
     if (orphanSets.length === 0) {
       log('[cleanOrphanEvents] nothing to clean.');
       return;
+    }
+
+    // Safety guard: an implausibly high orphan share almost always means the
+    // allowlist is incomplete (wrong/lagging DB, shared index) rather than a
+    // genuinely stale index — refuse to delete live data unless --force.
+    if (APPLY && orphanRatio > MAX_ORPHAN_RATIO && !FORCE) {
+      throw new Error(
+        `${(orphanRatio * 100).toFixed(1)}% of agenda sets look orphan`
+          + ` (> ${(MAX_ORPHAN_RATIO * 100).toFixed(0)}% guard). This usually means`
+          + ` the live-agenda allowlist (${liveUids.size} agendas) is incomplete.`
+          + ' Verify the DB connection, then re-run with --force if intended.',
+      );
     }
 
     if (!APPLY) {
@@ -148,20 +223,14 @@ async function main() {
       return;
     }
 
-    // 4. Delete each orphan set, scoped by _set + routing.
+    // 4. Delete each orphan set, scoped by the _set term (no routing — see header).
     let deletedDocs = 0;
     let failedSets = 0;
     for (let i = 0; i < orphanSets.length; i += 1) {
       const { set } = orphanSets[i];
       try {
         // eslint-disable-next-line no-await-in-loop
-        const { body } = await esClient.deleteByQuery({
-          index,
-          routing: set,
-          conflicts: 'proceed',
-          body: { query: { term: { _set: set } } },
-        });
-        deletedDocs += body.deleted ?? 0;
+        deletedDocs += await deleteSet(esClient, index, set);
       } catch (error) {
         failedSets += 1;
         log(`[cleanOrphanEvents] FAILED to clear set ${set}:`, error.message);

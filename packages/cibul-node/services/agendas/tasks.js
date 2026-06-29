@@ -48,7 +48,10 @@ export default function registerAgendaTasks(services) {
         // failure, so swallow it (retrying would never succeed). Any other
         // error propagates so the queue retries the job.
         if (error?.meta?.body?.error?.type === 'index_not_found_exception') {
-          log.info('no index to clear for agenda', { agendaUid });
+          // Anomalous in production (the agenda-events index always exists), so
+          // warn rather than info: if it ever fires outside a fresh/test env it
+          // points at an index recreate/restore window worth investigating.
+          log.warn('no index to clear for agenda', { agendaUid });
           return;
         }
         throw error;
