@@ -2,6 +2,7 @@ import ky from 'ky';
 import api from '../api/index.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
+import { withTestServer } from './helpers/startTestServer.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 
@@ -167,28 +168,23 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
   describe('api', () => {
     const publicKey = 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9';
-    let server;
-
-    beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(4000);
-    });
-
-    afterAll(() => server.close());
+    const ctx = withTestServer(() => api(core, { useRouter: false }));
 
     describe('default', () => {
       let response;
 
       beforeAll(async () => {
         response = await ky
-          .get(`http://localhost:4000/agendas?key=${publicKey}`)
+          .get(`${ctx.baseUrl}/agendas?key=${publicKey}`)
           .json();
       });
 
-      it('agendas, total, success and after keys are provided in response', async () => {
+      it('agendas, total, totalRelation, success and after keys are provided in response', async () => {
         expect(Object.keys(response)).toEqual([
           'after',
           'agendas',
           'total',
+          'totalRelation',
           'success',
         ]);
       });
@@ -200,7 +196,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       beforeAll(async () => {
         response = await ky
           .get(
-            `http://localhost:4000/agendas?key=${publicKey}&fields[]=summary&fields[]=schema&fields[]=settings`,
+            `${ctx.baseUrl}/agendas?key=${publicKey}&fields[]=summary&fields[]=schema&fields[]=settings`,
           )
           .json();
       });

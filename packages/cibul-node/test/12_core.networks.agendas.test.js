@@ -2,6 +2,7 @@ import ky from 'ky';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
 import api from '../api/index.js';
+import { withTestServer } from './helpers/startTestServer.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 import waitFor from './helpers/waitFor.js';
@@ -266,13 +267,14 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
   });
 
   describe('api', () => {
-    let server;
     let accessToken;
     const superAdminSecret = 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM';
+
+    const ctx = withTestServer(() => api(core, { useRouter: false }));
+
     beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(4000);
       const tokenResponse = await ky
-        .post('http://localhost:4000/requestAccessToken', {
+        .post(`${ctx.baseUrl}/requestAccessToken`, {
           json: {
             code: superAdminSecret,
           },
@@ -281,11 +283,9 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
       accessToken = tokenResponse.access_token;
     });
 
-    afterAll(() => server.close());
-
     it('agenda creation', async () => {
       const resp = await ky
-        .post('http://localhost:4000/networks/1/agendas', {
+        .post(`${ctx.baseUrl}/networks/1/agendas`, {
           headers: {
             'access-token': accessToken,
           },
@@ -299,17 +299,31 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
       expect(resp.title).toBe('new agenda');
     });
 
+    it('agenda creation honours the provided slug', async () => {
+      const resp = await ky
+        .post('http://localhost:4000/networks/1/agendas', {
+          headers: {
+            'access-token': accessToken,
+          },
+          json: {
+            title: 'Agenda with explicit slug',
+            description: 'an agenda whose slug differs from its title',
+            slug: 'my-explicit-slug',
+          },
+        })
+        .json();
+
+      expect(resp.slug).toBe('my-explicit-slug');
+    });
+
     it('GET network eventSchema configure - returns schema with parents', async () => {
       const res = await ky
-        .get(
-          'http://localhost:4000/networks/1/settings/eventSchema/configure',
-          {
-            headers: {
-              'access-token': accessToken,
-            },
-            searchParams: { lang: 'en' },
+        .get(`${ctx.baseUrl}/networks/1/settings/eventSchema/configure`, {
+          headers: {
+            'access-token': accessToken,
           },
-        )
+          searchParams: { lang: 'en' },
+        })
         .json();
 
       expect(res.parents.length).toBe(1);
@@ -326,17 +340,14 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
       };
 
       const result = await ky
-        .post(
-          'http://localhost:4000/networks/1/settings/eventSchema/configure',
-          {
-            headers: {
-              'access-token': accessToken,
-            },
-            json: {
-              fields: [customField],
-            },
+        .post(`${ctx.baseUrl}/networks/1/settings/eventSchema/configure`, {
+          headers: {
+            'access-token': accessToken,
           },
-        )
+          json: {
+            fields: [customField],
+          },
+        })
         .json();
 
       expect(result).toBeTruthy();
@@ -351,23 +362,20 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
     it('POST network eventSchema configure - updates cascade to child agendas', async () => {
       // Add a field to network
       await ky
-        .post(
-          'http://localhost:4000/networks/1/settings/eventSchema/configure',
-          {
-            headers: {
-              'access-token': accessToken,
-            },
-            json: {
-              fields: [
-                {
-                  field: 'network-cascade-test',
-                  fieldType: 'text',
-                  label: { fr: 'Cascade Test', en: 'Cascade Test' },
-                },
-              ],
-            },
+        .post(`${ctx.baseUrl}/networks/1/settings/eventSchema/configure`, {
+          headers: {
+            'access-token': accessToken,
           },
-        )
+          json: {
+            fields: [
+              {
+                field: 'network-cascade-test',
+                fieldType: 'text',
+                label: { fr: 'Cascade Test', en: 'Cascade Test' },
+              },
+            ],
+          },
+        })
         .json();
 
       // Verify child agenda (agenda 1) can see the network field

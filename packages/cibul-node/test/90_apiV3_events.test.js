@@ -288,6 +288,122 @@ describe('90 - api-v3 - functional (server): events read endpoints', () => {
     });
   });
 
+  describe('GET /agendas/:agendaUid/events — fields (sparse selection)', () => {
+    it('trims each item to the selected fields, always keeping uid', async () => {
+      const res = await request(app)
+        .get('/agendas/2/events?fields=title,location')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.length).toBeGreaterThan(0);
+      for (const event of res.body.data) {
+        expect(Object.keys(event).sort()).toEqual(['location', 'title', 'uid']);
+      }
+    });
+
+    it('selecting uid alone returns single-key items', async () => {
+      const res = await request(app)
+        .get('/agendas/2/events?fields=uid')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(200);
+      for (const event of res.body.data) {
+        expect(Object.keys(event)).toEqual(['uid']);
+      }
+    });
+
+    it('selects a detailed-only field WITHOUT detailed (full universe)', async () => {
+      // `fields` picks the shape over the full Event universe; `detailed` is
+      // moot. longDescription is a detailed-only field, yet selectable here.
+      const res = await request(app)
+        .get('/agendas/2/events?fields=longDescription')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.length).toBeGreaterThan(0);
+      for (const event of res.body.data) {
+        expect(Object.keys(event).sort()).toEqual(['longDescription', 'uid']);
+      }
+    });
+
+    it('fields wins over detailed when both are given', async () => {
+      const res = await request(app)
+        .get('/agendas/2/events?detailed=true&fields=uid')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(200);
+      for (const event of res.body.data) {
+        expect(Object.keys(event)).toEqual(['uid']);
+      }
+    });
+
+    it('derives a timing field from the pushed-down timings (no detailed)', async () => {
+      // nextTiming is computed from the full `timings` array; the pushdown must
+      // still project `timings` for the parser, while the output stays trimmed.
+      const res = await request(app)
+        .get('/agendas/2/events?fields=nextTiming')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.length).toBeGreaterThan(0);
+      for (const event of res.body.data) {
+        expect(Object.keys(event).sort()).toEqual(['nextTiming', 'uid']);
+      }
+    });
+
+    it('dotted paths trim into nested objects', async () => {
+      const res = await request(app)
+        .get('/agendas/2/events?fields=location.name')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.length).toBeGreaterThan(0);
+      for (const event of res.body.data) {
+        expect(Object.keys(event).sort()).toEqual(['location', 'uid']);
+        // location is trimmed to just `name` (or null when the event has none).
+        const locationKeys = event.location ? Object.keys(event.location) : [];
+        expect(locationKeys.filter((key) => key !== 'name')).toEqual([]);
+      }
+    });
+
+    it('rejects an unknown field with 400 + per-field details', async () => {
+      const res = await request(app)
+        .get('/agendas/2/events?fields=title,nope')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(400);
+      assertValid(validateError, res.body, 'Error');
+      expect(res.body.error.details.errors[0].field).toBe('fields');
+    });
+
+    it('rejects an unknown nested leaf under a known keyset with 400', async () => {
+      // `location` declares a children keyset, so a bogus sub-key is a 400 —
+      // not a silently-dropped best-effort leaf.
+      const res = await request(app)
+        .get('/agendas/2/events?fields=location.zzz')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(400);
+      assertValid(validateError, res.body, 'Error');
+      expect(res.body.error.details.errors[0].field).toBe('fields');
+    });
+
+    it('pushes the additionalFields bag down (enumerated from the schema)', async () => {
+      // Agenda 1 / event 1 carries the `thematique` custom field. Selecting the
+      // bare bag enumerates the merged form schema and projects its custom
+      // fields, so the value survives the trim.
+      const res = await request(app)
+        .get('/agendas/1/events?fields=additionalFields')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(200);
+      const event1 = res.body.data.find((e) => e.uid === 1);
+      expect(event1).toBeDefined();
+      expect(Object.keys(event1).sort()).toEqual(['additionalFields', 'uid']);
+      expect(event1.additionalFields.thematique).toBe(2);
+    });
+  });
+
   describe('GET /agendas/:agendaUid/events — filtering', () => {
     // agenda 2 published events: uids 2, 7, 8 (event 1 is state 0). Events 7/8
     // are at location 1 (Paris), event 2 has no resolvable coordinates. All

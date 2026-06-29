@@ -172,6 +172,48 @@ describe('02 - event search - functional: location', () => {
       ]);
     });
 
+    it('adminLevel4 filter on "Paris" behaves like the city alias', async () => {
+      const { events } = await service('location').search(
+        {
+          adminLevel4: 'Paris',
+        },
+        {},
+        { detailed: true },
+      );
+
+      expect(_.uniq(events.map((e) => e.location.city))).toEqual(['Paris']);
+    });
+
+    it('adminLevel1 filter on "Hauts-de-France" behaves like the region alias', async () => {
+      const { events } = await service('location').search(
+        {
+          adminLevel1: 'Hauts-de-France',
+        },
+        {},
+        { detailed: true },
+      );
+
+      expect(_.uniq(events.map((e) => e.location.region))).toEqual([
+        'Hauts-de-France',
+      ]);
+    });
+
+    it('mixing the city alias and adminLevel4 keeps both values', async () => {
+      const { events } = await service('location').search(
+        {
+          city: 'Paris',
+          adminLevel4: 'Lille',
+        },
+        {},
+        { detailed: true },
+      );
+
+      expect(_.uniq(events.map((e) => e.location.city)).sort()).toEqual([
+        'Lille',
+        'Paris',
+      ]);
+    });
+
     it('if nothing is explicitely requested, district key is provided rather than adminLevel6', async () => {
       const {
         events: [event],

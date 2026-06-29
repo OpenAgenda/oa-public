@@ -42,6 +42,144 @@ export function forwardSetCookieHeaders(response, res) {
   res.setHeader('Set-Cookie', [].concat(existing ?? []).concat(cookies));
 }
 
+// Single fan-out for the structured login-analytics event (InsightOps). Emitted
+// through `ctx.context.logger` — the consumer-injected OA logger whose level is
+// floored at 'info' in baOptions; absent a logger it falls back to better-auth's
+// console default. Best-effort by contract: a logging failure must NEVER break an
+// already-authenticated request, so everything is wrapped and swallowed.
+//
+// RGPD / data minimisation: only the OA `uid` and typed enums are emitted — never
+// email / password / token, and intentionally NO IP / user-agent. Those are
+// personal data that belong to the HTTP layer; adding them here would only widen
+// the RGPD surface for no analytical gain. (Note: cibul-node's `loadLogger` is
+// mounted AFTER the `/api/auth/*` handler and writes a separate `req.log`, so it
+// does not cover these events — if IP-level anti-abuse is ever required, add it
+// deliberately to the failure events.) See docs/plan-auth-signin-logging.md.
+//
+// Zero extra I/O: every field is already in hand at the seam. Account-state
+// derivatives (e.g. whether the account spans password+social) are deliberately
+// NOT logged per sign-in — they are constant per user (so a per-login series
+// over-weights frequent loggers) and are far better answered by a one-shot query
+// over the `account` table than by event logging.
+function logSigninSuccess(ctx, { method, provider, clientId, user, isNew }) {
+  try {
+    ctx.context.logger?.info?.('auth.signin.success', {
+      event: 'auth.signin.success',
+      method,
+      ...provider ? { provider } : {},
+      ...clientId ? { client_id: clientId } : {},
+      ...isNew !== undefined ? { is_new: isNew } : {},
+      user_uid: user?.uid ?? null,
+    });
+  } catch (err) {
+    ctx.context.logger?.error?.('auth.signin.success log failed', { err });
+  }
+}
+
+// better-auth `APIError.body.code` → typed OA failure reason. Note the password
+// path collapses unknown-email and wrong-password into INVALID_EMAIL_OR_PASSWORD
+// by design (anti-enumeration), so `unknown_email` is intentionally absent here.
+// `TOO_MANY_REQUESTS` is deliberately NOT here: better-auth's rate limiter
+// short-circuits at `onRequest` (api/index.mjs) and returns a bare 429 BEFORE the
+// endpoint/hooks run, so it never reaches an after-hook. `rate_limited` is instead
+// captured at the node handler (withRateLimitLogging) by inspecting the 429.
+const FAILURE_REASON_BY_CODE = {
+  INVALID_EMAIL_OR_PASSWORD: 'invalid_credentials',
+  INVALID_EMAIL: 'invalid_credentials',
+  INVALID_PASSWORD: 'invalid_credentials',
+  EMAIL_NOT_VERIFIED: 'email_not_verified',
+  USER_EMAIL_NOT_FOUND: 'oauth_callback_error',
+  FAILED_TO_GET_USER_INFO: 'oauth_callback_error',
+  OAUTH_LINK_ERROR: 'oauth_callback_error',
+  ID_TOKEN_NOT_SUPPORTED: 'oauth_callback_error',
+};
+
+// Map a request URL to the sign-in method whose rate-limit 429 we want to log.
+// Only the interactive sign-in routes — NOT /sign-up/email or the email-send
+// routes (which are also rate-limited but are not sign-ins).
+export function signinMethodFromUrl(url) {
+  if (typeof url !== 'string') return null;
+  const path = url.split('?')[0];
+  if (path.endsWith('/sign-in/email')) return 'password';
+  // Only the magic-link VERIFY route is an actual sign-in. `/sign-in/magic-link`
+  // merely sends the email — a 429 there is a send-throttle, not a failed login.
+  if (path.endsWith('/magic-link/verify')) return 'magic_link';
+  return null;
+}
+
+// Wrap the node handler to emit `auth.signin.failure { reason: 'rate_limited' }`
+// for sign-in routes that come back 429 — the one sign-in failure the hook seam
+// can't see (see FAILURE_REASON_BY_CODE note). `logger` is the consumer-injected
+// logger in better-auth shape ({ log(level, message, ...args) }); without it the
+// handler is returned unchanged. Best-effort: never break the response.
+export function withRateLimitLogging(handler, logger) {
+  if (typeof logger?.log !== 'function') return handler;
+  return (req, res) => {
+    const method = signinMethodFromUrl(req?.url);
+    if (method && typeof res?.on === 'function') {
+      // 'close' (not 'finish') is the catch-all: it fires once whether the
+      // response flushed normally or the client aborted — and an abuser
+      // disconnecting right after the 429 is exactly the traffic to capture.
+      // The 429 status line is written before any abort, so res.statusCode is set.
+      res.on('close', () => {
+        try {
+          if (res.statusCode === 429) {
+            logger.log('warn', 'auth.signin.failure', {
+              event: 'auth.signin.failure',
+              method,
+              reason: 'rate_limited',
+            });
+          }
+        } catch {
+          // swallow — logging must never affect the response
+        }
+      });
+    }
+    return handler(req, res);
+  };
+}
+
+// Companion to logSigninSuccess for the failure case (anti-abuse dashboards).
+// `reason` wins when explicit; otherwise it's mapped from the APIError's
+// `body.code` on ctx.context.returned (after-hook failures), falling back to a
+// per-path default. user_uid is emitted only when the user was resolved (e.g. a
+// barred account) — most failures (bad credentials) resolve no user. Same
+// best-effort contract: a logging error never propagates.
+function logSigninFailure(ctx, { method, provider, reason, fallback, user }) {
+  try {
+    let r = reason;
+    if (!r) {
+      const code = ctx.context.returned?.body?.code;
+      r = FAILURE_REASON_BY_CODE[code] ?? fallback ?? 'unknown';
+    }
+    ctx.context.logger?.warn?.('auth.signin.failure', {
+      event: 'auth.signin.failure',
+      method,
+      ...provider ? { provider } : {},
+      reason: r,
+      ...user?.uid != null ? { user_uid: user.uid } : {},
+    });
+  } catch (err) {
+    ctx.context.logger?.error?.('auth.signin.failure log failed', { err });
+  }
+}
+
+// `auth.signin.no_account`: a sign-in attempt against an email with no account.
+// NOT a failure — there is nothing to authenticate, the user is routed to
+// signup. Kept out of the failure rate (which should mean real users failing to
+// get in), at info level. Mirrors the magic-link send-side equivalent in
+// cibul-node so unknown-email is the same event across every method.
+function logSigninNoAccount(ctx, { method }) {
+  try {
+    ctx.context.logger?.info?.('auth.signin.no_account', {
+      event: 'auth.signin.no_account',
+      method,
+    });
+  } catch (err) {
+    ctx.context.logger?.error?.('auth.signin.no_account log failed', { err });
+  }
+}
+
 export default function Auth(options = {}) {
   const {
     mysqlPool,
@@ -90,6 +228,7 @@ export default function Auth(options = {}) {
     onSignUpComplete,
     validateSignUp,
     onClientRegistered,
+    logger,
   } = options;
 
   if (!mysqlPool) {
@@ -243,6 +382,7 @@ export default function Auth(options = {}) {
   const trustedClients = [];
 
   const oauthProviderPlugin = oauthProvider({
+    silenceWarnings: { oauthAuthServerConfig: true, openidConfig: true },
     scopes: [
       'openid',
       'profile',
@@ -421,6 +561,12 @@ export default function Auth(options = {}) {
     secret,
     baseURL,
     trustedOrigins,
+    // `level: 'info'` is the floor on purpose: better-auth's createLogger
+    // defaults to 'warn', which would silently drop the info-level
+    // `auth.signin.success` events emitted in the hooks below (shouldPublishLog
+    // gates info < warn). A consumer-supplied level still overrides. Omitted
+    // entirely when no logger is injected → unchanged console default.
+    ...logger ? { logger: { level: 'info', ...logger } } : {},
     // OAuth-provider mode: disable the jwt plugin's standalone `/token` endpoint
     // (replaced by `/oauth2/token`). Required per the better-auth jwt docs to
     // avoid duplicating the OAuth token endpoint. Nothing in OA consumes the
@@ -584,7 +730,20 @@ export default function Auth(options = {}) {
           if (typeof email !== 'string') return;
           const found = await ctx.context.internalAdapter.findUserByEmail(email);
           const user = found?.user;
+          // Stash existence for the failure after-hook so it can split a wrong
+          // password (account exists) from an unknown email — no second query,
+          // this barred-guard lookup already resolved it.
+          ctx.context.oaSigninEmailKnown = !!user;
           if (user && isUserBarred(user)) {
+            // Log the true reason internally (account_unavailable) while the HTTP
+            // response stays INVALID_EMAIL_OR_PASSWORD. A before-hook throw skips
+            // the after-hooks, so it must be emitted here; anti-enumeration is a
+            // property of the RESPONSE, not of the internal log.
+            logSigninFailure(ctx, {
+              method: 'password',
+              reason: 'account_unavailable',
+              user,
+            });
             throw new APIError('UNAUTHORIZED', {
               code: 'INVALID_EMAIL_OR_PASSWORD',
               message: 'Invalid email or password',
@@ -696,7 +855,25 @@ export default function Auth(options = {}) {
 
         if (ctx.path === '/sign-in/email') {
           const { newSession } = ctx.context;
-          if (!newSession) return;
+          if (!newSession) {
+            // Endpoint threw (wrong password, unverified email, rate-limited):
+            // after-hooks still run with ctx.context.returned = the APIError.
+            // An unknown email and a wrong password both surface as
+            // INVALID_EMAIL_OR_PASSWORD (anti-enumeration) — split them via the
+            // existence flag stashed by the before-hook. An unknown email is not
+            // a failed sign-in (no account to authenticate) → the benign
+            // `no_account` event, OUT of the failure rate; a wrong password (the
+            // account exists) stays a real failure.
+            if (ctx.context.oaSigninEmailKnown === false) {
+              logSigninNoAccount(ctx, { method: 'password' });
+              return;
+            }
+            logSigninFailure(ctx, {
+              method: 'password',
+              fallback: 'invalid_credentials',
+            });
+            return;
+          }
           const userId = newSession.user.id;
           try {
             const accounts = await ctx.context.internalAdapter.findAccountByUserId(userId);
@@ -723,6 +900,14 @@ export default function Auth(options = {}) {
           } catch (err) {
             ctx.context.logger?.error?.('lazy rehash failed', { userId, err });
           }
+
+          // signup is disabled on /sign-in/email (existing account only), so a
+          // successful sign-in here is never an account creation → is_new:false.
+          logSigninSuccess(ctx, {
+            method: 'password',
+            user: newSession.user,
+            isNew: false,
+          });
 
           // Errors are logged but do not propagate — the user is already
           // signed in, blocking the response on a post-signin side-effect
@@ -780,6 +965,14 @@ export default function Auth(options = {}) {
                 `${location}${sep}email=${encodeURIComponent(email)}`,
               );
             }
+            // No session → OAuth sign-in failed (provider refused,
+            // account_not_linked, signup_disabled, …). Sub-type lives in the
+            // redirect `error=` param; bucketed as oauth_callback_error.
+            logSigninFailure(ctx, {
+              method: `oauth:${provider}`,
+              provider,
+              fallback: 'oauth_callback_error',
+            });
             return;
           }
           const userId = newSession.user.id;
@@ -813,6 +1006,12 @@ export default function Auth(options = {}) {
               'location',
               '/auth/signin?msg=accountUnavailable',
             );
+            logSigninFailure(ctx, {
+              method: `oauth:${provider}`,
+              provider,
+              reason: 'account_unavailable',
+              user,
+            });
             return;
           }
 
@@ -822,6 +1021,15 @@ export default function Auth(options = {}) {
               '/settings/unlinkFacebook',
             );
           }
+
+          // is_new rides the request-scoped flag set in databaseHooks.user.create
+          // (the sticky `is_new` column can't tell creation from reconnection).
+          logSigninSuccess(ctx, {
+            method: `oauth:${provider}`,
+            provider,
+            user: newSession.user,
+            isNew: !!ctx.context.oaUserCreated,
+          });
 
           // Same error policy as /sign-in/email: log and continue. The
           // OAuth redirect is already in flight via `responseHeaders.location`.
@@ -891,7 +1099,15 @@ export default function Auth(options = {}) {
         //   3. onSignInSuccess (lastSignin refresh), like the other paths.
         if (ctx.path === '/magic-link/verify') {
           const { newSession } = ctx.context;
-          if (!newSession) return;
+          if (!newSession) {
+            // No session → the magic link was invalid or expired (the endpoint
+            // threw before creating one).
+            logSigninFailure(ctx, {
+              method: 'magic_link',
+              fallback: 'magic_link_invalid',
+            });
+            return;
+          }
           const userId = newSession.user.id;
           let user;
           try {
@@ -928,6 +1144,11 @@ export default function Auth(options = {}) {
               'location',
               '/auth/signin?msg=accountUnavailable',
             );
+            logSigninFailure(ctx, {
+              method: 'magic_link',
+              reason: 'account_unavailable',
+              user,
+            });
             return;
           }
 
@@ -941,6 +1162,13 @@ export default function Auth(options = {}) {
               });
             }
           }
+
+          // Magic-link has disableSignUp:true (existing account only) → never new.
+          logSigninSuccess(ctx, {
+            method: 'magic_link',
+            user: newSession.user,
+            isNew: false,
+          });
 
           if (typeof onSignInSuccess === 'function') {
             try {
@@ -1155,6 +1383,17 @@ export default function Auth(options = {}) {
           after: async (createdUser, context) => {
             const path = context?.path;
 
+            // Mark on the request-scoped context that THIS request created a
+            // user, so the sign-in success emitter (logSigninSuccess) can tell
+            // account creation from reconnection — the `is_new` user column is
+            // sticky and can't. Same async-context stash as `oaCallbackEmail`.
+            try {
+              const epCtx = await getCurrentAuthContext();
+              if (epCtx) epCtx.context.oaUserCreated = true;
+            } catch {
+              // Outside an endpoint scope: best-effort, no-op.
+            }
+
             // Fires on EVERY user creation (email/pwd signup AND OAuth
             // signup) — broader than `onAfterOAuthSignUp` so callers can
             // hook into the /sign-up/email path too. The user is NOT yet
@@ -1366,7 +1605,7 @@ export default function Auth(options = {}) {
   return {
     instance,
     // Express-compatible handler — mount with `app.all('/api/auth/*', auth.nodeHandler)`.
-    nodeHandler: toNodeHandler(instance),
+    nodeHandler: withRateLimitLogging(toNodeHandler(instance), logger),
     api: instance.api,
     // OA api-key façades. `verifyKey(key)` -> normalized owner descriptor
     // ({ owner, oaKind, referenceId, permissions, record }) or null; owner

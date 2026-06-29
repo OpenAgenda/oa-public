@@ -9,6 +9,7 @@ import boolQuery from '../lib/boolQuery.js';
 import * as mw from './middleware/index.js';
 import getSettingsEndpoint from './endpoints/settingsGet.js';
 import getSettingsResyncEndpoint from './endpoints/settingsResync.js';
+import supervisorLookup from './endpoints/supervisorLookup.js';
 import apiErrorHandler from './errorHandler.js';
 
 const log = logs('api');
@@ -1234,10 +1235,7 @@ export default (core, { useRouter = true } = {}) => {
     (req, res, next) =>
       core
         .networks(req.params.uid)
-        .agendas.create(
-          { title: req.body.title, description: req.body.description },
-          { userUid: req.user.uid },
-        )
+        .agendas.create(req.parsedData, { userUid: req.user.uid })
         .then((agenda) => res.json(agenda), next),
   ]);
 
@@ -1313,6 +1311,11 @@ export default (core, { useRouter = true } = {}) => {
           includeSupervisorLink: true,
         })
         .then((result) => res.json(result)),
+  ]);
+
+  app.get('/supervisor/lookup', [
+    allowSuperAdmin({ jsonResponse: true }),
+    supervisorLookup,
   ]);
 
   log('done');

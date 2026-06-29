@@ -59,6 +59,7 @@ export class Events extends HeyApiClient {
      */
     public list<ThrowOnError extends boolean = false>(options: Options<AgendasEventsListData, ThrowOnError>) {
         return (options.client ?? this.client).get<AgendasEventsListResponses, AgendasEventsListErrors, ThrowOnError>({
+            querySerializer: { parameters: { fields: { array: { explode: false } } } },
             security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
             url: '/agendas/{agendaUid}/events',
             ...options
@@ -155,6 +156,7 @@ export class Locations extends HeyApiClient {
      */
     public list<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsListData, ThrowOnError>) {
         return (options.client ?? this.client).get<AgendasLocationsListResponses, AgendasLocationsListErrors, ThrowOnError>({
+            querySerializer: { parameters: { fields: { array: { explode: false } } } },
             security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
             url: '/agendas/{agendaUid}/locations',
             ...options
@@ -193,6 +195,7 @@ export class Agendas extends HeyApiClient {
      */
     public list<ThrowOnError extends boolean = false>(options?: Options<AgendasListData, ThrowOnError>) {
         return (options?.client ?? this.client).get<AgendasListResponses, AgendasListErrors, ThrowOnError>({
+            querySerializer: { parameters: { fields: { array: { explode: false } } } },
             security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
             url: '/agendas',
             ...options
@@ -255,6 +258,7 @@ export class Agendas2 extends HeyApiClient {
      */
     public list<ThrowOnError extends boolean = false>(options?: Options<MeAgendasListData, ThrowOnError>) {
         return (options?.client ?? this.client).get<MeAgendasListResponses, MeAgendasListErrors, ThrowOnError>({
+            querySerializer: { parameters: { fields: { array: { explode: false } } } },
             security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
             url: '/me/agendas',
             ...options

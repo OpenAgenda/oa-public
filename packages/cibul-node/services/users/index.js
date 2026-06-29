@@ -92,11 +92,14 @@ export async function init(config, services) {
       onActivation,
       sendToken: sendToken.bind(null, config, services),
       getAgenda: (agendaUid, cb) => agendas.get({ uid: agendaUid }, cb),
-      // Fallback used by `Users.verifyPassword` when the legacy
-      // `user.password` column is empty (BA-only users — signup/reset via
-      // better-auth never writes the legacy hash). Verifies against
-      // `account.password` through the same routine BA's `/sign-in/email`
-      // uses (argon2id + legacy sentinel formats).
+      // Primary verifier for `Users.verifyPassword`: it is tried FIRST (before
+      // the legacy `user.password` column), because `account.password` is the
+      // source of truth after a BA-side password change — the legacy column is
+      // never updated on those and goes stale. Verifies against
+      // `account.password` through the same routine BA's `/sign-in/email` uses
+      // (argon2id + legacy sentinel formats). `Users.verifyPassword` still
+      // falls back to the legacy hash when this returns false, for the few
+      // accounts that have no credential row.
       verifyPassword: services.auth
         ? (user, password) =>
           services.auth.verifyCredentialPassword(user.id, password)
@@ -143,12 +146,7 @@ export async function init(config, services) {
 
   service.plugApp = plugApp;
 
-  service.shutdown = async (options = {}) => {
-    if (options.clear) {
-      await queue.drain();
-    }
-    await worker.close();
-  };
+  service.shutdown = (options) => bull.teardownQueues(worker, queue, options);
 
   return service;
 }

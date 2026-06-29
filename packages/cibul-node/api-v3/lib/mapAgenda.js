@@ -30,6 +30,18 @@ function refOrNull(rel) {
   return { uid: rel.uid, title: rel.title ?? null };
 }
 
+// Pushdown descriptor for `?fields=` (see lib/selectFields.js). Pushdown is
+// top-level (`onlyIncludeFields` projects the whole subtree), with no per-field
+// renames or derived deps — the AgendaDetailed names map 1:1 onto the index
+// fields. Selection validation runs separately against the spec-derived field
+// tree (lib/specFieldTree.js). `option` names the agenda-search projection
+// option the v3 boundary sets (`onlyIncludeFields` — the restrictive override;
+// agenda-search's plain `includeFields` is ADDITIVE, the wrong axis here).
+export const AGENDA_SELECT = {
+  option: 'onlyIncludeFields',
+  granularity: 'top',
+};
+
 // The fields shared by every shape (the search-index base projection).
 function base(agenda) {
   return {

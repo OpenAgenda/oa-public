@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { useSelector, useDispatch } from 'react-redux';
 import { useIntl, defineMessages } from 'react-intl';
@@ -147,6 +147,15 @@ export default function AdvancedEdition() {
     state.res.delete.replace(':uid', agenda.uid));
 
   const [activeTab, setActiveTab] = useState(null);
+
+  // Deep-link support: the "last administrator" guidance modal (member-apps,
+  // home) sends the sole admin here with #delete so the delete-agenda section
+  // is opened straight away instead of leaving them to hunt for it.
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.hash === '#delete') {
+      setActiveTab('delete');
+    }
+  }, []);
 
   const intl = useIntl();
 

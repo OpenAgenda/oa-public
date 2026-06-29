@@ -22,10 +22,17 @@ import loadSearchAccess from '../core/agendas/events/lib/loadSearchAccess.js';
 import createAuthenticate from './lib/authenticate.js';
 import requireScope from './lib/requireScope.js';
 import createLoadAgenda from './lib/loadAgenda.js';
-import mapEvent from './lib/mapEvent.js';
-import mapAgenda from './lib/mapAgenda.js';
+import mapEvent, { EVENT_SELECT } from './lib/mapEvent.js';
+import mapAgenda, { AGENDA_SELECT } from './lib/mapAgenda.js';
 import mapAgendaOverview from './lib/mapAgendaOverview.js';
-import mapLocation from './lib/mapLocation.js';
+import mapLocation, { LOCATION_SELECT } from './lib/mapLocation.js';
+import { resolveFields, applyProjection } from './lib/selectFields.js';
+import {
+  EVENT_FIELD_TREE,
+  AGENDA_FIELD_TREE,
+  LOCATION_FIELD_TREE,
+  ME_FIELD_TREE,
+} from './lib/specFieldTree.js';
 import buildListEnvelope from './lib/envelope.js';
 import buildAgendaListEnvelope from './lib/agendaEnvelope.js';
 import buildLocationListEnvelope from './lib/locationEnvelope.js';
@@ -48,6 +55,7 @@ import {
   parseTimingsInterval,
   parseMonthWindow,
   parseFieldKeys,
+  additionalFieldsOf,
   resolveAdditionalFieldSelections,
   isReadableAt,
   buildAggregations,
@@ -60,6 +68,12 @@ import { decodeCursor, decodeIntCursor } from './lib/cursor.js';
 import apiV3ErrorHandler from './errorHandler.js';
 
 const log = logs('api-v3');
+
+// The selectable `?fields=` universe + nested keysets per resource are derived
+// from the OpenAPI contract at import (see lib/specFieldTree.js) — the single
+// source of truth. The universe is the RICHEST shape (the selector is not gated
+// by `detailed`); `/me`'s tree (MeAgendaItemDetailed) already carries the
+// grafted `role`/`private` alongside the agenda fields.
 
 // Contract: limit default 20, min 1, max 100.
 const DEFAULT_LIMIT = 20;
@@ -202,6 +216,12 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
     try {
       const limit = resolveLimit(req.query.limit);
       const detailed = resolveDetailed(req.query.detailed);
+      // `fields` selects over the list's full universe (the detailed index
+      // projection — the richest the list can serve); when present it picks the
+      // shape outright, so we fetch that richest projection and trim. The
+      // single-get carries the fields the index lacks (url/private/indexed/…).
+      const fields = resolveFields(req.query.fields, AGENDA_FIELD_TREE);
+      const effectiveDetailed = fields ? true : detailed;
 
       const query = buildAgendaSearchQuery(req.query);
 
@@ -234,13 +254,22 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
 
       // Public discovery list: 'public' projection (the AgendaSummary/Detailed
       // field sets are all public-read) and the search's `indexed` default
-      // (true) keeps unindexed agendas out.
-      const result = await core.agendas.search(query, nav, {
-        detailed,
-        access: 'public',
-      });
+      // (true) keeps unindexed agendas out. When `fields` is set, push the
+      // selection down to the ES `_source` via `onlyIncludeFields` (an override
+      // — the index sort the cursor pages on is independent of `_source`, so
+      // pagination is unaffected).
+      const searchOptions = { detailed: effectiveDetailed, access: 'public' };
+      applyProjection(searchOptions, fields, AGENDA_SELECT);
 
-      res.json(buildAgendaListEnvelope(result, { limit, detailed }));
+      const result = await core.agendas.search(query, nav, searchOptions);
+
+      res.json(
+        buildAgendaListEnvelope(result, {
+          limit,
+          detailed: effectiveDetailed,
+          fields,
+        }),
+      );
     } catch (err) {
       next(err);
     }
@@ -311,6 +340,13 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
       try {
         const limit = resolveLimit(req.query.limit);
         const detailed = resolveDetailed(req.query.detailed);
+        // `fields` selects over the full Event universe and, when present, picks
+        // the shape outright (`detailed` becomes moot). We push the selection
+        // down to the ES `_source`, map with the full mapper, then trim. The
+        // `includeFields` override is built below (it needs the resolved access
+        // to enumerate the `additionalFields` bag).
+        const fields = resolveFields(req.query.fields, EVENT_FIELD_TREE);
+        const effectiveDetailed = fields ? true : detailed;
 
         const nav = { size: limit };
 
@@ -340,17 +376,47 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
           agendaKey: req.agendaKey,
         }) ?? 'public';
 
+        // Override the ES `_source` to the requested fields. The bare
+        // `additionalFields` bag can't be named field-by-field from here, so when
+        // it is selected we enumerate the agenda's merged form-schema custom
+        // fields (the same set `defineIncludes` would project) and push those;
+        // `defineIncludes` still access-gates them. selectionToIncludes returns
+        // null only if the bag is selected and there are no enumerable keys to
+        // override with — then we skip the override and rely on the post-map trim.
+        let bagKeys = null;
+        if (fields && fields.has(EVENT_SELECT.bag)) {
+          // Pass the already-loaded agenda object (not the uid) so getMerged
+          // skips re-fetching it. `additionalFieldsOf` is the shared
+          // (facets/event-search) "custom field carries a schemaId" predicate.
+          const schema = await core
+            .agendas(req.agenda)
+            .settings.schema.getMerged({ access });
+          bagKeys = additionalFieldsOf(schema).map((field) => field.field);
+        }
+
+        const searchOptions = {
+          useAfterKey: true,
+          detailed: effectiveDetailed,
+          access,
+          userUid: req.user?.uid,
+          agendaKey: req.agendaKey,
+        };
+        // Push the selection down to the ES `_source` override. The access-gating
+        // in `defineIncludes` still applies, so this can't pull read-gated
+        // additional fields.
+        applyProjection(searchOptions, fields, EVENT_SELECT, { bagKeys });
+
         const result = await core
           .agendas(req.agenda.uid)
-          .events.search(query, nav, {
-            useAfterKey: true,
-            detailed,
-            access,
-            userUid: req.user?.uid,
-            agendaKey: req.agendaKey,
-          });
+          .events.search(query, nav, searchOptions);
 
-        res.json(buildListEnvelope(result, { limit, detailed }));
+        res.json(
+          buildListEnvelope(result, {
+            limit,
+            detailed: effectiveDetailed,
+            fields,
+          }),
+        );
       } catch (err) {
         next(err);
       }
@@ -593,6 +659,11 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
       try {
         const limit = resolveLimit(req.query.limit);
         const detailed = resolveDetailed(req.query.detailed);
+        // `fields` selects over the full Location universe; when present it picks
+        // the shape outright, so we fetch the full projection (and its merged
+        // form schema, for `additionalFields`) and trim.
+        const fields = resolveFields(req.query.fields, LOCATION_FIELD_TREE);
+        const effectiveDetailed = fields ? true : detailed;
 
         const query = buildLocationListQuery(req.query);
 
@@ -604,22 +675,36 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
           nav.after = after;
         }
 
+        const listOptions = {
+          total: true,
+          includeImagePath: true,
+          detailed: effectiveDetailed,
+          // The full shape carries `additionalFields` (the legacy tags,
+          // filtered against the agenda's merged schema).
+          formSchema: effectiveDetailed
+            ? await loadLocationFormSchema(core, req.agenda)
+            : null,
+        };
+        // Restrict the SQL columns to the selection. The service force-keeps the
+        // keyset columns (`id`/`placename` + after-fields) regardless, so the
+        // cursor is unaffected; access-gating still drops non-public fields. The
+        // win is real for top-level columns; the JSON `store`-backed fields share
+        // one column, so selecting any of them still reads the whole blob.
+        applyProjection(listOptions, fields, LOCATION_SELECT);
+
         const result = await locationEndpoints(core, req.agenda).list(
           query,
           nav,
-          {
-            total: true,
-            includeImagePath: true,
-            detailed,
-            // The full shape carries `additionalFields` (the legacy tags,
-            // filtered against the agenda's merged schema).
-            formSchema: detailed
-              ? await loadLocationFormSchema(core, req.agenda)
-              : null,
-          },
+          listOptions,
         );
 
-        res.json(buildLocationListEnvelope(result, { limit, detailed }));
+        res.json(
+          buildLocationListEnvelope(result, {
+            limit,
+            detailed: effectiveDetailed,
+            fields,
+          }),
+        );
       } catch (err) {
         next(err);
       }
@@ -686,6 +771,12 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
 
       const limit = resolveLimit(req.query.limit);
       const detailed = resolveDetailed(req.query.detailed);
+      // /me items graft `role` + `private` onto the agenda shape (see
+      // meAgendas.js), so they join the selectable names. `fields` selects over
+      // the full universe; when present we enrich at the detailed tier (so any
+      // requested field is available) and trim.
+      const fields = resolveFields(req.query.fields, ME_FIELD_TREE);
+      const effectiveDetailed = fields ? true : detailed;
 
       const nav = { size: limit };
       // The memberships keyset position is a scalar (the last row's `order`),
@@ -699,7 +790,13 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
       // user re-fetch.
       const result = await core.users(req.user).agendas.list(nav);
 
-      res.json(await buildMeAgendaList(core, result, { limit, detailed }));
+      res.json(
+        await buildMeAgendaList(core, result, {
+          limit,
+          detailed: effectiveDetailed,
+          fields,
+        }),
+      );
     } catch (err) {
       next(err);
     }

@@ -2,6 +2,7 @@ import ky from 'ky';
 import Core from '../core/index.js';
 import Services from '../services/init.js';
 import api from '../api/index.js';
+import { withTestServer } from './helpers/startTestServer.js';
 import eventFixtures from './fixtures/events/index.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
@@ -111,20 +112,15 @@ describe('core - functional (server): core.agendas().events.removeByExtId()', ()
 
   describe('api', () => {
     const secret = 'STt5KTzxPJHUG6N0ty3poxN896UseQhM';
-    let server;
     let accessToken;
     let response;
     let event;
 
-    beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(4000);
-    });
-
-    afterAll(() => server.close());
+    const ctx = withTestServer(() => api(core, { useRouter: false }));
 
     beforeAll(async () => {
       const tokenResponse = await ky
-        .post('http://localhost:4000/requestAccessToken', {
+        .post(`${ctx.baseUrl}/requestAccessToken`, {
           json: {
             code: secret,
           },
@@ -146,14 +142,11 @@ describe('core - functional (server): core.agendas().events.removeByExtId()', ()
     it('removed', async () => {
       let err = null;
       response = await ky
-        .delete(
-          'http://localhost:4000/agendas/17026855/events/ext/test/thing',
-          {
-            headers: {
-              'access-token': accessToken,
-            },
+        .delete(`${ctx.baseUrl}/agendas/17026855/events/ext/test/thing`, {
+          headers: {
+            'access-token': accessToken,
           },
-        )
+        })
         .json()
         .catch((e) => console.log(e));
       try {

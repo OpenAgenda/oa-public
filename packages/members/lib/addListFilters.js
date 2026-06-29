@@ -4,6 +4,7 @@ import integer from '@openagenda/validators/integer';
 import choice from '@openagenda/validators/choice';
 import text from '@openagenda/validators/text';
 import boolean from '@openagenda/validators/boolean';
+import emailValidator from '@openagenda/validators/email';
 import roles from '../iso/roles.js';
 
 schema.register({
@@ -11,6 +12,7 @@ schema.register({
   choice,
   text,
   boolean,
+  email: emailValidator,
 });
 
 const validate = schema({
@@ -62,6 +64,16 @@ const validate = schema({
     type: 'text',
     max: 255,
   },
+  email: {
+    // A tolerant search predicate, not a write validation: a blank or
+    // malformed value must yield no match rather than throw, because the
+    // supervisor lookup feeds it the (possibly wrong) email a visitor typed
+    // into Crisp. Cleaned below before use.
+    type: 'text',
+    list: {
+      default: null,
+    },
+  },
 });
 
 function _extractLegacyParts(query) {
@@ -83,6 +95,7 @@ export default (k, query) => {
     userUid,
     role,
     search,
+    email,
     withUser,
     deletedUser,
     withActions,
@@ -90,8 +103,16 @@ export default (k, query) => {
     Object.keys(legacyParts).length ? { ...query, ...legacyParts } : query,
   );
 
-  if (!agendaUid && !userUid && !id) {
-    throw new Error('neither agendaUid or userUid are specified');
+  // Drop blank/whitespace entries (and lowercase) so a stray `?email=` neither
+  // crashes on a null element nor — on its own — authorizes an unscoped scan.
+  const emails = (email ?? [])
+    .map((e) => (e == null ? '' : String(e).trim().toLowerCase()))
+    .filter(Boolean);
+
+  // A non-empty `email` is a selective predicate, so it satisfies the scope
+  // requirement on its own — a cross-agenda lookup the other scopes cannot do.
+  if (!agendaUid && !userUid && !id && !emails.length) {
+    throw new Error('neither agendaUid, userUid, id nor email are specified');
   }
 
   if (agendaUid && agendaUid.length === 1) {
@@ -130,6 +151,16 @@ export default (k, query) => {
 
   if (search) {
     k.andWhere('store', 'like', `%${search}%`);
+  }
+
+  // Match the legacy additional-info email at its JSON path (precise field
+  // match, not a substring of the raw store blob). Accepts several addresses.
+  if (emails.length) {
+    const placeholders = emails.map(() => '?').join(', ');
+    k.whereRaw(
+      `LOWER(JSON_UNQUOTE(JSON_EXTRACT(\`store\`, '$.custom_fields.email'))) IN (${placeholders})`,
+      emails,
+    );
   }
 
   if (role.length) {

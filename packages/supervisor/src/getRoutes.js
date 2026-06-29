@@ -137,12 +137,37 @@ const Users = loadableEsm(
   { ssr: false },
 );
 
+const Lookup = loadableEsm(
+  {
+    chunkName: 'supervisor-Lookup',
+    importAsync: () =>
+      import(
+        /* webpackChunkName: "supervisor-Lookup" */
+        './containers/Lookup.js'
+      ),
+    resolve: () => {
+      if (contextRequire) {
+        return contextRequire.resolve('./containers/Lookup.js');
+      }
+      const { resolve } = import.meta;
+      if (typeof resolve === 'function') {
+        return resolve('./containers/Lookup.js');
+      }
+    },
+  },
+  { ssr: false },
+);
+
 export default (prefix = '') => [
   {
     path: prefix,
     component: App,
     routes: [
       { path: `${prefix}/`, exact: true, component: Dashboard },
+      {
+        path: `${prefix}/lookup`,
+        component: Lookup,
+      },
       {
         path: `${prefix}/announcement`,
         component: AnnouncementManager,

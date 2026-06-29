@@ -183,7 +183,9 @@ function cleanImage(img) {
 }
 
 // Per-field allowlist cleaners, applied after coercion to a non-null value.
-const CLEANERS = {
+// Exported so the SELECT descriptor's `children` (and its lockstep test) can be
+// pinned to exactly the fields the mapper allowlists.
+export const CLEANERS = {
   location: (l) => pick(l, LOCATION_KEYS),
   originAgenda: cleanAgendaRef,
   sourceAgendas: (arr) => arr.map(cleanAgendaRef),
@@ -191,6 +193,34 @@ const CLEANERS = {
   registration: (arr) => arr.map((r) => pick(r, REGISTRATION_KEYS)),
   links: (arr) => arr.map((l) => pick(l, ENRICHED_LINK_KEYS)),
   extIds: (arr) => arr.map((e) => pick(e, EXT_ID_KEYS)),
+};
+
+// Pushdown descriptor for the `?fields=` selector (see lib/selectFields.js):
+// how a resolved selection is translated to the ES `_source` projection.
+// Validation of the selection is separate — it runs against the spec-derived
+// field tree (lib/specFieldTree.js), the single source of truth. This descriptor
+// only carries what the pushdown needs:
+//   - `derives`: store fields a contract field is COMPUTED from by event-search
+//     (nextTiming is always recomputed from the full `timings` array; first/last
+//     fall back to it). event-search only auto-projects `timings` for
+//     `nextTiming`, so we must request it for ANY of the three.
+//   - `bag`: the open additional-fields container — its sub-keys map to flat
+//     `_source` keys; the bare bag needs the form schema to enumerate (route).
+//   - `granularity: 'path'`: event-search projects dotted `_source` paths, so
+//     the pushdown keeps `location.name` rather than collapsing to `location`.
+//   - `option`: the event-search projection option the v3 boundary sets to push
+//     the selection down (`includeFields` — an override on this service). The
+//     boundary speaks one intent ("project only these"); each descriptor names
+//     the native option that expresses it (see `applyProjection`).
+export const EVENT_SELECT = {
+  option: 'includeFields',
+  granularity: 'path',
+  bag: 'additionalFields',
+  derives: {
+    firstTiming: ['timings'],
+    lastTiming: ['timings'],
+    nextTiming: ['timings'],
+  },
 };
 
 // Coerce a single native value by its declared kind, applying the

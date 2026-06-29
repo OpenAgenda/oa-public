@@ -662,11 +662,9 @@ class Dashboard extends Component {
               );
             } else if (showLastAdmin) {
               content = (
-                <div>
-                  <p className="margin-top-sm">
-                    {getLabel('lastAdminMessage')}
-                  </p>
-                  <div className="text-center margin-top-sm">
+                <div className="text-center">
+                  <p>{getLabel('lastAdminMessage')}</p>
+                  <div className="margin-top-sm">
                     <button
                       type="button"
                       className="btn btn-default margin-right-xs"
@@ -679,7 +677,7 @@ class Dashboard extends Component {
                     </button>
                     <a
                       className="btn btn-danger"
-                      href={`/${agenda.slug}/admin/settings`}
+                      href={`/${agenda.slug}/admin/settings/advanced#delete`}
                     >
                       {getLabel('lastAdminDeleteAgenda')}
                     </a>
@@ -729,6 +727,16 @@ class Dashboard extends Component {
                 )}
                 visible={removeModal.visible || false}
                 onClose={() => closeModal('removeMember')}
+                // Tighten the title↔text gap for the (text-only) last-admin
+                // modal: drop the title's bottom padding (32px → 16px).
+                {...(showLastAdmin
+                  ? {
+                    classNames: {
+                      overlay: 'popup-overlay',
+                      title: 'popup-title padding-bottom-z',
+                    },
+                  }
+                  : {})}
               >
                 {content}
               </Modal>
