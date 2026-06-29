@@ -58,6 +58,12 @@ const SET_PREFIX = 'agendas_';
 // index is genuinely that stale.
 const MAX_ORPHAN_RATIO = 0.9;
 const POLL_INTERVAL_MS = 2000;
+// Per-set wall-clock ceiling: if a task never reports completed within this
+// window, give up on the set (count it failed) rather than hang the whole run.
+const DELETE_DEADLINE_MS = 60 * 60 * 1000;
+// Tolerate a few transient tasks.get failures (429/503/404-while-finishing)
+// before abandoning a delete that is very likely still running server-side.
+const MAX_POLL_ERRORS = 5;
 
 const sleep = (ms) =>
   new Promise((resolve) => {
@@ -72,7 +78,9 @@ function log(...a) {
 // Delete every document of a set, scoped by the `_set` term (no routing — see
 // header). Runs the delete asynchronously and polls the task so a multi-minute
 // delete over a large set never trips the client request timeout. Returns the
-// number of documents actually deleted.
+// number of documents actually deleted; THROWS on any outcome that leaves the
+// set not fully cleaned (task error, partial failures, missing task id, poll
+// deadline/errors) so the caller counts it as failed and the operator re-runs.
 async function deleteSet(esClient, index, set) {
   const { body: started } = await esClient.deleteByQuery({
     index,
@@ -83,23 +91,56 @@ async function deleteSet(esClient, index, set) {
   });
 
   const taskId = started.task;
+  if (!taskId) {
+    throw new Error(`delete_by_query returned no task id for set ${set}`);
+  }
+
+  const deadline = Date.now() + DELETE_DEADLINE_MS;
+  let pollErrors = 0;
   for (;;) {
-    // eslint-disable-next-line no-await-in-loop
-    const { body: task } = await esClient.tasks.get({ task_id: taskId });
+    if (Date.now() > deadline) {
+      throw new Error(
+        `timed out waiting for delete of set ${set} (task ${taskId})`,
+      );
+    }
+
+    let task;
+    try {
+      // eslint-disable-next-line no-await-in-loop
+      ({ body: task } = await esClient.tasks.get({ task_id: taskId }));
+      pollErrors = 0;
+    } catch (error) {
+      pollErrors += 1;
+      if (pollErrors >= MAX_POLL_ERRORS) {
+        throw error;
+      }
+      // eslint-disable-next-line no-await-in-loop
+      await sleep(POLL_INTERVAL_MS);
+      continue;
+    }
+
     if (task.completed) {
       if (task.error) {
-        const err = new Error(task.error.reason || 'delete_by_query failed');
-        err.meta = { body: { error: task.error } };
-        throw err;
+        throw new Error(task.error.reason || 'delete_by_query failed');
       }
       const failures = task.response?.failures ?? [];
       if (failures.length) {
-        log(
-          `[cleanOrphanEvents] set ${set}: ${failures.length} delete failures`
+        // Partial failure: do NOT report the set as cleaned — surface it so the
+        // set is counted failed and re-run, instead of leaving silent orphans.
+        throw new Error(
+          `${failures.length} delete failures`
             + ` (e.g. ${failures[0]?.cause?.reason ?? 'unknown'})`,
         );
       }
-      return task.response?.deleted ?? task.task?.status?.deleted ?? 0;
+      return task.response?.deleted ?? 0;
+    }
+
+    const status = task.task?.status;
+    if (status) {
+      log(
+        `[cleanOrphanEvents]   set ${set}: ${status.deleted ?? 0}/`
+          + `${status.total ?? '?'} deleted…`,
+      );
     }
     // eslint-disable-next-line no-await-in-loop
     await sleep(POLL_INTERVAL_MS);
@@ -140,6 +181,7 @@ async function main() {
     const orphanSets = []; // { set, uid, docCount }
     let scannedSets = 0;
     let skippedNonAgendaSets = 0;
+    let totalAgendaDocs = 0;
     let afterKey;
 
     do {
@@ -172,6 +214,7 @@ async function main() {
           continue;
         }
 
+        totalAgendaDocs += bucket.doc_count;
         const uid = set.slice(SET_PREFIX.length);
         if (!liveUids.has(uid)) {
           orphanSets.push({ set, uid, docCount: bucket.doc_count });
@@ -184,13 +227,18 @@ async function main() {
     const agendaSets = scannedSets - skippedNonAgendaSets;
     const totalOrphanDocs = orphanSets.reduce((acc, o) => acc + o.docCount, 0);
     const orphanRatio = agendaSets > 0 ? orphanSets.length / agendaSets : 0;
+    // Guard on the DOC share too, not just the set share: a few misclassified
+    // but high-volume live agendas would keep the set ratio low while holding
+    // the bulk of the documents.
+    const orphanDocRatio = totalAgendaDocs > 0 ? totalOrphanDocs / totalAgendaDocs : 0;
     log(
       `[cleanOrphanEvents] scanned ${scannedSets} distinct sets`
         + ` (${skippedNonAgendaSets} non-"${SET_PREFIX}*" skipped)`,
     );
     log(
       `[cleanOrphanEvents] orphan sets: ${orphanSets.length}/${agendaSets}`
-        + ` (${(orphanRatio * 100).toFixed(1)}%) totalling ${totalOrphanDocs} documents`,
+        + ` (${(orphanRatio * 100).toFixed(1)}%) totalling ${totalOrphanDocs}`
+        + `/${totalAgendaDocs} documents (${(orphanDocRatio * 100).toFixed(1)}%)`,
     );
 
     if (orphanSets.length === 0) {
@@ -198,12 +246,18 @@ async function main() {
       return;
     }
 
-    // Safety guard: an implausibly high orphan share almost always means the
-    // allowlist is incomplete (wrong/lagging DB, shared index) rather than a
-    // genuinely stale index — refuse to delete live data unless --force.
-    if (APPLY && orphanRatio > MAX_ORPHAN_RATIO && !FORCE) {
+    // Safety guard: an implausibly high orphan share — by set OR by document
+    // count — almost always means the allowlist is incomplete (wrong/lagging
+    // DB, shared index) rather than a genuinely stale index. Refuse to delete
+    // live data unless --force.
+    if (
+      APPLY
+      && (orphanRatio > MAX_ORPHAN_RATIO || orphanDocRatio > MAX_ORPHAN_RATIO)
+      && !FORCE
+    ) {
       throw new Error(
-        `${(orphanRatio * 100).toFixed(1)}% of agenda sets look orphan`
+        `${(orphanRatio * 100).toFixed(1)}% of agenda sets / `
+          + `${(orphanDocRatio * 100).toFixed(1)}% of documents look orphan`
           + ` (> ${(MAX_ORPHAN_RATIO * 100).toFixed(0)}% guard). This usually means`
           + ` the live-agenda allowlist (${liveUids.size} agendas) is incomplete.`
           + ' Verify the DB connection, then re-run with --force if intended.',
