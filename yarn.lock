@@ -2717,23 +2717,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/helper-create-class-features-plugin@npm:^7.18.6, @babel/helper-create-class-features-plugin@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/helper-create-class-features-plugin@npm:7.29.7"
-  dependencies:
-    "@babel/helper-annotate-as-pure": "npm:^7.29.7"
-    "@babel/helper-member-expression-to-functions": "npm:^7.29.7"
-    "@babel/helper-optimise-call-expression": "npm:^7.29.7"
-    "@babel/helper-replace-supers": "npm:^7.29.7"
-    "@babel/helper-skip-transparent-expression-wrappers": "npm:^7.29.7"
-    "@babel/traverse": "npm:^7.29.7"
-    semver: "npm:^6.3.1"
-  peerDependencies:
-    "@babel/core": ^7.0.0
-  checksum: 10c0/75f34905b5e708b473f1e9b33e07b2fcc8f4c60676df8bc74541bb91c77f387c32a948dd04d5071e469ba454d72d0a872e3ace40fbb1d1e7aaa8569efcf09ed4
-  languageName: node
-  linkType: hard
-
 "@babel/helper-create-class-features-plugin@npm:^7.27.1, @babel/helper-create-class-features-plugin@npm:^7.28.3":
   version: 7.28.3
   resolution: "@babel/helper-create-class-features-plugin@npm:7.28.3"
@@ -2768,6 +2751,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/helper-create-class-features-plugin@npm:^7.29.7":
+  version: 7.29.7
+  resolution: "@babel/helper-create-class-features-plugin@npm:7.29.7"
+  dependencies:
+    "@babel/helper-annotate-as-pure": "npm:^7.29.7"
+    "@babel/helper-member-expression-to-functions": "npm:^7.29.7"
+    "@babel/helper-optimise-call-expression": "npm:^7.29.7"
+    "@babel/helper-replace-supers": "npm:^7.29.7"
+    "@babel/helper-skip-transparent-expression-wrappers": "npm:^7.29.7"
+    "@babel/traverse": "npm:^7.29.7"
+    semver: "npm:^6.3.1"
+  peerDependencies:
+    "@babel/core": ^7.0.0
+  checksum: 10c0/75f34905b5e708b473f1e9b33e07b2fcc8f4c60676df8bc74541bb91c77f387c32a948dd04d5071e469ba454d72d0a872e3ace40fbb1d1e7aaa8569efcf09ed4
+  languageName: node
+  linkType: hard
+
 "@babel/helper-create-regexp-features-plugin@npm:^7.18.6, @babel/helper-create-regexp-features-plugin@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/helper-create-regexp-features-plugin@npm:7.27.1"
@@ -2794,19 +2794,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/helper-create-regexp-features-plugin@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/helper-create-regexp-features-plugin@npm:7.29.7"
-  dependencies:
-    "@babel/helper-annotate-as-pure": "npm:^7.29.7"
-    regexpu-core: "npm:^6.3.1"
-    semver: "npm:^6.3.1"
-  peerDependencies:
-    "@babel/core": ^7.0.0
-  checksum: 10c0/c9008c5aafe3b4707964394179cefcb1624d3917b911f308b49719ab8861bc403d82a8f5e046906a18de7082ca393ebae335218c74f52c3fcd81e442c4ae0ce8
-  languageName: node
-  linkType: hard
-
 "@babel/helper-define-polyfill-provider@npm:^0.6.5":
   version: 0.6.5
   resolution: "@babel/helper-define-polyfill-provider@npm:0.6.5"
@@ -2819,21 +2806,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.4.0 || ^8.0.0-0 <8.0.0
   checksum: 10c0/4886a068d9ca1e70af395340656a9dda33c50502c67eed39ff6451785f370bdfc6e57095b90cb92678adcd4a111ca60909af53d3a741120719c5604346ae409e
-  languageName: node
-  linkType: hard
-
-"@babel/helper-define-polyfill-provider@npm:^0.6.8":
-  version: 0.6.8
-  resolution: "@babel/helper-define-polyfill-provider@npm:0.6.8"
-  dependencies:
-    "@babel/helper-compilation-targets": "npm:^7.28.6"
-    "@babel/helper-plugin-utils": "npm:^7.28.6"
-    debug: "npm:^4.4.3"
-    lodash.debounce: "npm:^4.0.8"
-    resolve: "npm:^1.22.11"
-  peerDependencies:
-    "@babel/core": ^7.4.0 || ^8.0.0-0 <8.0.0
-  checksum: 10c0/306a169f2cb285f368578219ef18ea9702860d3d02d64334f8d45ea38648be0b9e1edad8c8f732fa34bb4206ccbb9883c395570fd57ab7bbcf293bc5964c5b3a
   languageName: node
   linkType: hard
 
@@ -2891,16 +2863,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/helper-module-imports@npm:^7.0.0-beta.49, @babel/helper-module-imports@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/helper-module-imports@npm:7.29.7"
-  dependencies:
-    "@babel/traverse": "npm:^7.29.7"
-    "@babel/types": "npm:^7.29.7"
-  checksum: 10c0/6adf60d97356027413342a092f818d9678c4f5caff716a33e3284b5ae14e47a9e88059d421dde4ee4894691260039a12602c0e7becadc175602194b40dfa345d
-  languageName: node
-  linkType: hard
-
 "@babel/helper-module-imports@npm:^7.25.9":
   version: 7.25.9
   resolution: "@babel/helper-module-imports@npm:7.25.9"
@@ -2918,6 +2880,16 @@ __metadata:
     "@babel/traverse": "npm:^7.28.6"
     "@babel/types": "npm:^7.28.6"
   checksum: 10c0/b49d8d8f204d9dbfd5ac70c54e533e5269afb3cea966a9d976722b13e9922cc773a653405f53c89acb247d5aebdae4681d631a3ae3df77ec046b58da76eda2ac
+  languageName: node
+  linkType: hard
+
+"@babel/helper-module-imports@npm:^7.29.7":
+  version: 7.29.7
+  resolution: "@babel/helper-module-imports@npm:7.29.7"
+  dependencies:
+    "@babel/traverse": "npm:^7.29.7"
+    "@babel/types": "npm:^7.29.7"
+  checksum: 10c0/6adf60d97356027413342a092f818d9678c4f5caff716a33e3284b5ae14e47a9e88059d421dde4ee4894691260039a12602c0e7becadc175602194b40dfa345d
   languageName: node
   linkType: hard
 
@@ -2998,17 +2970,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/helper-plugin-utils@npm:^7.13.0, @babel/helper-plugin-utils@npm:^7.18.9, @babel/helper-plugin-utils@npm:^7.20.2, @babel/helper-plugin-utils@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/helper-plugin-utils@npm:7.29.7"
-  checksum: 10c0/380477a06133274a2759f9355929cb60a95e8b8fee624a1ae1fa349e1d1645b89daca456f72833f6d1062bffa12ee4271c5bf0cc5a61c0166cdc24c7591e2408
-  languageName: node
-  linkType: hard
-
 "@babel/helper-plugin-utils@npm:^7.28.6":
   version: 7.28.6
   resolution: "@babel/helper-plugin-utils@npm:7.28.6"
   checksum: 10c0/3f5f8acc152fdbb69a84b8624145ff4f9b9f6e776cb989f9f968f8606eb7185c5c3cfcf3ba08534e37e1e0e1c118ac67080610333f56baa4f7376c99b5f1143d
+  languageName: node
+  linkType: hard
+
+"@babel/helper-plugin-utils@npm:^7.29.7":
+  version: 7.29.7
+  resolution: "@babel/helper-plugin-utils@npm:7.29.7"
+  checksum: 10c0/380477a06133274a2759f9355929cb60a95e8b8fee624a1ae1fa349e1d1645b89daca456f72833f6d1062bffa12ee4271c5bf0cc5a61c0166cdc24c7591e2408
   languageName: node
   linkType: hard
 
@@ -3022,19 +2994,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0
   checksum: 10c0/5ba6258f4bb57c7c9fa76b55f416b2d18c867b48c1af4f9f2f7cd7cc933fe6da7514811d08ceb4972f1493be46f4b69c40282b811d1397403febae13c2ec57b5
-  languageName: node
-  linkType: hard
-
-"@babel/helper-remap-async-to-generator@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/helper-remap-async-to-generator@npm:7.29.7"
-  dependencies:
-    "@babel/helper-annotate-as-pure": "npm:^7.29.7"
-    "@babel/helper-wrap-function": "npm:^7.29.7"
-    "@babel/traverse": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0
-  checksum: 10c0/d71a4f2c7e4523568b1fbeb4d85823bda7ebcd48263b2862ee8194b0a647b612e70d6a64472e0842fc7e557a16e9fa5d3c032af5c1308a342e2a3b49a87d4833
   languageName: node
   linkType: hard
 
@@ -3077,16 +3036,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/helper-skip-transparent-expression-wrappers@npm:^7.20.0, @babel/helper-skip-transparent-expression-wrappers@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/helper-skip-transparent-expression-wrappers@npm:7.29.7"
-  dependencies:
-    "@babel/traverse": "npm:^7.29.7"
-    "@babel/types": "npm:^7.29.7"
-  checksum: 10c0/8c59493621487fc491f27adfc200af82a6aca3b9a5511e4e6050f8716593b4b243472cb56c8d2016e828b7ae12d605a819205aa8600ca08ee291dcd58d65c832
-  languageName: node
-  linkType: hard
-
 "@babel/helper-skip-transparent-expression-wrappers@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/helper-skip-transparent-expression-wrappers@npm:7.27.1"
@@ -3094,6 +3043,16 @@ __metadata:
     "@babel/traverse": "npm:^7.27.1"
     "@babel/types": "npm:^7.27.1"
   checksum: 10c0/f625013bcdea422c470223a2614e90d2c1cc9d832e97f32ca1b4f82b34bb4aa67c3904cb4b116375d3b5b753acfb3951ed50835a1e832e7225295c7b0c24dff7
+  languageName: node
+  linkType: hard
+
+"@babel/helper-skip-transparent-expression-wrappers@npm:^7.29.7":
+  version: 7.29.7
+  resolution: "@babel/helper-skip-transparent-expression-wrappers@npm:7.29.7"
+  dependencies:
+    "@babel/traverse": "npm:^7.29.7"
+    "@babel/types": "npm:^7.29.7"
+  checksum: 10c0/8c59493621487fc491f27adfc200af82a6aca3b9a5511e4e6050f8716593b4b243472cb56c8d2016e828b7ae12d605a819205aa8600ca08ee291dcd58d65c832
   languageName: node
   linkType: hard
 
@@ -3192,27 +3151,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/helper-wrap-function@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/helper-wrap-function@npm:7.29.7"
-  dependencies:
-    "@babel/template": "npm:^7.29.7"
-    "@babel/traverse": "npm:^7.29.7"
-    "@babel/types": "npm:^7.29.7"
-  checksum: 10c0/d765b341863ede049eb6923b9c20fc79fb6c64995a906b60a70c22fbffb21eef5d5a5cf15948c843047d31e8c902a85fa94ccfe5d30d0631a7b1e40e4d667c70
-  languageName: node
-  linkType: hard
-
-"@babel/helpers@npm:^7.13.17, @babel/helpers@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/helpers@npm:7.29.7"
-  dependencies:
-    "@babel/template": "npm:^7.29.7"
-    "@babel/types": "npm:^7.29.7"
-  checksum: 10c0/218e8d10953647c9f44775f5a022b227a182674853b5ea8631889deb7e1a3e4bc870388aaecf59bb8bd92a87f9a96220ed3f70a35bffec6bcf9169ecb67891ac
-  languageName: node
-  linkType: hard
-
 "@babel/helpers@npm:^7.26.0":
   version: 7.26.0
   resolution: "@babel/helpers@npm:7.26.0"
@@ -3260,6 +3198,16 @@ __metadata:
     "@babel/template": "npm:^7.28.6"
     "@babel/types": "npm:^7.28.6"
   checksum: 10c0/c4a779c66396bb0cf619402d92f1610601ff3832db2d3b86b9c9dd10983bf79502270e97ac6d5280cea1b1a37de2f06ecbac561bd2271545270407fbe64027cb
+  languageName: node
+  linkType: hard
+
+"@babel/helpers@npm:^7.29.7":
+  version: 7.29.7
+  resolution: "@babel/helpers@npm:7.29.7"
+  dependencies:
+    "@babel/template": "npm:^7.29.7"
+    "@babel/types": "npm:^7.29.7"
+  checksum: 10c0/218e8d10953647c9f44775f5a022b227a182674853b5ea8631889deb7e1a3e4bc870388aaecf59bb8bd92a87f9a96220ed3f70a35bffec6bcf9169ecb67891ac
   languageName: node
   linkType: hard
 
@@ -3404,18 +3352,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-bugfix-firefox-class-in-computed-class-key@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-bugfix-firefox-class-in-computed-class-key@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-    "@babel/traverse": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0
-  checksum: 10c0/6877a4112797885bcf90f361131e2b63dcbbcb3e334c984c527e1e380eb7e81785219dcf99f1291eef4edc83907cb582204120d97d777807c252f9eb31fd2e6e
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-bugfix-safari-class-field-initializer-scope@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/plugin-bugfix-safari-class-field-initializer-scope@npm:7.27.1"
@@ -3424,17 +3360,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0
   checksum: 10c0/2cd7a55a856e5e59bbd9484247c092a41e0d9f966778e7019da324d9e0928892d26afc4fbb2ac3d76a3c5a631cd3cf0d72dd2653b44f634f6c663b9e6f80aacd
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-bugfix-safari-class-field-initializer-scope@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-bugfix-safari-class-field-initializer-scope@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0
-  checksum: 10c0/557565fc052b9ab306802b19b9cfc89be9aa7aa709447698dbb5080db356048d4c3dd94ccad8bcb4d5ef3c4002947a340d1c326acde0d95950c3773472f46282
   languageName: node
   linkType: hard
 
@@ -3449,29 +3374,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0
-  checksum: 10c0/5b949826cfadd9d90c3cfba01cc917f218ba2da05b2a2dc4781bd3805c150eb858ba52d2f3972c8ae6cc887257ac4d114fdda6d695a30510137abae5c76bf054
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-bugfix-safari-rest-destructuring-rhs-array@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-bugfix-safari-rest-destructuring-rhs-array@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-    "@babel/helper-skip-transparent-expression-wrappers": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0
-  checksum: 10c0/727a464410623fb47d47a2803562b8bb9fb4b915de94cc51bd3149937522b85e6a5d19c71207ac5269c51684f282a918785e78e359435d1f4ac889dc4f258855
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-bugfix-v8-spread-parameters-in-optional-chaining@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/plugin-bugfix-v8-spread-parameters-in-optional-chaining@npm:7.27.1"
@@ -3482,19 +3384,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.13.0
   checksum: 10c0/eddcd056f76e198868cbff883eb148acfade8f0890973ab545295df0c08e39573a72e65372bcc0b0bfadba1b043fe1aea6b0907d0b4889453ac154c404194ebc
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-bugfix-v8-spread-parameters-in-optional-chaining@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-bugfix-v8-spread-parameters-in-optional-chaining@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-    "@babel/helper-skip-transparent-expression-wrappers": "npm:^7.29.7"
-    "@babel/plugin-transform-optional-chaining": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.13.0
-  checksum: 10c0/9ccc704d1382771b2a6a4f1281b2f63d7be47fb0ebc9890e2f820e2a645b77aaf207ec8e6136854bb059715eac5fd7cab436b054c3b3b4a472b9fd0c73ee98b3
   languageName: node
   linkType: hard
 
@@ -3522,190 +3411,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-bugfix-v8-static-class-fields-redefine-readonly@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-bugfix-v8-static-class-fields-redefine-readonly@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-    "@babel/traverse": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0
-  checksum: 10c0/547bddf129eed825c0a3c706828c579bfedd0fa850054ded515e90af91fa1a643bb88461e49b59946d95737622766ae0db2c04346ee319e06e49852c270a2c2f
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-proposal-class-properties@npm:^7.13.0":
-  version: 7.18.6
-  resolution: "@babel/plugin-proposal-class-properties@npm:7.18.6"
-  dependencies:
-    "@babel/helper-create-class-features-plugin": "npm:^7.18.6"
-    "@babel/helper-plugin-utils": "npm:^7.18.6"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/d5172ac6c9948cdfc387e94f3493ad86cb04035cf7433f86b5d358270b1b9752dc25e176db0c5d65892a246aca7bdb4636672e15626d7a7de4bc0bd0040168d9
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-proposal-decorators@npm:^7.13.15":
-  version: 7.29.7
-  resolution: "@babel/plugin-proposal-decorators@npm:7.29.7"
-  dependencies:
-    "@babel/helper-create-class-features-plugin": "npm:^7.29.7"
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-    "@babel/plugin-syntax-decorators": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/9c0ce48ac70952d4419f0ceb250cefe2eff96d1e7393bcb7db2e15abe655ee04e25e6f7ce4346f27bdfa781a4386963e3e5c1d1ef7cb1c765a0d811debc9a645
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-proposal-do-expressions@npm:^7.12.13":
-  version: 7.29.7
-  resolution: "@babel/plugin-proposal-do-expressions@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/666159e549b969c6ccc9a3d78dde4dadedf7d9592f99bc84be37acd6701900480ba50ce0712d26da5040e2a5d647ed55122c91bf92586aa95601178ed4f80a5b
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-proposal-export-default-from@npm:^7.12.13":
-  version: 7.29.7
-  resolution: "@babel/plugin-proposal-export-default-from@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/4208f28549960372ec17422ff63fccde001fdaec322d1b5b602856088c883d8e7f22159737cd32a691a1d6153a269aa6228cd55d6a10693dfa584864138d8614
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-proposal-export-namespace-from@npm:^7.12.13":
-  version: 7.18.9
-  resolution: "@babel/plugin-proposal-export-namespace-from@npm:7.18.9"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.18.9"
-    "@babel/plugin-syntax-export-namespace-from": "npm:^7.8.3"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/b90346bd3628ebd44138d0628a5aba1e6b11748893fb48e87008cac30f3bc7cd3161362e49433156737350318174164436357a66fbbfdbe952606b460bd8a0e4
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-proposal-function-bind@npm:^7.12.13":
-  version: 7.29.7
-  resolution: "@babel/plugin-proposal-function-bind@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/d5f96125abd2ae47d6442a48b8fa6eb8fd5420a75c3258770446a2d8dfed2aca679cafa9563a4ccce088c1666094256b9ebcc8e6ea4cb4955ff933aacd672f4f
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-proposal-function-sent@npm:^7.12.13":
-  version: 7.29.7
-  resolution: "@babel/plugin-proposal-function-sent@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-    "@babel/helper-wrap-function": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/0af67dc10f539f02a21dc0466546c47303c605e617fa7be02c570105ffe2cf8f97cc504e44931823ecea8f2dd107e6e4dd582ef8f5bc04e93024cee70389afe7
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-proposal-json-strings@npm:^7.13.8":
-  version: 7.18.6
-  resolution: "@babel/plugin-proposal-json-strings@npm:7.18.6"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.18.6"
-    "@babel/plugin-syntax-json-strings": "npm:^7.8.3"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/83f2ce41262a538ee43450044b9b0de320002473e4849421a7318c0500f9b0385c03d228f1be777ad71fd358aef13392e3551f0be52b5c423b0c34f7c9e5a06d
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-proposal-logical-assignment-operators@npm:^7.13.8":
-  version: 7.20.7
-  resolution: "@babel/plugin-proposal-logical-assignment-operators@npm:7.20.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.20.2"
-    "@babel/plugin-syntax-logical-assignment-operators": "npm:^7.10.4"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/436c1ee9f983813fc52788980a7231414351bd34d80b16b83bddb09115386292fe4912cc6d172304eabbaf0c4813625331b9b5bc798acb0e8925cf0d2b394d4d
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-proposal-nullish-coalescing-operator@npm:^7.13.8":
-  version: 7.18.6
-  resolution: "@babel/plugin-proposal-nullish-coalescing-operator@npm:7.18.6"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.18.6"
-    "@babel/plugin-syntax-nullish-coalescing-operator": "npm:^7.8.3"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/f6629158196ee9f16295d16db75825092ef543f8b98f4dfdd516e642a0430c7b1d69319ee676d35485d9b86a53ade6de0b883490d44de6d4336d38cdeccbe0bf
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-proposal-numeric-separator@npm:^7.12.13":
-  version: 7.18.6
-  resolution: "@babel/plugin-proposal-numeric-separator@npm:7.18.6"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.18.6"
-    "@babel/plugin-syntax-numeric-separator": "npm:^7.10.4"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/a83a65c6ec0d2293d830e9db61406d246f22d8ea03583d68460cb1b6330c6699320acce1b45f66ba3c357830720e49267e3d99f95088be457c66e6450fbfe3fa
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-proposal-optional-chaining@npm:^7.13.12":
-  version: 7.21.0
-  resolution: "@babel/plugin-proposal-optional-chaining@npm:7.21.0"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.20.2"
-    "@babel/helper-skip-transparent-expression-wrappers": "npm:^7.20.0"
-    "@babel/plugin-syntax-optional-chaining": "npm:^7.8.3"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/b524a61b1de3f3ad287cd1e98c2a7f662178d21cd02205b0d615512e475f0159fa1b569fa7e34c8ed67baef689c0136fa20ba7d1bf058d186d30736a581a723f
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-proposal-pipeline-operator@npm:^7.12.13":
-  version: 7.29.7
-  resolution: "@babel/plugin-proposal-pipeline-operator@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-    "@babel/plugin-syntax-pipeline-operator": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/112cfc8ae558e31822ada7bf439675a623a5e47ceb3823f386b4bbd03a4bd9ebc8741f37a4918c4e92b988210245649719008b5e77addada603b2e7a5ead89d8
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-proposal-private-property-in-object@npm:7.21.0-placeholder-for-preset-env.2":
   version: 7.21.0-placeholder-for-preset-env.2
   resolution: "@babel/plugin-proposal-private-property-in-object@npm:7.21.0-placeholder-for-preset-env.2"
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 10c0/e605e0070da087f6c35579499e65801179a521b6842c15181a1e305c04fded2393f11c1efd09b087be7f8b083d1b75e8f3efcbc1292b4f60d3369e14812cff63
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-proposal-throw-expressions@npm:^7.12.13":
-  version: 7.29.7
-  resolution: "@babel/plugin-proposal-throw-expressions@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/049f8c586f4a11d737cc12b92ac8a8edc5273c2e6bf3feb5c576fe2504d633e06ee34f00c7eb86015c7a54e30419786735d840e99f5a0786e61ddecc33228ee9
   languageName: node
   linkType: hard
 
@@ -3753,17 +3464,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-syntax-decorators@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-syntax-decorators@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/5a5644ecd899345a92788c2d3a832541a09ab1558accbde396036920d76405b8cb7b073eb01fad468181719962cc0dfdf8377c4744fc4ceb042432e03f64e13e
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-syntax-dynamic-import@npm:^7.7.4, @babel/plugin-syntax-dynamic-import@npm:^7.8.3":
   version: 7.8.3
   resolution: "@babel/plugin-syntax-dynamic-import@npm:7.8.3"
@@ -3772,17 +3472,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 10c0/9c50927bf71adf63f60c75370e2335879402648f468d0172bc912e303c6a3876927d8eb35807331b57f415392732ed05ab9b42c68ac30a936813ab549e0246c5
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-syntax-export-namespace-from@npm:^7.8.3":
-  version: 7.8.3
-  resolution: "@babel/plugin-syntax-export-namespace-from@npm:7.8.3"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.8.3"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/5100d658ba563829700cd8d001ddc09f4c0187b1a13de300d729c5b3e87503f75a6d6c99c1794182f7f1a9f546ee009df4f15a0ce36376e206ed0012fa7cdc24
   languageName: node
   linkType: hard
 
@@ -3819,17 +3508,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-syntax-import-assertions@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-syntax-import-assertions@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/d5628692a0ba2fadf469aaef20f4f0a216259eeb92d31fc23d48c9d201696099691f0dfaa895c657f9c591a7fab94f62545f20196326af1812ebab72cf34e9fe
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-syntax-import-attributes@npm:^7.24.7, @babel/plugin-syntax-import-attributes@npm:^7.28.6":
   version: 7.28.6
   resolution: "@babel/plugin-syntax-import-attributes@npm:7.28.6"
@@ -3849,17 +3527,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 10c0/e66f7a761b8360419bbb93ab67d87c8a97465ef4637a985ff682ce7ba6918b34b29d81190204cf908d0933058ee7b42737423cd8a999546c21b3aabad4affa9a
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-syntax-import-attributes@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-syntax-import-attributes@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/b9a47e869d8c06676297069895ae34e2bd244ec4c3bdf15002f1e69aed32eef0361044af22a43f271b8de5e23a40534fe6a74a63e7ab98e3d60a74b322444b49
   languageName: node
   linkType: hard
 
@@ -3973,17 +3640,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-syntax-pipeline-operator@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-syntax-pipeline-operator@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/d4afed819b44c5ecd7b9dd22085dfee34bf1eeb3d7ae4fd2fad22a7a1cb110ee51fd9987a70370c6a2d61aa9d1fe9e70d5340a893ed7c9a4400020fa8f0e6145
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-syntax-private-property-in-object@npm:^7.14.5":
   version: 7.14.5
   resolution: "@babel/plugin-syntax-private-property-in-object@npm:7.14.5"
@@ -4062,17 +3718,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-arrow-functions@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-arrow-functions@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/03405abac83122b760c4d688a256c7a67961fd5a4396dfd119cf89a118984d31add38eeace38a158c63c3a4257a644e15da8836ee9e50876bf6876e988060be2
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-transform-async-generator-functions@npm:^7.28.0":
   version: 7.28.0
   resolution: "@babel/plugin-transform-async-generator-functions@npm:7.28.0"
@@ -4096,19 +3741,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 10c0/eddb94b0b990d8057c9c3587db3453eb586d1835626a9d683e6e8bef0ac5f708a76002951fb9cca80c902b3074b21b3a81b8af9090492561d9179862ce5716d8
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-transform-async-generator-functions@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-async-generator-functions@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-    "@babel/helper-remap-async-to-generator": "npm:^7.29.7"
-    "@babel/traverse": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/efeeb26e8474d75b469b68fd7de74b757929b78aba5714ccb705a42f23d4e0de178ca09b59efd19113d42461bcf876dd9a919fd61f4e5e6fd1d1e5e7998e5bfe
   languageName: node
   linkType: hard
 
@@ -4138,19 +3770,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-async-to-generator@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-async-to-generator@npm:7.29.7"
-  dependencies:
-    "@babel/helper-module-imports": "npm:^7.29.7"
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-    "@babel/helper-remap-async-to-generator": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/1aa514d28a2a87747f54e031cf6d2884a792a41c8bb9ebcf4d3d663284a4ae14e02c744ad76819ab09b96b6a0cdb60dd20e54c75f2eb9c3cc3fb255e0ef79e74
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-transform-block-scoped-functions@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/plugin-transform-block-scoped-functions@npm:7.27.1"
@@ -4159,17 +3778,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 10c0/3313130ba3bf0699baad0e60da1c8c3c2f0c2c0a7039cd0063e54e72e739c33f1baadfc9d8c73b3fea8c85dd7250c3964fb09c8e1fa62ba0b24a9fefe0a8dbde
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-transform-block-scoped-functions@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-block-scoped-functions@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/bb790629b9bce5215f932932222b50f371f8dfd30b874b7e6ea294213ddf10f427d5fc80dc7e1c0fba3568f02c1865290ce40aef89657570d98c4eb13b6af3c2
   languageName: node
   linkType: hard
 
@@ -4195,18 +3803,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-block-scoping@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-block-scoping@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/ec4e45aefd4e1d276d0ee143bc521c2a3b38e59cc7dcef014d43c9a844416160d89f98953399e69e547a5743474d0986cb62155514109eab73b942beeb453a3f
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-transform-class-properties@npm:^7.24.7, @babel/plugin-transform-class-properties@npm:^7.29.7":
+"@babel/plugin-transform-class-properties@npm:^7.24.7":
   version: 7.29.7
   resolution: "@babel/plugin-transform-class-properties@npm:7.29.7"
   dependencies:
@@ -4266,18 +3863,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-class-static-block@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-class-static-block@npm:7.29.7"
-  dependencies:
-    "@babel/helper-create-class-features-plugin": "npm:^7.29.7"
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.12.0
-  checksum: 10c0/d2fa7e8af5d05cee838bab20b624c2911ef6618c7ead146f6ace6421280d0e57487fc2b946b42832289a35764b559e584983b32e51bf5a85596495ba3452970f
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-transform-classes@npm:^7.28.3":
   version: 7.28.4
   resolution: "@babel/plugin-transform-classes@npm:7.28.4"
@@ -4310,22 +3895,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-classes@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-classes@npm:7.29.7"
-  dependencies:
-    "@babel/helper-annotate-as-pure": "npm:^7.29.7"
-    "@babel/helper-compilation-targets": "npm:^7.29.7"
-    "@babel/helper-globals": "npm:^7.29.7"
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-    "@babel/helper-replace-supers": "npm:^7.29.7"
-    "@babel/traverse": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/53a55bc5348d82ca744dbfcfedf33ab79877e609a5308f43976de8c240bd09cee195a535bf54a01b28d7080eebe759735b1c6cf39f252eef469eefc1d838d2a2
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-transform-computed-properties@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/plugin-transform-computed-properties@npm:7.27.1"
@@ -4347,18 +3916,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 10c0/1e9893503ae6d651125701cc29450e87c0b873c8febebff19da75da9c40cfb7968c52c28bf948244e461110aeb7b3591f2cc199b7406ff74a24c50c7a5729f39
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-transform-computed-properties@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-computed-properties@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-    "@babel/template": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/a8755338ffbfb374bafc2b3c22b00b025b8e5cf1cbac9c1ecdb3fb4c538508cb1b8f7a4e8c874b05df5166ff19ef105e65d54fefcf0546c628fa67214453b708
   languageName: node
   linkType: hard
 
@@ -4386,18 +3943,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-destructuring@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-destructuring@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-    "@babel/traverse": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/74ff73303d32f8379f636741d3e48e2a20bbeb6e8b0d9343daad1952242f0ea78f319b4c871b5623739033b61459c9eed3d98f699fd192c45eab61ed8ad4c5ec
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-transform-dotall-regex@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/plugin-transform-dotall-regex@npm:7.27.1"
@@ -4422,18 +3967,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-dotall-regex@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-dotall-regex@npm:7.29.7"
-  dependencies:
-    "@babel/helper-create-regexp-features-plugin": "npm:^7.29.7"
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/1c3eecc214bae152fc9af66b6d7e045a58e364a1cbc18a6c8e0ecea2d470eb6171f35b454dde51dffb4e687245bc8ad9abb9e233cc708db5bd3bdced74a1511c
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-transform-duplicate-keys@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/plugin-transform-duplicate-keys@npm:7.27.1"
@@ -4442,17 +3975,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 10c0/22a822e5342b7066f83eaedc4fd9bb044ac6bc68725484690b33ba04a7104980e43ea3229de439286cb8db8e7db4a865733a3f05123ab58a10f189f03553746f
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-transform-duplicate-keys@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-duplicate-keys@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/0d895326d8b29f6acaa8da72ebdc6393537311eaa33d8cab99cbb322a73c21be51d5d932a6d0c124e4f51539c5731dc3ed93084d3a2078a63db59dda6b00a724
   languageName: node
   linkType: hard
 
@@ -4480,18 +4002,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-duplicate-named-capturing-groups-regex@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-duplicate-named-capturing-groups-regex@npm:7.29.7"
-  dependencies:
-    "@babel/helper-create-regexp-features-plugin": "npm:^7.29.7"
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0
-  checksum: 10c0/1dfecfb693ad6f1b6b779ac2fd676df048a051b83b4856f9ddced6217cd1f69b96259b01b5a67ee970fe531edf845944aadcc3f5dc74780331997f1dbf2de0da
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-transform-dynamic-import@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/plugin-transform-dynamic-import@npm:7.27.1"
@@ -4500,17 +4010,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 10c0/8dcd3087aca134b064fc361d2cc34eec1f900f6be039b6368104afcef10bb75dea726bb18cabd046716b89b0edaa771f50189fa16bc5c5914a38cbcf166350f7
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-transform-dynamic-import@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-dynamic-import@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/9f824556ab369173e5945cceeb3b83516a2896b161a5cd9f14641e30b7d1535426eebbf04d1f3cfcac557e0148180650584b4ce552b09a6b03f03adf1fbc689c
   languageName: node
   linkType: hard
 
@@ -4538,18 +4037,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-explicit-resource-management@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-explicit-resource-management@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-    "@babel/plugin-transform-destructuring": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/083ef2bbc8c78ff80d70b1fe12604a8a2cc6a5ec68115c6efa4be7b5291b7576a092a102739af7c7e743cad79234b7cb7efe4216ca1913b598e0afc04a9962d5
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-transform-exponentiation-operator@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/plugin-transform-exponentiation-operator@npm:7.27.1"
@@ -4572,17 +4059,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-exponentiation-operator@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-exponentiation-operator@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/1db57e065c5bceafcf7839d0c4cefd5723adba6d858df89d077d3f336364266a2dab71f1eb44746c14024736dd15fbe20ea392128c16b898abefc27cc1ca173f
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-transform-export-namespace-from@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/plugin-transform-export-namespace-from@npm:7.27.1"
@@ -4591,17 +4067,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 10c0/d7165cad11f571a54c8d9263d6c6bf2b817aff4874f747cb51e6e49efb32f2c9b37a6850cdb5e3b81e0b638141bb77dc782a6ec1a94128859fbdf7767581e07c
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-transform-export-namespace-from@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-export-namespace-from@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/6cd951e366c5c30223c409157e312d949feecfae8b4b4927053764ec71ff2bacf43aceda9b53239cd90d71caf4ae849c70549e0d3e31377dd8f42a0c283bdda2
   languageName: node
   linkType: hard
 
@@ -4629,18 +4094,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-for-of@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-for-of@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-    "@babel/helper-skip-transparent-expression-wrappers": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/1d0143067df5f0d5ff0097099876da5d9d0fb7e2670939fde2523a0b14be2ea2cbcf736f874081d13ec5c3fca756f7aa1782a7c8cf17c262b0a493115a23b6b1
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-transform-function-name@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/plugin-transform-function-name@npm:7.27.1"
@@ -4651,19 +4104,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 10c0/5abdc7b5945fbd807269dcc6e76e52b69235056023b0b35d311e8f5dfd6c09d9f225839798998fc3b663f50cf701457ddb76517025a0d7a5474f3fe56e567a4c
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-transform-function-name@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-function-name@npm:7.29.7"
-  dependencies:
-    "@babel/helper-compilation-targets": "npm:^7.29.7"
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-    "@babel/traverse": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/3ed2bca4f49356cd8fe1aa69daf5de63451be3b9271264eae536baf8d53476c63033e7fed6b5e97277cc10bdbfa10148f2f03315ca4cd94fae2b4ad5cb9b437f
   languageName: node
   linkType: hard
 
@@ -4689,17 +4129,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-json-strings@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-json-strings@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/6cc66ffbfa1dd50f1f225da0668740e93357ea84e67c798e9814085595d4f04a65d0d1368d15fd4b0022b7e76eded3a1c822791a93a8855b62897c836c547fff
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-transform-literals@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/plugin-transform-literals@npm:7.27.1"
@@ -4708,17 +4137,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 10c0/c40dc3eb2f45a92ee476412314a40e471af51a0f51a24e91b85cef5fc59f4fe06758088f541643f07f949d2c67ee7bdce10e11c5ec56791ae09b15c3b451eeca
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-transform-literals@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-literals@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/bcfb8ca4092f2927ed61fdb75ddbadd701eda08ea2dd972f110d2ef1428643275c7adc7ce26847e15fbd573997e93654ff9afb4c1767a058e6d5843cbb9a4ae7
   languageName: node
   linkType: hard
 
@@ -4744,17 +4162,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-logical-assignment-operators@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-logical-assignment-operators@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/b0b85f47bde7efd253b273bcbe317178df6f281b99f8399c04a3af1a8b0878ddb6e3d57e395292917d0376c337e57f4d64ad9f861001590a90f888c30abf2c51
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-transform-member-expression-literals@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/plugin-transform-member-expression-literals@npm:7.27.1"
@@ -4763,17 +4170,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 10c0/0874ccebbd1c6a155e5f6b3b29729fade1221b73152567c1af1e1a7c12848004dffecbd7eded6dc463955120040ae57c17cb586b53fb5a7a27fcd88177034c30
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-transform-member-expression-literals@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-member-expression-literals@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/b8db313de0a4aeb3a617afcf9413774a53ec71a361030c89dbe2d05aa17310e9d33d4307727c898bfc9b07a9c676482fa8b0463840d1829c21323bc04623d556
   languageName: node
   linkType: hard
 
@@ -4786,18 +4182,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 10c0/76e86cd278b6a3c5b8cca8dfb3428e9cd0c81a5df7096e04c783c506696b916a9561386d610a9d846ef64804640e0bd818ea47455fed0ee89b7f66c555b29537
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-transform-modules-amd@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-modules-amd@npm:7.29.7"
-  dependencies:
-    "@babel/helper-module-transforms": "npm:^7.29.7"
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/425e9f99506968196a239944fe4eb51e144eadc2490b49a74798f92226f76b328d13b13e90e07962cd5df327994011570a3c2883b65091dde984b5bdff066c6b
   languageName: node
   linkType: hard
 
@@ -4865,20 +4249,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-modules-systemjs@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-modules-systemjs@npm:7.29.7"
-  dependencies:
-    "@babel/helper-module-transforms": "npm:^7.29.7"
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-    "@babel/helper-validator-identifier": "npm:^7.29.7"
-    "@babel/traverse": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/7b950bcc4a4b077b742b9299c8c9d4285e15854e23816d0b1c1177fafda4c153f3c3c4487c1b965afbf7a69a8788fc75656d0c591b91f0a5a543faabe738ca58
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-transform-modules-umd@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/plugin-transform-modules-umd@npm:7.27.1"
@@ -4888,18 +4258,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 10c0/e5962a8874889da2ab1aa32eb93ec21d419c7423c766e4befb39b4bb512b9ad44b47837b6cd1c8f1065445cbbcc6dc2be10298ac6e734e5ca1059fc23698daed
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-transform-modules-umd@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-modules-umd@npm:7.29.7"
-  dependencies:
-    "@babel/helper-module-transforms": "npm:^7.29.7"
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/14545c7dfc8f95010766075d9cd4c1bf99a868c2dad7f780e9a609c6d94d23044f85672548b35a2162c027647386c0cfb85f68cee8f4e02352683acf6aade76d
   languageName: node
   linkType: hard
 
@@ -4915,18 +4273,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-named-capturing-groups-regex@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-named-capturing-groups-regex@npm:7.29.7"
-  dependencies:
-    "@babel/helper-create-regexp-features-plugin": "npm:^7.29.7"
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0
-  checksum: 10c0/e16e270fc3640baf403497cbbab196cc0f18477576cf3535713c851f69c6e27b2902cc7502c3a863dce7f0432dc344ddcb14766a2af7cf37333aa864c7e5739b
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-transform-new-target@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/plugin-transform-new-target@npm:7.27.1"
@@ -4938,18 +4284,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-new-target@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-new-target@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/9a192ded7083850d5b3c5629a3da4fe209298ac9d7a84d1495916a5c841cd4017e4d126d98a3b7c322eafae3851345fe2670377a16561b9cbd817e952f6fdbd5
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-transform-nullish-coalescing-operator@npm:^7.24.7, @babel/plugin-transform-nullish-coalescing-operator@npm:^7.29.7":
+"@babel/plugin-transform-nullish-coalescing-operator@npm:^7.24.7":
   version: 7.29.7
   resolution: "@babel/plugin-transform-nullish-coalescing-operator@npm:7.29.7"
   dependencies:
@@ -5004,17 +4339,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-numeric-separator@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-numeric-separator@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/a0e79a9627717277cc21ede56d8e57da0ac5e0c9620c963da2526791657044b57eeeafe27f297754cfdea470dd590c763e9bc71d589f1850654f77f5f4f77ece
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-transform-object-rest-spread@npm:^7.28.0":
   version: 7.28.4
   resolution: "@babel/plugin-transform-object-rest-spread@npm:7.28.4"
@@ -5045,21 +4369,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-object-rest-spread@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-object-rest-spread@npm:7.29.7"
-  dependencies:
-    "@babel/helper-compilation-targets": "npm:^7.29.7"
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-    "@babel/plugin-transform-destructuring": "npm:^7.29.7"
-    "@babel/plugin-transform-parameters": "npm:^7.29.7"
-    "@babel/traverse": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/7963bcbb3165699cabad1ac5dcf03c26ffbe41c4a130283376d6e7a69ee6a353105c666e533e024bdf28862968434d1e13635846c8d8e7f5f9271407112aed1c
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-transform-object-super@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/plugin-transform-object-super@npm:7.27.1"
@@ -5069,18 +4378,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 10c0/efa2d092ef55105deb06d30aff4e460c57779b94861188128489b72378bf1f0ab0f06a4a4d68b9ae2a59a79719fbb2d148b9a3dca19ceff9c73b1f1a95e0527c
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-transform-object-super@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-object-super@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-    "@babel/helper-replace-supers": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/eacfa0f571cb9bbdb283253b41c7a3cafe03e6da81ea92f61d003971b3ada43a3f65e5392d31ba3fe7da6cd8b4210968729769f22d3f0feb418db9e66f167413
   languageName: node
   linkType: hard
 
@@ -5106,18 +4403,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-optional-catch-binding@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-optional-catch-binding@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/0df7a9cdaec349e4b893cb26b7ad45454b3ac01de722ccea5e8b4332d15f3e1bc2c130a18367052ce195c957178ad773121c5d586454c438d890585fc548dacc
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-transform-optional-chaining@npm:^7.24.7, @babel/plugin-transform-optional-chaining@npm:^7.29.7":
+"@babel/plugin-transform-optional-chaining@npm:^7.24.7":
   version: 7.29.7
   resolution: "@babel/plugin-transform-optional-chaining@npm:7.29.7"
   dependencies:
@@ -5164,18 +4450,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-parameters@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-parameters@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/ea1ff347e7b33b2483d18dcb9fb6c58f9819312f38235bf142e12f5355fcf77bb6640929734b12bd26b900c7abbb8cbd77ad06082d4c10d6e0e097ad016237e6
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-transform-private-methods@npm:^7.24.7, @babel/plugin-transform-private-methods@npm:^7.29.7":
+"@babel/plugin-transform-private-methods@npm:^7.24.7":
   version: 7.29.7
   resolution: "@babel/plugin-transform-private-methods@npm:7.29.7"
   dependencies:
@@ -5237,19 +4512,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-private-property-in-object@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-private-property-in-object@npm:7.29.7"
-  dependencies:
-    "@babel/helper-annotate-as-pure": "npm:^7.29.7"
-    "@babel/helper-create-class-features-plugin": "npm:^7.29.7"
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/6378b34725c6aab4b580cbb5d35ca45ba52213084d54c6672bc4282d86dc45937b8788ad450a9fb60ceb405e3c0d4b25e2804293c2509b54c5e0078babd56a8a
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-transform-property-literals@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/plugin-transform-property-literals@npm:7.27.1"
@@ -5258,17 +4520,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 10c0/15713a87edd6db620d6e66eb551b4fbfff5b8232c460c7c76cedf98efdc5cd21080c97040231e19e06594c6d7dfa66e1ab3d0951e29d5814fb25e813f6d6209c
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-transform-property-literals@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-property-literals@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/231ef97caeed1b79676978c9c04f203ba39f98da79097b733946aa29eb302d7cefc863d407f032a805080e8d20f70d7b2265c9c3ce634ca627d63c8f0f6e6e42
   languageName: node
   linkType: hard
 
@@ -5283,17 +4534,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-react-display-name@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-react-display-name@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/0a3b2461b189d6f4ca4f691bb4d1872bdebbac90d2e933a42a2fb22a0d26c81fa1ba7bc8128f3886b3f0f8a0ffe5aa0d7eaf4cd5b9610fc4967913a060501781
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-transform-react-jsx-development@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/plugin-transform-react-jsx-development@npm:7.27.1"
@@ -5302,17 +4542,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 10c0/eb8c4b6a79dc5c49b41e928e2037e1ee0bbfa722e4fd74c0b7c0d11103c82c2c25c434000e1b051d534c7261ab5c92b6d1e85313bf1b26e37db3f051ae217b58
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-transform-react-jsx-development@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-react-jsx-development@npm:7.29.7"
-  dependencies:
-    "@babel/plugin-transform-react-jsx": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/a2d44d068d35f8e6bc0437ba0da86526d4473491a43108caf77cba467a3ab522cbd09bcd8184b7a49f3d2b52e0883ad797ed2f91c090b857a80a6f383e88f449
   languageName: node
   linkType: hard
 
@@ -5331,21 +4560,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-react-jsx@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-react-jsx@npm:7.29.7"
-  dependencies:
-    "@babel/helper-annotate-as-pure": "npm:^7.29.7"
-    "@babel/helper-module-imports": "npm:^7.29.7"
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-    "@babel/plugin-syntax-jsx": "npm:^7.29.7"
-    "@babel/types": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/ae6487c3deafcffda8a2c1b1eb77e0b7121630fa1a9646cecd73dbbdd8271532a0f7f0e8c01f69b6d39a36d8d79eb67e2d51031369c9055f18f7d8e70d9b5446
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-transform-react-pure-annotations@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/plugin-transform-react-pure-annotations@npm:7.27.1"
@@ -5355,18 +4569,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 10c0/34bc090f4a7e460d82a851971b4d0f32e4bb519bafb927154f4174506283fe02b0f471fc20655c6050a8bf7b748bfa31c7e8f7d688849476d8266623554fbb28
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-transform-react-pure-annotations@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-react-pure-annotations@npm:7.29.7"
-  dependencies:
-    "@babel/helper-annotate-as-pure": "npm:^7.29.7"
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/ad85d57dfa105cd19dc5271f68c9a3e134ab96edce9b8c6b521fdb158499bc616df9d4ee9b386e9dc5532e67bd5682ba2047b88550699d7f1060eaaba80fb6d1
   languageName: node
   linkType: hard
 
@@ -5389,17 +4591,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 10c0/dbb65b7444548807aee558cdaf23996e7a0f6c3bced09c6b5d177734b3addcaf417532186e330341758979651e2af8cb98ae572f794f05c0e2e201e5593a5ffe
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-transform-regenerator@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-regenerator@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/b991ab501c1c2c323398054211f8cd992f1db438b5b5d548d63dc74ff9591d52a50385160fdba2b62aae4f9610a321355a8ff911f1c4bd80dc74b555cad61468
   languageName: node
   linkType: hard
 
@@ -5427,18 +4618,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-regexp-modifiers@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-regexp-modifiers@npm:7.29.7"
-  dependencies:
-    "@babel/helper-create-regexp-features-plugin": "npm:^7.29.7"
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0
-  checksum: 10c0/1c6c79f87a7163d33c1c9d787d239e3981755a66822ef0d41a95ce12e76277a247eaeeab29e3cf79bb6288e37e48a18accc13c3a9c351c06e4303b1d9b8b37cb
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-transform-reserved-words@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/plugin-transform-reserved-words@npm:7.27.1"
@@ -5447,33 +4626,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 10c0/e1a87691cce21a644a474d7c9a8107d4486c062957be32042d40f0a3d0cc66e00a3150989655019c255ff020d2640ac16aaf544792717d586f219f3bad295567
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-transform-reserved-words@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-reserved-words@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/9eee586b7c7a9a34a659fd4d55ae8b156b03c8120a8459724062c212a59327ee8878168c0ce6bb5abd6c2a28aa87bc280b5180b1cbb2b03b12f7c71690f48718
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-transform-runtime@npm:^7.13.15":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-runtime@npm:7.29.7"
-  dependencies:
-    "@babel/helper-module-imports": "npm:^7.29.7"
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-    babel-plugin-polyfill-corejs2: "npm:^0.4.14"
-    babel-plugin-polyfill-corejs3: "npm:^0.13.0"
-    babel-plugin-polyfill-regenerator: "npm:^0.6.5"
-    semver: "npm:^6.3.1"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/570592fc99e55a976000532c5006ac7721b5c508fb905f4f919032291dcd3836617622d1c74177b1f872c88bb48c3f707cb6c2f7477d86d191d8b412d32385e9
   languageName: node
   linkType: hard
 
@@ -5520,17 +4672,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-shorthand-properties@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-shorthand-properties@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/0f28300b873ce874c759917c7b22f68d5145a9c2d97df076e23dca99f8aa565dfceeb7e487af330e01d3e07d78f80d05b584aa411c60a63128b6a04a7633d45b
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-transform-spread@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/plugin-transform-spread@npm:7.27.1"
@@ -5555,18 +4696,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-spread@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-spread@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-    "@babel/helper-skip-transparent-expression-wrappers": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/a3a5639eac8cc4a9cb3d8b2098a0a341b36e3ae11d29729cac1042d07a31b5290c32fa2c12cd2f122bf581bd0a65fec6b7b6c7446eef5a81e657739a579c0d5c
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-transform-sticky-regex@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/plugin-transform-sticky-regex@npm:7.27.1"
@@ -5575,17 +4704,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 10c0/5698df2d924f0b1b7bdb7ef370e83f99ed3f0964eb3b9c27d774d021bee7f6d45f9a73e2be369d90b4aff1603ce29827f8743f091789960e7669daf9c3cda850
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-transform-sticky-regex@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-sticky-regex@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/45b245f07841cc30a8e781a77bb09a2e86b2cc7f872785f315c92e2805825be43ac99f3ba63afcd4722307c648cb7d3f4f6f3e2b27d2d3e281414532a2601762
   languageName: node
   linkType: hard
 
@@ -5600,17 +4718,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-template-literals@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-template-literals@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/961c2b42eb6d88042c2c213ed3b11ee1d92783ba63e1afe7e1a3392ec1a810556b5eec369fc5097a4a81f73ef92fa5d245bcf8b15d442e62a086bb1f64b50c95
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-transform-typeof-symbol@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/plugin-transform-typeof-symbol@npm:7.27.1"
@@ -5619,17 +4726,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 10c0/a13c68015311fefa06a51830bc69d5badd06c881b13d5cf9ba04bf7c73e3fc6311cc889e18d9645ce2a64a79456dc9c7be88476c0b6802f62a686cb6f662ecd6
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-transform-typeof-symbol@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-typeof-symbol@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/937408e0b9b2c8df6a6ce590421096fd793f77b417eb1f3f5ec560362e0a855d6ef66346c12cc7b337b8fa1d3ecf6b9b15674aa5ded54141adaed4cdeeed8528
   languageName: node
   linkType: hard
 
@@ -5689,17 +4785,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-unicode-escapes@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-unicode-escapes@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/65090012ede685913fb1020a585361dac366801d87caa577075924cac3c3ddd8e2a953bc6f75048dd480e62e529482e6ba68b945b0780087981c9ffff32e84f2
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-transform-unicode-property-regex@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/plugin-transform-unicode-property-regex@npm:7.27.1"
@@ -5724,18 +4809,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-unicode-property-regex@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-unicode-property-regex@npm:7.29.7"
-  dependencies:
-    "@babel/helper-create-regexp-features-plugin": "npm:^7.29.7"
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/3a869cab02013209192da67ce911fa577eed03293331ee1d2c98498461f31fb5e99cbcb47f0c1c3211cf0c48fdd391060c77ac6a8f9978cd1f48e1096024cb73
-  languageName: node
-  linkType: hard
-
 "@babel/plugin-transform-unicode-regex@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/plugin-transform-unicode-regex@npm:7.27.1"
@@ -5745,18 +4818,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 10c0/6abda1bcffb79feba6f5c691859cdbe984cc96481ea65d5af5ba97c2e843154005f0886e25006a37a2d213c0243506a06eaeafd93a040dbe1f79539016a0d17a
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-transform-unicode-regex@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-unicode-regex@npm:7.29.7"
-  dependencies:
-    "@babel/helper-create-regexp-features-plugin": "npm:^7.29.7"
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/1bd788fd953e9b9a662d9a5ec78750f48daa6ef142a141cc96c38278dff49cf082288fd568acc184386f9accb89fa145cf016cc615ef19bd110ff2162a88cfd7
   languageName: node
   linkType: hard
 
@@ -5781,99 +4842,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0
   checksum: 10c0/c03c8818736b138db73d1f7a96fbfa22d1994639164d743f0f00e6383d3b7b3144d333de960ff4afad0bddd0baaac257295e3316969eba995b1b6a1b4dec933e
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-transform-unicode-sets-regex@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-unicode-sets-regex@npm:7.29.7"
-  dependencies:
-    "@babel/helper-create-regexp-features-plugin": "npm:^7.29.7"
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0
-  checksum: 10c0/7e07f6435b2ba32de80460ddcacc4214c9380984c00fd41ddaa79e4df3f06c022c1283e86bcae7ee09081f4e020f0bb76b26b9f98dc5ea7f4647f559544fe5f9
-  languageName: node
-  linkType: hard
-
-"@babel/preset-env@npm:^7.13.15":
-  version: 7.29.7
-  resolution: "@babel/preset-env@npm:7.29.7"
-  dependencies:
-    "@babel/compat-data": "npm:^7.29.7"
-    "@babel/helper-compilation-targets": "npm:^7.29.7"
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-    "@babel/helper-validator-option": "npm:^7.29.7"
-    "@babel/plugin-bugfix-firefox-class-in-computed-class-key": "npm:^7.29.7"
-    "@babel/plugin-bugfix-safari-class-field-initializer-scope": "npm:^7.29.7"
-    "@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression": "npm:^7.29.7"
-    "@babel/plugin-bugfix-safari-rest-destructuring-rhs-array": "npm:^7.29.7"
-    "@babel/plugin-bugfix-v8-spread-parameters-in-optional-chaining": "npm:^7.29.7"
-    "@babel/plugin-bugfix-v8-static-class-fields-redefine-readonly": "npm:^7.29.7"
-    "@babel/plugin-proposal-private-property-in-object": "npm:7.21.0-placeholder-for-preset-env.2"
-    "@babel/plugin-syntax-import-assertions": "npm:^7.29.7"
-    "@babel/plugin-syntax-import-attributes": "npm:^7.29.7"
-    "@babel/plugin-syntax-unicode-sets-regex": "npm:^7.18.6"
-    "@babel/plugin-transform-arrow-functions": "npm:^7.29.7"
-    "@babel/plugin-transform-async-generator-functions": "npm:^7.29.7"
-    "@babel/plugin-transform-async-to-generator": "npm:^7.29.7"
-    "@babel/plugin-transform-block-scoped-functions": "npm:^7.29.7"
-    "@babel/plugin-transform-block-scoping": "npm:^7.29.7"
-    "@babel/plugin-transform-class-properties": "npm:^7.29.7"
-    "@babel/plugin-transform-class-static-block": "npm:^7.29.7"
-    "@babel/plugin-transform-classes": "npm:^7.29.7"
-    "@babel/plugin-transform-computed-properties": "npm:^7.29.7"
-    "@babel/plugin-transform-destructuring": "npm:^7.29.7"
-    "@babel/plugin-transform-dotall-regex": "npm:^7.29.7"
-    "@babel/plugin-transform-duplicate-keys": "npm:^7.29.7"
-    "@babel/plugin-transform-duplicate-named-capturing-groups-regex": "npm:^7.29.7"
-    "@babel/plugin-transform-dynamic-import": "npm:^7.29.7"
-    "@babel/plugin-transform-explicit-resource-management": "npm:^7.29.7"
-    "@babel/plugin-transform-exponentiation-operator": "npm:^7.29.7"
-    "@babel/plugin-transform-export-namespace-from": "npm:^7.29.7"
-    "@babel/plugin-transform-for-of": "npm:^7.29.7"
-    "@babel/plugin-transform-function-name": "npm:^7.29.7"
-    "@babel/plugin-transform-json-strings": "npm:^7.29.7"
-    "@babel/plugin-transform-literals": "npm:^7.29.7"
-    "@babel/plugin-transform-logical-assignment-operators": "npm:^7.29.7"
-    "@babel/plugin-transform-member-expression-literals": "npm:^7.29.7"
-    "@babel/plugin-transform-modules-amd": "npm:^7.29.7"
-    "@babel/plugin-transform-modules-commonjs": "npm:^7.29.7"
-    "@babel/plugin-transform-modules-systemjs": "npm:^7.29.7"
-    "@babel/plugin-transform-modules-umd": "npm:^7.29.7"
-    "@babel/plugin-transform-named-capturing-groups-regex": "npm:^7.29.7"
-    "@babel/plugin-transform-new-target": "npm:^7.29.7"
-    "@babel/plugin-transform-nullish-coalescing-operator": "npm:^7.29.7"
-    "@babel/plugin-transform-numeric-separator": "npm:^7.29.7"
-    "@babel/plugin-transform-object-rest-spread": "npm:^7.29.7"
-    "@babel/plugin-transform-object-super": "npm:^7.29.7"
-    "@babel/plugin-transform-optional-catch-binding": "npm:^7.29.7"
-    "@babel/plugin-transform-optional-chaining": "npm:^7.29.7"
-    "@babel/plugin-transform-parameters": "npm:^7.29.7"
-    "@babel/plugin-transform-private-methods": "npm:^7.29.7"
-    "@babel/plugin-transform-private-property-in-object": "npm:^7.29.7"
-    "@babel/plugin-transform-property-literals": "npm:^7.29.7"
-    "@babel/plugin-transform-regenerator": "npm:^7.29.7"
-    "@babel/plugin-transform-regexp-modifiers": "npm:^7.29.7"
-    "@babel/plugin-transform-reserved-words": "npm:^7.29.7"
-    "@babel/plugin-transform-shorthand-properties": "npm:^7.29.7"
-    "@babel/plugin-transform-spread": "npm:^7.29.7"
-    "@babel/plugin-transform-sticky-regex": "npm:^7.29.7"
-    "@babel/plugin-transform-template-literals": "npm:^7.29.7"
-    "@babel/plugin-transform-typeof-symbol": "npm:^7.29.7"
-    "@babel/plugin-transform-unicode-escapes": "npm:^7.29.7"
-    "@babel/plugin-transform-unicode-property-regex": "npm:^7.29.7"
-    "@babel/plugin-transform-unicode-regex": "npm:^7.29.7"
-    "@babel/plugin-transform-unicode-sets-regex": "npm:^7.29.7"
-    "@babel/preset-modules": "npm:0.1.6-no-external-plugins"
-    babel-plugin-polyfill-corejs2: "npm:^0.4.15"
-    babel-plugin-polyfill-corejs3: "npm:^0.14.0"
-    babel-plugin-polyfill-regenerator: "npm:^0.6.6"
-    core-js-compat: "npm:^3.48.0"
-    semver: "npm:^6.3.1"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/a6527c75e54c06c453e214496df83c2f6aa61da32d786e9a8921af05c4bc580c87ee64248122652df8d0f4b140d651b11282cd3dc3b61bb640b2a86b5812eabf
   languageName: node
   linkType: hard
 
@@ -6060,22 +5028,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0 || ^8.0.0-0 <8.0.0
   checksum: 10c0/9d02f70d7052446c5f3a4fb39e6b632695fb6801e46d31d7f7c5001f7c18d31d1ea8369212331ca7ad4e7877b73231f470b0d559162624128f1b80fe591409e6
-  languageName: node
-  linkType: hard
-
-"@babel/preset-react@npm:^7.13.13":
-  version: 7.29.7
-  resolution: "@babel/preset-react@npm:7.29.7"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.29.7"
-    "@babel/helper-validator-option": "npm:^7.29.7"
-    "@babel/plugin-transform-react-display-name": "npm:^7.29.7"
-    "@babel/plugin-transform-react-jsx": "npm:^7.29.7"
-    "@babel/plugin-transform-react-jsx-development": "npm:^7.29.7"
-    "@babel/plugin-transform-react-pure-annotations": "npm:^7.29.7"
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 10c0/a84e90805ce06dd5d7fcbfd8e32fe0c79966feba218e1d89097699ff5224d232e56191688ae264be2c6ef516523e3e2246949439e1e141d21def881a5752181f
   languageName: node
   linkType: hard
 
@@ -6398,16 +5350,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:^7.0.0-beta.49, @babel/types@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/types@npm:7.29.7"
-  dependencies:
-    "@babel/helper-string-parser": "npm:^7.29.7"
-    "@babel/helper-validator-identifier": "npm:^7.29.7"
-  checksum: 10c0/b6623994c69717fa27294f5fa46d59140338e2d86c6c1c13085c84ef7d53086ee357fbf4fe9abe3dd3da75734dc77c4c0df2f90fb29e667558bb3b3fb705e88f
-  languageName: node
-  linkType: hard
-
 "@babel/types@npm:^7.18.9, @babel/types@npm:^7.20.7, @babel/types@npm:^7.26.5, @babel/types@npm:^7.26.7":
   version: 7.26.7
   resolution: "@babel/types@npm:7.26.7"
@@ -6465,6 +5407,16 @@ __metadata:
     "@babel/helper-string-parser": "npm:^7.27.1"
     "@babel/helper-validator-identifier": "npm:^7.28.5"
   checksum: 10c0/23cc3466e83bcbfab8b9bd0edaafdb5d4efdb88b82b3be6728bbade5ba2f0996f84f63b1c5f7a8c0d67efded28300898a5f930b171bb40b311bca2029c4e9b4f
+  languageName: node
+  linkType: hard
+
+"@babel/types@npm:^7.29.7":
+  version: 7.29.7
+  resolution: "@babel/types@npm:7.29.7"
+  dependencies:
+    "@babel/helper-string-parser": "npm:^7.29.7"
+    "@babel/helper-validator-identifier": "npm:^7.29.7"
+  checksum: 10c0/b6623994c69717fa27294f5fa46d59140338e2d86c6c1c13085c84ef7d53086ee357fbf4fe9abe3dd3da75734dc77c4c0df2f90fb29e667558bb3b3fb705e88f
   languageName: node
   linkType: hard
 
@@ -12325,18 +11277,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/abilities@npm:^1.3.4, @openagenda/abilities@workspace:packages/abilities":
+"@openagenda/abilities@npm:^1.3.5, @openagenda/abilities@workspace:packages/abilities":
   version: 0.0.0-use.local
   resolution: "@openagenda/abilities@workspace:packages/abilities"
   dependencies:
     "@casl/ability": "npm:^2.4.2"
-    "@openagenda/agendas": "npm:^1.7.2"
+    "@openagenda/agendas": "npm:^1.7.3"
     "@openagenda/bs-templates": "npm:^2.6.0"
     "@openagenda/eslint-config": "npm:^2.0.0"
     "@openagenda/intl": "npm:^2.0.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/react-shared": "npm:^3.0.0"
-    "@openagenda/users": "npm:^3.1.2"
+    "@openagenda/users": "npm:^3.1.3"
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
     "@storybook/react-webpack5": "npm:^10.2.0"
     classnames: "npm:^2.3.1"
@@ -12369,12 +11321,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/activities@npm:^2.3.2, @openagenda/activities@workspace:packages/activities":
+"@openagenda/activities@npm:^2.3.3, @openagenda/activities@workspace:packages/activities":
   version: 0.0.0-use.local
   resolution: "@openagenda/activities@workspace:packages/activities"
   dependencies:
     "@jest/globals": "npm:^29.7.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/service-utils": "npm:^2.0.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.2.0"
@@ -12385,17 +11337,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/activity-apps@npm:^1.2.4, @openagenda/activity-apps@workspace:packages/activity-apps":
+"@openagenda/activity-apps@npm:^1.2.5, @openagenda/activity-apps@workspace:packages/activity-apps":
   version: 0.0.0-use.local
   resolution: "@openagenda/activity-apps@workspace:packages/activity-apps"
   dependencies:
     "@loadable/component": "npm:^5.14.1"
-    "@openagenda/activities": "npm:^2.3.2"
+    "@openagenda/activities": "npm:^2.3.3"
     "@openagenda/bs-templates": "npm:^2.6.0"
     "@openagenda/common-labels": "npm:^2.0.0"
     "@openagenda/intl": "npm:^2.0.0"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/md": "npm:^2.0.0"
     "@openagenda/react-bootstrap-datetimerangepicker": "npm:^2.0.5"
     "@openagenda/react-shared": "npm:^3.0.0"
@@ -12471,20 +11423,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-contribute@npm:^1.5.6, @openagenda/agenda-contribute@workspace:packages/agenda-contribute":
+"@openagenda/agenda-contribute@npm:^1.5.7, @openagenda/agenda-contribute@workspace:packages/agenda-contribute":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-contribute@workspace:packages/agenda-contribute"
   dependencies:
     "@openagenda/bs-templates": "npm:^2.6.0"
     "@openagenda/common-labels": "npm:^2.0.0"
-    "@openagenda/event-form": "npm:^1.5.5"
-    "@openagenda/form-schemas": "npm:^1.9.5"
+    "@openagenda/event-form": "npm:^1.5.6"
+    "@openagenda/form-schemas": "npm:^1.9.6"
     "@openagenda/intl": "npm:^2.0.0"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/logs": "npm:^1.2.0"
-    "@openagenda/member-apps": "npm:^2.1.4"
+    "@openagenda/logs": "npm:^1.2.1"
+    "@openagenda/member-apps": "npm:^2.1.5"
     "@openagenda/react-shared": "npm:^3.0.0"
-    "@openagenda/registration-apps": "npm:^0.0.3"
+    "@openagenda/registration-apps": "npm:^0.0.4"
     "@openagenda/validators": "npm:^2.4.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
     "@storybook/react-webpack5": "npm:^10.2.0"
@@ -12522,7 +11474,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-docx@npm:^2.0.0, @openagenda/agenda-docx@workspace:public/agenda-docx":
+"@openagenda/agenda-docx@npm:^2.0.1, @openagenda/agenda-docx@workspace:public/agenda-docx":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-docx@workspace:public/agenda-docx"
   dependencies:
@@ -12532,7 +11484,7 @@ __metadata:
     "@openagenda/babel-preset": "npm:^2.0.0"
     "@openagenda/bs-templates": "npm:^2.6.0"
     "@openagenda/eslint-config": "npm:^2.0.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/verror": "npm:^3.2.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
     "@storybook/react-webpack5": "npm:^10.2.0"
@@ -12562,11 +11514,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-events@npm:^1.11.16, @openagenda/agenda-events@workspace:packages/agenda-events":
+"@openagenda/agenda-events@npm:^1.11.17, @openagenda/agenda-events@workspace:packages/agenda-events":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-events@workspace:packages/agenda-events"
   dependencies:
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.2.0"
     immutability-helper: "npm:^2.2.2"
@@ -12578,15 +11530,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-locations-app@npm:^0.0.3, @openagenda/agenda-locations-app@workspace:packages/agenda-locations-app":
+"@openagenda/agenda-locations-app@npm:^0.0.4, @openagenda/agenda-locations-app@workspace:packages/agenda-locations-app":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-locations-app@workspace:packages/agenda-locations-app"
   dependencies:
     "@emotion/babel-plugin": "npm:^11.11.0"
     "@emotion/react": "npm:^11.11.1"
     "@loadable/component": "npm:^5.14.1"
-    "@openagenda/activity-apps": "npm:^1.2.4"
-    "@openagenda/agenda-locations": "npm:^2.1.4"
+    "@openagenda/activity-apps": "npm:^1.2.5"
+    "@openagenda/agenda-locations": "npm:^2.1.5"
     "@openagenda/babel-preset": "npm:^2.0.0"
     "@openagenda/bs-templates": "npm:^2.6.0"
     "@openagenda/countries": "npm:^0.1.1"
@@ -12636,7 +11588,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-locations@npm:^2.1.4, @openagenda/agenda-locations@workspace:packages/agenda-locations":
+"@openagenda/agenda-locations@npm:^2.1.5, @openagenda/agenda-locations@workspace:packages/agenda-locations":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-locations@workspace:packages/agenda-locations"
   dependencies:
@@ -12644,7 +11596,7 @@ __metadata:
     "@openagenda/eslint-config": "npm:^2.0.0"
     "@openagenda/files": "npm:^3.1.0"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.2.0"
@@ -12671,7 +11623,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-portal@npm:^6.15.0, @openagenda/agenda-portal@workspace:public/agenda-portal":
+"@openagenda/agenda-portal@npm:^6.15.1, @openagenda/agenda-portal@workspace:public/agenda-portal":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-portal@workspace:public/agenda-portal"
   dependencies:
@@ -12682,7 +11634,7 @@ __metadata:
     "@openagenda/browserslist-config": "npm:^2.0.0"
     "@openagenda/eslint-config": "npm:^2.0.0"
     "@openagenda/intl": "npm:^2.0.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/md": "npm:^2.0.0"
     "@openagenda/polyfills": "npm:^1.2.5"
     "@openagenda/react-filters": "npm:^2.13.7"
@@ -12748,13 +11700,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-schemas-app@npm:^0.0.4, @openagenda/agenda-schemas-app@workspace:packages/agenda-schemas-app":
+"@openagenda/agenda-schemas-app@npm:^0.0.5, @openagenda/agenda-schemas-app@workspace:packages/agenda-schemas-app":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-schemas-app@workspace:packages/agenda-schemas-app"
   dependencies:
     "@openagenda/bs-templates": "npm:^2.6.0"
-    "@openagenda/event-form": "npm:^1.5.5"
-    "@openagenda/form-schemas": "npm:^1.9.5"
+    "@openagenda/event-form": "npm:^1.5.6"
+    "@openagenda/form-schemas": "npm:^1.9.6"
     "@openagenda/intl": "npm:^2.0.0"
     "@openagenda/react-shared": "npm:^3.0.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
@@ -12783,14 +11735,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-search@npm:^1.4.2, @openagenda/agenda-search@workspace:packages/agenda-search":
+"@openagenda/agenda-search@npm:^1.4.3, @openagenda/agenda-search@workspace:packages/agenda-search":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-search@workspace:packages/agenda-search"
   dependencies:
     "@elastic/elasticsearch": "npm:^7.0.0"
-    "@openagenda/agendas": "npm:^1.7.2"
+    "@openagenda/agendas": "npm:^1.7.3"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.2.0"
@@ -12805,21 +11757,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-settings@npm:^1.4.3, @openagenda/agenda-settings@workspace:packages/agenda-settings":
+"@openagenda/agenda-settings@npm:^1.4.4, @openagenda/agenda-settings@workspace:packages/agenda-settings":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-settings@workspace:packages/agenda-settings"
   dependencies:
     "@loadable/component": "npm:^5.14.1"
-    "@openagenda/agendas": "npm:^1.7.2"
+    "@openagenda/agendas": "npm:^1.7.3"
     "@openagenda/bs-templates": "npm:^2.6.0"
     "@openagenda/common-labels": "npm:^2.0.0"
     "@openagenda/eslint-config": "npm:^2.0.0"
     "@openagenda/intl": "npm:^2.0.0"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/react-filters": "npm:^2.13.7"
     "@openagenda/react-shared": "npm:^3.0.0"
-    "@openagenda/registration-apps": "npm:^0.0.3"
+    "@openagenda/registration-apps": "npm:^0.0.4"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
@@ -12858,7 +11810,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-stats@npm:^1.10.6, @openagenda/agenda-stats@workspace:packages/agenda-stats":
+"@openagenda/agenda-stats@npm:^1.10.7, @openagenda/agenda-stats@workspace:packages/agenda-stats":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-stats@workspace:packages/agenda-stats"
   dependencies:
@@ -12868,7 +11820,7 @@ __metadata:
     "@loadable/component": "npm:^5.14.1"
     "@openagenda/bs-templates": "npm:^2.6.0"
     "@openagenda/eslint-config": "npm:^2.0.0"
-    "@openagenda/event-search": "npm:^2.9.1"
+    "@openagenda/event-search": "npm:^2.9.2"
     "@openagenda/intl": "npm:^2.0.0"
     "@openagenda/react-filters": "npm:^2.13.7"
     "@openagenda/react-shared": "npm:^3.0.0"
@@ -12911,12 +11863,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agendas@npm:^1.7.2, @openagenda/agendas@workspace:packages/agendas":
+"@openagenda/agendas@npm:^1.7.3, @openagenda/agendas@workspace:packages/agendas":
   version: 0.0.0-use.local
   resolution: "@openagenda/agendas@workspace:packages/agendas"
   dependencies:
     "@openagenda/files": "npm:^3.1.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/service-utils": "npm:^2.0.0"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
@@ -12938,7 +11890,7 @@ __metadata:
     "@dnd-kit/sortable": "npm:^10.0.0"
     "@dnd-kit/utilities": "npm:^3.2.2"
     "@loadable/component": "npm:^5.14.1"
-    "@openagenda/agendas": "npm:^1.7.2"
+    "@openagenda/agendas": "npm:^1.7.3"
     "@openagenda/bs-templates": "npm:^2.6.0"
     "@openagenda/eslint-config": "npm:^2.0.0"
     "@openagenda/intl": "npm:^2.0.0"
@@ -12989,12 +11941,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/aggregators@npm:^1.11.8, @openagenda/aggregators@workspace:packages/aggregators":
+"@openagenda/aggregators@npm:^1.11.9, @openagenda/aggregators@workspace:packages/aggregators":
   version: 0.0.0-use.local
   resolution: "@openagenda/aggregators@workspace:packages/aggregators"
   dependencies:
     "@openagenda/eslint-config": "npm:^2.0.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.2.0"
     deep-diff: "npm:^1.0.2"
@@ -13080,42 +12032,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/babel-preset@npm:^1.5.0":
-  version: 1.5.0
-  resolution: "@openagenda/babel-preset@npm:1.5.0"
-  dependencies:
-    "@babel/helper-plugin-utils": "npm:^7.13.0"
-    "@babel/helpers": "npm:^7.13.17"
-    "@babel/plugin-proposal-class-properties": "npm:^7.13.0"
-    "@babel/plugin-proposal-decorators": "npm:^7.13.15"
-    "@babel/plugin-proposal-do-expressions": "npm:^7.12.13"
-    "@babel/plugin-proposal-export-default-from": "npm:^7.12.13"
-    "@babel/plugin-proposal-export-namespace-from": "npm:^7.12.13"
-    "@babel/plugin-proposal-function-bind": "npm:^7.12.13"
-    "@babel/plugin-proposal-function-sent": "npm:^7.12.13"
-    "@babel/plugin-proposal-json-strings": "npm:^7.13.8"
-    "@babel/plugin-proposal-logical-assignment-operators": "npm:^7.13.8"
-    "@babel/plugin-proposal-nullish-coalescing-operator": "npm:^7.13.8"
-    "@babel/plugin-proposal-numeric-separator": "npm:^7.12.13"
-    "@babel/plugin-proposal-optional-chaining": "npm:^7.13.12"
-    "@babel/plugin-proposal-pipeline-operator": "npm:^7.12.13"
-    "@babel/plugin-proposal-throw-expressions": "npm:^7.12.13"
-    "@babel/plugin-syntax-dynamic-import": "npm:^7.8.3"
-    "@babel/plugin-syntax-import-meta": "npm:^7.10.4"
-    "@babel/plugin-transform-runtime": "npm:^7.13.15"
-    "@babel/preset-env": "npm:^7.13.15"
-    "@babel/preset-react": "npm:^7.13.13"
-    babel-plugin-add-module-exports: "npm:^1.0.4"
-    babel-plugin-dynamic-import-node: "npm:^2.3.3"
-    babel-plugin-lodash: "npm:^3.3.4"
-    babel-plugin-react-intl: "npm:^8.2.25"
-    react-refresh: "npm:^0.11.0"
-  peerDependencies:
-    "@babel/core": ^7.8.4
-  checksum: 10c0/1d6a108ddcfbddbe52480943490d9f2908558e83d3113af210c01d807f71aa2176b067ac1766ec2fab3ae4cb0c19531675856cba403158609596627e6c417f22
-  languageName: node
-  linkType: hard
-
 "@openagenda/babel-preset@npm:^2.0.0, @openagenda/babel-preset@workspace:public/babel-preset":
   version: 0.0.0-use.local
   resolution: "@openagenda/babel-preset@workspace:public/babel-preset"
@@ -13170,7 +12086,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/cibul-templates@npm:^1.4.5, @openagenda/cibul-templates@workspace:packages/cibul-templates":
+"@openagenda/cibul-templates@npm:^1.4.6, @openagenda/cibul-templates@workspace:packages/cibul-templates":
   version: 0.0.0-use.local
   resolution: "@openagenda/cibul-templates@workspace:packages/cibul-templates"
   dependencies:
@@ -13179,25 +12095,25 @@ __metadata:
     "@iframe-resizer/child": "npm:^5.4.6"
     "@loadable/component": "npm:^5.14.1"
     "@loadable/webpack-plugin": "npm:^5.14.2"
-    "@openagenda/activity-apps": "npm:^1.2.4"
+    "@openagenda/activity-apps": "npm:^1.2.5"
     "@openagenda/admin-agendas": "npm:^1.1.20"
     "@openagenda/aggregator-sources": "npm:^1.3.4"
     "@openagenda/auth": "npm:^0.1.0"
     "@openagenda/babel-preset": "npm:^2.0.0"
     "@openagenda/bs-templates": "npm:^2.6.0"
-    "@openagenda/home": "npm:^2.2.4"
-    "@openagenda/inbox-apps": "npm:^1.2.4"
+    "@openagenda/home": "npm:^2.2.5"
+    "@openagenda/inbox-apps": "npm:^1.2.5"
     "@openagenda/intl": "npm:^2.0.0"
     "@openagenda/labels": "npm:^2.3.0"
     "@openagenda/leaflet.markercluster": "npm:^0.4.0"
     "@openagenda/md": "npm:^2.0.0"
-    "@openagenda/member-apps": "npm:^2.1.4"
+    "@openagenda/member-apps": "npm:^2.1.5"
     "@openagenda/outdated-browser": "npm:^0.0.0"
     "@openagenda/polyfills": "npm:^1.2.5"
     "@openagenda/react-shared": "npm:^3.0.0"
     "@openagenda/tumblr-parser": "npm:^0.1.3"
     "@openagenda/utils": "npm:^1.3.0"
-    "@openagenda/widgets": "npm:^0.0.3"
+    "@openagenda/widgets": "npm:^0.0.4"
     babel-loader: "npm:^9.1.3"
     buffer: "npm:^6.0.3"
     classnames: "npm:^2.3.1"
@@ -13283,11 +12199,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/custom@npm:^1.3.16, @openagenda/custom@workspace:packages/custom":
+"@openagenda/custom@npm:^1.3.17, @openagenda/custom@workspace:packages/custom":
   version: 0.0.0-use.local
   resolution: "@openagenda/custom@workspace:packages/custom"
   dependencies:
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.2.0"
     immutability-helper: "npm:^3.0.0"
@@ -13350,7 +12266,7 @@ __metadata:
   resolution: "@openagenda/discord@workspace:packages/discord"
   dependencies:
     "@openagenda/eslint-config": "npm:^2.0.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     discord.js: "npm:^12.5.3"
     jest: "npm:^29.7.0"
   languageName: unknown
@@ -13379,20 +12295,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/event-admin-apps@npm:^0.0.4, @openagenda/event-admin-apps@workspace:packages/event-admin-apps":
+"@openagenda/event-admin-apps@npm:^0.0.5, @openagenda/event-admin-apps@workspace:packages/event-admin-apps":
   version: 0.0.0-use.local
   resolution: "@openagenda/event-admin-apps@workspace:packages/event-admin-apps"
   dependencies:
     "@loadable/component": "npm:^5.14.1"
-    "@openagenda/agenda-docx": "npm:^2.0.0"
+    "@openagenda/agenda-docx": "npm:^2.0.1"
     "@openagenda/bs-templates": "npm:^2.6.0"
     "@openagenda/common-labels": "npm:^2.0.0"
     "@openagenda/eslint-config": "npm:^2.0.0"
-    "@openagenda/event-search": "npm:^2.9.1"
+    "@openagenda/event-search": "npm:^2.9.2"
     "@openagenda/intl": "npm:^2.0.0"
     "@openagenda/react-filters": "npm:^2.13.7"
     "@openagenda/react-shared": "npm:^3.0.0"
-    "@openagenda/registrations": "npm:^0.0.4"
+    "@openagenda/registrations": "npm:^0.0.5"
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
     "@storybook/react-webpack5": "npm:^10.2.0"
     classnames: "npm:^2.3.1"
@@ -13431,22 +12347,22 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/event-form@npm:^1.5.5, @openagenda/event-form@workspace:packages/event-form":
+"@openagenda/event-form@npm:^1.5.6, @openagenda/event-form@workspace:packages/event-form":
   version: 0.0.0-use.local
   resolution: "@openagenda/event-form@workspace:packages/event-form"
   dependencies:
-    "@openagenda/agenda-locations": "npm:^2.1.4"
-    "@openagenda/agenda-locations-app": "npm:^0.0.3"
+    "@openagenda/agenda-locations": "npm:^2.1.5"
+    "@openagenda/agenda-locations-app": "npm:^0.0.4"
     "@openagenda/bs-templates": "npm:^2.6.0"
     "@openagenda/common-labels": "npm:^2.0.0"
     "@openagenda/countries": "npm:^0.1.1"
-    "@openagenda/events": "npm:^3.0.3"
-    "@openagenda/form-schemas": "npm:^1.9.5"
+    "@openagenda/events": "npm:^3.0.4"
+    "@openagenda/form-schemas": "npm:^1.9.6"
     "@openagenda/intl": "npm:^2.0.0"
     "@openagenda/labels": "npm:^2.3.0"
     "@openagenda/react-shared": "npm:^3.0.0"
     "@openagenda/react-timingspicker": "npm:^2.0.0"
-    "@openagenda/registration-apps": "npm:^0.0.3"
+    "@openagenda/registration-apps": "npm:^0.0.4"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
@@ -13475,7 +12391,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/event-search@npm:^2.9.1, @openagenda/event-search@workspace:packages/event-search":
+"@openagenda/event-search@npm:^2.9.2, @openagenda/event-search@workspace:packages/event-search":
   version: 0.0.0-use.local
   resolution: "@openagenda/event-search@workspace:packages/event-search"
   dependencies:
@@ -13483,9 +12399,9 @@ __metadata:
     "@openagenda/countries": "npm:^0.1.1"
     "@openagenda/date-range": "npm:^2.3.0"
     "@openagenda/eslint-config": "npm:^2.0.0"
-    "@openagenda/form-schemas": "npm:^1.9.5"
+    "@openagenda/form-schemas": "npm:^1.9.6"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.2.0"
@@ -13502,14 +12418,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/events@npm:^3.0.3, @openagenda/events@workspace:packages/events":
+"@openagenda/events@npm:^3.0.4, @openagenda/events@workspace:packages/events":
   version: 0.0.0-use.local
   resolution: "@openagenda/events@workspace:packages/events"
   dependencies:
     "@openagenda/eslint-config": "npm:^2.0.0"
     "@openagenda/files": "npm:^3.1.0"
-    "@openagenda/form-schemas": "npm:^1.9.5"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/form-schemas": "npm:^1.9.6"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/md": "npm:^2.0.0"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
@@ -13545,11 +12461,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/flat-exports@npm:^1.4.3, @openagenda/flat-exports@workspace:packages/flat-exports":
+"@openagenda/flat-exports@npm:^1.4.4, @openagenda/flat-exports@workspace:packages/flat-exports":
   version: 0.0.0-use.local
   resolution: "@openagenda/flat-exports@workspace:packages/flat-exports"
   dependencies:
-    "@openagenda/form-schemas": "npm:^1.9.5"
+    "@openagenda/form-schemas": "npm:^1.9.6"
     "@openagenda/intl": "npm:^2.0.0"
     "@openagenda/labels": "npm:^2.3.0"
     "@openagenda/stream-utils": "npm:^1.1.0"
@@ -13567,7 +12483,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/form-schemas@npm:^1.9.5, @openagenda/form-schemas@workspace:packages/form-schemas":
+"@openagenda/form-schemas@npm:^1.9.6, @openagenda/form-schemas@workspace:packages/form-schemas":
   version: 0.0.0-use.local
   resolution: "@openagenda/form-schemas@workspace:packages/form-schemas"
   dependencies:
@@ -13580,7 +12496,7 @@ __metadata:
     "@openagenda/bs-templates": "npm:^2.6.0"
     "@openagenda/intl": "npm:^2.0.0"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/md": "npm:^2.0.0"
     "@openagenda/react-shared": "npm:^3.0.0"
     "@openagenda/utils": "npm:^1.3.0"
@@ -13644,7 +12560,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/home@npm:^2.2.4, @openagenda/home@workspace:packages/home":
+"@openagenda/home@npm:^2.2.5, @openagenda/home@workspace:packages/home":
   version: 0.0.0-use.local
   resolution: "@openagenda/home@workspace:packages/home"
   dependencies:
@@ -13653,8 +12569,8 @@ __metadata:
     "@openagenda/eslint-config": "npm:^2.0.0"
     "@openagenda/intl": "npm:^2.0.0"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/member-apps": "npm:^2.1.4"
-    "@openagenda/members": "npm:^1.15.15"
+    "@openagenda/member-apps": "npm:^2.1.5"
+    "@openagenda/members": "npm:^1.15.16"
     "@openagenda/react-shared": "npm:^3.0.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
     "@storybook/react-webpack5": "npm:^10.2.0"
@@ -13690,17 +12606,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/inbox-apps@npm:^1.2.4, @openagenda/inbox-apps@workspace:packages/inbox-apps":
+"@openagenda/inbox-apps@npm:^1.2.5, @openagenda/inbox-apps@workspace:packages/inbox-apps":
   version: 0.0.0-use.local
   resolution: "@openagenda/inbox-apps@workspace:packages/inbox-apps"
   dependencies:
     "@cfaester/enzyme-adapter-react-18": "npm:^0.6.0"
     "@openagenda/bs-templates": "npm:^2.6.0"
     "@openagenda/eslint-config": "npm:^2.0.0"
-    "@openagenda/form-schemas": "npm:^1.9.5"
+    "@openagenda/form-schemas": "npm:^1.9.6"
     "@openagenda/intl": "npm:^2.0.0"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/md": "npm:^2.0.0"
     "@openagenda/react-shared": "npm:^3.0.0"
     "@openagenda/validators": "npm:^2.4.0"
@@ -13754,12 +12670,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/inboxes@npm:^1.1.16, @openagenda/inboxes@workspace:packages/inboxes":
+"@openagenda/inboxes@npm:^1.1.17, @openagenda/inboxes@workspace:packages/inboxes":
   version: 0.0.0-use.local
   resolution: "@openagenda/inboxes@workspace:packages/inboxes"
   dependencies:
     "@openagenda/eslint-config": "npm:^2.0.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/service-utils": "npm:^2.0.0"
     "@openagenda/verror": "npm:^3.2.0"
     "@uppy/companion": "npm:^4.12.3"
@@ -13808,11 +12724,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/invitations@npm:^1.1.9, @openagenda/invitations@workspace:packages/invitations":
+"@openagenda/invitations@npm:^1.1.10, @openagenda/invitations@workspace:packages/invitations":
   version: 0.0.0-use.local
   resolution: "@openagenda/invitations@workspace:packages/invitations"
   dependencies:
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/service-utils": "npm:^2.0.0"
     "@openagenda/validators": "npm:^2.0.1"
     jest: "npm:^29.7.0"
@@ -13852,13 +12768,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/legacy@npm:^1.11.3, @openagenda/legacy@workspace:packages/legacy":
+"@openagenda/legacy@npm:^1.11.4, @openagenda/legacy@workspace:packages/legacy":
   version: 0.0.0-use.local
   resolution: "@openagenda/legacy@workspace:packages/legacy"
   dependencies:
     "@openagenda/bs-templates": "npm:^2.6.0"
     "@openagenda/intl": "npm:^2.0.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/md": "npm:^2.0.0"
     "@openagenda/react-shared": "npm:^3.0.0"
     "@openagenda/utils": "npm:^1.3.0"
@@ -13898,7 +12814,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/logs@npm:^1.2.0, @openagenda/logs@workspace:public/logs":
+"@openagenda/logs@npm:^1.2.1, @openagenda/logs@workspace:public/logs":
   version: 0.0.0-use.local
   resolution: "@openagenda/logs@workspace:public/logs"
   dependencies:
@@ -13912,7 +12828,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/mails-editor@npm:^4.0.0, @openagenda/mails-editor@workspace:public/mails-editor":
+"@openagenda/mails-editor@npm:^4.0.1, @openagenda/mails-editor@workspace:public/mails-editor":
   version: 0.0.0-use.local
   resolution: "@openagenda/mails-editor@workspace:public/mails-editor"
   dependencies:
@@ -13932,14 +12848,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/mails@npm:^6.0.0, @openagenda/mails@workspace:public/mails":
+"@openagenda/mails@npm:^6.0.1, @openagenda/mails@workspace:public/mails":
   version: 0.0.0-use.local
   resolution: "@openagenda/mails@workspace:public/mails"
   dependencies:
     "@formatjs/intl": "npm:^2.2.1"
     "@openagenda/eslint-config": "npm:^2.0.0"
     "@openagenda/intl": "npm:^2.0.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/verror": "npm:^3.2.0"
     bullmq: "npm:^5.65.1"
     ejs: "npm:^3.1.9"
@@ -13962,7 +12878,7 @@ __metadata:
     "@modelcontextprotocol/sdk": "npm:^1.29.0"
     "@openagenda/api-client": "npm:^0.2.0"
     "@openagenda/api-spec": "npm:^0.2.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@opentelemetry/api": "npm:^1.9.1"
     "@opentelemetry/api-logs": "npm:^0.218.0"
     "@opentelemetry/context-async-hooks": "npm:^2.7.1"
@@ -14009,20 +12925,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/member-apps@npm:^2.1.4, @openagenda/member-apps@workspace:packages/member-apps":
+"@openagenda/member-apps@npm:^2.1.5, @openagenda/member-apps@workspace:packages/member-apps":
   version: 0.0.0-use.local
   resolution: "@openagenda/member-apps@workspace:packages/member-apps"
   dependencies:
     "@loadable/component": "npm:^5.14.1"
-    "@openagenda/activity-apps": "npm:^1.2.4"
+    "@openagenda/activity-apps": "npm:^1.2.5"
     "@openagenda/bs-templates": "npm:^2.6.0"
     "@openagenda/eslint-config": "npm:^2.0.0"
-    "@openagenda/form-schemas": "npm:^1.9.5"
+    "@openagenda/form-schemas": "npm:^1.9.6"
     "@openagenda/intl": "npm:^2.0.0"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/mails": "npm:^6.0.0"
+    "@openagenda/mails": "npm:^6.0.1"
     "@openagenda/md": "npm:^2.0.0"
-    "@openagenda/members": "npm:^1.15.15"
+    "@openagenda/members": "npm:^1.15.16"
     "@openagenda/react-shared": "npm:^3.0.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
@@ -14059,13 +12975,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/members@npm:^1.15.15, @openagenda/members@workspace:packages/members":
+"@openagenda/members@npm:^1.15.16, @openagenda/members@workspace:packages/members":
   version: 0.0.0-use.local
   resolution: "@openagenda/members@workspace:packages/members"
   dependencies:
     "@openagenda/eslint-config": "npm:^2.0.0"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.2.0"
     immutability-helper: "npm:^3.0.1"
@@ -14088,7 +13004,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/network-apps@npm:^1.1.17, @openagenda/network-apps@workspace:packages/network-apps":
+"@openagenda/network-apps@npm:^1.1.18, @openagenda/network-apps@workspace:packages/network-apps":
   version: 0.0.0-use.local
   resolution: "@openagenda/network-apps@workspace:packages/network-apps"
   dependencies:
@@ -14098,10 +13014,10 @@ __metadata:
     "@openagenda/babel-preset": "npm:^2.0.0"
     "@openagenda/bs-templates": "npm:^2.6.0"
     "@openagenda/eslint-config": "npm:^2.0.0"
-    "@openagenda/event-form": "npm:^1.5.5"
-    "@openagenda/form-schemas": "npm:^1.9.5"
+    "@openagenda/event-form": "npm:^1.5.6"
+    "@openagenda/form-schemas": "npm:^1.9.6"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/react-shared": "npm:^3.0.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
     "@storybook/react-webpack5": "npm:^10.2.0"
@@ -14141,11 +13057,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/networks@npm:^1.2.16, @openagenda/networks@workspace:packages/networks":
+"@openagenda/networks@npm:^1.2.17, @openagenda/networks@workspace:packages/networks":
   version: 0.0.0-use.local
   resolution: "@openagenda/networks@workspace:packages/networks"
   dependencies:
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.2.0"
     jest: "npm:^29.7.0"
@@ -14177,7 +13093,7 @@ __metadata:
     "@iframe-resizer/react": "npm:^5.4.6"
     "@next/bundle-analyzer": "npm:16.0.0"
     "@next/env": "npm:^16.1.6"
-    "@openagenda/activity-apps": "npm:^1.2.4"
+    "@openagenda/activity-apps": "npm:^1.2.5"
     "@openagenda/auth": "npm:^0.1.0"
     "@openagenda/browserslist-config": "npm:^2.0.0"
     "@openagenda/common-labels": "npm:^2.0.0"
@@ -14185,14 +13101,14 @@ __metadata:
     "@openagenda/eslint-config": "npm:^2.0.0"
     "@openagenda/intl": "npm:^2.0.0"
     "@openagenda/leaflet-gesture-handling": "npm:^1.5.0"
-    "@openagenda/logs": "npm:^1.2.0"
-    "@openagenda/mails": "npm:^6.0.0"
+    "@openagenda/logs": "npm:^1.2.1"
+    "@openagenda/mails": "npm:^6.0.1"
     "@openagenda/md": "npm:^2.0.0"
     "@openagenda/outdated-browser": "npm:^0.0.0"
-    "@openagenda/react": "npm:^0.0.5"
+    "@openagenda/react": "npm:^0.0.6"
     "@openagenda/react-filters": "npm:^2.13.7"
     "@openagenda/react-shared": "npm:^3.0.0"
-    "@openagenda/registrations": "npm:^0.0.4"
+    "@openagenda/registrations": "npm:^0.0.5"
     "@openagenda/sdk-js": "npm:^3.0.1"
     "@openagenda/tsconfig": "npm:^0.0.0"
     "@openagenda/uikit": "npm:^0.1.0"
@@ -14268,11 +13184,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/oembed@npm:^2.2.3, @openagenda/oembed@workspace:packages/oembed":
+"@openagenda/oembed@npm:^2.2.4, @openagenda/oembed@workspace:packages/oembed":
   version: 0.0.0-use.local
   resolution: "@openagenda/oembed@workspace:packages/oembed"
   dependencies:
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/validators": "npm:^2.4.0"
     cheerio: "npm:^1.0.0-rc.10"
     jest: "npm:^29.7.0"
@@ -14300,14 +13216,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/pdf-exports@npm:^0.0.4, @openagenda/pdf-exports@workspace:public/pdf-exports":
+"@openagenda/pdf-exports@npm:^0.0.5, @openagenda/pdf-exports@workspace:public/pdf-exports":
   version: 0.0.0-use.local
   resolution: "@openagenda/pdf-exports@workspace:public/pdf-exports"
   dependencies:
     "@openagenda/date-utils": "npm:^0.0.2"
     "@openagenda/eslint-config": "npm:^2.0.0"
     "@openagenda/intl": "npm:^2.0.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/verror": "npm:^3.2.0"
     date-fns: "npm:^2.29.3"
     date-fns-tz: "npm:^1.3.7"
@@ -14476,7 +13392,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-integration-app@npm:^1.6.6, @openagenda/react-integration-app@workspace:packages/react-integration-app":
+"@openagenda/react-integration-app@npm:^1.6.7, @openagenda/react-integration-app@workspace:packages/react-integration-app":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-integration-app@workspace:packages/react-integration-app"
   dependencies:
@@ -14485,24 +13401,24 @@ __metadata:
     "@loadable/component": "npm:^5.14.1"
     "@loadable/server": "npm:^5.14.2"
     "@loadable/webpack-plugin": "npm:^5.14.2"
-    "@openagenda/activity-apps": "npm:^1.2.4"
-    "@openagenda/agenda-contribute": "npm:^1.5.6"
-    "@openagenda/agenda-locations-app": "npm:^0.0.3"
-    "@openagenda/agenda-schemas-app": "npm:^0.0.4"
-    "@openagenda/agenda-settings": "npm:^1.4.3"
-    "@openagenda/agenda-stats": "npm:^1.10.6"
+    "@openagenda/activity-apps": "npm:^1.2.5"
+    "@openagenda/agenda-contribute": "npm:^1.5.7"
+    "@openagenda/agenda-locations-app": "npm:^0.0.4"
+    "@openagenda/agenda-schemas-app": "npm:^0.0.5"
+    "@openagenda/agenda-settings": "npm:^1.4.4"
+    "@openagenda/agenda-stats": "npm:^1.10.7"
     "@openagenda/aggregator-sources": "npm:^1.3.4"
     "@openagenda/babel-preset": "npm:^2.0.0"
     "@openagenda/eslint-config": "npm:^2.0.0"
-    "@openagenda/event-admin-apps": "npm:^0.0.4"
-    "@openagenda/home": "npm:^2.2.4"
-    "@openagenda/inbox-apps": "npm:^1.2.4"
+    "@openagenda/event-admin-apps": "npm:^0.0.5"
+    "@openagenda/home": "npm:^2.2.5"
+    "@openagenda/inbox-apps": "npm:^1.2.5"
     "@openagenda/intl": "npm:^2.0.0"
-    "@openagenda/legacy": "npm:^1.11.3"
-    "@openagenda/member-apps": "npm:^2.1.4"
+    "@openagenda/legacy": "npm:^1.11.4"
+    "@openagenda/member-apps": "npm:^2.1.5"
     "@openagenda/outdated-browser": "npm:^0.0.0"
     "@openagenda/polyfills": "npm:^1.2.5"
-    "@openagenda/react-layouts": "npm:^2.2.4"
+    "@openagenda/react-layouts": "npm:^2.2.5"
     "@openagenda/react-shared": "npm:^3.0.0"
     "@openagenda/supervisor": "npm:^1.3.4"
     "@pmmmwh/react-refresh-webpack-plugin": "npm:^0.5.4"
@@ -14547,16 +13463,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-layouts@npm:^2.2.4, @openagenda/react-layouts@workspace:packages/react-layouts":
+"@openagenda/react-layouts@npm:^2.2.5, @openagenda/react-layouts@workspace:packages/react-layouts":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-layouts@workspace:packages/react-layouts"
   dependencies:
-    "@openagenda/activity-apps": "npm:^1.2.4"
+    "@openagenda/activity-apps": "npm:^1.2.5"
     "@openagenda/auth": "npm:^0.1.0"
     "@openagenda/bs-templates": "npm:^2.6.0"
     "@openagenda/eslint-config": "npm:^2.0.0"
     "@openagenda/intl": "npm:^2.0.0"
-    "@openagenda/members": "npm:^1.15.15"
+    "@openagenda/members": "npm:^1.15.16"
     "@openagenda/react-shared": "npm:^3.0.0"
     "@sentry/react": "npm:^10.31.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
@@ -14722,7 +13638,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react@npm:^0.0.5, @openagenda/react@workspace:public/react":
+"@openagenda/react@npm:^0.0.6, @openagenda/react@workspace:public/react":
   version: 0.0.0-use.local
   resolution: "@openagenda/react@workspace:public/react"
   dependencies:
@@ -14732,7 +13648,7 @@ __metadata:
     "@openagenda/common-labels": "npm:^2.0.0"
     "@openagenda/eslint-config": "npm:^2.0.0"
     "@openagenda/intl": "npm:^2.0.0"
-    "@openagenda/mails": "npm:^6.0.0"
+    "@openagenda/mails": "npm:^6.0.1"
     "@openagenda/react-filters": "npm:^2.13.7"
     "@openagenda/react-shared": "npm:^3.0.0"
     "@openagenda/tsconfig": "npm:^0.0.0"
@@ -14762,14 +13678,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/registration-apps@npm:^0.0.3, @openagenda/registration-apps@workspace:packages/registration-apps":
+"@openagenda/registration-apps@npm:^0.0.4, @openagenda/registration-apps@workspace:packages/registration-apps":
   version: 0.0.0-use.local
   resolution: "@openagenda/registration-apps@workspace:packages/registration-apps"
   dependencies:
     "@openagenda/bs-templates": "npm:^2.6.0"
     "@openagenda/eslint-config": "npm:^2.0.0"
     "@openagenda/react-shared": "npm:^3.0.0"
-    "@openagenda/registrations": "npm:^0.0.4"
+    "@openagenda/registrations": "npm:^0.0.5"
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
     "@storybook/react-webpack5": "npm:^10.2.0"
     autosize: "npm:^6.0.1"
@@ -14794,13 +13710,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/registrations@npm:^0.0.4, @openagenda/registrations@workspace:packages/registrations":
+"@openagenda/registrations@npm:^0.0.5, @openagenda/registrations@workspace:packages/registrations":
   version: 0.0.0-use.local
   resolution: "@openagenda/registrations@workspace:packages/registrations"
   dependencies:
     "@inquirer/prompts": "npm:^7.5.3"
     "@openagenda/eslint-config": "npm:^2.0.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/verror": "npm:^3.2.0"
     chalk: "npm:^5.4.1"
     date-fns: "npm:^2.11.1"
@@ -14870,11 +13786,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/simple-cache@npm:^2.1.2, @openagenda/simple-cache@workspace:packages/simple-cache":
+"@openagenda/simple-cache@npm:^2.1.3, @openagenda/simple-cache@workspace:packages/simple-cache":
   version: 0.0.0-use.local
   resolution: "@openagenda/simple-cache@workspace:packages/simple-cache"
   dependencies:
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/verror": "npm:^3.2.0"
     ioredis: "npm:^5.10.1"
     jest: "npm:^29.7.0"
@@ -15011,12 +13927,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/usage-counters@npm:^0.0.3, @openagenda/usage-counters@workspace:packages/usage-counters":
+"@openagenda/usage-counters@npm:^0.0.4, @openagenda/usage-counters@workspace:packages/usage-counters":
   version: 0.0.0-use.local
   resolution: "@openagenda/usage-counters@workspace:packages/usage-counters"
   dependencies:
     "@openagenda/eslint-config": "npm:^2.0.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     ioredis: "npm:^5.10.1"
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
@@ -15026,14 +13942,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/users@npm:^3.1.2, @openagenda/users@workspace:packages/users":
+"@openagenda/users@npm:^3.1.3, @openagenda/users@workspace:packages/users":
   version: 0.0.0-use.local
   resolution: "@openagenda/users@workspace:packages/users"
   dependencies:
     "@feathersjs/hooks": "npm:^0.4.0-alpha.0"
     "@openagenda/eslint-config": "npm:^2.0.0"
     "@openagenda/files": "npm:^3.1.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.2.0"
     feathers-hooks-common: "npm:^5.0.2"
@@ -15101,14 +14017,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/widgets@npm:^0.0.3, @openagenda/widgets@workspace:public/widgets":
+"@openagenda/widgets@npm:^0.0.4, @openagenda/widgets@workspace:public/widgets":
   version: 0.0.0-use.local
   resolution: "@openagenda/widgets@workspace:public/widgets"
   dependencies:
     "@babel/core": "npm:^7.28.4"
     "@iframe-resizer/parent": "npm:^5.4.6"
     "@openagenda/eslint-config": "npm:^2.0.0"
-    "@openagenda/react": "npm:^0.0.5"
+    "@openagenda/react": "npm:^0.0.6"
     "@openagenda/react-filters": "npm:^2.13.7"
     "@openagenda/uikit": "npm:^0.1.0"
     "@storybook/html-vite": "npm:^10.2.0"
@@ -28255,15 +27171,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-dynamic-import-node@npm:^2.3.3":
-  version: 2.3.3
-  resolution: "babel-plugin-dynamic-import-node@npm:2.3.3"
-  dependencies:
-    object.assign: "npm:^4.1.0"
-  checksum: 10c0/1bd80df981e1fc1aff0cd4e390cf27aaa34f95f7620cd14dff07ba3bad56d168c098233a7d2deb2c9b1dc13643e596a6b94fc608a3412ee3c56e74a25cd2167e
-  languageName: node
-  linkType: hard
-
 "babel-plugin-handlebars-inline-precompile@npm:^2.1.1":
   version: 2.1.1
   resolution: "babel-plugin-handlebars-inline-precompile@npm:2.1.1"
@@ -28330,19 +27237,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-lodash@npm:^3.3.4":
-  version: 3.3.4
-  resolution: "babel-plugin-lodash@npm:3.3.4"
-  dependencies:
-    "@babel/helper-module-imports": "npm:^7.0.0-beta.49"
-    "@babel/types": "npm:^7.0.0-beta.49"
-    glob: "npm:^7.1.1"
-    lodash: "npm:^4.17.10"
-    require-package-name: "npm:^2.0.1"
-  checksum: 10c0/1a1db624f70c1e9badd3ca112bc6819157e75768aab949c424cfabe562765d7f22cf93e5e088e820d5d5b1da7b2bd9d045cb54a5790616b65da1f84eda2ecc08
-  languageName: node
-  linkType: hard
-
 "babel-plugin-macros@npm:^3.1.0":
   version: 3.1.0
   resolution: "babel-plugin-macros@npm:3.1.0"
@@ -28367,19 +27261,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-polyfill-corejs2@npm:^0.4.15":
-  version: 0.4.17
-  resolution: "babel-plugin-polyfill-corejs2@npm:0.4.17"
-  dependencies:
-    "@babel/compat-data": "npm:^7.28.6"
-    "@babel/helper-define-polyfill-provider": "npm:^0.6.8"
-    semver: "npm:^6.3.1"
-  peerDependencies:
-    "@babel/core": ^7.4.0 || ^8.0.0-0 <8.0.0
-  checksum: 10c0/1284960ea403c63b0dd598f338666c4b17d489aefee30b4da6a7313eff1d91edffb0ccf26341a6e5d94231684b74e016eade66b3921ea112f8b0e4980fa08a5c
-  languageName: node
-  linkType: hard
-
 "babel-plugin-polyfill-corejs3@npm:^0.13.0":
   version: 0.13.0
   resolution: "babel-plugin-polyfill-corejs3@npm:0.13.0"
@@ -28392,18 +27273,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-polyfill-corejs3@npm:^0.14.0":
-  version: 0.14.2
-  resolution: "babel-plugin-polyfill-corejs3@npm:0.14.2"
-  dependencies:
-    "@babel/helper-define-polyfill-provider": "npm:^0.6.8"
-    core-js-compat: "npm:^3.48.0"
-  peerDependencies:
-    "@babel/core": ^7.4.0 || ^8.0.0-0 <8.0.0
-  checksum: 10c0/32f70442f142d0f5607f4b57c121c573b106e09da8659c0f03108a85bf1d09ba5bdc89595a82b34ff76c19f1faf3d1c831b56166f03babf69c024f36da77c3bf
-  languageName: node
-  linkType: hard
-
 "babel-plugin-polyfill-regenerator@npm:^0.6.5":
   version: 0.6.5
   resolution: "babel-plugin-polyfill-regenerator@npm:0.6.5"
@@ -28412,17 +27281,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.4.0 || ^8.0.0-0 <8.0.0
   checksum: 10c0/63aa8ed716df6a9277c6ab42b887858fa9f57a70cc1d0ae2b91bdf081e45d4502848cba306fb60b02f59f99b32fd02ff4753b373cac48ccdac9b7d19dd56f06d
-  languageName: node
-  linkType: hard
-
-"babel-plugin-polyfill-regenerator@npm:^0.6.6":
-  version: 0.6.8
-  resolution: "babel-plugin-polyfill-regenerator@npm:0.6.8"
-  dependencies:
-    "@babel/helper-define-polyfill-provider": "npm:^0.6.8"
-  peerDependencies:
-    "@babel/core": ^7.4.0 || ^8.0.0-0 <8.0.0
-  checksum: 10c0/7c8b2497c29fa880e0acdc8e7b93e29b81b154179b83beb0476eb2c4e7a78b6b42fc35c2554ca250c9bd6d39941eaf75416254b8592ce50979f9a12e1d51c049
   languageName: node
   linkType: hard
 
@@ -30491,67 +29349,67 @@ __metadata:
     "@feathersjs/hooks": "npm:^0.4.0-alpha.0"
     "@jest/globals": "npm:^30.4.1"
     "@loadable/component": "npm:^5.14.1"
-    "@openagenda/abilities": "npm:^1.3.4"
-    "@openagenda/activities": "npm:^2.3.2"
-    "@openagenda/activity-apps": "npm:^1.2.4"
-    "@openagenda/agenda-contribute": "npm:^1.5.6"
-    "@openagenda/agenda-docx": "npm:^2.0.0"
-    "@openagenda/agenda-events": "npm:^1.11.16"
-    "@openagenda/agenda-locations": "npm:^2.1.4"
-    "@openagenda/agenda-locations-app": "npm:^0.0.3"
-    "@openagenda/agenda-portal": "npm:^6.15.0"
-    "@openagenda/agenda-schemas-app": "npm:^0.0.4"
-    "@openagenda/agenda-search": "npm:^1.4.2"
-    "@openagenda/agenda-settings": "npm:^1.4.3"
-    "@openagenda/agenda-stats": "npm:^1.10.6"
-    "@openagenda/agendas": "npm:^1.7.2"
+    "@openagenda/abilities": "npm:^1.3.5"
+    "@openagenda/activities": "npm:^2.3.3"
+    "@openagenda/activity-apps": "npm:^1.2.5"
+    "@openagenda/agenda-contribute": "npm:^1.5.7"
+    "@openagenda/agenda-docx": "npm:^2.0.1"
+    "@openagenda/agenda-events": "npm:^1.11.17"
+    "@openagenda/agenda-locations": "npm:^2.1.5"
+    "@openagenda/agenda-locations-app": "npm:^0.0.4"
+    "@openagenda/agenda-portal": "npm:^6.15.1"
+    "@openagenda/agenda-schemas-app": "npm:^0.0.5"
+    "@openagenda/agenda-search": "npm:^1.4.3"
+    "@openagenda/agenda-settings": "npm:^1.4.4"
+    "@openagenda/agenda-stats": "npm:^1.10.7"
+    "@openagenda/agendas": "npm:^1.7.3"
     "@openagenda/aggregator-sources": "npm:^1.3.4"
-    "@openagenda/aggregators": "npm:^1.11.8"
+    "@openagenda/aggregators": "npm:^1.11.9"
     "@openagenda/api-spec": "workspace:^"
     "@openagenda/auth": "npm:^0.1.0"
-    "@openagenda/cibul-templates": "npm:^1.4.5"
-    "@openagenda/custom": "npm:^1.3.16"
+    "@openagenda/cibul-templates": "npm:^1.4.6"
+    "@openagenda/custom": "npm:^1.3.17"
     "@openagenda/date-range": "npm:^2.3.0"
     "@openagenda/discord": "npm:^1.0.0"
-    "@openagenda/event-form": "npm:^1.5.5"
-    "@openagenda/event-search": "npm:^2.9.1"
-    "@openagenda/events": "npm:^3.0.3"
+    "@openagenda/event-form": "npm:^1.5.6"
+    "@openagenda/event-search": "npm:^2.9.2"
+    "@openagenda/events": "npm:^3.0.4"
     "@openagenda/files": "npm:^3.1.0"
-    "@openagenda/flat-exports": "npm:^1.4.3"
-    "@openagenda/form-schemas": "npm:^1.9.5"
+    "@openagenda/flat-exports": "npm:^1.4.4"
+    "@openagenda/form-schemas": "npm:^1.9.6"
     "@openagenda/geocoder": "npm:^1.2.9"
-    "@openagenda/home": "npm:^2.2.4"
-    "@openagenda/inbox-apps": "npm:^1.2.4"
-    "@openagenda/inboxes": "npm:^1.1.16"
+    "@openagenda/home": "npm:^2.2.5"
+    "@openagenda/inbox-apps": "npm:^1.2.5"
+    "@openagenda/inboxes": "npm:^1.1.17"
     "@openagenda/intl": "npm:^2.0.0"
-    "@openagenda/invitations": "npm:^1.1.9"
+    "@openagenda/invitations": "npm:^1.1.10"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/legacy": "npm:^1.11.3"
-    "@openagenda/logs": "npm:^1.2.0"
-    "@openagenda/mails": "npm:^6.0.0"
-    "@openagenda/mails-editor": "npm:^4.0.0"
+    "@openagenda/legacy": "npm:^1.11.4"
+    "@openagenda/logs": "npm:^1.2.1"
+    "@openagenda/mails": "npm:^6.0.1"
+    "@openagenda/mails-editor": "npm:^4.0.1"
     "@openagenda/md": "npm:^2.0.0"
-    "@openagenda/member-apps": "npm:^2.1.4"
-    "@openagenda/members": "npm:^1.15.15"
-    "@openagenda/network-apps": "npm:^1.1.17"
-    "@openagenda/networks": "npm:^1.2.16"
-    "@openagenda/oembed": "npm:^2.2.3"
+    "@openagenda/member-apps": "npm:^2.1.5"
+    "@openagenda/members": "npm:^1.15.16"
+    "@openagenda/network-apps": "npm:^1.1.18"
+    "@openagenda/networks": "npm:^1.2.17"
+    "@openagenda/oembed": "npm:^2.2.4"
     "@openagenda/outdated-browser": "npm:^0.0.0"
-    "@openagenda/pdf-exports": "npm:^0.0.4"
+    "@openagenda/pdf-exports": "npm:^0.0.5"
     "@openagenda/polyfills": "npm:^1.2.5"
-    "@openagenda/react-integration-app": "npm:^1.6.6"
-    "@openagenda/react-layouts": "npm:^2.2.4"
+    "@openagenda/react-integration-app": "npm:^1.6.7"
+    "@openagenda/react-layouts": "npm:^2.2.5"
     "@openagenda/react-shared": "npm:^3.0.0"
-    "@openagenda/registrations": "npm:^0.0.4"
+    "@openagenda/registrations": "npm:^0.0.5"
     "@openagenda/sdk-js": "workspace:^"
     "@openagenda/security": "npm:^1.0.0"
     "@openagenda/shares": "npm:^0.1.1"
-    "@openagenda/simple-cache": "npm:^2.1.2"
+    "@openagenda/simple-cache": "npm:^2.1.3"
     "@openagenda/stream-utils": "npm:^1.1.0"
     "@openagenda/tumblr-parser": "npm:^0.1.3"
     "@openagenda/unsubscriptions": "npm:^1.0.0"
-    "@openagenda/usage-counters": "npm:^0.0.3"
-    "@openagenda/users": "npm:^3.1.2"
+    "@openagenda/usage-counters": "npm:^0.0.4"
+    "@openagenda/users": "npm:^3.1.3"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.2.0"
@@ -31950,15 +30808,6 @@ __metadata:
   dependencies:
     browserslist: "npm:^4.25.3"
   checksum: 10c0/b22996d3ca7e4f6758725f9ebbb61d422466d7ec0359158563264069ec066e7d2539fc7daebaa8aaf7b0bde73114ce42519611a0f0edb471139349e0cd11e183
-  languageName: node
-  linkType: hard
-
-"core-js-compat@npm:^3.48.0":
-  version: 3.49.0
-  resolution: "core-js-compat@npm:3.49.0"
-  dependencies:
-    browserslist: "npm:^4.28.1"
-  checksum: 10c0/546e64b7ce45f724825bc13c1347f35c0459a6e71c0dcccff3ec21fbff463f5b0b97fc1220e6d90302153863489301793276fe2bf96f46001ff555ead4140308
   languageName: node
   linkType: hard
 
@@ -50006,7 +48855,7 @@ __metadata:
     "@commitlint/cli": "npm:^17.6.5"
     "@commitlint/config-conventional": "npm:^17.6.5"
     "@crowdin/crowdin-api-client": "npm:^1.55.4"
-    "@openagenda/babel-preset": "npm:^1.5.0"
+    "@openagenda/babel-preset": "npm:^2.0.0"
     "@openagenda/cz-conventional-changelog": "npm:^3.2.2"
     "@openagenda/intl": "workspace:^"
     "@strapi/strapi": "npm:^5.48.0"
@@ -56025,20 +54874,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@npm:^1.22.11":
-  version: 1.22.12
-  resolution: "resolve@npm:1.22.12"
-  dependencies:
-    es-errors: "npm:^1.3.0"
-    is-core-module: "npm:^2.16.1"
-    path-parse: "npm:^1.0.7"
-    supports-preserve-symlinks-flag: "npm:^1.0.0"
-  bin:
-    resolve: bin/resolve
-  checksum: 10c0/b16dc9b537c02e8c3388f7d3dcff9741d3071625f9a97ac1c885f2b0ca51e78df22328fb6d6ef214dd9101fb7cfc19aa2836fe3410402a94f3f7b8639c7149bf
-  languageName: node
-  linkType: hard
-
 "resolve@npm:^2.0.0-next.5":
   version: 2.0.0-next.5
   resolution: "resolve@npm:2.0.0-next.5"
@@ -56082,20 +54917,6 @@ __metadata:
   bin:
     resolve: bin/resolve
   checksum: 10c0/52a4e505bbfc7925ac8f4cd91fd8c4e096b6a89728b9f46861d3b405ac9a1ccf4dcbf8befb4e89a2e11370dacd0160918163885cbc669369590f2f31f4c58939
-  languageName: node
-  linkType: hard
-
-"resolve@patch:resolve@npm%3A^1.22.11#optional!builtin<compat/resolve>":
-  version: 1.22.12
-  resolution: "resolve@patch:resolve@npm%3A1.22.12#optional!builtin<compat/resolve>::version=1.22.12&hash=c3c19d"
-  dependencies:
-    es-errors: "npm:^1.3.0"
-    is-core-module: "npm:^2.16.1"
-    path-parse: "npm:^1.0.7"
-    supports-preserve-symlinks-flag: "npm:^1.0.0"
-  bin:
-    resolve: bin/resolve
-  checksum: 10c0/fc6519984ae1f894d877c0060ba8b1f5ba3bc0e85a02f74e141929c118c23d74d9735619a9cc2965397387e514884245c65d72a40731dcb6cfc84c7bcdc8321e
   languageName: node
   linkType: hard
 
