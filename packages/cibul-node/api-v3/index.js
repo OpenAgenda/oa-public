@@ -769,8 +769,11 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
   // within it) — instead of its OA uid. Mirrors the by-uid sibling below: same
   // full `Location` shape, same `deleted: null` read and merged/not-found 404
   // logic; only the identifier handed to the service differs (`{ extId }` vs
-  // `{ uid }`). Registered BEFORE `/locations/:locationUid` so the literal `ext`
-  // segment is never captured as a location uid. Parity with v2's
+  // `{ uid }`). This route has more path segments than `/locations/:locationUid`,
+  // so the two never collide regardless of registration order. Ordering would
+  // only matter for a future literal sub-route of the SAME arity as the catch-all
+  // (e.g. `/locations/search`), which must be registered BEFORE `:locationUid`
+  // not to be swallowed as a uid. Parity with v2's
   // `GET …/locations/ext/:extKey/:extValue`, minus its `{ success, location }`
   // envelope and its implicit-`default`-key shorthand (the key is always
   // explicit here).
