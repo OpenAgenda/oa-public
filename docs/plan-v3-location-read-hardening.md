@@ -75,6 +75,17 @@ routeur est acceptable — dette d'altitude, pas un bug.
 
 ## 2. `:locationUid(\d+)` : l'ordre de registration comme invariant invisible
 
+> **Décision (juin 2026) : abandonné.** La regex au routeur est le mauvais
+> outil — syntaxe `path-to-regexp` 0.1.x **Express 4 only** (casse en Express 5),
+> elle éparpille la validation hors de `cleanGetIdentifiers`, et elle **dégrade
+> le contrat** (`/locations/pas-un-uid` : 400 « Invalid identifiers », informatif,
+> deviendrait un 404 ambigu). Le risque qu'elle visait est purement hypothétique
+> (aucune sous-route littérale de même arité que `:locationUid` n'existe) et se
+> gère par convention (déclarer les littérales avant le catch-all). Seule action
+> retenue : **corriger le commentaire trompeur** de la route by-ext (l'ordre ne
+> protège pas du capture de `ext` — arités différentes), fait dans la PR
+> « durcir le service location ».
+
 ### Constat (vérifié)
 
 - Express **4.18.2** (path-to-regexp 0.1.7) → la syntaxe
@@ -182,9 +193,11 @@ Ces trois points sont la dette révélée par la route by-ext, pas son véhicule
 (granularité PR = unité de déploiement/rollback). Découpage proposé :
 
 - **PR A « durcir le service location »** : #1 (merged typé) + #3 (formSchema
-  paresseux) — même package `agenda-locations`, audit appelants commun.
-- **PR B « durcir le routing v3 »** : #2 (`:uid(\d+)`) — transverse api-v3,
-  décision contrat 400→404.
+  paresseux) — même package `agenda-locations`, audit appelants commun. ✅ PR #198.
+  Inclut la correction du commentaire trompeur de #2.
+- ~~**PR B « durcir le routing v3 »** : #2 (`:uid(\d+)`)~~ — **abandonnée** (voir
+  la décision en tête du §2 : regex Express-4-only, validation éparpillée,
+  régression 400→404, risque hypothétique).
 
 Référence : PR #197 `feat/v3-location-get-by-ext-id`. Voir aussi
 `docs/plan-location-ext-ids-normalization.md` (le 4ᵉ chantier révélé par la même
