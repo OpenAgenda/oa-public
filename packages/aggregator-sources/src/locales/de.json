@@ -2,7 +2,6 @@
   "aggregator-sources.DefineRules.actionFeaturedDetail": "Die Hervorhebung wird auf das aggregierte Ereignis angewendet",
   "aggregator-sources.DefineRules.automatic": "Automatisch",
   "aggregator-sources.DefineRules.featured": "Hervorgehoben",
-  "aggregator-sources.DefineRules.featuredFilter": "Hervorhebungsfilter",
   "aggregator-sources.DefineRules.notSelected": "Nicht ausgewählt",
   "aggregator-sources.DefineRules.selected": "Auswählen",
   "aggregator-sources.DefineRules.toModerate": "Zu moderieren",

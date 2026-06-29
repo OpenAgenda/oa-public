@@ -76,7 +76,6 @@
   "aggregator-sources.DefineRules.editForDetail": "Editar para ver detalles",
   "aggregator-sources.DefineRules.eventLocationDetail": "{geo} donde",
   "aggregator-sources.DefineRules.featured": "Destacado",
-  "aggregator-sources.DefineRules.featuredFilter": "Filtro de destacados",
   "aggregator-sources.DefineRules.filterDetail": "Si el filtro coincide con el evento, se aplican las acciones asociadas",
   "aggregator-sources.DefineRules.filters": "Filtros",
   "aggregator-sources.DefineRules.filtersDesc": "Los filtros permiten agregar solo una parte de los eventos de la agenda de origen.",

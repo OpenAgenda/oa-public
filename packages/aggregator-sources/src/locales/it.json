@@ -76,7 +76,6 @@
   "aggregator-sources.DefineRules.editForDetail": "Modificare per vedere i dettagli",
   "aggregator-sources.DefineRules.eventLocationDetail": "{geo} dove l'evento dovrebbe avere luogo",
   "aggregator-sources.DefineRules.featured": "In evidenza",
-  "aggregator-sources.DefineRules.featuredFilter": "Filtro in evidenza",
   "aggregator-sources.DefineRules.filterDetail": "Se il filtro corrisponde all'evento, si applicano le azioni associate",
   "aggregator-sources.DefineRules.filters": "Filtri",
   "aggregator-sources.DefineRules.filtersDesc": "I filtri consentono di aggregare solo una parte degli eventi del calendario di origine.",

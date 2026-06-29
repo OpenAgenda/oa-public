@@ -72,7 +72,6 @@
   "aggregator-sources.DefineRules.editForDetail": "Bewerk om details te zien",
   "aggregator-sources.DefineRules.eventLocationDetail": "{geo} waar het evenement moet plaatsvinden",
   "aggregator-sources.DefineRules.featured": "Uitgelicht",
-  "aggregator-sources.DefineRules.featuredFilter": "Uitgelicht-filter",
   "aggregator-sources.DefineRules.filterDetail": "Als het evenement overeenkomt met de filtercriteria, worden de bijbehorende acties toegepast",
   "aggregator-sources.DefineRules.filters": "Filters",
   "aggregator-sources.DefineRules.languagesFilter": "Taalfilter",

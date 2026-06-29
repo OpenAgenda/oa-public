@@ -79,7 +79,6 @@
   "aggregator-sources.DefineRules.editForDetail": "Edit to see details",
   "aggregator-sources.DefineRules.eventLocationDetail": "{geo} where the event should take place",
   "aggregator-sources.DefineRules.featured": "Featured",
-  "aggregator-sources.DefineRules.featuredFilter": "Featured filter",
   "aggregator-sources.DefineRules.filterDetail": "If the filter matches the event, the associated actions apply",
   "aggregator-sources.DefineRules.filters": "Filters",
   "aggregator-sources.DefineRules.filtersDesc": "Filters allow you to aggregate only part of the events from the source calendar.",

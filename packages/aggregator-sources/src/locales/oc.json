@@ -76,7 +76,6 @@
   "aggregator-sources.DefineRules.editForDetail": "Editar per veire los detalhs",
   "aggregator-sources.DefineRules.eventLocationDetail": "{geo} ont l'eveniment se deu debanar",
   "aggregator-sources.DefineRules.featured": "Meses en avant",
-  "aggregator-sources.DefineRules.featuredFilter": "Filtre mes en avant",
   "aggregator-sources.DefineRules.filterDetail": "Se lo filtre correspond a l'eveniment, las accions associadas s'aplican",
   "aggregator-sources.DefineRules.filters": "Filtres",
   "aggregator-sources.DefineRules.filtersDesc": "Los filtres vos permeton d'agregar sonque una partida dels eveniments de l'agenda sorsa estant.",

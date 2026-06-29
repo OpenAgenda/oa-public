@@ -58,7 +58,14 @@ function getFilterType(rule) {
 
   const key = Object.keys(rule.query)[0];
 
-  return ['location', 'tags', 'text', 'languages', 'timings', 'featured'].includes(key)
+  return [
+    'location',
+    'tags',
+    'text',
+    'languages',
+    'timings',
+    'featured',
+  ].includes(key)
     ? key
     : 'choice';
 }
@@ -168,7 +175,7 @@ const featuredFilter = ({ intl, rule }) => {
   const booleanValue = value === true || value === 'true';
 
   return {
-    label: intl.formatMessage(messages.featuredFilter),
+    label: intl.formatMessage(messages.featured),
     value: intl.formatMessage(
       booleanValue ? messages.selected : messages.notSelected,
     ),

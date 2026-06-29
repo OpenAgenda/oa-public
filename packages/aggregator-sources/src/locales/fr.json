@@ -79,7 +79,6 @@
   "aggregator-sources.DefineRules.editForDetail": "Éditer pour voir le détail",
   "aggregator-sources.DefineRules.eventLocationDetail": "La règle s'applique lorsque l'événement est localisé dans cette zone géographique",
   "aggregator-sources.DefineRules.featured": "Mise en une",
-  "aggregator-sources.DefineRules.featuredFilter": "Filtre mise en une",
   "aggregator-sources.DefineRules.filterDetail": "Si l'événement correspond aux critères du filtre, les actions associées lui sont appliquées",
   "aggregator-sources.DefineRules.filters": "Filtres",
   "aggregator-sources.DefineRules.filtersDesc": "Les filtres permettent de choisir les événements qui doivent être agrégés",
