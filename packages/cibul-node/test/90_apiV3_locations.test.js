@@ -392,6 +392,29 @@ describe('90 - api-v3 - functional (server): locations read endpoints', () => {
       expect(res.body.error.code).toBe('not_found');
     });
 
+    it('is a plain 404 for a soft-deleted (non-merged) location reached by ext id', async () => {
+      const res = await get(
+        `/agendas/${AGENDA_UID}/locations/ext/import/loc-deleted`,
+      );
+
+      expect(res.status).toBe(404);
+      assertValid(validateError, res.body, 'Error (deleted via ext)');
+      expect(res.body.error.code).toBe('not_found');
+    });
+
+    it('scopes the lookup to the requested agenda (a foreign-agenda ext id does not leak)', async () => {
+      // 99000004 lives in agenda 12472 (arles) carrying `import->loc-foreign`,
+      // which exists in no location of AGENDA_UID — the scoped lookup must 404,
+      // never resolve the foreign location.
+      const res = await get(
+        `/agendas/${AGENDA_UID}/locations/ext/import/loc-foreign`,
+      );
+
+      expect(res.status).toBe(404);
+      assertValid(validateError, res.body, 'Error (foreign ext)');
+      expect(res.body.error.code).toBe('not_found');
+    });
+
     it('answers 404 with the merged code when the ext id resolves to a merged location', async () => {
       const res = await get(
         `/agendas/${AGENDA_UID}/locations/ext/import/loc-99`,

@@ -176,9 +176,8 @@ function resolveDetailed(rawDetailed) {
 // `{ uid, deleted, mergedIn? }` stub instead of a bare miss: a merged location
 // answers 404 with the machine-readable `merged` code and the surviving uid in
 // `details.mergedIn` (sync clients repair their references with it); any other
-// deleted or unknown record is a plain 404. `info` identifies the miss back to
-// the caller — the uid or the ext pair they asked for.
-async function resolveLocationOr404(core, agenda, identifier, info) {
+// deleted or unknown record is a plain 404.
+async function resolveLocationOr404(core, agenda, identifier) {
   const location = await locationEndpoints(core, agenda).get(identifier, {
     includeImagePath: true,
     deleted: null,
@@ -186,24 +185,25 @@ async function resolveLocationOr404(core, agenda, identifier, info) {
   });
 
   if (!location || location.deleted) {
-    const mergedIn = location?.mergedIn ?? null;
+    const merged = location?.mergedIn != null;
     throw new NotFound(
       {
-        info: {
-          ...info,
-          ...mergedIn == null
-            ? {}
-            : { code: 'merged', details: { mergedIn } },
-        },
+        info: merged
+          ? { code: 'merged', details: { mergedIn: location.mergedIn } }
+          : {},
       },
-      mergedIn == null
-        ? 'location not found'
-        : 'location merged into another location',
+      merged ? 'location merged into another location' : 'location not found',
     );
   }
 
   return location;
 }
+
+// The `{ extId }` service identifier built from the `ext/:extKey/:extId` path
+// params, shared by the event and location by-ext routes.
+const extIdFromParams = (req) => ({
+  extId: { key: req.params.extKey, value: req.params.extId },
+});
 
 export default function instanciateApiV3(core, { useRouter = true } = {}) {
   log('init');
@@ -678,10 +678,10 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
       try {
         const event = await core
           .agendas(req.agenda.uid)
-          .events.search.get(
-            { extId: { key: req.params.extKey, value: req.params.extId } },
-            { detailed: true, userUid: req.user?.uid },
-          );
+          .events.search.get(extIdFromParams(req), {
+            detailed: true,
+            userUid: req.user?.uid,
+          });
 
         res.json(mapEvent(event));
       } catch (err) {
@@ -794,8 +794,7 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
         const location = await resolveLocationOr404(
           core,
           req.agenda,
-          { extId: { key: req.params.extKey, value: req.params.extId } },
-          { extKey: req.params.extKey, extId: req.params.extId },
+          extIdFromParams(req),
         );
 
         res.json(mapLocation(location));
@@ -813,12 +812,9 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
     requireScope('locations:read'),
     async (req, res, next) => {
       try {
-        const location = await resolveLocationOr404(
-          core,
-          req.agenda,
-          { uid: req.params.locationUid },
-          { uid: req.params.locationUid },
-        );
+        const location = await resolveLocationOr404(core, req.agenda, {
+          uid: req.params.locationUid,
+        });
 
         res.json(mapLocation(location));
       } catch (err) {
