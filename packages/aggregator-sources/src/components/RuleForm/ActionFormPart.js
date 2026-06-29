@@ -57,6 +57,10 @@ export default ({ id, name, aggregatorAgendaSchema, sourceSchema }) => {
           field: 'state',
           label: intl.formatMessage(stateMessages.state),
         })
+        .concat({
+          field: 'featured',
+          label: intl.formatMessage(messages.featured),
+        })
         .concat(textFieldOptions)
         .filter(
           (v) =>
@@ -85,6 +89,19 @@ export default ({ id, name, aggregatorAgendaSchema, sourceSchema }) => {
   const valuesOptions = useMemoOne(() => {
     if (fieldName === 'state') {
       return getStateOptions(intl);
+    }
+
+    if (fieldName === 'featured') {
+      return [
+        {
+          value: true,
+          label: intl.formatMessage(messages.selected),
+        },
+        {
+          value: false,
+          label: intl.formatMessage(messages.notSelected),
+        },
+      ];
     }
 
     if (fieldSchema?.fieldType === 'boolean') {
@@ -194,7 +211,7 @@ export default ({ id, name, aggregatorAgendaSchema, sourceSchema }) => {
         />
       ) : null}
 
-      {fieldName && fieldName !== 'state' ? (
+      {fieldName && fieldName !== 'state' && fieldName !== 'featured' ? (
         <div className="text-right margin-top-xs">
           <button
             disabled={areAdvancedOptionsUsed()}

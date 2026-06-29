@@ -15,6 +15,8 @@ export default function AddRuleSubmitButton({ handleSubmit, onCancel }) {
     || values.languages
     || values.timings
     || (values.type === 'text' && values.wholeValue)
+    // featuredValue is a boolean, so `false` is a valid filter value
+    || (values.type === 'featured' && typeof values.featuredValue !== 'undefined')
     || hasChoiceValues;
   const disabled = !hasFilter
     && !(

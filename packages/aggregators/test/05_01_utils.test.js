@@ -84,6 +84,20 @@ describe('05 - utils', () => {
 
       expect(picked).toEqual({ state: 1 });
     });
+
+    test('featured is returned when set, despite being an abstract field', () => {
+      expect(
+        pickReferenceValues(fixtures.jepOToJEP.aggregatorSchema, {
+          featured: true,
+        }),
+      ).toEqual({ featured: true });
+
+      expect(
+        pickReferenceValues(fixtures.jepOToJEP.aggregatorSchema, {
+          featured: false,
+        }),
+      ).toEqual({ featured: false });
+    });
   });
 
   describe('determineAggregationAction', () => {

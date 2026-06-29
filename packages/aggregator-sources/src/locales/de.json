@@ -1,8 +1,14 @@
 {
+  "aggregator-sources.DefineRules.actionFeaturedDetail": "Die Hervorhebung wird auf das aggregierte Ereignis angewendet",
   "aggregator-sources.DefineRules.automatic": "Automatisch",
+  "aggregator-sources.DefineRules.featured": "Hervorgehoben",
   "aggregator-sources.DefineRules.notSelected": "Nicht ausgewählt",
   "aggregator-sources.DefineRules.selected": "Auswählen",
   "aggregator-sources.DefineRules.toModerate": "Zu moderieren",
+  "aggregator-sources.RuleForm.featured": "Hervorgehoben",
+  "aggregator-sources.RuleForm.featuredFilter": "Hervorhebungsfilter",
+  "aggregator-sources.RuleForm.helpFilterFeatured": "Wenden Sie die Regel auf Ereignisse an, die im Quellkalender hervorgehoben sind (oder nicht).",
   "aggregator-sources.RuleForm.notSelected": "Nicht ausgewählt",
+  "aggregator-sources.RuleForm.selectFeatured": "Einen Wert auswählen",
   "aggregator-sources.RuleForm.selected": "Auswählen"
 }
