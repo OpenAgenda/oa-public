@@ -11,7 +11,7 @@ const log = logs('services/agendas/tasks');
 // handle `removeAgendaMembers` and silently drops it as an "Unknown job",
 // leaving orphan member rows behind.
 export default function registerAgendaTasks(services) {
-  const { members } = services;
+  const { members, eventSearch } = services;
 
   services.core.tasks.register({
     async removeAgendaMembers({ agendaUid }) {
@@ -26,6 +26,32 @@ export default function registerAgendaTasks(services) {
             error,
           });
         }
+      }
+    },
+
+    // Purge the deleted agenda's event documents from the search index. Run as
+    // a retryable task (enqueued from onRemove) rather than inline: a transient
+    // Elasticsearch failure must NOT be swallowed, otherwise the agenda's events
+    // are left behind as orphans forever (a global reindex only walks live
+    // agendas). Letting the error propagate lets the queue retry the job.
+    async clearAgendaEvents({ agendaUid }) {
+      try {
+        const { deleted } = await eventSearch
+          .agendas({ uid: agendaUid })
+          .clear();
+        log.info('cleared agenda event documents from index', {
+          agendaUid,
+          deleted,
+        });
+      } catch (error) {
+        // A missing index means there is nothing to purge — not a transient
+        // failure, so swallow it (retrying would never succeed). Any other
+        // error propagates so the queue retries the job.
+        if (error?.meta?.body?.error?.type === 'index_not_found_exception') {
+          log.info('no index to clear for agenda', { agendaUid });
+          return;
+        }
+        throw error;
       }
     },
   });
