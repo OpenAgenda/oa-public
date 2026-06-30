@@ -60,6 +60,9 @@ export default () => {
         <option value="district">
           {intl.formatMessage(messages.district)}
         </option>
+        <option value="postalCode">
+          {intl.formatMessage(messages.postalCode)}
+        </option>
         <option value="name">{intl.formatMessage(messages.name)}</option>
       </Field>
 

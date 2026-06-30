@@ -74,6 +74,10 @@ export default defineMessages({
     id: 'aggregator-sources.RuleForm.district',
     defaultMessage: 'District',
   },
+  postalCode: {
+    id: 'aggregator-sources.RuleForm.postalCode',
+    defaultMessage: 'Postal code',
+  },
   name: {
     id: 'aggregator-sources.RuleForm.name',
     defaultMessage: 'Name',
