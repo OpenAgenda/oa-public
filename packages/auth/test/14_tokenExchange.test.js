@@ -9,7 +9,7 @@ import Auth from '../src/index.js';
 // and is exercised end-to-end by public/mcp/scripts/smoke-oauth.js.
 
 const fakeMysqlPool = { query: jest.fn() };
-const V3_RESOURCE = 'https://dapi.openagenda.com/v3';
+const API_RESOURCE = 'https://dapi.openagenda.com';
 const MCP_RESOURCE = 'https://dmcp.openagenda.com/mcp';
 const SECRET = 'exchange-secret-long-enough-for-the-test-aaaa';
 const GRANT_TYPE = 'urn:ietf:params:oauth:grant-type:token-exchange';
@@ -27,7 +27,7 @@ const baseOpts = {
 const configured = () =>
   Auth({
     ...baseOpts,
-    apiResourceUrl: V3_RESOURCE,
+    apiResourceUrl: API_RESOURCE,
     exchangeClients: {
       [CLIENT_ID]: { secret: SECRET, subjectResource: MCP_RESOURCE },
     },
@@ -73,7 +73,7 @@ describe('auth - token-exchange endpoint (O2.5)', () => {
     expect(() =>
       Auth({
         ...baseOpts,
-        apiResourceUrl: V3_RESOURCE,
+        apiResourceUrl: API_RESOURCE,
         // No subjectResource → the per-client authority boundary is undefined;
         // must fail fast rather than widen to the whole subject-audience union.
         exchangeClients: { [CLIENT_ID]: { secret: SECRET } },
@@ -129,7 +129,7 @@ describe('auth - token-exchange endpoint (O2.5)', () => {
     expect(body?.error).toBe('unsupported_grant_type');
   });
 
-  it('rejects a target resource other than the v3 API (400 invalid_target)', async () => {
+  it('rejects a target resource other than the API resource (400 invalid_target)', async () => {
     const auth = configured();
     const { status, body } = await call(auth, {
       authorization: basicAuth(CLIENT_ID, SECRET),

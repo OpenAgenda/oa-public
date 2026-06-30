@@ -13,11 +13,11 @@ const mailgun = {
 // The API host (e.g. api.openagenda.com). Hoisted so apiRoot can fall back to it.
 const apiDomain = prod.apiDomain ?? process.env.API_DOMAIN;
 
-// The public v3 API root (e.g. https://dapi.openagenda.com in dev). Hoisted so
-// the OAuth v3 resource id (aud=api) can derive from it — see `v3ResourceUrl`.
+// The public API root (e.g. https://dapi.openagenda.com in dev). Hoisted so
+// the OAuth API resource id (aud=api) can derive from it — see `apiResourceUrl`.
 // Falls back to the API host: apiRoot and apiDomain denote the same origin by
 // construction, so a configured API_DOMAIN alone is enough to derive both the
-// root and the v3 resource id. This keeps a token-exchange triad set to only 2/3
+// root and the API resource id. This keeps a token-exchange triad set to only 2/3
 // (exchange secret + resource url, but no API_ROOT) from bricking boot.
 const apiRoot = prod.apiRoot
   ?? process.env.API_ROOT
@@ -109,16 +109,18 @@ const config = {
   // coincide. Prod's OA_MCP_RESOURCE_URL must likewise end in `/mcp`. (Hoisted to a
   // const above — the exchange registry references it as a `subjectResource`.)
   mcpResourceUrl,
-  // O2.5 token-exchange (RFC 8693). The v3 API resource id (`aud=api`) that the
-  // `/oauth2/token-exchange` endpoint mints tokens for and that the v3 verifier
-  // then trusts EXCLUSIVELY (passed to auth as the role-named `apiResourceUrl`).
-  // The audience IS the resource the SDK calls, so it derives from the API root
-  // (`apiRoot` + `/v3`) — tracking dev/prod with no drift. Override via
-  // OA_V3_RESOURCE_URL only if it must differ from apiRoot.
-  v3ResourceUrl:
-    prod.v3ResourceUrl
-    ?? process.env.OA_V3_RESOURCE_URL
-    ?? (apiRoot ? `${apiRoot.replace(/\/$/, '')}/v3` : undefined),
+  // The OAuth API resource id (`aud=api`) that the `/oauth2/token-exchange`
+  // endpoint mints tokens for and that the in-process verifier trusts EXCLUSIVELY
+  // (passed to auth as `apiResourceUrl`). A SINGLE resource for the whole API:
+  // both /v2 and /v3 are the same resource server (one process, one host, one
+  // `core` layer), so the audience is version-NEUTRAL — the bare API root, never a
+  // `/v3`-suffixed path. Per-version authorization is carried by scopes, not the
+  // audience. Derives from `apiRoot` (so it tracks dev/prod with no drift);
+  // override via OA_API_RESOURCE_URL only if it must differ.
+  apiResourceUrl:
+    prod.apiResourceUrl
+    ?? process.env.OA_API_RESOURCE_URL
+    ?? (apiRoot ? apiRoot.replace(/\/$/, '') : undefined),
   // First-party gateway registry for the exchange endpoint (client_id → {
   // secret, subjectResource, allowedScopes?, allowedResources?, tokenTtl? }).
   // Confidential-client auth, one secret per service for independent
