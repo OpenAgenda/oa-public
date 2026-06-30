@@ -348,6 +348,85 @@ describe('90 - api-v3 - functional (server): locations read endpoints', () => {
     });
   });
 
+  describe('GET /agendas/:agendaUid/locations/ext/:extKey/:extId', () => {
+    it('resolves a location by its external id, full Location shape', async () => {
+      const res = await get(
+        `/agendas/${AGENDA_UID}/locations/ext/import/loc-42`,
+      );
+
+      expect(res.status).toBe(200);
+      assertValid(validateLocation, res.body, 'Location');
+      expect(res.body.uid).toBe(99000003);
+      expect(res.body.extIds).toContainEqual({
+        key: 'import',
+        value: 'loc-42',
+      });
+    });
+
+    it('resolves to the exact same location as the by-uid get', async () => {
+      const byUid = await get(`/agendas/${AGENDA_UID}/locations/99000003`);
+      const byExt = await get(
+        `/agendas/${AGENDA_UID}/locations/ext/import/loc-42`,
+      );
+
+      expect(byUid.status).toBe(200);
+      expect(byExt.status).toBe(200);
+      expect(byExt.body).toEqual(byUid.body);
+    });
+
+    it('is a plain 404 for an unknown external id', async () => {
+      const res = await get(`/agendas/${AGENDA_UID}/locations/ext/import/nope`);
+
+      expect(res.status).toBe(404);
+      assertValid(validateError, res.body, 'Error (unknown ext)');
+      expect(res.body.error.code).toBe('not_found');
+    });
+
+    it('does not match when the key differs but the value collides', async () => {
+      const res = await get(
+        `/agendas/${AGENDA_UID}/locations/ext/wrong-key/loc-42`,
+      );
+
+      expect(res.status).toBe(404);
+      assertValid(validateError, res.body, 'Error (wrong key)');
+      expect(res.body.error.code).toBe('not_found');
+    });
+
+    it('is a plain 404 for a soft-deleted (non-merged) location reached by ext id', async () => {
+      const res = await get(
+        `/agendas/${AGENDA_UID}/locations/ext/import/loc-deleted`,
+      );
+
+      expect(res.status).toBe(404);
+      assertValid(validateError, res.body, 'Error (deleted via ext)');
+      expect(res.body.error.code).toBe('not_found');
+    });
+
+    it('scopes the lookup to the requested agenda (a foreign-agenda ext id does not leak)', async () => {
+      // 99000004 lives in agenda 12472 (arles) carrying `import->loc-foreign`,
+      // which exists in no location of AGENDA_UID — the scoped lookup must 404,
+      // never resolve the foreign location.
+      const res = await get(
+        `/agendas/${AGENDA_UID}/locations/ext/import/loc-foreign`,
+      );
+
+      expect(res.status).toBe(404);
+      assertValid(validateError, res.body, 'Error (foreign ext)');
+      expect(res.body.error.code).toBe('not_found');
+    });
+
+    it('answers 404 with the merged code when the ext id resolves to a merged location', async () => {
+      const res = await get(
+        `/agendas/${AGENDA_UID}/locations/ext/import/loc-99`,
+      );
+
+      expect(res.status).toBe(404);
+      assertValid(validateError, res.body, 'Error (merged via ext)');
+      expect(res.body.error.code).toBe('merged');
+      expect(res.body.error.details.mergedIn).toBe(123);
+    });
+  });
+
   describe('GET /agendas/:agendaUid/locations/:locationUid', () => {
     it('returns the full contract-valid Location', async () => {
       const res = await get(`/agendas/${AGENDA_UID}/locations/18927679`);
