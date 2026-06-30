@@ -344,6 +344,37 @@ describe('core - functional (server): core.agendas().events.transferOwnership', 
     }
   });
 
+  it('propagates the reindex to other agendas referencing the event', async () => {
+    // Regression: ownerUid is an event-level attribute shared by every agenda
+    // that references the event, so a transfer must refresh the search document
+    // of each referencing agenda — not just the origin one. Assert the reindex
+    // opts into cross-agenda propagation (updateOtherIndices: true), which fans
+    // out to the sibling agendas' indices.
+    const currentEvent = await core.services.events.get(EVENT_UID, {
+      access: 'internal',
+      private: null,
+    });
+    const otherUid = currentEvent.ownerUid === TARGET_UID ? CURRENT_OWNER_UID : TARGET_UID;
+
+    const updateSpy = jest.spyOn(core.services.eventSearch, 'update');
+
+    try {
+      await core
+        .agendas(AGENDA_UID)
+        .events.transferOwnership(
+          EVENT_UID,
+          { userUid: otherUid },
+          { context: { userUid: ADMIN_UID } },
+        );
+
+      expect(updateSpy).toHaveBeenCalled();
+      const options = updateSpy.mock.calls.at(-1)[1];
+      expect(options?.updateOtherIndices).toBe(true);
+    } finally {
+      updateSpy.mockRestore();
+    }
+  });
+
   it('writes a transferOwnership activity entry', async () => {
     const before = await core.services.knex('activity').count({ count: '*' });
     const beforeCount = parseInt(before[0].count, 10);

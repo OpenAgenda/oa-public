@@ -167,8 +167,13 @@ export default async function transferOwnership(
   // fields. The owner patch is already committed above, so the current state is
   // the post-transfer state. This avoids re-implementing the payload
   // reconstruction (and missing parts of it, as a hand-rolled reindex did).
+  //
+  // ownerUid is an event-level attribute shared by every agenda that references
+  // the event, so the change must propagate to all of their indices. resyncEvent
+  // defaults to the origin agenda only; opt into updateOtherIndices to refresh
+  // the sibling agendas' documents too.
   try {
-    await resyncEvent(core, agendaUid, eventUid);
+    await resyncEvent(core, agendaUid, eventUid, { updateOtherIndices: true });
   } catch (e) {
     log(
       'error',

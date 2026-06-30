@@ -248,9 +248,10 @@ export async function rebuild(core, agendaUid) {
 }
 
 export async function resyncEvent(core, agendaUid, eventUid, options = {}) {
-  const { throwOnError, batch } = {
+  const { throwOnError, batch, updateOtherIndices } = {
     throwOnError: true,
     batch: false,
+    updateOtherIndices: false,
     ...options,
   };
 
@@ -325,7 +326,7 @@ export async function resyncEvent(core, agendaUid, eventUid, options = {}) {
           : eventPayload.event,
       },
       {
-        updateOtherIndices: false,
+        updateOtherIndices,
         batch,
       },
     );
