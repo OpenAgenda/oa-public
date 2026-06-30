@@ -13849,6 +13849,7 @@ __metadata:
     react-dom: "npm:^19.2.2"
     react-final-form: "npm:^6.5.3"
     react-final-form-arrays: "npm:^3.1.1"
+    react-icons: "npm:^5.5.0"
     react-intl: "npm:^10.1.1"
     react-is: "npm:^18.2.0"
     react-markdown: "npm:^6.0.0"
