@@ -37,10 +37,15 @@ import initServices from '../services/init.js';
  * Override that ratio guard with `--force` once you've confirmed the DB.
  *
  * Usage:
- *   node scripts/cleanOrphanEvents.js                 # dry-run
- *   node scripts/cleanOrphanEvents.js --apply         # actually delete
- *   node scripts/cleanOrphanEvents.js --apply --force # skip the ratio guard
+ *   node scripts/cleanOrphanEvents.js                    # dry-run
+ *   node scripts/cleanOrphanEvents.js --apply            # actually delete
+ *   node scripts/cleanOrphanEvents.js --apply --force    # skip the ratio guard
  *   node scripts/cleanOrphanEvents.js --page-size 2000
+ *   node scripts/cleanOrphanEvents.js --index events_live # explicit target
+ *
+ * Run it with the SAME environment as the app's `tasks` process (PM2): it needs
+ * ES_HOST/ES_PORT/ES_AGENDA_EVENTS_INDEX and the DB credentials. The first log
+ * line echoes the resolved target index — check it before using --apply.
  */
 
 const args = process.argv.slice(2);
@@ -50,6 +55,14 @@ const PAGE_SIZE = (() => {
   const i = args.indexOf('--page-size');
   const n = i !== -1 ? parseInt(args[i + 1], 10) : NaN;
   return Number.isFinite(n) && n > 0 ? n : 1000;
+})();
+// Explicit index override. When omitted the script targets
+// config.es75.agendaEventsIndex (the `events_live` alias in prod). Pass
+// `--index <name>` to be unambiguous — useful when launching outside the app's
+// env, where the config could fall back to the wrong index.
+const INDEX_OVERRIDE = (() => {
+  const i = args.indexOf('--index');
+  return i !== -1 ? args[i + 1] : undefined;
 })();
 
 const SET_PREFIX = 'agendas_';
@@ -156,8 +169,17 @@ async function main() {
   const { knex } = config;
   const esConfig = services.eventSearch.getConfig();
   const esClient = esConfig.client;
-  const index = config.es75.agendaEventsIndex;
+  const index = INDEX_OVERRIDE ?? config.es75.agendaEventsIndex;
   const agendaTable = config.schemas?.agenda ?? 'agenda';
+
+  // Surface the resolved target up front: if this prints `main`/`dev` instead of
+  // `events_live` the env/config is wrong (e.g. run outside the app env) — abort
+  // before touching anything rather than cleaning the wrong index.
+  log(
+    `[cleanOrphanEvents] targeting index "${index}"`
+      + `${INDEX_OVERRIDE ? ' (--index override)' : ' (from config)'}`
+      + ` on ${config.es75?.host ?? '?'}:${config.es75?.port ?? '?'}`,
+  );
 
   try {
     // 1. Allowlist of live agenda uids.
