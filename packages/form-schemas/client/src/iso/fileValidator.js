@@ -48,6 +48,28 @@ const baseFields = {
   },
 };
 
+// Percent-encode an image URL idempotently so that unencoded special characters
+// (most notably spaces) don't get rejected by the `link` validator, which throws
+// `link.invalid` on any whitespace. Already-encoded URLs are fully decoded first,
+// then re-encoded once, so calling this twice is a no-op. `encodeURI` leaves
+// URL-significant characters (`&`, `/`, `?`, `=`, …) untouched. On a malformed
+// sequence we leave the URL as-is and let the `link` validator reject it.
+function normalizeURL(url) {
+  if (typeof url !== 'string') {
+    return url;
+  }
+
+  try {
+    let decoded = url;
+    while (decodeURI(decoded) !== decoded) {
+      decoded = decodeURI(decoded);
+    }
+    return encodeURI(decoded);
+  } catch (e) {
+    return url;
+  }
+}
+
 function isEmptyObject(obj, visited = new Set()) {
   if (obj === null || typeof obj === 'undefined') {
     return true;
@@ -116,9 +138,12 @@ export default (validatorOptions = {}) =>
       ...baseFields,
     };
 
+    let value = v;
+
     if (validatorOptions?.allowPath && v?.path) {
       fields.path = { type: 'text' };
     } else if (validatorOptions?.allowURL && v?.url) {
+      value = { ...v, url: normalizeURL(v.url) };
       fields.url = { type: 'link' };
     }
 
@@ -144,7 +169,7 @@ export default (validatorOptions = {}) =>
       };
     }
 
-    const clean = schema(fields)(v);
+    const clean = schema(fields)(value);
 
     if (isEmptyObject(clean)) {
       return null;

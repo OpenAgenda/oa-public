@@ -30,6 +30,37 @@ describe('file validator', () => {
     });
   });
 
+  it('file by url with unencoded special characters is percent-encoded', () => {
+    const validate = fileValidator({
+      allowURL: true,
+    });
+
+    const clean = validate({
+      url: 'https://orfaon.net/aaa&&& dddda.jpg',
+      extension: 'jpg',
+      originalName: 'aaa&&& dddda.jpg',
+      filename: 'aaa.jpg',
+    });
+
+    // The space is encoded to %20; the `&` is left untouched (valid in URLs).
+    expect(clean.url).toBe('https://orfaon.net/aaa&&&%20dddda.jpg');
+  });
+
+  it('file by url already percent-encoded is left unchanged (idempotent)', () => {
+    const validate = fileValidator({
+      allowURL: true,
+    });
+
+    const clean = validate({
+      url: 'https://orfaon.net/aaa&&&%20dddda.jpg',
+      extension: 'jpg',
+      originalName: 'aaa.jpg',
+      filename: 'aaa.jpg',
+    });
+
+    expect(clean.url).toBe('https://orfaon.net/aaa&&&%20dddda.jpg');
+  });
+
   it('image with size and variants option', () => {
     const validate = fileValidator({
       imageWithSizeAndVariants: true,
