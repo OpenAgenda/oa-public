@@ -330,7 +330,11 @@ const config = {
   es75: prod.elasticsearch?.v7_5 ?? {
     agendaEventsIndex:
       process.env.ES_AGENDA_EVENTS_INDEX
-      ?? (process.env.NODE_ENV === 'production' ? 'main' : 'dev'),
+      // Production default points at the `events_live` ALIAS, not a concrete
+      // index: the old `main` index is being dropped, and hardcoding a concrete
+      // index (e.g. events_v2) would re-break this fallback at the next reindex
+      // when the alias is repointed. The alias is the stable handle.
+      ?? (process.env.NODE_ENV === 'production' ? 'events_live' : 'dev'),
     host: process.env.ES_HOST ?? 'localhost',
     port: process.env.ES_PORT ?? 9207,
     protocol: process.env.ES_PROTOCOL,
