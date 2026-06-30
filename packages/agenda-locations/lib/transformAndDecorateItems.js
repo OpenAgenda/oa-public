@@ -73,8 +73,11 @@ export default async (service, items, options = {}) => {
   }
 
   // formSchema may be a thunk (deferred uncached schema build); resolve it once
-  // for the whole page rather than per item.
-  const resolvedFormSchema = typeof formSchema === 'function' ? await formSchema() : formSchema;
+  // for the whole page rather than per item — and only when there are items to
+  // filter, so a zero-result page never triggers the (uncached) schema build.
+  const resolvedFormSchema = transformed.length
+    ? (typeof formSchema === 'function' ? await formSchema() : formSchema)
+    : null;
 
   return transformed.map((item) => {
     let result = afterRead(item);
