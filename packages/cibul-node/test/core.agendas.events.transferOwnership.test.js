@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
 import testConfig from './testConfig.js';
@@ -303,6 +304,75 @@ describe('core - functional (server): core.agendas().events.transferOwnership', 
         { userUid: ADMIN_UID, detailed: true },
       );
     expect(indexed.ownerUid).toBe(otherUid);
+  });
+
+  it('keeps the additional (custom) fields when reindexing after transfer', async () => {
+    // Regression: transferOwnership reindexed the event without loading its
+    // custom data, so the search index lost every additional field. Seed a
+    // custom field, transfer, and assert the reindexed event still carries it.
+    const FORM_SCHEMA_ID = 2; // agenda 17026855 -> form_schema_id 2
+    await core.services
+      .custom(FORM_SCHEMA_ID)
+      .set(
+        EVENT_UID,
+        { custom_description: 'KEEP_ME_AFTER_TRANSFER' },
+        { validate: false, partial: true },
+      );
+
+    const currentEvent = await core.services.events.get(EVENT_UID, {
+      access: 'internal',
+      private: null,
+    });
+    const otherUid = currentEvent.ownerUid === TARGET_UID ? CURRENT_OWNER_UID : TARGET_UID;
+
+    const updateSpy = jest.spyOn(core.services.eventSearch, 'update');
+
+    try {
+      await core
+        .agendas(AGENDA_UID)
+        .events.transferOwnership(
+          EVENT_UID,
+          { userUid: otherUid },
+          { context: { userUid: ADMIN_UID } },
+        );
+
+      expect(updateSpy).toHaveBeenCalled();
+      const indexedEvent = updateSpy.mock.calls.at(-1)[0].event;
+      expect(indexedEvent.custom_description).toBe('KEEP_ME_AFTER_TRANSFER');
+    } finally {
+      updateSpy.mockRestore();
+    }
+  });
+
+  it('propagates the reindex to other agendas referencing the event', async () => {
+    // Regression: ownerUid is an event-level attribute shared by every agenda
+    // that references the event, so a transfer must refresh the search document
+    // of each referencing agenda — not just the origin one. Assert the reindex
+    // opts into cross-agenda propagation (updateOtherIndices: true), which fans
+    // out to the sibling agendas' indices.
+    const currentEvent = await core.services.events.get(EVENT_UID, {
+      access: 'internal',
+      private: null,
+    });
+    const otherUid = currentEvent.ownerUid === TARGET_UID ? CURRENT_OWNER_UID : TARGET_UID;
+
+    const updateSpy = jest.spyOn(core.services.eventSearch, 'update');
+
+    try {
+      await core
+        .agendas(AGENDA_UID)
+        .events.transferOwnership(
+          EVENT_UID,
+          { userUid: otherUid },
+          { context: { userUid: ADMIN_UID } },
+        );
+
+      expect(updateSpy).toHaveBeenCalled();
+      const options = updateSpy.mock.calls.at(-1)[1];
+      expect(options?.updateOtherIndices).toBe(true);
+    } finally {
+      updateSpy.mockRestore();
+    }
   });
 
   it('writes a transferOwnership activity entry', async () => {
