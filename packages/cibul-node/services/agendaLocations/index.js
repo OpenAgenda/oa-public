@@ -89,12 +89,7 @@ export async function init(config, services) {
     ),
     shutdown: async (options = {}) => {
       log('stopping task');
-      if (options.clear || options.reset) {
-        await queue.drain();
-      }
-
-      await worker.close();
-
+      await bull.teardownQueues(worker, queue, options);
       log('task stopped');
     },
     task: Object.assign(

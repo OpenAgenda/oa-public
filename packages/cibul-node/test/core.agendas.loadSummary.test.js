@@ -2,6 +2,7 @@ import ky from 'ky';
 import api from '../api/index.js';
 import Core from '../core/index.js';
 import Services from '../services/init.js';
+import { withTestServer } from './helpers/startTestServer.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 
@@ -28,7 +29,6 @@ const enabled = [
 
 describe('core.agendas.loadSummary - Core and API tests', () => {
   let core;
-  let server;
   let accessToken;
   let agendaKey;
   let userKey;
@@ -36,8 +36,6 @@ describe('core.agendas.loadSummary - Core and API tests', () => {
   const config = testConfig.extendWith({
     cachePrefix: 'core_agendas_loadSummary_test',
   });
-
-  const baseUrl = 'http://localhost:4002';
 
   beforeAll(async () => {
     await setup({
@@ -65,14 +63,12 @@ describe('core.agendas.loadSummary - Core and API tests', () => {
     await services.formSchemas.clearCache();
   });
 
-  beforeAll(async () => {
-    server = await api(core, { useRouter: false }).listen(4002);
-  });
+  const ctx = withTestServer(() => api(core, { useRouter: false }));
 
   beforeAll(async () => {
     // Get access token for authenticated requests
     const tokenResponse = await ky
-      .post(`${baseUrl}/requestAccessToken`, {
+      .post(`${ctx.baseUrl}/requestAccessToken`, {
         json: {
           code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
         },
@@ -87,7 +83,6 @@ describe('core.agendas.loadSummary - Core and API tests', () => {
     userKey = 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9'; // From fixtures
   });
 
-  afterAll(() => server.close());
   afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('core functionality', () => {
@@ -127,7 +122,7 @@ describe('core.agendas.loadSummary - Core and API tests', () => {
   describe('API functionality', () => {
     it('should return basic summary without includes parameter via API', async () => {
       const response = await ky.get(
-        `${baseUrl}/agendas/123/summary?key=${agendaKey}`,
+        `${ctx.baseUrl}/agendas/123/summary?key=${agendaKey}`,
       );
       const responseData = await response.json();
 
@@ -148,7 +143,7 @@ describe('core.agendas.loadSummary - Core and API tests', () => {
 
     it('should return summary with enhanced publishedEvents when includes=publishedEvents via API (comma-separated)', async () => {
       const response = await ky.get(
-        `${baseUrl}/agendas/123/summary?includes=publishedEvents&key=${agendaKey}`,
+        `${ctx.baseUrl}/agendas/123/summary?includes=publishedEvents&key=${agendaKey}`,
       );
       const responseData = await response.json();
 
@@ -178,7 +173,7 @@ describe('core.agendas.loadSummary - Core and API tests', () => {
 
     it('should return summary with enhanced publishedEvents when includes[]=publishedEvents via API (array format)', async () => {
       const response = await ky.get(
-        `${baseUrl}/agendas/123/summary?includes[]=publishedEvents&key=${agendaKey}`,
+        `${ctx.baseUrl}/agendas/123/summary?includes[]=publishedEvents&key=${agendaKey}`,
       );
       const responseData = await response.json();
 
@@ -208,7 +203,7 @@ describe('core.agendas.loadSummary - Core and API tests', () => {
 
     it('should work with access token authentication', async () => {
       const response = await ky.get(
-        `${baseUrl}/agendas/123/summary?includes=publishedEvents`,
+        `${ctx.baseUrl}/agendas/123/summary?includes=publishedEvents`,
         {
           headers: {
             'access-token': accessToken,
@@ -225,7 +220,7 @@ describe('core.agendas.loadSummary - Core and API tests', () => {
 
     it('should require authentication when no key provided', async () => {
       const error = await ky
-        .get(`${baseUrl}/agendas/123/summary`)
+        .get(`${ctx.baseUrl}/agendas/123/summary`)
         .json()
         .then(
           () => {},
@@ -237,7 +232,7 @@ describe('core.agendas.loadSummary - Core and API tests', () => {
 
     it('should handle invalid agenda UID', async () => {
       const error = await ky
-        .get(`${baseUrl}/agendas/99999/summary?key=${agendaKey}`)
+        .get(`${ctx.baseUrl}/agendas/99999/summary?key=${agendaKey}`)
         .json()
         .then(
           () => {},
@@ -249,7 +244,7 @@ describe('core.agendas.loadSummary - Core and API tests', () => {
 
     it('should handle multiple includes parameters (comma-separated)', async () => {
       const response = await ky.get(
-        `${baseUrl}/agendas/123/summary?includes=publishedEvents,other&key=${agendaKey}`,
+        `${ctx.baseUrl}/agendas/123/summary?includes=publishedEvents,other&key=${agendaKey}`,
       );
       const responseData = await response.json();
 
@@ -261,7 +256,7 @@ describe('core.agendas.loadSummary - Core and API tests', () => {
 
     it('should handle multiple includes parameters (array format)', async () => {
       const response = await ky.get(
-        `${baseUrl}/agendas/123/summary?includes[]=publishedEvents&includes[]=other&key=${agendaKey}`,
+        `${ctx.baseUrl}/agendas/123/summary?includes[]=publishedEvents&includes[]=other&key=${agendaKey}`,
       );
       const responseData = await response.json();
 
@@ -273,7 +268,7 @@ describe('core.agendas.loadSummary - Core and API tests', () => {
 
     it('should work with empty includes parameter', async () => {
       const response = await ky.get(
-        `${baseUrl}/agendas/123/summary?includes=&key=${agendaKey}`,
+        `${ctx.baseUrl}/agendas/123/summary?includes=&key=${agendaKey}`,
       );
       const responseData = await response.json();
 
@@ -284,7 +279,7 @@ describe('core.agendas.loadSummary - Core and API tests', () => {
 
     it('should work with personal user key authentication', async () => {
       const response = await ky.get(
-        `${baseUrl}/agendas/123/summary?includes=publishedEvents&key=${userKey}`,
+        `${ctx.baseUrl}/agendas/123/summary?includes=publishedEvents&key=${userKey}`,
       );
       const responseData = await response.json();
 
@@ -303,7 +298,7 @@ describe('core.agendas.loadSummary - Core and API tests', () => {
 
     it('should work with personal user key in headers', async () => {
       const response = await ky.get(
-        `${baseUrl}/agendas/123/summary?includes=publishedEvents`,
+        `${ctx.baseUrl}/agendas/123/summary?includes=publishedEvents`,
         {
           headers: {
             key: userKey,

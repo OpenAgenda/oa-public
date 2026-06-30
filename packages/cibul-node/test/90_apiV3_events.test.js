@@ -126,6 +126,39 @@ describe('90 - api-v3 - functional (server): events read endpoints', () => {
       expect(res.body.data.length).toBeLessThanOrEqual(1);
     });
 
+    it('accepts the maximum limit (100)', async () => {
+      const res = await request(app)
+        .get('/agendas/2/events?limit=100')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(200);
+      expect(res.body.pagination.limit).toBe(100);
+    });
+
+    // The cap is enforced by rejection, NOT silent clamping: a truncated page
+    // looks complete to the caller. Out-of-range and non-integer limits are 400,
+    // consistent with the detailed/sort gate.
+    it.each([
+      ['above the max', '101'],
+      ['far above the max (the v2 300)', '300'],
+      ['zero', '0'],
+      ['negative', '-5'],
+      ['non-integer', 'abc'],
+      ['fractional', '10.5'],
+    ])(
+      'rejects a limit %s with a 400 + per-field details',
+      async (_label, value) => {
+        const res = await request(app)
+          .get(`/agendas/2/events?limit=${value}`)
+          .set('authorization', `Bearer ${USER_KEY}`);
+
+        expect(res.status).toBe(400);
+        assertValid(validateError, res.body, 'Error');
+        expect(res.body.error.code).toBe('bad_request');
+        expect(res.body.error.details.errors[0].field).toBe('limit');
+      },
+    );
+
     it('each event in data validates against the EventSummary schema', async () => {
       const res = await request(app)
         .get('/agendas/2/events')
@@ -203,6 +236,46 @@ describe('90 - api-v3 - functional (server): events read endpoints', () => {
       }
     });
 
+    // Regression: the summary must carry a real `timezone` (event-search used to
+    // strip it alongside `timings`, leaving it always null) and must NOT carry
+    // the full `timings` array (now detailed-only). Tie the summary tz to the
+    // detailed view so it is proven populated, not merely present.
+    it('summary keeps the real timezone but drops the full timings array', async () => {
+      const [summary, detailed] = await Promise.all([
+        request(app)
+          .get('/agendas/2/events?detailed=false')
+          .set('authorization', `Bearer ${USER_KEY}`),
+        request(app)
+          .get('/agendas/2/events?detailed=true')
+          .set('authorization', `Bearer ${USER_KEY}`),
+      ]);
+
+      expect(summary.status).toBe(200);
+      expect(detailed.status).toBe(200);
+
+      const detailedByUid = new Map(detailed.body.data.map((e) => [e.uid, e]));
+
+      let sawPopulatedTimezone = false;
+      for (const event of summary.body.data) {
+        // the full occurrence array is gone from the light view...
+        expect(event).not.toHaveProperty('timings');
+        // ...but timezone is present and matches the detailed projection.
+        expect(event).toHaveProperty('timezone');
+        // When the same event is on the detailed page, its timezone must match;
+        // when it isn't, compare against itself (a no-op) so the assertion stays
+        // unconditional (jest/no-conditional-expect).
+        const counterpart = detailedByUid.get(event.uid);
+        expect(event.timezone).toBe(
+          counterpart ? counterpart.timezone : event.timezone,
+        );
+        if (event.timezone != null) sawPopulatedTimezone = true;
+      }
+
+      // The fixture's published events carry a timezone, so at least one summary
+      // must expose a non-null one (the bug made every one null).
+      expect(sawPopulatedTimezone).toBe(true);
+    });
+
     it('rejects a non-boolean detailed with 400 + per-field details', async () => {
       const res = await request(app)
         .get('/agendas/2/events?detailed=yes')
@@ -212,6 +285,122 @@ describe('90 - api-v3 - functional (server): events read endpoints', () => {
       assertValid(validateError, res.body, 'Error');
       expect(res.body.error.code).toBe('bad_request');
       expect(res.body.error.details.errors[0].field).toBe('detailed');
+    });
+  });
+
+  describe('GET /agendas/:agendaUid/events — fields (sparse selection)', () => {
+    it('trims each item to the selected fields, always keeping uid', async () => {
+      const res = await request(app)
+        .get('/agendas/2/events?fields=title,location')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.length).toBeGreaterThan(0);
+      for (const event of res.body.data) {
+        expect(Object.keys(event).sort()).toEqual(['location', 'title', 'uid']);
+      }
+    });
+
+    it('selecting uid alone returns single-key items', async () => {
+      const res = await request(app)
+        .get('/agendas/2/events?fields=uid')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(200);
+      for (const event of res.body.data) {
+        expect(Object.keys(event)).toEqual(['uid']);
+      }
+    });
+
+    it('selects a detailed-only field WITHOUT detailed (full universe)', async () => {
+      // `fields` picks the shape over the full Event universe; `detailed` is
+      // moot. longDescription is a detailed-only field, yet selectable here.
+      const res = await request(app)
+        .get('/agendas/2/events?fields=longDescription')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.length).toBeGreaterThan(0);
+      for (const event of res.body.data) {
+        expect(Object.keys(event).sort()).toEqual(['longDescription', 'uid']);
+      }
+    });
+
+    it('fields wins over detailed when both are given', async () => {
+      const res = await request(app)
+        .get('/agendas/2/events?detailed=true&fields=uid')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(200);
+      for (const event of res.body.data) {
+        expect(Object.keys(event)).toEqual(['uid']);
+      }
+    });
+
+    it('derives a timing field from the pushed-down timings (no detailed)', async () => {
+      // nextTiming is computed from the full `timings` array; the pushdown must
+      // still project `timings` for the parser, while the output stays trimmed.
+      const res = await request(app)
+        .get('/agendas/2/events?fields=nextTiming')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.length).toBeGreaterThan(0);
+      for (const event of res.body.data) {
+        expect(Object.keys(event).sort()).toEqual(['nextTiming', 'uid']);
+      }
+    });
+
+    it('dotted paths trim into nested objects', async () => {
+      const res = await request(app)
+        .get('/agendas/2/events?fields=location.name')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.length).toBeGreaterThan(0);
+      for (const event of res.body.data) {
+        expect(Object.keys(event).sort()).toEqual(['location', 'uid']);
+        // location is trimmed to just `name` (or null when the event has none).
+        const locationKeys = event.location ? Object.keys(event.location) : [];
+        expect(locationKeys.filter((key) => key !== 'name')).toEqual([]);
+      }
+    });
+
+    it('rejects an unknown field with 400 + per-field details', async () => {
+      const res = await request(app)
+        .get('/agendas/2/events?fields=title,nope')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(400);
+      assertValid(validateError, res.body, 'Error');
+      expect(res.body.error.details.errors[0].field).toBe('fields');
+    });
+
+    it('rejects an unknown nested leaf under a known keyset with 400', async () => {
+      // `location` declares a children keyset, so a bogus sub-key is a 400 —
+      // not a silently-dropped best-effort leaf.
+      const res = await request(app)
+        .get('/agendas/2/events?fields=location.zzz')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(400);
+      assertValid(validateError, res.body, 'Error');
+      expect(res.body.error.details.errors[0].field).toBe('fields');
+    });
+
+    it('pushes the additionalFields bag down (enumerated from the schema)', async () => {
+      // Agenda 1 / event 1 carries the `thematique` custom field. Selecting the
+      // bare bag enumerates the merged form schema and projects its custom
+      // fields, so the value survives the trim.
+      const res = await request(app)
+        .get('/agendas/1/events?fields=additionalFields')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(200);
+      const event1 = res.body.data.find((e) => e.uid === 1);
+      expect(event1).toBeDefined();
+      expect(Object.keys(event1).sort()).toEqual(['additionalFields', 'uid']);
+      expect(event1.additionalFields.thematique).toBe(2);
     });
   });
 

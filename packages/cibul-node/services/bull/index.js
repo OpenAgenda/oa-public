@@ -22,11 +22,34 @@ function normalizeOpts(opts, { connection, queuesPrefix }) {
   };
 }
 
+// Teardown d'un service portant une ou plusieurs queues : ferme le(s) worker(s)
+// PUIS, en test (`clear`/`reset`), obliterate la (les) queue(s). On obliterate
+// plutôt que `drain()` car `drain()` ne retire que les jobs en attente à
+// l'instant T, laissant fuiter dans la suite suivante un job enqueué pendant la
+// fermeture. La fermeture des workers est ici redondante avec `closeWorkers()`
+// (cf. init) mais on la garde pour que le helper reste correct appelé isolément ;
+// `worker.close()` est idempotent.
+export async function teardownQueues(workers, queues, { clear, reset } = {}) {
+  for (const worker of [].concat(workers)) {
+    await worker.close();
+  }
+
+  if (clear || reset) {
+    for (const queue of [].concat(queues)) {
+      await queue.obliterate({ force: true });
+    }
+  }
+}
+
 export function init(config, services) {
   log('init');
 
   const connection = services.redis;
   const { queuesPrefix } = config;
+
+  // Tous les workers créés via ce wrapper, pour les fermer globalement au
+  // shutdown AVANT toute purge de queue (cf. closeWorkers).
+  const workers = [];
 
   class Queue extends bullmq.Queue {
     constructor(name, opts, con) {
@@ -39,6 +62,7 @@ export function init(config, services) {
     constructor(name, processor, opts, con) {
       const options = normalizeOpts(opts, { connection, queuesPrefix });
       super(name, processor, options, con);
+      workers.push(this);
     }
   }
 
@@ -64,11 +88,28 @@ export function init(config, services) {
   //
   // myQueue.add('paint', { gna: 'gnagna' });
 
+  // Ferme TOUS les workers (tous services confondus) avant que `services.shutdown`
+  // ne purge les queues. Garantit qu'aucun worker ne tourne pendant un
+  // `obliterate()`, donc qu'aucun job en vol ne peut ré-enqueuer dans une queue
+  // déjà purgée — y compris à travers les frontières de services
+  // (producteur → queue d'un consommateur). Résilient : une fermeture qui échoue
+  // n'empêche pas les autres.
+  async function closeWorkers() {
+    await Promise.all(
+      workers.map((worker) =>
+        worker
+          .close()
+          .catch((err) => log('warn', 'worker close failed: %s', err.message))),
+    );
+  }
+
   return {
     ...bullmq,
     Queue,
     Worker,
     QueueEvents,
     FlowProducer,
+    teardownQueues,
+    closeWorkers,
   };
 }

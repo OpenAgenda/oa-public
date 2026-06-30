@@ -453,6 +453,8 @@ export const zAccessibilityCode = z.enum([
 /**
  * Compact event representation returned by the list endpoint (`detailed: false`). It carries the base field set only — the detailed fields (longDescription, conditions, country, registration, createdAt, updatedAt, accessibility, age, state, links, extIds, sourceAgendas) are NOT present here; fetch a single event for those.
  *
+ * The full `timings` array is also detailed-only: the compact view exposes the occurrence span through `firstTiming`/`lastTiming`/`nextTiming` instead, interpreted in `timezone` (the IANA name needed to render those instants correctly across DST). Fetch a single event for the full list of occurrences.
+ *
  * Empty-as-empty rule: every field is always present. Collections are never null/omitted (arrays → `[]`, localized maps → `{}`); singular optional values are present as `null` when absent. `additionalFields` is typically `{}` in summaries because agenda additional fields are detailed-level.
  *
  */
@@ -468,7 +470,6 @@ export const zEventSummary = z.object({
     imageCredits: z.string().max(255).nullable(),
     keywords: zLocalizedStringArray,
     originAgenda: zAgendaRef.nullable(),
-    timings: z.array(zTiming),
     location: zEventLocation.nullable(),
     timezone: z.string().readonly().nullable(),
     attendanceMode: zAttendanceMode,
@@ -1023,6 +1024,8 @@ export const zMeAgendaListWritable = z.object({
 /**
  * Compact event representation returned by the list endpoint (`detailed: false`). It carries the base field set only — the detailed fields (longDescription, conditions, country, registration, createdAt, updatedAt, accessibility, age, state, links, extIds, sourceAgendas) are NOT present here; fetch a single event for those.
  *
+ * The full `timings` array is also detailed-only: the compact view exposes the occurrence span through `firstTiming`/`lastTiming`/`nextTiming` instead, interpreted in `timezone` (the IANA name needed to render those instants correctly across DST). Fetch a single event for the full list of occurrences.
+ *
  * Empty-as-empty rule: every field is always present. Collections are never null/omitted (arrays → `[]`, localized maps → `{}`); singular optional values are present as `null` when absent. `additionalFields` is typically `{}` in summaries because agenda additional fields are detailed-level.
  *
  */
@@ -1033,7 +1036,6 @@ export const zEventSummaryWritable = z.object({
     image: zImage.nullable(),
     imageCredits: z.string().max(255).nullable(),
     keywords: zLocalizedStringArray,
-    timings: z.array(zTiming),
     location: zEventLocationWritable.nullable(),
     attendanceMode: zAttendanceMode,
     onlineAccessLink: z.string().url().nullable(),
@@ -1088,7 +1090,8 @@ export const zEventUid = z.coerce.bigint().min(BigInt('-9223372036854775808'), {
 export const zAfterCursor = z.string();
 
 /**
- * Maximum number of items to return per page.
+ * Maximum number of items to return per page. An out-of-range or non-integer value is rejected with `400`, never clamped; use the `after` cursor to page further.
+ *
  */
 export const zLimit = z.number().int().gte(1).lte(100).default(20);
 
@@ -1097,6 +1100,12 @@ export const zLimit = z.number().int().gte(1).lte(100).default(20);
  *
  */
 export const zDetailed = z.boolean().default(false);
+
+/**
+ * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` no longer applies (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. `uid` is always returned. Dotted paths descend into nested objects and arrays (`location.name`, `timings.begin`, `additionalFields.myField`). An unknown top-level field is rejected with `400`; an unknown nested sub-field may be too (e.g. `location.zzz`), except under an open container — the `additionalFields` custom-field bag or a localized text map — where any sub-key is accepted and yields nothing when absent. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
+ *
+ */
+export const zFields = z.array(z.string());
 
 /**
  * Full-text search across agenda title and description. Wrap the value in double quotes for an exact phrase match.
@@ -1496,6 +1505,7 @@ export const zAgendasListQuery = z.object({
     after: z.string().optional(),
     limit: z.number().int().gte(1).lte(100).optional().default(20),
     detailed: z.boolean().optional().default(false),
+    fields: z.array(z.string()).optional(),
     search: z.string().optional(),
     sort: z.enum(['createdAt.desc', 'recentlyAddedEvents.desc']).optional(),
     uid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
@@ -1534,6 +1544,7 @@ export const zAgendasEventsListQuery = z.object({
     after: z.string().optional(),
     limit: z.number().int().gte(1).lte(100).optional().default(20),
     detailed: z.boolean().optional().default(false),
+    fields: z.array(z.string()).optional(),
     sort: z.enum([
         'timings.asc',
         'timingsWithFeatured.asc',
@@ -1761,7 +1772,8 @@ export const zAgendasEventsSchemaResponse = zEventFormSchema;
 export const zMeAgendasListQuery = z.object({
     after: z.string().optional(),
     limit: z.number().int().gte(1).lte(100).optional().default(20),
-    detailed: z.boolean().optional().default(false)
+    detailed: z.boolean().optional().default(false),
+    fields: z.array(z.string()).optional()
 });
 
 /**
@@ -1777,6 +1789,7 @@ export const zAgendasLocationsListQuery = z.object({
     after: z.string().optional(),
     limit: z.number().int().gte(1).lte(100).optional().default(20),
     detailed: z.boolean().optional().default(false),
+    fields: z.array(z.string()).optional(),
     search: z.string().optional(),
     uid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
     extId: z.object({

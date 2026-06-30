@@ -5,6 +5,7 @@ import ih from 'immutability-helper';
 import api from '../api/index.js';
 import Core from '../core/index.js';
 import Services from '../services/init.js';
+import { withTestServer } from './helpers/startTestServer.js';
 import eventsFixtures from './fixtures/events/index.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
@@ -1009,19 +1010,14 @@ describe('core - functional (server): core.agendas().events.create()', () => {
   });
 
   describe('api', () => {
-    let server;
     let accessToken;
     let response;
 
-    beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(4000);
-    });
-
-    afterAll(() => server.close());
+    const ctx = withTestServer(() => api(core, { useRouter: false }));
 
     beforeAll(async () => {
       const tokenResponse = await ky
-        .post('http://localhost:4000/requestAccessToken', {
+        .post(`${ctx.baseUrl}/requestAccessToken`, {
           json: {
             code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
           },
@@ -1034,7 +1030,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
       beforeAll(async () => {
         try {
           response = await ky
-            .post('http://localhost:4000/agendas/17026855/events', {
+            .post(`${ctx.baseUrl}/agendas/17026855/events`, {
               headers: {
                 'access-token': accessToken,
               },
@@ -1110,7 +1106,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
         );
 
         const createResponse = await fetch(
-          'http://localhost:4000/agendas/17026855/events?key=',
+          `${ctx.baseUrl}/agendas/17026855/events?key=`,
           {
             method: 'POST',
             headers: {
@@ -1128,7 +1124,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
 
       it('create online event', async () => {
         const onlineEventCreateResponse = await ky
-          .post('http://localhost:4000/agendas/17026855/events', {
+          .post(`${ctx.baseUrl}/agendas/17026855/events`, {
             headers: {
               'access-token': accessToken,
             },
@@ -1168,7 +1164,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
         let error;
         try {
           await ky
-            .post('http://localhost:4000/agendas/17026855/events', {
+            .post(`${ctx.baseUrl}/agendas/17026855/events`, {
               headers: {
                 'access-token': accessToken,
               },
@@ -1213,7 +1209,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
       });
 
       it('contributor may not set state through api', async () => {
-        const url = 'http://localhost:4000/agendas/17026855/events?key';
+        const url = `${ctx.baseUrl}/agendas/17026855/events?key`;
 
         const form = new FormData();
         form.append('data', JSON.stringify(eventsFixtures[3]));
@@ -1277,7 +1273,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
           form.append('data', JSON.stringify(data));
 
           oneLanguageResponse = await fetch(
-            'http://localhost:4000/agendas/17026855/events',
+            `${ctx.baseUrl}/agendas/17026855/events`,
             {
               method: 'POST',
               body: form,
@@ -1314,7 +1310,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
 
       it('Event is created in french if lang is set to french in header', async () => {
         const frenchResponse = await ky
-          .post('http://localhost:4000/agendas/17026855/events', {
+          .post(`${ctx.baseUrl}/agendas/17026855/events`, {
             headers: {
               'access-token': accessToken,
               lang: 'fr',
@@ -1334,7 +1330,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
 
       beforeAll(async () => {
         await ky
-          .post('http://localhost:4000/agendas/17026855/events', {
+          .post(`${ctx.baseUrl}/agendas/17026855/events`, {
             headers: {
               'access-token': accessToken,
             },
@@ -1385,7 +1381,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
     describe('conditional required field', () => {
       test('when ref is not specified, enableWith required field is not processed', async () => {
         const responseData = await ky
-          .post('http://localhost:4000/agendas/89904399/events', {
+          .post(`${ctx.baseUrl}/agendas/89904399/events`, {
             headers: {
               'access-token': accessToken,
             },
@@ -1402,7 +1398,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
 
       test('when ref field is specified, enableWith required field triggers validation error when not set', async () => {
         const errorResponse = await ky
-          .post('http://localhost:4000/agendas/89904399/events', {
+          .post(`${ctx.baseUrl}/agendas/89904399/events`, {
             headers: {
               'access-token': accessToken,
             },

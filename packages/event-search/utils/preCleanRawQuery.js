@@ -1,9 +1,28 @@
 import { produce } from 'immer';
 import { BadRequest } from '@openagenda/verror';
 import convertTimingsRange from './convertTimingsRange.js';
+import adminLevelSwap from './adminLevelSwap.js';
 
 export default produce((query = {}, options = {}) => {
   const { removed } = { removed: false, ...options };
+
+  // Canonical `adminLevelN` filter keys are aliases of the legacy location names
+  // (adminLevel1=region, adminLevel2=department, adminLevel4=city,
+  // adminLevel6=district). Only the legacy names are whitelisted by validateQuery
+  // and indexed in Elasticsearch, so swap the canonical input onto its legacy key
+  // before validation. adminLevel3/adminLevel5 have no alias (al === to) and are
+  // already valid, so they are left untouched.
+  adminLevelSwap.map
+    .filter(({ al, to }) => al !== to)
+    .forEach(({ al, to }) => {
+      if (query[al] === undefined) {
+        return;
+      }
+      // Merge rather than overwrite so a request mixing the legacy and canonical
+      // keys (e.g. ?city[]=Paris&adminLevel4[]=Lyon) keeps both values.
+      query[to] = [].concat(query[to] ?? [], query[al]);
+      delete query[al];
+    });
 
   if (Array.isArray(query.valid) && query.valid.length > 0) {
     query.valid = query.valid.map((v) => {

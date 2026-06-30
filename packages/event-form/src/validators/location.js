@@ -53,8 +53,17 @@ export default (options) => (value) => {
     return null;
   }
 
+  // Required field: a draft persists an empty location as `null`, so the
+  // schema default (which is only substituted when the `location` key is
+  // absent) never kicks in and validation fails with "location.required".
+  // Fall back to the configured default so publishing a draft validates the
+  // same way as creating an event directly.
+  const effectiveValue = !optional && (value === undefined || value === null)
+    ? _.get(options, 'default', value)
+    : value;
+
   try {
-    return (optional ? validateDraft : validate)(value);
+    return (optional ? validateDraft : validate)(effectiveValue);
   } catch (errors) {
     throw errors.map((e) => ({
       ...e,

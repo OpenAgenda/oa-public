@@ -773,6 +773,8 @@ export type AccessibilityCode = 'hi' | 'ii' | 'mi' | 'pi' | 'vi';
 /**
  * Compact event representation returned by the list endpoint (`detailed: false`). It carries the base field set only — the detailed fields (longDescription, conditions, country, registration, createdAt, updatedAt, accessibility, age, state, links, extIds, sourceAgendas) are NOT present here; fetch a single event for those.
  *
+ * The full `timings` array is also detailed-only: the compact view exposes the occurrence span through `firstTiming`/`lastTiming`/`nextTiming` instead, interpreted in `timezone` (the IANA name needed to render those instants correctly across DST). Fetch a single event for the full list of occurrences.
+ *
  * Empty-as-empty rule: every field is always present. Collections are never null/omitted (arrays → `[]`, localized maps → `{}`); singular optional values are present as `null` when absent. `additionalFields` is typically `{}` in summaries because agenda additional fields are detailed-level.
  *
  */
@@ -794,7 +796,6 @@ export type EventSummary = {
      * The agenda the event was originally created in.
      */
     readonly originAgenda: AgendaRef | null;
-    timings: Array<Timing>;
     location: EventLocation | null;
     /**
      * IANA time zone the timings are expressed in (null when unset).
@@ -1398,6 +1399,8 @@ export type MeAgendaListWritable = {
 /**
  * Compact event representation returned by the list endpoint (`detailed: false`). It carries the base field set only — the detailed fields (longDescription, conditions, country, registration, createdAt, updatedAt, accessibility, age, state, links, extIds, sourceAgendas) are NOT present here; fetch a single event for those.
  *
+ * The full `timings` array is also detailed-only: the compact view exposes the occurrence span through `firstTiming`/`lastTiming`/`nextTiming` instead, interpreted in `timezone` (the IANA name needed to render those instants correctly across DST). Fetch a single event for the full list of occurrences.
+ *
  * Empty-as-empty rule: every field is always present. Collections are never null/omitted (arrays → `[]`, localized maps → `{}`); singular optional values are present as `null` when absent. `additionalFields` is typically `{}` in summaries because agenda additional fields are detailed-level.
  *
  */
@@ -1408,7 +1411,6 @@ export type EventSummaryWritable = {
     image: Image | null;
     imageCredits: string | null;
     keywords: LocalizedStringArray;
-    timings: Array<Timing>;
     location: EventLocationWritable | null;
     attendanceMode: AttendanceMode;
     onlineAccessLink: string | null;
@@ -1467,7 +1469,8 @@ export type EventUid = number;
 export type AfterCursor = string;
 
 /**
- * Maximum number of items to return per page.
+ * Maximum number of items to return per page. An out-of-range or non-integer value is rejected with `400`, never clamped; use the `after` cursor to page further.
+ *
  */
 export type Limit = number;
 
@@ -1476,6 +1479,12 @@ export type Limit = number;
  *
  */
 export type Detailed = boolean;
+
+/**
+ * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` no longer applies (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. `uid` is always returned. Dotted paths descend into nested objects and arrays (`location.name`, `timings.begin`, `additionalFields.myField`). An unknown top-level field is rejected with `400`; an unknown nested sub-field may be too (e.g. `location.zzz`), except under an open container — the `additionalFields` custom-field bag or a localized text map — where any sub-key is accepted and yields nothing when absent. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
+ *
+ */
+export type Fields = Array<string>;
 
 /**
  * Full-text search across agenda title and description. Wrap the value in double quotes for an exact phrase match.
@@ -1842,7 +1851,8 @@ export type AgendasListData = {
          */
         after?: string;
         /**
-         * Maximum number of items to return per page.
+         * Maximum number of items to return per page. An out-of-range or non-integer value is rejected with `400`, never clamped; use the `after` cursor to page further.
+         *
          */
         limit?: number;
         /**
@@ -1850,6 +1860,11 @@ export type AgendasListData = {
          *
          */
         detailed?: boolean;
+        /**
+         * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` no longer applies (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. `uid` is always returned. Dotted paths descend into nested objects and arrays (`location.name`, `timings.begin`, `additionalFields.myField`). An unknown top-level field is rejected with `400`; an unknown nested sub-field may be too (e.g. `location.zzz`), except under an open container — the `additionalFields` custom-field bag or a localized text map — where any sub-key is accepted and yields nothing when absent. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
+         *
+         */
+        fields?: Array<string>;
         /**
          * Full-text search across agenda title and description. Wrap the value in double quotes for an exact phrase match.
          *
@@ -1995,7 +2010,8 @@ export type AgendasEventsListData = {
          */
         after?: string;
         /**
-         * Maximum number of items to return per page.
+         * Maximum number of items to return per page. An out-of-range or non-integer value is rejected with `400`, never clamped; use the `after` cursor to page further.
+         *
          */
         limit?: number;
         /**
@@ -2003,6 +2019,11 @@ export type AgendasEventsListData = {
          *
          */
         detailed?: boolean;
+        /**
+         * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` no longer applies (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. `uid` is always returned. Dotted paths descend into nested objects and arrays (`location.name`, `timings.begin`, `additionalFields.myField`). An unknown top-level field is rejected with `400`; an unknown nested sub-field may be too (e.g. `location.zzz`), except under an open container — the `additionalFields` custom-field bag or a localized text map — where any sub-key is accepted and yields nothing when absent. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
+         *
+         */
+        fields?: Array<string>;
         /**
          * Ordering of the results. Defaults to `timingsWithFeatured.asc`, or to `score` (relevance) when `search` is set and no `sort` is given.
          *
@@ -2648,7 +2669,8 @@ export type MeAgendasListData = {
          */
         after?: string;
         /**
-         * Maximum number of items to return per page.
+         * Maximum number of items to return per page. An out-of-range or non-integer value is rejected with `400`, never clamped; use the `after` cursor to page further.
+         *
          */
         limit?: number;
         /**
@@ -2656,6 +2678,11 @@ export type MeAgendasListData = {
          *
          */
         detailed?: boolean;
+        /**
+         * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` no longer applies (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. `uid` is always returned. Dotted paths descend into nested objects and arrays (`location.name`, `timings.begin`, `additionalFields.myField`). An unknown top-level field is rejected with `400`; an unknown nested sub-field may be too (e.g. `location.zzz`), except under an open container — the `additionalFields` custom-field bag or a localized text map — where any sub-key is accepted and yields nothing when absent. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
+         *
+         */
+        fields?: Array<string>;
     };
     url: '/me/agendas';
 };
@@ -2702,7 +2729,8 @@ export type AgendasLocationsListData = {
          */
         after?: string;
         /**
-         * Maximum number of items to return per page.
+         * Maximum number of items to return per page. An out-of-range or non-integer value is rejected with `400`, never clamped; use the `after` cursor to page further.
+         *
          */
         limit?: number;
         /**
@@ -2710,6 +2738,11 @@ export type AgendasLocationsListData = {
          *
          */
         detailed?: boolean;
+        /**
+         * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` no longer applies (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. `uid` is always returned. Dotted paths descend into nested objects and arrays (`location.name`, `timings.begin`, `additionalFields.myField`). An unknown top-level field is rejected with `400`; an unknown nested sub-field may be too (e.g. `location.zzz`), except under an open container — the `additionalFields` custom-field bag or a localized text map — where any sub-key is accepted and yields nothing when absent. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
+         *
+         */
+        fields?: Array<string>;
         /**
          * Free-text search over the locations' name, address, city, region and department.
          *

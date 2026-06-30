@@ -6251,7 +6251,7 @@ __metadata:
     "@openagenda/babel-preset": "npm:^2.0.0"
     "@openagenda/bs-templates": "npm:^2.6.0"
     "@openagenda/eslint-config": "npm:^2.0.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/verror": "npm:^3.2.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
     "@storybook/react-webpack5": "npm:^10.2.0"
@@ -6292,7 +6292,7 @@ __metadata:
     "@openagenda/browserslist-config": "npm:^2.0.0"
     "@openagenda/eslint-config": "npm:^2.0.0"
     "@openagenda/intl": "npm:^2.0.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/md": "npm:^2.0.0"
     "@openagenda/polyfills": "npm:^1.2.5"
     "@openagenda/react-filters": "npm:^2.13.7"
@@ -6572,7 +6572,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/logs@npm:^1.2.0, @openagenda/logs@workspace:logs":
+"@openagenda/logs@npm:^1.2.1, @openagenda/logs@workspace:logs":
   version: 0.0.0-use.local
   resolution: "@openagenda/logs@workspace:logs"
   dependencies:
@@ -6606,14 +6606,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/mails@npm:^6.0.0, @openagenda/mails@workspace:mails":
+"@openagenda/mails@npm:^6.0.1, @openagenda/mails@workspace:mails":
   version: 0.0.0-use.local
   resolution: "@openagenda/mails@workspace:mails"
   dependencies:
     "@formatjs/intl": "npm:^2.2.1"
     "@openagenda/eslint-config": "npm:^2.0.0"
     "@openagenda/intl": "npm:^2.0.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/verror": "npm:^3.2.0"
     bullmq: "npm:^5.65.1"
     ejs: "npm:^3.1.9"
@@ -6636,7 +6636,7 @@ __metadata:
     "@modelcontextprotocol/sdk": "npm:^1.29.0"
     "@openagenda/api-client": "npm:^0.2.0"
     "@openagenda/api-spec": "npm:^0.2.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@opentelemetry/api": "npm:^1.9.1"
     "@opentelemetry/api-logs": "npm:^0.218.0"
     "@opentelemetry/context-async-hooks": "npm:^2.7.1"
@@ -6690,7 +6690,7 @@ __metadata:
     "@openagenda/date-utils": "npm:^0.0.2"
     "@openagenda/eslint-config": "npm:^2.0.0"
     "@openagenda/intl": "npm:^2.0.0"
-    "@openagenda/logs": "npm:^1.2.0"
+    "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/verror": "npm:^3.2.0"
     date-fns: "npm:^2.29.3"
     date-fns-tz: "npm:^1.3.7"
@@ -6971,7 +6971,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react@npm:^0.0.5, @openagenda/react@workspace:react":
+"@openagenda/react@npm:^0.0.6, @openagenda/react@workspace:react":
   version: 0.0.0-use.local
   resolution: "@openagenda/react@workspace:react"
   dependencies:
@@ -6981,7 +6981,7 @@ __metadata:
     "@openagenda/common-labels": "npm:^2.0.0"
     "@openagenda/eslint-config": "npm:^2.0.0"
     "@openagenda/intl": "npm:^2.0.0"
-    "@openagenda/mails": "npm:^6.0.0"
+    "@openagenda/mails": "npm:^6.0.1"
     "@openagenda/react-filters": "npm:^2.13.7"
     "@openagenda/react-shared": "npm:^3.0.0"
     "@openagenda/tsconfig": "npm:^0.0.0"
@@ -7079,7 +7079,7 @@ __metadata:
     "@babel/core": "npm:^7.28.4"
     "@iframe-resizer/parent": "npm:^5.4.6"
     "@openagenda/eslint-config": "npm:^2.0.0"
-    "@openagenda/react": "npm:^0.0.5"
+    "@openagenda/react": "npm:^0.0.6"
     "@openagenda/react-filters": "npm:^2.13.7"
     "@openagenda/uikit": "npm:^0.1.0"
     "@storybook/html-vite": "npm:^10.2.0"
@@ -32497,11 +32497,11 @@ __metadata:
   linkType: hard
 
 "semver@npm:^7.7.1":
-  version: 7.8.4
-  resolution: "semver@npm:7.8.4"
+  version: 7.8.5
+  resolution: "semver@npm:7.8.5"
   bin:
     semver: bin/semver.js
-  checksum: 10c0/81b7c296fd7927b80f67fa516b75fa1017caac8167795320de28e76ccbc6f7f01763c30ecd10d6a0d8fd089708ab0548a5aebb94b0870e99c2a2b4600a46389b
+  checksum: 10c0/b1f3127a5be8125a94f37188b361c212466c292c6910adce3ec106cff5dc211ccaedc4739c11bb70fda59d6fc1f040a9bca289f4e093451521a2372e5231fe0c
   languageName: node
   linkType: hard
 
@@ -32840,9 +32840,9 @@ __metadata:
   linkType: hard
 
 "shell-quote@npm:^1.6.1, shell-quote@npm:^1.7.3":
-  version: 1.7.3
-  resolution: "shell-quote@npm:1.7.3"
-  checksum: 10c0/cf997c325f49c4393a859074f1ee9ca3da7d9e1940225bab24a86f0266504c7d7e356b83f13c74932cb243d53125b5c8c57b714017c53490bf1fe10540422014
+  version: 1.8.4
+  resolution: "shell-quote@npm:1.8.4"
+  checksum: 10c0/86c93678bc394cb81f5ddcdc87df9c95d279ef9652775cd1cd1eed361404169a8d8cbaacaeed232ab09919e36ee1e5363863570390d78571f8c22b7f6312fb40
   languageName: node
   linkType: hard
 

@@ -57,6 +57,25 @@ export default function plugApp(app) {
     },
   );
 
+  // Cross-origin identity probe for the Crisp Knowledge Base
+  // (doc.openagenda.com). That site is Crisp-hosted, so its custom-code snippet
+  // cannot read the OA session cookie directly; it fetches this endpoint with
+  // credentials — same-site, so the Lax session cookie is still sent — to learn
+  // who the visitor is. Support then sees the OA uid + authoritative session
+  // email next to the email the visitor typed into Crisp, to reconcile
+  // mismatches. We expose only {uid, email} (the minimal cross-origin surface)
+  // and pin CORS to the KB origin (a credentialed request forbids a wildcard).
+  // The CORS headers are set before requireUserJson so the 401 stays readable
+  // cross-origin too.
+  const allowCrispKb = (req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'https://doc.openagenda.com');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Vary', 'Origin');
+    next();
+  };
+  app.get('/users/me/whoami', allowCrispKb, requireUserJson, (req, res) =>
+    res.json({ uid: req.user.uid, email: req.user.email }));
+
   app.get('/users', getHandler('find', ['params'])(service));
   app.get('/users/:__feathersId', getHandler('get', ['id', 'params'])(service));
   app.post('/users', getHandler('create', ['data', 'params'])(service));

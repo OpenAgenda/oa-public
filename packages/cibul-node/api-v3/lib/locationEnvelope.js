@@ -5,17 +5,19 @@
 
 import mapLocation, { mapLocationSummary } from './mapLocation.js';
 import buildPagination from './pagination.js';
+import { pickSelected } from './selectFields.js';
 
 export default function buildLocationListEnvelope(
   result,
-  { limit, detailed = false },
+  { limit, detailed = false, fields = null },
 ) {
   const { items = [], total, after = null } = result ?? {};
 
   const mapItem = detailed ? mapLocation : mapLocationSummary;
 
   return {
-    data: items.map(mapItem),
+    // `fields` (when set) trims each item to the selected top-level subset.
+    data: items.map((item) => pickSelected(mapItem(item), fields)),
     // SQL keyset, fixed `createdAt.desc` order; the service's `after` is the
     // last row's internal id (a scalar) and is returned even on the last full
     // page — the short-page sentinel is the "no more results" signal (see

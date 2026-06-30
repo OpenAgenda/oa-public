@@ -3,6 +3,7 @@ import ky from 'ky';
 import api from '../api/index.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
+import { withTestServer } from './helpers/startTestServer.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 
@@ -181,22 +182,15 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
     const administratorKey = 'egP36aMb0toI8hAhFOm1if8auC1Vg1NL';
     const contributorKey = 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9';
     const nonMemberKey = 'oI8hAhFOm1if8auC1Vg1NLegP36aMb0t';
-    let server;
 
-    beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(4000);
-    });
-
-    afterAll(() => server.close());
+    const ctx = withTestServer(() => api(core, { useRouter: false }));
 
     describe('successful call', () => {
       let response;
 
       beforeAll(async () => {
         response = await ky
-          .get(
-            `http://localhost:4000/agendas/2/members?key=${administratorKey}`,
-          )
+          .get(`${ctx.baseUrl}/agendas/2/members?key=${administratorKey}`)
           .json();
       });
 
@@ -214,7 +208,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
       it('Bad Request', async () => {
         const response = await ky
           .get(
-            `http://localhost:4000/agendas/2/members?key=${administratorKey}&limit=1111`,
+            `${ctx.baseUrl}/agendas/2/members?key=${administratorKey}&limit=1111`,
           )
           .json()
           .then(
@@ -237,7 +231,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
 
       it('Contributor does not have access to list', async () => {
         const response = await ky
-          .get(`http://localhost:4000/agendas/2/members?key=${contributorKey}`)
+          .get(`${ctx.baseUrl}/agendas/2/members?key=${contributorKey}`)
           .json()
           .then(
             () => {},
@@ -249,7 +243,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
 
       it('Non-member does not have access to list', async () => {
         const response = await ky
-          .get(`http://localhost:4000/agendas/2/members?key=${nonMemberKey}`)
+          .get(`${ctx.baseUrl}/agendas/2/members?key=${nonMemberKey}`)
           .json()
           .then(
             () => {},

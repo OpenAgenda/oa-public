@@ -357,4 +357,76 @@ describe('04 - evaluateEvent', () => {
 
     expect(result).toEqual('updateSourcePaths');
   });
+
+  describe('featured (mise en une) flag is carried end-to-end', () => {
+    test('a featured source event is referenced with the featured flag in its payload (DRAC reuse)', async () => {
+      let referenceData;
+
+      const action = await processEvaluate(
+        {
+          getMergedSchema: async () => ({ fields: [] }),
+          getEventReference: async () => null,
+          referenceEvent: (d) => {
+            referenceData = d;
+            return { success: true };
+          },
+        },
+        {
+          sourceAgenda: { uid: 999, slug: 'drac' },
+          event: { uid: 12345, slug: 'expo', featured: true, sourcePaths: [] },
+          batched: false,
+          sourceAgendaFormSchema: { fields: [] },
+          aggregatorProcessData: {
+            aggregatorAgendaUid: 4242,
+            aggregatorLimit: null,
+            aggregatorRules: [
+              {
+                query: { featured: true },
+                actions: [{ field: 'featured', values: { $set: true } }],
+                required: false,
+              },
+            ],
+            sourceRules: [],
+          },
+        },
+      );
+
+      // the abstract `featured` field survives pickReferenceValues and reaches
+      // the persistence layer
+      expect(action).toBe('referenceEvent');
+      expect(referenceData.payload).toEqual({ featured: true });
+      expect(referenceData.aggregatorAgendaUid).toBe(4242);
+      expect(referenceData.eventUid).toBe(12345);
+    });
+
+    test('a non-featured source event is rejected by a required featured filter (no reference)', async () => {
+      let referenceCalled = false;
+
+      const action = await processEvaluate(
+        {
+          getMergedSchema: async () => ({ fields: [] }),
+          getEventReference: async () => null,
+          referenceEvent: () => {
+            referenceCalled = true;
+            return { success: true };
+          },
+        },
+        {
+          sourceAgenda: { uid: 999, slug: 'drac' },
+          event: { uid: 777, slug: 'plain', featured: false, sourcePaths: [] },
+          batched: false,
+          sourceAgendaFormSchema: { fields: [] },
+          aggregatorProcessData: {
+            aggregatorAgendaUid: 4242,
+            aggregatorLimit: null,
+            aggregatorRules: [{ query: { featured: true }, required: true }],
+            sourceRules: [],
+          },
+        },
+      );
+
+      expect(action).toBe('notReferencedAndShouldNotBe');
+      expect(referenceCalled).toBe(false);
+    });
+  });
 });

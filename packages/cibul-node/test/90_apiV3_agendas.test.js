@@ -278,6 +278,53 @@ describe('90 - api-v3 - functional (server): agendas read endpoints', () => {
       });
     });
 
+    describe('fields (sparse selection)', () => {
+      it('trims each item to the selection, always keeping uid', async () => {
+        const res = await listQ('?fields=title');
+        expect(res.status).toBe(200);
+        expect(res.body.data.length).toBeGreaterThan(0);
+        for (const agenda of res.body.data) {
+          expect(Object.keys(agenda).sort()).toEqual(['title', 'uid']);
+        }
+      });
+
+      it('pushes a detailed-only field down WITHOUT detailed (full universe)', async () => {
+        // createdAt is only in the AgendaDetailed projection, yet selectable
+        // here — the route projects it via the ES onlyIncludeFields override.
+        const res = await listQ('?fields=createdAt');
+        expect(res.status).toBe(200);
+        expect(res.body.data.length).toBeGreaterThan(0);
+        for (const agenda of res.body.data) {
+          expect(Object.keys(agenda).sort()).toEqual(['createdAt', 'uid']);
+        }
+      });
+
+      it('rejects an unknown field with 400 + per-field details', async () => {
+        const res = await listQ('?fields=title,nope');
+        expect(res.status).toBe(400);
+        expect(res.body.error.details.errors[0].field).toBe('fields');
+      });
+
+      it('rejects a field the list cannot expose (single-get-only) with 400', async () => {
+        // `url` exists on the single-get Agenda but not the list's index
+        // projection, so it is outside the list's universe → 400.
+        const res = await listQ('?fields=url');
+        expect(res.status).toBe(400);
+        expect(res.body.error.details.errors[0].field).toBe('fields');
+      });
+
+      it('trims a known nested ref leaf, rejecting an unknown one', async () => {
+        const ok = await listQ('?fields=network.title');
+        expect(ok.status).toBe(200);
+
+        // `network` declares a children keyset ({ uid, title }), so a bogus
+        // sub-key is a 400, not a silent best-effort drop.
+        const bad = await listQ('?fields=network.zzz');
+        expect(bad.status).toBe(400);
+        expect(bad.body.error.details.errors[0].field).toBe('fields');
+      });
+    });
+
     describe('filtering', () => {
       it('official=true returns none (neither fixture agenda is official); official=false returns both', async () => {
         const officialOnly = await listQ('?official=true');

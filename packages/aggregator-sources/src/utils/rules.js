@@ -51,6 +51,16 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
         });
       }
 
+      // `featured` is an abstract agenda-event field, not present in the schema,
+      // so it is handled explicitly like `state`.
+      if (action.field === 'featured') {
+        result.actions.push({
+          id: _.uniqueId(),
+          field: 'featured',
+          values: ids,
+        });
+      }
+
       const fieldSchema = aggregatorAgendaSchema.fields.find(
         (v) => v.field === action.field,
       );
@@ -187,6 +197,16 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
     return result;
   }
 
+  // Featured filter (abstract agenda-event field, handled before the generic
+  // choice fallback below)
+  if (typeof query.featured !== 'undefined') {
+    return Object.assign(result, {
+      withFilter: true,
+      type: 'featured',
+      featuredValue: [].concat(query.featured)[0],
+    });
+  }
+
   const [key] = Object.keys(query);
 
   // Choice filter
@@ -214,6 +234,14 @@ export function valuesToRule(values, aggregatorAgendaSchema) {
       if (action.field === 'state') {
         return {
           field: 'state',
+          values: { $set: action.values },
+          automatic: false,
+        };
+      }
+
+      if (action.field === 'featured') {
+        return {
+          field: 'featured',
           values: { $set: action.values },
           automatic: false,
         };
@@ -318,6 +346,15 @@ export function valuesToRule(values, aggregatorAgendaSchema) {
       return {
         query: {
           languages: values.languages,
+        },
+        required,
+        actions,
+      };
+    }
+    case 'featured': {
+      return {
+        query: {
+          featured: values.featuredValue,
         },
         required,
         actions,

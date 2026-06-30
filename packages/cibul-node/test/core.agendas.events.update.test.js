@@ -2,6 +2,7 @@ import ky from 'ky';
 import api from '../api/index.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
+import { withTestServer } from './helpers/startTestServer.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 
@@ -641,18 +642,13 @@ describe('core - functional (server): core.agendas().events.update()', () => {
   });
 
   describe('api', () => {
-    let server;
     let accessToken;
 
-    beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(4000);
-    });
-
-    afterAll(() => server.close());
+    const ctx = withTestServer(() => api(core, { useRouter: false }));
 
     beforeAll(async () => {
       const tokenResponse = await ky
-        .post('http://localhost:4000/requestAccessToken', {
+        .post(`${ctx.baseUrl}/requestAccessToken`, {
           json: {
             // contributor
             code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
@@ -667,7 +663,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
       beforeAll(async () => {
         try {
           response = await ky
-            .post('http://localhost:4000/agendas/17026855/events/19201989', {
+            .post(`${ctx.baseUrl}/agendas/17026855/events/19201989`, {
               headers: {
                 'access-token': accessToken,
               },
@@ -723,7 +719,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
       beforeAll(async () => {
         try {
           await ky
-            .post('http://localhost:4000/agendas/17026855/events/19201989', {
+            .post(`${ctx.baseUrl}/agendas/17026855/events/19201989`, {
               headers: {
                 'access-token': accessToken,
               },
@@ -772,7 +768,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
       beforeAll(async () => {
         try {
           await ky
-            .post('http://localhost:4000/agendas/17026855/events/19201989', {
+            .post(`${ctx.baseUrl}/agendas/17026855/events/19201989`, {
               headers: {
                 'access-token': accessToken,
               },
@@ -832,7 +828,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
       let response;
       beforeAll(async () => {
         response = await ky
-          .patch('http://localhost:4000/agendas/17026855/events/19390293', {
+          .patch(`${ctx.baseUrl}/agendas/17026855/events/19390293`, {
             headers: {
               'access-token': accessToken,
             },
@@ -878,7 +874,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
       it('patching extIds add to existing', async () => {
         try {
           response = await ky
-            .patch('http://localhost:4000/agendas/17026855/events/19390293', {
+            .patch(`${ctx.baseUrl}/agendas/17026855/events/19390293`, {
               headers: {
                 'access-token': accessToken,
               },
@@ -899,7 +895,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
       it('updating extIds replaces existing when mergeExtIds options is false', async () => {
         response = await ky
           .post(
-            'http://localhost:4000/agendas/17026855/events/19390293?mergeExtIds=false',
+            `${ctx.baseUrl}/agendas/17026855/events/19390293?mergeExtIds=false`,
             {
               headers: {
                 'access-token': accessToken,
@@ -943,7 +939,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
     describe('monolingual patch', () => {
       it('monolingual patch is by default english', async () => {
         const patchResponse = await ky
-          .patch('http://localhost:4000/agendas/17026855/events/19201989', {
+          .patch(`${ctx.baseUrl}/agendas/17026855/events/19201989`, {
             headers: {
               'access-token': accessToken,
             },
@@ -960,7 +956,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
 
       it('monolingual patch is in language specified in header', async () => {
         const patchLangInHeaderResponse = await ky
-          .patch('http://localhost:4000/agendas/17026855/events/19201989', {
+          .patch(`${ctx.baseUrl}/agendas/17026855/events/19201989`, {
             headers: {
               'access-token': accessToken,
               lang: 'fr',
