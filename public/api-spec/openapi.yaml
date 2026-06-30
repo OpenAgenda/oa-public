@@ -391,6 +391,49 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 
+  /agendas/{agendaUid}/events/ext/{extKey}/{extId}:
+    get:
+      operationId: agendas.events.getByExtId
+      tags: [Events]
+      summary: Get a single event by external id
+      x-synonyms: [ext, external id, by ext, sync, source id, lookup, resolve]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Resolve an event by the id it carries in a sync source
+          source: |
+            const { data, error } = await oa.agendas.events.getByExtId({
+              path: { agendaUid: 12345, extKey: 'my-system', extId: 'abc-123' },
+            });
+            if (error) throw error;
+            return data;
+      description: >
+        Returns a single event by its external identifier within the given
+        agenda — the `(key, value)` pair an `ExtId` mapping carries on the event
+        (see `extIds` on the `Event` schema). Use this when you sync from your
+        own system and hold its id rather than the OpenAgenda uid. Resolves to
+        the same `Event` as the by-uid get; an unknown pair answers `404`.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - events:read
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+        - $ref: '#/components/parameters/ExtKey'
+        - $ref: '#/components/parameters/ExtIdValue'
+      responses:
+        '200':
+          description: The event.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
   /agendas/{agendaUid}/events/facets:
     get:
       operationId: agendas.events.facets
@@ -890,6 +933,25 @@ components:
       schema:
         type: integer
         format: int64
+    ExtKey:
+      name: extKey
+      in: path
+      required: true
+      description: >
+        Name of the external system/source the identifier belongs to (the `key`
+        of an `ExtId` mapping carried on the resource — an event or a location).
+      schema:
+        type: string
+    ExtIdValue:
+      name: extId
+      in: path
+      required: true
+      description: >
+        The resource's identifier within that external system (the `value` of an
+        `ExtId` mapping — see the event's `extIds` or the location's `extIds`).
+        Percent-encode reserved characters.
+      schema:
+        type: string
     AfterCursor:
       name: after
       in: query

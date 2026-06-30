@@ -626,6 +626,35 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
     },
   );
 
+  // GET /agendas/:agendaUid/events/ext/:extKey/:extId
+  // Resolve an event by its EXTERNAL identifier — the id it carries in a sync
+  // source (`extKey` names the source/system, `extId` is the event's id within
+  // it) — instead of its OA uid. The by-uid sibling below at the caller's own
+  // identifier: same access gate, same bare `Event` shape, same 404 envelope;
+  // only the identifier handed to `search.get` differs (`{ extId }` vs
+  // `{ uid }`). Registered BEFORE `/events/:eventUid` so the literal `ext`
+  // segment is never captured as an event uid. A miss (no event carries the
+  // pair) surfaces as the standard `not found` 404. Parity with v2's
+  // `GET …/events/ext/:extKey/:extId`, minus its `{ success, event }` envelope.
+  app.get(
+    '/agendas/:agendaUid/events/ext/:extKey/:extId',
+    requireScope('events:read'),
+    async (req, res, next) => {
+      try {
+        const event = await core
+          .agendas(req.agenda.uid)
+          .events.search.get(
+            { extId: { key: req.params.extKey, value: req.params.extId } },
+            { detailed: true, userUid: req.user?.uid },
+          );
+
+        res.json(mapEvent(event));
+      } catch (err) {
+        next(err);
+      }
+    },
+  );
+
   // GET /agendas/:agendaUid/events/:eventUid
   app.get(
     '/agendas/:agendaUid/events/:eventUid',
