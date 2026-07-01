@@ -15,7 +15,7 @@
     "@aws-sdk/lib-storage": "^3.705.0",
     "@openagenda/verror": "^3.2.0",
     "express": "^4.17.1",
-    "file-type": "^15.0.0",
+    "file-type": "^16.5.4",
     "gm": "^1.25.0",
     "is-stream": "^2.0.0",
     "mkdirp": "^3.0.1",
