@@ -94,7 +94,7 @@
     "react-use": "^17.6.0",
     "rehype-external-links": "^3.0.0",
     "remark-breaks": "^4.0.0",
-    "sharp": "^0.31.1",
+    "sharp": "^0.32.6",
     "swr": "^2.4.1",
     "tlds": "^1.247.0",
     "universal-cookie": "^7.2.0",
