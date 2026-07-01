@@ -253,7 +253,7 @@
   "_referencing_agenda_uids": {
     "type": "keyword"
   },
-  "longDescriptionHtml": {
+  "longDescriptionHTML": {
     "type": "object",
     "enabled": false
   }

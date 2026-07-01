@@ -345,17 +345,17 @@ describe('core - functional (server): core.agendas().events.get()', () => {
         expect(event.longDescription.fr).toContain('<p>');
       });
 
-      it('does not expose the stored longDescriptionHtml by default', () => {
-        expect(event.longDescriptionHtml).toBeUndefined();
+      it('does not expose the stored longDescriptionHTML by default', () => {
+        expect(event.longDescriptionHTML).toBeUndefined();
       });
 
-      describe('includeLongDescriptionHtml (additive)', () => {
+      describe('includeLongDescriptionHTML (additive)', () => {
         let additive;
 
         beforeAll(async () => {
           additive = await core.agendas(2).events.get(2, {
             longDescriptionFormat: 'HTML',
-            includeLongDescriptionHtml: true,
+            includeLongDescriptionHTML: true,
           });
         });
 
@@ -363,8 +363,8 @@ describe('core - functional (server): core.agendas().events.get()', () => {
           expect(additive.longDescription.fr).not.toContain('<p>');
         });
 
-        it('exposes the HTML variant in longDescriptionHtml', () => {
-          expect(additive.longDescriptionHtml.fr).toContain('<p>');
+        it('exposes the HTML variant in longDescriptionHTML', () => {
+          expect(additive.longDescriptionHTML.fr).toContain('<p>');
         });
       });
     });

@@ -20,7 +20,7 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
     stream = false,
     useAfterKey = false,
     longDescriptionFormat = null,
-    includeLongDescriptionHtml: rawIncludeLongDescriptionHtml = false,
+    includeLongDescriptionHTML: rawIncludeLongDescriptionHTML = false,
     useDateHoursMinutesFormat = false,
     includeEmbedScripts = true,
     cspNonce = null,
@@ -33,9 +33,9 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
   // normalizing, so this may arrive as the string '0'/'false' — both truthy.
   // Coerce to a real boolean so the field is only ever exposed on an explicit
   // opt-in, never leaked because a falsy intent was passed as a string.
-  const includeLongDescriptionHtml = rawIncludeLongDescriptionHtml === true
-    || rawIncludeLongDescriptionHtml === 'true'
-    || rawIncludeLongDescriptionHtml === '1';
+  const includeLongDescriptionHTML = rawIncludeLongDescriptionHTML === true
+    || rawIncludeLongDescriptionHTML === 'true'
+    || rawIncludeLongDescriptionHTML === '1';
 
   const agenda = await core.agendas(agendaUid).get({
     detailed: true,
@@ -110,7 +110,7 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
         conversion: longDescriptionFormat,
         includeEmbedScripts,
         cspNonce,
-        includeLongDescriptionHtml,
+        includeLongDescriptionHTML,
       }),
     );
   }
@@ -119,18 +119,18 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
     parsers.push(convertToDateHoursMinutesTimings(core.services.events));
   }
 
-  // longDescriptionHtml is stored in the index (_source) to avoid converting
+  // longDescriptionHTML is stored in the index (_source) to avoid converting
   // markdown→HTML on every request. Keep it out of responses unless the caller
   // explicitly opted in, so the public API contract and payload size are
   // unchanged for everyone else. Runs last so the conversion parser above can
   // still read the stored HTML as its input.
-  if (!includeLongDescriptionHtml) {
+  if (!includeLongDescriptionHTML) {
     parsers.push((event) => {
-      if (event.longDescriptionHtml === undefined) {
+      if (event.longDescriptionHTML === undefined) {
         return event;
       }
       return produce(event, (draft) => {
-        delete draft.longDescriptionHtml;
+        delete draft.longDescriptionHTML;
       });
     });
   }

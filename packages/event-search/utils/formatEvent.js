@@ -27,13 +27,15 @@ const multilingualFieldHasValue = (v) => {
 // conversion the read path uses in cibul-node's convertLongDescription.js, i.e.
 // fromMarkdownToHTML(md) with default options (sanitize: true, no selfDomain) — any
 // divergence would change the rendered/sanitized output between index and read time.
-const toLongDescriptionHtml = (longDescription) => {
+const toLongDescriptionHTML = (longDescription) => {
   if (typeof longDescription === 'string') {
     return fromMarkdownToHTML(longDescription);
   }
   return Object.keys(longDescription).reduce(
     (html, lang) =>
-      Object.assign(html, { [lang]: fromMarkdownToHTML(longDescription[lang]) }),
+      Object.assign(html, {
+        [lang]: fromMarkdownToHTML(longDescription[lang]),
+      }),
     {},
   );
 };
@@ -181,7 +183,7 @@ export default (data, options = {}) => {
     }
 
     if (event.longDescription) {
-      event.longDescriptionHtml = toLongDescriptionHtml(event.longDescription);
+      event.longDescriptionHTML = toLongDescriptionHTML(event.longDescription);
     }
 
     event._search_keywords = [];

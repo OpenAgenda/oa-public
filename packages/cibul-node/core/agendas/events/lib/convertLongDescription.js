@@ -34,7 +34,7 @@ function convert(params, links = [], md = '', storedHtml = undefined) {
 }
 
 export default function convertField(
-  { links, longDescription, longDescriptionHtml },
+  { links, longDescription, longDescriptionHTML },
   params,
 ) {
   log('convertField to format %s', params.conversion);
@@ -43,14 +43,19 @@ export default function convertField(
       params,
       links,
       longDescription,
-      typeof longDescriptionHtml === 'string' ? longDescriptionHtml : undefined,
+      typeof longDescriptionHTML === 'string' ? longDescriptionHTML : undefined,
     );
   }
 
   return Object.keys(longDescription).reduce(
     (converted, lang) =>
       Object.assign(converted, {
-        [lang]: convert(params, links, longDescription[lang], longDescriptionHtml?.[lang]),
+        [lang]: convert(
+          params,
+          links,
+          longDescription[lang],
+          longDescriptionHTML?.[lang],
+        ),
       }),
     {},
   );
@@ -69,7 +74,7 @@ export function load({
   conversion,
   includeEmbedScripts,
   cspNonce,
-  includeLongDescriptionHtml = false,
+  includeLongDescriptionHTML = false,
 }) {
   return (event) =>
     produce(event, (draft) => {
@@ -84,10 +89,10 @@ export function load({
         cspNonce,
       });
 
-      if (includeLongDescriptionHtml) {
+      if (includeLongDescriptionHTML) {
         // Additive: keep the markdown in longDescription and expose the HTML
         // variant in a dedicated field (markdown + HTML in a single call).
-        draft.longDescriptionHtml = converted;
+        draft.longDescriptionHTML = converted;
       } else {
         // Legacy behavior: replace longDescription with its HTML conversion.
         draft.longDescription = converted;

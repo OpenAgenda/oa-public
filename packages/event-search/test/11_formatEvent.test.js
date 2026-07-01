@@ -159,11 +159,11 @@ describe('11 - event-search - unit: formatEvent', () => {
       expect(formatted.someAdditionalValue).toBe('oa@oa.com');
     });
 
-    it('longDescriptionHtml is unset when the event has no longDescription', () => {
-      expect(formatted.longDescriptionHtml).toBeUndefined();
+    it('longDescriptionHTML is unset when the event has no longDescription', () => {
+      expect(formatted.longDescriptionHTML).toBeUndefined();
     });
 
-    it('longDescriptionHtml pre-computes the HTML per language', () => {
+    it('longDescriptionHTML pre-computes the HTML per language', () => {
       const withLongDescription = produce(event, (draft) => {
         draft.longDescription = {
           fr: '**gras**',
@@ -173,8 +173,8 @@ describe('11 - event-search - unit: formatEvent', () => {
 
       const result = formatEvent(withLongDescription, { formSchema });
 
-      expect(result.longDescriptionHtml.fr).toContain('<strong>gras</strong>');
-      expect(result.longDescriptionHtml.en).toContain(
+      expect(result.longDescriptionHTML.fr).toContain('<strong>gras</strong>');
+      expect(result.longDescriptionHTML.en).toContain(
         '<a href="https://example.com">link</a>',
       );
       // markdown is left untouched alongside the HTML
