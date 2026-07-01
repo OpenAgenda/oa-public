@@ -27,6 +27,11 @@ import { faThumbtack } from '@/src/icons/solid';
 const S3_BUCKET = process.env.NEXT_PUBLIC_S3_BUCKET;
 const DEV_S3_BUCKET = process.env.NEXT_PUBLIC_DEV_S3_BUCKET;
 
+// Horizontal layout: image sits left of the content in a fixed-width column.
+const HORIZONTAL_IMAGE_WIDTH = '280px';
+// Cap the stretched image height so a long description can't blow it up.
+const HORIZONTAL_IMAGE_MAX_HEIGHT = '220px';
+
 function isValidUrl(url: string) {
   try {
     // eslint-disable-next-line no-new
@@ -88,8 +93,17 @@ export default function EventItem({
 
   const query = useLocationQuery();
 
-  const { baseUrl, baseUrlTarget, primaryColor, imageList, sort, prefilter } =
-    useEmbedLayoutData();
+  const {
+    baseUrl,
+    baseUrlTarget,
+    primaryColor,
+    imageList,
+    itemLayout,
+    sort,
+    prefilter,
+  } = useEmbedLayoutData();
+
+  const isHorizontal = itemLayout === 'horizontal';
 
   const languages = Object.keys(event.title);
   const contentLocale = getContentLocale(languages, prefilter.cl, intl.locale);
@@ -121,11 +135,21 @@ export default function EventItem({
 
   const imageHeight = imageList ? imageList.height : '170px';
 
+  const imageBoxProps = isHorizontal
+    ? {
+        flexShrink: '0',
+        alignSelf: 'stretch',
+        w: { base: '100%', sm: HORIZONTAL_IMAGE_WIDTH },
+        h: { base: imageHeight || '170px', sm: 'auto' },
+        maxH: { sm: HORIZONTAL_IMAGE_MAX_HEIGHT },
+      }
+    : { h: imageHeight, maxH: imageList?.maxHeight };
+
   return (
     <LinkBox
       as="article"
       display="flex"
-      flexDirection="column"
+      flexDirection={isHorizontal ? { base: 'column', sm: 'row' } : 'column'}
       border="1px solid #00000026"
       _hover={{
         border: '1px solid #00000052',
@@ -163,13 +187,13 @@ export default function EventItem({
         </Box>
       ) : null}
       {event.image ? (
-        <Box pos="relative" h={imageHeight} maxH={imageList?.maxHeight}>
+        <Box pos="relative" {...imageBoxProps}>
           <Box
             asChild
-            pos="unset !important"
+            pos={isHorizontal ? undefined : 'unset !important'}
             objectFit={imageList?.objectFit || 'cover'}
-            maxH={imageList?.maxHeight}
-            aspectRatio={imageList?.aspectRatio}
+            maxH={isHorizontal ? undefined : imageList?.maxHeight}
+            aspectRatio={isHorizontal ? undefined : imageList?.aspectRatio}
           >
             <Image
               alt=""
@@ -185,16 +209,20 @@ export default function EventItem({
               }
               loader={thumborLoader}
               fill
-              sizes="(max-width: 629px) 100vw,
+              sizes={
+                isHorizontal
+                  ? `(max-width: 480px) 100vw, ${HORIZONTAL_IMAGE_WIDTH}`
+                  : `(max-width: 629px) 100vw,
                  (max-width: 954px) 50vw,
                  (max-width: 1279px) 33.33vw,
                  (max-width: 1590px) 25vw,
-                 20vw"
+                 20vw`
+              }
             />
           </Box>
         </Box>
       ) : (
-        <Box h={imageHeight} />
+        <Box {...imageBoxProps} />
       )}
       <Flex direction="column" p="6" gap="2" grow="1" minH="170px">
         <HStack color={primaryColor ? 'primary.500' : null} fontWeight="bold">

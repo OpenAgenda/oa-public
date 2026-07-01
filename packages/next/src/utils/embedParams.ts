@@ -52,6 +52,10 @@ const baseUrlTargetValues = ['_blank', '_parent', '_top'] as const;
 
 type BaseUrlTarget = (typeof baseUrlTargetValues)[number];
 
+const itemLayoutValues = ['vertical', 'horizontal'] as const;
+
+type ItemLayoutParam = (typeof itemLayoutValues)[number];
+
 type LogoParam = 'display' | 'hide';
 
 export type EmbedParams = {
@@ -67,6 +71,7 @@ export type EmbedParams = {
   exportModal?: boolean;
   contributionButton?: boolean;
   itemMinWidth?: `${number}px`;
+  itemLayout?: ItemLayoutParam;
   pageSize?: number;
   hideLocation?: boolean;
   logo?: LogoParam;
@@ -75,6 +80,13 @@ export type EmbedParams = {
 function validateBaseUrlTarget(value: string): BaseUrlTarget | null {
   if (baseUrlTargetValues.includes(value as BaseUrlTarget)) {
     return value as BaseUrlTarget;
+  }
+  return null;
+}
+
+function validateItemLayout(value: string): ItemLayoutParam | null {
+  if (itemLayoutValues.includes(value as ItemLayoutParam)) {
+    return value as ItemLayoutParam;
   }
   return null;
 }
@@ -218,6 +230,7 @@ const parsers = {
   exportModal: parseAndValidateBoolean,
   contributionButton: parseAndValidateBoolean,
   itemMinWidth: parseAndValidateItemMinWidth,
+  itemLayout: validateItemLayout,
   pageSize: parseAndValidateInteger,
   hideLocation: parseAndValidateBoolean,
   logo: parseAndValidateLogo,

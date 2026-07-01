@@ -78,6 +78,7 @@ export default function EmbedAgendaShow({
     exportModal,
     contributionButton,
     pageSize,
+    itemLayout,
     logo,
     referrer: layoutDataReferrer,
     setReferrer,
@@ -85,6 +86,7 @@ export default function EmbedAgendaShow({
   } = useEmbedLayoutData();
 
   const referrer = layoutDataReferrer || referrerProps;
+  const isHorizontal = itemLayout === 'horizontal';
 
   const filtersFormRef = useRef<any>(undefined);
 
@@ -318,7 +320,9 @@ export default function EmbedAgendaShow({
                 </Suspense>
               ) : null}
 
-              <Suspense fallback={<EventsSkeleton />}>
+              <Suspense
+                fallback={<EventsSkeleton isHorizontal={isHorizontal} />}
+              >
                 <DynamicEventsPart
                   agenda={agenda}
                   filters={filters}
