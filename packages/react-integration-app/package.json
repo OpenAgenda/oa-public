@@ -37,7 +37,7 @@
     "@welldone-software/why-did-you-render": "^6.0.0-rc.1",
     "buffer": "^6.0.3",
     "core-js": "^3.29.1",
-    "flatted": "^2.0.1",
+    "flatted": "^3.4.2",
     "he": "^1.2.0",
     "history": "^4.10.1",
     "immer": "^10.0.3",

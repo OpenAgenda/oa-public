@@ -11,7 +11,7 @@ import { QueryClient } from 'react-query';
 import { createBrowserHistory } from 'history';
 import NProgress from 'nprogress';
 import IScroll from 'iscroll';
-import { parse } from 'flatted/esm/index.js';
+import { parse } from 'flatted';
 import he from 'he';
 import { loadableReady } from '@loadable/component';
 import { ErrorBoundary } from '@sentry/react';
