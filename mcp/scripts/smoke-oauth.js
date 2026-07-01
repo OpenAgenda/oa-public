@@ -8,9 +8,9 @@
 //   3. POST /oauth2/consent          → { redirect, url?code }
 //   4. POST /oauth2/token (PKCE)     → JWS access token (aud=<mcp>, uid claim)
 //   5. assert claims                 → aud/iss/uid/TTL
-//   5b. POST /oauth2/token-exchange  → swap aud=<mcp> for aud=<api> (O2.5; when
+//   5b. POST /oauth2/token-exchange  → swap aud=<mcp> for aud=<v3> (O2.5; when
 //                                      OA_MCP_EXCHANGE_SECRET is set)
-//   6. v3 API with the right token   → exchanged aud=<api> NOT 401; the raw
+//   6. v3 API with the right token   → exchanged aud=<v3> NOT 401; the raw
 //                                      aud=<mcp> token is REJECTED (tightened)
 //   7. MCP tools/list + execute       → via the MCP resource server
 //   8. execute relays the token to v3 → NOT 401 (the server exchanges internally)
@@ -41,14 +41,14 @@ const cfg = {
   scope: process.env.OA_SMOKE_SCOPE ?? 'openid events:read',
   agendaUid: process.env.OA_AGENDA_UID ?? '1',
   // O2.5 token-exchange. The smoke acts as the MCP confidential client: it
-  // exchanges the aud=mcp token for an aud=api token and asserts the tightened
-  // API audience. The secret is required (no B2 fallback).
+  // exchanges the aud=mcp token for an aud=v3 token and asserts the tightened v3
+  // audience. The secret is required (no B2 fallback).
   exchangeClientId: process.env.OA_MCP_EXCHANGE_CLIENT_ID ?? 'mcp',
   exchangeSecret: process.env.OA_MCP_EXCHANGE_SECRET ?? '',
-  // The API resource id (aud=api) — version-neutral, derives from API_ROOT on the
-  // server; here it defaults to the dev value, overridable to match a non-dev root.
-  apiResourceUrl:
-    process.env.OA_API_RESOURCE_URL ?? 'https://dapi.openagenda.com',
+  // The v3 resource id (aud=api) — derives from API_ROOT (+ /v3) on the server;
+  // here it defaults to the dev value, overridable to match a non-dev API root.
+  v3ResourceUrl:
+    process.env.OA_V3_RESOURCE_URL ?? 'https://dapi.openagenda.com/v3',
 };
 // The CSRF Origin the AS enforces on POST is the site root (the AS without its
 // /api/auth basePath).
@@ -222,7 +222,7 @@ const v3 = new URL(cfg.mcpUrl).origin.replace('//dmcp.', '//dapi.');
 const v3Base = process.env.OA_V3_URL ?? `${v3}/v3`;
 
 // 5b. Token-exchange (RFC 8693, O2.5) — the SINGLE delegation model. Swap the
-// aud=mcp grant for a short aud=api token, exactly as the MCP server does before
+// aud=mcp grant for a short aud=v3 token, exactly as the MCP server does before
 // a sandbox. The token v3 accepts is the EXCHANGED one; the raw aud=mcp token is
 // rejected. The shared secret is REQUIRED (no B2 fallback).
 if (!cfg.exchangeSecret) {
@@ -259,8 +259,8 @@ if (typeof exchanged.access_token === 'string') {
   const exClaims = decodeJwtPayload(v3Token);
   const exAud = Array.isArray(exClaims.aud) ? exClaims.aud : [exClaims.aud];
   ok(
-    exAud.includes(cfg.apiResourceUrl),
-    `exchanged token aud=api (${JSON.stringify(exClaims.aud)})`,
+    exAud.includes(cfg.v3ResourceUrl),
+    `exchanged token aud=v3 (${JSON.stringify(exClaims.aud)})`,
   );
   ok(
     exClaims.iss === claims.iss,
@@ -276,7 +276,7 @@ if (typeof exchanged.access_token === 'string') {
   );
 }
 
-// The raw aud=mcp token must NOT be honoured as an API credential (tightened).
+// The raw aud=mcp token must NOT be honoured as a v3 credential (tightened).
 res = await fetch(`${v3Base}/agendas/${cfg.agendaUid}/events?size=1`, {
   headers: { Authorization: `Bearer ${accessToken}` },
 });
@@ -285,7 +285,7 @@ ok(
   `v3 REJECTS the un-exchanged aud=mcp token — 401 (${res.status})`,
 );
 
-// 6. v3 API with the EXCHANGED aud=api token. A 401 means REJECTED; any other
+// 6. v3 API with the EXCHANGED aud=v3 token. A 401 means REJECTED; any other
 // status means authenticate() passed.
 res = await fetch(`${v3Base}/agendas/${cfg.agendaUid}/events?size=1`, {
   headers: { Authorization: `Bearer ${v3Token}` },
