@@ -73,7 +73,7 @@ export class Events extends HeyApiClient {
      *
      * Requires a WRITE credential: a secret key (`bearerAuth`) or an OAuth2 access token carrying `events:write`. A publishable key or an agenda key is read-only and answers `403` (`error.code` `read_only_credential`).
      *
-     * Native writable fields sit at the top level; agenda-specific fields go under `additionalFields`. Read-only/computed fields (`uid`, `slug`, `dateRange`, `state`, timings digests, …) are rejected. The moderation `state` of the created event is decided by the caller's role and the agenda's contribution settings — a contributor's event may be created pending moderation rather than published.
+     * Native writable fields sit at the top level; agenda-specific fields go under `additionalFields`. Read-only/computed fields (`uid`, `slug`, `dateRange`, timings digests, …) are rejected. The moderation `state` of the created event is arbitrated by the caller's role and the agenda's contribution settings — a contributor's event may be created pending moderation rather than published — and `status` requires the agenda's `settings.lab.status` opt-in (see `EventInput`).
      *
      */
     public create<ThrowOnError extends boolean = false>(options: Options<AgendasEventsCreateData, ThrowOnError>) {

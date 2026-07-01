@@ -529,13 +529,15 @@ export const zEventLocationRef = z.object({
 });
 
 /**
- * Request body for creating (and, later, replacing) an event. This is the WRITE shape, deliberately distinct from the read `Event`: it carries only the fields a client may set. Read-only/computed fields the read projection emits (`uid`, `slug`, `dateRange`, `featured`, `originAgenda`, `timezone`, first/last/next timing digests, `country`, `createdAt`, `updatedAt`, `state`, `links`, `sourceAgendas`) are NOT accepted and are rejected with `400` if sent.
+ * Request body for creating (and, later, replacing) an event. This is the WRITE shape, deliberately distinct from the read `Event`: it carries only the fields a client may set. Read-only/computed fields the read projection emits (`uid`, `slug`, `dateRange`, `featured`, `originAgenda`, `timezone`, first/last/next timing digests, `country`, `createdAt`, `updatedAt`, `links`, `sourceAgendas`) are NOT accepted and are rejected with `400` if sent.
  *
  * Agenda-specific fields go under `additionalFields`, never at the top level; an unknown top-level key is a `400`, as is an `additionalFields` name that collides with a native field. Field VALUES are validated by the server (a `422` with per-field `error.details.errors[]` on failure).
  *
  * Required fields are enforced server-side, not declared here: a published event needs at least `title`, `description` and `timings`, plus a `location` unless it is online-only, plus whatever a given agenda marks required. These requirements are relaxed for drafts, so no top-level `required` is declared on this schema — send a body and read the `422` `error.details.errors[]` for the exact, per-agenda set.
  *
- * Not settable in this version: images (`image`/`imageCredits` — a dedicated upload endpoint is planned), draft creation, and `status` (the event lifecycle state — scheduled/cancelled/…; it is a per-agenda opt-in feature and will arrive with a later slice of the write surface). Note that the moderation `state` (pending/published) is not settable either: it is decided by the agenda's contribution settings and the caller's role. `private` is never accepted: an event's privacy is derived from its agenda, not set per-event.
+ * Two fields are settable but authorization-gated, so the value you send may be adjusted or refused: `state` (moderation) and `status` (lifecycle). The moderation `state` is arbitrated by the server from the agenda's contribution settings and your role — a moderator's value is honored, a `state: 2` (publish) without permission answers `403`, and a contributor's value is ignored in favour of the agenda default. The `status` field is a per-agenda opt-in feature (`settings.lab.status`): when it is disabled for the agenda, sending `status` answers `422`. See each field for details.
+ *
+ * Not settable in this version: images (`image`/`imageCredits` — a dedicated upload endpoint is planned) and draft creation. `private` is never accepted: an event's privacy is derived from its agenda, not set per-event.
  *
  */
 export const zEventInput = z.object({
@@ -552,6 +554,8 @@ export const zEventInput = z.object({
     age: zAgeRange.optional(),
     registration: z.array(zRegistration).optional(),
     extIds: z.array(zExtId).optional(),
+    state: zModerationState.optional(),
+    status: zEventStatus.optional(),
     additionalFields: zAdditionalFields.optional()
 });
 
@@ -573,6 +577,8 @@ export const zEventPatch = z.object({
     age: zAgeRange.optional(),
     registration: z.array(zRegistration).optional(),
     extIds: z.array(zExtId).optional(),
+    state: zModerationState.optional(),
+    status: zEventStatus.optional(),
     additionalFields: zAdditionalFields.optional()
 });
 

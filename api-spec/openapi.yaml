@@ -389,10 +389,11 @@ paths:
 
         Native writable fields sit at the top level; agenda-specific fields go
         under `additionalFields`. Read-only/computed fields (`uid`, `slug`,
-        `dateRange`, `state`, timings digests, …) are rejected. The
-        moderation `state` of the created event is decided by the caller's role
-        and the agenda's contribution settings — a contributor's event may be
-        created pending moderation rather than published.
+        `dateRange`, timings digests, …) are rejected. The moderation `state` of
+        the created event is arbitrated by the caller's role and the agenda's
+        contribution settings — a contributor's event may be created pending
+        moderation rather than published — and `status` requires the agenda's
+        `settings.lab.status` opt-in (see `EventInput`).
       security:
         - bearerAuth: []
         - oauth2:
@@ -4290,8 +4291,8 @@ components:
         the fields a client may set. Read-only/computed fields the read
         projection emits (`uid`, `slug`, `dateRange`, `featured`, `originAgenda`,
         `timezone`, first/last/next timing digests, `country`, `createdAt`,
-        `updatedAt`, `state`, `links`, `sourceAgendas`) are NOT accepted and are
-        rejected with `400` if sent.
+        `updatedAt`, `links`, `sourceAgendas`) are NOT accepted and are rejected
+        with `400` if sent.
 
 
         Agenda-specific fields go under `additionalFields`, never at the top
@@ -4308,14 +4309,21 @@ components:
         `error.details.errors[]` for the exact, per-agenda set.
 
 
+        Two fields are settable but authorization-gated, so the value you send
+        may be adjusted or refused: `state` (moderation) and `status`
+        (lifecycle). The moderation `state` is arbitrated by the server from the
+        agenda's contribution settings and your role — a moderator's value is
+        honored, a `state: 2` (publish) without permission answers `403`, and a
+        contributor's value is ignored in favour of the agenda default. The
+        `status` field is a per-agenda opt-in feature (`settings.lab.status`):
+        when it is disabled for the agenda, sending `status` answers `422`. See
+        each field for details.
+
+
         Not settable in this version: images (`image`/`imageCredits` — a
-        dedicated upload endpoint is planned), draft creation, and `status` (the
-        event lifecycle state — scheduled/cancelled/…; it is a per-agenda opt-in
-        feature and will arrive with a later slice of the write surface). Note
-        that the moderation `state` (pending/published) is not settable either:
-        it is decided by the agenda's contribution settings and the caller's
-        role. `private` is never accepted: an event's privacy is derived from its
-        agenda, not set per-event.
+        dedicated upload endpoint is planned) and draft creation. `private` is
+        never accepted: an event's privacy is derived from its agenda, not set
+        per-event.
       additionalProperties: false
       properties:
         title:
@@ -4367,6 +4375,23 @@ components:
             these to resolve the event later via the by-ext-id endpoints.
           items:
             $ref: '#/components/schemas/ExtId'
+        state:
+          allOf:
+            - $ref: '#/components/schemas/ModerationState'
+          description: >
+            Moderation state — arbitrated by the server, not set outright. Only a
+            moderator/administrator can choose it; requesting `2` (published)
+            without publish permission answers `403`; a contributor's value is
+            ignored in favour of the agenda's default contribution state. Omit it
+            to let the agenda's settings decide.
+        status:
+          allOf:
+            - $ref: '#/components/schemas/EventStatus'
+          description: >
+            Event lifecycle status (scheduled/cancelled/…). A per-agenda opt-in
+            feature: it is only accepted when `settings.lab.status` is enabled for
+            the target agenda — otherwise sending it answers `422`. Not gated by
+            role.
         additionalFields:
           $ref: '#/components/schemas/AdditionalFields'
 
@@ -4413,6 +4438,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ExtId'
+        state:
+          allOf:
+            - $ref: '#/components/schemas/ModerationState'
+          description: >
+            Moderation state — arbitrated by the server (see `EventInput.state`).
+        status:
+          allOf:
+            - $ref: '#/components/schemas/EventStatus'
+          description: >
+            Event lifecycle status — gated by `settings.lab.status` (see
+            `EventInput.status`).
         additionalFields:
           $ref: '#/components/schemas/AdditionalFields'
 
