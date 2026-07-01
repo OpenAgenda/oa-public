@@ -29467,7 +29467,7 @@ __metadata:
     react-router-dom: "npm:^5.1.2"
     redux: "npm:^4.0.5"
     rss: "npm:^1.2.2"
-    sanitize-html: "npm:^1.20.1"
+    sanitize-html: "npm:^2.7.1"
     sinon: "npm:^7.5.0"
     slugify: "npm:^1.4.5"
     source-map-support: "npm:^0.5.21"
@@ -44735,7 +44735,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.mergewith@npm:^4.6.1, lodash.mergewith@npm:^4.6.2":
+"lodash.mergewith@npm:^4.6.2":
   version: 4.6.2
   resolution: "lodash.mergewith@npm:4.6.2"
   checksum: 10c0/4adbed65ff96fd65b0b3861f6899f98304f90fd71e7f1eb36c1270e05d500ee7f5ec44c02ef979b5ddbf75c0a0b9b99c35f0ad58f4011934c4d4e99e5200b3b5
@@ -51328,7 +51328,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^7.0.14, postcss@npm:^7.0.27, postcss@npm:^7.0.32, postcss@npm:^7.0.5, postcss@npm:^7.0.6":
+"postcss@npm:^7.0.14, postcss@npm:^7.0.32, postcss@npm:^7.0.5, postcss@npm:^7.0.6":
   version: 7.0.36
   resolution: "postcss@npm:7.0.36"
   dependencies:
@@ -55549,21 +55549,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sanitize-html@npm:^1.20.1":
-  version: 1.22.0
-  resolution: "sanitize-html@npm:1.22.0"
+"sanitize-html@npm:^2.7.1":
+  version: 2.17.5
+  resolution: "sanitize-html@npm:2.17.5"
   dependencies:
-    chalk: "npm:^2.4.1"
-    htmlparser2: "npm:^4.1.0"
-    lodash.clonedeep: "npm:^4.5.0"
-    lodash.escaperegexp: "npm:^4.1.2"
-    lodash.isplainobject: "npm:^4.0.6"
-    lodash.isstring: "npm:^4.0.1"
-    lodash.mergewith: "npm:^4.6.1"
-    postcss: "npm:^7.0.27"
-    srcset: "npm:^2.0.1"
-    xtend: "npm:^4.0.1"
-  checksum: 10c0/f7f248fae61af22840a3b927ba14068c78930cba80a61aa896d92b371d10af6862db8390838309f08a59fb08c3ef943f37da501601f19df3d76d38454c098a95
+    deepmerge: "npm:^4.2.2"
+    escape-string-regexp: "npm:^4.0.0"
+    htmlparser2: "npm:^10.1.0"
+    is-plain-object: "npm:^5.0.0"
+    launder: "npm:^1.7.1"
+    parse-srcset: "npm:^1.0.2"
+    postcss: "npm:^8.3.11"
+  checksum: 10c0/b3e1c0f42a87dece0a02c1ee4aee663be69d33661b94f7dbc006f341a34577b3ddb9ace5ff415ddd62efbc4e944845265ef2fe2702ad0ede8d3575bf7a36b9df
   languageName: node
   linkType: hard
 
@@ -57391,13 +57388,6 @@ __metadata:
   version: 2.3.3
   resolution: "sqlstring@npm:2.3.3"
   checksum: 10c0/3b5dd7badb3d6312f494cfa6c9a381ee630fbe3dbd571c4c9eb8ecdb99a7bf5a1f7a5043191d768797f6b3c04eed5958ac6a5f948b998f0a138294c6d3125fbd
-  languageName: node
-  linkType: hard
-
-"srcset@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "srcset@npm:2.0.1"
-  checksum: 10c0/b58bb2c7bedd1c45a967b3149d687da0a6c3307f72b5f6827231cce7078f53ce98740db7e9c24f3b3fc040ae1098c5ac5812e8c35580cd39869b8222407e1ed4
   languageName: node
   linkType: hard
 
