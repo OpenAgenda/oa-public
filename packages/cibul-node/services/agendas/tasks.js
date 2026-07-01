@@ -1,4 +1,9 @@
 import logs from '@openagenda/logs';
+// One-off orphan-event cleanup, exposed so it can run inside the tasks process
+// instead of the standalone `yarn clean-orphan-events` script. Kept as a
+// commented import + call below (see registerAgendaTasks) — enable only when the
+// migration prerequisites are met.
+// import { cleanOrphanEvents } from '../../scripts/cleanOrphanEvents.js';
 
 const log = logs('services/agendas/tasks');
 
@@ -58,4 +63,15 @@ export default function registerAgendaTasks(services) {
       }
     },
   });
+
+  // One-off purge of orphan event documents (events of agendas deleted before
+  // deletion-time purge existed). Left commented on purpose: enable ONLY AFTER
+  // the events_live migration has shipped and the phantom indices are dropped
+  // (full sequence in scripts/cleanOrphanEvents.js). To run it, uncomment the
+  // import at the top of this file and the call below, deploy the tasks process
+  // once so it runs at boot (APPLY mode), then re-comment. Until then, use the
+  // standalone `yarn clean-orphan-events` script.
+  // cleanOrphanEvents({ services, apply: true }).catch((error) => {
+  //   log.error('orphan-event cleanup failed', { error });
+  // });
 }

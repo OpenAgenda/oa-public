@@ -1,4 +1,5 @@
 import '../lib/defineEnv.js';
+import { pathToFileURL } from 'node:url';
 import config from '../config/index.js';
 import initServices from '../services/init.js';
 
@@ -160,22 +161,32 @@ async function deleteSet(esClient, index, set) {
   }
 }
 
-async function main() {
+// Reusable core. Pass `services` to run inside an already-initialized process
+// (e.g. the tasks worker): the function then does NOT touch their lifecycle.
+// Omit it and the function boots and shuts down its own services (the CLI path).
+// apply/force/pageSize/indexOverride default to the CLI flags when not provided.
+export async function cleanOrphanEvents({
+  services: injectedServices,
+  apply = APPLY,
+  force = FORCE,
+  pageSize = PAGE_SIZE,
+  indexOverride = INDEX_OVERRIDE,
+} = {}) {
   log(
-    `[cleanOrphanEvents] mode=${APPLY ? 'APPLY (will delete)' : 'DRY-RUN'} pageSize=${PAGE_SIZE}`,
+    `[cleanOrphanEvents] mode=${apply ? 'APPLY (will delete)' : 'DRY-RUN'} pageSize=${pageSize}`,
   );
 
-  const services = await initServices(config);
-  const esConfig = services.eventSearch.getConfig();
-  const esClient = esConfig.client;
-  const index = INDEX_OVERRIDE ?? config.es75.agendaEventsIndex;
+  const ownServices = !injectedServices;
+  const services = injectedServices ?? await initServices(config);
+  const esClient = services.eventSearch.getConfig().client;
+  const index = indexOverride ?? config.es75.agendaEventsIndex;
 
   // Surface the resolved target up front: if this prints `main`/`dev` instead of
   // `events_live` the env/config is wrong (e.g. run outside the app env) — abort
   // before touching anything rather than cleaning the wrong index.
   log(
     `[cleanOrphanEvents] targeting index "${index}"`
-      + `${INDEX_OVERRIDE ? ' (--index override)' : ' (from config)'}`
+      + `${indexOverride ? ' (--index override)' : ' (from config)'}`
       + ` on ${config.es75?.host ?? '?'}:${config.es75?.port ?? '?'}`,
   );
 
@@ -231,7 +242,7 @@ async function main() {
           aggs: {
             sets: {
               composite: {
-                size: PAGE_SIZE,
+                size: pageSize,
                 sources: [{ set: { terms: { field: '_set' } } }],
                 ...afterKey ? { after: afterKey } : {},
               },
@@ -289,9 +300,9 @@ async function main() {
     // DB, shared index) rather than a genuinely stale index. Refuse to delete
     // live data unless --force.
     if (
-      APPLY
+      apply
       && (orphanRatio > MAX_ORPHAN_RATIO || orphanDocRatio > MAX_ORPHAN_RATIO)
-      && !FORCE
+      && !force
     ) {
       throw new Error(
         `${(orphanRatio * 100).toFixed(1)}% of agenda sets / `
@@ -302,7 +313,7 @@ async function main() {
       );
     }
 
-    if (!APPLY) {
+    if (!apply) {
       const preview = orphanSets.slice(0, 20);
       log('[cleanOrphanEvents] DRY-RUN — sample of orphan sets (max 20):');
       for (const o of preview) {
@@ -341,16 +352,22 @@ async function main() {
         + ` across ${orphanSets.length - failedSets} sets (${failedSets} failed).`,
     );
   } finally {
-    if (services.shutdown) {
+    // Only tear down services we created ourselves (CLI path). When called with
+    // injected services (tasks worker) their lifecycle is the caller's.
+    if (ownServices && services.shutdown) {
       await services.shutdown().catch(() => {});
     }
   }
 }
 
-main()
-  .then(() => process.exit(0))
-  .catch((err) => {
-    // eslint-disable-next-line no-console
-    console.error('[cleanOrphanEvents] error:', err);
-    process.exit(1);
-  });
+// Run the CLI only when executed directly (`node scripts/cleanOrphanEvents.js`),
+// not when imported — services/agendas/tasks.js imports cleanOrphanEvents().
+if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) {
+  cleanOrphanEvents()
+    .then(() => process.exit(0))
+    .catch((err) => {
+      // eslint-disable-next-line no-console
+      console.error('[cleanOrphanEvents] error:', err);
+      process.exit(1);
+    });
+}
