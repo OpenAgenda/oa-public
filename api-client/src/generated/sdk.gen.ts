@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { AgendasEventsCreateData, AgendasEventsCreateErrors, AgendasEventsCreateResponses, AgendasEventsFacetsData, AgendasEventsFacetsErrors, AgendasEventsFacetsReportData, AgendasEventsFacetsReportErrors, AgendasEventsFacetsReportResponses, AgendasEventsFacetsResponses, AgendasEventsGetByExtIdData, AgendasEventsGetByExtIdErrors, AgendasEventsGetByExtIdResponses, AgendasEventsGetData, AgendasEventsGetErrors, AgendasEventsGetResponses, AgendasEventsListData, AgendasEventsListErrors, AgendasEventsListResponses, AgendasEventsSchemaData, AgendasEventsSchemaErrors, AgendasEventsSchemaResponses, AgendasEventsValidateData, AgendasEventsValidateErrors, AgendasEventsValidateResponses, AgendasGetData, AgendasGetErrors, AgendasGetResponses, AgendasListData, AgendasListErrors, AgendasListResponses, AgendasLocationsGetByExtIdData, AgendasLocationsGetByExtIdErrors, AgendasLocationsGetByExtIdResponses, AgendasLocationsGetData, AgendasLocationsGetErrors, AgendasLocationsGetResponses, AgendasLocationsListData, AgendasLocationsListErrors, AgendasLocationsListResponses, AgendasOverviewData, AgendasOverviewErrors, AgendasOverviewResponses, MeAgendasListData, MeAgendasListErrors, MeAgendasListResponses } from './types.gen';
+import type { AgendasEventsCreateData, AgendasEventsCreateErrors, AgendasEventsCreateResponses, AgendasEventsDeleteData, AgendasEventsDeleteErrors, AgendasEventsDeleteResponses, AgendasEventsFacetsData, AgendasEventsFacetsErrors, AgendasEventsFacetsReportData, AgendasEventsFacetsReportErrors, AgendasEventsFacetsReportResponses, AgendasEventsFacetsResponses, AgendasEventsGetByExtIdData, AgendasEventsGetByExtIdErrors, AgendasEventsGetByExtIdResponses, AgendasEventsGetData, AgendasEventsGetErrors, AgendasEventsGetResponses, AgendasEventsListData, AgendasEventsListErrors, AgendasEventsListResponses, AgendasEventsPatchData, AgendasEventsPatchErrors, AgendasEventsPatchResponses, AgendasEventsSchemaData, AgendasEventsSchemaErrors, AgendasEventsSchemaResponses, AgendasEventsUpdateData, AgendasEventsUpdateErrors, AgendasEventsUpdateResponses, AgendasEventsValidateData, AgendasEventsValidateErrors, AgendasEventsValidateResponses, AgendasGetData, AgendasGetErrors, AgendasGetResponses, AgendasListData, AgendasListErrors, AgendasListResponses, AgendasLocationsGetByExtIdData, AgendasLocationsGetByExtIdErrors, AgendasLocationsGetByExtIdResponses, AgendasLocationsGetData, AgendasLocationsGetErrors, AgendasLocationsGetResponses, AgendasLocationsListData, AgendasLocationsListErrors, AgendasLocationsListResponses, AgendasOverviewData, AgendasOverviewErrors, AgendasOverviewResponses, MeAgendasListData, MeAgendasListErrors, MeAgendasListResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -107,6 +107,22 @@ export class Events extends HeyApiClient {
     }
     
     /**
+     * Delete an event
+     *
+     * Removes the event from this agenda. When the agenda is the event's origin this deletes the event; otherwise it de-references it from this agenda (the origin keeps it). Answers `200` with a deletion marker (`{ uid, deleted: true }`) so a client can confirm the outcome without a follow-up read.
+     *
+     * Requires a WRITE credential (a secret key or an OAuth2 token carrying `events:write`) whose member may remove the event; a read-only credential answers `403` (`read_only_credential`). An unknown event uid answers `404`.
+     *
+     */
+    public delete<ThrowOnError extends boolean = false>(options: Options<AgendasEventsDeleteData, ThrowOnError>) {
+        return (options.client ?? this.client).delete<AgendasEventsDeleteResponses, AgendasEventsDeleteErrors, ThrowOnError>({
+            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            url: '/agendas/{agendaUid}/events/{eventUid}',
+            ...options
+        });
+    }
+    
+    /**
      * Get a single event
      *
      * Returns a single event by its uid within the given agenda.
@@ -116,6 +132,44 @@ export class Events extends HeyApiClient {
             security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
             url: '/agendas/{agendaUid}/events/{eventUid}',
             ...options
+        });
+    }
+    
+    /**
+     * Partially update an event
+     *
+     * Updates only the fields present in the body (an `EventPatch`, all fields optional) and returns the updated `Event`. Fields left out are unchanged. Same write credential and edit-rights requirements as `PUT`; an unknown event uid answers `404`, invalid field values `422`.
+     *
+     */
+    public patch<ThrowOnError extends boolean = false>(options: Options<AgendasEventsPatchData, ThrowOnError>) {
+        return (options.client ?? this.client).patch<AgendasEventsPatchResponses, AgendasEventsPatchErrors, ThrowOnError>({
+            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            url: '/agendas/{agendaUid}/events/{eventUid}',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+    
+    /**
+     * Replace an event
+     *
+     * Replaces the event's content with the submitted body and returns the updated `Event` (identical in shape to the single-get). A full write: the same server-side requirements as create apply (see `EventInput`). Use `PATCH` to change only a few fields.
+     *
+     * Requires a WRITE credential (a secret key or an OAuth2 token carrying `events:write`) whose member may edit the event; a read-only credential answers `403` (`read_only_credential`), a member without edit rights a core `403`. An unknown event uid answers `404`.
+     *
+     */
+    public update<ThrowOnError extends boolean = false>(options: Options<AgendasEventsUpdateData, ThrowOnError>) {
+        return (options.client ?? this.client).put<AgendasEventsUpdateResponses, AgendasEventsUpdateErrors, ThrowOnError>({
+            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            url: '/agendas/{agendaUid}/events/{eventUid}',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
         });
     }
     

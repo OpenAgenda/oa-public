@@ -576,6 +576,15 @@ export const zEventPatch = z.object({
     additionalFields: zAdditionalFields.optional()
 });
 
+/**
+ * Confirmation returned by a delete: the uid of the removed resource and a `deleted: true` marker (Stripe-style), so a client can confirm the outcome without a follow-up read.
+ *
+ */
+export const zDeletionResult = z.object({
+    uid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
+    deleted: z.literal(true)
+});
+
 export const zEventList = z.object({
     data: z.array(z.union([zEvent, zEventSummary])),
     pagination: zPagination
@@ -1718,6 +1727,16 @@ export const zAgendasEventsValidateResponse = z.object({
     valid: z.literal(true)
 });
 
+export const zAgendasEventsDeletePath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
+    eventUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
+});
+
+/**
+ * The event was deleted.
+ */
+export const zAgendasEventsDeleteResponse = zDeletionResult;
+
 export const zAgendasEventsGetPath = z.object({
     agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
     eventUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
@@ -1727,6 +1746,30 @@ export const zAgendasEventsGetPath = z.object({
  * The event.
  */
 export const zAgendasEventsGetResponse = zEvent;
+
+export const zAgendasEventsPatchBody = zEventPatch;
+
+export const zAgendasEventsPatchPath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
+    eventUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
+});
+
+/**
+ * The updated event.
+ */
+export const zAgendasEventsPatchResponse = zEvent;
+
+export const zAgendasEventsUpdateBody = zEventInput;
+
+export const zAgendasEventsUpdatePath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
+    eventUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
+});
+
+/**
+ * The updated event.
+ */
+export const zAgendasEventsUpdateResponse = zEvent;
 
 export const zAgendasEventsGetByExtIdPath = z.object({
     agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),

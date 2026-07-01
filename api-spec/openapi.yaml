@@ -533,6 +533,165 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
+    put:
+      operationId: agendas.events.update
+      tags: [Events]
+      summary: Replace an event
+      x-synonyms: [update, replace, edit, put, overwrite, modify]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Replace an event's content
+          source: |
+            const { data, error } = await oa.agendas.events.update({
+              path: { agendaUid: 12345, eventUid: 67890 },
+              body: {
+                title: { fr: 'Concert de jazz', en: 'Jazz concert' },
+                description: { fr: 'Une soirée jazz.', en: 'A jazz evening.' },
+                timings: [
+                  { begin: '2025-06-20T18:00:00+02:00', end: '2025-06-20T22:00:00+02:00' },
+                ],
+                location: { uid: 55512 },
+              },
+            });
+            if (error) throw error;
+            return data;
+      description: >
+        Replaces the event's content with the submitted body and returns the
+        updated `Event` (identical in shape to the single-get). A full write: the
+        same server-side requirements as create apply (see `EventInput`). Use
+        `PATCH` to change only a few fields.
+
+
+        Requires a WRITE credential (a secret key or an OAuth2 token carrying
+        `events:write`) whose member may edit the event; a read-only credential
+        answers `403` (`read_only_credential`), a member without edit rights a
+        core `403`. An unknown event uid answers `404`.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - events:write
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+        - $ref: '#/components/parameters/EventUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventInput'
+      responses:
+        '200':
+          description: The updated event.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    patch:
+      operationId: agendas.events.patch
+      tags: [Events]
+      summary: Partially update an event
+      x-synonyms: [patch, partial update, edit, modify, change]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Change just the event's title
+          source: |
+            const { data, error } = await oa.agendas.events.patch({
+              path: { agendaUid: 12345, eventUid: 67890 },
+              body: { title: { fr: 'Nouveau titre', en: 'New title' } },
+            });
+            if (error) throw error;
+            return data;
+      description: >
+        Updates only the fields present in the body (an `EventPatch`, all fields
+        optional) and returns the updated `Event`. Fields left out are unchanged.
+        Same write credential and edit-rights requirements as `PUT`; an unknown
+        event uid answers `404`, invalid field values `422`.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - events:write
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+        - $ref: '#/components/parameters/EventUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventPatch'
+      responses:
+        '200':
+          description: The updated event.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    delete:
+      operationId: agendas.events.delete
+      tags: [Events]
+      summary: Delete an event
+      x-synonyms: [delete, remove, destroy, cancel, drop]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Delete an event
+          source: |
+            const { data, error } = await oa.agendas.events.delete({
+              path: { agendaUid: 12345, eventUid: 67890 },
+            });
+            if (error) throw error;
+            return data.deleted; // true
+      description: >
+        Removes the event from this agenda. When the agenda is the event's origin
+        this deletes the event; otherwise it de-references it from this agenda
+        (the origin keeps it). Answers `200` with a deletion marker
+        (`{ uid, deleted: true }`) so a client can confirm the outcome without a
+        follow-up read.
+
+
+        Requires a WRITE credential (a secret key or an OAuth2 token carrying
+        `events:write`) whose member may remove the event; a read-only credential
+        answers `403` (`read_only_credential`). An unknown event uid answers
+        `404`.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - events:write
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+        - $ref: '#/components/parameters/EventUid'
+      responses:
+        '200':
+          description: The event was deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeletionResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
 
   /agendas/{agendaUid}/events/ext/{extKey}/{extId}:
     get:
@@ -4056,6 +4215,22 @@ components:
         uid:
           type: integer
           format: int64
+
+    DeletionResult:
+      type: object
+      description: >
+        Confirmation returned by a delete: the uid of the removed resource and a
+        `deleted: true` marker (Stripe-style), so a client can confirm the
+        outcome without a follow-up read.
+      additionalProperties: false
+      required: [uid, deleted]
+      properties:
+        uid:
+          type: integer
+          format: int64
+        deleted:
+          type: boolean
+          enum: [true]
 
     EventList:
       type: object
