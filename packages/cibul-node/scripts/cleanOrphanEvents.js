@@ -166,11 +166,9 @@ async function main() {
   );
 
   const services = await initServices(config);
-  const { knex } = config;
   const esConfig = services.eventSearch.getConfig();
   const esClient = esConfig.client;
   const index = INDEX_OVERRIDE ?? config.es75.agendaEventsIndex;
-  const agendaTable = config.schemas?.agenda ?? 'agenda';
 
   // Surface the resolved target up front: if this prints `main`/`dev` instead of
   // `events_live` the env/config is wrong (e.g. run outside the app env) — abort
@@ -182,11 +180,29 @@ async function main() {
   );
 
   try {
-    // 1. Allowlist of live agenda uids.
-    const liveRows = await knex(agendaTable)
-      .whereNull('deleted_at')
-      .select('uid');
-    const liveUids = new Set(liveRows.map((r) => String(r.uid)));
+    // 1. Allowlist of live agenda uids — sourced through the agendas service
+    //    (the owner of the agenda/`review` table) instead of a raw knex query,
+    //    so table naming and soft-delete semantics stay encapsulated there.
+    //    Keyset pagination over id (offsetAsLastId) walks every agenda.
+    //    `deleted: false` keeps soft-deleted agendas OUT (their events are
+    //    orphans to purge); `private: null` is REQUIRED — it defaults to false,
+    //    which would drop every private agenda from the allowlist and delete
+    //    their events as false orphans.
+    const STOP = -1;
+    const liveUids = new Set();
+    let agendaOffset = 0;
+    while (agendaOffset !== STOP) {
+      const { agendas, lastId } = await services.agendas.list({}, agendaOffset, 1000, {
+        deleted: false,
+        private: null,
+        onlyIncludeFields: ['uid'],
+        offsetAsLastId: true,
+      });
+      for (const { uid } of agendas) {
+        liveUids.add(String(uid));
+      }
+      agendaOffset = agendas.length === 0 ? STOP : lastId;
+    }
     log(
       `[cleanOrphanEvents] live agendas (deleted_at IS NULL): ${liveUids.size}`,
     );
