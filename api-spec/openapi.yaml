@@ -562,6 +562,12 @@ paths:
         `PATCH` to change only a few fields.
 
 
+        External id mappings (`extIds`) are merged with the stored ones by
+        default, so a content write never silently drops an existing external
+        identity; pass `?mergeExtIds=false` to replace them wholesale instead
+        (omitting `extIds` from the body then clears them).
+
+
         Requires a WRITE credential (a secret key or an OAuth2 token carrying
         `events:write`) whose member may edit the event; a read-only credential
         answers `403` (`read_only_credential`), a member without edit rights a
@@ -573,6 +579,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AgendaUid'
         - $ref: '#/components/parameters/EventUid'
+        - $ref: '#/components/parameters/MergeExtIds'
       requestBody:
         required: true
         content:
@@ -623,6 +630,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AgendaUid'
         - $ref: '#/components/parameters/EventUid'
+        - $ref: '#/components/parameters/MergeExtIds'
       requestBody:
         required: true
         content:
@@ -758,14 +766,15 @@ paths:
             if (error) throw error;
             return data;
       description: >
-        Upserts the event carrying the `(extKey, extId)` pair: it is REPLACED if
-        it already exists (`200`), or CREATED if not (`201` + a `Location` header
-        pointing at its canonical by-uid URL). The path pair is authoritative —
-        it is forced onto the event's `extIds`, so the event always carries its
-        own external identity; any `extIds` in the body are ignored. This is the
-        recommended write path for syncing from your own system: it is idempotent
-        by external identity, so a lost response can be retried without creating a
-        duplicate.
+        Upserts the event carrying the `(extKey, extId)` pair: its content is
+        REPLACED if it already exists (`200`), or the event is CREATED if not
+        (`201` + a `Location` header pointing at its canonical by-uid URL). The
+        path pair is authoritative — it is added to the event's `extIds` (merged,
+        never replacing mappings from other systems), so the event always carries
+        its own external identity; any `extIds` in the body are ignored. This is
+        the recommended write path for syncing from your own system: it is
+        idempotent by external identity, so a lost response can be retried without
+        creating a duplicate.
 
 
         Requires a WRITE credential carrying `events:write` whose member may
@@ -835,7 +844,8 @@ paths:
         untouched (`200`). If no event carries the pair it is created (`201` +
         `Location`), in which case the full server-side requirements apply, so the
         body must be complete enough to create a valid event (else `422`). The
-        path pair is forced onto `extIds` as for `PUT`.
+        path pair is added to the event's `extIds` (merged, never replacing
+        mappings from other systems) as for `PUT`.
       security:
         - bearerAuth: []
         - oauth2:
@@ -1521,6 +1531,18 @@ components:
         Percent-encode reserved characters.
       schema:
         type: string
+    MergeExtIds:
+      name: mergeExtIds
+      in: query
+      required: false
+      description: >
+        On a by-uid write, whether the body's `extIds` are merged with the ones
+        already stored (`true`, the default — a content write never drops an
+        existing external identity) or replace them wholesale (`false`). Omitting
+        `extIds` from the body with `mergeExtIds=false` clears them.
+      schema:
+        type: boolean
+        default: true
     AfterCursor:
       name: after
       in: query
@@ -4288,10 +4310,12 @@ components:
 
         Not settable in this version: images (`image`/`imageCredits` — a
         dedicated upload endpoint is planned), draft creation, and `status` (the
-        event lifecycle state; it is writable by an agenda admin/moderator and
-        will arrive with a later slice of the write surface). `private` is never
-        accepted: an event's privacy is derived from its agenda, not set
-        per-event.
+        event lifecycle state — scheduled/cancelled/…; it is a per-agenda opt-in
+        feature and will arrive with a later slice of the write surface). Note
+        that the moderation `state` (pending/published) is not settable either:
+        it is decided by the agenda's contribution settings and the caller's
+        role. `private` is never accepted: an event's privacy is derived from its
+        agenda, not set per-event.
       additionalProperties: false
       properties:
         title:

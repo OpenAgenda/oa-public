@@ -158,6 +158,8 @@ export class Events extends HeyApiClient {
      *
      * Replaces the event's content with the submitted body and returns the updated `Event` (identical in shape to the single-get). A full write: the same server-side requirements as create apply (see `EventInput`). Use `PATCH` to change only a few fields.
      *
+     * External id mappings (`extIds`) are merged with the stored ones by default, so a content write never silently drops an existing external identity; pass `?mergeExtIds=false` to replace them wholesale instead (omitting `extIds` from the body then clears them).
+     *
      * Requires a WRITE credential (a secret key or an OAuth2 token carrying `events:write`) whose member may edit the event; a read-only credential answers `403` (`read_only_credential`), a member without edit rights a core `403`. An unknown event uid answers `404`.
      *
      */
@@ -204,7 +206,7 @@ export class Events extends HeyApiClient {
     /**
      * Upsert an event by external id (partial)
      *
-     * Like the `PUT` upsert, but when the event already exists only the fields present in the body (an `EventPatch`) are changed — the rest is left untouched (`200`). If no event carries the pair it is created (`201` + `Location`), in which case the full server-side requirements apply, so the body must be complete enough to create a valid event (else `422`). The path pair is forced onto `extIds` as for `PUT`.
+     * Like the `PUT` upsert, but when the event already exists only the fields present in the body (an `EventPatch`) are changed — the rest is left untouched (`200`). If no event carries the pair it is created (`201` + `Location`), in which case the full server-side requirements apply, so the body must be complete enough to create a valid event (else `422`). The path pair is added to the event's `extIds` (merged, never replacing mappings from other systems) as for `PUT`.
      *
      */
     public patchByExtId<ThrowOnError extends boolean = false>(options: Options<AgendasEventsPatchByExtIdData, ThrowOnError>) {
@@ -222,7 +224,7 @@ export class Events extends HeyApiClient {
     /**
      * Upsert an event by external id (replace)
      *
-     * Upserts the event carrying the `(extKey, extId)` pair: it is REPLACED if it already exists (`200`), or CREATED if not (`201` + a `Location` header pointing at its canonical by-uid URL). The path pair is authoritative — it is forced onto the event's `extIds`, so the event always carries its own external identity; any `extIds` in the body are ignored. This is the recommended write path for syncing from your own system: it is idempotent by external identity, so a lost response can be retried without creating a duplicate.
+     * Upserts the event carrying the `(extKey, extId)` pair: its content is REPLACED if it already exists (`200`), or the event is CREATED if not (`201` + a `Location` header pointing at its canonical by-uid URL). The path pair is authoritative — it is added to the event's `extIds` (merged, never replacing mappings from other systems), so the event always carries its own external identity; any `extIds` in the body are ignored. This is the recommended write path for syncing from your own system: it is idempotent by external identity, so a lost response can be retried without creating a duplicate.
      *
      * Requires a WRITE credential carrying `events:write` whose member may create/edit the event (see the by-uid create and replace endpoints).
      *

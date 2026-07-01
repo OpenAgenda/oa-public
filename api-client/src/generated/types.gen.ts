@@ -878,7 +878,7 @@ export type Event = {
  *
  * Required fields are enforced server-side, not declared here: a published event needs at least `title`, `description` and `timings`, plus a `location` unless it is online-only, plus whatever a given agenda marks required. These requirements are relaxed for drafts, so no top-level `required` is declared on this schema — send a body and read the `422` `error.details.errors[]` for the exact, per-agenda set.
  *
- * Not settable in this version: images (`image`/`imageCredits` — a dedicated upload endpoint is planned), draft creation, and `status` (the event lifecycle state; it is writable by an agenda admin/moderator and will arrive with a later slice of the write surface). `private` is never accepted: an event's privacy is derived from its agenda, not set per-event.
+ * Not settable in this version: images (`image`/`imageCredits` — a dedicated upload endpoint is planned), draft creation, and `status` (the event lifecycle state — scheduled/cancelled/…; it is a per-agenda opt-in feature and will arrive with a later slice of the write surface). Note that the moderation `state` (pending/published) is not settable either: it is decided by the agenda's contribution settings and the caller's role. `private` is never accepted: an event's privacy is derived from its agenda, not set per-event.
  *
  */
 export type EventInput = {
@@ -1557,6 +1557,12 @@ export type ExtKey = string;
  *
  */
 export type ExtIdValue = string;
+
+/**
+ * On a by-uid write, whether the body's `extIds` are merged with the ones already stored (`true`, the default — a content write never drops an existing external identity) or replace them wholesale (`false`). Omitting `extIds` from the body with `mergeExtIds=false` clears them.
+ *
+ */
+export type MergeExtIds = boolean;
 
 /**
  * Opaque pagination cursor returned in `pagination.after` of the previous page. Omit it to fetch the first page.
@@ -2535,7 +2541,13 @@ export type AgendasEventsPatchData = {
          */
         eventUid: number;
     };
-    query?: never;
+    query?: {
+        /**
+         * On a by-uid write, whether the body's `extIds` are merged with the ones already stored (`true`, the default — a content write never drops an existing external identity) or replace them wholesale (`false`). Omitting `extIds` from the body with `mergeExtIds=false` clears them.
+         *
+         */
+        mergeExtIds?: boolean;
+    };
     url: '/agendas/{agendaUid}/events/{eventUid}';
 };
 
@@ -2586,7 +2598,13 @@ export type AgendasEventsUpdateData = {
          */
         eventUid: number;
     };
-    query?: never;
+    query?: {
+        /**
+         * On a by-uid write, whether the body's `extIds` are merged with the ones already stored (`true`, the default — a content write never drops an existing external identity) or replace them wholesale (`false`). Omitting `extIds` from the body with `mergeExtIds=false` clears them.
+         *
+         */
+        mergeExtIds?: boolean;
+    };
     url: '/agendas/{agendaUid}/events/{eventUid}';
 };
 
