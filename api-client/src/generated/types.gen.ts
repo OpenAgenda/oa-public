@@ -871,6 +871,81 @@ export type Event = {
     readonly sourceAgendas: Array<AgendaRef>;
 };
 
+/**
+ * Request body for creating (and, later, replacing) an event. This is the WRITE shape, deliberately distinct from the read `Event`: it carries only the fields a client may set. Read-only/computed fields the read projection emits (`uid`, `slug`, `dateRange`, `featured`, `originAgenda`, `timezone`, first/last/next timing digests, `country`, `createdAt`, `updatedAt`, `state`, `links`, `sourceAgendas`) are NOT accepted and are rejected with `400` if sent.
+ *
+ * Agenda-specific fields go under `additionalFields`, never at the top level; an unknown top-level key is a `400`, as is an `additionalFields` name that collides with a native field. Field VALUES are validated by the server (a `422` with per-field `error.details.errors[]` on failure).
+ *
+ * Required fields are enforced server-side, not declared here: a published event needs at least `title`, `description` and `timings`, plus a `location` unless it is online-only, plus whatever a given agenda marks required. These requirements are relaxed for drafts, so no top-level `required` is declared on this schema — send a body and read the `422` `error.details.errors[]` for the exact, per-agenda set.
+ *
+ * Not settable in this version: images (`image`/`imageCredits` — a dedicated upload endpoint is planned), draft creation, and `status` (the event lifecycle state; it is writable by an agenda admin/moderator and will arrive with a later slice of the write surface). `private` is never accepted: an event's privacy is derived from its agenda, not set per-event.
+ *
+ */
+export type EventInput = {
+    title?: LocalizedString;
+    description?: LocalizedString;
+    longDescription?: LocalizedString;
+    conditions?: LocalizedString;
+    keywords?: LocalizedStringArray;
+    /**
+     * The event's occurrences. Required for a publishable event; the server enforces the exact requirement for the target agenda.
+     *
+     */
+    timings?: Array<Timing>;
+    /**
+     * The event's location, referenced by its OpenAgenda uid. Create the location first (or reuse an existing one) and pass its uid here.
+     *
+     */
+    location?: EventLocationRef | null;
+    attendanceMode?: AttendanceMode;
+    /**
+     * Access link for an online or hybrid event (see `attendanceMode`).
+     *
+     */
+    onlineAccessLink?: string | null;
+    accessibility?: Accessibility;
+    age?: AgeRange;
+    /**
+     * Ways for attendees to register (phone, email or link). The server validates each entry.
+     *
+     */
+    registration?: Array<Registration>;
+    /**
+     * External identifiers mapping this event to your own system(s). Use these to resolve the event later via the by-ext-id endpoints.
+     *
+     */
+    extIds?: Array<ExtId>;
+    additionalFields?: AdditionalFields;
+};
+
+/**
+ * Partial update body: the same fields as `EventInput`, all optional. Only the provided fields are changed. Will be used by the upcoming partial-update (PATCH) endpoint.
+ *
+ */
+export type EventPatch = {
+    title?: LocalizedString;
+    description?: LocalizedString;
+    longDescription?: LocalizedString;
+    conditions?: LocalizedString;
+    keywords?: LocalizedStringArray;
+    timings?: Array<Timing>;
+    location?: EventLocationRef | null;
+    attendanceMode?: AttendanceMode;
+    onlineAccessLink?: string | null;
+    accessibility?: Accessibility;
+    age?: AgeRange;
+    registration?: Array<Registration>;
+    extIds?: Array<ExtId>;
+    additionalFields?: AdditionalFields;
+};
+
+/**
+ * A reference to an existing location by its OpenAgenda uid.
+ */
+export type EventLocationRef = {
+    uid: number;
+};
+
 export type EventList = {
     /**
      * `EventSummary` items by default, or full `Event` items when `detailed=true` is passed. The two are mutually exclusive (`additionalProperties: false`), so each item validates against exactly one branch.
@@ -1461,6 +1536,18 @@ export type AgendaUid = number;
  * Numeric uid of the event.
  */
 export type EventUid = number;
+
+/**
+ * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
+ *
+ */
+export type ExtKey = string;
+
+/**
+ * The resource's identifier within that external system (the `value` of an `ExtId` mapping — see the event's `extIds` or the location's `extIds`). Percent-encode reserved characters.
+ *
+ */
+export type ExtIdValue = string;
 
 /**
  * Opaque pagination cursor returned in `pagination.after` of the previous page. Omit it to fetch the first page.
@@ -2247,6 +2334,102 @@ export type AgendasEventsListResponses = {
 
 export type AgendasEventsListResponse = AgendasEventsListResponses[keyof AgendasEventsListResponses];
 
+export type AgendasEventsCreateData = {
+    body: EventInput;
+    path: {
+        /**
+         * Numeric uid of the agenda.
+         */
+        agendaUid: number;
+    };
+    query?: never;
+    url: '/agendas/{agendaUid}/events';
+};
+
+export type AgendasEventsCreateErrors = {
+    /**
+     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     *
+     */
+    400: Error;
+    /**
+     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     */
+    401: Error;
+    /**
+     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     */
+    403: Error;
+    /**
+     * Resource not found.
+     */
+    404: Error;
+    /**
+     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.details.errors[]`.
+     */
+    422: Error;
+};
+
+export type AgendasEventsCreateError = AgendasEventsCreateErrors[keyof AgendasEventsCreateErrors];
+
+export type AgendasEventsCreateResponses = {
+    /**
+     * The created event.
+     */
+    201: Event;
+};
+
+export type AgendasEventsCreateResponse = AgendasEventsCreateResponses[keyof AgendasEventsCreateResponses];
+
+export type AgendasEventsValidateData = {
+    body: EventInput;
+    path: {
+        /**
+         * Numeric uid of the agenda.
+         */
+        agendaUid: number;
+    };
+    query?: never;
+    url: '/agendas/{agendaUid}/events/validate';
+};
+
+export type AgendasEventsValidateErrors = {
+    /**
+     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     *
+     */
+    400: Error;
+    /**
+     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     */
+    401: Error;
+    /**
+     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     */
+    403: Error;
+    /**
+     * Resource not found.
+     */
+    404: Error;
+    /**
+     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.details.errors[]`.
+     */
+    422: Error;
+};
+
+export type AgendasEventsValidateError = AgendasEventsValidateErrors[keyof AgendasEventsValidateErrors];
+
+export type AgendasEventsValidateResponses = {
+    /**
+     * The body is valid.
+     */
+    200: {
+        valid: true;
+    };
+};
+
+export type AgendasEventsValidateResponse = AgendasEventsValidateResponses[keyof AgendasEventsValidateResponses];
+
 export type AgendasEventsGetData = {
     body?: never;
     path: {
@@ -2288,6 +2471,54 @@ export type AgendasEventsGetResponses = {
 };
 
 export type AgendasEventsGetResponse = AgendasEventsGetResponses[keyof AgendasEventsGetResponses];
+
+export type AgendasEventsGetByExtIdData = {
+    body?: never;
+    path: {
+        /**
+         * Numeric uid of the agenda.
+         */
+        agendaUid: number;
+        /**
+         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
+         *
+         */
+        extKey: string;
+        /**
+         * The resource's identifier within that external system (the `value` of an `ExtId` mapping — see the event's `extIds` or the location's `extIds`). Percent-encode reserved characters.
+         *
+         */
+        extId: string;
+    };
+    query?: never;
+    url: '/agendas/{agendaUid}/events/ext/{extKey}/{extId}';
+};
+
+export type AgendasEventsGetByExtIdErrors = {
+    /**
+     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     */
+    401: Error;
+    /**
+     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     */
+    403: Error;
+    /**
+     * Resource not found.
+     */
+    404: Error;
+};
+
+export type AgendasEventsGetByExtIdError = AgendasEventsGetByExtIdErrors[keyof AgendasEventsGetByExtIdErrors];
+
+export type AgendasEventsGetByExtIdResponses = {
+    /**
+     * The event.
+     */
+    200: Event;
+};
+
+export type AgendasEventsGetByExtIdResponse = AgendasEventsGetByExtIdResponses[keyof AgendasEventsGetByExtIdResponses];
 
 export type AgendasEventsFacetsData = {
     body?: never;
@@ -2816,6 +3047,55 @@ export type AgendasLocationsListResponses = {
 };
 
 export type AgendasLocationsListResponse = AgendasLocationsListResponses[keyof AgendasLocationsListResponses];
+
+export type AgendasLocationsGetByExtIdData = {
+    body?: never;
+    path: {
+        /**
+         * Numeric uid of the agenda.
+         */
+        agendaUid: number;
+        /**
+         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
+         *
+         */
+        extKey: string;
+        /**
+         * The resource's identifier within that external system (the `value` of an `ExtId` mapping — see the event's `extIds` or the location's `extIds`). Percent-encode reserved characters.
+         *
+         */
+        extId: string;
+    };
+    query?: never;
+    url: '/agendas/{agendaUid}/locations/ext/{extKey}/{extId}';
+};
+
+export type AgendasLocationsGetByExtIdErrors = {
+    /**
+     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     */
+    401: Error;
+    /**
+     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     */
+    403: Error;
+    /**
+     * Agenda or location not found — or location merged into another one (`code: merged`, surviving uid in `details.mergedIn`).
+     *
+     */
+    404: Error;
+};
+
+export type AgendasLocationsGetByExtIdError = AgendasLocationsGetByExtIdErrors[keyof AgendasLocationsGetByExtIdErrors];
+
+export type AgendasLocationsGetByExtIdResponses = {
+    /**
+     * The location.
+     */
+    200: Location;
+};
+
+export type AgendasLocationsGetByExtIdResponse = AgendasLocationsGetByExtIdResponses[keyof AgendasLocationsGetByExtIdResponses];
 
 export type AgendasLocationsGetData = {
     body?: never;
