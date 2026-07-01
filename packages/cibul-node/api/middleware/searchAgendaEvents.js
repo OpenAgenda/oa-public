@@ -48,6 +48,10 @@ export default function searchAgendaEvents(core, options = {}) {
           req[queryNamespace].includeEmbedScripts,
           { defaultValue: true },
         ),
+        includeLongDescriptionHTML: boolQuery(
+          req[queryNamespace].includeLongDescriptionHTML,
+          { defaultValue: false },
+        ),
         agendaKey: req.agendaKey,
         removed: boolQuery(req[queryNamespace].removed, { nullable: true }),
       })

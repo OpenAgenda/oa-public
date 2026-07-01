@@ -28,6 +28,7 @@
   ],
   "detailed": [
     "longDescription",
+    "longDescriptionHTML",
     "conditions",
     "html",
     "sourceAgendas",
