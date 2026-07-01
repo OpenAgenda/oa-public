@@ -48,26 +48,20 @@ const baseFields = {
   },
 };
 
-// Percent-encode an image URL idempotently so that unencoded special characters
-// (most notably spaces) don't get rejected by the `link` validator, which throws
-// `link.invalid` on any whitespace. Already-encoded URLs are fully decoded first,
-// then re-encoded once, so calling this twice is a no-op. `encodeURI` leaves
-// URL-significant characters (`&`, `/`, `?`, `=`, …) untouched. On a malformed
-// sequence we leave the URL as-is and let the `link` validator reject it.
+// The `link` validator rejects any whitespace (`/\s/`), so an image URL with an
+// unencoded space fails before it can ever be encoded. Trim surrounding
+// whitespace (as the `link` validator itself would) and turn inner whitespace
+// into `%20` so a valid-but-unencoded URL passes. We deliberately do NOT
+// decode/re-encode the whole URL: `cleanImageURL` (compileForValidation) already
+// applies that full pass downstream before fetching, so repeating it here would
+// be redundant and would mangle reserved characters (e.g. presigned-URL
+// `%2F`/`%2B`). Idempotent: an already-`%20`-encoded URL carries no whitespace.
 function normalizeURL(url) {
   if (typeof url !== 'string') {
     return url;
   }
 
-  try {
-    let decoded = url;
-    while (decodeURI(decoded) !== decoded) {
-      decoded = decodeURI(decoded);
-    }
-    return encodeURI(decoded);
-  } catch (e) {
-    return url;
-  }
+  return url.trim().replace(/\s/g, '%20');
 }
 
 function isEmptyObject(obj, visited = new Set()) {
