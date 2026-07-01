@@ -735,6 +735,192 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
+    put:
+      operationId: agendas.events.setByExtId
+      tags: [Events]
+      summary: Upsert an event by external id (replace)
+      x-synonyms: [upsert, sync, set, put, replace, import, by ext]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Upsert an event addressed by its id in a sync source
+          source: |
+            const { data, error } = await oa.agendas.events.setByExtId({
+              path: { agendaUid: 12345, extKey: 'my-system', extId: 'abc-123' },
+              body: {
+                title: { fr: 'Concert de jazz', en: 'Jazz concert' },
+                description: { fr: 'Une soirée jazz.', en: 'A jazz evening.' },
+                timings: [
+                  { begin: '2025-06-20T18:00:00+02:00', end: '2025-06-20T22:00:00+02:00' },
+                ],
+                location: { uid: 55512 },
+              },
+            });
+            if (error) throw error;
+            return data;
+      description: >
+        Upserts the event carrying the `(extKey, extId)` pair: it is REPLACED if
+        it already exists (`200`), or CREATED if not (`201` + a `Location` header
+        pointing at its canonical by-uid URL). The path pair is authoritative —
+        it is forced onto the event's `extIds`, so the event always carries its
+        own external identity; any `extIds` in the body are ignored. This is the
+        recommended write path for syncing from your own system: it is idempotent
+        by external identity, so a lost response can be retried without creating a
+        duplicate.
+
+
+        Requires a WRITE credential carrying `events:write` whose member may
+        create/edit the event (see the by-uid create and replace endpoints).
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - events:write
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+        - $ref: '#/components/parameters/ExtKey'
+        - $ref: '#/components/parameters/ExtIdValue'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventInput'
+      responses:
+        '200':
+          description: The existing event was updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '201':
+          description: A new event was created.
+          headers:
+            Location:
+              description: Canonical by-uid URL of the created event.
+              required: true
+              schema:
+                type: string
+              example: /agendas/12345/events/9876543
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    patch:
+      operationId: agendas.events.patchByExtId
+      tags: [Events]
+      summary: Upsert an event by external id (partial)
+      x-synonyms: [upsert, sync, patch, partial, merge, by ext]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Partially upsert an event addressed by its sync id
+          source: |
+            const { data, error } = await oa.agendas.events.patchByExtId({
+              path: { agendaUid: 12345, extKey: 'my-system', extId: 'abc-123' },
+              body: { title: { fr: 'Nouveau titre', en: 'New title' } },
+            });
+            if (error) throw error;
+            return data;
+      description: >
+        Like the `PUT` upsert, but when the event already exists only the fields
+        present in the body (an `EventPatch`) are changed — the rest is left
+        untouched (`200`). If no event carries the pair it is created (`201` +
+        `Location`), in which case the full server-side requirements apply, so the
+        body must be complete enough to create a valid event (else `422`). The
+        path pair is forced onto `extIds` as for `PUT`.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - events:write
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+        - $ref: '#/components/parameters/ExtKey'
+        - $ref: '#/components/parameters/ExtIdValue'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventPatch'
+      responses:
+        '200':
+          description: The existing event was updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '201':
+          description: A new event was created.
+          headers:
+            Location:
+              description: Canonical by-uid URL of the created event.
+              required: true
+              schema:
+                type: string
+              example: /agendas/12345/events/9876543
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    delete:
+      operationId: agendas.events.deleteByExtId
+      tags: [Events]
+      summary: Delete an event by external id
+      x-synonyms: [delete, remove, destroy, by ext, sync]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Delete an event addressed by its sync id
+          source: |
+            const { data, error } = await oa.agendas.events.deleteByExtId({
+              path: { agendaUid: 12345, extKey: 'my-system', extId: 'abc-123' },
+            });
+            if (error) throw error;
+            return data.deleted; // true
+      description: >
+        Resolves the event carrying the `(extKey, extId)` pair and removes it —
+        a delete when this agenda is the event's origin, a de-referencing
+        otherwise. Answers `200` with a deletion marker (`{ uid, deleted: true }`,
+        the resolved uid). An unknown pair answers `404`. Same write credential
+        requirement as the other by-ext writes.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - events:write
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+        - $ref: '#/components/parameters/ExtKey'
+        - $ref: '#/components/parameters/ExtIdValue'
+      responses:
+        '200':
+          description: The event was deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeletionResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
 
   /agendas/{agendaUid}/events/facets:
     get:

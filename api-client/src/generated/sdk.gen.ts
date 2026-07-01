@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { AgendasEventsCreateData, AgendasEventsCreateErrors, AgendasEventsCreateResponses, AgendasEventsDeleteData, AgendasEventsDeleteErrors, AgendasEventsDeleteResponses, AgendasEventsFacetsData, AgendasEventsFacetsErrors, AgendasEventsFacetsReportData, AgendasEventsFacetsReportErrors, AgendasEventsFacetsReportResponses, AgendasEventsFacetsResponses, AgendasEventsGetByExtIdData, AgendasEventsGetByExtIdErrors, AgendasEventsGetByExtIdResponses, AgendasEventsGetData, AgendasEventsGetErrors, AgendasEventsGetResponses, AgendasEventsListData, AgendasEventsListErrors, AgendasEventsListResponses, AgendasEventsPatchData, AgendasEventsPatchErrors, AgendasEventsPatchResponses, AgendasEventsSchemaData, AgendasEventsSchemaErrors, AgendasEventsSchemaResponses, AgendasEventsUpdateData, AgendasEventsUpdateErrors, AgendasEventsUpdateResponses, AgendasEventsValidateData, AgendasEventsValidateErrors, AgendasEventsValidateResponses, AgendasGetData, AgendasGetErrors, AgendasGetResponses, AgendasListData, AgendasListErrors, AgendasListResponses, AgendasLocationsGetByExtIdData, AgendasLocationsGetByExtIdErrors, AgendasLocationsGetByExtIdResponses, AgendasLocationsGetData, AgendasLocationsGetErrors, AgendasLocationsGetResponses, AgendasLocationsListData, AgendasLocationsListErrors, AgendasLocationsListResponses, AgendasOverviewData, AgendasOverviewErrors, AgendasOverviewResponses, MeAgendasListData, MeAgendasListErrors, MeAgendasListResponses } from './types.gen';
+import type { AgendasEventsCreateData, AgendasEventsCreateErrors, AgendasEventsCreateResponses, AgendasEventsDeleteByExtIdData, AgendasEventsDeleteByExtIdErrors, AgendasEventsDeleteByExtIdResponses, AgendasEventsDeleteData, AgendasEventsDeleteErrors, AgendasEventsDeleteResponses, AgendasEventsFacetsData, AgendasEventsFacetsErrors, AgendasEventsFacetsReportData, AgendasEventsFacetsReportErrors, AgendasEventsFacetsReportResponses, AgendasEventsFacetsResponses, AgendasEventsGetByExtIdData, AgendasEventsGetByExtIdErrors, AgendasEventsGetByExtIdResponses, AgendasEventsGetData, AgendasEventsGetErrors, AgendasEventsGetResponses, AgendasEventsListData, AgendasEventsListErrors, AgendasEventsListResponses, AgendasEventsPatchByExtIdData, AgendasEventsPatchByExtIdErrors, AgendasEventsPatchByExtIdResponses, AgendasEventsPatchData, AgendasEventsPatchErrors, AgendasEventsPatchResponses, AgendasEventsSchemaData, AgendasEventsSchemaErrors, AgendasEventsSchemaResponses, AgendasEventsSetByExtIdData, AgendasEventsSetByExtIdErrors, AgendasEventsSetByExtIdResponses, AgendasEventsUpdateData, AgendasEventsUpdateErrors, AgendasEventsUpdateResponses, AgendasEventsValidateData, AgendasEventsValidateErrors, AgendasEventsValidateResponses, AgendasGetData, AgendasGetErrors, AgendasGetResponses, AgendasListData, AgendasListErrors, AgendasListResponses, AgendasLocationsGetByExtIdData, AgendasLocationsGetByExtIdErrors, AgendasLocationsGetByExtIdResponses, AgendasLocationsGetData, AgendasLocationsGetErrors, AgendasLocationsGetResponses, AgendasLocationsListData, AgendasLocationsListErrors, AgendasLocationsListResponses, AgendasOverviewData, AgendasOverviewErrors, AgendasOverviewResponses, MeAgendasListData, MeAgendasListErrors, MeAgendasListResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -174,6 +174,20 @@ export class Events extends HeyApiClient {
     }
     
     /**
+     * Delete an event by external id
+     *
+     * Resolves the event carrying the `(extKey, extId)` pair and removes it — a delete when this agenda is the event's origin, a de-referencing otherwise. Answers `200` with a deletion marker (`{ uid, deleted: true }`, the resolved uid). An unknown pair answers `404`. Same write credential requirement as the other by-ext writes.
+     *
+     */
+    public deleteByExtId<ThrowOnError extends boolean = false>(options: Options<AgendasEventsDeleteByExtIdData, ThrowOnError>) {
+        return (options.client ?? this.client).delete<AgendasEventsDeleteByExtIdResponses, AgendasEventsDeleteByExtIdErrors, ThrowOnError>({
+            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            url: '/agendas/{agendaUid}/events/ext/{extKey}/{extId}',
+            ...options
+        });
+    }
+    
+    /**
      * Get a single event by external id
      *
      * Returns a single event by its external identifier within the given agenda — the `(key, value)` pair an `ExtId` mapping carries on the event (see `extIds` on the `Event` schema). Use this when you sync from your own system and hold its id rather than the OpenAgenda uid. Resolves to the same `Event` as the by-uid get; an unknown pair answers `404`.
@@ -184,6 +198,44 @@ export class Events extends HeyApiClient {
             security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
             url: '/agendas/{agendaUid}/events/ext/{extKey}/{extId}',
             ...options
+        });
+    }
+    
+    /**
+     * Upsert an event by external id (partial)
+     *
+     * Like the `PUT` upsert, but when the event already exists only the fields present in the body (an `EventPatch`) are changed — the rest is left untouched (`200`). If no event carries the pair it is created (`201` + `Location`), in which case the full server-side requirements apply, so the body must be complete enough to create a valid event (else `422`). The path pair is forced onto `extIds` as for `PUT`.
+     *
+     */
+    public patchByExtId<ThrowOnError extends boolean = false>(options: Options<AgendasEventsPatchByExtIdData, ThrowOnError>) {
+        return (options.client ?? this.client).patch<AgendasEventsPatchByExtIdResponses, AgendasEventsPatchByExtIdErrors, ThrowOnError>({
+            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            url: '/agendas/{agendaUid}/events/ext/{extKey}/{extId}',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+    
+    /**
+     * Upsert an event by external id (replace)
+     *
+     * Upserts the event carrying the `(extKey, extId)` pair: it is REPLACED if it already exists (`200`), or CREATED if not (`201` + a `Location` header pointing at its canonical by-uid URL). The path pair is authoritative — it is forced onto the event's `extIds`, so the event always carries its own external identity; any `extIds` in the body are ignored. This is the recommended write path for syncing from your own system: it is idempotent by external identity, so a lost response can be retried without creating a duplicate.
+     *
+     * Requires a WRITE credential carrying `events:write` whose member may create/edit the event (see the by-uid create and replace endpoints).
+     *
+     */
+    public setByExtId<ThrowOnError extends boolean = false>(options: Options<AgendasEventsSetByExtIdData, ThrowOnError>) {
+        return (options.client ?? this.client).put<AgendasEventsSetByExtIdResponses, AgendasEventsSetByExtIdErrors, ThrowOnError>({
+            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            url: '/agendas/{agendaUid}/events/ext/{extKey}/{extId}',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
         });
     }
     

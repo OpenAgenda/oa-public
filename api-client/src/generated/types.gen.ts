@@ -2625,6 +2625,54 @@ export type AgendasEventsUpdateResponses = {
 
 export type AgendasEventsUpdateResponse = AgendasEventsUpdateResponses[keyof AgendasEventsUpdateResponses];
 
+export type AgendasEventsDeleteByExtIdData = {
+    body?: never;
+    path: {
+        /**
+         * Numeric uid of the agenda.
+         */
+        agendaUid: number;
+        /**
+         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
+         *
+         */
+        extKey: string;
+        /**
+         * The resource's identifier within that external system (the `value` of an `ExtId` mapping — see the event's `extIds` or the location's `extIds`). Percent-encode reserved characters.
+         *
+         */
+        extId: string;
+    };
+    query?: never;
+    url: '/agendas/{agendaUid}/events/ext/{extKey}/{extId}';
+};
+
+export type AgendasEventsDeleteByExtIdErrors = {
+    /**
+     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     */
+    401: Error;
+    /**
+     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     */
+    403: Error;
+    /**
+     * Resource not found.
+     */
+    404: Error;
+};
+
+export type AgendasEventsDeleteByExtIdError = AgendasEventsDeleteByExtIdErrors[keyof AgendasEventsDeleteByExtIdErrors];
+
+export type AgendasEventsDeleteByExtIdResponses = {
+    /**
+     * The event was deleted.
+     */
+    200: DeletionResult;
+};
+
+export type AgendasEventsDeleteByExtIdResponse = AgendasEventsDeleteByExtIdResponses[keyof AgendasEventsDeleteByExtIdResponses];
+
 export type AgendasEventsGetByExtIdData = {
     body?: never;
     path: {
@@ -2672,6 +2720,128 @@ export type AgendasEventsGetByExtIdResponses = {
 };
 
 export type AgendasEventsGetByExtIdResponse = AgendasEventsGetByExtIdResponses[keyof AgendasEventsGetByExtIdResponses];
+
+export type AgendasEventsPatchByExtIdData = {
+    body: EventPatch;
+    path: {
+        /**
+         * Numeric uid of the agenda.
+         */
+        agendaUid: number;
+        /**
+         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
+         *
+         */
+        extKey: string;
+        /**
+         * The resource's identifier within that external system (the `value` of an `ExtId` mapping — see the event's `extIds` or the location's `extIds`). Percent-encode reserved characters.
+         *
+         */
+        extId: string;
+    };
+    query?: never;
+    url: '/agendas/{agendaUid}/events/ext/{extKey}/{extId}';
+};
+
+export type AgendasEventsPatchByExtIdErrors = {
+    /**
+     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     *
+     */
+    400: Error;
+    /**
+     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     */
+    401: Error;
+    /**
+     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     */
+    403: Error;
+    /**
+     * Resource not found.
+     */
+    404: Error;
+    /**
+     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.details.errors[]`.
+     */
+    422: Error;
+};
+
+export type AgendasEventsPatchByExtIdError = AgendasEventsPatchByExtIdErrors[keyof AgendasEventsPatchByExtIdErrors];
+
+export type AgendasEventsPatchByExtIdResponses = {
+    /**
+     * The existing event was updated.
+     */
+    200: Event;
+    /**
+     * A new event was created.
+     */
+    201: Event;
+};
+
+export type AgendasEventsPatchByExtIdResponse = AgendasEventsPatchByExtIdResponses[keyof AgendasEventsPatchByExtIdResponses];
+
+export type AgendasEventsSetByExtIdData = {
+    body: EventInput;
+    path: {
+        /**
+         * Numeric uid of the agenda.
+         */
+        agendaUid: number;
+        /**
+         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
+         *
+         */
+        extKey: string;
+        /**
+         * The resource's identifier within that external system (the `value` of an `ExtId` mapping — see the event's `extIds` or the location's `extIds`). Percent-encode reserved characters.
+         *
+         */
+        extId: string;
+    };
+    query?: never;
+    url: '/agendas/{agendaUid}/events/ext/{extKey}/{extId}';
+};
+
+export type AgendasEventsSetByExtIdErrors = {
+    /**
+     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     *
+     */
+    400: Error;
+    /**
+     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     */
+    401: Error;
+    /**
+     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     */
+    403: Error;
+    /**
+     * Resource not found.
+     */
+    404: Error;
+    /**
+     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.details.errors[]`.
+     */
+    422: Error;
+};
+
+export type AgendasEventsSetByExtIdError = AgendasEventsSetByExtIdErrors[keyof AgendasEventsSetByExtIdErrors];
+
+export type AgendasEventsSetByExtIdResponses = {
+    /**
+     * The existing event was updated.
+     */
+    200: Event;
+    /**
+     * A new event was created.
+     */
+    201: Event;
+};
+
+export type AgendasEventsSetByExtIdResponse = AgendasEventsSetByExtIdResponses[keyof AgendasEventsSetByExtIdResponses];
 
 export type AgendasEventsFacetsData = {
     body?: never;

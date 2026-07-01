@@ -1771,6 +1771,17 @@ export const zAgendasEventsUpdatePath = z.object({
  */
 export const zAgendasEventsUpdateResponse = zEvent;
 
+export const zAgendasEventsDeleteByExtIdPath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
+    extKey: z.string(),
+    extId: z.string()
+});
+
+/**
+ * The event was deleted.
+ */
+export const zAgendasEventsDeleteByExtIdResponse = zDeletionResult;
+
 export const zAgendasEventsGetByExtIdPath = z.object({
     agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
     extKey: z.string(),
@@ -1781,6 +1792,32 @@ export const zAgendasEventsGetByExtIdPath = z.object({
  * The event.
  */
 export const zAgendasEventsGetByExtIdResponse = zEvent;
+
+export const zAgendasEventsPatchByExtIdBody = zEventPatch;
+
+export const zAgendasEventsPatchByExtIdPath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
+    extKey: z.string(),
+    extId: z.string()
+});
+
+/**
+ * The existing event was updated.
+ */
+export const zAgendasEventsPatchByExtIdResponse = zEvent;
+
+export const zAgendasEventsSetByExtIdBody = zEventInput;
+
+export const zAgendasEventsSetByExtIdPath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
+    extKey: z.string(),
+    extId: z.string()
+});
+
+/**
+ * The existing event was updated.
+ */
+export const zAgendasEventsSetByExtIdResponse = zEvent;
 
 export const zAgendasEventsFacetsPath = z.object({
     agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
