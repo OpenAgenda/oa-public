@@ -13354,7 +13354,7 @@ __metadata:
     slate-dom: "npm:^0.112.2"
     source-map-loader: "npm:^2.0.1"
     storybook: "npm:^10.2.0"
-    swiper: "npm:^11.2.6"
+    swiper: "npm:^12.1.2"
     terser-webpack-plugin: "npm:^5.3.9"
     tsdown: "npm:^0.22.0"
     use-debounce: "npm:^10.0.4"
@@ -58476,10 +58476,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"swiper@npm:^11.2.6":
-  version: 11.2.6
-  resolution: "swiper@npm:11.2.6"
-  checksum: 10c0/36ba63e2d1c5045f647f0f07b3a25c164393fb89b17db63f57fa9f776eb61bc5cb2c34634f80cf69caaddc209a174d0cd7be23c580785534569ea4a098b3a42c
+"swiper@npm:^12.1.2":
+  version: 12.2.0
+  resolution: "swiper@npm:12.2.0"
+  checksum: 10c0/459c9621e170130c0a6874b05e24fefd0411529600a17b2d8afc4987dc2e803ab18d42983081b723423819d464568fdb541b6c3f517e558c60888c644dc4ead1
   languageName: node
   linkType: hard
 
