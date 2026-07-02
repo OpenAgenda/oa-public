@@ -4283,6 +4283,29 @@ components:
           items:
             $ref: '#/components/schemas/AgendaRef'
 
+    ImageInput:
+      description: >
+        Write shape for an event image, distinct from the read `Image` (which
+        carries the generated size variants). Either attach a freshly-staged
+        upload by its `ref` — the value returned by `POST /agendas/{uid}/uploads`
+        — or send `null` to remove the current image. The staged original is
+        fetched, processed into the standard size variants, and stored as part
+        of the SAME write, so an image change lands in one activity alongside the
+        rest of the edit.
+      oneOf:
+        - type: object
+          additionalProperties: false
+          required: [ref]
+          properties:
+            ref:
+              type: string
+              description: >
+                A staging reference returned by the upload endpoint (of the form
+                `staging/{agendaUid}/…`). It must belong to this agenda;
+                a reference for another agenda, or one that has expired, answers
+                `422`.
+        - type: 'null'
+
     EventInput:
       type: object
       description: >
@@ -4320,10 +4343,11 @@ components:
         each field for details.
 
 
-        Not settable in this version: images (`image`/`imageCredits` — a
-        dedicated upload endpoint is planned) and draft creation. `private` is
-        never accepted: an event's privacy is derived from its agenda, not set
-        per-event.
+        The `image` is set by reference: stage the bytes via `POST
+        /agendas/{uid}/uploads`, then pass the returned `ref` here (or `null` to
+        clear it) — see `ImageInput`. Not settable in this version: `imageCredits`
+        and draft creation. `private` is never accepted: an event's privacy is
+        derived from its agenda, not set per-event.
       additionalProperties: false
       properties:
         title:
@@ -4392,6 +4416,8 @@ components:
             feature: it is only accepted when `settings.lab.status` is enabled for
             the target agenda — otherwise sending it answers `422`. Not gated by
             role.
+        image:
+          $ref: '#/components/schemas/ImageInput'
         additionalFields:
           $ref: '#/components/schemas/AdditionalFields'
 
@@ -4449,6 +4475,8 @@ components:
           description: >
             Event lifecycle status — gated by `settings.lab.status` (see
             `EventInput.status`).
+        image:
+          $ref: '#/components/schemas/ImageInput'
         additionalFields:
           $ref: '#/components/schemas/AdditionalFields'
 
