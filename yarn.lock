@@ -12842,7 +12842,7 @@ __metadata:
     lodash: "npm:^4.17.15"
     mjml: "npm:^4.13.0"
     mjml-core: "npm:^4.13.0"
-    nodemailer: "npm:^7.0.6"
+    nodemailer: "npm:^9.0.1"
     nodemailer-mailgun-transport: "npm:^2.1.5"
     tlds: "npm:^1.253.0"
   languageName: unknown
@@ -48660,10 +48660,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nodemailer@npm:^7.0.6":
-  version: 7.0.6
-  resolution: "nodemailer@npm:7.0.6"
-  checksum: 10c0/84d3bdca7baa048df538506726a3e63a116276b9ee1ad1e3cd55a8ccbdbf3dea34af0d9bfbe2fdb63cc83f9abe2dbab1737cd58562955e42cbf6cd46e82da49a
+"nodemailer@npm:^9.0.1":
+  version: 9.0.3
+  resolution: "nodemailer@npm:9.0.3"
+  checksum: 10c0/9e93516fb9fcc8835b683cdf3b90135648dabf0133ac9b04890303c2e23eef1d7bae58fe98afb0e251ae10428b96f05df483deb78f0b49f47793debbb0383216
   languageName: node
   linkType: hard
 
