@@ -874,17 +874,7 @@ export type Event = {
 };
 
 /**
- * Declares an upload to stage. `contentType` must be an accepted media type (images or PDF). `size` (bytes), when given, tightens the signed size cap for this upload. `field` is an optional hint naming the custom file/image field the upload targets.
- *
- */
-export type UploadRequest = {
-    contentType: string;
-    size?: number;
-    field?: string;
-};
-
-/**
- * A staging ticket. POST the bytes to `upload.url` as `multipart/form-data` with every `upload.fields` entry plus the binary as the `file` field (last), then attach `ref` on an event write (`image`, or a custom file/image field under `additionalFields`).
+ * A staged upload. Attach `ref` on an event write (`image`, or a custom file/image field under `additionalFields`) before it expires.
  *
  */
 export type UploadTicket = {
@@ -893,22 +883,10 @@ export type UploadTicket = {
      */
     ref: string;
     /**
-     * When the upload ticket expires (ISO 8601).
+     * When the staged upload expires and is swept if never attached (ISO 8601).
+     *
      */
     expiresAt: string;
-    upload: {
-        /**
-         * The storage endpoint to POST the multipart form to.
-         */
-        url: string;
-        /**
-         * Form fields to include in the multipart POST (policy, signature, key, …), sent before the binary `file` field.
-         *
-         */
-        fields: {
-            [key: string]: string;
-        };
-    };
 };
 
 /**
@@ -3363,7 +3341,12 @@ export type MeAgendasListResponses = {
 export type MeAgendasListResponse = MeAgendasListResponses[keyof MeAgendasListResponses];
 
 export type AgendasUploadsCreateData = {
-    body: UploadRequest;
+    body: {
+        /**
+         * The media file (image or PDF).
+         */
+        file: Blob | File;
+    };
     path: {
         /**
          * Numeric uid of the agenda.
@@ -3402,7 +3385,7 @@ export type AgendasUploadsCreateError = AgendasUploadsCreateErrors[keyof Agendas
 
 export type AgendasUploadsCreateResponses = {
     /**
-     * A staging ticket to upload to, and the ref to attach.
+     * The staging reference to attach on an event write.
      */
     200: UploadTicket;
 };

@@ -1259,43 +1259,37 @@ paths:
         - lang: TypeScript
           label: Stage an image, then attach it to a new event
           source: |
-            // 1. Ask for a staging ticket.
-            const { data: ticket, error } = await oa.agendas.uploads.create({
+            // 1. Upload the file to staging (multipart/form-data).
+            const { data: staged, error } = await oa.agendas.uploads.create({
               path: { agendaUid: 12345 },
-              body: { contentType: 'image/jpeg', size: file.size },
+              body: { file }, // a Blob/File
             });
             if (error) throw error;
 
-            // 2. POST the bytes straight to storage (multipart/form-data).
-            const form = new FormData();
-            for (const [k, v] of Object.entries(ticket.upload.fields)) form.append(k, v);
-            form.append('file', file); // the binary, last
-            await fetch(ticket.upload.url, { method: 'POST', body: form });
-
-            // 3. Attach the ref on a normal event write.
+            // 2. Attach the ref on a normal event write.
             await oa.agendas.events.create({
               path: { agendaUid: 12345 },
               body: {
                 title: { fr: 'Concert' },
                 timings: [{ begin: '2025-06-20T18:00:00+02:00', end: '2025-06-20T22:00:00+02:00' }],
-                image: { ref: ticket.ref },
+                image: { ref: staged.ref },
               },
             });
       description: >
-        Brokers a presigned, direct-to-storage upload for a media file — the
-        native event `image`, or a custom `file`/`image` form-schema field. The
-        API never receives the bytes: it validates the declared `contentType`
-        (and optional `size`) and returns a short-lived `upload` ticket plus a
-        `ref`.
+        Stages a media file — the native event `image`, or a custom `file`/`image`
+        form-schema field. Send the file as `multipart/form-data` (field `file`);
+        the API validates its real type and size, stores it, and returns a short-
+        lived `ref`.
 
 
-        Upload flow: POST the bytes to `upload.url` as `multipart/form-data`,
-        including every `upload.fields` entry and then the binary as the `file`
-        field (last). The signed policy enforces the content type and a size cap
-        server-side. Then attach `ref` on an event write — `image: { ref }` or a
-        custom field under `additionalFields` (see `ImageInput` and
-        `AdditionalFields`) — so the media lands in the same write as the rest of
-        the edit.
+        Then attach `ref` on an event write — `image: { ref }` or a custom field
+        under `additionalFields` (see `ImageInput` and `AdditionalFields`) — so the
+        media lands in the same write as the rest of the edit.
+
+
+        The accepted type is determined from the file's CONTENT, not the declared
+        `Content-Type`; an unverifiable or disallowed type answers `422`. The size
+        is capped at 20 MiB (`422` past it).
 
 
         Requires a write credential — a read-only publishable or agenda key
@@ -1309,12 +1303,18 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          multipart/form-data:
             schema:
-              $ref: '#/components/schemas/UploadRequest'
+              type: object
+              required: [file]
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The media file (image or PDF).
       responses:
         '200':
-          description: A staging ticket to upload to, and the ref to attach.
+          description: The staging reference to attach on an event write.
           content:
             application/json:
               schema:
@@ -4378,38 +4378,13 @@ components:
           items:
             $ref: '#/components/schemas/AgendaRef'
 
-    UploadRequest:
-      type: object
-      additionalProperties: false
-      required: [contentType]
-      description: >
-        Declares an upload to stage. `contentType` must be an accepted media type
-        (images or PDF). `size` (bytes), when given, tightens the signed size cap
-        for this upload. `field` is an optional hint naming the custom file/image
-        field the upload targets.
-      properties:
-        contentType:
-          type: string
-          example: image/jpeg
-        size:
-          type: integer
-          format: int64
-          minimum: 1
-        field:
-          type: string
-      example:
-        contentType: image/jpeg
-        size: 245680
-
     UploadTicket:
       type: object
       additionalProperties: false
-      required: [ref, expiresAt, upload]
+      required: [ref, expiresAt]
       description: >
-        A staging ticket. POST the bytes to `upload.url` as `multipart/form-data`
-        with every `upload.fields` entry plus the binary as the `file` field
-        (last), then attach `ref` on an event write (`image`, or a custom
-        file/image field under `additionalFields`).
+        A staged upload. Attach `ref` on an event write (`image`, or a custom
+        file/image field under `additionalFields`) before it expires.
       properties:
         ref:
           type: string
@@ -4417,23 +4392,9 @@ components:
         expiresAt:
           type: string
           format: date-time
-          description: When the upload ticket expires (ISO 8601).
-        upload:
-          type: object
-          additionalProperties: false
-          required: [url, fields]
-          properties:
-            url:
-              type: string
-              format: uri
-              description: The storage endpoint to POST the multipart form to.
-            fields:
-              type: object
-              additionalProperties:
-                type: string
-              description: >
-                Form fields to include in the multipart POST (policy, signature,
-                key, …), sent before the binary `file` field.
+          description: >
+            When the staged upload expires and is swept if never attached (ISO
+            8601).
 
     ImageInput:
       description: >

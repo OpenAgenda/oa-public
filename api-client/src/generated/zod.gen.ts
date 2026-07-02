@@ -524,26 +524,12 @@ export const zEvent = z.object({
 });
 
 /**
- * Declares an upload to stage. `contentType` must be an accepted media type (images or PDF). `size` (bytes), when given, tightens the signed size cap for this upload. `field` is an optional hint naming the custom file/image field the upload targets.
- *
- */
-export const zUploadRequest = z.object({
-    contentType: z.string(),
-    size: z.coerce.bigint().gte(BigInt(1)).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }).optional(),
-    field: z.string().optional()
-});
-
-/**
- * A staging ticket. POST the bytes to `upload.url` as `multipart/form-data` with every `upload.fields` entry plus the binary as the `file` field (last), then attach `ref` on an event write (`image`, or a custom file/image field under `additionalFields`).
+ * A staged upload. Attach `ref` on an event write (`image`, or a custom file/image field under `additionalFields`) before it expires.
  *
  */
 export const zUploadTicket = z.object({
     ref: z.string(),
-    expiresAt: z.string().datetime(),
-    upload: z.object({
-        url: z.string().url(),
-        fields: z.record(z.string())
-    })
+    expiresAt: z.string().datetime()
 });
 
 /**
@@ -2018,14 +2004,16 @@ export const zMeAgendasListQuery = z.object({
  */
 export const zMeAgendasListResponse = zMeAgendaList;
 
-export const zAgendasUploadsCreateBody = zUploadRequest;
+export const zAgendasUploadsCreateBody = z.object({
+    file: z.string()
+});
 
 export const zAgendasUploadsCreatePath = z.object({
     agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
 });
 
 /**
- * A staging ticket to upload to, and the ref to attach.
+ * The staging reference to attach on an event write.
  */
 export const zAgendasUploadsCreateResponse = zUploadTicket;
 
