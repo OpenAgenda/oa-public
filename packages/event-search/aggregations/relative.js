@@ -1,4 +1,9 @@
-export function formatDSL() {
+// `now` is threaded from search.js (a minute-floored timestamp) so these facet
+// counts are computed against the SAME instant as the query filters. Without it
+// the hits (pinned now) and the relative facet counts (live `now`) can disagree
+// for events crossing a boundary within the up-to-60s gap. Falls back to the live
+// ES `now` token for direct callers that pass none (backward-compatible).
+export function formatDSL(query, { now = 'now' } = {}) {
   return {
     filters: {
       filters: {
@@ -8,7 +13,7 @@ export function formatDSL() {
               {
                 range: {
                   _search_first_timing: {
-                    gt: 'now',
+                    gt: now,
                   },
                 },
               },
@@ -21,7 +26,7 @@ export function formatDSL() {
               {
                 range: {
                   _search_last_timing: {
-                    lt: 'now',
+                    lt: now,
                   },
                 },
               },
@@ -34,14 +39,14 @@ export function formatDSL() {
               {
                 range: {
                   _search_last_timing: {
-                    gt: 'now',
+                    gt: now,
                   },
                 },
               },
               {
                 range: {
                   _search_first_timing: {
-                    lt: 'now',
+                    lt: now,
                   },
                 },
               },

@@ -288,7 +288,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     cleanDSL.aggregations = aggregations.formatDSL(
       requestedAggregations,
       query,
-      { includes, formSchema },
+      { includes, formSchema, now },
     );
   }
 
