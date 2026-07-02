@@ -12427,7 +12427,7 @@ __metadata:
     "@openagenda/eslint-config": "npm:^2.0.0"
     "@openagenda/verror": "npm:^3.2.0"
     express: "npm:^4.17.1"
-    file-type: "npm:^15.0.0"
+    file-type: "npm:^16.5.4"
     gm: "npm:^1.25.0"
     is-stream: "npm:^2.0.0"
     jest: "npm:^29.7.0"
@@ -12486,7 +12486,7 @@ __metadata:
     date-fns: "npm:^2.11.1"
     debug: "npm:^4.1.1"
     express: "npm:^4.17.1"
-    file-type: "npm:^15.0.0"
+    file-type: "npm:^16.5.4"
     immutability-helper: "npm:^3.0.0"
     immutable: "npm:^3.8.2"
     jest: "npm:^29.7.0"
@@ -21466,13 +21466,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tokenizer/token@npm:^0.1.0, @tokenizer/token@npm:^0.1.1":
-  version: 0.1.1
-  resolution: "@tokenizer/token@npm:0.1.1"
-  checksum: 10c0/4605b4425ea04f778238e56be42d94e98284c085e978c8b815e7f2b6a8bcfe32828f89bcbea8269ae48302b31250d6a2f871f451aae1cbd1dbc63e7e346d1d9a
-  languageName: node
-  linkType: hard
-
 "@tokenizer/token@npm:^0.3.0":
   version: 0.3.0
   resolution: "@tokenizer/token@npm:0.3.0"
@@ -21868,7 +21861,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/debug@npm:^4.0.0, @types/debug@npm:^4.1.5":
+"@types/debug@npm:^4.0.0":
   version: 4.1.8
   resolution: "@types/debug@npm:4.1.8"
   dependencies:
@@ -36306,15 +36299,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"file-type@npm:^15.0.0":
-  version: 15.0.0
-  resolution: "file-type@npm:15.0.0"
+"file-type@npm:^16.5.4":
+  version: 16.5.4
+  resolution: "file-type@npm:16.5.4"
   dependencies:
-    readable-web-to-node-stream: "npm:^2.0.0"
-    strtok3: "npm:^6.0.3"
-    token-types: "npm:^2.0.0"
-    typedarray-to-buffer: "npm:^3.1.5"
-  checksum: 10c0/9d5a602d945fe7d937564f96a059800db40b185c833995ebdb5a35eb487e32f4dc19c8e807984cf454d65027cc9ee453b6fb6b1dcb32b660324a7701b4e5080e
+    readable-web-to-node-stream: "npm:^3.0.0"
+    strtok3: "npm:^6.2.4"
+    token-types: "npm:^4.1.1"
+  checksum: 10c0/a6c9ab8bc05bc9c212bec239fb0d5bf59ddc9b3912f00c4ef44622e67ae4e553a1cc8372e9e595e14859035188eb305d05d488fa3c5c2a2ad90bb7745b3004ef
   languageName: node
   linkType: hard
 
@@ -50240,10 +50232,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"peek-readable@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "peek-readable@npm:3.1.0"
-  checksum: 10c0/a9f5645521d33d24e46747dfa7fc8a4479f4c97be682a0209f38a68c48a7414ed1148a765909c76c564fc830578f264d2ac4c3c6c19d5596d8fa50a98a93e61c
+"peek-readable@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "peek-readable@npm:4.1.0"
+  checksum: 10c0/f9b81ce3eed185cc9ebbf7dff0b6e130dd6da7b05f1802bbf726a78e4d84990b0a65f8e701959c50eb1124cc2ad352205147954bf39793faba29bb00ce742a44
   languageName: node
   linkType: hard
 
@@ -53835,6 +53827,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"readable-stream@npm:^4.7.0":
+  version: 4.7.0
+  resolution: "readable-stream@npm:4.7.0"
+  dependencies:
+    abort-controller: "npm:^3.0.0"
+    buffer: "npm:^6.0.3"
+    events: "npm:^3.3.0"
+    process: "npm:^0.11.10"
+    string_decoder: "npm:^1.3.0"
+  checksum: 10c0/fd86d068da21cfdb10f7a4479f2e47d9c0a9b0c862fc0c840a7e5360201580a55ac399c764b12a4f6fa291f8cee74d9c4b7562e0d53b3c4b2769f2c98155d957
+  languageName: node
+  linkType: hard
+
 "readable-stream@npm:~1.0.17, readable-stream@npm:~1.0.27-1":
   version: 1.0.34
   resolution: "readable-stream@npm:1.0.34"
@@ -53847,10 +53852,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"readable-web-to-node-stream@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "readable-web-to-node-stream@npm:2.0.0"
-  checksum: 10c0/a1fa1a789ba0cf8accae60cbfee71e7267ecb8b4e5fc6ece89c2b1151681a216167b524bbb79d1976717e80662e43d82fd597f8f5580c15f27aa37d33602023f
+"readable-web-to-node-stream@npm:^3.0.0":
+  version: 3.0.4
+  resolution: "readable-web-to-node-stream@npm:3.0.4"
+  dependencies:
+    readable-stream: "npm:^4.7.0"
+  checksum: 10c0/2dc417d5d0b0c0191fcf57f87df3b2853db21d1da5554ec32b1e1c5a515e5a1243fc077a23f74046d711c2d736628f64b31054a8379b95bb016212430b5110c5
   languageName: node
   linkType: hard
 
@@ -58255,14 +58262,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"strtok3@npm:^6.0.3":
-  version: 6.0.4
-  resolution: "strtok3@npm:6.0.4"
+"strtok3@npm:^6.2.4":
+  version: 6.3.0
+  resolution: "strtok3@npm:6.3.0"
   dependencies:
-    "@tokenizer/token": "npm:^0.1.1"
-    "@types/debug": "npm:^4.1.5"
-    peek-readable: "npm:^3.1.0"
-  checksum: 10c0/d25b871327f03f20ee6929296b307522664b875f51a8832b593ebfbde99f6e8db8b73aaf9182f0d4bed1b717d70295809b1e21331b9dd2f16ec4ee5b156992ee
+    "@tokenizer/token": "npm:^0.3.0"
+    peek-readable: "npm:^4.1.0"
+  checksum: 10c0/8f1483a2a6758404502f2fc431586fcf37d747b10b125596ab5ec92319c247dd1195f82ba0bc2eaa582db3d807b5cca4b67ff61411756fec6622d051f8e255c2
   languageName: node
   linkType: hard
 
@@ -59434,13 +59440,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"token-types@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "token-types@npm:2.0.0"
+"token-types@npm:^4.1.1":
+  version: 4.2.1
+  resolution: "token-types@npm:4.2.1"
   dependencies:
-    "@tokenizer/token": "npm:^0.1.0"
-    ieee754: "npm:^1.1.13"
-  checksum: 10c0/6dc2ae7c7329735e8ba9abbeb52dc4e4986ac6d064bfcbe6b1f8fb334f14db29bfad216e1130c7a42deeee9014a49357a86a41084e9160d0374e17aedb9bcc20
+    "@tokenizer/token": "npm:^0.3.0"
+    ieee754: "npm:^1.2.1"
+  checksum: 10c0/e9a4a139deba9515770cd7ac36a8f53f953b9d035d309e88a66d706760dba0df420753f2b8bdee6b9f3cbff8d66b24e69571e8dea27baa7b378229ab1bcca399
   languageName: node
   linkType: hard
 
