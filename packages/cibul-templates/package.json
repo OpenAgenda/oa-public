@@ -55,7 +55,7 @@
     "lodash": "^4.17.15",
     "masonry-layout": "4.2.2",
     "mkdirp": "^3.0.1",
-    "moment": "2.27.0",
+    "moment": "2.29.4",
     "moment-timezone": "^0.5.31",
     "path-browserify": "^1.0.1",
     "point-in-polygon": "^1.0.1",
