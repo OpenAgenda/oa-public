@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { HelmetProvider } from 'react-helmet-async';
 import { matchRoutes } from 'react-router-config';
 import { createMemoryHistory } from 'history';
-import flatted from 'flatted/cjs/index.js';
+import { stringify } from 'flatted';
 import he from 'he';
 import { ErrorBoundary } from '@sentry/react';
 import { ChunkExtractor } from '@loadable/server';
@@ -50,7 +50,6 @@ import RootHelmet from './RootHelmet.js';
 import createReduxMiddleware from './reduxMiddleware.js';
 
 const { createElement: el } = React;
-const { stringify } = flatted;
 
 const statsPath = path.join(import.meta.dirname, '/dist/loadable-stats.json');
 const stats = JSON.parse(fs.readFileSync(statsPath, 'utf-8'));
