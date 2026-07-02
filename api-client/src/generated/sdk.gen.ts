@@ -311,7 +311,7 @@ export class Uploads extends HeyApiClient {
      *
      * Upload flow: POST the bytes to `upload.url` as `multipart/form-data`, including every `upload.fields` entry and then the binary as the `file` field (last). The signed policy enforces the content type and a size cap server-side. Then attach `ref` on an event write — `image: { ref }` or a custom field under `additionalFields` (see `ImageInput` and `AdditionalFields`) — so the media lands in the same write as the rest of the edit.
      *
-     * Requires a WRITE credential: a secret key (`bearerAuth`) or an OAuth2 access token carrying `events:write`.
+     * Requires a write credential — a read-only publishable or agenda key answers `403` (`read_only_credential`).
      *
      */
     public create<ThrowOnError extends boolean = false>(options: Options<AgendasUploadsCreateData, ThrowOnError>) {

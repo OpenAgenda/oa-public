@@ -1298,8 +1298,8 @@ paths:
         the edit.
 
 
-        Requires a WRITE credential: a secret key (`bearerAuth`) or an OAuth2
-        access token carrying `events:write`.
+        Requires a write credential — a read-only publishable or agenda key
+        answers `403` (`read_only_credential`).
       security:
         - bearerAuth: []
         - oauth2:
