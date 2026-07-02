@@ -20,7 +20,7 @@
     "prepack": "oa-intl compile --esm && yarn build"
   },
   "dependencies": {
-    "@casl/ability": "^2.4.2",
+    "@casl/ability": "^6.7.5",
     "@openagenda/bs-templates": "^2.6.0",
     "@openagenda/intl": "^2.0.0",
     "@openagenda/logs": "^1.2.1",

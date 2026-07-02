@@ -1,8 +1,6 @@
 import _ from 'lodash';
-import abilityPkg from '@casl/ability';
+import { AbilityBuilder, createMongoAbility } from '@casl/ability';
 import config from './config.js';
-
-const { AbilityBuilder } = abilityPkg;
 
 const joinIfArray = (value, delimiter = '|') =>
   (Array.isArray(value) ? value.join(delimiter) : value);
@@ -90,7 +88,7 @@ export function getDefaultFor(entityName) {
   const defaultForFn = config.interfaces
     && config.interfaces.defaultFor
     && config.interfaces.defaultFor[entityName];
-  const builder = AbilityBuilder.extract();
+  const builder = new AbilityBuilder(createMongoAbility);
 
   function wrapper(func, ...args) {
     const result = func(...args);

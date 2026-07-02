@@ -34,7 +34,9 @@ function getEditableRules(ability, entity) {
 
     return _.assign(_.pick(rule, 'tag'), rulesLib.parse(rule), {
       inverted: !isAble,
-      relevantRule: relevantRule ? rulesLib.parse(relevantRule) : relevantRule,
+      relevantRule: relevantRule
+        ? rulesLib.parse(relevantRule.origin)
+        : relevantRule,
     });
   });
 }

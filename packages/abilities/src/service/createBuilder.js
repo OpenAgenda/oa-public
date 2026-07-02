@@ -1,10 +1,8 @@
 import _ from 'lodash';
-import abilityPkg from '@casl/ability';
-
-const { AbilityBuilder } = abilityPkg;
+import { AbilityBuilder, createMongoAbility } from '@casl/ability';
 
 export default function createBuilder(entityName, identifier) {
-  const builder = AbilityBuilder.extract();
+  const builder = new AbilityBuilder(createMongoAbility);
 
   function defineWrapper(func, ...args) {
     const result = func(...args);
