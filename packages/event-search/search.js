@@ -251,6 +251,12 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
 
   log('searching with query %j and nav %j', cleanQuery, cleanNav);
 
+  // Reference instant for relative time filters (upcoming/passed/current),
+  // floored to the minute. Passing a fixed timestamp instead of ES date-math
+  // `now` lets identical requests within the same minute hit ES's query cache;
+  // `now` is re-evaluated per request and would make every request a cache miss.
+  const now = new Date(Math.floor(start / 60000) * 60000).toISOString();
+
   cleanDSL = queryToDSL(
     cleanQuery,
     cleanNav.size !== undefined ? cleanNav : {},
@@ -261,6 +267,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
       removed,
       access,
       sort: dslSort,
+      now,
     },
   );
 
@@ -281,7 +288,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     cleanDSL.aggregations = aggregations.formatDSL(
       requestedAggregations,
       query,
-      { includes, formSchema },
+      { includes, formSchema, now },
     );
   }
 

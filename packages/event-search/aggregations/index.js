@@ -145,7 +145,11 @@ export default {
 
           const result = {
             ...aggregationDSL,
-            [key]: formatDSL(query, getOptions(r, options)),
+            // `now` is a server-injected instant (pinned to the minute in
+            // search.js for cache stability); re-assert it AFTER the per-request
+            // merge so a client-supplied `now` key in the aggregation request
+            // cannot shadow it and desync facet counts from the hits.
+            [key]: formatDSL(query, { ...getOptions(r, options), now: options.now }),
           };
 
           // Special handling for valid aggregation with missing parameter

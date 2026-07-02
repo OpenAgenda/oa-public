@@ -1,6 +1,16 @@
 import validateQuery from '../utils/validateQuery.js';
 import getDSLQueryPart from '../utils/getDSLQueryPart.js';
 
+// Soft-delete exclusion now lives in filter context (cacheable, unscored): a
+// plain term appended as the last `filter` clause, instead of a scored
+// top-level `should`. The index is normalised (every doc has `removed`), so no
+// `exists` fallback is needed.
+const removedFilter = {
+  term: {
+    removed: false,
+  },
+};
+
 describe('event-search - unit: utils - getDSLQueryPart', () => {
   it('filtering by uid only', () => {
     expect(getDSLQueryPart(validateQuery({ uid: 123 }))).toEqual({
@@ -12,23 +22,7 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
           {
             terms: { state: [2] },
           },
-        ],
-        minimum_should_match: 1,
-        should: [
-          {
-            bool: {
-              must_not: {
-                exists: {
-                  field: 'removed',
-                },
-              },
-            },
-          },
-          {
-            term: {
-              removed: false,
-            },
-          },
+          removedFilter,
         ],
       },
     });
@@ -48,23 +42,7 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
               state: [2],
             },
           },
-        ],
-        minimum_should_match: 1,
-        should: [
-          {
-            bool: {
-              must_not: {
-                exists: {
-                  field: 'removed',
-                },
-              },
-            },
-          },
-          {
-            term: {
-              removed: false,
-            },
-          },
+          removedFilter,
         ],
       },
     });
@@ -81,8 +59,8 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
               state: [2],
             },
           },
+          removedFilter,
         ],
-        minimum_should_match: 1,
         must_not: {
           bool: {
             filter: [
@@ -103,22 +81,6 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
             ],
           },
         },
-        should: [
-          {
-            bool: {
-              must_not: {
-                exists: {
-                  field: 'removed',
-                },
-              },
-            },
-          },
-          {
-            term: {
-              removed: false,
-            },
-          },
-        ],
       },
     });
   });
@@ -139,23 +101,7 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
               state: [2],
             },
           },
-        ],
-        minimum_should_match: 1,
-        should: [
-          {
-            bool: {
-              must_not: {
-                exists: {
-                  field: 'removed',
-                },
-              },
-            },
-          },
-          {
-            term: {
-              removed: false,
-            },
-          },
+          removedFilter,
         ],
       },
     });
@@ -172,8 +118,8 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
               state: [2],
             },
           },
+          removedFilter,
         ],
-        minimum_should_match: 1,
         must_not: {
           bool: {
             filter: [
@@ -185,22 +131,6 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
             ],
           },
         },
-        should: [
-          {
-            bool: {
-              must_not: {
-                exists: {
-                  field: 'removed',
-                },
-              },
-            },
-          },
-          {
-            term: {
-              removed: false,
-            },
-          },
-        ],
       },
     });
   });
@@ -214,7 +144,7 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
       }),
     );
 
-    expect(DSL.bool.filter.find((f) => f.term['originAgenda.uid'])).toEqual({
+    expect(DSL.bool.filter.find((f) => f.term?.['originAgenda.uid'])).toEqual({
       term: {
         'originAgenda.uid': 123,
       },
@@ -242,23 +172,7 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
           {
             terms: { state: [2] },
           },
-        ],
-        minimum_should_match: 1,
-        should: [
-          {
-            bool: {
-              must_not: {
-                exists: {
-                  field: 'removed',
-                },
-              },
-            },
-          },
-          {
-            term: {
-              removed: false,
-            },
-          },
+          removedFilter,
         ],
       },
     });
@@ -321,8 +235,8 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
               state: [2],
             },
           },
+          removedFilter,
         ],
-        minimum_should_match: 1,
         must_not: {
           bool: {
             filter: [
@@ -334,23 +248,76 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
             ],
           },
         },
-        should: [
-          {
-            bool: {
-              must_not: {
-                exists: {
-                  field: 'removed',
-                },
-              },
-            },
-          },
-          {
-            term: {
-              removed: false,
-            },
-          },
-        ],
       },
+    });
+  });
+
+  describe('relative time filters use the injected `now`', () => {
+    // search.js injects a minute-floored timestamp so identical requests share
+    // an ES cache entry. When no `now` is injected we fall back to the ES `now`
+    // token (covered by the cases above); here we assert the injected value is
+    // threaded verbatim into every relative branch.
+    const now = '2026-06-25T08:59:00.000Z';
+
+    it('upcoming -> _search_first_timing gt now', () => {
+      const DSL = getDSLQueryPart(validateQuery({ relative: ['upcoming'] }), {
+        now,
+      });
+      expect(DSL.bool.filter).toContainEqual({
+        range: { _search_first_timing: { gt: now } },
+      });
+    });
+
+    it('passed -> _search_last_timing lt now', () => {
+      const DSL = getDSLQueryPart(validateQuery({ relative: ['passed'] }), {
+        now,
+      });
+      expect(DSL.bool.filter).toContainEqual({
+        range: { _search_last_timing: { lt: now } },
+      });
+    });
+
+    it('current -> last gt now and first lt now', () => {
+      const DSL = getDSLQueryPart(validateQuery({ relative: ['current'] }), {
+        now,
+      });
+      expect(DSL.bool.filter).toContainEqual({
+        range: { _search_last_timing: { gt: now } },
+      });
+      expect(DSL.bool.filter).toContainEqual({
+        range: { _search_first_timing: { lt: now } },
+      });
+    });
+
+    it('upcoming + current -> nested timings.end gte now', () => {
+      const DSL = getDSLQueryPart(
+        validateQuery({ relative: ['upcoming', 'current'] }),
+        { now },
+      );
+      expect(DSL.bool.filter).toContainEqual({
+        nested: {
+          path: 'timings',
+          query: { range: { 'timings.end': { gte: now } } },
+        },
+      });
+    });
+
+    it('passed + upcoming -> must_not range bounds use now', () => {
+      const DSL = getDSLQueryPart(
+        validateQuery({ relative: ['passed', 'upcoming'] }),
+        { now },
+      );
+      expect(DSL.bool.must_not.bool.filter).toEqual([
+        { range: { _search_first_timing: { lte: now } } },
+        { range: { _search_last_timing: { gte: now } } },
+      ]);
+    });
+
+    it('falls back to the ES `now` token when not injected', () => {
+      const DSL = getDSLQueryPart(validateQuery({ relative: ['upcoming'] }));
+      expect(DSL.bool.filter).toContainEqual({
+        range: { _search_first_timing: { gt: 'now' } },
+      });
     });
   });
 });
