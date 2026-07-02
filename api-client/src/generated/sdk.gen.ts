@@ -311,7 +311,7 @@ export class Uploads extends HeyApiClient {
      *
      * Then attach `ref` on an event write — `image: { ref }` or a custom field under `additionalFields` (see `ImageInput` and `AdditionalFields`) — so the media lands in the same write as the rest of the edit.
      *
-     * The accepted type is determined from the file's CONTENT, not the declared `Content-Type`; an unverifiable or disallowed type answers `422`. The size is capped at 20 MiB (`422` past it).
+     * The file must be a platform-supported type (images, PDF, and common office documents). When the content has a recognizable signature the real type wins — a lying `Content-Type`/filename cannot smuggle a disallowed type past; signature-less types (e.g. CSV) are taken from the filename extension. A disallowed type answers `422`. The size is capped at 20 MiB (`422` past it). This is a coarse gate: the precise types a given field accepts are enforced on the event write, against the agenda's form schema.
      *
      * Requires a write credential — a read-only publishable or agenda key answers `403` (`read_only_credential`).
      *

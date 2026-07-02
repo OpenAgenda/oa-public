@@ -86,8 +86,9 @@ tags:
   - name: Uploads
     description: >
       Stage a media file (the native event image, or a custom file/image
-      field) for direct upload to storage, then attach it by reference on an
-      event write. The API never receives the bytes.
+      field) as `multipart/form-data`, then attach it by reference on an event
+      write — so the media lands in the same write as the rest of the edit. The
+      API validates the file's real type and size before storing it.
 
 # Groups the resource tags under a "Resources" heading in the Scalar sidebar.
 # Forward-compatible with the upcoming members surface (see scopes).
@@ -1254,7 +1255,7 @@ paths:
       operationId: agendas.uploads.create
       tags: [Uploads]
       summary: Stage a media upload
-      x-synonyms: [upload, stage, presign, attach, image, file, media]
+      x-synonyms: [upload, stage, attach, image, file, media]
       x-codeSamples:
         - lang: TypeScript
           label: Stage an image, then attach it to a new event
@@ -1287,9 +1288,13 @@ paths:
         media lands in the same write as the rest of the edit.
 
 
-        The accepted type is determined from the file's CONTENT, not the declared
-        `Content-Type`; an unverifiable or disallowed type answers `422`. The size
-        is capped at 20 MiB (`422` past it).
+        The file must be a platform-supported type (images, PDF, and common
+        office documents). When the content has a recognizable signature the real
+        type wins — a lying `Content-Type`/filename cannot smuggle a disallowed
+        type past; signature-less types (e.g. CSV) are taken from the filename
+        extension. A disallowed type answers `422`. The size is capped at 20 MiB
+        (`422` past it). This is a coarse gate: the precise types a given field
+        accepts are enforced on the event write, against the agenda's form schema.
 
 
         Requires a write credential — a read-only publishable or agenda key
@@ -1311,7 +1316,9 @@ paths:
                 file:
                   type: string
                   format: binary
-                  description: The media file (image or PDF).
+                  description: >
+                    The media file — an image, PDF, or other platform-supported
+                    document (docx, xlsx, csv, …).
       responses:
         '200':
           description: The staging reference to attach on an event write.

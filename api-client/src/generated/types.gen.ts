@@ -3343,7 +3343,8 @@ export type MeAgendasListResponse = MeAgendasListResponses[keyof MeAgendasListRe
 export type AgendasUploadsCreateData = {
     body: {
         /**
-         * The media file (image or PDF).
+         * The media file — an image, PDF, or other platform-supported document (docx, xlsx, csv, …).
+         *
          */
         file: Blob | File;
     };
