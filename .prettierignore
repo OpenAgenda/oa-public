@@ -6,6 +6,11 @@
 # exts
 **/*.mjml
 
+# golden-file test fixtures: byte-exact markdown/HTML where whitespace is
+# significant (markdown hard breaks = two trailing spaces). Reformatting them
+# breaks the fromMarkdownToHTML / reversability assertions.
+md/test/fixtures/
+
 # packages
 bs-templates
 polyfills
