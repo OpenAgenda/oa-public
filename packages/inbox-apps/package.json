@@ -40,7 +40,7 @@
     "classnames": "^2.3.1",
     "final-form": "^4.20.2",
     "immutability-helper": "^3.0.0",
-    "js-cookie": "^2.2.0",
+    "js-cookie": "^3.0.7",
     "lodash": "^4.17.15",
     "moment": "^2.27.0",
     "qs": "^6.9.1",
