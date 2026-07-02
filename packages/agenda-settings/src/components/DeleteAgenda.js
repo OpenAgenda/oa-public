@@ -57,21 +57,29 @@ export default function DeleteAgenda(props = {}) {
         <Modal
           onClose={() => doRedirect(redirectTo)}
           title={intl.formatMessage(messages.confirm)}
+          classNames={{
+            title: 'popup-title padding-bottom-z',
+          }}
         >
           <p>{intl.formatMessage(messages.confirmDetail)}</p>
-          <button
-            type="button"
-            className="btn btn-default"
-            onClick={() => doRedirect(redirectTo)}
-          >
-            {intl.formatMessage(messages.closeConfirm)}
-          </button>
+          <div className="text-center padding-top-sm">
+            <button
+              type="button"
+              className="btn btn-default"
+              onClick={() => doRedirect(redirectTo)}
+            >
+              {intl.formatMessage(messages.closeConfirm)}
+            </button>
+          </div>
         </Modal>
       ) : null}
       {step === 'authenticate' ? (
         <Modal
           onClose={() => setStep()}
           title={intl.formatMessage(messages.verifyAuthenticate)}
+          classNames={{
+            title: 'popup-title padding-bottom-z',
+          }}
         >
           <AuthenticateAndConfirm
             method="delete"
