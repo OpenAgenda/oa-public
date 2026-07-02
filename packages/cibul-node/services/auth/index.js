@@ -212,7 +212,7 @@ export async function init(config, services) {
     // The in-process API resource (v3) auth protects + mints exchanged tokens
     // for. The MCP resource is no longer a top-level option — it rides in the
     // exchange registry as the MCP client's `subjectResource`.
-    apiResourceUrl: config.v3ResourceUrl,
+    apiResourceUrl: config.apiResourceUrl,
     // O2.5 token-exchange (RFC 8693) — exposes /oauth2/token-exchange only when
     // apiResourceUrl and ≥1 registered client are set (see tokenExchangePlugin.js).
     exchangeClients: config.exchangeClients,

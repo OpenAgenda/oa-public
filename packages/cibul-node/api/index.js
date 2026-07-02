@@ -71,15 +71,11 @@ export default (core, { useRouter = true } = {}) => {
     );
   });
 
-  // access token control and user load
-  app.post('*', mw.verifyAndLoadAccessTokenUser);
-  app.patch('*', mw.verifyAndLoadAccessTokenUser);
-  app.put('*', mw.verifyAndLoadAccessTokenUser);
-  app.delete('*', mw.verifyAndLoadAccessTokenUser);
-
-  // Public API landing — short-circuits before key auth so `GET /v2` answers
-  // with a docs pointer whether or not a key is present (the bare root has no
-  // other handler and would otherwise fall through to the 404 catch-all).
+  // Public API landing — short-circuits before ANY auth so `GET /v2` answers
+  // with a docs pointer whether or not credentials are present (the bare root has
+  // no other handler and would otherwise fall through to the 404 catch-all).
+  // Defined ahead of the auth chain so a malformed token never turns it into a
+  // 401 — this route ignores authentication by contract.
   app.get('/', (req, res) => {
     const body = {
       version: 'v2',
@@ -99,6 +95,19 @@ export default (core, { useRouter = true } = {}) => {
 
     res.json(body);
   });
+
+  // OAuth bearer (JWS): resolve the consenting user before the legacy key/token
+  // paths (both short-circuit on an already-resolved req.user). No-ops without a
+  // Bearer JWT, so api-key / tk- / session / anonymous callers are untouched. The
+  // per-operation scope is then enforced by mw.requireScope on each route below
+  // (and mw.denyUncheckedOAuthScope as a fail-closed backstop, mounted last).
+  app.all('*', mw.verifyAndLoadOAuthUser);
+
+  // access token control and user load
+  app.post('*', mw.verifyAndLoadAccessTokenUser);
+  app.patch('*', mw.verifyAndLoadAccessTokenUser);
+  app.put('*', mw.verifyAndLoadAccessTokenUser);
+  app.delete('*', mw.verifyAndLoadAccessTokenUser);
 
   app.get('*', mw.verifyAndLoadAgendaOrUserFromKey);
 
@@ -135,18 +144,25 @@ export default (core, { useRouter = true } = {}) => {
     mw.member.load,
   );
 
+  // Gate BEFORE redirectIfPrivate: reading an agenda needs `agendas:read`, and
+  // the private-agenda 302 would otherwise leak the agenda's existence + private
+  // status to an OAuth token that lacks the scope (the handler's own gate at the
+  // GET route below runs too late, after the redirect). No effect on non-OAuth
+  // callers (grantedScopesOf → null → pass).
   app.get(
     ['/agendas/slug/:agendaSlug', '/agendas/:agendaUid'],
+    mw.requireScope('agendas:read'),
     mw.redirectIfPrivate,
   );
 
-  app.post('/agendas', (req, res, next) =>
+  app.post('/agendas', mw.requireScope('agendas:write'), (req, res, next) =>
     core.agendas
       .create(req.parsedData, { userUid: req.user.uid, includeImagePath: true })
       .then((agenda) => res.json(agenda), next));
 
   app.patch(
     '/agendas/:agendaUid',
+    mw.requireScope('agendas:write'),
     mw.member.load,
     mw.member.allow(['administrator']),
     (req, res, next) => {
@@ -170,6 +186,7 @@ export default (core, { useRouter = true } = {}) => {
       '/agendas/:agendaUid',
       '/agendas/:agendaUid.prv',
     ],
+    mw.requireScope('agendas:read'),
     async (req, res, next) =>
       res.json(
         await core
@@ -189,6 +206,7 @@ export default (core, { useRouter = true } = {}) => {
 
   app.delete(
     '/agendas/:agendaUid',
+    mw.requireScope('agendas:write'),
     core.services.users.mw.verifyHeadersPassword,
     mw.member.load,
     mw.member.allow(['administrator'], {
@@ -203,6 +221,7 @@ export default (core, { useRouter = true } = {}) => {
 
   app.get(
     ['/agendas/:agendaUid/sources', '/agendas/slug/:agendaSlug/sources'],
+    mw.requireScope('agendas:read'),
     mw.member.load,
     mw.member.allow(['administrator'], {
       or: allowSuperAdmin({ redirect: false }),
@@ -221,6 +240,7 @@ export default (core, { useRouter = true } = {}) => {
       '/agendas/:agendaUid/sources/:sourceAgendaUid',
       '/agendas/slug/:agendaSlug/sources/:sourceAgendaUid',
     ],
+    mw.requireScope('agendas:write'),
     mw.member.load,
     mw.member.allow(['administrator']),
     (req, res, next) =>
@@ -239,6 +259,7 @@ export default (core, { useRouter = true } = {}) => {
       '/agendas/:agendaUid/sources/:sourceAgendaUid',
       '/agendas/slug/:agendaSlug/sources/:sourceAgendaUid',
     ],
+    mw.requireScope('agendas:write'),
     mw.member.load,
     mw.member.allow(['administrator']),
     (req, res, next) =>
@@ -252,29 +273,38 @@ export default (core, { useRouter = true } = {}) => {
         }, next),
   );
 
-  app.post('/agendas/:agendaUid/events/validate', mw.eventValidate);
+  app.post(
+    '/agendas/:agendaUid/events/validate',
+    mw.requireScope('events:write'),
+    mw.eventValidate,
+  );
 
-  app.post('/agendas/:agendaUid/events', (req, res, next) =>
-    core
-      .agendas(req.agenda.uid)
-      .events.create(req.parsedData, {
-        context: {
-          userUid: req.member.userUid,
-        },
-        access: req.access,
-        defaultLang: req.headers.lang,
-        callOrigin: 'api',
-        returnPayload: true,
-      })
-      .then(({ event, times }) => {
-        req.times = times;
-        res.json({
-          success: true,
-          event,
-        });
-      }, next));
+  app.post(
+    '/agendas/:agendaUid/events',
+    mw.requireScope('events:write'),
+    (req, res, next) =>
+      core
+        .agendas(req.agenda.uid)
+        .events.create(req.parsedData, {
+          context: {
+            userUid: req.member.userUid,
+          },
+          access: req.access,
+          defaultLang: req.headers.lang,
+          callOrigin: 'api',
+          returnPayload: true,
+        })
+        .then(({ event, times }) => {
+          req.times = times;
+          res.json({
+            success: true,
+            event,
+          });
+        }, next),
+  );
 
   app.post('/agendas/:agendaUid/events/search', [
+    mw.requireScope('events:read'),
     track.mw('api', 'list', 'events'),
     mw.validateNavSize,
     mw.searchAgendaEvents(core, { queryNamespace: 'parsedData' }),
@@ -286,41 +316,58 @@ export default (core, { useRouter = true } = {}) => {
     },
   ]);
 
-  app.post('/agendas/:agendaUid/events/:eventUid', mw.eventUpdate);
+  app.post(
+    '/agendas/:agendaUid/events/:eventUid',
+    mw.requireScope('events:write'),
+    mw.eventUpdate,
+  );
 
-  app.patch('/agendas/:agendaUid/events/:eventUid', mw.eventUpdate);
+  app.patch(
+    '/agendas/:agendaUid/events/:eventUid',
+    mw.requireScope('events:write'),
+    mw.eventUpdate,
+  );
 
-  app.delete('/agendas/:agendaUid/events/:eventUid', (req, res, next) =>
-    core
-      .agendas(req.agenda.uid)
-      .events.remove(req.event.uid, {
-        context: {
-          agendaUid: req.agenda.uid,
-          userUid: req.user.uid,
-          user: req.user,
-          member: req.member,
-        },
-        private: null,
-        returnPayload: true,
-      })
-      .then(({ removed, times }) => {
-        req.times = times;
-        res.json({ success: true, event: removed });
-      }, next));
+  app.delete(
+    '/agendas/:agendaUid/events/:eventUid',
+    mw.requireScope('events:write'),
+    (req, res, next) =>
+      core
+        .agendas(req.agenda.uid)
+        .events.remove(req.event.uid, {
+          context: {
+            agendaUid: req.agenda.uid,
+            userUid: req.user.uid,
+            user: req.user,
+            member: req.member,
+          },
+          private: null,
+          returnPayload: true,
+        })
+        .then(({ removed, times }) => {
+          req.times = times;
+          res.json({ success: true, event: removed });
+        }, next),
+  );
 
-  app.get('/agendas/:agendaUid/events/:eventUid/references', (req, res, next) =>
-    core
-      .agendas(req.agenda.uid)
-      .events.references(
-        req.event.uid,
-        {},
-        {
-          userUid: req.user?.uid,
-        },
-      )
-      .then((references) => res.json({ success: true, references }), next));
+  app.get(
+    '/agendas/:agendaUid/events/:eventUid/references',
+    mw.requireScope('events:read'),
+    (req, res, next) =>
+      core
+        .agendas(req.agenda.uid)
+        .events.references(
+          req.event.uid,
+          {},
+          {
+            userUid: req.user?.uid,
+          },
+        )
+        .then((references) => res.json({ success: true, references }), next),
+  );
 
   app.post('/agendas/:agendaUid/events/:eventUid/conversations', [
+    mw.requireScope('events:write'),
     mw.member.allow(['administrator', 'moderator']),
     (req, res, next) =>
       core
@@ -335,6 +382,7 @@ export default (core, { useRouter = true } = {}) => {
   if (app.services.activities) {
     app.get(
       '/agendas/:agendaUid/events/:eventUid/activities',
+      mw.requireScope('events:read'),
       mw.member.allow(['contributor', 'moderator', 'administrator']),
       app.services.activities.mw.listUserEventActivities,
     );
@@ -343,6 +391,7 @@ export default (core, { useRouter = true } = {}) => {
   app.get(
     ['/agendas/:agendaUid/events', '/agendas/slug/:agendaSlug/events'],
     [
+      mw.requireScope('events:read'),
       mw.convertLegacyFilter,
       track.mw('api', 'list', 'events'),
       mw.validateNavSize,
@@ -357,6 +406,7 @@ export default (core, { useRouter = true } = {}) => {
   );
 
   app.get('/agendas/:agendaUid/events.json-ld', [
+    mw.requireScope('events:read'),
     track.mw('api', 'list', 'events'),
     mw.validateNavSize,
     mw.searchAgendaEvents(core, {
@@ -395,6 +445,7 @@ export default (core, { useRouter = true } = {}) => {
       '/agendas/slug/:agendaSlug/events/slug/:eventSlug.pdf',
     ],
     [
+      mw.requireScope('events:read'),
       (req, _res, next) =>
         core
           .agendas(req.agenda.uid)
@@ -421,6 +472,7 @@ export default (core, { useRouter = true } = {}) => {
       '/agendas/slug/:agendaSlug/events/:eventUid',
     ],
     [
+      mw.requireScope('events:read'),
       mw.evaluateAnonymousAccess,
       mw.getEventFromSearchOrAsDraft,
       track.mw('api', 'get', 'events'),
@@ -433,6 +485,7 @@ export default (core, { useRouter = true } = {}) => {
   );
 
   app.get('/agendas/:agendaUid/events/ext/:extKey/:extId', [
+    mw.requireScope('events:read'),
     mw.evaluateAnonymousAccess,
     mw.getEventFromSearchOrAsDraft,
     track.mw('api', 'get', 'events'),
@@ -444,16 +497,19 @@ export default (core, { useRouter = true } = {}) => {
   ]);
 
   app.put('/agendas/:agendaUid/events/ext/:extKey/:extId', [
+    mw.requireScope('events:write'),
     mw.evaluateAnonymousAccess,
     mw.eventUpdate.byExtId,
   ]);
 
   app.patch('/agendas/:agendaUid/events/ext/:extKey/:extId', [
+    mw.requireScope('events:write'),
     mw.evaluateAnonymousAccess,
     mw.eventUpdate.byExtId,
   ]);
 
   app.delete('/agendas/:agendaUid/events/ext/:extKey/:extId', [
+    mw.requireScope('events:write'),
     mw.evaluateAnonymousAccess,
     (req, res, next) =>
       core
@@ -467,12 +523,14 @@ export default (core, { useRouter = true } = {}) => {
   ]);
 
   app.get('/agendas/:agendaUid/settings', [
+    mw.requireScope('agendas:read'),
     mw.member.allow(['administrator']),
     track.mw('api', 'get', 'settings'),
     settings.get,
   ]);
 
   app.get('/agendas/:agendaUid/settings/eventSchema', [
+    mw.requireScope('agendas:read'),
     mw.member.allow(['administrator', 'moderator']),
     track.mw('api', 'get', 'eventSchema'),
     (req, res, next) =>
@@ -483,6 +541,7 @@ export default (core, { useRouter = true } = {}) => {
   ]);
 
   app.get('/agendas/:agendaUid/settings/eventSchema/configure', [
+    mw.requireScope('agendas:read'),
     mw.member.allow(['administrator']),
     (req, res, next) =>
       core
@@ -494,6 +553,7 @@ export default (core, { useRouter = true } = {}) => {
   ]);
 
   app.post('/agendas/:agendaUid/settings/eventSchema/configure', [
+    mw.requireScope('agendas:write'),
     mw.member.allow(['administrator']),
     (req, res, next) =>
       core
@@ -503,6 +563,7 @@ export default (core, { useRouter = true } = {}) => {
   ]);
 
   app.get('/agendas/:agendaUid/settings/memberSchema', [
+    mw.requireScope('agendas:read'),
     mw.member.load,
     track.mw('api', 'get', 'memberSchema'),
     (req, res, next) =>
@@ -517,6 +578,7 @@ export default (core, { useRouter = true } = {}) => {
   ]);
 
   app.get('/agendas/:agendaUid/settings/passCulture', [
+    mw.requireScope('agendas:read'),
     mw.member.allow(['administrator', 'contributor', 'moderator']),
     (req, res, next) => {
       if (!req.agenda.settings.registration.passCulture.siren) {
@@ -530,6 +592,7 @@ export default (core, { useRouter = true } = {}) => {
   ]);
 
   app.get('/agendas/:agendaUid/events/:eventUid/passCulture/bookings', [
+    mw.requireScope('events:read'),
     mw.member.allow(['administrator', 'contributor', 'moderator']),
     (req, res, next) => {
       core.services.registrations.utils.passCulture
@@ -539,6 +602,7 @@ export default (core, { useRouter = true } = {}) => {
   ]);
 
   app.get('/agendas/:agendaUid/settings/memberSchema/configure', [
+    mw.requireScope('agendas:read'),
     mw.member.load,
     mw.member.allow(['administrator']),
     (req, res, next) =>
@@ -552,6 +616,7 @@ export default (core, { useRouter = true } = {}) => {
   ]);
 
   app.post('/agendas/:agendaUid/settings/memberSchema/configure', [
+    mw.requireScope('agendas:write'),
     mw.member.load,
     mw.member.allow(['administrator']),
     (req, res, next) =>
@@ -567,6 +632,7 @@ export default (core, { useRouter = true } = {}) => {
   ]);
 
   app.get('/agendas/:agendaUid/members', [
+    mw.requireScope('members:read'),
     mw.member.allow(['administrator', 'moderator'], {
       or: allowSuperAdmin({ redirect: false }),
     }),
@@ -591,6 +657,7 @@ export default (core, { useRouter = true } = {}) => {
 
   app.post(
     '/agendas/:agendaUid/members/invite',
+    mw.requireScope('members:write'),
     mw.member.load,
     mw.member.loadContext,
     (req, res, next) =>
@@ -610,23 +677,28 @@ export default (core, { useRouter = true } = {}) => {
         .then((data) => res.json(data), next),
   );
 
-  app.post('/agendas/:agendaUid/members', (req, res, next) =>
-    core
-      .agendas(req.agenda.uid)
-      .members.create(
-        req.body.userUid ?? req.user.uid,
-        req.body.role,
-        req.parsedData,
-        {
-          userUid: req.user.uid,
-          context: {
-            silent: boolQuery(req.query.silent),
+  app.post(
+    '/agendas/:agendaUid/members',
+    mw.requireScope('members:write'),
+    (req, res, next) =>
+      core
+        .agendas(req.agenda.uid)
+        .members.create(
+          req.body.userUid ?? req.user.uid,
+          req.body.role,
+          req.parsedData,
+          {
+            userUid: req.user.uid,
+            context: {
+              silent: boolQuery(req.query.silent),
+            },
           },
-        },
-      )
-      .then((member) => res.json(member), next));
+        )
+        .then((member) => res.json(member), next),
+  );
 
   app.get('/agendas/:agendaUid/members/email/:email', [
+    mw.requireScope('members:read'),
     mw.member.load,
     track.mw('api', 'get', 'memberEmail'),
     (req, res, next) =>
@@ -645,6 +717,7 @@ export default (core, { useRouter = true } = {}) => {
   ]);
 
   app.get('/agendas/:agendaUid/members/:userUid', [
+    mw.requireScope('members:read'),
     mw.member.load,
     track.mw('api', 'get', 'member'),
     (req, res, next) =>
@@ -663,6 +736,7 @@ export default (core, { useRouter = true } = {}) => {
       '/agendas/:agendaUid/members/member/:memberId',
     ],
     [
+      mw.requireScope('members:write'),
       mw.member.load,
       (req, res, next) =>
         core
@@ -684,6 +758,7 @@ export default (core, { useRouter = true } = {}) => {
       '/agendas/:agendaUid/members/member/:memberId',
     ],
     [
+      mw.requireScope('members:write'),
       mw.member.load,
       (req, res, next) =>
         core
@@ -708,6 +783,7 @@ export default (core, { useRouter = true } = {}) => {
   );
 
   app.post('/agendas/:agendaUid/members/sendGroupMail', [
+    mw.requireScope('members:write'),
     mw.member.load,
     mw.member.allow(['administrator', 'moderator']),
     (req, res, next) =>
@@ -722,6 +798,7 @@ export default (core, { useRouter = true } = {}) => {
   ]);
 
   app.post('/agendas/:agendaUid/locations', [
+    mw.requireScope('locations:write'),
     mw.member.allow(['administrator', 'moderator', 'contributor']),
     (req, res, next) =>
       core
@@ -766,30 +843,43 @@ export default (core, { useRouter = true } = {}) => {
     next();
   });
 
-  app.get('/locations/geocode', (req, res, next) =>
-    core.services
-      .geocoder(req.query.address, {
-        countryCode: req.query.countryCode,
-        language: req.lang || 'fr',
-      })
-      .then((results) => res.send({ results }), next));
+  app.get(
+    '/locations/geocode',
+    mw.requireScope('locations:read'),
+    (req, res, next) =>
+      core.services
+        .geocoder(req.query.address, {
+          countryCode: req.query.countryCode,
+          language: req.lang || 'fr',
+        })
+        .then((results) => res.send({ results }), next),
+  );
 
-  app.get('/locations/geocode/reverse', (req, res, next) =>
-    core.services.geocoder
-      .reverse(req.query.latitude, req.query.longitude, {
-        language: req.lang || 'fr',
-      })
-      .then((results) => res.send({ results }), next));
+  app.get(
+    '/locations/geocode/reverse',
+    mw.requireScope('locations:read'),
+    (req, res, next) =>
+      core.services.geocoder
+        .reverse(req.query.latitude, req.query.longitude, {
+          language: req.lang || 'fr',
+        })
+        .then((results) => res.send({ results }), next),
+  );
 
-  app.get('/locations/insee', (req, res, next) =>
-    core.services.agendaLocations.utils
-      .getINSEECode(
-        _.pick(req.query, ['city', 'department', 'latitude', 'longitude']),
-      )
-      .then((code) => res.json({ code }), next));
+  app.get(
+    '/locations/insee',
+    mw.requireScope('locations:read'),
+    (req, res, next) =>
+      core.services.agendaLocations.utils
+        .getINSEECode(
+          _.pick(req.query, ['city', 'department', 'latitude', 'longitude']),
+        )
+        .then((code) => res.json({ code }), next),
+  );
 
   app.get(
     '/agendas/:agendaUid/locations/:locationUid/activities',
+    mw.requireScope('locations:read'),
     mw.member.allow(['contributor', 'moderator', 'administrator']),
     async (req, res, next) => {
       try {
@@ -813,13 +903,18 @@ export default (core, { useRouter = true } = {}) => {
     },
   );
 
-  app.get('/agendas/:agendaUid/locations/settings', (req, res, next) =>
-    core
-      .agendas(req.agenda.uid)
-      .locations.settings.get({ includeSetInfo: req.query.includeSetInfo })
-      .then((resp) => res.json(resp), next));
+  app.get(
+    '/agendas/:agendaUid/locations/settings',
+    mw.requireScope('locations:read'),
+    (req, res, next) =>
+      core
+        .agendas(req.agenda.uid)
+        .locations.settings.get({ includeSetInfo: req.query.includeSetInfo })
+        .then((resp) => res.json(resp), next),
+  );
 
   app.post('/agendas/:agendaUid/locations/merge', [
+    mw.requireScope('locations:write'),
     mw.member.allow(['administrator', 'moderator']),
     (req, res, next) =>
       core
@@ -847,6 +942,7 @@ export default (core, { useRouter = true } = {}) => {
       '/agendas/:agendaUid/locations/slug/:locationSlug',
     ],
     [
+      mw.requireScope('locations:read'),
       (req, res, next) =>
         core
           .agendas(req.agenda.uid)
@@ -872,6 +968,7 @@ export default (core, { useRouter = true } = {}) => {
   app.post(
     '/agendas/:agendaUid/locations/:locationUid/transfer/:targetAgendaUid',
     [
+      mw.requireScope('locations:write'),
       mw.member.allow(['administrator', 'moderator']),
       (req, res, next) =>
         core
@@ -903,6 +1000,7 @@ export default (core, { useRouter = true } = {}) => {
       '/agendas/:agendaUid/locations/ext/:locationExtKey/:locationExtValue',
     ],
     [
+      mw.requireScope('locations:write'),
       mw.member.allow(['administrator', 'moderator']),
       (req, res, next) =>
         core
@@ -930,6 +1028,7 @@ export default (core, { useRouter = true } = {}) => {
       '/agendas/:agendaUid/locations/ext/:locationExtKey/:locationExtValue',
     ],
     [
+      mw.requireScope('locations:write'),
       mw.allowLocationSetWithContributorCreate(core),
       (req, res, next) =>
         core
@@ -959,6 +1058,7 @@ export default (core, { useRouter = true } = {}) => {
       '/agendas/:agendaUid/locations/ext/:locationExtKey/:locationExtValue',
     ],
     [
+      mw.requireScope('locations:write'),
       mw.member.allow(['administrator', 'moderator']),
       (req, res, next) =>
         core
@@ -988,6 +1088,7 @@ export default (core, { useRouter = true } = {}) => {
       '/agendas/:agendaUid/locations/ext/:locationExtKey/:locationExtValue',
     ],
     [
+      mw.requireScope('locations:write'),
       mw.member.allow(['administrator', 'moderator']),
       (req, res, next) =>
         core
@@ -1011,6 +1112,7 @@ export default (core, { useRouter = true } = {}) => {
 
   app.get(
     '/agendas/:agendaUid/locations',
+    mw.requireScope('locations:read'),
     track.mw('api', 'list', 'locations'),
     (req, res, next) =>
       core
@@ -1033,6 +1135,7 @@ export default (core, { useRouter = true } = {}) => {
   );
 
   app.post('/agendas/:agendaUid/settings/resync', [
+    mw.requireScope('agendas:write'),
     mw.member.allow(['administrator'], {
       or: allowSuperAdmin({ redirect: false }),
     }),
@@ -1040,6 +1143,7 @@ export default (core, { useRouter = true } = {}) => {
   ]);
 
   app.get('/agendas/:agendaUid/summary', [
+    mw.requireScope('agendas:read'),
     mw.member.load,
     track.mw('api', 'get', 'summary'),
     (req, res, next) => {
@@ -1069,7 +1173,7 @@ export default (core, { useRouter = true } = {}) => {
     },
   ]);
 
-  app.delete('/me', async (req, res, next) => {
+  app.delete('/me', mw.denyOAuthScope, async (req, res, next) => {
     if (!req.user) {
       return next(new NotAuthenticated('Authentication is required'));
     }
@@ -1098,6 +1202,7 @@ export default (core, { useRouter = true } = {}) => {
   });
 
   app.get('/me/agendas', [
+    mw.requireScope('me:read'),
     mw.rejectAgendaKey,
     (req, res, next) =>
       core
@@ -1107,6 +1212,7 @@ export default (core, { useRouter = true } = {}) => {
   ]);
 
   app.get('/me/agendas/:agendaUid', [
+    mw.requireScope('me:read'),
     mw.rejectAgendaKey,
     mw.member.load,
     (req, res, next) => {
@@ -1126,6 +1232,7 @@ export default (core, { useRouter = true } = {}) => {
   ]);
 
   app.get('/me/agendas/:agendaUid/events', [
+    mw.requireScope('me:read'),
     mw.rejectAgendaKey,
     mw.member.load,
     (req, res, next) => {
@@ -1158,6 +1265,7 @@ export default (core, { useRouter = true } = {}) => {
   ]);
 
   app.get('/me/agendas/:agendaUid/events/drafts', [
+    mw.requireScope('me:read'),
     mw.rejectAgendaKey,
     mw.member.load,
     (req, res, next) => {
@@ -1187,6 +1295,7 @@ export default (core, { useRouter = true } = {}) => {
   ]);
 
   app.get('/me/agendas/:agendaUid/events/:eventUid', [
+    mw.requireScope('me:read'),
     mw.rejectAgendaKey,
     mw.member.load,
     (req, res, next) => {
@@ -1202,20 +1311,26 @@ export default (core, { useRouter = true } = {}) => {
     },
   ]);
 
-  app.get('/agendas', mw.extractIncludeFields, (req, res, next) => {
-    core.agendas
-      .search(req.query, req.query, {
-        useDefaultImage:
-          req.query.useDefaultImage && req.query.useDefaultImage === '1',
-        includeImagePath: !(
-          req.query.includeImagePath && req.query.includeImagePath === '0'
-        ),
-        includeFields: req.includeFields,
-      })
-      .then((data) => res.json({ ...data, success: true }), next);
-  });
+  app.get(
+    '/agendas',
+    mw.requireScope('agendas:read'),
+    mw.extractIncludeFields,
+    (req, res, next) => {
+      core.agendas
+        .search(req.query, req.query, {
+          useDefaultImage:
+            req.query.useDefaultImage && req.query.useDefaultImage === '1',
+          includeImagePath: !(
+            req.query.includeImagePath && req.query.includeImagePath === '0'
+          ),
+          includeFields: req.includeFields,
+        })
+        .then((data) => res.json({ ...data, success: true }), next);
+    },
+  );
 
   app.post('/networks', [
+    mw.denyOAuthScope,
     allowSuperAdmin({ jsonResponse: true }),
     (req, res, next) =>
       core.networks
@@ -1223,7 +1338,7 @@ export default (core, { useRouter = true } = {}) => {
         .then((network) => res.json(network), next),
   ]);
 
-  app.get('/networks/:uid', (req, res, next) => {
+  app.get('/networks/:uid', mw.denyOAuthScope, (req, res, next) => {
     core
       .networks(req.params.uid)
       .get()
@@ -1231,6 +1346,7 @@ export default (core, { useRouter = true } = {}) => {
   });
 
   app.post('/networks/:uid/agendas', [
+    mw.denyOAuthScope,
     allowSuperAdmin({ jsonResponse: true }),
     (req, res, next) =>
       core
@@ -1240,6 +1356,7 @@ export default (core, { useRouter = true } = {}) => {
   ]);
 
   app.get('/networks/:uid/settings/eventSchema/configure', [
+    mw.denyOAuthScope,
     allowSuperAdmin({ jsonResponse: true }),
     (req, res, next) =>
       core
@@ -1251,6 +1368,7 @@ export default (core, { useRouter = true } = {}) => {
   ]);
 
   app.post('/networks/:uid/settings/eventSchema/configure', [
+    mw.denyOAuthScope,
     allowSuperAdmin({ jsonResponse: true }),
     (req, res, next) =>
       core
@@ -1259,7 +1377,7 @@ export default (core, { useRouter = true } = {}) => {
         .then((updatedSchema) => res.json(updatedSchema), next),
   ]);
 
-  app.get('/locationSets/:uid', (req, res, next) => {
+  app.get('/locationSets/:uid', mw.denyOAuthScope, (req, res, next) => {
     core
       .locationSets(req.params.uid)
       .get()
@@ -1270,6 +1388,7 @@ export default (core, { useRouter = true } = {}) => {
   });
 
   app.get('/events', [
+    mw.requireScope('events:read', 'events:transverse'),
     verifyTransverseApiAccess,
     (req, res, next) => {
       core.events
@@ -1303,6 +1422,7 @@ export default (core, { useRouter = true } = {}) => {
   ]);
 
   app.get('/supervisor/users/:uid', [
+    mw.denyOAuthScope,
     allowSuperAdmin({ jsonResponse: true }),
     (req, res) =>
       core.users
@@ -1314,9 +1434,18 @@ export default (core, { useRouter = true } = {}) => {
   ]);
 
   app.get('/supervisor/lookup', [
+    mw.denyOAuthScope,
     allowSuperAdmin({ jsonResponse: true }),
     supervisorLookup,
   ]);
+
+  // Fail-closed backstop for FALL-THROUGH: an OAuth caller whose request reached
+  // the end of the stack without any gate (an unmapped path, or a route whose
+  // chain falls through here via next()) is refused rather than served. NOTE this
+  // does NOT catch a matched route that sends its own response without a gate —
+  // Express ends the chain there, before this runs — so every responding route
+  // must still declare its own requireScope/denyOAuthScope above.
+  app.all('*', mw.denyUncheckedOAuthScope);
 
   log('done');
 

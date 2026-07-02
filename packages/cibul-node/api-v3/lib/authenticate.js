@@ -12,11 +12,12 @@
 // the `apikey` store, so they take a separate lookup.
 
 import { NotAuthenticated, Forbidden } from '@openagenda/verror';
+import { isJwsShaped } from './bearer.js';
 
-// A JWS is exactly three non-empty base64url segments. The OA OAuth access
-// token is a JWS; an `oa_pk_…`/`oa_sk_…` key never matches (no dots), so this
-// cleanly routes a `Bearer <jwt>` to OAuth verification before the api-key path.
-const JWT_RE = /^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/;
+// The OA OAuth access token is a JWS; an `oa_pk_…`/`oa_sk_…` key never matches
+// (no dots), so `isJwsShaped` cleanly routes a `Bearer <jwt>` to OAuth
+// verification before the api-key path. The shape test is shared (bearer.js)
+// with the v2 auth middlewares so the JWT-vs-key routing fork cannot drift.
 
 function extractBearer(req) {
   if (!req.headers.authorization?.startsWith('Bearer ')) return null;
@@ -25,7 +26,7 @@ function extractBearer(req) {
 
 function extractOAuthToken(req) {
   const value = extractBearer(req);
-  return value && JWT_RE.test(value) ? value : null;
+  return isJwsShaped(value) ? value : null;
 }
 
 function extractPublicKey(req) {
@@ -35,7 +36,7 @@ function extractPublicKey(req) {
   }
   // `Bearer tk-…` is a legacy access token; `Bearer <jwt>` is an OAuth token —
   // neither is an api-key public key.
-  if (value.startsWith('tk-') || JWT_RE.test(value)) return null;
+  if (value.startsWith('tk-') || isJwsShaped(value)) return null;
   return value;
 }
 

@@ -1,5 +1,11 @@
 export { default as verifyAndLoadAgendaOrUserFromKey } from './verifyAndLoadAgendaOrUserFromKey.js';
 export { default as verifyAndLoadAccessTokenUser } from './verifyAndLoadAccessTokenUser.js';
+export { default as verifyAndLoadOAuthUser } from './verifyAndLoadOAuthUser.js';
+export {
+  requireScope,
+  denyOAuthScope,
+  denyUncheckedOAuthScope,
+} from './oauthScope.js';
 export * as member from './member.js';
 export { default as loadAgenda } from './loadAgenda.js';
 export { default as eventUpdate } from './eventUpdate.js';
