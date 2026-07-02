@@ -1208,6 +1208,60 @@ describe('core - functional (server): core.agendas().events.create()', () => {
         ]);
       });
 
+      it('create event with unencoded spaces in image url is percent-encoded (not link.invalid)', async () => {
+        let error;
+        try {
+          await ky
+            .post('http://localhost:4000/agendas/17026855/events', {
+              headers: {
+                'access-token': accessToken,
+              },
+              json: {
+                title: {
+                  fr: 'Un événement créé par API',
+                },
+                description: {
+                  fr: 'Un tout petit événement',
+                },
+                image: {
+                  // An unencoded space in the path used to throw a schema-level
+                  // `link.invalid` before any image processing. It must now be
+                  // percent-encoded and flow through to the image-download stage
+                  // like any other unfetchable image url.
+                  url: 'https://cdn.openagenda.com/main/event a l abo.jpg',
+                  credits: 'Les crédits',
+                },
+                timings: [
+                  {
+                    begin: new Date('2019-05-06T10:00:00'),
+                    end: new Date('2019-05-06T11:00:00'),
+                  },
+                ],
+                attendanceMode: 2,
+                onlineAccessLink: 'https://openagenda.com',
+                'categories-agenda-metropolitain': 42,
+                'thematiques-bordeaux-metropole': [3, 4],
+              },
+            })
+            .json();
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error.response.status).toBe(400);
+        const errorData = await error.response.json();
+        // The space no longer trips the `link` validator: the url is encoded and
+        // rejected downstream as an unfetchable image (`url.invalid`), never `link.invalid`.
+        expect(errorData.errors).toEqual([
+          {
+            field: 'image',
+            code: 'url.invalid',
+            fieldLabel: 'Image of the event',
+            message: 'provided image url is not valid',
+          },
+        ]);
+      });
+
       it('contributor may not set state through api', async () => {
         const url = `${ctx.baseUrl}/agendas/17026855/events?key`;
 

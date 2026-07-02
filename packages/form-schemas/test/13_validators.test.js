@@ -30,6 +30,69 @@ describe('file validator', () => {
     });
   });
 
+  it('file by url with unencoded special characters is percent-encoded', () => {
+    const validate = fileValidator({
+      allowURL: true,
+    });
+
+    const clean = validate({
+      url: 'https://orfaon.net/aaa&&& dddda.jpg',
+      extension: 'jpg',
+      originalName: 'aaa&&& dddda.jpg',
+      filename: 'aaa.jpg',
+    });
+
+    // The space is encoded to %20; the `&` is left untouched (valid in URLs).
+    expect(clean.url).toBe('https://orfaon.net/aaa&&&%20dddda.jpg');
+  });
+
+  it('file by url already percent-encoded is left unchanged (idempotent)', () => {
+    const validate = fileValidator({
+      allowURL: true,
+    });
+
+    const clean = validate({
+      url: 'https://orfaon.net/aaa&&&%20dddda.jpg',
+      extension: 'jpg',
+      originalName: 'aaa.jpg',
+      filename: 'aaa.jpg',
+    });
+
+    expect(clean.url).toBe('https://orfaon.net/aaa&&&%20dddda.jpg');
+  });
+
+  it('file by url with surrounding whitespace is trimmed, not encoded', () => {
+    const validate = fileValidator({
+      allowURL: true,
+    });
+
+    const clean = validate({
+      url: '  https://orfaon.net/img.jpg\n',
+      extension: 'jpg',
+      originalName: 'img.jpg',
+      filename: 'img.jpg',
+    });
+
+    // Edge whitespace must be trimmed away, not turned into %20/%0A.
+    expect(clean.url).toBe('https://orfaon.net/img.jpg');
+  });
+
+  it('file by url preserves each inner space (no run collapsing)', () => {
+    const validate = fileValidator({
+      allowURL: true,
+    });
+
+    const clean = validate({
+      url: 'https://orfaon.net/a  b.jpg',
+      extension: 'jpg',
+      originalName: 'a  b.jpg',
+      filename: 'a.jpg',
+    });
+
+    // Two spaces → two %20, so the URL still points at the real filename.
+    expect(clean.url).toBe('https://orfaon.net/a%20%20b.jpg');
+  });
+
   it('image with size and variants option', () => {
     const validate = fileValidator({
       imageWithSizeAndVariants: true,
