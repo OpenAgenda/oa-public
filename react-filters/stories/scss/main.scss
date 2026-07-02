@@ -80,3 +80,80 @@ header {
   height: 180px;
   width: 320px;
 }
+
+// Timeline (swiper) filter layout — mirrors example/scss for the Timeline story
+.oa-timeline {
+  --swiper-theme-color: #1d77ce;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .oa-timeline-swiper-days,
+  .oa-timeline-swiper-months {
+    height: 40px;
+    user-select: none;
+
+    .swiper-wrapper {
+      align-items: center;
+    }
+
+    .swiper-slide {
+      width: auto;
+      height: auto;
+
+      span[role='option'] {
+        padding-inline: 12px;
+        padding-block: 6px;
+        border-radius: 100px;
+        cursor: pointer;
+
+        &[aria-selected='true'] {
+          background: #1d77ce;
+          color: #fff;
+        }
+      }
+    }
+
+    .oa-timeline-swiper-days-day-with-timings {
+      font-weight: bold;
+    }
+    .oa-timeline-swiper-days-day-without-timings {
+      opacity: 0.7;
+    }
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    position: static;
+    width: 32px;
+    flex: 0 0 auto;
+    left: unset;
+    right: unset;
+    top: unset;
+    margin-top: unset;
+    height: auto;
+    &:after {
+      font-size: inherit;
+    }
+  }
+
+  .oa-timeline-swiper-days .swiper-slide {
+    padding: 0 12px;
+  }
+  .oa-timeline-swiper-days .swiper-slide:first-child {
+    padding-left: 0;
+  }
+  .oa-timeline-swiper-days .swiper-slide:last-child {
+    padding-right: 0;
+  }
+  .oa-timeline-swiper-months .swiper-slide {
+    padding: 0 8px;
+  }
+  .oa-timeline-swiper-months .swiper-slide:first-child {
+    padding-left: 0;
+  }
+  .oa-timeline-swiper-months .swiper-slide:last-child {
+    padding-right: 0;
+  }
+}
