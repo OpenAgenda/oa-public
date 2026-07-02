@@ -1,4 +1,7 @@
 import dateFnsLocale from 'date-fns/locale/fr/index.js';
+import 'swiper/css';
+import 'swiper/css/free-mode';
+import 'swiper/css/navigation';
 import {
   IntlProvider,
   FiltersProvider,
@@ -9,6 +12,9 @@ import {
   SimpleDateRangeFilter,
   ActiveFilters,
 } from '../src/index.js';
+// TimelineFilter is not re-exported from the package barrel (it's the default
+// timelineComponent of FiltersManager), so import it directly for this story.
+import TimelineFilter from '../src/components/filters/TimelineFilter.js';
 
 require('./scss/main.scss');
 
@@ -164,3 +170,23 @@ export const ValidFilter = ({ onSubmit }) => {
   );
 };
 ValidFilter.storyName = 'Valid Filter';
+
+export const Timeline = ({ onSubmit }) => (
+  <IntlProvider locale={lang}>
+    <FiltersProvider onSubmit={onSubmit} dateFnsLocale={dateFnsLocale}>
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-10">
+            <div className="oa-timeline">
+              <Filters
+                filters={[{ name: 'timings', type: 'timeline' }]}
+                timelineComponent={TimelineFilter}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </FiltersProvider>
+  </IntlProvider>
+);
+Timeline.storyName = 'Timeline (swiper)';
