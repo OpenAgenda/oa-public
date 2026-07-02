@@ -3,6 +3,7 @@
 exports[`get simple get for a user 1`] = `
 [
   {
+    "action": "create",
     "actions": "create",
     "conditions": null,
     "entityName": "user",
@@ -13,6 +14,7 @@ exports[`get simple get for a user 1`] = `
     "subject": "event",
   },
   {
+    "action": "receive",
     "actions": "receive",
     "conditions": null,
     "entityName": "user",
@@ -23,6 +25,7 @@ exports[`get simple get for a user 1`] = `
     "subject": "activity",
   },
   {
+    "action": "receive",
     "actions": "receive",
     "conditions": {
       "verb": "spam",
@@ -35,6 +38,7 @@ exports[`get simple get for a user 1`] = `
     "subject": "activity",
   },
   {
+    "action": "receive",
     "actions": "receive",
     "conditions": null,
     "entityName": "user",

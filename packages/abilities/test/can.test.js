@@ -75,4 +75,23 @@ describe('can', () => {
     expect(userAbility.can('receive', 'eventUpdate')).toBe(true);
     expect(memberAbility.can('receive', 'eventUpdate')).toBe(false);
   });
+
+  // filterBouncingAndUnsubscribed.js calls the ability with all four
+  // positional arguments: can(action, subject, conditions, fields).
+  test('can with the 4-arg (conditions, fields) production call shape', async () => {
+    const ability = await abilities.get('user', 12345678);
+
+    // 4-arg must agree with the shorter forms for the same conditions
+    expect(ability.can('receive', 'activity', undefined, undefined)).toBe(true);
+    expect(
+      ability.can('receive', 'activity', { verb: 'spam' }, undefined),
+    ).toBe(false);
+    expect(
+      ability.can('receive', 'activity', { verb: 'spam' }, undefined),
+    ).toBe(ability.can('receive', 'activity', { verb: 'spam' }));
+
+    // a passed field argument must not throw nor change the decision when no
+    // rule is field-scoped (rules here declare no `fields`)
+    expect(ability.can('receive', 'activity', undefined, 'title')).toBe(true);
+  });
 });

@@ -1,9 +1,6 @@
 import _ from 'lodash';
-import abilityPkg from '@casl/ability';
-import Rule from './Rule.js';
+import { Ability } from '@casl/ability';
 import * as rulesLib from './rules.js';
-
-const { Ability } = abilityPkg;
 
 export const SUBJECT_NAME = Symbol(
   '@openagenda/abilities/Ability:SUBJECT_NAME',
@@ -46,9 +43,17 @@ function checkWrapper(func, action, subjectName, conditionsOrSubject, field) {
 }
 
 export default function createAbility(entityName, identifier, rules) {
-  const ability = new Ability(rulesLib.parse(rules), {
-    subjectName: getSubjectName,
-    RuleType: Rule,
+  // CASL v6 reads the singular `action` field on raw rules (v2 read `actions`).
+  // We keep `actions` (the DB column name) as the internal field everywhere, so
+  // mirror it onto `action` only at the CASL boundary. `Rule#origin` preserves
+  // the full raw object (incl. id/entityName/identifier and `actions`), which
+  // getEditableRules relies on to round-trip rule metadata.
+  const rawRules = rulesLib
+    .parse(rules)
+    .map((rule) => ({ ...rule, action: rule.actions }));
+
+  const ability = new Ability(rawRules, {
+    detectSubjectType: getSubjectName,
   });
 
   ability.can = _.wrap(ability.can.bind(ability), checkWrapper);
