@@ -27,7 +27,7 @@
     "react-intl": "^10.1.1",
     "readable-stream": "^4.4.2",
     "remark": "^15.0.1",
-    "sharp": "^0.31.1"
+    "sharp": "^0.32.6"
   },
   "devDependencies": {
     "@openagenda/eslint-config": "^2.0.0",
