@@ -293,6 +293,8 @@ export const zExtId = z.object({
 /**
  * Agenda-specific additional fields. The available keys and the shape of each value are defined by the agenda's event form schema (see `GET /agendas/{agendaUid}/events/schema`). Each value follows its field's fieldType (text, choice, multilingual, …).
  *
+ * A `file`/`image` field is set by reference, like the native image: stage the bytes via `POST /agendas/{uid}/uploads`, then send `{ ref, name? }` here (`name` is the original filename, used for the download; optional), or `null` to clear it. On READ the same field returns the stored descriptor `{ originalName, extension, filename }` (build its URL from the media base + `filename`).
+ *
  */
 export const zAdditionalFields = z.record(z.unknown());
 
@@ -522,6 +524,37 @@ export const zEvent = z.object({
 });
 
 /**
+ * Declares an upload to stage. `contentType` must be an accepted media type (images or PDF). `size` (bytes), when given, tightens the signed size cap for this upload. `field` is an optional hint naming the custom file/image field the upload targets.
+ *
+ */
+export const zUploadRequest = z.object({
+    contentType: z.string(),
+    size: z.coerce.bigint().gte(BigInt(1)).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }).optional(),
+    field: z.string().optional()
+});
+
+/**
+ * A staging ticket. POST the bytes to `upload.url` as `multipart/form-data` with every `upload.fields` entry plus the binary as the `file` field (last), then attach `ref` on an event write (`image`, or a custom file/image field under `additionalFields`).
+ *
+ */
+export const zUploadTicket = z.object({
+    ref: z.string(),
+    expiresAt: z.string().datetime(),
+    upload: z.object({
+        url: z.string().url(),
+        fields: z.record(z.string())
+    })
+});
+
+/**
+ * Write shape for an event image, distinct from the read `Image` (which carries the generated size variants). Either attach a freshly-staged upload by its `ref` — the value returned by `POST /agendas/{uid}/uploads` — or send `null` to remove the current image. The staged original is fetched, processed into the standard size variants, and stored as part of the SAME write, so an image change lands in one activity alongside the rest of the edit.
+ *
+ */
+export const zImageInput = z.object({
+    ref: z.string()
+}).nullable();
+
+/**
  * A reference to an existing location by its OpenAgenda uid.
  */
 export const zEventLocationRef = z.object({
@@ -537,7 +570,7 @@ export const zEventLocationRef = z.object({
  *
  * Two fields are settable but authorization-gated, so the value you send may be adjusted or refused: `state` (moderation) and `status` (lifecycle). The moderation `state` is arbitrated by the server from the agenda's contribution settings and your role — a moderator's value is honored, a `state: 2` (publish) without permission answers `403`, and a contributor's value is ignored in favour of the agenda default. The `status` field is a per-agenda opt-in feature (`settings.lab.status`): when it is disabled for the agenda, sending `status` answers `422`. See each field for details.
  *
- * Not settable in this version: images (`image`/`imageCredits` — a dedicated upload endpoint is planned) and draft creation. `private` is never accepted: an event's privacy is derived from its agenda, not set per-event.
+ * The `image` is set by reference: stage the bytes via `POST /agendas/{uid}/uploads`, then pass the returned `ref` here (or `null` to clear it) — see `ImageInput`. Not settable in this version: `imageCredits` and draft creation. `private` is never accepted: an event's privacy is derived from its agenda, not set per-event.
  *
  */
 export const zEventInput = z.object({
@@ -556,6 +589,7 @@ export const zEventInput = z.object({
     extIds: z.array(zExtId).optional(),
     state: zModerationState.optional(),
     status: zEventStatus.optional(),
+    image: zImageInput.optional(),
     additionalFields: zAdditionalFields.optional()
 });
 
@@ -579,6 +613,7 @@ export const zEventPatch = z.object({
     extIds: z.array(zExtId).optional(),
     state: zModerationState.optional(),
     status: zEventStatus.optional(),
+    image: zImageInput.optional(),
     additionalFields: zAdditionalFields.optional()
 });
 
@@ -1982,6 +2017,17 @@ export const zMeAgendasListQuery = z.object({
  * A page of the caller's agenda memberships.
  */
 export const zMeAgendasListResponse = zMeAgendaList;
+
+export const zAgendasUploadsCreateBody = zUploadRequest;
+
+export const zAgendasUploadsCreatePath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
+});
+
+/**
+ * A staging ticket to upload to, and the ref to attach.
+ */
+export const zAgendasUploadsCreateResponse = zUploadTicket;
 
 export const zAgendasLocationsListPath = z.object({
     agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })

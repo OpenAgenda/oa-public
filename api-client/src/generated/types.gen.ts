@@ -457,6 +457,8 @@ export type ExtId = {
 /**
  * Agenda-specific additional fields. The available keys and the shape of each value are defined by the agenda's event form schema (see `GET /agendas/{agendaUid}/events/schema`). Each value follows its field's fieldType (text, choice, multilingual, …).
  *
+ * A `file`/`image` field is set by reference, like the native image: stage the bytes via `POST /agendas/{uid}/uploads`, then send `{ ref, name? }` here (`name` is the original filename, used for the download; optional), or `null` to clear it. On READ the same field returns the stored descriptor `{ originalName, extension, filename }` (build its URL from the media base + `filename`).
+ *
  */
 export type AdditionalFields = {
     [key: string]: unknown;
@@ -872,6 +874,56 @@ export type Event = {
 };
 
 /**
+ * Declares an upload to stage. `contentType` must be an accepted media type (images or PDF). `size` (bytes), when given, tightens the signed size cap for this upload. `field` is an optional hint naming the custom file/image field the upload targets.
+ *
+ */
+export type UploadRequest = {
+    contentType: string;
+    size?: number;
+    field?: string;
+};
+
+/**
+ * A staging ticket. POST the bytes to `upload.url` as `multipart/form-data` with every `upload.fields` entry plus the binary as the `file` field (last), then attach `ref` on an event write (`image`, or a custom file/image field under `additionalFields`).
+ *
+ */
+export type UploadTicket = {
+    /**
+     * The staging reference to attach on an event write.
+     */
+    ref: string;
+    /**
+     * When the upload ticket expires (ISO 8601).
+     */
+    expiresAt: string;
+    upload: {
+        /**
+         * The storage endpoint to POST the multipart form to.
+         */
+        url: string;
+        /**
+         * Form fields to include in the multipart POST (policy, signature, key, …), sent before the binary `file` field.
+         *
+         */
+        fields: {
+            [key: string]: string;
+        };
+    };
+};
+
+/**
+ * Write shape for an event image, distinct from the read `Image` (which carries the generated size variants). Either attach a freshly-staged upload by its `ref` — the value returned by `POST /agendas/{uid}/uploads` — or send `null` to remove the current image. The staged original is fetched, processed into the standard size variants, and stored as part of the SAME write, so an image change lands in one activity alongside the rest of the edit.
+ *
+ */
+export type ImageInput = {
+    /**
+     * A staging reference returned by the upload endpoint (of the form `staging/{agendaUid}/…`). It must belong to this agenda; a reference for another agenda, or one that has expired, answers `422`.
+     *
+     */
+    ref: string;
+} | null;
+
+/**
  * Request body for creating (and, later, replacing) an event. This is the WRITE shape, deliberately distinct from the read `Event`: it carries only the fields a client may set. Read-only/computed fields the read projection emits (`uid`, `slug`, `dateRange`, `featured`, `originAgenda`, `timezone`, first/last/next timing digests, `country`, `createdAt`, `updatedAt`, `links`, `sourceAgendas`) are NOT accepted and are rejected with `400` if sent.
  *
  * Agenda-specific fields go under `additionalFields`, never at the top level; an unknown top-level key is a `400`, as is an `additionalFields` name that collides with a native field. Field VALUES are validated by the server (a `422` with per-field `error.details.errors[]` on failure).
@@ -880,7 +932,7 @@ export type Event = {
  *
  * Two fields are settable but authorization-gated, so the value you send may be adjusted or refused: `state` (moderation) and `status` (lifecycle). The moderation `state` is arbitrated by the server from the agenda's contribution settings and your role — a moderator's value is honored, a `state: 2` (publish) without permission answers `403`, and a contributor's value is ignored in favour of the agenda default. The `status` field is a per-agenda opt-in feature (`settings.lab.status`): when it is disabled for the agenda, sending `status` answers `422`. See each field for details.
  *
- * Not settable in this version: images (`image`/`imageCredits` — a dedicated upload endpoint is planned) and draft creation. `private` is never accepted: an event's privacy is derived from its agenda, not set per-event.
+ * The `image` is set by reference: stage the bytes via `POST /agendas/{uid}/uploads`, then pass the returned `ref` here (or `null` to clear it) — see `ImageInput`. Not settable in this version: `imageCredits` and draft creation. `private` is never accepted: an event's privacy is derived from its agenda, not set per-event.
  *
  */
 export type EventInput = {
@@ -927,6 +979,7 @@ export type EventInput = {
      *
      */
     status?: EventStatus;
+    image?: ImageInput;
     additionalFields?: AdditionalFields;
 };
 
@@ -958,6 +1011,7 @@ export type EventPatch = {
      *
      */
     status?: EventStatus;
+    image?: ImageInput;
     additionalFields?: AdditionalFields;
 };
 
@@ -3307,6 +3361,53 @@ export type MeAgendasListResponses = {
 };
 
 export type MeAgendasListResponse = MeAgendasListResponses[keyof MeAgendasListResponses];
+
+export type AgendasUploadsCreateData = {
+    body: UploadRequest;
+    path: {
+        /**
+         * Numeric uid of the agenda.
+         */
+        agendaUid: number;
+    };
+    query?: never;
+    url: '/agendas/{agendaUid}/uploads';
+};
+
+export type AgendasUploadsCreateErrors = {
+    /**
+     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     *
+     */
+    400: Error;
+    /**
+     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     */
+    401: Error;
+    /**
+     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     */
+    403: Error;
+    /**
+     * Resource not found.
+     */
+    404: Error;
+    /**
+     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.details.errors[]`.
+     */
+    422: Error;
+};
+
+export type AgendasUploadsCreateError = AgendasUploadsCreateErrors[keyof AgendasUploadsCreateErrors];
+
+export type AgendasUploadsCreateResponses = {
+    /**
+     * A staging ticket to upload to, and the ref to attach.
+     */
+    200: UploadTicket;
+};
+
+export type AgendasUploadsCreateResponse = AgendasUploadsCreateResponses[keyof AgendasUploadsCreateResponses];
 
 export type AgendasLocationsListData = {
     body?: never;
