@@ -161,7 +161,7 @@
     "turndown": "^7.1.2",
     "type-is": "^1.6.18",
     "uuid": "^3.4.0",
-    "validator": "^7.0.0",
+    "validator": "^13.15.22",
     "xlsx-writestream": "^0.5.1",
     "yaml": "^2.4.5"
   },

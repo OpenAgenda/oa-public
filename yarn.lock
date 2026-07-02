@@ -11662,7 +11662,7 @@ __metadata:
     string-replace-loader: "npm:^3.2.0"
     style-loader: "npm:^3.3.1"
     use-debounce: "npm:^10.0.4"
-    validator: "npm:^11.0.0"
+    validator: "npm:^13.15.22"
     webpack: "npm:^5.53.0"
     webpack-cli: "npm:^5.1.4"
     webpack-dev-middleware: "npm:^4.3.0"
@@ -13679,7 +13679,7 @@ __metadata:
     slugify: "npm:^1.4.6"
     storybook: "npm:^10.2.0"
     tsdown: "npm:^0.22.0"
-    validator: "npm:^12.2.0"
+    validator: "npm:^13.15.22"
     why: "npm:^0.6.2"
   peerDependencies:
     react: ^19.2.2
@@ -13955,7 +13955,7 @@ __metadata:
     mysql2: "npm:^3.15.1"
     qs: "npm:^6.9.1"
     slugify: "npm:^1.4.5"
-    validator: "npm:^12.2.0"
+    validator: "npm:^13.15.22"
     xhr: "npm:^2.2.2"
   languageName: unknown
   linkType: soft
@@ -13967,7 +13967,7 @@ __metadata:
     is-stream: "npm:^2.0.0"
     jest: "npm:^29.7.0"
     lodash: "npm:^4.17.15"
-    validator: "npm:^12.2.0"
+    validator: "npm:^13.15.22"
   languageName: unknown
   linkType: soft
 
@@ -29559,7 +29559,7 @@ __metadata:
     turndown: "npm:^7.1.2"
     type-is: "npm:^1.6.18"
     uuid: "npm:^3.4.0"
-    validator: "npm:^7.0.0"
+    validator: "npm:^13.15.22"
     xlsx-writestream: "npm:^0.5.1"
     yaml: "npm:^2.4.5"
   languageName: unknown
@@ -61584,31 +61584,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"validator@npm:^11.0.0":
-  version: 11.1.0
-  resolution: "validator@npm:11.1.0"
-  checksum: 10c0/cb4ce0dc4273efbd2e81815e26c178bfb43078b3a7f62aeda0b745e1294a74de4e85afaf49d635f3e2bdd798a13693743b9925a167d1697b7d10982a4871edb1
-  languageName: node
-  linkType: hard
-
-"validator@npm:^12.2.0":
-  version: 12.2.0
-  resolution: "validator@npm:12.2.0"
-  checksum: 10c0/97ba951da8c4dd42924e38b0c7c87693d5c95278e4601187bd57ffbeaed5ef5ba781066d71566281d309349dc9a7d66f97ff1e78547eea49fa886cbc6c60c2e3
-  languageName: node
-  linkType: hard
-
-"validator@npm:^13.0.0":
-  version: 13.11.0
-  resolution: "validator@npm:13.11.0"
-  checksum: 10c0/0107da3add5a4ebc6391dac103c55f6d8ed055bbcc29a4c9cbf89eacfc39ba102a5618c470bdc33c6487d30847771a892134a8c791f06ef0962dd4b7a60ae0f5
-  languageName: node
-  linkType: hard
-
-"validator@npm:^7.0.0":
-  version: 7.2.0
-  resolution: "validator@npm:7.2.0"
-  checksum: 10c0/c122c9a9919e3e8ddbab2a95145f20219440d2b92d77c456a6db9c9ebbb19516c9468a7fa55b518b17839b9ccf4ed58e23cefddb5c54bbd9328e970bce2a2a5a
+"validator@npm:^13.0.0, validator@npm:^13.15.22":
+  version: 13.15.35
+  resolution: "validator@npm:13.15.35"
+  checksum: 10c0/1958ebcad578128d154853a2b9bf5b95e7738dcc7d1d065e50a969812272312ec379dcaf375b9d7545e04a71de6755f60f5a4b49c1405737a9c80e11da297eef
   languageName: node
   linkType: hard
 
