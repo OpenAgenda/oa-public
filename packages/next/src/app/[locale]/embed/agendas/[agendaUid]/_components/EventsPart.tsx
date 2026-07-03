@@ -25,7 +25,10 @@ export default function EventsPart({
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const { sort, itemMinWidth, pageSize, hideLocation } = useEmbedLayoutData();
+  const { sort, itemMinWidth, itemLayout, pageSize, hideLocation } =
+    useEmbedLayoutData();
+
+  const isHorizontal = itemLayout === 'horizontal';
 
   const {
     data: pages,
@@ -75,7 +78,7 @@ export default function EventsPart({
   );
 
   if (isLoadingInitialData) {
-    return <EventsSkeleton />;
+    return <EventsSkeleton isHorizontal={isHorizontal} />;
   }
 
   if (isEmpty) {
@@ -85,7 +88,11 @@ export default function EventsPart({
   return (
     <>
       <SimpleGrid
-        templateColumns={`repeat(auto-fill, minmax(min(${itemMinWidth || '290px'}, 100%), 1fr))`}
+        templateColumns={
+          isHorizontal
+            ? '1fr'
+            : `repeat(auto-fill, minmax(min(${itemMinWidth || '290px'}, 100%), 1fr))`
+        }
         gap="10"
       >
         {pages?.map((page, pageIndex) =>

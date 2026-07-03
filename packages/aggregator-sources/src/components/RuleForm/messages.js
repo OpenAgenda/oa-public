@@ -74,6 +74,10 @@ export default defineMessages({
     id: 'aggregator-sources.RuleForm.district',
     defaultMessage: 'District',
   },
+  postalCode: {
+    id: 'aggregator-sources.RuleForm.postalCode',
+    defaultMessage: 'Postal code',
+  },
   name: {
     id: 'aggregator-sources.RuleForm.name',
     defaultMessage: 'Name',
@@ -274,5 +278,22 @@ export default defineMessages({
   notSelected: {
     id: 'aggregator-sources.RuleForm.notSelected',
     defaultMessage: 'Not selected',
+  },
+  featured: {
+    id: 'aggregator-sources.RuleForm.featured',
+    defaultMessage: 'Featured',
+  },
+  featuredFilter: {
+    id: 'aggregator-sources.RuleForm.featuredFilter',
+    defaultMessage: 'Featured filter',
+  },
+  helpFilterFeatured: {
+    id: 'aggregator-sources.RuleForm.helpFilterFeatured',
+    defaultMessage:
+      'Apply the rule to events that are featured (or not) in the source agenda.',
+  },
+  selectFeatured: {
+    id: 'aggregator-sources.RuleForm.selectFeatured',
+    defaultMessage: 'Select a value',
   },
 });

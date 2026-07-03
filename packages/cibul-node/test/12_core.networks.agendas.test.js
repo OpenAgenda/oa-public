@@ -301,7 +301,7 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
 
     it('agenda creation honours the provided slug', async () => {
       const resp = await ky
-        .post('http://localhost:4000/networks/1/agendas', {
+        .post(`${ctx.baseUrl}/networks/1/agendas`, {
           headers: {
             'access-token': accessToken,
           },

@@ -48,6 +48,25 @@ async function get({ internals, endpoints }, identifiers, options = {}) {
 
   if (location) {
     if (location.deleted === 1) {
+      // A merged/deleted row is only reachable here when the caller reads
+      // deleted rows (deleted: null|true); under throwOnNotFound that becomes a
+      // typed 404 — `merged` carries the surviving uid so sync clients repair
+      // their references, anything else is a plain not-found. Without the throw
+      // flag the stub is returned untouched (resync inspects it).
+      if (throwOnNotFound) {
+        if (location.mergedIn !== null && location.mergedIn !== undefined) {
+          throw new NotFound(
+            {
+              info: {
+                code: 'merged',
+                details: { mergedIn: location.mergedIn },
+              },
+            },
+            'location merged into another location',
+          );
+        }
+        throw new NotFound({ info: {} }, 'location not found');
+      }
       const deletedLocation = {
         uid: location.uid,
         deleted: location.deleted,
@@ -101,7 +120,12 @@ async function get({ internals, endpoints }, identifiers, options = {}) {
 
   let result = formatExtIds.afterRead(location);
   if (formSchema) {
-    result = formatLegacyTags(result, formSchema);
+    // formSchema may be a thunk: callers defer the (uncached) schema build so it
+    // never runs on a miss, only here on the hit, right before tag filtering.
+    const schema = typeof formSchema === 'function' ? await formSchema() : formSchema;
+    if (schema) {
+      result = formatLegacyTags(result, schema);
+    }
   }
   return result;
 }

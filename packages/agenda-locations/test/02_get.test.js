@@ -263,5 +263,26 @@ describe('agenda-locations - functional - get', () => {
       const location = await svc.get(7630652, { returnMergeTarget: true });
       expect(location.uid).toBe(51665986);
     });
+
+    it('throwOnNotFound + deleted:null on a merged location throws a typed NotFound carrying mergedIn', async () => {
+      let error;
+      try {
+        await svc.get(7630652, { deleted: null, throwOnNotFound: true });
+      } catch (e) {
+        error = e;
+      }
+      expect(error.name).toBe('NotFound');
+      expect(error.info.code).toBe('merged');
+      expect(error.info.details).toStrictEqual({ mergedIn: 51665986 });
+    });
+
+    it('without throwOnNotFound, a merged location read with deleted:null still returns the inspectable stub', async () => {
+      const location = await svc.get(7630652, { deleted: null });
+      expect(location).toStrictEqual({
+        uid: 7630652,
+        deleted: 1,
+        mergedIn: 51665986,
+      });
+    });
   });
 });

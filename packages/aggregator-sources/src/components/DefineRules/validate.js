@@ -29,6 +29,12 @@ export default function validate(
     errors.tagValues = intl.formatMessage(messages.requiredValues);
   }
 
+  // featuredValue is a boolean, so `false` is a valid choice: only flag it
+  // missing when truly undefined.
+  if (values.type === 'featured' && typeof values.featuredValue === 'undefined') {
+    errors.featuredValue = intl.formatMessage(messages.requiredValues);
+  }
+
   if (values.type === 'timings') {
     if (
       !values.timings.minDate

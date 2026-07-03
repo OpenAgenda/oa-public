@@ -1,8 +1,13 @@
 import logs from '@openagenda/logs';
+import { isJwsShaped } from '../../api-v3/lib/bearer.js';
 import verifyAndLoadAccessTokenUser from './verifyAndLoadAccessTokenUser.js';
 
 const log = logs('api/middleware/verifyAndLoadAgendaOrUserFromKey');
 
+// A JWS (OAuth access token) is handled upstream by verifyAndLoadOAuthUser; guard
+// here so a JWT is never mis-verified as an api-key public key (which would emit
+// a misleading 403). The shape test is shared (api-v3/lib/bearer.js) so the
+// JWT-vs-key routing fork cannot drift across the auth middlewares.
 function extractPublicKey(req) {
   if (!req.headers.authorization?.startsWith('Bearer ')) {
     return req.query.key ?? req.headers.key;
@@ -12,6 +17,11 @@ function extractPublicKey(req) {
 
   if (publicKey?.startsWith('tk-')) {
     log('is token, not public key');
+    return null;
+  }
+
+  if (isJwsShaped(publicKey)) {
+    log('is OAuth token, not public key');
     return null;
   }
 

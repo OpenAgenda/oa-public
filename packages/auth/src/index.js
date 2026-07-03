@@ -539,7 +539,7 @@ export default function Auth(options = {}) {
   if (Object.keys(exchangeClients).length && !apiResourceUrl) {
     throw new Error(
       '@openagenda/auth: exchangeClients are registered but apiResourceUrl is '
-        + 'unset (is API_ROOT / OA_V3_RESOURCE_URL configured?). The token-exchange '
+        + 'unset (is API_ROOT / OA_API_RESOURCE_URL configured?). The token-exchange '
         + 'endpoint cannot mint or verify without it.',
     );
   }

@@ -217,6 +217,18 @@ Découpé en **deux unités de déploiement indépendantes** (granularité = uni
 - **v2** : le flux `tk-` (`requestAccessToken` + `access_token` + salt `okilydokily`) **reste en place, inchangé** — v2 est gelée. Les credentials legacy continuent d'y écrire ; les nouvelles `oa_sk_` natives écrivent sur **v3**. Pas de pont v2 (éviterait une demi-mesure).
 - Le retrait **global** de `tk-`/`access_token` et du salt `okilydokily` est lié à l'**EOL de v2**, hors de cette tranche.
 
+> **Révision (2026-06, `docs/plan-oauth-v2-bridge.md`) — l'OAuth ponte v2, borné par scopes.**
+> La décision #8 / D4 « pas de pont d'écriture v2, v2 gelée » visait les credentials
+> **clé / `tk-`** : elle reste vraie pour eux (aucun nouveau chemin `tk-`/clé sur v2).
+> Elle est **révisée pour un credential distinct** : un **token OAuth** (le même JWS que
+> v3 accepte) authentifie désormais sur v2 en **lecture + écriture**, borné par ses
+> **scopes** (`requireScope` par route + backstop fail-closed). Justification : la surface
+> write v3 n'est pas encore livrée (D6), or un client OAuth réel a besoin de la surface
+> complète ; l'OAuth est le pont — ce que `tk-`/clés ne savent pas faire (consentement
+>
+> - scopes). Audience rendue **version-neutre** (une resource pour v2+v3) ; la version
+>   est un détail de chemin, pas une frontière de sécurité.
+
 ### D5 — Supprimer `packages/keys` `⏸`
 
 - Relocaliser les migrations `keys/*` (inchangées) → `cibul-node/migrations/legacy/`, entrée `legacy` dans `byService`, retirer `keys`.

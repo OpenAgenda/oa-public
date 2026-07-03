@@ -344,6 +344,29 @@ describe('core - functional (server): core.agendas().events.get()', () => {
       it('get returns longDescription in requested format', () => {
         expect(event.longDescription.fr).toContain('<p>');
       });
+
+      it('does not expose the stored longDescriptionHTML by default', () => {
+        expect(event.longDescriptionHTML).toBeUndefined();
+      });
+
+      describe('includeLongDescriptionHTML (additive)', () => {
+        let additive;
+
+        beforeAll(async () => {
+          additive = await core.agendas(2).events.get(2, {
+            longDescriptionFormat: 'HTML',
+            includeLongDescriptionHTML: true,
+          });
+        });
+
+        it('keeps longDescription as markdown', () => {
+          expect(additive.longDescription.fr).not.toContain('<p>');
+        });
+
+        it('exposes the HTML variant in longDescriptionHTML', () => {
+          expect(additive.longDescriptionHTML.fr).toContain('<p>');
+        });
+      });
     });
 
     describe('other', () => {

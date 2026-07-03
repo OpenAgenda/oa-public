@@ -317,6 +317,92 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       expect(events[0].longDescription.fr).toContain('<iframe');
     });
 
+    it('does not expose the stored longDescriptionHTML by default', async () => {
+      const { events } = await core.agendas(2).events.search(
+        {},
+        { size: 1 },
+        {
+          longDescriptionFormat: 'HTML',
+          detailed: true,
+          userUid: 63170200,
+        },
+      );
+
+      expect(events[0].longDescriptionHTML).toBeUndefined();
+    });
+
+    it('does not expose longDescriptionHTML when no format is requested', async () => {
+      const { events } = await core.agendas(2).events.search(
+        {},
+        { size: 1 },
+        {
+          detailed: true,
+          userUid: 63170200,
+        },
+      );
+
+      expect(events[0].longDescriptionHTML).toBeUndefined();
+    });
+
+    it('includeLongDescriptionHTML exposes markdown and HTML in one call', async () => {
+      const { events } = await core.agendas(2).events.search(
+        {},
+        { size: 1 },
+        {
+          longDescriptionFormat: 'HTML',
+          includeLongDescriptionHTML: true,
+          detailed: true,
+          userUid: 63170200,
+        },
+      );
+
+      // markdown is preserved...
+      expect(events[0].longDescription.fr).not.toContain('<p>');
+      // ...and the HTML variant comes from the index in a dedicated field
+      expect(events[0].longDescriptionHTML.fr.substr(0, 38)).toBe(
+        '<p><strong>! CHANGEMENT !</strong></p>',
+      );
+    });
+
+    it('serves the pre-computed HTML straight from the index (no conversion requested)', async () => {
+      // With opt-in but no longDescriptionFormat, no on-the-fly conversion runs,
+      // so longDescriptionHTML can only be populated from the indexed _source.
+      // This guards against the field silently dropping out of the search
+      // includes allowlist (which would make the optimization a no-op).
+      const { events } = await core.agendas(2).events.search(
+        {},
+        { size: 1 },
+        {
+          includeLongDescriptionHTML: true,
+          detailed: true,
+          userUid: 63170200,
+        },
+      );
+
+      expect(events[0].longDescriptionHTML.fr.substr(0, 38)).toBe(
+        '<p><strong>! CHANGEMENT !</strong></p>',
+      );
+      // markdown is left intact
+      expect(events[0].longDescription.fr).not.toContain('<p>');
+    });
+
+    it('a falsy string opt-in (raw query value) does not leak longDescriptionHTML', async () => {
+      // Export/search routes spread the raw query string; '0'/'false' are truthy
+      // in JS, so the option must be coerced or the field would leak.
+      const { events } = await core.agendas(2).events.search(
+        {},
+        { size: 1 },
+        {
+          longDescriptionFormat: 'HTML',
+          includeLongDescriptionHTML: 'false',
+          detailed: true,
+          userUid: 63170200,
+        },
+      );
+
+      expect(events[0].longDescriptionHTML).toBeUndefined();
+    });
+
     it('aggregations can requested through options', async () => {
       const { aggregations } = await core.agendas(2).events.search(
         {},

@@ -170,6 +170,28 @@ function resolveDetailed(rawDetailed) {
   );
 }
 
+// Resolve a single location by any identifier (`{ uid }`, `{ extId }`, …) and
+// return its full `Location` shape, or throw the 404 the route should answer.
+// Reads the full `Location` for a single-location route. `deleted: null` +
+// `throwOnNotFound: true` let the service own the 404 semantics: a merged
+// location throws a typed 404 (`merged` code + surviving uid in
+// `details.mergedIn`, which the error handler forwards), any other deleted or
+// unknown record a plain 404. The form schema is passed as a thunk so its
+// (uncached) build never runs on a miss — only on the hit, for tag filtering.
+const readLocationOr404 = (core, agenda, identifier) =>
+  locationEndpoints(core, agenda).get(identifier, {
+    includeImagePath: true,
+    deleted: null,
+    throwOnNotFound: true,
+    formSchema: () => loadLocationFormSchema(core, agenda),
+  });
+
+// The `{ extId }` service identifier built from the `ext/:extKey/:extId` path
+// params, shared by the event and location by-ext routes.
+const extIdFromParams = (req) => ({
+  extId: { key: req.params.extKey, value: req.params.extId },
+});
+
 export default function instanciateApiV3(core, { useRouter = true } = {}) {
   log('init');
 
@@ -626,6 +648,35 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
     },
   );
 
+  // GET /agendas/:agendaUid/events/ext/:extKey/:extId
+  // Resolve an event by its EXTERNAL identifier — the id it carries in a sync
+  // source (`extKey` names the source/system, `extId` is the event's id within
+  // it) — instead of its OA uid. The by-uid sibling below at the caller's own
+  // identifier: same access gate, same bare `Event` shape, same 404 envelope;
+  // only the identifier handed to `search.get` differs (`{ extId }` vs
+  // `{ uid }`). Registered BEFORE `/events/:eventUid` so the literal `ext`
+  // segment is never captured as an event uid. A miss (no event carries the
+  // pair) surfaces as the standard `not found` 404. Parity with v2's
+  // `GET …/events/ext/:extKey/:extId`, minus its `{ success, event }` envelope.
+  app.get(
+    '/agendas/:agendaUid/events/ext/:extKey/:extId',
+    requireScope('events:read'),
+    async (req, res, next) => {
+      try {
+        const event = await core
+          .agendas(req.agenda.uid)
+          .events.search.get(extIdFromParams(req), {
+            detailed: true,
+            userUid: req.user?.uid,
+          });
+
+        res.json(mapEvent(event));
+      } catch (err) {
+        next(err);
+      }
+    },
+  );
+
   // GET /agendas/:agendaUid/events/:eventUid
   app.get(
     '/agendas/:agendaUid/events/:eventUid',
@@ -680,9 +731,10 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
           includeImagePath: true,
           detailed: effectiveDetailed,
           // The full shape carries `additionalFields` (the legacy tags,
-          // filtered against the agenda's merged schema).
+          // filtered against the agenda's merged schema). Passed as a thunk the
+          // service resolves once per page, only when items survive filtering.
           formSchema: effectiveDetailed
-            ? await loadLocationFormSchema(core, req.agenda)
+            ? () => loadLocationFormSchema(core, req.agenda)
             : null,
         };
         // Restrict the SQL columns to the selection. The service force-keeps the
@@ -711,43 +763,50 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
     },
   );
 
+  // GET /agendas/:agendaUid/locations/ext/:extKey/:extId
+  // Resolve a location by its EXTERNAL identifier — the id it carries in a sync
+  // source (`extKey` names the source/system, `extId` is the location's id
+  // within it) — instead of its OA uid. Mirrors the by-uid sibling below: same
+  // full `Location` shape, same `deleted: null` read and merged/not-found 404
+  // logic; only the identifier handed to the service differs (`{ extId }` vs
+  // `{ uid }`). This route has more path segments than `/locations/:locationUid`,
+  // so the two never collide regardless of registration order. Ordering would
+  // only matter for a future literal sub-route of the SAME arity as the catch-all
+  // (e.g. `/locations/search`), which must be registered BEFORE `:locationUid`
+  // not to be swallowed as a uid. Parity with v2's
+  // `GET …/locations/ext/:extKey/:extValue`, minus its `{ success, location }`
+  // envelope and its implicit-`default`-key shorthand (the key is always
+  // explicit here).
+  app.get(
+    '/agendas/:agendaUid/locations/ext/:extKey/:extId',
+    requireScope('locations:read'),
+    async (req, res, next) => {
+      try {
+        const location = await readLocationOr404(
+          core,
+          req.agenda,
+          extIdFromParams(req),
+        );
+
+        res.json(mapLocation(location));
+      } catch (err) {
+        next(err);
+      }
+    },
+  );
+
   // GET /agendas/:agendaUid/locations/:locationUid
-  // Single location, full `Location` shape. Reads with `deleted: null` so a
-  // soft-deleted record surfaces as the service's `{ uid, deleted, mergedIn? }`
-  // stub instead of a bare miss: a merged location answers 404 with the
-  // machine-readable `merged` code and the surviving uid in
-  // `details.mergedIn` (sync clients repair their references with it); any
-  // other deleted or unknown uid is a plain 404.
+  // Single location, full `Location` shape. The merged/not-found 404 logic
+  // lives in the service (shared with the by-ext route above via
+  // `readLocationOr404`).
   app.get(
     '/agendas/:agendaUid/locations/:locationUid',
     requireScope('locations:read'),
     async (req, res, next) => {
       try {
-        const location = await locationEndpoints(core, req.agenda).get(
-          { uid: req.params.locationUid },
-          {
-            includeImagePath: true,
-            deleted: null,
-            formSchema: await loadLocationFormSchema(core, req.agenda),
-          },
-        );
-
-        if (!location || location.deleted) {
-          const mergedIn = location?.mergedIn ?? null;
-          throw new NotFound(
-            {
-              info: {
-                uid: req.params.locationUid,
-                ...mergedIn == null
-                  ? {}
-                  : { code: 'merged', details: { mergedIn } },
-              },
-            },
-            mergedIn == null
-              ? 'location not found'
-              : 'location merged into another location',
-          );
-        }
+        const location = await readLocationOr404(core, req.agenda, {
+          uid: req.params.locationUid,
+        });
 
         res.json(mapLocation(location));
       } catch (err) {

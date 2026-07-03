@@ -8,7 +8,6 @@ export default async (services, agenda) => {
   const {
     inboxes: { Inbox },
     agendaSearch,
-    eventSearch,
     activities,
   } = services;
 
@@ -27,13 +26,25 @@ export default async (services, agenda) => {
   }
 
   try {
-    const { deleted } = await eventSearch.agendas(agenda).clear();
-    log.info('removed agenda event documents from index', {
-      ...logBundle,
-      deleted,
-    });
+    // Enqueue the index purge as a retryable task instead of clearing inline:
+    // an inline failure here was silently swallowed and left the agenda's events
+    // behind as orphans in the index. The processor lives in the worker process
+    // (services/agendas/tasks.js, like removeAgendaMembers) — here we only
+    // enqueue, with retries so a transient Elasticsearch error is retried.
+    // attempts/backoff span a multi-hour window (exponential from 60s) so a
+    // long Elasticsearch outage is ridden out rather than permanently orphaning
+    // the events; the cleanOrphanEvents script remains the backstop beyond that.
+    await services.core.tasks.enqueue(
+      'clearAgendaEvents',
+      { agendaUid: agenda.uid },
+      { attempts: 8, backoff: { type: 'exponential', delay: 60000 } },
+    );
+    log.info('enqueued agenda event documents removal', logBundle);
   } catch (error) {
-    log.error('failed to agenda events index', { ...logBundle, error });
+    log.error('failed to enqueue agenda events removal', {
+      ...logBundle,
+      error,
+    });
   }
 
   try {

@@ -9,12 +9,12 @@ import createOAuthTokenHelpers from '../src/oauthToken.js';
 
 const ISSUER = 'https://d.openagenda.com/api/auth';
 const MCP_RESOURCE = 'https://dmcp.openagenda.com/mcp';
-const V3_RESOURCE = 'https://dapi.openagenda.com/v3';
-// The v3-delegation audiences. Under O2.5 the MCP token-exchanges its aud=mcp
-// grant for an aud=api token before reaching v3, so the v3 verifier trusts ONLY
-// the v3 resource id — NOT the MCP resource and NOT the bare AS origin (ISSUER).
-// Mirrors `apiAudiences` in index.js.
-const VALID_AUDIENCES = [V3_RESOURCE];
+const API_RESOURCE = 'https://dapi.openagenda.com';
+// The API resource audience — version-neutral, covers v2 + v3. Under O2.5 the
+// MCP token-exchanges its aud=mcp grant for an aud=api token before reaching the
+// API, so the verifier trusts ONLY the API resource id — NOT the MCP resource
+// and NOT the bare AS origin (ISSUER). Mirrors `apiAudiences` in index.js.
+const VALID_AUDIENCES = [API_RESOURCE];
 
 // Mint an EdDSA key pair and a matching `instance` whose `api.getJwks()` returns
 // the public JWK — the same shape the better-auth jwt plugin serves at /jwks.
@@ -52,14 +52,14 @@ const helpers = (instance, opts = {}) =>
   });
 
 describe('auth - unit: verifyOAuthAccessToken', () => {
-  it('accepts a token bound to the v3 resource (aud=api, exchanged) and maps the uid claim', async () => {
+  it('accepts a token bound to the API resource (aud=api) and maps the uid claim', async () => {
     const { instance, sign } = await setup();
     const { verifyOAuthAccessToken } = helpers(instance);
 
     // sub is the better-auth row id (serial); uid is the OA identity downstream.
     const token = await sign({
       iss: ISSUER,
-      aud: V3_RESOURCE,
+      aud: API_RESOURCE,
       sub: '313642',
       uid: 275144919111001,
       azp: 'mcp-client',
@@ -73,7 +73,7 @@ describe('auth - unit: verifyOAuthAccessToken', () => {
       userUid: 275144919111001,
       scopes: ['openid', 'events:read', 'agendas:read'],
       clientId: 'mcp-client',
-      audiences: [V3_RESOURCE],
+      audiences: [API_RESOURCE],
     });
   });
 
@@ -82,8 +82,8 @@ describe('auth - unit: verifyOAuthAccessToken', () => {
     const { verifyOAuthAccessToken } = helpers(instance);
 
     // A valid OA token bound to the MCP resource — the caller's consented grant.
-    // O2.5 requires it to be token-exchanged into an aud=api token before v3
-    // honours it; the raw aud=mcp token must NOT double as a v3 credential.
+    // O2.5 requires it to be token-exchanged into an aud=api token before the
+    // API honours it; the raw aud=mcp token must NOT double as an API credential.
     const token = await sign({
       iss: ISSUER,
       aud: MCP_RESOURCE,
@@ -93,13 +93,13 @@ describe('auth - unit: verifyOAuthAccessToken', () => {
     expect(await verifyOAuthAccessToken(token)).toBeNull();
   });
 
-  it('rejects a token bound only to the AS origin (not a v3-delegation audience)', async () => {
+  it('rejects a token bound only to the AS origin (not the API resource audience)', async () => {
     const { instance, sign } = await setup();
     const { verifyOAuthAccessToken } = helpers(instance);
 
     // A valid OA token (e.g. an OIDC/SSO login token) bound to the AS issuer/
-    // origin — but NOT to a resource that delegates to v3 → must not be honoured
-    // here, so an SSO token can't double as a full v3 API credential.
+    // origin — but NOT to the API resource → must not be honoured here, so an
+    // SSO token can't double as a full API credential.
     const token = await sign({ iss: ISSUER, aud: ISSUER, sub: '1', uid: 42 });
     expect(await verifyOAuthAccessToken(token)).toBeNull();
   });
@@ -122,7 +122,7 @@ describe('auth - unit: verifyOAuthAccessToken', () => {
 
     const token = await sign({
       iss: 'https://attacker.example.com',
-      aud: V3_RESOURCE,
+      aud: API_RESOURCE,
       uid: 42,
     });
     expect(await verifyOAuthAccessToken(token)).toBeNull();
@@ -135,7 +135,7 @@ describe('auth - unit: verifyOAuthAccessToken', () => {
 
     const token = await foreign.sign({
       iss: ISSUER,
-      aud: V3_RESOURCE,
+      aud: API_RESOURCE,
       uid: 42,
     });
     expect(await verifyOAuthAccessToken(token)).toBeNull();
@@ -147,7 +147,7 @@ describe('auth - unit: verifyOAuthAccessToken', () => {
 
     const expired = await new SignJWT({
       iss: ISSUER,
-      aud: V3_RESOURCE,
+      aud: API_RESOURCE,
       uid: 42,
     })
       .setProtectedHeader({ alg: 'EdDSA', kid: publicJwk.kid })
@@ -165,7 +165,7 @@ describe('auth - unit: verifyOAuthAccessToken', () => {
     // A valid, well-audienced token but with no OA user identity to act as.
     const token = await sign({
       iss: ISSUER,
-      aud: V3_RESOURCE,
+      aud: API_RESOURCE,
       sub: 'service-client',
     });
     expect(await verifyOAuthAccessToken(token)).toBeNull();
@@ -179,7 +179,7 @@ describe('auth - unit: verifyOAuthAccessToken', () => {
     // real-looking identity. A stringified number (the old wire format), a float,
     // 0/negative, and a value past 2^53 are all rejected at the gate.
     for (const uid of ['42', 0, -1, 1.5, 2 ** 53]) {
-      const token = await sign({ iss: ISSUER, aud: V3_RESOURCE, uid });
+      const token = await sign({ iss: ISSUER, aud: API_RESOURCE, uid });
       expect(await verifyOAuthAccessToken(token)).toBeNull();
     }
   });
@@ -200,13 +200,13 @@ describe('auth - unit: verifyOAuthAccessToken', () => {
 
     // First call primes the cached keyset.
     await verifyOAuthAccessToken(
-      await sign({ iss: ISSUER, aud: V3_RESOURCE, uid: 1 }),
+      await sign({ iss: ISSUER, aud: API_RESOURCE, uid: 1 }),
     );
     expect(getJwks).toHaveBeenCalledTimes(1);
 
     // A token referencing an unknown kid forces exactly one refetch.
     const stale = await sign(
-      { iss: ISSUER, aud: V3_RESOURCE, uid: 2 },
+      { iss: ISSUER, aud: API_RESOURCE, uid: 2 },
       { kid: 'rotated-away-kid' },
     );
     await verifyOAuthAccessToken(stale);
@@ -221,7 +221,7 @@ describe('auth - unit: verifyOAuthAccessToken', () => {
 
     // Prime the keyset (one fetch).
     await verifyOAuthAccessToken(
-      await sign({ iss: ISSUER, aud: V3_RESOURCE, uid: 1 }),
+      await sign({ iss: ISSUER, aud: API_RESOURCE, uid: 1 }),
     );
     expect(getJwks).toHaveBeenCalledTimes(1);
 
@@ -229,7 +229,7 @@ describe('auth - unit: verifyOAuthAccessToken', () => {
     // each force a refetch — all rejected, keyset fetched at most once.
     for (let i = 0; i < 5; i += 1) {
       const bogus = await sign(
-        { iss: ISSUER, aud: V3_RESOURCE, uid: 1 },
+        { iss: ISSUER, aud: API_RESOURCE, uid: 1 },
         { kid: `bogus-${i}` },
       );
       // eslint-disable-next-line no-await-in-loop

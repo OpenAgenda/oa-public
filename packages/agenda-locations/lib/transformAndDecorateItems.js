@@ -72,10 +72,17 @@ export default async (service, items, options = {}) => {
     injectImagePath(transformed, service.config.imagePath);
   }
 
+  // formSchema may be a thunk (deferred uncached schema build); resolve it once
+  // for the whole page rather than per item — and only when there are items to
+  // filter, so a zero-result page never triggers the (uncached) schema build.
+  const resolvedFormSchema = transformed.length
+    ? (typeof formSchema === 'function' ? await formSchema() : formSchema)
+    : null;
+
   return transformed.map((item) => {
     let result = afterRead(item);
-    if (formSchema) {
-      result = formatLegacyTags(result, formSchema);
+    if (resolvedFormSchema) {
+      result = formatLegacyTags(result, resolvedFormSchema);
     }
     return result;
   });

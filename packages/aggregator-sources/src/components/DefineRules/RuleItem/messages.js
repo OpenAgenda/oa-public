@@ -62,6 +62,10 @@ export default defineMessages({
     id: 'aggregator-sources.DefineRules.district',
     defaultMessage: 'District',
   },
+  postalCode: {
+    id: 'aggregator-sources.DefineRules.postalCode',
+    defaultMessage: 'Postal code',
+  },
   name: {
     id: 'aggregator-sources.DefineRules.name',
     defaultMessage: 'Location name',
@@ -203,5 +207,13 @@ export default defineMessages({
   notSelected: {
     id: 'aggregator-sources.DefineRules.notSelected',
     defaultMessage: 'Not selected',
+  },
+  featured: {
+    id: 'aggregator-sources.DefineRules.featured',
+    defaultMessage: 'Featured',
+  },
+  actionFeaturedDetail: {
+    id: 'aggregator-sources.DefineRules.actionFeaturedDetail',
+    defaultMessage: 'The featured status is applied to the aggregated event',
   },
 });

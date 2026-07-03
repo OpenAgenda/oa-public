@@ -229,6 +229,7 @@ describe('02 - event search - functional: search', () => {
         expect(Object.keys(events[0]).sort()).toEqual(
           [
             'longDescription',
+            'longDescriptionHTML',
             'country',
             'private',
             'featured',
