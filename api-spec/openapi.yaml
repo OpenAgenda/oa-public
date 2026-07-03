@@ -2682,52 +2682,27 @@ components:
     Image:
       type: object
       description: >
-        Event image. Alongside the legacy `base` + `variants` (fixed renditions,
-        served as-is), it carries a responsive view served on demand from a
-        single source: substitute `{geo}` into `srcTemplate` (e.g. `800x0` for
-        proportional width, `300x300s` for a smart-cropped square, `1000x1000f`
-        for fit-in) or pick a ready-made width from `srcset`.
+        Event image, served on demand from a single source. Use `src` as a
+        ready-to-use default rendition, or drive a responsive picture: substitute
+        `{geo}` into `srcTemplate` (e.g. `800x0` for proportional width,
+        `300x300s` for a smart-cropped square, `1000x1000f` for fit-in) or pick a
+        ready-made width from `srcset`. `width`/`height` are the intrinsic source
+        dimensions (a cap: renditions are never upscaled past them).
       additionalProperties: false
       properties:
-        filename:
-          type: [string, 'null']
-        base:
-          type: [string, 'null']
-          format: uri
-          description: Base URL the variants are served from.
         credits:
           type: [string, 'null']
-        size:
-          type: [object, 'null']
-          properties:
-            width:
-              type: [integer, 'null']
-            height:
-              type: [integer, 'null']
-        variants:
-          type: array
-          description: Generated size variants of the image.
-          items:
-            type: object
-            additionalProperties: false
-            properties:
-              type:
-                type: string
-              filename:
-                type: string
-              size:
-                type: [object, 'null']
-                properties:
-                  width:
-                    type: [integer, 'null']
-                  height:
-                    type: [integer, 'null']
         width:
           type: [integer, 'null']
           description: Intrinsic width of the source image, in pixels.
         height:
           type: [integer, 'null']
           description: Intrinsic height of the source image, in pixels.
+        src:
+          type: [string, 'null']
+          format: uri
+          description: >
+            Ready-to-use default rendition URL (a naive `<img src>` just works).
         srcTemplate:
           type: [string, 'null']
           description: >
