@@ -2681,7 +2681,12 @@ components:
 
     Image:
       type: object
-      description: Event image with its generated size variants.
+      description: >
+        Event image. Alongside the legacy `base` + `variants` (fixed renditions,
+        served as-is), it carries a responsive view served on demand from a
+        single source: substitute `{geo}` into `srcTemplate` (e.g. `800x0` for
+        proportional width, `300x300s` for a smart-cropped square, `1000x1000f`
+        for fit-in) or pick a ready-made width from `srcset`.
       additionalProperties: false
       properties:
         filename:
@@ -2717,6 +2722,29 @@ components:
                     type: [integer, 'null']
                   height:
                     type: [integer, 'null']
+        width:
+          type: [integer, 'null']
+          description: Intrinsic width of the source image, in pixels.
+        height:
+          type: [integer, 'null']
+          description: Intrinsic height of the source image, in pixels.
+        srcTemplate:
+          type: [string, 'null']
+          description: >
+            URL with a `{geo}` placeholder to substitute with a geometry token
+            (`{W}x{H}`, `s` = smart-crop, `f` = fit-in; `0` = proportional).
+        srcset:
+          type: array
+          description: Ready-made proportional widths, never upscaled past the source.
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              width:
+                type: integer
+              url:
+                type: string
+                format: uri
 
     EventLocation:
       type: object
