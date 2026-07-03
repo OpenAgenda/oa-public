@@ -93,5 +93,91 @@ describe('98 - core unit - cleanEvent', () => {
 
       expect(result.custom.image_alt_text).toBeNull();
     });
+
+    describe('draft default seeding', () => {
+      // An agenda whose form schema pins attendanceMode to "online" (2). With
+      // that default, `location` is optional (optionalWith attendanceMode 2).
+      const onlineAgendaSchema = {
+        fields: [{ field: 'attendanceMode', fieldType: 'abstract', default: 2 }],
+      };
+
+      test('seeds the agenda-configured default for a field the user left untouched', () => {
+        // Without seeding, a draft saved with no attendanceMode falls back to the
+        // `attendance_mode` column DEFAULT (1/offline), which then fails
+        // `location.required` on publish. The cleaned data must carry the
+        // agenda default (2) so the INSERT does not rely on the column default.
+        const result = validateEvent(
+          {
+            formSchema: onlineAgendaSchema,
+            validateAgendaEvent: () => ({ state: 1 }),
+          },
+          { title: { fr: 'Un titre' } },
+          { validateAsDraft: true, access: 'contributor' },
+        );
+
+        expect(result.event.attendanceMode).toBe(2);
+      });
+
+      test('does not override an attendanceMode the user explicitly provided', () => {
+        const result = validateEvent(
+          {
+            formSchema: onlineAgendaSchema,
+            validateAgendaEvent: () => ({ state: 1 }),
+          },
+          { title: { fr: 'Un titre' }, attendanceMode: 1 },
+          { validateAsDraft: true, access: 'contributor' },
+        );
+
+        expect(result.event.attendanceMode).toBe(1);
+      });
+
+      test('does not re-seed a field already set on the stored draft', () => {
+        const result = validateEvent(
+          {
+            formSchema: onlineAgendaSchema,
+            validateAgendaEvent: () => ({ state: 1 }),
+          },
+          { title: { fr: 'Nouveau titre' } },
+          {
+            validateAsDraft: true,
+            isPatch: true,
+            storedData: { uid: 18992812, attendanceMode: 3 },
+            access: 'contributor',
+          },
+        );
+
+        // The stored value is preserved (via the patch merge); seeding must not
+        // replace it with the agenda default.
+        expect(result.event.attendanceMode).toBe(3);
+      });
+
+      test('does not seed a write-restricted field (no spurious unauthorized error)', () => {
+        // A custom field carrying both a default and a write restriction must be
+        // skipped: seeding it would make it present in the input and trip the
+        // field-level authorization check, failing the contributor's draft save.
+        const result = validateEvent(
+          {
+            formSchema: {
+              fields: [
+                { field: 'attendanceMode', fieldType: 'abstract', default: 2 },
+                {
+                  field: 'restricted-field',
+                  fieldType: 'text',
+                  default: 'x',
+                  write: ['administrator'],
+                },
+              ],
+            },
+            validateAgendaEvent: () => ({ state: 1 }),
+          },
+          { title: { fr: 'Un titre' } },
+          { validateAsDraft: true, access: 'contributor' },
+        );
+
+        expect(result.custom['restricted-field']).toBeUndefined();
+        // The unrestricted field is still seeded.
+        expect(result.event.attendanceMode).toBe(2);
+      });
+    });
   });
 });
