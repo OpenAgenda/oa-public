@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@openagenda/verror": "^3.2.0",
-    "express": "^4.17.1",
+    "express": "^4.21.2",
     "html-to-text": "^6.0.0",
     "lodash": "^4.17.20",
     "morgan": "^1.10.0",

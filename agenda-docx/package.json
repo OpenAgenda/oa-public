@@ -24,7 +24,7 @@
     "angular-expressions": "^1.5.5",
     "date-fns": "^4.1.0",
     "docxtemplater": "^3.44.0",
-    "express": "^4.17.1",
+    "express": "^4.21.2",
     "final-form": "^4.20.2",
     "immutability-helper": "^3.0.0",
     "inquirer": "^8.2.6",
