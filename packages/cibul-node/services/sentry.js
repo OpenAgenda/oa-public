@@ -1,14 +1,16 @@
 import bodyParser from 'body-parser';
+import { dsnFromString } from '@sentry/core';
 import logs from '@openagenda/logs';
 
 const log = logs('services/sentry');
 
-// Change host appropriately if you run your own Sentry instance.
-const sentryHost = 'sentry.io';
+// Sentry ingest hosts are of the form `o<orgId>.ingest.<region>.sentry.io`
+// (the region segment is absent for legacy US-only DSNs).
+const sentryIngestHost = /^o\d+\.ingest\.(?:[a-z]{2}\.)?sentry\.io$/;
 
 // Set knownProjectIds to an array with your Sentry project IDs which you
 // want to accept through this proxy.
-const knownProjectIds = ['128991'];
+const knownProjectIds = ['4511659413995600'];
 
 export default (app) => {
   app.post(
@@ -20,12 +22,11 @@ export default (app) => {
 
         const pieces = envelope.split('\n');
         const header = JSON.parse(pieces[0]);
-        // DSNs are of the form `https://<key>@o<orgId>.ingest.sentry.io/<projectId>`
-        const { host, pathname } = new URL(header.dsn);
-        // Remove leading slash
-        const projectId = pathname.substring(1);
+        // DSNs are of the form
+        // `https://<key>@o<orgId>.ingest.<region>.sentry.io/<projectId>`
+        const { host, projectId } = dsnFromString(header.dsn) ?? {};
 
-        if (!host.match(/^o(\d+)\.ingest\.sentry\.io$/)) {
+        if (!host || !sentryIngestHost.test(host)) {
           throw new Error(`invalid host: ${host}`);
         }
 
@@ -33,7 +34,8 @@ export default (app) => {
           throw new Error(`invalid project id: ${projectId}`);
         }
 
-        const sentryIngestURL = `https://${sentryHost}/api/${projectId}/envelope/`;
+        // Forward to the DSN's own (region-specific) ingest host.
+        const sentryIngestURL = `https://${host}/api/${projectId}/envelope/`;
         await fetch(sentryIngestURL, {
           method: 'POST',
           body: envelope,

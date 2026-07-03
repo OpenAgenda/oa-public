@@ -7,7 +7,7 @@ import { init, captureRouterTransitionStart } from '@sentry/nextjs';
 const SENTRY_DSN =
   process.env.SENTRY_DSN ||
   process.env.NEXT_PUBLIC_SENTRY_DSN ||
-  'https://5fe9d785fe8c43d2aac6372740474a4d@o60122.ingest.sentry.io/128991';
+  'https://903257cfd37db7bda5d29625e310fcab@o4511653347590144.ingest.de.sentry.io/4511659413995600';
 const ENV = process.env.NODE_ENV;
 
 init({
