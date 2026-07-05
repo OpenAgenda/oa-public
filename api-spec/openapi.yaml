@@ -2848,7 +2848,17 @@ components:
         description:
           fr: Ancienne maison forte des comtes du Roure.
         access: {}
-        image: https://cdn.openagenda.com/main/locations/67890.jpg
+        image:
+          credits: null
+          width: 1200
+          height: 800
+          src: https://img.openagenda.com/u/1080x0/main/67890.full.image.jpg
+          srcTemplate: https://img.openagenda.com/u/{geo}/main/67890.full.image.jpg
+          srcset:
+            - width: 640
+              url: https://img.openagenda.com/u/640x0/main/67890.full.image.jpg
+            - width: 1080
+              url: https://img.openagenda.com/u/1080x0/main/67890.full.image.jpg
         imageCredits: null
         website: http://www.domainedeslebres.com/
         email: null
@@ -2954,8 +2964,9 @@ components:
           description: >
             Localized practical information on how to reach the location.
         image:
-          type: [string, 'null']
-          description: Absolute URL of the location's image.
+          oneOf:
+            - $ref: '#/components/schemas/Image'
+            - type: 'null'
         imageCredits:
           type: [string, 'null']
         website:
@@ -3193,7 +3204,17 @@ components:
         slug: festival-des-lumieres
         title: Festival des Lumières
         description: La programmation du festival.
-        image: https://cdn.openagenda.com/main/12345.jpg
+        image:
+          credits: null
+          width: 1400
+          height: 900
+          src: https://img.openagenda.com/u/1080x0/main/12345.full.image.jpg
+          srcTemplate: https://img.openagenda.com/u/{geo}/main/12345.full.image.jpg
+          srcset:
+            - width: 640
+              url: https://img.openagenda.com/u/640x0/main/12345.full.image.jpg
+            - width: 1080
+              url: https://img.openagenda.com/u/1080x0/main/12345.full.image.jpg
         official: false
         private: false
         role: administrator
@@ -3219,7 +3240,9 @@ components:
         description:
           type: [string, 'null']
         image:
-          type: [string, 'null']
+          oneOf:
+            - $ref: '#/components/schemas/Image'
+            - type: 'null'
         official:
           type: boolean
         private:
@@ -3258,7 +3281,9 @@ components:
         description:
           type: [string, 'null']
         image:
-          type: [string, 'null']
+          oneOf:
+            - $ref: '#/components/schemas/Image'
+            - type: 'null'
         official:
           type: boolean
         private:
@@ -3478,7 +3503,17 @@ components:
         slug: festival-des-lumieres
         title: Festival des Lumières
         description: La programmation officielle du Festival des Lumières.
-        image: https://cdn.openagenda.com/main/12345.jpg
+        image:
+          credits: null
+          width: 1400
+          height: 900
+          src: https://img.openagenda.com/u/1080x0/main/12345.full.image.jpg
+          srcTemplate: https://img.openagenda.com/u/{geo}/main/12345.full.image.jpg
+          srcset:
+            - width: 640
+              url: https://img.openagenda.com/u/640x0/main/12345.full.image.jpg
+            - width: 1080
+              url: https://img.openagenda.com/u/1080x0/main/12345.full.image.jpg
         official: true
       properties:
         uid:
@@ -3491,12 +3526,9 @@ components:
         description:
           type: [string, 'null']
         image:
-          type: [string, 'null']
-          format: uri
-          description: >
-            Absolute URL of the agenda image, or `null`. (Scalar URL — not the
-            structured `Image` type used by events; aligning the two is a
-            planned backend follow-up.)
+          oneOf:
+            - $ref: '#/components/schemas/Image'
+            - type: 'null'
         official:
           type: boolean
           description: Whether the agenda is an official one. `null` is coerced to `false`.
@@ -3534,12 +3566,9 @@ components:
         description:
           type: [string, 'null']
         image:
-          type: [string, 'null']
-          format: uri
-          description: >
-            Absolute URL of the agenda image, or `null`. (Scalar URL — not the
-            structured `Image` type used by events; aligning the two is a
-            planned backend follow-up.)
+          oneOf:
+            - $ref: '#/components/schemas/Image'
+            - type: 'null'
         official:
           type: boolean
           description: Whether the agenda is an official one. `null` is coerced to `false`.
@@ -3583,7 +3612,17 @@ components:
         slug: festival-des-lumieres
         title: Festival des Lumières
         description: La programmation officielle du Festival des Lumières.
-        image: https://cdn.openagenda.com/main/12345.jpg
+        image:
+          credits: null
+          width: 1400
+          height: 900
+          src: https://img.openagenda.com/u/1080x0/main/12345.full.image.jpg
+          srcTemplate: https://img.openagenda.com/u/{geo}/main/12345.full.image.jpg
+          srcset:
+            - width: 640
+              url: https://img.openagenda.com/u/640x0/main/12345.full.image.jpg
+            - width: 1080
+              url: https://img.openagenda.com/u/1080x0/main/12345.full.image.jpg
         official: true
         url: https://openagenda.com/festival-des-lumieres
         createdAt: '2024-11-04T09:12:00+01:00'
@@ -3608,12 +3647,9 @@ components:
         description:
           type: [string, 'null']
         image:
-          type: [string, 'null']
-          format: uri
-          description: >
-            Absolute URL of the agenda image, or `null`. (Scalar URL — not the
-            structured `Image` type used by events; aligning the two is a
-            planned backend follow-up.)
+          oneOf:
+            - $ref: '#/components/schemas/Image'
+            - type: 'null'
         official:
           type: boolean
           description: Whether the agenda is an official one. `null` is coerced to `false`.
@@ -4009,14 +4045,16 @@ components:
           }
         featured: false
         image:
-          filename: '9876543.jpg'
-          base: https://cdn.openagenda.com/events/
           credits: Ville de Lyon
-          size: { width: 1200, height: 800 }
-          variants:
-            - type: thumbnail
-              filename: '9876543_thumb.jpg'
-              size: { width: 200, height: 133 }
+          width: 1200
+          height: 800
+          src: https://img.openagenda.com/u/1080x0/main/9876543.full.image.jpg
+          srcTemplate: https://img.openagenda.com/u/{geo}/main/9876543.full.image.jpg
+          srcset:
+            - width: 640
+              url: https://img.openagenda.com/u/640x0/main/9876543.full.image.jpg
+            - width: 1080
+              url: https://img.openagenda.com/u/1080x0/main/9876543.full.image.jpg
         imageCredits: Ville de Lyon
         keywords:
           { fr: [jazz, concert, plein air], en: [jazz, concert, open air] }
@@ -4192,14 +4230,16 @@ components:
           }
         featured: false
         image:
-          filename: '9876543.jpg'
-          base: https://cdn.openagenda.com/events/
           credits: Ville de Lyon
-          size: { width: 1200, height: 800 }
-          variants:
-            - type: thumbnail
-              filename: '9876543_thumb.jpg'
-              size: { width: 200, height: 133 }
+          width: 1200
+          height: 800
+          src: https://img.openagenda.com/u/1080x0/main/9876543.full.image.jpg
+          srcTemplate: https://img.openagenda.com/u/{geo}/main/9876543.full.image.jpg
+          srcset:
+            - width: 640
+              url: https://img.openagenda.com/u/640x0/main/9876543.full.image.jpg
+            - width: 1080
+              url: https://img.openagenda.com/u/1080x0/main/9876543.full.image.jpg
         imageCredits: Ville de Lyon
         keywords:
           { fr: [jazz, concert, plein air], en: [jazz, concert, open air] }
