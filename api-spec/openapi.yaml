@@ -3383,6 +3383,35 @@ components:
           description: Optional enrichment metadata extracted from the link.
           additionalProperties: true
 
+    ImageRef:
+      type: object
+      description: >
+        A lightweight image for an embedded reference (an agenda logo on an
+        event's originAgenda/sourceAgendas, or a provenance facet bucket). Unlike
+        the full `Image`, a ref carries no intrinsic dimensions (its source is a
+        bare string), so it offers only a ready-to-use `src` plus the `{geo}`
+        template — not the responsive `srcset`/`width`/`height`. A client needing
+        the full responsive image follows the ref to its agenda endpoint, whose
+        `image` is an `Image`.
+      additionalProperties: false
+      required: [src, srcTemplate]
+      properties:
+        src:
+          type: [string, 'null']
+          format: uri
+          description: >
+            A ready-to-use default rendition URL (a modest proportional width) —
+            a naive `<img src>` just works. Falls back to the legacy URL until
+            the on-demand image CDN is enabled; `null` only when the ref has no
+            image.
+        srcTemplate:
+          type: [string, 'null']
+          description: >
+            A URL with a literal `{geo}` placeholder to substitute with a
+            geometry token (`{W}x{H}`, `s` smart-crop, `f` fit-in, `0`
+            proportional) to render the ref image at any size. `null` when the
+            on-demand CDN is off or the source is not a Thumbor source.
+
     AgendaRef:
       type: object
       description: A compact reference to an agenda.
@@ -3396,7 +3425,9 @@ components:
         slug:
           type: [string, 'null']
         image:
-          type: [string, 'null']
+          oneOf:
+            - $ref: '#/components/schemas/ImageRef'
+            - type: 'null'
         url:
           type: [string, 'null']
           format: uri
@@ -3419,7 +3450,9 @@ components:
         title:
           type: [string, 'null']
         image:
-          type: [string, 'null']
+          oneOf:
+            - $ref: '#/components/schemas/ImageRef'
+            - type: 'null'
 
     ExtId:
       type: object
@@ -4062,7 +4095,9 @@ components:
           uid: 12345
           title: Festival des Lumières
           slug: festival-des-lumieres
-          image: https://cdn.openagenda.com/main/12345.jpg
+          image:
+            src: https://img.openagenda.com/u/400x0/main/a1b2c3d4e5f60718293a4b5c6d7e8f90.full.image.jpg
+            srcTemplate: https://img.openagenda.com/u/{geo}/main/a1b2c3d4e5f60718293a4b5c6d7e8f90.full.image.jpg
           url: https://openagenda.com/festival-des-lumieres
           official: true
         location:
@@ -4247,7 +4282,9 @@ components:
           uid: 12345
           title: Festival des Lumières
           slug: festival-des-lumieres
-          image: https://cdn.openagenda.com/main/12345.jpg
+          image:
+            src: https://img.openagenda.com/u/400x0/main/a1b2c3d4e5f60718293a4b5c6d7e8f90.full.image.jpg
+            srcTemplate: https://img.openagenda.com/u/{geo}/main/a1b2c3d4e5f60718293a4b5c6d7e8f90.full.image.jpg
           url: https://openagenda.com/festival-des-lumieres
           official: true
         timings:
@@ -5023,7 +5060,9 @@ components:
                 uid: 12345
                 title: Festival des Lumières
                 slug: festival-des-lumieres
-                image: https://cdn.openagenda.com/main/12345.jpg
+                image:
+                  src: https://img.openagenda.com/u/400x0/main/a1b2c3d4e5f60718293a4b5c6d7e8f90.full.image.jpg
+                  srcTemplate: https://img.openagenda.com/u/{geo}/main/a1b2c3d4e5f60718293a4b5c6d7e8f90.full.image.jpg
                 url: https://openagenda.com/festival-des-lumieres
                 official: true
               count: 87
