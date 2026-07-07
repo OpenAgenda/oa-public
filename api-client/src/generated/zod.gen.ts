@@ -521,6 +521,76 @@ export const zEvent = z.object({
     sourceAgendas: z.array(zAgendaRef).readonly()
 });
 
+/**
+ * A reference to an existing location by its OpenAgenda uid.
+ */
+export const zEventLocationRef = z.object({
+    uid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
+});
+
+/**
+ * Request body for creating (and, later, replacing) an event. This is the WRITE shape, deliberately distinct from the read `Event`: it carries only the fields a client may set. Read-only/computed fields the read projection emits (`uid`, `slug`, `dateRange`, `featured`, `originAgenda`, `timezone`, first/last/next timing digests, `country`, `createdAt`, `updatedAt`, `links`, `sourceAgendas`) are NOT accepted and are rejected with `400` if sent.
+ *
+ * Agenda-specific fields go under `additionalFields`, never at the top level; an unknown top-level key is a `400`, as is an `additionalFields` name that collides with a native field. Field VALUES are validated by the server (a `422` with per-field `error.details.errors[]` on failure).
+ *
+ * Required fields are enforced server-side, not declared here: a published event needs at least `title`, `description` and `timings`, plus a `location` unless it is online-only, plus whatever a given agenda marks required. These requirements are relaxed for drafts, so no top-level `required` is declared on this schema — send a body and read the `422` `error.details.errors[]` for the exact, per-agenda set.
+ *
+ * Two fields are settable but authorization-gated, so the value you send may be adjusted or refused: `state` (moderation) and `status` (lifecycle). The moderation `state` is arbitrated by the server from the agenda's contribution settings and your role — a moderator's value is honored, a `state: 2` (publish) without permission answers `403`, and a contributor's value is ignored in favour of the agenda default. The `status` field is a per-agenda opt-in feature (`settings.lab.status`): when it is disabled for the agenda, sending `status` answers `422`. See each field for details.
+ *
+ * Not settable in this version: images (`image`/`imageCredits` — a dedicated upload endpoint is planned) and draft creation. `private` is never accepted: an event's privacy is derived from its agenda, not set per-event.
+ *
+ */
+export const zEventInput = z.object({
+    title: zLocalizedString.optional(),
+    description: zLocalizedString.optional(),
+    longDescription: zLocalizedString.optional(),
+    conditions: zLocalizedString.optional(),
+    keywords: zLocalizedStringArray.optional(),
+    timings: z.array(zTiming).optional(),
+    location: zEventLocationRef.nullish(),
+    attendanceMode: zAttendanceMode.optional(),
+    onlineAccessLink: z.string().url().nullish(),
+    accessibility: zAccessibility.optional(),
+    age: zAgeRange.optional(),
+    registration: z.array(zRegistration).optional(),
+    extIds: z.array(zExtId).optional(),
+    state: zModerationState.optional(),
+    status: zEventStatus.optional(),
+    additionalFields: zAdditionalFields.optional()
+});
+
+/**
+ * Partial update body: the same fields as `EventInput`, all optional. Only the provided fields are changed. Will be used by the upcoming partial-update (PATCH) endpoint.
+ *
+ */
+export const zEventPatch = z.object({
+    title: zLocalizedString.optional(),
+    description: zLocalizedString.optional(),
+    longDescription: zLocalizedString.optional(),
+    conditions: zLocalizedString.optional(),
+    keywords: zLocalizedStringArray.optional(),
+    timings: z.array(zTiming).optional(),
+    location: zEventLocationRef.nullish(),
+    attendanceMode: zAttendanceMode.optional(),
+    onlineAccessLink: z.string().url().nullish(),
+    accessibility: zAccessibility.optional(),
+    age: zAgeRange.optional(),
+    registration: z.array(zRegistration).optional(),
+    extIds: z.array(zExtId).optional(),
+    state: zModerationState.optional(),
+    status: zEventStatus.optional(),
+    additionalFields: zAdditionalFields.optional()
+});
+
+/**
+ * Confirmation returned by a delete: the uid of the removed resource and a `deleted: true` marker (Stripe-style), so a client can confirm the outcome without a follow-up read.
+ *
+ */
+export const zDeletionResult = z.object({
+    uid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
+    deleted: z.literal(true)
+});
+
 export const zEventList = z.object({
     data: z.array(z.union([zEvent, zEventSummary])),
     pagination: zPagination
@@ -1084,6 +1154,24 @@ export const zAgendaUid = z.coerce.bigint().min(BigInt('-9223372036854775808'), 
 export const zEventUid = z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' });
 
 /**
+ * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
+ *
+ */
+export const zExtKey = z.string();
+
+/**
+ * The resource's identifier within that external system (the `value` of an `ExtId` mapping — see the event's `extIds` or the location's `extIds`). Percent-encode reserved characters.
+ *
+ */
+export const zExtIdValue = z.string();
+
+/**
+ * On a by-uid write, whether the body's `extIds` are merged with the ones already stored (`true`, the default — a content write never drops an existing external identity) or replace them wholesale (`false`). Omitting `extIds` from the body with `mergeExtIds=false` clears them.
+ *
+ */
+export const zMergeExtIds = z.boolean().default(true);
+
+/**
  * Opaque pagination cursor returned in `pagination.after` of the previous page. Omit it to fetch the first page.
  *
  */
@@ -1627,6 +1715,40 @@ export const zAgendasEventsListQuery = z.object({
  */
 export const zAgendasEventsListResponse = zEventList;
 
+export const zAgendasEventsCreateBody = zEventInput;
+
+export const zAgendasEventsCreatePath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
+});
+
+/**
+ * The created event.
+ */
+export const zAgendasEventsCreateResponse = zEvent;
+
+export const zAgendasEventsValidateBody = zEventInput;
+
+export const zAgendasEventsValidatePath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
+});
+
+/**
+ * The body is valid.
+ */
+export const zAgendasEventsValidateResponse = z.object({
+    valid: z.literal(true)
+});
+
+export const zAgendasEventsDeletePath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
+    eventUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
+});
+
+/**
+ * The event was deleted.
+ */
+export const zAgendasEventsDeleteResponse = zDeletionResult;
+
 export const zAgendasEventsGetPath = z.object({
     agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
     eventUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
@@ -1636,6 +1758,86 @@ export const zAgendasEventsGetPath = z.object({
  * The event.
  */
 export const zAgendasEventsGetResponse = zEvent;
+
+export const zAgendasEventsPatchBody = zEventPatch;
+
+export const zAgendasEventsPatchPath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
+    eventUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
+});
+
+export const zAgendasEventsPatchQuery = z.object({
+    mergeExtIds: z.boolean().optional().default(true)
+});
+
+/**
+ * The updated event.
+ */
+export const zAgendasEventsPatchResponse = zEvent;
+
+export const zAgendasEventsUpdateBody = zEventInput;
+
+export const zAgendasEventsUpdatePath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
+    eventUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
+});
+
+export const zAgendasEventsUpdateQuery = z.object({
+    mergeExtIds: z.boolean().optional().default(true)
+});
+
+/**
+ * The updated event.
+ */
+export const zAgendasEventsUpdateResponse = zEvent;
+
+export const zAgendasEventsDeleteByExtIdPath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
+    extKey: z.string(),
+    extId: z.string()
+});
+
+/**
+ * The event was deleted.
+ */
+export const zAgendasEventsDeleteByExtIdResponse = zDeletionResult;
+
+export const zAgendasEventsGetByExtIdPath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
+    extKey: z.string(),
+    extId: z.string()
+});
+
+/**
+ * The event.
+ */
+export const zAgendasEventsGetByExtIdResponse = zEvent;
+
+export const zAgendasEventsPatchByExtIdBody = zEventPatch;
+
+export const zAgendasEventsPatchByExtIdPath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
+    extKey: z.string(),
+    extId: z.string()
+});
+
+/**
+ * The existing event was updated.
+ */
+export const zAgendasEventsPatchByExtIdResponse = zEvent;
+
+export const zAgendasEventsSetByExtIdBody = zEventInput;
+
+export const zAgendasEventsSetByExtIdPath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
+    extKey: z.string(),
+    extId: z.string()
+});
+
+/**
+ * The existing event was updated.
+ */
+export const zAgendasEventsSetByExtIdResponse = zEvent;
 
 export const zAgendasEventsFacetsPath = z.object({
     agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
@@ -1811,6 +2013,17 @@ export const zAgendasLocationsListQuery = z.object({
  * A page of locations.
  */
 export const zAgendasLocationsListResponse = zLocationList;
+
+export const zAgendasLocationsGetByExtIdPath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
+    extKey: z.string(),
+    extId: z.string()
+});
+
+/**
+ * The location.
+ */
+export const zAgendasLocationsGetByExtIdResponse = zLocation;
 
 export const zAgendasLocationsGetPath = z.object({
     agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
