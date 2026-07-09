@@ -32,7 +32,7 @@ module.exports = {
 
   env: {
     browser: true,
-    es6: true,
+    es2024: true,
     jest: true,
     node: true,
   },
