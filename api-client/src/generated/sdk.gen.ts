@@ -2,7 +2,7 @@
 
 import { type Client, formDataBodySerializer, type Options as Options2, type TDataShape } from './client';
 import { client } from './client.gen';
-import type { AgendasEventsCreateData, AgendasEventsCreateErrors, AgendasEventsCreateResponses, AgendasEventsDeleteByExtIdData, AgendasEventsDeleteByExtIdErrors, AgendasEventsDeleteByExtIdResponses, AgendasEventsDeleteData, AgendasEventsDeleteErrors, AgendasEventsDeleteResponses, AgendasEventsFacetsData, AgendasEventsFacetsErrors, AgendasEventsFacetsReportData, AgendasEventsFacetsReportErrors, AgendasEventsFacetsReportResponses, AgendasEventsFacetsResponses, AgendasEventsGetByExtIdData, AgendasEventsGetByExtIdErrors, AgendasEventsGetByExtIdResponses, AgendasEventsGetData, AgendasEventsGetErrors, AgendasEventsGetResponses, AgendasEventsListData, AgendasEventsListErrors, AgendasEventsListResponses, AgendasEventsPatchByExtIdData, AgendasEventsPatchByExtIdErrors, AgendasEventsPatchByExtIdResponses, AgendasEventsPatchData, AgendasEventsPatchErrors, AgendasEventsPatchResponses, AgendasEventsSchemaData, AgendasEventsSchemaErrors, AgendasEventsSchemaResponses, AgendasEventsSetByExtIdData, AgendasEventsSetByExtIdErrors, AgendasEventsSetByExtIdResponses, AgendasEventsUpdateData, AgendasEventsUpdateErrors, AgendasEventsUpdateResponses, AgendasEventsValidateData, AgendasEventsValidateErrors, AgendasEventsValidateResponses, AgendasGetData, AgendasGetErrors, AgendasGetResponses, AgendasListData, AgendasListErrors, AgendasListResponses, AgendasLocationsGetByExtIdData, AgendasLocationsGetByExtIdErrors, AgendasLocationsGetByExtIdResponses, AgendasLocationsGetData, AgendasLocationsGetErrors, AgendasLocationsGetResponses, AgendasLocationsListData, AgendasLocationsListErrors, AgendasLocationsListResponses, AgendasOverviewData, AgendasOverviewErrors, AgendasOverviewResponses, AgendasUploadsCreateData, AgendasUploadsCreateErrors, AgendasUploadsCreateResponses, MeAgendasListData, MeAgendasListErrors, MeAgendasListResponses } from './types.gen';
+import type { AgendasEventsCreateData, AgendasEventsCreateErrors, AgendasEventsCreateResponses, AgendasEventsDeleteByExtIdData, AgendasEventsDeleteByExtIdErrors, AgendasEventsDeleteByExtIdResponses, AgendasEventsDeleteData, AgendasEventsDeleteErrors, AgendasEventsDeleteResponses, AgendasEventsFacetsData, AgendasEventsFacetsErrors, AgendasEventsFacetsReportData, AgendasEventsFacetsReportErrors, AgendasEventsFacetsReportResponses, AgendasEventsFacetsResponses, AgendasEventsGetByExtIdData, AgendasEventsGetByExtIdErrors, AgendasEventsGetByExtIdResponses, AgendasEventsGetData, AgendasEventsGetErrors, AgendasEventsGetResponses, AgendasEventsListData, AgendasEventsListErrors, AgendasEventsListResponses, AgendasEventsPatchByExtIdData, AgendasEventsPatchByExtIdErrors, AgendasEventsPatchByExtIdResponses, AgendasEventsPatchData, AgendasEventsPatchErrors, AgendasEventsPatchResponses, AgendasEventsSchemaData, AgendasEventsSchemaErrors, AgendasEventsSchemaResponses, AgendasEventsSetByExtIdData, AgendasEventsSetByExtIdErrors, AgendasEventsSetByExtIdResponses, AgendasEventsUpdateData, AgendasEventsUpdateErrors, AgendasEventsUpdateResponses, AgendasEventsValidateData, AgendasEventsValidateErrors, AgendasEventsValidateResponses, AgendasGetData, AgendasGetErrors, AgendasGetResponses, AgendasListData, AgendasListErrors, AgendasListResponses, AgendasLocationsGetByExtIdData, AgendasLocationsGetByExtIdErrors, AgendasLocationsGetByExtIdResponses, AgendasLocationsGetData, AgendasLocationsGetErrors, AgendasLocationsGetResponses, AgendasLocationsListData, AgendasLocationsListErrors, AgendasLocationsListResponses, AgendasOverviewData, AgendasOverviewErrors, AgendasOverviewResponses, AgendasUploadsCreateData, AgendasUploadsCreateErrors, AgendasUploadsCreateResponses, AgendasUploadsCreateTicketData, AgendasUploadsCreateTicketErrors, AgendasUploadsCreateTicketResponses, MeAgendasListData, MeAgendasListErrors, MeAgendasListResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -328,6 +328,26 @@ export class Uploads extends HeyApiClient {
                 'Content-Type': null,
                 ...options.headers
             }
+        });
+    }
+    
+    /**
+     * Authorize an out-of-band image upload
+     *
+     * Authorizes an OUT-OF-BAND upload of a LOCAL image file, so its bytes never pass through the caller's prompt/token stream (pasting base64 is slow and unnecessary). Returns a self-contained descriptor: an `uploadUrl`, a short-lived single-use `ticket`, and the `header`/`field` to use.
+     *
+     * Upload the file with a plain HTTPS `POST` to `uploadUrl` — send the `ticket` in the `X-Upload-Ticket` header and the file as multipart field `file`, NOT through this API client (the bytes go straight to storage). That call returns a staging `ref` (an `UploadTicket`), which you then attach with `image: { ref }` on an event write (see `ImageInput`).
+     *
+     * For an image ALREADY reachable at an `http(s)` URL, do NOT use this — pass `image: { url }` on the write instead (no upload step).
+     *
+     * The ticket is upload-only, bound to THIS agenda, one file, ~5 min, and single-use; it carries no account credential. Requires a write credential (`events:write`); a read-only publishable or agenda key answers `403`.
+     *
+     */
+    public createTicket<ThrowOnError extends boolean = false>(options: Options<AgendasUploadsCreateTicketData, ThrowOnError>) {
+        return (options.client ?? this.client).post<AgendasUploadsCreateTicketResponses, AgendasUploadsCreateTicketErrors, ThrowOnError>({
+            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            url: '/agendas/{agendaUid}/uploads/ticket',
+            ...options
         });
     }
 }

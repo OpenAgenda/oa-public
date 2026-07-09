@@ -1278,7 +1278,7 @@ paths:
             if (error) throw error;
 
             // 2. Attach the ref on a normal event write.
-            await oa.agendas.events.create({
+            return await oa.agendas.events.create({
               path: { agendaUid: 12345 },
               body: {
                 title: { fr: 'Concert' },
@@ -1346,6 +1346,92 @@ paths:
           $ref: '#/components/responses/NotFound'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
+
+  /agendas/{agendaUid}/uploads/ticket:
+    post:
+      operationId: agendas.uploads.createTicket
+      tags: [Uploads]
+      summary: Authorize an out-of-band image upload
+      x-synonyms:
+        [
+          upload,
+          local file,
+          attach image,
+          photo,
+          picture,
+          ticket,
+          out of band,
+          no base64,
+        ]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Attach a LOCAL image without base64
+          source: |
+            // 1. Authorize an out-of-band upload for the agenda.
+            const { data: t, error } = await oa.agendas.uploads.createTicket({
+              path: { agendaUid: 12345 },
+            });
+            if (error) throw error;
+
+            // 2. Upload the LOCAL file OUT OF BAND — the bytes never pass through
+            //    the model. Run this in your shell (e.g. Claude Code) or hand it
+            //    to the user; it returns { ref: "staging/…" }:
+            //    curl -sS -X POST "$UPLOAD_URL" \
+            //      -H "X-Upload-Ticket: $TICKET" -F "file=@/path/to/image.jpg"
+            //    (uploadUrl = t.uploadUrl, ticket = t.ticket)
+
+            // 3. Attach the returned ref on a normal event write.
+            return await oa.agendas.events.create({
+              path: { agendaUid: 12345 },
+              body: {
+                title: { fr: 'Concert' },
+                timings: [
+                  { begin: '2025-06-20T18:00:00+02:00', end: '2025-06-20T22:00:00+02:00' },
+                ],
+                image: { ref: '<the ref returned by the upload>' },
+              },
+            });
+      description: >
+        Authorizes an OUT-OF-BAND upload of a LOCAL image file, so its bytes
+        never pass through the caller's prompt/token stream (pasting base64 is
+        slow and unnecessary). Returns a self-contained descriptor: an
+        `uploadUrl`, a short-lived single-use `ticket`, and the `header`/`field`
+        to use.
+
+
+        Upload the file with a plain HTTPS `POST` to `uploadUrl` — send the
+        `ticket` in the `X-Upload-Ticket` header and the file as multipart field
+        `file`, NOT through this API client (the bytes go straight to storage).
+        That call returns a staging `ref` (an `UploadTicket`), which you then
+        attach with `image: { ref }` on an event write (see `ImageInput`).
+
+
+        For an image ALREADY reachable at an `http(s)` URL, do NOT use this — pass
+        `image: { url }` on the write instead (no upload step).
+
+
+        The ticket is upload-only, bound to THIS agenda, one file, ~5 min, and
+        single-use; it carries no account credential. Requires a write credential
+        (`events:write`); a read-only publishable or agenda key answers `403`.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - events:write
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+      responses:
+        '200':
+          description: An out-of-band upload descriptor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadDescriptor'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
 
   /agendas/{agendaUid}/locations:
     get:
@@ -4494,6 +4580,43 @@ components:
             instant (ISO 8601). Afterwards a periodic sweep reclaims it if it was
             never attached; attaching a reclaimed reference answers `422`. Attach
             before this point — availability past it is best-effort.
+
+    UploadDescriptor:
+      type: object
+      additionalProperties: false
+      required: [uploadUrl, method, header, field, ticket, maxBytes, expiresAt]
+      description: >
+        An out-of-band upload authorization. `POST` the raw file to `uploadUrl`,
+        sending `ticket` in the `header` header and the file as multipart
+        `field`; the bytes travel over HTTPS directly, NOT through this API
+        client. That call returns an `UploadTicket` whose `ref` you attach with
+        `image: { ref }`.
+      properties:
+        uploadUrl:
+          type: string
+          format: uri
+          description: Absolute URL to POST the file to (out of band).
+        method:
+          type: string
+          description: The HTTP method to use for the upload (`POST`).
+        header:
+          type: string
+          description: The header carrying the `ticket` (`X-Upload-Ticket`).
+        field:
+          type: string
+          description: The multipart form field for the file (`file`).
+        ticket:
+          type: string
+          description: >
+            The single-use capability ticket. Upload-only, bound to this agenda,
+            one file, short-lived; carries no account credential.
+        maxBytes:
+          type: integer
+          description: Maximum accepted file size, in bytes.
+        expiresAt:
+          type: string
+          format: date-time
+          description: When the ticket expires (ISO 8601).
 
     ImageInput:
       description: >
