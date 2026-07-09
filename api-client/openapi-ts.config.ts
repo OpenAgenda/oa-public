@@ -36,6 +36,17 @@ export default defineConfig({
       },
     },
     '@hey-api/client-ky',
+    // zod validators for payloads. KNOWN LIMITATION: the plugin renders a
+    // multipart `format: binary` body field as `z.string()` (e.g.
+    // `zAgendasUploadsCreateBody.file`), whereas the typescript plugin correctly
+    // types it `Blob | File` in types.gen.ts. There is no option to map binary →
+    // `z.instanceof(Blob)` in this plugin version, and we do NOT hand-patch the
+    // generated output (it must stay reproducible under `yarn generate:check`).
+    // Consequence: do NOT validate an upload's multipart body with the generated
+    // zod schema — it would reject a valid Blob/File. The SDK method signature
+    // (types.gen.ts, `Blob | File`) is authoritative for the multipart body, and
+    // the server validates the bytes itself (multer + content-type detection);
+    // there is nothing meaningful to assert about binary content in zod anyway.
     'zod',
   ],
 });

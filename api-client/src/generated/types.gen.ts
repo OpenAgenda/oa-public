@@ -883,7 +883,7 @@ export type UploadTicket = {
      */
     ref: string;
     /**
-     * When the staged upload expires and is swept if never attached (ISO 8601).
+     * The staged upload is guaranteed attachable at least until this instant (ISO 8601). Afterwards a periodic sweep reclaims it if it was never attached; attaching a reclaimed reference answers `422`. Attach before this point — availability past it is best-effort.
      *
      */
     expiresAt: string;
@@ -897,7 +897,7 @@ export type UploadTicket = {
  */
 export type ImageInput = {
     /**
-     * A staging reference returned by the upload endpoint (of the form `staging/{agendaUid}/…`). It must belong to this agenda; a reference for another agenda, or one that has expired, answers `422`.
+     * A staging reference returned by the upload endpoint (of the form `staging/{agendaUid}/…`). It must belong to this agenda — a reference for another agenda answers `422`. A staged upload is short-lived (see the upload response's `expiresAt`): it is guaranteed attachable until that instant, and once it is reclaimed by the periodic sweep the reference can no longer be found and attaching it answers `422`. Attach promptly — availability past `expiresAt` is best-effort, not a hard deadline.
      *
      */
     ref: string;
