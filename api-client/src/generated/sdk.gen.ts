@@ -93,6 +93,8 @@ export class Events extends HeyApiClient {
      *
      * Runs the same clean/validate path as create WITHOUT persisting anything. A well-formed, valid body answers `200 { "valid": true }`; invalid field values answer `422` with per-field problems under `error.details.errors[]`. Structural body problems (an unknown top-level key, an `additionalFields` name colliding with a native field) answer `400`. Same write credential requirement as create.
      *
+     * One deliberate exception to "same path as create": a native `image: { url }` is checked only for URL **syntax** here, not retrievability. Verifying that the URL resolves to a public host, returns a real image and fits the size limit requires fetching it — a side effect validate must not perform — so a URL that create would reject at fetch time (dead host, private address, too large, not an image) still passes validate. The image is treated as present, so an agenda whose schema requires one validates as it would create.
+     *
      */
     public validate<ThrowOnError extends boolean = false>(options: Options<AgendasEventsValidateData, ThrowOnError>) {
         return (options.client ?? this.client).post<AgendasEventsValidateResponses, AgendasEventsValidateErrors, ThrowOnError>({

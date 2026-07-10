@@ -535,7 +535,7 @@ export const zUploadTicket = z.object({
 /**
  * Write shape for an event image, distinct from the read `Image` (which carries the generated size variants). Attach the image one of two ways — a freshly-staged upload by its `ref` (the value returned by `POST /agendas/{uid}/uploads`), or a publicly reachable `url` the server fetches — or send `null` to remove the current image. The original is processed into the standard size variants and stored as part of the SAME write, so an image change lands in one activity alongside the rest of the edit.
  *
- * The `url` must be a publicly reachable `http(s)` image, without credentials in the URL. A URL that is malformed, not `http(s)`, carries credentials, is not publicly reachable, cannot be retrieved, is not a valid image, or is larger than the size limit is rejected with `422`.
+ * The `url` must be a publicly reachable `http(s)` image, without credentials in the URL. A URL that is malformed, not `http(s)`, carries credentials, is not publicly reachable, cannot be retrieved, is not a valid image, or is larger than the size limit is rejected with `422`. The retrievability checks (public host, actually an image, within the size limit) run when the server fetches the URL — i.e. on create/update, not on `validate`, which only checks the URL syntax (it does not fetch).
  *
  */
 export const zImageInput = z.union([

@@ -467,6 +467,16 @@ paths:
         `error.details.errors[]`. Structural body problems (an unknown top-level
         key, an `additionalFields` name colliding with a native field) answer
         `400`. Same write credential requirement as create.
+
+
+        One deliberate exception to "same path as create": a native
+        `image: { url }` is checked only for URL **syntax** here, not
+        retrievability. Verifying that the URL resolves to a public host, returns
+        a real image and fits the size limit requires fetching it — a side effect
+        validate must not perform — so a URL that create would reject at fetch
+        time (dead host, private address, too large, not an image) still passes
+        validate. The image is treated as present, so an agenda whose schema
+        requires one validates as it would create.
       security:
         - bearerAuth: []
         - oauth2:
@@ -4421,6 +4431,9 @@ components:
         credentials in the URL. A URL that is malformed, not `http(s)`, carries
         credentials, is not publicly reachable, cannot be retrieved, is not a
         valid image, or is larger than the size limit is rejected with `422`.
+        The retrievability checks (public host, actually an image, within the
+        size limit) run when the server fetches the URL — i.e. on create/update,
+        not on `validate`, which only checks the URL syntax (it does not fetch).
       oneOf:
         - type: object
           additionalProperties: false
