@@ -1,13 +1,5 @@
 # Change Log
 
-## 3.0.1
-
-### Patch Changes
-
-- Updated dependencies [[`31c43a7`](https://github.com/OpenAgenda/oa/commit/31c43a7c75fce44e065f642700b8d8ee593c47c3), [`c70935e`](https://github.com/OpenAgenda/oa/commit/c70935ec5f6cb62d0e2bf823c47e6a5c823be969)]:
-  - @openagenda/md@2.0.1
-  - @openagenda/uikit@0.2.0
-
 ## 3.0.0
 
 ### Major Changes

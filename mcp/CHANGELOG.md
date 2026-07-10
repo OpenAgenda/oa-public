@@ -1,14 +1,5 @@
 # @openagenda/mcp
 
-## 1.3.2
-
-### Patch Changes
-
-- [#204](https://github.com/OpenAgenda/oa/pull/204) [`c9ed00e`](https://github.com/OpenAgenda/oa/commit/c9ed00e2882157a69b267b14a72b372aaacf4b8f) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Align the OAuth smoke script with the version-neutral API audience. The OAuth access-token audience is now a single, version-neutral API resource id (the bare API root, `aud=api`) covering both the v2 and v3 APIs, instead of a `/v3`-suffixed value. `scripts/smoke-oauth.js` comments are updated accordingly (`aud=<v3>` → `aud=<api>`); the token-exchange flow it exercises is functionally unchanged.
-
-- Updated dependencies [[`5420053`](https://github.com/OpenAgenda/oa/commit/54200538b8108ce7664e800c6ae4a70f38b68c4a), [`13a924d`](https://github.com/OpenAgenda/oa/commit/13a924d48b45f5b3133f10c137f2ceab43f28768), [`ea60459`](https://github.com/OpenAgenda/oa/commit/ea604592638ee8890612c40a9bd8d672d358be9b), [`1708abd`](https://github.com/OpenAgenda/oa/commit/1708abdcdfc9679b6a72a0709f13db20263d5efa), [`cb8a56f`](https://github.com/OpenAgenda/oa/commit/cb8a56f3c63e95b37359495d36bbc57034ae43ec), [`e4a1f3d`](https://github.com/OpenAgenda/oa/commit/e4a1f3d285ca8828a7fdd8caf656f845549c0f9a), [`86edff3`](https://github.com/OpenAgenda/oa/commit/86edff39e89184230b8351d87723277c0faa3be6), [`a37dc80`](https://github.com/OpenAgenda/oa/commit/a37dc8072933f449af337ee5785fb881a101c548), [`072a7b6`](https://github.com/OpenAgenda/oa/commit/072a7b69279ef1390e79e89c1f230e13dc1fa6cf), [`c3d33c4`](https://github.com/OpenAgenda/oa/commit/c3d33c488c0d65a077bf2ad12a74cd821dde7106)]:
-  - @openagenda/api-spec@0.3.0
-
 ## 1.3.1
 
 ### Patch Changes

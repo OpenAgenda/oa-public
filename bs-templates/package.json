@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/bs-templates",
-  "version": "2.6.1",
+  "version": "2.6.0",
   "description": "openagenda bootstrap templates",
   "main": "index.js",
   "repository": {

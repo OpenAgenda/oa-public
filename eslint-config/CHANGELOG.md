@@ -1,11 +1,5 @@
 # Change Log
 
-## 2.1.0
-
-### Minor Changes
-
-- [#239](https://github.com/OpenAgenda/oa/pull/239) [`166d791`](https://github.com/OpenAgenda/oa/commit/166d791faa7b745ccd89048aded4de4b22be45fe) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Bump the shared ESLint `env` from `es6` to `es2024` so modern globals (`globalThis`, `WeakRef`, `FinalizationRegistry`, `AggregateError`, …) are recognized instead of flagged as `no-undef`. Parsing already used `ecmaVersion: 'latest'`; this aligns the predefined globals with it. Purely additive — no previously valid code becomes invalid.
-
 ## 2.0.0
 
 ### Major Changes

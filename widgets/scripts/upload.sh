@@ -53,54 +53,23 @@ if [ ! -d "$LOCAL_SOURCE_DIR" ]; then
   echo "Erreur : Le répertoire source local '$LOCAL_SOURCE_DIR' n'existe pas."
   exit 1
 fi
-# Le nom `swift` est ambigu : les runners GitHub embarquent le toolchain du
-# *langage* Swift (6.3.3), dont le binaire précède /usr/bin dans le PATH. Il
-# accepte `swift stat` sans broncher puis échoue sur « unknown or missing
-# subcommand 'swift-stat' », ce qui ressemble à s'y méprendre à un problème de
-# credentials. On résout donc explicitement le binaire qui est bien le client
-# OpenStack, en l'identifiant par sa bannière de version.
-resolve_swift_bin() {
-  local candidate
-  for candidate in "${SWIFT_BIN:-}" swift /usr/bin/swift; do
-    [ -n "$candidate" ] || continue
-    command -v "$candidate" &> /dev/null || continue
-    if "$candidate" --version 2>&1 | grep -qi 'swiftclient'; then
-      echo "$candidate"
-      return 0
-    fi
-  done
-  return 1
-}
-
-if ! SWIFT_BIN=$(resolve_swift_bin); then
-  echo "Erreur : le client OpenStack Swift (python-swiftclient) est introuvable."
-  echo "  'swift' dans le PATH : $(command -v swift 2> /dev/null || echo 'absent')"
-  if command -v swift &> /dev/null; then
-    echo "  Version rapportée : $(swift --version 2>&1 | head -1)"
-  fi
-  echo "  Installez-le (apt install python3-swiftclient), ou pointez SWIFT_BIN dessus."
+if ! command -v swift &> /dev/null; then
+  echo "Erreur : La commande 'swift' n'a pas été trouvée."
   exit 1
 fi
-echo "🐍 Client Swift : $SWIFT_BIN ($("$SWIFT_BIN" --version 2>&1 | head -1))"
 
 echo "Vérification de la connexion à OpenStack Swift..."
-# La sortie n'est affichée qu'en cas d'échec : un `swift stat` réussi expose le
-# `Meta Temp-Url-Key` du compte, qui n'a rien à faire dans des logs CI. On liste
-# les variables OS_* par nom seulement, jamais par valeur — un secret openrc
-# vide ou tronqué se voit alors immédiatement.
-if ! SWIFT_STAT_OUTPUT=$("$SWIFT_BIN" stat 2>&1); then
+if ! swift stat > /dev/null 2>&1; then
   echo "Erreur : Impossible de se connecter à OpenStack Swift."
-  echo "  Variables OpenStack chargées : $(env | grep -o '^OS_[A-Z_]*' | sort | tr '\n' ' ')"
-  echo "  Sortie de 'swift stat' :"
-  echo "$SWIFT_STAT_OUTPUT" | sed 's/^/    /'
   exit 1
+else
+  echo "Connexion à Swift réussie."
 fi
-echo "Connexion à Swift réussie."
 
 echo "Vérification du conteneur '$SWIFT_CONTAINER_NAME'..."
-if ! "$SWIFT_BIN" stat "$SWIFT_CONTAINER_NAME" > /dev/null 2>&1; then
+if ! swift stat "$SWIFT_CONTAINER_NAME" > /dev/null 2>&1; then
   echo "Le conteneur '$SWIFT_CONTAINER_NAME' n'existe pas. Tentative de création..."
-  if "$SWIFT_BIN" post "$SWIFT_CONTAINER_NAME"; then
+  if swift post "$SWIFT_CONTAINER_NAME"; then
     echo "Conteneur '$SWIFT_CONTAINER_NAME' créé avec succès."
   else
     echo "Erreur : Impossible de créer le conteneur '$SWIFT_CONTAINER_NAME'."
@@ -142,7 +111,7 @@ echo ""
   ARGS+=(".")
 
   # Afficher la commande pour le débogage
-  COMMAND_STRING="$SWIFT_BIN upload"
+  COMMAND_STRING="swift upload"
   for arg in "${ARGS[@]}"; do
     COMMAND_STRING+=" $(printf "%q" "$arg")"
   done
@@ -155,9 +124,9 @@ echo ""
   OBJECT_LIST=$(
     cd "$LOCAL_SOURCE_DIR" || exit 1
     if [ -t 1 ]; then
-      "$SWIFT_BIN" upload "${ARGS[@]}" | tee /dev/tty
+      swift upload "${ARGS[@]}" | tee /dev/tty
     else
-      "$SWIFT_BIN" upload "${ARGS[@]}"
+      swift upload "${ARGS[@]}"
     fi
   )
 

@@ -39,6 +39,6 @@
   "ReactShared.ImageInput.remove": "Verwijderen",
   "ReactShared.ImageInput.tooManyFiles": "Te veel bestanden, slechts één bestand toegestaan",
   "ReactShared.ImageInput.update": "Aktualisieren Sie das Bild",
-  "ReactShared.ImageInput.upload": "Een afbeelding uploaden",
+  "ReactShared.ImageInput.upload": "Lade ein Bild hoch",
   "ReactShared.LeaveWarningPrompt.areYouSure": "Weet u zeker dat u deze pagina wilt verlaten? Alle niet-opgeslagen gegevens gaan verloren."
 }

@@ -1,11 +1,5 @@
 # @openagenda/md
 
-## 2.0.1
-
-### Patch Changes
-
-- [#207](https://github.com/OpenAgenda/oa/pull/207) [`31c43a7`](https://github.com/OpenAgenda/oa/commit/31c43a7c75fce44e065f642700b8d8ee593c47c3) Thanks [@clement180](https://github.com/clement180)! - `validateMarkdown` now inspects link/image destinations across every markdown syntax — reference definitions (`[id]: …`), autolinks (`<scheme:…>`), images and angle-bracketed destinations — not just inline `[text](url)`. Previously a `javascript:`/`data:` payload written with any of those syntaxes passed validation and, since the legacy export renders markdown without sanitizing at read time, was served as a live href. Encoded-entity payloads (`java&#x73;cript:`, `javascript&colon;`) remain covered.
-
 ## 2.0.0
 
 ### Major Changes

@@ -1,18 +1,5 @@
 # Change Log
 
-## 2.13.8
-
-### Patch Changes
-
-- [#210](https://github.com/OpenAgenda/oa/pull/210) [`6a8c4a7`](https://github.com/OpenAgenda/oa/commit/6a8c4a796de656b7809c32c91a7bade52384a2f5) Thanks [@kaore](https://github.com/kaore)! - Bump `swiper` from `^11.2.6` to `^12.1.2` to remediate a critical prototype-pollution advisory (GHSA affecting `swiper >= 6.5.1, < 12.1.2`). The only consumer is `TimelineField`, which uses the module-based `swiper/react` + `swiper/modules` API (`FreeMode`, `Navigation`) that is unchanged across Swiper v9–v12, so this is a drop-in security bump.
-
-- [#226](https://github.com/OpenAgenda/oa/pull/226) [`6554727`](https://github.com/OpenAgenda/oa/commit/6554727ba5f4aa47751a382490131477c3afc7e3) Thanks [@kaore](https://github.com/kaore)! - Bump `express` to `^4.21.2` (and `body-parser` to `^1.20.3` where declared) to
-  remediate the `body-parser` url-encoded request DoS and the `path-to-regexp`
-  route-matching ReDoS carried by express 4.18.x. First-party dependency bumps,
-  no `resolutions` overrides.
-- Updated dependencies []:
-  - @openagenda/react-shared@3.0.1
-
 ## 2.13.7
 
 ### Patch Changes

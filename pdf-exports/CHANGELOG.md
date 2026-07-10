@@ -1,11 +1,5 @@
 # @openagenda/pdf-exports
 
-## 0.0.6
-
-### Patch Changes
-
-- [#212](https://github.com/OpenAgenda/oa/pull/212) [`fd387c9`](https://github.com/OpenAgenda/oa/commit/fd387c9652f39dfcb6dc72aadceb312c1fb2a733) Thanks [@kaore](https://github.com/kaore)! - Bump `sharp` from `^0.31.1` to `^0.32.6` to remediate CVE-2023-4863 (GHSA-54xq-cgqr-rpm3) — a heap buffer overflow in the bundled `libwebp` dependency, fixed in sharp 0.32.6. The sharp image API is backward compatible across 0.31 → 0.32, so this is a drop-in security bump.
-
 ## 0.0.5
 
 ### Patch Changes
