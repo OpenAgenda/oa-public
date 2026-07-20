@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/pdf-exports",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "type": "module",
   "main": "index.js",
   "exports": {
@@ -30,7 +30,7 @@
     "sharp": "^0.32.6"
   },
   "devDependencies": {
-    "@openagenda/eslint-config": "^2.0.0",
+    "@openagenda/eslint-config": "^2.1.0",
     "nodemon": "^3.0.3"
   }
 }

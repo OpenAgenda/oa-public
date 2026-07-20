@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/api-spec",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "OpenAgenda v3 public API — OpenAPI 3.1 contract (source of truth for SDK, MCP and docs)",
   "license": "MIT",
   "repository": {

@@ -1,5 +1,23 @@
 # @openagenda/widgets
 
+## 0.1.0
+
+### Minor Changes
+
+- [#164](https://github.com/OpenAgenda/oa/pull/164) [`bc7116d`](https://github.com/OpenAgenda/oa/commit/bc7116dd721c8670a33c889b28578b7987942b9b) Thanks [@clement180](https://github.com/clement180)! - Add a "horizontal cards" layout option to the agenda embed.
+
+  - `@openagenda/widgets`: the `oa-agenda` blockquote now accepts a `data-item-layout="horizontal"` attribute, forwarded as the `itemLayout` query param to the embed iframe.
+  - `@openagenda/react`: the agenda export modal exposes a checkbox to generate the `data-item-layout="horizontal"` snippet.
+
+  Horizontal cards render image-left / content-right (stacking on narrow widths) in a single full-width column.
+
+### Patch Changes
+
+- Updated dependencies [[`bc7116d`](https://github.com/OpenAgenda/oa/commit/bc7116dd721c8670a33c889b28578b7987942b9b), [`6a8c4a7`](https://github.com/OpenAgenda/oa/commit/6a8c4a796de656b7809c32c91a7bade52384a2f5), [`c70935e`](https://github.com/OpenAgenda/oa/commit/c70935ec5f6cb62d0e2bf823c47e6a5c823be969), [`6554727`](https://github.com/OpenAgenda/oa/commit/6554727ba5f4aa47751a382490131477c3afc7e3)]:
+  - @openagenda/react@0.1.0
+  - @openagenda/react-filters@2.13.8
+  - @openagenda/uikit@0.2.0
+
 ## 0.0.4
 
 ### Patch Changes

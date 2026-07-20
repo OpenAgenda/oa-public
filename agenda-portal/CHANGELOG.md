@@ -1,5 +1,22 @@
 # Change Log
 
+## 6.15.2
+
+### Patch Changes
+
+- [#173](https://github.com/OpenAgenda/oa/pull/173) [`ef2fdf1`](https://github.com/OpenAgenda/oa/commit/ef2fdf19ab621355e8b7d64c9861ddbf272d375f) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Fix the release pipeline for `@openagenda/agenda-portal`. The `publish` script was a self-referential npm lifecycle hook: `npm publish` uploads the tarball and _then_ runs the package's `publish` script, which called `yarn npm publish` again on the just-published version — failing with a version conflict and marking the release job as failed (even though the package had already been published, leaving the git tag and GitHub release missing). The production dependency build now lives in `prepublishOnly`, which runs _before_ packing (so it actually influences the tarball) and only on publish (so local `prepack` / `yarn pack` stays in dev), with no recursive double-publish.
+
+- [#219](https://github.com/OpenAgenda/oa/pull/219) [`550bcfc`](https://github.com/OpenAgenda/oa/commit/550bcfcaddae3b773815e04aa5c49cfeee9c3e1a) Thanks [@kaore](https://github.com/kaore)! - Bump `validator` to `^13.15.22` (resolves 13.15.35) to remediate a high-severity advisory (incomplete filtering of special elements, `< 13.15.22`) plus medium `isURL` bypass and ReDoS advisories. Only `isEmail`, `isURL` and `isIP` (deep-imported from `validator/lib/*`) are used across the affected packages; all three behave correctly in v13 for representative inputs. `agenda-portal` declares validator but has no direct usage, so this is a lockfile-level bump for it.
+
+- [#226](https://github.com/OpenAgenda/oa/pull/226) [`6554727`](https://github.com/OpenAgenda/oa/commit/6554727ba5f4aa47751a382490131477c3afc7e3) Thanks [@kaore](https://github.com/kaore)! - Bump `express` to `^4.21.2` (and `body-parser` to `^1.20.3` where declared) to
+  remediate the `body-parser` url-encoded request DoS and the `path-to-regexp`
+  route-matching ReDoS carried by express 4.18.x. First-party dependency bumps,
+  no `resolutions` overrides.
+- Updated dependencies [[`6a8c4a7`](https://github.com/OpenAgenda/oa/commit/6a8c4a796de656b7809c32c91a7bade52384a2f5), [`31c43a7`](https://github.com/OpenAgenda/oa/commit/31c43a7c75fce44e065f642700b8d8ee593c47c3), [`6554727`](https://github.com/OpenAgenda/oa/commit/6554727ba5f4aa47751a382490131477c3afc7e3)]:
+  - @openagenda/react-filters@2.13.8
+  - @openagenda/md@2.0.1
+  - @openagenda/react-shared@3.0.1
+
 ## 6.15.1
 
 ### Patch Changes

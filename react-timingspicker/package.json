@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/react-timingspicker",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@openagenda/intl": "^2.0.0",
-    "@openagenda/react-shared": "^3.0.0",
+    "@openagenda/react-shared": "^3.0.1",
     "classnames": "^2.3.1",
     "core-js": "^3.29.1",
     "date-fns": "^2.1.0",
@@ -48,7 +48,7 @@
     "text-mask-addons": "^3.8.0"
   },
   "devDependencies": {
-    "@openagenda/eslint-config": "^2.0.0",
+    "@openagenda/eslint-config": "^2.1.0",
     "@storybook/addon-webpack5-compiler-babel": "^4.0.0",
     "@storybook/react-webpack5": "^10.2.0",
     "bootstrap": "3.3.5",
