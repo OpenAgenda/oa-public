@@ -1,5 +1,11 @@
 # @openagenda/widgets
 
+## 0.1.2
+
+### Patch Changes
+
+- [#254](https://github.com/OpenAgenda/oa/pull/254) [`83d94de`](https://github.com/OpenAgenda/oa/commit/83d94de32bb3bb07674bb94849c2b64c94f20f55) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Version bump to re-trigger the CDN upload, which only runs when widgets is actually published. `scripts/upload.sh` was resolving `swift` to the Swift language toolchain shipped on GitHub runners instead of python-swiftclient.
+
 ## 0.1.1
 
 ### Patch Changes
