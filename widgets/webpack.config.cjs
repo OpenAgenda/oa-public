@@ -10,6 +10,7 @@ const config = {
   entry: './src/index.js',
   output: {
     publicPath: 'auto',
+    clean: true,
     path: path.resolve(__dirname, 'dist'),
     filename: 'widgets.js',
     chunkFilename: 'widgets-[chunkhash].js',
