@@ -1,5 +1,11 @@
 # @openagenda/widgets
 
+## 0.1.1
+
+### Patch Changes
+
+- [#252](https://github.com/OpenAgenda/oa/pull/252) [`833b727`](https://github.com/OpenAgenda/oa/commit/833b7277691b73654090472783d0c6acd7074fef) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Surface the actual Swift error when the CDN upload cannot authenticate. `scripts/upload.sh` discarded `swift stat`'s stderr, so a credential problem surfaced only as "Impossible de se connecter à OpenStack Swift" with no way to tell an expired credential from an empty one. The failure path now prints Swift's own message along with the names of the loaded `OS_*` variables — names only, and only on failure, since a successful `swift stat` exposes the account's `Meta Temp-Url-Key`.
+
 ## 0.1.0
 
 ### Minor Changes
