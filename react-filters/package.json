@@ -31,7 +31,7 @@
   },
   "scripts": {
     "sb": "NODE_OPTIONS=\"--max-old-space-size=5120\" storybook dev",
-    "prepack": "oa-intl compile --esm && yarn build & yarn dist",
+    "prepack": "oa-intl compile --esm && yarn build && yarn dist",
     "build": "tsdown",
     "dist": "webpack-cli --config webpack.config.cjs",
     "extract-messages": "oa-intl --esm",
