@@ -59,12 +59,18 @@ if ! command -v swift &> /dev/null; then
 fi
 
 echo "Vérification de la connexion à OpenStack Swift..."
-if ! swift stat > /dev/null 2>&1; then
+# La sortie n'est affichée qu'en cas d'échec : un `swift stat` réussi expose le
+# `Meta Temp-Url-Key` du compte, qui n'a rien à faire dans des logs CI. On liste
+# les variables OS_* par nom seulement, jamais par valeur — un secret openrc
+# vide ou tronqué se voit alors immédiatement.
+if ! SWIFT_STAT_OUTPUT=$(swift stat 2>&1); then
   echo "Erreur : Impossible de se connecter à OpenStack Swift."
+  echo "  Variables OpenStack chargées : $(env | grep -o '^OS_[A-Z_]*' | sort | tr '\n' ' ')"
+  echo "  Sortie de 'swift stat' :"
+  echo "$SWIFT_STAT_OUTPUT" | sed 's/^/    /'
   exit 1
-else
-  echo "Connexion à Swift réussie."
 fi
+echo "Connexion à Swift réussie."
 
 echo "Vérification du conteneur '$SWIFT_CONTAINER_NAME'..."
 if ! swift stat "$SWIFT_CONTAINER_NAME" > /dev/null 2>&1; then
