@@ -6410,8 +6410,8 @@ __metadata:
     "@aws-sdk/lib-storage": "npm:^3.705.0"
     "@babel/cli": "npm:^7.28.3"
     "@openagenda/babel-preset": "npm:^2.0.0"
-    "@openagenda/bs-templates": "npm:^2.6.0"
-    "@openagenda/eslint-config": "npm:^2.0.0"
+    "@openagenda/bs-templates": "npm:^2.6.1"
+    "@openagenda/eslint-config": "npm:^2.1.0"
     "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/verror": "npm:^3.2.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
@@ -6451,14 +6451,14 @@ __metadata:
     "@loadable/component": "npm:^5.14.1"
     "@openagenda/babel-preset": "npm:^2.0.0"
     "@openagenda/browserslist-config": "npm:^2.0.0"
-    "@openagenda/eslint-config": "npm:^2.0.0"
+    "@openagenda/eslint-config": "npm:^2.1.0"
     "@openagenda/intl": "npm:^2.0.0"
     "@openagenda/logs": "npm:^1.2.1"
-    "@openagenda/md": "npm:^2.0.0"
+    "@openagenda/md": "npm:^2.0.1"
     "@openagenda/polyfills": "npm:^1.2.5"
-    "@openagenda/react-filters": "npm:^2.13.7"
+    "@openagenda/react-filters": "npm:^2.13.8"
     "@openagenda/react-portal-ssr": "npm:^1.1.0"
-    "@openagenda/react-shared": "npm:^3.0.0"
+    "@openagenda/react-shared": "npm:^3.0.1"
     babel-loader: "npm:^9.1.3"
     babel-plugin-handlebars-inline-precompile: "npm:^2.1.1"
     bootstrap: "npm:^4.3.1"
@@ -6519,12 +6519,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/api-client@npm:^0.2.0, @openagenda/api-client@workspace:api-client":
+"@openagenda/api-client@npm:^0.3.0, @openagenda/api-client@workspace:api-client":
   version: 0.0.0-use.local
   resolution: "@openagenda/api-client@workspace:api-client"
   dependencies:
     "@hey-api/openapi-ts": "npm:^0.97.3"
-    "@openagenda/api-spec": "npm:^0.2.0"
+    "@openagenda/api-spec": "npm:^0.3.0"
     ky: "npm:^1.14.0"
     tsdown: "npm:^0.22.0"
     typescript: "npm:^5.6.3"
@@ -6538,12 +6538,12 @@ __metadata:
   dependencies:
     "@fontsource-variable/noto-sans": "npm:^5.2.10"
     "@fontsource-variable/ubuntu-sans": "npm:^5.2.10"
-    "@openagenda/api-spec": "npm:^0.2.0"
+    "@openagenda/api-spec": "npm:^0.3.0"
     "@scalar/api-reference": "npm:^1.59.0"
   languageName: unknown
   linkType: soft
 
-"@openagenda/api-spec@npm:^0.2.0, @openagenda/api-spec@workspace:api-spec":
+"@openagenda/api-spec@npm:^0.3.0, @openagenda/api-spec@workspace:api-spec":
   version: 0.0.0-use.local
   resolution: "@openagenda/api-spec@workspace:api-spec"
   dependencies:
@@ -6596,7 +6596,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/bs-templates@npm:^2.6.0, @openagenda/bs-templates@workspace:bs-templates":
+"@openagenda/bs-templates@npm:^2.6.1, @openagenda/bs-templates@workspace:bs-templates":
   version: 0.0.0-use.local
   resolution: "@openagenda/bs-templates@workspace:bs-templates"
   dependencies:
@@ -6659,7 +6659,7 @@ __metadata:
     "@babel/core": "npm:^7.28.4"
     "@babel/preset-env": "npm:^7.28.3"
     "@openagenda/babel-preset": "npm:^2.0.0"
-    "@openagenda/eslint-config": "npm:^2.0.0"
+    "@openagenda/eslint-config": "npm:^2.1.0"
     "@openagenda/tsconfig": "npm:^0.0.0"
     babel-jest: "npm:^29.6.3"
     date-fns: "npm:^2.29.3"
@@ -6671,7 +6671,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/eslint-config@npm:^2.0.0, @openagenda/eslint-config@workspace:eslint-config":
+"@openagenda/eslint-config@npm:^2.1.0, @openagenda/eslint-config@workspace:eslint-config":
   version: 0.0.0-use.local
   resolution: "@openagenda/eslint-config@workspace:eslint-config"
   dependencies:
@@ -6701,7 +6701,7 @@ __metadata:
     "@babel/runtime-corejs3": "npm:^7.28.4"
     "@formatjs/cli-lib": "npm:^6.6.3"
     "@formatjs/intl": "npm:^2.10.14"
-    "@openagenda/eslint-config": "npm:^2.0.0"
+    "@openagenda/eslint-config": "npm:^2.1.0"
     core-js: "npm:^3.29.1"
     glob: "npm:^7.2.0"
     hoist-non-react-statics: "npm:^3.3.2"
@@ -6751,7 +6751,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/mails-editor@workspace:mails-editor"
   dependencies:
-    "@openagenda/eslint-config": "npm:^2.0.0"
+    "@openagenda/eslint-config": "npm:^2.1.0"
     "@openagenda/verror": "npm:^3.2.0"
     express: "npm:^4.21.2"
     html-to-text: "npm:^6.0.0"
@@ -6767,12 +6767,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/mails@npm:^6.0.1, @openagenda/mails@workspace:mails":
+"@openagenda/mails@npm:^6.0.2, @openagenda/mails@workspace:mails":
   version: 0.0.0-use.local
   resolution: "@openagenda/mails@workspace:mails"
   dependencies:
     "@formatjs/intl": "npm:^2.2.1"
-    "@openagenda/eslint-config": "npm:^2.0.0"
+    "@openagenda/eslint-config": "npm:^2.1.0"
     "@openagenda/intl": "npm:^2.0.0"
     "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/verror": "npm:^3.2.0"
@@ -6795,8 +6795,8 @@ __metadata:
   resolution: "@openagenda/mcp@workspace:mcp"
   dependencies:
     "@modelcontextprotocol/sdk": "npm:^1.29.0"
-    "@openagenda/api-client": "npm:^0.2.0"
-    "@openagenda/api-spec": "npm:^0.2.0"
+    "@openagenda/api-client": "npm:^0.3.0"
+    "@openagenda/api-spec": "npm:^0.3.0"
     "@openagenda/logs": "npm:^1.2.1"
     "@opentelemetry/api": "npm:^1.9.1"
     "@opentelemetry/api-logs": "npm:^0.218.0"
@@ -6830,11 +6830,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/md@npm:^2.0.0, @openagenda/md@workspace:md":
+"@openagenda/md@npm:^2.0.1, @openagenda/md@workspace:md":
   version: 0.0.0-use.local
   resolution: "@openagenda/md@workspace:md"
   dependencies:
-    "@openagenda/eslint-config": "npm:^2.0.0"
+    "@openagenda/eslint-config": "npm:^2.1.0"
     html-tags: "npm:^3.3.1"
     isomorphic-dompurify: "npm:^2.22.0"
     jest: "npm:^29.7.0"
@@ -6849,7 +6849,7 @@ __metadata:
   resolution: "@openagenda/pdf-exports@workspace:pdf-exports"
   dependencies:
     "@openagenda/date-utils": "npm:^0.0.2"
-    "@openagenda/eslint-config": "npm:^2.0.0"
+    "@openagenda/eslint-config": "npm:^2.1.0"
     "@openagenda/intl": "npm:^2.0.0"
     "@openagenda/logs": "npm:^1.2.1"
     "@openagenda/verror": "npm:^3.2.0"
@@ -6938,19 +6938,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/react-filters@npm:^2.13.7, @openagenda/react-filters@workspace:react-filters":
+"@openagenda/react-filters@npm:^2.13.8, @openagenda/react-filters@workspace:react-filters":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-filters@workspace:react-filters"
   dependencies:
     "@babel/runtime-corejs3": "npm:^7.28.4"
     "@emotion/react": "npm:^11.11.1"
     "@formatjs/cli": "npm:^2.11.3"
-    "@openagenda/eslint-config": "npm:^2.0.0"
+    "@openagenda/eslint-config": "npm:^2.1.0"
     "@openagenda/intl": "npm:^2.0.0"
     "@openagenda/leaflet-gesture-handling": "npm:^1.5.0"
     "@openagenda/react-date-range": "npm:^2.0.2"
     "@openagenda/react-portal-ssr": "npm:^1.1.0"
-    "@openagenda/react-shared": "npm:^3.0.0"
+    "@openagenda/react-shared": "npm:^3.0.1"
     "@openagenda/verror": "npm:^3.2.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
     "@storybook/react-webpack5": "npm:^10.2.0"
@@ -7009,7 +7009,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/react-portal-ssr@workspace:react-portal-ssr"
   dependencies:
-    "@openagenda/eslint-config": "npm:^2.0.0"
+    "@openagenda/eslint-config": "npm:^2.1.0"
     cheerio: "npm:^1.0.0-rc.10"
     react: "npm:^19.2.2"
     react-dom: "npm:^19.2.2"
@@ -7020,7 +7020,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-shared@npm:^3.0.0, @openagenda/react-shared@workspace:react-shared":
+"@openagenda/react-shared@npm:^3.0.1, @openagenda/react-shared@workspace:react-shared":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-shared@workspace:react-shared"
   dependencies:
@@ -7030,13 +7030,13 @@ __metadata:
     "@floating-ui/react": "npm:^0.26.13"
     "@loadable/component": "npm:^5.14.1"
     "@openagenda/babel-preset": "npm:^2.0.0"
-    "@openagenda/bs-templates": "npm:^2.6.0"
+    "@openagenda/bs-templates": "npm:^2.6.1"
     "@openagenda/common-labels": "npm:^2.0.0"
-    "@openagenda/eslint-config": "npm:^2.0.0"
+    "@openagenda/eslint-config": "npm:^2.1.0"
     "@openagenda/intl": "npm:^2.0.0"
-    "@openagenda/md": "npm:^2.0.0"
+    "@openagenda/md": "npm:^2.0.1"
     "@openagenda/react-dropzone": "npm:^14.3.5"
-    "@openagenda/uikit": "npm:^0.1.0"
+    "@openagenda/uikit": "npm:^0.2.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
     "@storybook/preset-scss": "npm:^1.0.3"
     "@storybook/react-webpack5": "npm:^10.2.0"
@@ -7103,9 +7103,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/react-timingspicker@workspace:react-timingspicker"
   dependencies:
-    "@openagenda/eslint-config": "npm:^2.0.0"
+    "@openagenda/eslint-config": "npm:^2.1.0"
     "@openagenda/intl": "npm:^2.0.0"
-    "@openagenda/react-shared": "npm:^3.0.0"
+    "@openagenda/react-shared": "npm:^3.0.1"
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
     "@storybook/react-webpack5": "npm:^10.2.0"
     bootstrap: "npm:3.3.5"
@@ -7132,7 +7132,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react@npm:^0.0.6, @openagenda/react@workspace:react":
+"@openagenda/react@npm:^0.1.0, @openagenda/react@workspace:react":
   version: 0.0.0-use.local
   resolution: "@openagenda/react@workspace:react"
   dependencies:
@@ -7140,13 +7140,13 @@ __metadata:
     "@fortawesome/free-regular-svg-icons": "npm:^6.6.0"
     "@fortawesome/react-fontawesome": "npm:^0.2.3"
     "@openagenda/common-labels": "npm:^2.0.0"
-    "@openagenda/eslint-config": "npm:^2.0.0"
+    "@openagenda/eslint-config": "npm:^2.1.0"
     "@openagenda/intl": "npm:^2.0.0"
-    "@openagenda/mails": "npm:^6.0.1"
-    "@openagenda/react-filters": "npm:^2.13.7"
-    "@openagenda/react-shared": "npm:^3.0.0"
+    "@openagenda/mails": "npm:^6.0.2"
+    "@openagenda/react-filters": "npm:^2.13.8"
+    "@openagenda/react-shared": "npm:^3.0.1"
     "@openagenda/tsconfig": "npm:^0.0.0"
-    "@openagenda/uikit": "npm:^0.1.0"
+    "@openagenda/uikit": "npm:^0.2.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
     "@storybook/react-webpack5": "npm:^10.2.0"
     "@types/lodash": "npm:^4"
@@ -7177,7 +7177,7 @@ __metadata:
   resolution: "@openagenda/sdk-js@workspace:sdk-js"
   dependencies:
     "@jest/globals": "npm:^29.7.0"
-    "@openagenda/eslint-config": "npm:^2.0.0"
+    "@openagenda/eslint-config": "npm:^2.1.0"
     "@openagenda/intl": "npm:^2.0.0"
     date-fns: "npm:^2.29.3"
     date-fns-tz: "npm:^2.0.0"
@@ -7196,7 +7196,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/uikit@npm:^0.1.0, @openagenda/uikit@workspace:uikit":
+"@openagenda/uikit@npm:^0.2.0, @openagenda/uikit@workspace:uikit":
   version: 0.0.0-use.local
   resolution: "@openagenda/uikit@workspace:uikit"
   dependencies:
@@ -7204,7 +7204,7 @@ __metadata:
     "@chakra-ui/react": "npm:^3.34.0"
     "@emotion/cache": "npm:^11.14.0"
     "@emotion/react": "npm:^11.14.0"
-    "@openagenda/eslint-config": "npm:^2.0.0"
+    "@openagenda/eslint-config": "npm:^2.1.0"
     "@openagenda/tsconfig": "npm:^0.0.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
     "@storybook/react-webpack5": "npm:^10.2.0"
@@ -7239,10 +7239,10 @@ __metadata:
   dependencies:
     "@babel/core": "npm:^7.28.4"
     "@iframe-resizer/parent": "npm:^5.4.6"
-    "@openagenda/eslint-config": "npm:^2.0.0"
-    "@openagenda/react": "npm:^0.0.6"
-    "@openagenda/react-filters": "npm:^2.13.7"
-    "@openagenda/uikit": "npm:^0.1.0"
+    "@openagenda/eslint-config": "npm:^2.1.0"
+    "@openagenda/react": "npm:^0.1.0"
+    "@openagenda/react-filters": "npm:^2.13.8"
+    "@openagenda/uikit": "npm:^0.2.0"
     "@storybook/html-vite": "npm:^10.2.0"
     babel-loader: "npm:^9.2.1"
     react: "npm:^19.1.0"
