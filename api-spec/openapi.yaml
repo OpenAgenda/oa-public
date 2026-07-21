@@ -2691,42 +2691,45 @@ components:
 
     Image:
       type: object
-      description: Event image with its generated size variants.
+      description: >
+        Event image, served on demand from a single source. Use `src` as a
+        ready-to-use default rendition, or drive a responsive picture: substitute
+        `{geo}` into `srcTemplate` (e.g. `800x0` for proportional width,
+        `300x300s` for a smart-cropped square, `1000x1000f` for fit-in) or pick a
+        ready-made width from `srcset`. `width`/`height` are the intrinsic source
+        dimensions (a cap: renditions are never upscaled past them).
       additionalProperties: false
       properties:
-        filename:
-          type: [string, 'null']
-        base:
-          type: [string, 'null']
-          format: uri
-          description: Base URL the variants are served from.
         credits:
           type: [string, 'null']
-        size:
-          type: [object, 'null']
-          properties:
-            width:
-              type: [integer, 'null']
-            height:
-              type: [integer, 'null']
-        variants:
+        width:
+          type: [integer, 'null']
+          description: Intrinsic width of the source image, in pixels.
+        height:
+          type: [integer, 'null']
+          description: Intrinsic height of the source image, in pixels.
+        src:
+          type: [string, 'null']
+          format: uri
+          description: >
+            Ready-to-use default rendition URL (a naive `<img src>` just works).
+        srcTemplate:
+          type: [string, 'null']
+          description: >
+            URL with a `{geo}` placeholder to substitute with a geometry token
+            (`{W}x{H}`, `s` = smart-crop, `f` = fit-in; `0` = proportional).
+        srcset:
           type: array
-          description: Generated size variants of the image.
+          description: Ready-made proportional widths, never upscaled past the source.
           items:
             type: object
             additionalProperties: false
             properties:
-              type:
+              width:
+                type: integer
+              url:
                 type: string
-              filename:
-                type: string
-              size:
-                type: [object, 'null']
-                properties:
-                  width:
-                    type: [integer, 'null']
-                  height:
-                    type: [integer, 'null']
+                format: uri
 
     EventLocation:
       type: object
@@ -2855,7 +2858,17 @@ components:
         description:
           fr: Ancienne maison forte des comtes du Roure.
         access: {}
-        image: https://cdn.openagenda.com/main/locations/67890.jpg
+        image:
+          credits: null
+          width: 1200
+          height: 800
+          src: https://img.openagenda.com/u/1080x0/main/67890.full.image.jpg
+          srcTemplate: https://img.openagenda.com/u/{geo}/main/67890.full.image.jpg
+          srcset:
+            - width: 640
+              url: https://img.openagenda.com/u/640x0/main/67890.full.image.jpg
+            - width: 1080
+              url: https://img.openagenda.com/u/1080x0/main/67890.full.image.jpg
         imageCredits: null
         website: http://www.domainedeslebres.com/
         email: null
@@ -2961,8 +2974,9 @@ components:
           description: >
             Localized practical information on how to reach the location.
         image:
-          type: [string, 'null']
-          description: Absolute URL of the location's image.
+          oneOf:
+            - $ref: '#/components/schemas/Image'
+            - type: 'null'
         imageCredits:
           type: [string, 'null']
         website:
@@ -3200,7 +3214,17 @@ components:
         slug: festival-des-lumieres
         title: Festival des Lumières
         description: La programmation du festival.
-        image: https://cdn.openagenda.com/main/12345.jpg
+        image:
+          credits: null
+          width: 1400
+          height: 900
+          src: https://img.openagenda.com/u/1080x0/main/12345.full.image.jpg
+          srcTemplate: https://img.openagenda.com/u/{geo}/main/12345.full.image.jpg
+          srcset:
+            - width: 640
+              url: https://img.openagenda.com/u/640x0/main/12345.full.image.jpg
+            - width: 1080
+              url: https://img.openagenda.com/u/1080x0/main/12345.full.image.jpg
         official: false
         private: false
         role: administrator
@@ -3226,7 +3250,9 @@ components:
         description:
           type: [string, 'null']
         image:
-          type: [string, 'null']
+          oneOf:
+            - $ref: '#/components/schemas/Image'
+            - type: 'null'
         official:
           type: boolean
         private:
@@ -3265,7 +3291,9 @@ components:
         description:
           type: [string, 'null']
         image:
-          type: [string, 'null']
+          oneOf:
+            - $ref: '#/components/schemas/Image'
+            - type: 'null'
         official:
           type: boolean
         private:
@@ -3365,6 +3393,35 @@ components:
           description: Optional enrichment metadata extracted from the link.
           additionalProperties: true
 
+    ImageRef:
+      type: object
+      description: >
+        A lightweight image for an embedded reference (an agenda logo on an
+        event's originAgenda/sourceAgendas, or a provenance facet bucket). Unlike
+        the full `Image`, a ref carries no intrinsic dimensions (its source is a
+        bare string), so it offers only a ready-to-use `src` plus the `{geo}`
+        template — not the responsive `srcset`/`width`/`height`. A client needing
+        the full responsive image follows the ref to its agenda endpoint, whose
+        `image` is an `Image`.
+      additionalProperties: false
+      required: [src, srcTemplate]
+      properties:
+        src:
+          type: [string, 'null']
+          format: uri
+          description: >
+            A ready-to-use default rendition URL (a modest proportional width) —
+            a naive `<img src>` just works. Falls back to the legacy URL until
+            the on-demand image CDN is enabled; `null` only when the ref has no
+            image.
+        srcTemplate:
+          type: [string, 'null']
+          description: >
+            A URL with a literal `{geo}` placeholder to substitute with a
+            geometry token (`{W}x{H}`, `s` smart-crop, `f` fit-in, `0`
+            proportional) to render the ref image at any size. `null` when the
+            on-demand CDN is off or the source is not a Thumbor source.
+
     AgendaRef:
       type: object
       description: A compact reference to an agenda.
@@ -3378,7 +3435,9 @@ components:
         slug:
           type: [string, 'null']
         image:
-          type: [string, 'null']
+          oneOf:
+            - $ref: '#/components/schemas/ImageRef'
+            - type: 'null'
         url:
           type: [string, 'null']
           format: uri
@@ -3401,7 +3460,9 @@ components:
         title:
           type: [string, 'null']
         image:
-          type: [string, 'null']
+          oneOf:
+            - $ref: '#/components/schemas/ImageRef'
+            - type: 'null'
 
     ExtId:
       type: object
@@ -3485,7 +3546,17 @@ components:
         slug: festival-des-lumieres
         title: Festival des Lumières
         description: La programmation officielle du Festival des Lumières.
-        image: https://cdn.openagenda.com/main/12345.jpg
+        image:
+          credits: null
+          width: 1400
+          height: 900
+          src: https://img.openagenda.com/u/1080x0/main/12345.full.image.jpg
+          srcTemplate: https://img.openagenda.com/u/{geo}/main/12345.full.image.jpg
+          srcset:
+            - width: 640
+              url: https://img.openagenda.com/u/640x0/main/12345.full.image.jpg
+            - width: 1080
+              url: https://img.openagenda.com/u/1080x0/main/12345.full.image.jpg
         official: true
       properties:
         uid:
@@ -3498,12 +3569,9 @@ components:
         description:
           type: [string, 'null']
         image:
-          type: [string, 'null']
-          format: uri
-          description: >
-            Absolute URL of the agenda image, or `null`. (Scalar URL — not the
-            structured `Image` type used by events; aligning the two is a
-            planned backend follow-up.)
+          oneOf:
+            - $ref: '#/components/schemas/Image'
+            - type: 'null'
         official:
           type: boolean
           description: Whether the agenda is an official one. `null` is coerced to `false`.
@@ -3541,12 +3609,9 @@ components:
         description:
           type: [string, 'null']
         image:
-          type: [string, 'null']
-          format: uri
-          description: >
-            Absolute URL of the agenda image, or `null`. (Scalar URL — not the
-            structured `Image` type used by events; aligning the two is a
-            planned backend follow-up.)
+          oneOf:
+            - $ref: '#/components/schemas/Image'
+            - type: 'null'
         official:
           type: boolean
           description: Whether the agenda is an official one. `null` is coerced to `false`.
@@ -3590,7 +3655,17 @@ components:
         slug: festival-des-lumieres
         title: Festival des Lumières
         description: La programmation officielle du Festival des Lumières.
-        image: https://cdn.openagenda.com/main/12345.jpg
+        image:
+          credits: null
+          width: 1400
+          height: 900
+          src: https://img.openagenda.com/u/1080x0/main/12345.full.image.jpg
+          srcTemplate: https://img.openagenda.com/u/{geo}/main/12345.full.image.jpg
+          srcset:
+            - width: 640
+              url: https://img.openagenda.com/u/640x0/main/12345.full.image.jpg
+            - width: 1080
+              url: https://img.openagenda.com/u/1080x0/main/12345.full.image.jpg
         official: true
         url: https://openagenda.com/festival-des-lumieres
         createdAt: '2024-11-04T09:12:00+01:00'
@@ -3615,12 +3690,9 @@ components:
         description:
           type: [string, 'null']
         image:
-          type: [string, 'null']
-          format: uri
-          description: >
-            Absolute URL of the agenda image, or `null`. (Scalar URL — not the
-            structured `Image` type used by events; aligning the two is a
-            planned backend follow-up.)
+          oneOf:
+            - $ref: '#/components/schemas/Image'
+            - type: 'null'
         official:
           type: boolean
           description: Whether the agenda is an official one. `null` is coerced to `false`.
@@ -4016,14 +4088,16 @@ components:
           }
         featured: false
         image:
-          filename: '9876543.jpg'
-          base: https://cdn.openagenda.com/events/
           credits: Ville de Lyon
-          size: { width: 1200, height: 800 }
-          variants:
-            - type: thumbnail
-              filename: '9876543_thumb.jpg'
-              size: { width: 200, height: 133 }
+          width: 1200
+          height: 800
+          src: https://img.openagenda.com/u/1080x0/main/9876543.full.image.jpg
+          srcTemplate: https://img.openagenda.com/u/{geo}/main/9876543.full.image.jpg
+          srcset:
+            - width: 640
+              url: https://img.openagenda.com/u/640x0/main/9876543.full.image.jpg
+            - width: 1080
+              url: https://img.openagenda.com/u/1080x0/main/9876543.full.image.jpg
         imageCredits: Ville de Lyon
         keywords:
           { fr: [jazz, concert, plein air], en: [jazz, concert, open air] }
@@ -4031,7 +4105,9 @@ components:
           uid: 12345
           title: Festival des Lumières
           slug: festival-des-lumieres
-          image: https://cdn.openagenda.com/main/12345.jpg
+          image:
+            src: https://img.openagenda.com/u/400x0/main/a1b2c3d4e5f60718293a4b5c6d7e8f90.full.image.jpg
+            srcTemplate: https://img.openagenda.com/u/{geo}/main/a1b2c3d4e5f60718293a4b5c6d7e8f90.full.image.jpg
           url: https://openagenda.com/festival-des-lumieres
           official: true
         location:
@@ -4199,14 +4275,16 @@ components:
           }
         featured: false
         image:
-          filename: '9876543.jpg'
-          base: https://cdn.openagenda.com/events/
           credits: Ville de Lyon
-          size: { width: 1200, height: 800 }
-          variants:
-            - type: thumbnail
-              filename: '9876543_thumb.jpg'
-              size: { width: 200, height: 133 }
+          width: 1200
+          height: 800
+          src: https://img.openagenda.com/u/1080x0/main/9876543.full.image.jpg
+          srcTemplate: https://img.openagenda.com/u/{geo}/main/9876543.full.image.jpg
+          srcset:
+            - width: 640
+              url: https://img.openagenda.com/u/640x0/main/9876543.full.image.jpg
+            - width: 1080
+              url: https://img.openagenda.com/u/1080x0/main/9876543.full.image.jpg
         imageCredits: Ville de Lyon
         keywords:
           { fr: [jazz, concert, plein air], en: [jazz, concert, open air] }
@@ -4214,7 +4292,9 @@ components:
           uid: 12345
           title: Festival des Lumières
           slug: festival-des-lumieres
-          image: https://cdn.openagenda.com/main/12345.jpg
+          image:
+            src: https://img.openagenda.com/u/400x0/main/a1b2c3d4e5f60718293a4b5c6d7e8f90.full.image.jpg
+            srcTemplate: https://img.openagenda.com/u/{geo}/main/a1b2c3d4e5f60718293a4b5c6d7e8f90.full.image.jpg
           url: https://openagenda.com/festival-des-lumieres
           official: true
         timings:
@@ -5018,7 +5098,9 @@ components:
                 uid: 12345
                 title: Festival des Lumières
                 slug: festival-des-lumieres
-                image: https://cdn.openagenda.com/main/12345.jpg
+                image:
+                  src: https://img.openagenda.com/u/400x0/main/a1b2c3d4e5f60718293a4b5c6d7e8f90.full.image.jpg
+                  srcTemplate: https://img.openagenda.com/u/{geo}/main/a1b2c3d4e5f60718293a4b5c6d7e8f90.full.image.jpg
                 url: https://openagenda.com/festival-des-lumieres
                 official: true
               count: 87
