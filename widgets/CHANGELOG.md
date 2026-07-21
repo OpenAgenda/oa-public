@@ -1,5 +1,35 @@
 # @openagenda/widgets
 
+## 0.1.2
+
+### Patch Changes
+
+- [#254](https://github.com/OpenAgenda/oa/pull/254) [`83d94de`](https://github.com/OpenAgenda/oa/commit/83d94de32bb3bb07674bb94849c2b64c94f20f55) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Version bump to re-trigger the CDN upload, which only runs when widgets is actually published. `scripts/upload.sh` was resolving `swift` to the Swift language toolchain shipped on GitHub runners instead of python-swiftclient.
+
+## 0.1.1
+
+### Patch Changes
+
+- [#252](https://github.com/OpenAgenda/oa/pull/252) [`833b727`](https://github.com/OpenAgenda/oa/commit/833b7277691b73654090472783d0c6acd7074fef) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Surface the actual Swift error when the CDN upload cannot authenticate. `scripts/upload.sh` discarded `swift stat`'s stderr, so a credential problem surfaced only as "Impossible de se connecter à OpenStack Swift" with no way to tell an expired credential from an empty one. The failure path now prints Swift's own message along with the names of the loaded `OS_*` variables — names only, and only on failure, since a successful `swift stat` exposes the account's `Meta Temp-Url-Key`.
+
+## 0.1.0
+
+### Minor Changes
+
+- [#164](https://github.com/OpenAgenda/oa/pull/164) [`bc7116d`](https://github.com/OpenAgenda/oa/commit/bc7116dd721c8670a33c889b28578b7987942b9b) Thanks [@clement180](https://github.com/clement180)! - Add a "horizontal cards" layout option to the agenda embed.
+
+  - `@openagenda/widgets`: the `oa-agenda` blockquote now accepts a `data-item-layout="horizontal"` attribute, forwarded as the `itemLayout` query param to the embed iframe.
+  - `@openagenda/react`: the agenda export modal exposes a checkbox to generate the `data-item-layout="horizontal"` snippet.
+
+  Horizontal cards render image-left / content-right (stacking on narrow widths) in a single full-width column.
+
+### Patch Changes
+
+- Updated dependencies [[`bc7116d`](https://github.com/OpenAgenda/oa/commit/bc7116dd721c8670a33c889b28578b7987942b9b), [`6a8c4a7`](https://github.com/OpenAgenda/oa/commit/6a8c4a796de656b7809c32c91a7bade52384a2f5), [`c70935e`](https://github.com/OpenAgenda/oa/commit/c70935ec5f6cb62d0e2bf823c47e6a5c823be969), [`6554727`](https://github.com/OpenAgenda/oa/commit/6554727ba5f4aa47751a382490131477c3afc7e3)]:
+  - @openagenda/react@0.1.0
+  - @openagenda/react-filters@2.13.8
+  - @openagenda/uikit@0.2.0
+
 ## 0.0.4
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @openagenda/uikit
 
+## 0.2.0
+
+### Minor Changes
+
+- [#170](https://github.com/OpenAgenda/oa/pull/170) [`c70935e`](https://github.com/OpenAgenda/oa/commit/c70935ec5f6cb62d0e2bf823c47e6a5c823be969) Thanks [@kaore](https://github.com/kaore)! - Add `Surface`, a shared flat content-panel component (semantic `bg.panel` background + subtle `l3` radius, no border or shadow) for standalone blocks such as auth forms and error / empty states. Use it instead of hand-rolling a `Container`/`Box` with bg + border + radius + shadow, so those surfaces don't drift apart. Built with the chakra factory so it renders inside Server Components.
+
 ## 0.1.0
 
 ### Minor Changes

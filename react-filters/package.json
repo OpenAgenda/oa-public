@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/react-filters",
-  "version": "2.13.7",
+  "version": "2.13.8",
   "type": "module",
   "main": "./build/index.cjs",
   "module": "./build/index.mjs",
@@ -31,7 +31,7 @@
   },
   "scripts": {
     "sb": "NODE_OPTIONS=\"--max-old-space-size=5120\" storybook dev",
-    "prepack": "oa-intl compile --esm && yarn build & yarn dist",
+    "prepack": "oa-intl compile --esm && yarn build && yarn dist",
     "build": "tsdown",
     "dist": "webpack-cli --config webpack.config.cjs",
     "extract-messages": "oa-intl --esm",
@@ -47,7 +47,7 @@
     "@openagenda/leaflet-gesture-handling": "^1.5.0",
     "@openagenda/react-date-range": "^2.0.2",
     "@openagenda/react-portal-ssr": "^1.1.0",
-    "@openagenda/react-shared": "^3.0.0",
+    "@openagenda/react-shared": "^3.0.1",
     "@openagenda/verror": "^3.2.0",
     "classnames": "^2.3.1",
     "core-js": "^3.29.1",
@@ -72,7 +72,7 @@
     "use-local-storage-state": "^19.5.0"
   },
   "devDependencies": {
-    "@openagenda/eslint-config": "^2.0.0",
+    "@openagenda/eslint-config": "^2.1.0",
     "@storybook/addon-webpack5-compiler-babel": "^4.0.0",
     "@storybook/react-webpack5": "^10.2.0",
     "babel-loader": "^9.1.3",

@@ -24,7 +24,7 @@
   "devDependencies": {
     "@fontsource-variable/noto-sans": "^5.2.10",
     "@fontsource-variable/ubuntu-sans": "^5.2.10",
-    "@openagenda/api-spec": "^0.2.0",
+    "@openagenda/api-spec": "^0.3.0",
     "@scalar/api-reference": "^1.59.0"
   }
 }

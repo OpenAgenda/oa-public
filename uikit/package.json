@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/uikit",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -83,7 +83,7 @@
     "react-remove-scroll": "^2.7.1"
   },
   "devDependencies": {
-    "@openagenda/eslint-config": "^2.0.0",
+    "@openagenda/eslint-config": "^2.1.0",
     "@openagenda/tsconfig": "^0.0.0",
     "@storybook/addon-webpack5-compiler-babel": "^4.0.0",
     "@storybook/react-webpack5": "^10.2.0",
