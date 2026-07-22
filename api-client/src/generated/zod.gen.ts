@@ -29,23 +29,18 @@ export const zLocalizedString = z.record(z.string());
 export const zLocalizedStringArray = z.record(z.array(z.string()));
 
 /**
- * Event image with its generated size variants.
+ * Event image, served on demand from a single source. Use `src` as a ready-to-use default rendition, or drive a responsive picture: substitute `{geo}` into `srcTemplate` (e.g. `800x0` for proportional width, `300x300s` for a smart-cropped square, `1000x1000f` for fit-in) or pick a ready-made width from `srcset`. `width`/`height` are the intrinsic source dimensions (a cap: renditions are never upscaled past them).
+ *
  */
 export const zImage = z.object({
-    filename: z.string().nullish(),
-    base: z.string().url().nullish(),
     credits: z.string().nullish(),
-    size: z.object({
-        width: z.number().int().nullish(),
-        height: z.number().int().nullish()
-    }).nullish(),
-    variants: z.array(z.object({
-        type: z.string().optional(),
-        filename: z.string().optional(),
-        size: z.object({
-            width: z.number().int().nullish(),
-            height: z.number().int().nullish()
-        }).nullish()
+    width: z.number().int().nullish(),
+    height: z.number().int().nullish(),
+    src: z.string().url().nullish(),
+    srcTemplate: z.string().nullish(),
+    srcset: z.array(z.object({
+        width: z.number().int().optional(),
+        url: z.string().url().optional()
     })).optional()
 });
 
@@ -135,7 +130,7 @@ export const zLocation = z.object({
     timezone: z.string().nullable(),
     description: zLocalizedString,
     access: zLocalizedString,
-    image: z.string().nullable(),
+    image: zImage.nullable(),
     imageCredits: z.string().nullable(),
     website: z.string().nullable(),
     email: z.string().nullable(),
@@ -215,7 +210,7 @@ export const zMeAgendaItem = z.object({
     slug: z.string().readonly(),
     title: z.string().nullable(),
     description: z.string().nullable(),
-    image: z.string().nullable(),
+    image: zImage.nullable(),
     official: z.boolean(),
     private: z.boolean(),
     role: zMemberRole
@@ -261,13 +256,22 @@ export const zEnrichedLink = z.object({
 });
 
 /**
+ * A lightweight image for an embedded reference (an agenda logo on an event's originAgenda/sourceAgendas, or a provenance facet bucket). Unlike the full `Image`, a ref carries no intrinsic dimensions (its source is a bare string), so it offers only a ready-to-use `src` plus the `{geo}` template — not the responsive `srcset`/`width`/`height`. A client needing the full responsive image follows the ref to its agenda endpoint, whose `image` is an `Image`.
+ *
+ */
+export const zImageRef = z.object({
+    src: z.string().url().nullable(),
+    srcTemplate: z.string().nullable()
+});
+
+/**
  * A compact reference to an agenda.
  */
 export const zAgendaRef = z.object({
     uid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }).optional(),
     title: z.string().nullish(),
     slug: z.string().nullish(),
-    image: z.string().nullish(),
+    image: zImageRef.nullish(),
     url: z.string().url().nullish(),
     official: z.boolean().nullish()
 });
@@ -279,7 +283,7 @@ export const zAgendaRef = z.object({
 export const zSourceAgendaRef = z.object({
     uid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
     title: z.string().nullish(),
-    image: z.string().nullish()
+    image: zImageRef.nullish()
 });
 
 /**
@@ -323,7 +327,7 @@ export const zMeAgendaItemDetailed = z.object({
     slug: z.string().readonly(),
     title: z.string().nullable(),
     description: z.string().nullable(),
-    image: z.string().nullable(),
+    image: zImage.nullable(),
     official: z.boolean(),
     private: z.boolean(),
     role: zMemberRole,
@@ -350,7 +354,7 @@ export const zAgendaSummary = z.object({
     slug: z.string(),
     title: z.string(),
     description: z.string().nullable(),
-    image: z.string().url().nullable(),
+    image: zImage.nullable(),
     official: z.boolean()
 });
 
@@ -365,7 +369,7 @@ export const zAgendaDetailed = z.object({
     slug: z.string(),
     title: z.string(),
     description: z.string().nullable(),
-    image: z.string().url().nullable(),
+    image: zImage.nullable(),
     official: z.boolean(),
     createdAt: z.string().datetime(),
     network: zAgendaNetworkRef,
@@ -383,7 +387,7 @@ export const zAgenda = z.object({
     slug: z.string(),
     title: z.string(),
     description: z.string().nullable(),
-    image: z.string().url().nullable(),
+    image: zImage.nullable(),
     official: z.boolean(),
     url: z.string().url().nullable(),
     createdAt: z.string().datetime(),
@@ -1080,7 +1084,7 @@ export const zLocationWritable = z.object({
     timezone: z.string().nullable(),
     description: zLocalizedString,
     access: zLocalizedString,
-    image: z.string().nullable(),
+    image: zImage.nullable(),
     imageCredits: z.string().nullable(),
     website: z.string().nullable(),
     email: z.string().nullable(),
@@ -1106,7 +1110,7 @@ export const zLocationListWritable = z.object({
 export const zMeAgendaItemWritable = z.object({
     title: z.string().nullable(),
     description: z.string().nullable(),
-    image: z.string().nullable(),
+    image: zImage.nullable(),
     official: z.boolean(),
     private: z.boolean(),
     role: zMemberRole
@@ -1119,7 +1123,7 @@ export const zMeAgendaItemWritable = z.object({
 export const zMeAgendaItemDetailedWritable = z.object({
     title: z.string().nullable(),
     description: z.string().nullable(),
-    image: z.string().nullable(),
+    image: zImage.nullable(),
     official: z.boolean(),
     private: z.boolean(),
     role: zMemberRole,
@@ -2046,6 +2050,15 @@ export const zAgendasUploadsCreateTicketPath = z.object({
  * An out-of-band upload descriptor.
  */
 export const zAgendasUploadsCreateTicketResponse = zUploadDescriptor;
+
+export const zUploadsStagedBody = z.object({
+    file: z.string()
+});
+
+/**
+ * The staging reference to attach on an event write.
+ */
+export const zUploadsStagedResponse = zUploadTicket;
 
 export const zAgendasLocationsListPath = z.object({
     agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })

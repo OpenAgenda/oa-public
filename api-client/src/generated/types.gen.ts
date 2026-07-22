@@ -61,29 +61,35 @@ export type LocalizedStringArray = {
 };
 
 /**
- * Event image with its generated size variants.
+ * Event image, served on demand from a single source. Use `src` as a ready-to-use default rendition, or drive a responsive picture: substitute `{geo}` into `srcTemplate` (e.g. `800x0` for proportional width, `300x300s` for a smart-cropped square, `1000x1000f` for fit-in) or pick a ready-made width from `srcset`. `width`/`height` are the intrinsic source dimensions (a cap: renditions are never upscaled past them).
+ *
  */
 export type Image = {
-    filename?: string | null;
-    /**
-     * Base URL the variants are served from.
-     */
-    base?: string | null;
     credits?: string | null;
-    size?: {
-        width?: number | null;
-        height?: number | null;
-    } | null;
     /**
-     * Generated size variants of the image.
+     * Intrinsic width of the source image, in pixels.
      */
-    variants?: Array<{
-        type?: string;
-        filename?: string;
-        size?: {
-            width?: number | null;
-            height?: number | null;
-        } | null;
+    width?: number | null;
+    /**
+     * Intrinsic height of the source image, in pixels.
+     */
+    height?: number | null;
+    /**
+     * Ready-to-use default rendition URL (a naive `<img src>` just works).
+     *
+     */
+    src?: string | null;
+    /**
+     * URL with a `{geo}` placeholder to substitute with a geometry token (`{W}x{H}`, `s` = smart-crop, `f` = fit-in; `0` = proportional).
+     *
+     */
+    srcTemplate?: string | null;
+    /**
+     * Ready-made proportional widths, never upscaled past the source.
+     */
+    srcset?: Array<{
+        width?: number;
+        url?: string;
     }>;
 };
 
@@ -179,10 +185,7 @@ export type Location = {
      *
      */
     access: LocalizedString;
-    /**
-     * Absolute URL of the location's image.
-     */
-    image: string | null;
+    image: Image | null;
     imageCredits: string | null;
     website: string | null;
     email: string | null;
@@ -336,7 +339,7 @@ export type MeAgendaItem = {
     readonly slug: string;
     title: string | null;
     description: string | null;
-    image: string | null;
+    image: Image | null;
     official: boolean;
     private: boolean;
     role: MemberRole;
@@ -351,7 +354,7 @@ export type MeAgendaItemDetailed = {
     readonly slug: string;
     title: string | null;
     description: string | null;
-    image: string | null;
+    image: Image | null;
     official: boolean;
     private: boolean;
     role: MemberRole;
@@ -425,13 +428,30 @@ export type EnrichedLink = {
 };
 
 /**
+ * A lightweight image for an embedded reference (an agenda logo on an event's originAgenda/sourceAgendas, or a provenance facet bucket). Unlike the full `Image`, a ref carries no intrinsic dimensions (its source is a bare string), so it offers only a ready-to-use `src` plus the `{geo}` template — not the responsive `srcset`/`width`/`height`. A client needing the full responsive image follows the ref to its agenda endpoint, whose `image` is an `Image`.
+ *
+ */
+export type ImageRef = {
+    /**
+     * A ready-to-use default rendition URL (a modest proportional width) — a naive `<img src>` just works. Falls back to the legacy URL until the on-demand image CDN is enabled; `null` only when the ref has no image.
+     *
+     */
+    src: string | null;
+    /**
+     * A URL with a literal `{geo}` placeholder to substitute with a geometry token (`{W}x{H}`, `s` smart-crop, `f` fit-in, `0` proportional) to render the ref image at any size. `null` when the on-demand CDN is off or the source is not a Thumbor source.
+     *
+     */
+    srcTemplate: string | null;
+};
+
+/**
  * A compact reference to an agenda.
  */
 export type AgendaRef = {
     uid?: number;
     title?: string | null;
     slug?: string | null;
-    image?: string | null;
+    image?: ImageRef | null;
     url?: string | null;
     official?: boolean | null;
 };
@@ -443,7 +463,7 @@ export type AgendaRef = {
 export type SourceAgendaRef = {
     uid: number;
     title?: string | null;
-    image?: string | null;
+    image?: ImageRef | null;
 };
 
 /**
@@ -493,11 +513,7 @@ export type AgendaSummary = {
     slug: string;
     title: string;
     description: string | null;
-    /**
-     * Absolute URL of the agenda image, or `null`. (Scalar URL — not the structured `Image` type used by events; aligning the two is a planned backend follow-up.)
-     *
-     */
-    image: string | null;
+    image: Image | null;
     /**
      * Whether the agenda is an official one. `null` is coerced to `false`.
      */
@@ -515,11 +531,7 @@ export type AgendaDetailed = {
     slug: string;
     title: string;
     description: string | null;
-    /**
-     * Absolute URL of the agenda image, or `null`. (Scalar URL — not the structured `Image` type used by events; aligning the two is a planned backend follow-up.)
-     *
-     */
-    image: string | null;
+    image: Image | null;
     /**
      * Whether the agenda is an official one. `null` is coerced to `false`.
      */
@@ -540,11 +552,7 @@ export type Agenda = {
     slug: string;
     title: string;
     description: string | null;
-    /**
-     * Absolute URL of the agenda image, or `null`. (Scalar URL — not the structured `Image` type used by events; aligning the two is a planned backend follow-up.)
-     *
-     */
-    image: string | null;
+    image: Image | null;
     /**
      * Whether the agenda is an official one. `null` is coerced to `false`.
      */
@@ -1508,10 +1516,7 @@ export type LocationWritable = {
      *
      */
     access: LocalizedString;
-    /**
-     * Absolute URL of the location's image.
-     */
-    image: string | null;
+    image: Image | null;
     imageCredits: string | null;
     website: string | null;
     email: string | null;
@@ -1547,7 +1552,7 @@ export type LocationListWritable = {
 export type MeAgendaItemWritable = {
     title: string | null;
     description: string | null;
-    image: string | null;
+    image: Image | null;
     official: boolean;
     private: boolean;
     role: MemberRole;
@@ -1560,7 +1565,7 @@ export type MeAgendaItemWritable = {
 export type MeAgendaItemDetailedWritable = {
     title: string | null;
     description: string | null;
-    image: string | null;
+    image: Image | null;
     official: boolean;
     private: boolean;
     role: MemberRole;
@@ -3462,6 +3467,10 @@ export type AgendasUploadsCreateTicketErrors = {
      * Resource not found.
      */
     404: Error;
+    /**
+     * A dependency required to serve the request is temporarily unavailable — for example upload staging is not configured, or its single-use store is unreachable. `error.code` is `service_unavailable`; the request was not processed, so it is safe to retry after a short delay.
+     */
+    503: Error;
 };
 
 export type AgendasUploadsCreateTicketError = AgendasUploadsCreateTicketErrors[keyof AgendasUploadsCreateTicketErrors];
@@ -3474,6 +3483,50 @@ export type AgendasUploadsCreateTicketResponses = {
 };
 
 export type AgendasUploadsCreateTicketResponse = AgendasUploadsCreateTicketResponses[keyof AgendasUploadsCreateTicketResponses];
+
+export type UploadsStagedData = {
+    body: {
+        /**
+         * The media file — an image, PDF, or other platform-supported document (docx, xlsx, csv, …).
+         *
+         */
+        file: Blob | File;
+    };
+    path?: never;
+    query?: never;
+    url: '/uploads/staged';
+};
+
+export type UploadsStagedErrors = {
+    /**
+     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     *
+     */
+    400: Error;
+    /**
+     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     */
+    401: Error;
+    /**
+     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.details.errors[]`.
+     */
+    422: Error;
+    /**
+     * A dependency required to serve the request is temporarily unavailable — for example upload staging is not configured, or its single-use store is unreachable. `error.code` is `service_unavailable`; the request was not processed, so it is safe to retry after a short delay.
+     */
+    503: Error;
+};
+
+export type UploadsStagedError = UploadsStagedErrors[keyof UploadsStagedErrors];
+
+export type UploadsStagedResponses = {
+    /**
+     * The staging reference to attach on an event write.
+     */
+    200: UploadTicket;
+};
+
+export type UploadsStagedResponse = UploadsStagedResponses[keyof UploadsStagedResponses];
 
 export type AgendasLocationsListData = {
     body?: never;

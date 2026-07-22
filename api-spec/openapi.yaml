@@ -1432,6 +1432,81 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+
+  /uploads/staged:
+    post:
+      operationId: uploads.staged
+      tags: [Uploads]
+      summary: Upload a file with an upload ticket
+      x-synonyms:
+        [upload, out of band, ticket, staged, local file, raw bytes, no base64]
+      x-codeSamples:
+        - lang: Shell
+          label: Upload the raw bytes out of band (curl)
+          source: |
+            # uploadUrl, ticket, header and field all come from
+            # `agendas.uploads.createTicket`. The bytes go straight to storage —
+            # never through the API client or the caller's prompt/token stream.
+            curl -sS -X POST "$UPLOAD_URL" \
+              -H "X-Upload-Ticket: $TICKET" \
+              -F "file=@/path/to/image.jpg"
+            # -> { "ref": "staging/12345/…", "expiresAt": "…" }
+      description: >
+        Receives the raw bytes of an OUT-OF-BAND upload authorized by
+        `agendas.uploads.createTicket`, and returns the staging `ref` to attach on
+        an event write (`image: { ref }` or a custom `additionalFields` field).
+        This is the endpoint the ticket descriptor's `uploadUrl` points at.
+
+
+        Call it with a plain HTTPS `POST`, NOT through the typed API client — the
+        purpose of the ticket flow is that the file never transits the client (or
+        an LLM's token stream). Authorize with the ticket in the
+        `X-Upload-Ticket` header (no API key or access token) and send the file as
+        `multipart/form-data` field `file`. The target agenda is taken from the
+        signed ticket, so it is not in the path.
+
+
+        Type and size rules match `agendas.uploads.create`: the real,
+        content-detected type must be platform-supported (a lying
+        `Content-Type`/filename cannot smuggle a disallowed type past), and the
+        body is capped at 20 MiB.
+
+
+        The ticket is single-use — the first upload consumes it, and a replay
+        answers `401`.
+      security:
+        - uploadTicketAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [file]
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: >
+                    The media file — an image, PDF, or other platform-supported
+                    document (docx, xlsx, csv, …).
+      responses:
+        '200':
+          description: The staging reference to attach on an event write.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadTicket'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
 
   /agendas/{agendaUid}/locations:
     get:
@@ -1685,6 +1760,16 @@ components:
             locations:write: Create and modify locations
             members:read: Read members
             members:write: Manage members
+    uploadTicketAuth:
+      type: apiKey
+      in: header
+      name: X-Upload-Ticket
+      description: >
+        A single-use, short-lived upload ticket, minted by
+        `agendas.uploads.createTicket` and sent in the `X-Upload-Ticket` header.
+        It authorizes staging exactly ONE file for the ONE agenda it is bound to,
+        carries no account credential, and grants nothing beyond that single
+        upload. Used only by `POST /uploads/staged`.
 
   parameters:
     AgendaUid:
@@ -2687,6 +2772,16 @@ components:
         a missing title, an invalid timing, an unknown location uid).
         `error.code` is `validation_error` and per-field problems are listed
         under `error.details.errors[]`.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ServiceUnavailable:
+      description: >-
+        A dependency required to serve the request is temporarily unavailable —
+        for example upload staging is not configured, or its single-use store is
+        unreachable. `error.code` is `service_unavailable`; the request was not
+        processed, so it is safe to retry after a short delay.
       content:
         application/json:
           schema:
