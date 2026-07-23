@@ -125,7 +125,9 @@ export function initTelemetry({ enabled, serviceInstance } = {}) {
     spanProcessors: [new BatchSpanProcessor(new OTLPTraceExporter())],
     // Logs: register a LoggerProvider so @openagenda/logs's OTel transport has a
     // global to emit into (see header). Batched like spans, flushed on shutdown.
-    logRecordProcessors: [new BatchLogRecordProcessor(new OTLPLogExporter())],
+    logRecordProcessors: [
+      new BatchLogRecordProcessor({ exporter: new OTLPLogExporter() }),
+    ],
   });
   sdk.start();
 
