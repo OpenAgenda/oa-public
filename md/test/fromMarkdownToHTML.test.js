@@ -105,6 +105,8 @@ describe('fromMarkdownToHTML', () => {
       );
     });
 
+    // Attribute order below is DOMPurify's serialisation, not a contract of
+    // ours: it emits `href` before `target` since 3.4.12.
     test('different domain from self domain sees target attribute set in tag', () => {
       expect(
         fromMarkdownToHTML(
@@ -112,7 +114,7 @@ describe('fromMarkdownToHTML', () => {
           { selfDomain: 'https://anothersite.com' },
         ),
       ).toBe(
-        '<p>Un site qui marche à peu près: <a target="_blank" href="https://openagenda.com">OpenAgenda</a></p>\n',
+        '<p>Un site qui marche à peu près: <a href="https://openagenda.com" target="_blank">OpenAgenda</a></p>\n',
       );
     });
 
