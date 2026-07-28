@@ -1,6 +1,5 @@
 import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 const mode = process.env.NODE_ENV || 'production';
 
@@ -11,6 +10,8 @@ const jsEntryFiles = fs
 export default {
   mode,
   context: `${import.meta.dirname}/../`,
+  // See bin/webpack.server.js for why the built-in TypeScript support is pinned off.
+  experiments: { typescript: false },
   optimization: { minimize: true },
   entry: jsEntryFiles.reduce(
     (entries, filename) => ({
@@ -22,8 +23,8 @@ export default {
   output: {
     path: `${import.meta.dirname}/../assets/js`,
     filename: '[name].js',
+    clean: true,
   },
-  plugins: [new CleanWebpackPlugin()],
   module: {
     rules: [
       {

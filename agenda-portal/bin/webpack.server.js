@@ -13,6 +13,13 @@ export default {
   mode: 'production',
   context: process.env.PORTAL_DIR,
   target: 'node',
+  // Nothing here is TypeScript. Left on "auto", webpack enables its built-in TS
+  // support on Node >= 22.6, which turns on enhanced-resolve's TsconfigPathsPlugin;
+  // that plugin walks up the tree and hard-fails on the `tsconfig.json` shipped by
+  // some deps (side-channel, hasown…) whose `extends` target is a devDependency
+  // that is never installed. Pinning it off also keeps builds identical across
+  // the Node versions our consumers run.
+  experiments: { typescript: false },
   entry: path.resolve(process.env.PORTAL_DIR, 'server.js'),
   output: {
     path: path.resolve(process.env.PORTAL_DIR, 'dist'),

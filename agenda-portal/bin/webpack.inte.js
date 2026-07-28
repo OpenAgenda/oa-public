@@ -11,6 +11,8 @@ const devServerPort = process.env.PORTAL_DEV_SERVER_PORT || 3001;
 export default {
   mode,
   context: process.env.PORTAL_DIR,
+  // See bin/webpack.server.js for why the built-in TypeScript support is pinned off.
+  experiments: { typescript: false },
   entry: [
     path.join(process.env.PORTAL_DIR, process.env.PORTAL_SASS_PATH),
     path.join(process.env.PORTAL_DIR, process.env.PORTAL_JS_PATH),
@@ -30,6 +32,13 @@ export default {
     port: devServerPort,
     headers: { 'Access-Control-Allow-Origin': '*' },
     compress: true,
+    client: {
+      // Warnings stay fully reported in the terminal; they just don't cover the
+      // portal with a full-screen overlay. Sass emits a deprecation per Bootstrap 4
+      // rule and per `@import`, which would otherwise make the page unusable on
+      // every rebuild. Errors and runtime errors still take over the screen.
+      overlay: { errors: true, warnings: false, runtimeErrors: true },
+    },
   },
   module: {
     rules: [

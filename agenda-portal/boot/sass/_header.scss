@@ -1,5 +1,7 @@
+@use 'sass:color';
+
 header {
   a:hover {
-    color: darken($oa-white, 10);
+    color: color.adjust($oa-white, $lightness: -10%);
   }
 }

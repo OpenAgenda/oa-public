@@ -9,6 +9,8 @@ const jsEntryFiles = fs
 export default {
   mode: 'development',
   // context: __dirname,
+  // See bin/webpack.server.js for why the built-in TypeScript support is pinned off.
+  experiments: { typescript: false },
   entry: jsEntryFiles.reduce(
     (entries, filename) => ({
       ...entries,
