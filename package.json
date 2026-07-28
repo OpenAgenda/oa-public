@@ -22,8 +22,8 @@
   ],
   "packageManager": "yarn@4.5.3",
   "resolutions": {
-    "react": "19.2.2",
-    "react-dom": "19.2.2",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
     "jest-runtime@npm:^29.7.0": "patch:jest-runtime@npm%3A29.7.0#~/.yarn/patches/jest-runtime-npm-29.7.0-120fa64128.patch"
   },
   "dependencies": {
@@ -36,8 +36,8 @@
     "@commitlint/config-conventional": "^17.6.5",
     "@openagenda/babel-preset": "^2.0.0",
     "@openagenda/cz-conventional-changelog": "^3.2.2",
-    "@types/react": "^19.0.8",
-    "@types/react-dom": "^19.0.3",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
     "codecov": "^3.6.2",
     "commitizen": "^4.3.0",
     "concurrently": "^6.0.2",

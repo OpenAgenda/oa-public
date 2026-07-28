@@ -6670,15 +6670,15 @@ __metadata:
     msw-storybook-addon: "npm:^2.0.6"
     pizzip: "npm:^3.0.6"
     qs: "npm:^6.11.2"
-    react: "npm:^19.2.2"
-    react-dom: "npm:^19.2.2"
+    react: "npm:^19.2.8"
+    react-dom: "npm:^19.2.8"
     react-final-form: "npm:^6.5.3"
     remove-markdown: "npm:^0.3.0"
     rimraf: "npm:^3.0.1"
     storybook: "npm:^10.2.0"
   peerDependencies:
-    react: ^19.2.2
-    react-dom: ^19.2.2
+    react: ^19.2.8
+    react-dom: ^19.2.8
   languageName: unknown
   linkType: soft
 
@@ -6730,9 +6730,9 @@ __metadata:
     moment-timezone: "npm:^0.5.31"
     ncp: "npm:^2.0.0"
     qs: "npm:^6.9.1"
-    react: "npm:^19.2.2"
+    react: "npm:^19.2.8"
     react-cookie-consent: "npm:^7.2.1"
-    react-dom: "npm:^19.2.2"
+    react-dom: "npm:^19.2.8"
     react-intl: "npm:^10.1.1"
     react-query: "npm:^3.6.0"
     regenerator-runtime: "npm:^0.13.7"
@@ -6820,8 +6820,8 @@ __metadata:
     "@types/react-dom": "npm:^19.0.3"
     babel-plugin-add-module-exports: "npm:^1.0.4"
     babel-plugin-react-intl: "npm:^8.2.25"
-    react: "npm:^19.2.2"
-    react-dom: "npm:^19.2.2"
+    react: "npm:^19.2.8"
+    react-dom: "npm:^19.2.8"
     react-refresh: "npm:^0.14.0"
   peerDependencies:
     "@babel/core": ^7.26.0
@@ -6848,10 +6848,10 @@ __metadata:
     moment: "npm:^2.27.0"
     node-watch: "npm:^0.3.5"
     nodemon: "npm:^2.0.6"
-    react: "npm:^19.2.2"
+    react: "npm:^19.2.8"
     react-datepicker: "npm:^1.6.0"
     react-day-picker: "npm:^7.3.0"
-    react-dom: "npm:^19.2.2"
+    react-dom: "npm:^19.2.8"
     reload: "npm:^3.2.1"
     sass: "npm:^1.102.0"
     walk: "npm:^2.3.9"
@@ -6950,7 +6950,7 @@ __metadata:
     tsdown: "npm:^0.22.0"
     yargs: "npm:^17.4.0"
   peerDependencies:
-    react: ^19.2.2
+    react: ^19.2.8
     react-intl: ^10.0.0
   peerDependenciesMeta:
     react:
@@ -7215,8 +7215,8 @@ __metadata:
     nodemon: "npm:^2.0.15"
     qs: "npm:^6.9.1"
     raw-loader: "npm:^4.0.2"
-    react: "npm:^19.2.2"
-    react-dom: "npm:^19.2.2"
+    react: "npm:^19.2.8"
+    react-dom: "npm:^19.2.8"
     react-final-form: "npm:^6.5.3"
     react-final-form-listeners: "npm:^1.0.3"
     react-intl: "npm:^10.1.1"
@@ -7239,8 +7239,8 @@ __metadata:
     webpack-cli: "npm:^7.2.1"
     webpackbar: "npm:^7.0.0"
   peerDependencies:
-    react: ^19.2.2
-    react-dom: ^19.2.2
+    react: ^19.2.8
+    react-dom: ^19.2.8
   languageName: unknown
   linkType: soft
 
@@ -7250,12 +7250,12 @@ __metadata:
   dependencies:
     "@openagenda/eslint-config": "npm:^2.1.0"
     cheerio: "npm:^1.0.0-rc.10"
-    react: "npm:^19.2.2"
-    react-dom: "npm:^19.2.2"
+    react: "npm:^19.2.8"
+    react-dom: "npm:^19.2.8"
     tsdown: "npm:^0.22.0"
   peerDependencies:
-    react: ^19.2.2
-    react-dom: ^19.2.2
+    react: ^19.2.8
+    react-dom: ^19.2.8
   languageName: unknown
   linkType: soft
 
@@ -7294,10 +7294,10 @@ __metadata:
     msw: "npm:^2.3.0"
     msw-storybook-addon: "npm:^2.0.6"
     qs: "npm:^6.9.1"
-    react: "npm:^19.2.2"
+    react: "npm:^19.2.8"
     react-cookie-consent: "npm:^7.2.1"
     react-date-range: "npm:^1.4.0"
-    react-dom: "npm:^19.2.2"
+    react-dom: "npm:^19.2.8"
     react-dropzone: "npm:^14.3.8"
     react-final-form: "npm:^6.5.3"
     react-intl: "npm:^10.1.1"
@@ -7319,7 +7319,7 @@ __metadata:
     turndown: "npm:^7.1.2"
   peerDependencies:
     "@loadable/component": ^5.12.0
-    react: ^19.2.2
+    react: ^19.2.8
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
     react-select: ^5.8.3
@@ -7353,9 +7353,9 @@ __metadata:
     date-fns: "npm:^2.1.0"
     final-form: "npm:^4.20.2"
     jest: "npm:^29.7.0"
-    react: "npm:^19.2.2"
+    react: "npm:^19.2.8"
     react-day-picker: "npm:^7.3.0"
-    react-dom: "npm:^19.2.2"
+    react-dom: "npm:^19.2.8"
     react-final-form: "npm:^6.5.3"
     react-icons: "npm:^3.8.0"
     react-intl: "npm:^10.1.1"
@@ -7367,7 +7367,7 @@ __metadata:
     text-mask-addons: "npm:^3.8.0"
     tsdown: "npm:^0.22.0"
   peerDependencies:
-    react: ^19.2.2
+    react: ^19.2.8
   languageName: unknown
   linkType: soft
 
@@ -7395,8 +7395,8 @@ __metadata:
     lodash: "npm:^4.17.21"
     msw: "npm:^2.3.0"
     qs: "npm:^6.11.0"
-    react: "npm:^19.2.2"
-    react-dom: "npm:^19.2.2"
+    react: "npm:^19.2.8"
+    react-dom: "npm:^19.2.8"
     react-intersection-observer: "npm:^9.16.0"
     react-intl: "npm:^10.1.1"
     react-use: "npm:^17.6.0"
@@ -7406,8 +7406,8 @@ __metadata:
     tsdown: "npm:^0.22.0"
     typescript: "npm:^5.6.3"
   peerDependencies:
-    react: ^19.2.2
-    react-dom: ^19.2.2
+    react: ^19.2.8
+    react-dom: ^19.2.8
   languageName: unknown
   linkType: soft
 
@@ -7447,16 +7447,16 @@ __metadata:
     "@openagenda/tsconfig": "npm:^0.0.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
     "@storybook/react-webpack5": "npm:^10.2.0"
-    react: "npm:^19.2.2"
-    react-dom: "npm:^19.2.2"
+    react: "npm:^19.2.8"
+    react-dom: "npm:^19.2.8"
     react-icons: "npm:^5.5.0"
     react-remove-scroll: "npm:^2.7.1"
     storybook: "npm:^10.2.0"
     tsdown: "npm:^0.22.0"
     typescript: "npm:^5.6.3"
   peerDependencies:
-    react: ^19.2.2
-    react-dom: ^19.2.2
+    react: ^19.2.8
+    react-dom: ^19.2.8
   languageName: unknown
   linkType: soft
 
@@ -7484,8 +7484,8 @@ __metadata:
     "@openagenda/uikit": "npm:^0.2.0"
     "@storybook/html-vite": "npm:^10.2.0"
     babel-loader: "npm:^10.1.1"
-    react: "npm:^19.1.0"
-    react-dom: "npm:^19.1.0"
+    react: "npm:^19.2.8"
+    react-dom: "npm:^19.2.8"
     react-intl: "npm:^10.1.1"
     react-shadow: "npm:^20.6.0"
     storybook: "npm:^10.2.0"
@@ -10810,12 +10810,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^19.0.3":
-  version: 19.0.3
-  resolution: "@types/react-dom@npm:19.0.3"
+"@types/react-dom@npm:^19.0.3, @types/react-dom@npm:^19.2.3":
+  version: 19.2.3
+  resolution: "@types/react-dom@npm:19.2.3"
   peerDependencies:
-    "@types/react": ^19.0.0
-  checksum: 10c0/3867427b333cbe8cbba496d7cc20ec9676d32c25ae44f4d1263a4129d42e57cf4adf0039ad263432f1215b88075c27d326e7eb4ed646128235d01a76e661d48f
+    "@types/react": ^19.2.0
+  checksum: 10c0/b486ebe0f4e2fb35e2e108df1d8fc0927ca5d6002d5771e8a739de11239fe62d0e207c50886185253c99eb9dedfeeb956ea7429e5ba17f6693c7acb4c02f8cd1
   languageName: node
   linkType: hard
 
@@ -10840,12 +10840,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^19.0.8":
-  version: 19.0.8
-  resolution: "@types/react@npm:19.0.8"
+"@types/react@npm:*, @types/react@npm:^19.0.8, @types/react@npm:^19.2.17":
+  version: 19.2.17
+  resolution: "@types/react@npm:19.2.17"
   dependencies:
-    csstype: "npm:^3.0.2"
-  checksum: 10c0/5fa7236356b1476de03519c66ef65d4fd904826956105619e2ad60cb0b55ae7b251dd5fff02234076225b5e15333d0d936bf9dbe1d461406f8a2ba01c197ddcd
+    csstype: "npm:^3.2.2"
+  checksum: 10c0/bc2c4af96b3e480604424de70d5ebda90c5f4b485df471858c0bc2d7d70364b606ec3c4d8579f94f01aa0c6c0591f56bcf14cba5689f5eea4b74250ccdc3a232
   languageName: node
   linkType: hard
 
@@ -17197,7 +17197,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"csstype@npm:3.2.3, csstype@npm:^3.2.3":
+"csstype@npm:3.2.3, csstype@npm:^3.2.2, csstype@npm:^3.2.3":
   version: 3.2.3
   resolution: "csstype@npm:3.2.3"
   checksum: 10c0/cd29c51e70fa822f1cecd8641a1445bed7063697469d35633b516e60fe8c1bde04b08f6c5b6022136bb669b64c63d4173af54864510fbb4ee23281801841a3ce
@@ -28611,8 +28611,8 @@ __metadata:
     "@commitlint/config-conventional": "npm:^17.6.5"
     "@openagenda/babel-preset": "npm:^2.0.0"
     "@openagenda/cz-conventional-changelog": "npm:^3.2.2"
-    "@types/react": "npm:^19.0.8"
-    "@types/react-dom": "npm:^19.0.3"
+    "@types/react": "npm:^19.2.17"
+    "@types/react-dom": "npm:^19.2.3"
     codecov: "npm:^3.6.2"
     commitizen: "npm:^4.3.0"
     concurrently: "npm:^6.0.2"
@@ -31013,14 +31013,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:19.2.2":
-  version: 19.2.2
-  resolution: "react-dom@npm:19.2.2"
+"react-dom@npm:19.2.8":
+  version: 19.2.8
+  resolution: "react-dom@npm:19.2.8"
   dependencies:
     scheduler: "npm:^0.27.0"
   peerDependencies:
-    react: ^19.2.2
-  checksum: 10c0/392c0ab526b5eba3938c2ed435c6daaed055ebc367398b3bfe424fa5c1667be843c012a44edbeb35187794e441bfed3ba8206e4a060d8b4641f3eac9bda23cd1
+    react: ^19.2.8
+  checksum: 10c0/41ba2247b76f687fcfe5bbc99f514d6b851d8c8041c2f5ded36ed05bd7fdc5208cacbac9de51e3e6633e77f96f44cec9f0d4a5a55184dba4e00738f224439134
   languageName: node
   linkType: hard
 
@@ -31535,10 +31535,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:19.2.2":
-  version: 19.2.2
-  resolution: "react@npm:19.2.2"
-  checksum: 10c0/cf64766e3c7d885aadbf4372c28ecc81627dc33155bd1fdf4a150b2590c859bab38e2eb0ad5a1956d0a3c38e5b1d4b6e4c6598da5d8f640dc237f892a6a66546
+"react@npm:19.2.8":
+  version: 19.2.8
+  resolution: "react@npm:19.2.8"
+  checksum: 10c0/5f86bdb56426652fd6d989d30a6f2e603c057272c47c9ca3a3fbe190a3a39ee9ccce937d63cfc039717abed1b8891d6a499134bc35311acc07eafdacd86537cd
   languageName: node
   linkType: hard
 

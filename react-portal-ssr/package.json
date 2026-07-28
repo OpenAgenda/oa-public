@@ -32,12 +32,12 @@
   },
   "devDependencies": {
     "@openagenda/eslint-config": "^2.1.0",
-    "react": "^19.2.2",
-    "react-dom": "^19.2.2",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
     "tsdown": "^0.22.0"
   },
   "peerDependencies": {
-    "react": "^19.2.2",
-    "react-dom": "^19.2.2"
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
   }
 }

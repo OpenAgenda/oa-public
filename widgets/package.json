@@ -23,8 +23,8 @@
     "@openagenda/react": "^0.1.0",
     "@openagenda/react-filters": "^2.13.8",
     "@openagenda/uikit": "^0.2.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
     "react-intl": "^10.1.1",
     "react-shadow": "^20.6.0"
   },
