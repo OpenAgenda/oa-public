@@ -173,7 +173,6 @@ async function createConfig(c = {}) {
       {
         ...config.transport,
         logger: transportLogger,
-        rateLimit: undefined,
       },
       config.defaults,
     );
