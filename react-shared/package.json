@@ -75,9 +75,9 @@
     "@openagenda/babel-preset": "^2.0.0",
     "@openagenda/bs-templates": "^2.6.1",
     "@openagenda/eslint-config": "^2.1.0",
-    "@storybook/addon-webpack5-compiler-babel": "^4.0.0",
+    "@storybook/addon-webpack5-compiler-babel": "^4.0.1",
     "@storybook/preset-scss": "^1.0.3",
-    "@storybook/react-webpack5": "^10.2.0",
+    "@storybook/react-webpack5": "^10.5.5",
     "dedent": "^0.7.0",
     "enzyme": "^3.11.0",
     "final-form": "^4.20.2",
@@ -94,7 +94,7 @@
     "redux": "^4.0.5",
     "rimraf": "^3.0.1",
     "sass": "^1.102.0",
-    "storybook": "^10.2.0",
+    "storybook": "^10.5.5",
     "tsdown": "^0.22.0"
   },
   "peerDependencies": {
