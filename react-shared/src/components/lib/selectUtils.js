@@ -7,7 +7,7 @@ const extractNewValues = (current, value, separator) => {
     : value;
 
   return spread.filter(
-    (part) => !current?.some((option) => part === option.value),
+    (part) => !current?.some(({ value1 }) => part === value1),
   );
 };
 

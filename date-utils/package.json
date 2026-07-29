@@ -42,9 +42,9 @@
     "@openagenda/babel-preset": "^2.0.0",
     "@openagenda/eslint-config": "^2.1.0",
     "@openagenda/tsconfig": "^0.0.0",
-    "babel-jest": "^30.4.1",
+    "babel-jest": "^29.6.3",
     "eslint": "^8.36.0",
-    "jest": "^30.4.2",
+    "jest": "^29.6.3",
     "tsdown": "^0.22.0",
     "typescript": "^5.6.3"
   }

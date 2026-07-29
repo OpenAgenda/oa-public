@@ -36,6 +36,6 @@
   "devDependencies": {
     "@openagenda/eslint-config": "^2.1.0",
     "bullmq": "^5.65.1",
-    "jest": "^30.4.2"
+    "jest": "^29.7.0"
   }
 }

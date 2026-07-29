@@ -1,0 +1,24 @@
+diff --git a/build/index.js b/build/index.js
+index 01cb4206525dab0e564e07366bb0de1cc68ae2d1..362a4e7a68a9b4f2989962d815b196ff051f6363 100644
+--- a/build/index.js
++++ b/build/index.js
+@@ -530,6 +530,8 @@ class Runtime {
+             },
+             initializeImportMeta: meta => {
+               meta.url = (0, _url().pathToFileURL)(modulePath).href;
++              meta.filename = (0, _url().fileURLToPath)(meta.url);
++              meta.dirname = path().dirname(meta.filename);
+               let jest = this.jestObjectCaches.get(modulePath);
+               if (!jest) {
+                 jest = this._createJestObjectFor(modulePath);
+@@ -652,6 +654,10 @@ class Runtime {
+             initializeImportMeta(meta) {
+               // no `jest` here as it's not loaded in a file
+               meta.url = specifier;
++              if (meta.url.startsWith('file://')) {
++                meta.filename = (0, _url().fileURLToPath)(meta.url);
++                meta.dirname = path().dirname(meta.filename);
++              }
+             }
+           });
+         }
