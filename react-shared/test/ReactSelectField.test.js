@@ -1,6 +1,12 @@
-import { mount } from 'enzyme';
+import { configure, mount } from 'enzyme';
+import Adapter from '@cfaester/enzyme-adapter-react-18';
 import { Form, Field } from 'react-final-form';
 import ReactSelectField from '../src/components/ReactSelectField.js';
+
+// Configured here rather than in a shared setup file: the adapter reads React
+// internals that React 19 renamed, so importing it takes the whole suite down.
+// Keeping it local means only this file pays for it.
+configure({ adapter: new Adapter() });
 
 describe('ReactSelectField', () => {
   it('correctly select option with categories', async () => {
