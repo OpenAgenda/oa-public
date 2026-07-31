@@ -1,47 +1,62 @@
-import { mount } from 'enzyme';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { Form, Field } from 'react-final-form';
 import ReactSelectField from '../src/components/ReactSelectField.js';
 
-describe('ReactSelectField', () => {
-  it('correctly select option with categories', async () => {
-    const options = [
+const options = [
+  {
+    label: 'Graphiques',
+    options: [
       {
-        label: 'Graphiques',
-        options: [
-          {
-            label: 'Horaires',
-            value: 'timings',
-          },
-          {
-            label: 'Mots-clés',
-            value: 'keywords',
-          },
-        ],
+        label: 'Horaires',
+        value: 'timings',
       },
-    ];
-    const option = options[0].options[1];
+      {
+        label: 'Mots-clés',
+        value: 'keywords',
+      },
+    ],
+  },
+];
 
-    const onSubmit = jest.fn();
-    const wrapper = mount(
-      <Form
-        onSubmit={onSubmit}
-        render={({ handleSubmit }) => (
-          <form onSubmit={handleSubmit}>
-            <ReactSelectField Field={Field} name="type" options={options} />
-          </form>
-        )}
-      />,
+const option = options[0].options[1];
+
+function renderField(initialValues) {
+  return render(
+    <Form
+      onSubmit={() => {}}
+      initialValues={initialValues}
+      render={({ handleSubmit, values }) => (
+        <form onSubmit={handleSubmit}>
+          <ReactSelectField Field={Field} name="type" options={options} />
+          <output>{JSON.stringify(values)}</output>
+        </form>
+      )}
+    />,
+  );
+}
+
+describe('ReactSelectField', () => {
+  it('correctly select option with categories', () => {
+    renderField();
+
+    expect(screen.getByRole('status').textContent).toBe('{}');
+
+    // react-select opens its menu on ArrowDown
+    fireEvent.keyDown(screen.getByRole('combobox'), { key: 'ArrowDown' });
+    fireEvent.click(screen.getByText(option.label));
+
+    // parse() must store the option's value, not its label, and the menu must
+    // be gone — asserting on the label alone would pass on the open menu too
+    expect(screen.getByRole('status').textContent).toBe(
+      JSON.stringify({ type: option.value }),
     );
+    expect(screen.queryByRole('option')).toBeNull();
+  });
 
-    const selectWrapper = wrapper.find('Select');
+  it('resolves an initial value nested in a category', () => {
+    // covers format()/findOption(), which have to look inside the groups
+    renderField({ type: option.value });
 
-    await selectWrapper.invoke('onChange')(option);
-
-    // have a selected value
-    expect(wrapper.exists('[className$="-singleValue"]')).toBe(true);
-    // good value
-    expect(wrapper.find('[className$="-singleValue"]').text()).toBe(
-      option.label,
-    );
+    expect(screen.getByText(option.label)).toBeTruthy();
   });
 });
