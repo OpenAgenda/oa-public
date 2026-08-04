@@ -20,7 +20,7 @@
   "workspaces": [
     "*"
   ],
-  "packageManager": "yarn@4.5.3",
+  "packageManager": "yarn@4.18.0",
   "resolutions": {
     "react": "19.2.8",
     "react-dom": "19.2.8"
