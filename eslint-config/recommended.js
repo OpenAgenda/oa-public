@@ -26,6 +26,7 @@ module.exports = {
         nestedBinaryExpressions: false,
         enforceForArrowConditionals: false,
         conditionalAssign: false,
+        ternaryOperandBinaryExpressions: false,
       },
     ],
     'no-promise-executor-return': 'off',
