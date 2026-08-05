@@ -3784,7 +3784,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/react@npm:^11.11.1, @emotion/react@npm:^11.14.0, @emotion/react@npm:^11.8.1":
+"@emotion/react@npm:^11.14.0, @emotion/react@npm:^11.8.1":
   version: 11.14.0
   resolution: "@emotion/react@npm:11.14.0"
   dependencies:
@@ -7130,7 +7130,6 @@ __metadata:
   resolution: "@openagenda/react-filters@workspace:react-filters"
   dependencies:
     "@babel/runtime-corejs3": "npm:^7.28.4"
-    "@emotion/react": "npm:^11.11.1"
     "@formatjs/cli": "npm:^2.11.3"
     "@openagenda/eslint-config": "npm:^2.1.0"
     "@openagenda/intl": "npm:^2.0.0"
