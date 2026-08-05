@@ -1,7 +1,21 @@
 import classNames from 'classnames';
 import { defineMessages, useIntl } from 'react-intl';
-import { css } from '@emotion/react';
 import { getLocaleValue } from '@openagenda/intl';
+import Style from './Style.js';
+
+// Class repeated to outrank bootstrap's `.btn` and `.badge` padding.
+const css = `
+.oa-filters-value-badge.oa-filters-value-badge {
+  line-height: 18px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.oa-filters-value-badge.oa-filters-value-badge:hover {
+  color: #da4453;
+  border-color: #d43f3a;
+}
+`;
 
 const messages = defineMessages({
   removeFilter: {
@@ -22,28 +36,22 @@ export default function ValueBadge({ label, title, onRemove, disabled }) {
     : intl.formatMessage(messages.removeFilter);
 
   return (
-    <button
-      type="button"
-      title={titleLabel}
-      className={classNames('btn badge badge-pill badge-info margin-right-xs', {
-        disabled,
-      })}
-      css={css`
-        line-height: 18px;
-        padding-top: 0;
-        padding-bottom: 0;
-
-        :hover {
-          color: #da4453;
-          border-color: #d43f3a;
-        }
-      `}
-      // disabled={disabled}
-      onClick={onRemove}
-    >
-      {getLocaleValue(label, intl.locale)}
-      &nbsp;
-      <i className="fa fa-times" aria-hidden="true" />
-    </button>
+    <>
+      <Style name="ValueBadge">{css}</Style>
+      <button
+        type="button"
+        title={titleLabel}
+        className={classNames(
+          'btn badge badge-pill badge-info margin-right-xs oa-filters-value-badge',
+          { disabled },
+        )}
+        // disabled={disabled}
+        onClick={onRemove}
+      >
+        {getLocaleValue(label, intl.locale)}
+        &nbsp;
+        <i className="fa fa-times" aria-hidden="true" />
+      </button>
+    </>
   );
 }

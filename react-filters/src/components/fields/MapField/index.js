@@ -1,21 +1,17 @@
 import React from 'react';
-import { css } from '@emotion/react';
 import cn from 'classnames';
+import Style from '../../Style.js';
 import LoadableMap from './LoadableMap.js';
-import { gestureHandlingStyle, markerClusterStyle } from './mapStyle.js';
 
 // x remettre la carte en face des marqueurs après une recherche
 // x Submit au click du lien en mode manual
 // disabled sur le lien
 
-const mapContainerStyle = css`
+// Class repeated to outrank the consumer classes merged in below.
+const css = `
+.oa-filters-map-container.oa-filters-map-container {
   position: relative;
-`;
-
-const mapStyle = css`
-  height: 100%;
-  ${markerClusterStyle}
-  ${gestureHandlingStyle}
+}
 `;
 
 function MapField(
@@ -35,7 +31,8 @@ function MapField(
   ref,
 ) {
   return !collapsed ? (
-    <div css={mapContainerStyle} className={cn(className, mapClass)}>
+    <div className={cn('oa-filters-map-container', className, mapClass)}>
+      <Style name="MapField">{css}</Style>
       <LoadableMap
         ref={ref}
         input={input}
@@ -45,7 +42,6 @@ function MapField(
         loadGeoData={loadGeoData}
         initialViewport={initialViewport}
         defaultViewport={defaultViewport}
-        css={mapStyle}
       />
     </div>
   ) : null;

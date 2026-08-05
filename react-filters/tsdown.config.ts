@@ -12,7 +12,6 @@ const config: UserConfig = defineConfig({
     transform: {
       jsx: {
         runtime: 'automatic',
-        importSource: '@emotion/react',
       },
     },
   },
