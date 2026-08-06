@@ -25,6 +25,18 @@
 @import '../templates/auth/authentication.scss';
 @import '../templates/agenda-stats/style.scss';
 
+// Filter components rendered in the admin. After bootstrap on purpose: these
+// rules overrule `.btn`, `.badge` and `.form-control` by source order, not by
+// specificity. Imported without its extension so sass inlines the file rather
+// than emitting a plain CSS `@import`.
+//
+// Resolved through the workspace rather than a declared dependency: this
+// package sits below react-filters, which reaches back here through
+// react-shared's storybook devDependency, so declaring it closes a cycle that
+// `yarn workspaces foreach --topological-dev` refuses. The compiled CSS is what
+// ships, so consumers never resolve this import themselves.
+@import '@openagenda/react-filters/style';
+
 .chakra-reset {
   line-height: 1.5;
   --font-fallback: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
