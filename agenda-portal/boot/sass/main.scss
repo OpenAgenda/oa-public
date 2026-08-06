@@ -67,6 +67,9 @@ a:hover {
 
 @import './filters';
 @import '@openagenda/react-shared/scss/react-date-range';
+// After bootstrap on purpose: these rules overrule `.btn`, `.badge` and
+// `.form-control` by source order, not by specificity.
+@import '@openagenda/react-filters/style';
 
 header {
   background-color: $oa-dark-purple;

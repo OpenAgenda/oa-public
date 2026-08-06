@@ -119,6 +119,25 @@ When working on your portal, you should only really need to edit files that are 
 - In your views folder for templating
 - In your assets folder for static assets such as images or javascripts
 
+### Filter styles
+
+Filters come from [`@openagenda/react-filters`](https://www.npmjs.com/package/@openagenda/react-filters), which ships its own stylesheet. **If your portal has its own sass file**, import it there, after bootstrap — the default `sass/main.scss` already does:
+
+```scss
+@import '@openagenda/react-filters/style';
+```
+
+Its rules overrule `.btn`, `.badge` and `.form-control` by source order rather than by specificity, so the import has to come after bootstrap. The flip side is that a rule of yours written at the same specificity as one of the `oa-filters-*` rules loses to it if it sits earlier in the file. Either place yours after the import, or use a more specific selector the way the default sass does for active filter badges:
+
+```scss
+.active-filters {
+  .badge {
+    line-height: 1.5;
+    padding: 4px 8px;
+  }
+}
+```
+
 ### Available data
 
 For index and event pages. If you want insight on the data your are handling, add `?data` to your URL. The call will load a json view of the data as given to the template.
