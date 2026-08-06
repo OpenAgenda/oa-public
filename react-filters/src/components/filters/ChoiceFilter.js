@@ -13,18 +13,10 @@ import ChoiceField from '../fields/ChoiceField.js';
 import Title from '../Title.js';
 import Panel from '../Panel.js';
 import FilterPreviewer from '../FilterPreviewer.js';
-import Style from '../Style.js';
 import useChoiceState from '../../hooks/useChoiceState.js';
 import messages from '../../messages/choiceFilter.js';
 
 const usePrevious = usePreviousModule.default || usePreviousModule;
-
-// Class repeated to outrank bootstrap's `.form-control { width: 100% }`.
-const css = `
-.oa-filters-choice-search.oa-filters-choice-search {
-  width: 50%;
-}
-`;
 
 const subscription = { value: true };
 
@@ -165,20 +157,16 @@ const ChoiceFilter = React.forwardRef(function ChoiceFilter(
   return (
     <>
       {options.length > searchMinSize ? (
-        <>
-          <Style name="ChoiceFilter">{css}</Style>
-          <input
-            className="form-control input-sm margin-top-xs oa-filters-choice-search"
-            value={searchValue}
-            onChange={onSearchChange}
-            placeholder={
-              searchPlaceholder
-              || intl.formatMessage(messages.searchPlaceholder)
-            }
-            aria-label={searchAriaLabel}
-            title={searchAriaLabel}
-          />
-        </>
+        <input
+          className="form-control input-sm margin-top-xs oa-filters-choice-search"
+          value={searchValue}
+          onChange={onSearchChange}
+          placeholder={
+            searchPlaceholder || intl.formatMessage(messages.searchPlaceholder)
+          }
+          aria-label={searchAriaLabel}
+          title={searchAriaLabel}
+        />
       ) : null}
 
       {foundOptions.length === 0 ? (

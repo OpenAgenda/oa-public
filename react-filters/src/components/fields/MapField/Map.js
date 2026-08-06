@@ -19,7 +19,6 @@ import { useIntl } from 'react-intl';
 import '@openagenda/leaflet-gesture-handling';
 import { useForm } from 'react-final-form';
 import FiltersAndWidgetsContext from '../../../contexts/FiltersAndWidgetsContext.js';
-import MapStyle from './mapStyle.js';
 import SearchHereControl from './SearchHereControl.js';
 
 const padRatio = 0.2;
@@ -370,7 +369,6 @@ const Map = React.forwardRef(
 
     return (
       <>
-        <MapStyle />
         <MapContainer
           className={cn('oa-filters-map', className)}
           bounds={bounds}

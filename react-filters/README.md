@@ -9,6 +9,7 @@ This library works with OpenAgenda-compatible query structures. It provides a co
 Table of contents:
 
 - [General principles](#principles)
+- [Styles](#styles)
 - [Available filters](#filters)
 - [Accessibility](#accessibility)
 
@@ -18,7 +19,13 @@ Configuration is provided to the controller through a `window.oa` object that mu
 
 ```html
 <html>
-  <head></head>
+  <head>
+    <!-- after your own framework stylesheet, see Styles below -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@openagenda/react-filters@3.0.0/dist/style.css"
+    />
+  </head>
   <body>
     <!-- place filter <div /> anchor points in your webpage -->
     <script>
@@ -30,7 +37,7 @@ Configuration is provided to the controller through a `window.oa` object that mu
         // ...
       };
     </script>
-    <script src="https://unpkg.com/@openagenda/react-filters@2.4.2/dist/main.js"></script>
+    <script src="https://unpkg.com/@openagenda/react-filters@3.0.0/dist/main.js"></script>
   </body>
 </html>
 ```
@@ -54,6 +61,37 @@ This are loaded through the `window.oa` object.
 - **onLoad**: This function is called when the controller has been loaded.
 - **apiClient**: An optional axios instance. Useful for tests.
 - **ref**: A React ref. Useful if the controller is to be used with the `FilterManager` component (not documented). See `React.createRef()` or `React.useRef()`
+
+## Styles
+
+**Since 3.0.0**, the library ships its rules as a stylesheet you load yourself. Earlier versions injected them at runtime, so nothing had to be loaded — an integration upgrading from 2.x renders unstyled filters until the stylesheet is added.
+
+When the library is loaded through a `<script>` tag, add the matching `<link>`:
+
+```html
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/@openagenda/react-filters@3.0.0/dist/style.css"
+/>
+```
+
+When it is consumed by a bundler, import it once — anywhere in the entry point of the application:
+
+```js
+import '@openagenda/react-filters/style.css';
+```
+
+When your application already has a sass entry point, importing it there is usually the better place — it puts the rules where you can see and reorder them. Import it **without the extension**, so sass inlines the file instead of emitting a plain CSS `@import`:
+
+```scss
+@import '@openagenda/react-filters/style';
+```
+
+**Load it after the framework stylesheet the filters sit on** (bootstrap, in every integration we know of). Rules such as the value badge padding or the choice search width are written with a single class, so they overrule `.btn`, `.badge` and `.form-control` by source order rather than by specificity — loading them before bootstrap gives those defaults back.
+
+The class names the components carry are part of the public API and are meant to be targeted from your own stylesheet: `oa-filters-value-badge`, `oa-filters-choice-search`, `oa-filters-map`, `oa-filters-map-container`, `oa-filters-search-here` and `oa-filters-search-here-button`. Any rule of yours placed after the stylesheet overrides ours.
+
+Note that the map filter also needs [leaflet's own stylesheet](https://leafletjs.com/examples/quick-start/), which this library does not bundle.
 
 ## Filters
 

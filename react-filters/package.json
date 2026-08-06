@@ -4,7 +4,9 @@
   "type": "module",
   "main": "./build/index.cjs",
   "module": "./build/index.mjs",
-  "sideEffects": false,
+  "sideEffects": [
+    "*.css"
+  ],
   "license": "MIT",
   "homepage": "https://github.com/OpenAgenda/oa-public",
   "publishConfig": {
@@ -12,7 +14,8 @@
   },
   "files": [
     "build",
-    "dist"
+    "dist",
+    "style.css"
   ],
   "exports": {
     "./package.json": "./package.json",
@@ -24,6 +27,8 @@
       "import": "./build/locales/index.mjs",
       "require": "./build/locales/index.cjs"
     },
+    "./style.css": "./style.css",
+    "./style": "./style.css",
     "./*": {
       "import": "./build/*.mjs",
       "require": "./build/*.cjs"
@@ -78,6 +83,7 @@
     "body-parser": "^1.20.3",
     "bootstrap": "4.3.1",
     "concurrently": "^6.3.0",
+    "copy-webpack-plugin": "^14.0.0",
     "dotenv": "^10.0.0",
     "ejs": "^3.1.9",
     "express": "^4.21.2",

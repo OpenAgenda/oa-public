@@ -1,4 +1,5 @@
 import { initialize, mswLoader } from 'msw-storybook-addon';
+import '../style.css';
 
 initialize({
   onUnhandledRequest(request, print) {

@@ -24,6 +24,10 @@ app.use(
   '/react-filters.js',
   express.static(path.join(import.meta.dirname, '../dist/main.js')),
 );
+app.use(
+  '/react-filters.css',
+  express.static(path.join(import.meta.dirname, '../style.css')),
+);
 app.use('/main.css', (req, res) => {
   const result = sass.renderSync({
     file: path.join(import.meta.dirname, 'scss/main.scss'),

@@ -7,6 +7,7 @@ const { mkdirp } = require('mkdirp');
 const webpack = require('webpack');
 const ProgressBar = require('webpackbar');
 const TerserPlugin = require('terser-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const modulesToInclude = [
   '@feathersjs',
@@ -127,6 +128,11 @@ module.exports = (env = {}, argv = {}) => {
       // new (require('webpack-bundle-analyzer').BundleAnalyzerPlugin)(),
       // new WebpackDashboardPlugin(),
       ...process.stdout.isTTY ? [new ProgressBar({ basic: false })] : [],
+      // Copied rather than imported by the bundle: the stylesheet has to stay a
+      // file the page can <link>, next to the main.js it is documented with.
+      new CopyPlugin({
+        patterns: [{ from: path.join(__dirname, 'style.css') }],
+      }),
       new webpack.DefinePlugin({
         'process.env': JSON.stringify({ NODE_ENV: envName }),
       }),
