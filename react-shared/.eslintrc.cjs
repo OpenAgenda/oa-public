@@ -14,10 +14,10 @@ module.exports = {
       'error',
       {
         devDependencies: [
-          `${__dirname}/.storybook/**/*.js`,
-          `${__dirname}/stories/**/*.js`,
-          `${__dirname}/scripts/**/*.js`,
-          `${__dirname}/test/**/*.js`,
+          `${__dirname}/.storybook/**/*.{js,jsx}`,
+          `${__dirname}/stories/**/*.{js,jsx}`,
+          `${__dirname}/scripts/**/*.{js,jsx}`,
+          `${__dirname}/test/**/*.{js,jsx}`,
           `${__dirname}/tsdown.config.ts`,
         ],
       },

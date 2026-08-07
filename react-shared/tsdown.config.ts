@@ -5,9 +5,6 @@ const config: UserConfig = defineConfig({
   format: ['esm'],
   sourcemap: true,
   dts: false,
-  loader: {
-    '.js': 'jsx',
-  },
   copy: [
     {
       from: 'src/locales-compiled/*.json',
