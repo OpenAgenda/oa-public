@@ -1,7 +1,5 @@
 import { format, getWeekOfMonth, startOfDay, Locale } from 'date-fns';
-import dateFnsTz from 'date-fns-tz';
-
-const { utcToZonedTime } = dateFnsTz;
+import { utcToZonedTime } from 'date-fns-tz';
 
 type Options = {
   locale?: Locale;
