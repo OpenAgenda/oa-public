@@ -292,6 +292,7 @@ export const Map = {
             searchMessage: 'Rechercher quand je déplace la carte',
             type: 'map',
             name: 'geo',
+            mapClass: 'map-container',
           }) %>"
         ></div>
       `)()}
