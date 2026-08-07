@@ -1,0 +1,26 @@
+diff --git a/dist/index.cjs b/dist/index.cjs
+index 7be17d6e5a11f2378aa1e7dd2d8f3e3d00a77e6d..0a541bc1ed506b6a41322cd8203c3786dc093109 100644
+--- a/dist/index.cjs
++++ b/dist/index.cjs
+@@ -4387,7 +4387,7 @@ function getBaseSWCOptions({
+       parser: parserConfig,
+       experimental: {
+         keepImportAttributes: true,
+-        emitAssertForImportAttributes: true,
++        emitAssertForImportAttributes: false,
+         plugins,
+         cacheRoot: swcCacheDir
+       },
+diff --git a/dist/index.js b/dist/index.js
+index dd71b4132a510c48128654dbc5af62da1863050c..b4b7a83168ac09051035c750313478d5c13b9bad 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -4354,7 +4354,7 @@ function getBaseSWCOptions({
+       parser: parserConfig,
+       experimental: {
+         keepImportAttributes: true,
+-        emitAssertForImportAttributes: true,
++        emitAssertForImportAttributes: false,
+         plugins,
+         cacheRoot: swcCacheDir
+       },

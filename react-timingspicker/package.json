@@ -50,12 +50,12 @@
   "devDependencies": {
     "@openagenda/eslint-config": "^2.1.0",
     "@storybook/addon-webpack5-compiler-babel": "^4.0.1",
-    "@storybook/react-webpack5": "^10.5.5",
+    "@storybook/react-webpack5": "^10.5.7",
     "bootstrap": "3.3.5",
     "jest": "^30.4.2",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "storybook": "^10.5.5",
+    "storybook": "^10.5.7",
     "tsdown": "^0.22.0"
   },
   "peerDependencies": {
