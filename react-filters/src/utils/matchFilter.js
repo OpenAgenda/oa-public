@@ -1,4 +1,4 @@
-import DateRangeFilter from '../components/filters/DateRangeFilter.js';
+import DateRangeFilter from '../components/filters/DateRangeFilter.jsx';
 import matchQuery from './matchQuery.js';
 
 const { formatValue: formatDateRangeValue } = DateRangeFilter;

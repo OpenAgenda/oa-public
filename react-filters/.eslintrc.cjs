@@ -14,9 +14,9 @@ module.exports = {
       'error',
       {
         devDependencies: [
-          `${__dirname}/.storybook/**/*.js`,
-          `${__dirname}/stories/**/*.js`,
-          `${__dirname}/example/**/*.js`,
+          `${__dirname}/.storybook/**/*.{js,jsx}`,
+          `${__dirname}/stories/**/*.{js,jsx}`,
+          `${__dirname}/example/**/*.{js,jsx}`,
           `${__dirname}/webpack.config.cjs`,
           `${__dirname}/tsdown.config.ts`,
         ],

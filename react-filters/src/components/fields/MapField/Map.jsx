@@ -19,7 +19,7 @@ import { useIntl } from 'react-intl';
 import '@openagenda/leaflet-gesture-handling';
 import { useForm } from 'react-final-form';
 import FiltersAndWidgetsContext from '../../../contexts/FiltersAndWidgetsContext.js';
-import SearchHereControl from './SearchHereControl.js';
+import SearchHereControl from './SearchHereControl.jsx';
 
 const padRatio = 0.2;
 const unpadRatio = -(1 / ((1 + padRatio + padRatio) / padRatio));

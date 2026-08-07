@@ -14,7 +14,7 @@ import {
 } from '../src/index.js';
 // TimelineFilter is not re-exported from the package barrel (it's the default
 // timelineComponent of FiltersManager), so import it directly for this story.
-import TimelineFilter from '../src/components/filters/TimelineFilter.js';
+import TimelineFilter from '../src/components/filters/TimelineFilter.jsx';
 
 require('./scss/main.scss');
 

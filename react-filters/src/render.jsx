@@ -4,9 +4,9 @@ import ReactDOM from 'react-dom/client';
 import qs from 'qs';
 import * as dateFnsLocales from 'date-fns/locale/index.js';
 import { prepareClientPortals } from '@openagenda/react-portal-ssr';
-import Provider from './components/FiltersProvider.js';
-import IntlProvider from './components/IntlProvider.js';
-import FiltersManager from './components/FiltersManager.js';
+import Provider from './components/FiltersProvider.jsx';
+import IntlProvider from './components/IntlProvider.jsx';
+import FiltersManager from './components/FiltersManager.jsx';
 import { extractFiltersFromDom, extractWidgetsFromDom } from './utils/index.js';
 
 function createContainer() {

@@ -5,9 +5,6 @@ const config: UserConfig = defineConfig({
   outDir: 'build',
   format: ['esm', 'cjs'],
   sourcemap: true,
-  loader: {
-    '.js': 'jsx',
-  },
   inputOptions: {
     transform: {
       jsx: {

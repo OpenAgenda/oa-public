@@ -29,21 +29,21 @@ import {
   useLoadGeoData,
 } from '../hooks/index.js';
 import FiltersAndWidgetsContext from '../contexts/FiltersAndWidgetsContext.js';
-import Filters from './Filters.js';
-import ActiveFilters from './ActiveFilters.js';
+import Filters from './Filters.jsx';
+import ActiveFilters from './ActiveFilters.jsx';
 import FavoriteToggle from './FavoriteToggle.js';
 import Total from './Total.js';
-import Sort from './Sort.js';
-import ChoiceFilter from './filters/ChoiceFilter.js';
-import DateRangeFilter from './filters/DateRangeFilter.js';
-import SimpleDateRangeFilter from './filters/SimpleDateRangeFilter.js';
-import DefinedRangeFilter from './filters/DefinedRangeFilter.js';
-import NumberRangeFilter from './filters/NumberRangeFilter.js';
-import SearchFilter from './filters/SearchFilter.js';
-import MapFilter from './filters/MapFilter.js';
-import CustomFilter from './filters/CustomFilter.js';
-import FavoritesFilter from './filters/FavoritesFilter.js';
-import TimelineFilter from './filters/TimelineFilter.js';
+import Sort from './Sort.jsx';
+import ChoiceFilter from './filters/ChoiceFilter.jsx';
+import DateRangeFilter from './filters/DateRangeFilter.jsx';
+import SimpleDateRangeFilter from './filters/SimpleDateRangeFilter.jsx';
+import DefinedRangeFilter from './filters/DefinedRangeFilter.jsx';
+import NumberRangeFilter from './filters/NumberRangeFilter.jsx';
+import SearchFilter from './filters/SearchFilter.jsx';
+import MapFilter from './filters/MapFilter.jsx';
+import CustomFilter from './filters/CustomFilter.jsx';
+import FavoritesFilter from './filters/FavoritesFilter.jsx';
+import TimelineFilter from './filters/TimelineFilter.jsx';
 
 const FiltersManager = React.forwardRef(function FiltersManager(
   {

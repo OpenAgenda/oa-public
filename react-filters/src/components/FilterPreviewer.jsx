@@ -1,5 +1,5 @@
 import useFilterTitle from '../hooks/useFilterTitle.js';
-import ValueBadge from './ValueBadge.js';
+import ValueBadge from './ValueBadge.jsx';
 
 export default function FilterPreviewer({
   withTitle = true,

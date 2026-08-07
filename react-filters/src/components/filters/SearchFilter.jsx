@@ -2,8 +2,8 @@ import React, { useCallback } from 'react';
 import { Field, useField } from 'react-final-form';
 import { useUIDSeed } from 'react-uid';
 import { defineMessages, useIntl } from 'react-intl';
-import FilterPreviewer from '../FilterPreviewer.js';
-import SearchInput from '../fields/SearchInput.js';
+import FilterPreviewer from '../FilterPreviewer.jsx';
+import SearchInput from '../fields/SearchInput.jsx';
 
 const subscription = { value: true };
 

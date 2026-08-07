@@ -9,10 +9,10 @@ import { Field, useField } from 'react-final-form';
 import { useUIDSeed } from 'react-uid';
 import { useIntl } from 'react-intl';
 import usePreviousModule from 'react-use/lib/usePrevious.js';
-import ChoiceField from '../fields/ChoiceField.js';
-import Title from '../Title.js';
-import Panel from '../Panel.js';
-import FilterPreviewer from '../FilterPreviewer.js';
+import ChoiceField from '../fields/ChoiceField.jsx';
+import Title from '../Title.jsx';
+import Panel from '../Panel.jsx';
+import FilterPreviewer from '../FilterPreviewer.jsx';
 import useChoiceState from '../../hooks/useChoiceState.js';
 import messages from '../../messages/choiceFilter.js';
 

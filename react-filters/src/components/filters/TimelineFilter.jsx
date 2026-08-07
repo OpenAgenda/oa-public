@@ -8,8 +8,8 @@ import {
   zonedTimeToUtc,
   formatInTimeZone,
 } from 'date-fns-tz';
-import FilterPreviewer from '../FilterPreviewer.js';
-import TimelineField from '../fields/TimelineField.js';
+import FilterPreviewer from '../FilterPreviewer.jsx';
+import TimelineField from '../fields/TimelineField.jsx';
 
 const messages = defineMessages({
   dateRange: {

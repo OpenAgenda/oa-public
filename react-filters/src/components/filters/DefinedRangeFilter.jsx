@@ -2,10 +2,10 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { Field, useField } from 'react-final-form';
 import { defineMessages, useIntl } from 'react-intl';
 import { parseISO, endOfDay, isSameDay } from 'date-fns';
-import DefinedRangePicker from '../fields/DefinedRangeField.js';
-import Title from '../Title.js';
-import Panel from '../Panel.js';
-import FilterPreviewer from '../FilterPreviewer.js';
+import DefinedRangePicker from '../fields/DefinedRangeField.jsx';
+import Title from '../Title.jsx';
+import Panel from '../Panel.jsx';
+import FilterPreviewer from '../FilterPreviewer.jsx';
 
 const messages = defineMessages({
   singleDate: {

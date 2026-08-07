@@ -3,10 +3,10 @@ import { Field } from 'react-final-form';
 import { endOfDay, startOfDay, format } from 'date-fns';
 import { getTimezoneOffset, utcToZonedTime } from 'date-fns-tz';
 // import NumberRangeField from '../fields/NumberRangeField';
-import Panel from '../Panel.js';
-import Title from '../Title.js';
-import SimpleDateRangeField from '../fields/SimpleDateRangeField.js';
-import DateRangeFilter from './DateRangeFilter.js';
+import Panel from '../Panel.jsx';
+import Title from '../Title.jsx';
+import SimpleDateRangeField from '../fields/SimpleDateRangeField.jsx';
+import DateRangeFilter from './DateRangeFilter.jsx';
 
 const { Preview } = DateRangeFilter;
 

@@ -14,15 +14,15 @@ import loadable from '@openagenda/react-shared/utils/loadable';
 //     importAsync: () =>
 //       import(
 //         /* webpackChunkName: "reactFilters-Map" */
-//         './Map.js'
+//         './Map.jsx'
 //       ),
 //     resolve: () => {
 //       if (contextRequire) {
-//         return contextRequire.resolve('./Map.js');
+//         return contextRequire.resolve('./Map.jsx');
 //       }
 //       const { resolve } = import.meta;
 //       if (typeof resolve === 'function') {
-//         return resolve('./Map.js');
+//         return resolve('./Map.jsx');
 //       }
 //     },
 //   },
@@ -30,7 +30,7 @@ import loadable from '@openagenda/react-shared/utils/loadable';
 // );
 
 const LoadableMapField = loadable(
-  () => import(/* webpackChunkName: "reactFilters-Map" */ './Map.js'),
+  () => import(/* webpackChunkName: "reactFilters-Map" */ './Map.jsx'),
   { ssr: false },
 );
 

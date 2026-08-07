@@ -1,15 +1,15 @@
 import useActiveFilters from '../hooks/useActiveFilters.js';
-import Filters from './Filters.js';
-import DateRangeFilter from './filters/DateRangeFilter.js';
-import SimpleDateRangeFilter from './filters/SimpleDateRangeFilter.js';
-import NumberRangeFilter from './filters/NumberRangeFilter.js';
-import ChoiceFilter from './filters/ChoiceFilter.js';
-import DefinedRangeFilter from './filters/DefinedRangeFilter.js';
-import SearchFilter from './filters/SearchFilter.js';
-import MapFilter from './filters/MapFilter.js';
-import CustomFilter from './filters/CustomFilter.js';
-import FavoritesFilter from './filters/FavoritesFilter.js';
-import TimelineFilter from './filters/TimelineFilter.js';
+import Filters from './Filters.jsx';
+import DateRangeFilter from './filters/DateRangeFilter.jsx';
+import SimpleDateRangeFilter from './filters/SimpleDateRangeFilter.jsx';
+import NumberRangeFilter from './filters/NumberRangeFilter.jsx';
+import ChoiceFilter from './filters/ChoiceFilter.jsx';
+import DefinedRangeFilter from './filters/DefinedRangeFilter.jsx';
+import SearchFilter from './filters/SearchFilter.jsx';
+import MapFilter from './filters/MapFilter.jsx';
+import CustomFilter from './filters/CustomFilter.jsx';
+import FavoritesFilter from './filters/FavoritesFilter.jsx';
+import TimelineFilter from './filters/TimelineFilter.jsx';
 
 export default function ActiveFilters({ filters, ...rest }) {
   const activeFilters = useActiveFilters(filters);

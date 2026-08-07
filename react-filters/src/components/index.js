@@ -1,25 +1,25 @@
 // Filters
-export { default as CustomFilter } from './filters/CustomFilter.js';
-export { default as DateRangeFilter } from './filters/DateRangeFilter.js';
-export { default as DefinedRangeFilter } from './filters/DefinedRangeFilter.js';
-export { default as MapFilter } from './filters/MapFilter.js';
-export { default as ChoiceFilter } from './filters/ChoiceFilter.js';
-export { default as SearchFilter } from './filters/SearchFilter.js';
-export { default as FavoritesFilter } from './filters/FavoritesFilter.js';
-export { default as NumberRangeFilter } from './filters/NumberRangeFilter.js';
-export { default as SimpleDateRangeFilter } from './filters/SimpleDateRangeFilter.js';
+export { default as CustomFilter } from './filters/CustomFilter.jsx';
+export { default as DateRangeFilter } from './filters/DateRangeFilter.jsx';
+export { default as DefinedRangeFilter } from './filters/DefinedRangeFilter.jsx';
+export { default as MapFilter } from './filters/MapFilter.jsx';
+export { default as ChoiceFilter } from './filters/ChoiceFilter.jsx';
+export { default as SearchFilter } from './filters/SearchFilter.jsx';
+export { default as FavoritesFilter } from './filters/FavoritesFilter.jsx';
+export { default as NumberRangeFilter } from './filters/NumberRangeFilter.jsx';
+export { default as SimpleDateRangeFilter } from './filters/SimpleDateRangeFilter.jsx';
 
-export { default as ActiveFilters } from './ActiveFilters.js';
+export { default as ActiveFilters } from './ActiveFilters.jsx';
 export { default as FavoriteToggle } from './FavoriteToggle.js';
-export { default as Filters } from './Filters.js';
-export { default as FiltersManager } from './FiltersManager.js';
-export { default as FiltersProvider } from './FiltersProvider.js';
-export { default as Panel } from './Panel.js';
-export { default as Sort } from './Sort.js';
-export { default as SearchInput } from './fields/SearchInput.js';
+export { default as Filters } from './Filters.jsx';
+export { default as FiltersManager } from './FiltersManager.jsx';
+export { default as FiltersProvider } from './FiltersProvider.jsx';
+export { default as Panel } from './Panel.jsx';
+export { default as Sort } from './Sort.jsx';
+export { default as SearchInput } from './fields/SearchInput.jsx';
 export { default as Total } from './Total.js';
-export { default as ValueBadge } from './ValueBadge.js';
+export { default as ValueBadge } from './ValueBadge.jsx';
 
-export { default as IntlProvider } from './IntlProvider.js';
+export { default as IntlProvider } from './IntlProvider.jsx';
 export { IntlProvider as ReactIntlProvider } from 'react-intl';
 export { Field, FormSpy } from 'react-final-form';

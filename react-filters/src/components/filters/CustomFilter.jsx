@@ -1,29 +1,23 @@
-import React, { useMemo, useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useForm, FormSpy } from 'react-final-form';
-import useLatestModule from 'react-use/lib/useLatest.js';
 import a11yButtonActionHandler from '@openagenda/react-shared/utils/a11yButtonActionHandler';
 import matchQuery from '../../utils/matchQuery.js';
 import updateFormValues from '../../utils/updateFormValues.js';
 import updateCustomFilter from '../../utils/updateCustomFilter.js';
-import { useFavoriteState } from '../../hooks/index.js';
-import FilterPreviewer from '../FilterPreviewer.js';
-import useFavoritesOnChange from '../../hooks/useFavoritesOnChange.js';
-
-const useLatest = useLatestModule.default || useLatestModule;
+import FilterPreviewer from '../FilterPreviewer.jsx';
 
 const subscription = { values: true };
 
 function Preview({
-  name = 'favorites',
-  filter,
+  name,
   component = FilterPreviewer,
   disabled,
   activeFilterLabel,
-  agendaUid,
+  filter,
+  query,
   ...rest
 }) {
   const form = useForm();
-  const [value] = useFavoriteState(filter.agendaUid || agendaUid);
 
   const onRemove = useCallback(
     (e) => {
@@ -33,23 +27,7 @@ function Preview({
         return;
       }
 
-      updateFormValues(
-        form,
-        {
-          uid: undefined,
-          favorites: undefined,
-        },
-        false,
-      );
-
-      const handlerElem = filter.handlerElem || filter.elem;
-      const innerCheckboxes = handlerElem.querySelectorAll(
-        'input[type="checkbox"]',
-      );
-
-      if (innerCheckboxes.length === 1 && !filter.handlerElem) {
-        innerCheckboxes[0].checked = false;
-      }
+      updateFormValues(form, filter.query, false);
     },
     [disabled, form, filter],
   );
@@ -57,11 +35,6 @@ function Preview({
   return (
     <FormSpy subscription={subscription}>
       {({ values }) => {
-        const query = {
-          uid: value,
-          favorites: '1',
-        };
-
         if (!matchQuery(values, query) || !activeFilterLabel) {
           return null;
         }
@@ -79,20 +52,21 @@ function Preview({
   );
 }
 
-// Favorite + uid
-const FavoritesFilter = React.forwardRef(function FavoritesFilter(
-  { agendaUid, filter },
-  _ref,
-) {
+function CustomFilter({ filter }) {
   const form = useForm();
   const firstRender = useRef(true);
-  const [value] = useFavoriteState(filter.agendaUid || agendaUid);
 
-  const latestValue = useLatest(value);
+  const updateForm = useCallback(
+    (e) => {
+      e.preventDefault();
+      e.stopPropagation();
 
-  const updateForm = useFavoritesOnChange(value, {
-    isExclusive: filter.exclusive,
-  });
+      const query = form.getState().values;
+
+      updateFormValues(form, filter.query, !matchQuery(query, filter.query));
+    },
+    [filter.query, form],
+  );
 
   const onChange = useMemo(
     () => a11yButtonActionHandler(updateForm),
@@ -104,28 +78,22 @@ const FavoritesFilter = React.forwardRef(function FavoritesFilter(
       firstRender.current = false;
 
       const query = form.getState().values;
+      const matchInitialQuery = matchQuery(query, filter.query);
       const registeredFields = form.getRegisteredFields();
 
-      if (!registeredFields.includes('uid')) {
-        form.registerField(
-          'uid',
-          () => {},
-          { value: true },
-          {
-            initialValue: query.uid,
-          },
-        );
-      }
-
-      if (!registeredFields.includes('favorites')) {
-        form.registerField(
-          'favorites',
-          () => {},
-          { value: true },
-          {
-            initialValue: query.favorites,
-          },
-        );
+      for (const key in filter.query) {
+        if (Object.prototype.hasOwnProperty.call(filter.query, key)) {
+          if (!registeredFields.includes(key)) {
+            form.registerField(
+              key,
+              () => {},
+              { value: true },
+              {
+                initialValue: matchInitialQuery ? filter.query[key] : undefined,
+              },
+            );
+          }
+        }
       }
     }
 
@@ -151,13 +119,7 @@ const FavoritesFilter = React.forwardRef(function FavoritesFilter(
 
     const unsubscribe = form.subscribe(
       ({ values }) =>
-        updateCustomFilter(
-          filter,
-          matchQuery(values, {
-            uid: latestValue.current || ['-1'],
-            favorites: '1',
-          }),
-        ),
+        updateCustomFilter(filter, matchQuery(values, filter.query)),
       { values: true },
     );
 
@@ -175,12 +137,12 @@ const FavoritesFilter = React.forwardRef(function FavoritesFilter(
 
       unsubscribe();
     };
-  }, [filter, form, latestValue, onChange, updateForm]);
+  }, [filter, form, onChange, updateForm]);
 
   return null;
-});
+}
 
-const exported = React.memo(FavoritesFilter);
+const exported = React.memo(CustomFilter);
 
 // React.memo lose statics
 exported.Preview = Preview;
