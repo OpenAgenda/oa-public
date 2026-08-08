@@ -125,6 +125,12 @@ async function createLocaleLoaders(langs, locales) {
   const buildDir = path.join(import.meta.dirname, '../build');
   const prefix = locales.slice(0, locales.indexOf('%lang%'));
 
+  // Wiped here rather than left to `clean`, because a plain `yarn build` is what
+  // gets run day to day: a renamed or deleted bundle would otherwise leave its
+  // wrapper behind, still importing a JSON that no longer exists — and still
+  // shipped, since `files` publishes `build/`.
+  fs.rmSync(path.join(buildDir, 'locales'), { recursive: true, force: true });
+
   const entries = [];
 
   for (const lang of langs.sort()) {
@@ -202,9 +208,22 @@ ${entries.join('\n')}
       `compile ${locales} -o locales-compiled/%lang%/**/%original_file_name%`,
     );
 
+  // The generated artefacts have to cover what step 3 actually compiled, not
+  // the list we maintain by hand above: `locales/` also holds languages crowdin
+  // fills on its own — `nl` does — and `compile` picks them up because it globs
+  // the disk. Reusing `langs` here left `nl` compiled but unreachable, so every
+  // `/nl` page threw from `fetchLocale`. Reading the output back is what keeps
+  // a compiled language from ever being invisible again.
+  const compiledLangs = fs
+    .readdirSync(path.join(import.meta.dirname, '../locales-compiled'), {
+      withFileTypes: true,
+    })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name);
+
   // 4. Create index
-  await createIndex(langs, 'locales-compiled/%lang%/**/*.json');
+  await createIndex(compiledLangs, 'locales-compiled/%lang%/**/*.json');
 
   // 5. Create the lazy loader map used by fetchLocale
-  await createLocaleLoaders(langs, 'locales-compiled/%lang%/**/*.json');
+  await createLocaleLoaders(compiledLangs, 'locales-compiled/%lang%/**/*.json');
 })();

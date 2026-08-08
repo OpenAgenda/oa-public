@@ -28,7 +28,7 @@
   "scripts": {
     "prepack": "yarn clean && yarn build",
     "build": "node scripts/build",
-    "clean": "rimraf locales-compiled"
+    "clean": "rimraf locales-compiled build"
   },
   "devDependencies": {
     "@openagenda/intl": "^2.0.0",
