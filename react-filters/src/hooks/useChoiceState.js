@@ -3,24 +3,11 @@ import useIsomorphicLayoutEffectModule from 'react-use/lib/useIsomorphicLayoutEf
 import usePreviousModule from 'react-use/lib/usePrevious.js';
 import { useIntl } from 'react-intl';
 import Fuse from 'fuse.js';
+import { getSortCollator } from '@openagenda/intl';
 import useConstant from '@openagenda/react-shared/hooks/useConstant';
 
 const useIsomorphicLayoutEffect = useIsomorphicLayoutEffectModule.default || useIsomorphicLayoutEffectModule;
 const usePrevious = usePreviousModule.default || usePreviousModule;
-
-function getCollator(locale, defaultLocale) {
-  try {
-    return new Intl.Collator(locale, {
-      sensitivity: 'base',
-      usage: 'sort',
-    });
-  } catch {
-    return new Intl.Collator(defaultLocale, {
-      sensitivity: 'base',
-      usage: 'sort',
-    });
-  }
-}
 
 function filterOptions({ options, fuse, searchValue, sort, collator }) {
   if (searchValue === '') {
@@ -55,7 +42,7 @@ export default function useChoiceState({
   );
 
   const collator = useMemo(
-    () => getCollator(intl.locale, intl.defaultLocale),
+    () => getSortCollator(intl.locale, intl.defaultLocale),
     [intl.defaultLocale, intl.locale],
   );
 
