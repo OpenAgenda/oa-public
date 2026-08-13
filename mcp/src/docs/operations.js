@@ -60,6 +60,8 @@ import MiniSearch from 'minisearch';
  * @property {string[]} scopes      OAuth scopes the operation requires.
  * @property {Param[]} params
  * @property {RequestShape|null} request   Body the operation expects (null when it takes none).
+ * @property {boolean} sdkCallable  False when the contract authorizes it outside the `oa` client.
+ * @property {string} exampleLang   Fence language for `example` ("ts", "shell"…).
  * @property {ResponseShape|null} response
  * @property {string[]} componentRefs  Component schemas the success body references (transitive, discovery order).
  * @property {string} example       A runnable `oa.…` snippet (curated or skeleton).
@@ -316,6 +318,18 @@ function deriveRequest(op) {
   };
 }
 
+// The `oa` client authenticates with the schemes the SDK carries (an API key or
+// an OAuth token). An operation secured by anything else CANNOT be reached
+// through it — `uploads.staged` takes a single-use `X-Upload-Ticket` instead,
+// and its description says so in as many words ("Call it with a plain HTTPS
+// POST, NOT through the typed API client"). Derived from the security block
+// rather than keyed on the operationId, so a second such route needs no edit.
+const SDK_AUTH_SCHEMES = new Set(['bearerAuth', 'oauth2']);
+const isSdkCallable = (op) =>
+  (op.security ?? spec.security ?? [])
+    .flatMap((requirement) => Object.keys(requirement))
+    .some((scheme) => SDK_AUTH_SCHEMES.has(scheme));
+
 // Resolve the success body into a shallow shape. List endpoints wrap their
 // rows in `data: array<oneOf[Summary, Detailed]>` + `pagination`; we surface
 // the DEFAULT (summary) variant's fields and note the `detailed=true` upgrade.
@@ -469,16 +483,29 @@ export function skeletonExample(operationId, params, request = null) {
   ].join('\n');
 }
 
-// Prefer a curated TypeScript `x-codeSamples` sample (co-located with the op in
-// the contract, also consumable by Scalar); fall back to an auto skeleton.
+// Prefer a curated `x-codeSamples` sample (co-located with the op in the
+// contract, also consumable by Scalar); fall back to an auto skeleton.
+//
+// A curated sample in ANOTHER language is still the authoritative way to call
+// the route, so it is kept and rendered under its own fence rather than
+// discarded. Dropping it is how `uploads.staged` — whose only sample is the
+// curl invocation its description mandates — ended up advertising
+// `await oa.uploads.staged()`, the exact call the contract forbids, with no
+// ticket, no file and no body.
+const TS_LANGS = /^(ts|typescript|js|javascript)$/i;
 function exampleFor(op, operationId, params, request) {
-  const samples = op['x-codeSamples'];
-  const curated = Array.isArray(samples)
-    ? samples.find((s) => /^(ts|typescript|js|javascript)$/i.test(s?.lang))
-    : null;
-  return (
-    curated?.source?.trim() || skeletonExample(operationId, params, request)
-  );
+  const samples = Array.isArray(op['x-codeSamples']) ? op['x-codeSamples'] : [];
+  const curated = samples.find((s) => TS_LANGS.test(s?.lang)) ?? samples[0];
+  const source = curated?.source?.trim();
+  if (source) {
+    return {
+      source,
+      lang: TS_LANGS.test(curated.lang)
+        ? 'ts'
+        : String(curated.lang).toLowerCase(),
+    };
+  }
+  return { source: skeletonExample(operationId, params, request), lang: 'ts' };
 }
 
 // Derive the catalogue from the contract. Kept in spec declaration order (list
@@ -501,13 +528,19 @@ function deriveOperations() {
       const hasQuery = params.some((p) => p.in === 'query');
 
       const request = deriveRequest(op);
+      const sdkCallable = isSdkCallable(op);
 
       const args = [];
       if (pathNames.length) args.push(`path: { ${pathNames.join(', ')} }`);
       if (hasQuery) args.push('query');
       if (request) args.push('body');
       const argList = args.length ? `{ ${args.join(', ')} }` : '';
-      const call = `oa.${op.operationId}(${argList})`;
+      // An operation the SDK cannot authenticate is named by its wire call, not
+      // by an `oa.*` invocation that would fail — the signature is the first
+      // line of its card and the LLM reads it as the way in.
+      const call = sdkCallable
+        ? `oa.${op.operationId}(${argList})`
+        : `${method.toUpperCase()} ${path}`;
 
       const scopes = (op.security || []).flatMap((req) => req.oauth2 || []);
       // Hand-curated search synonyms travel WITH the operation in the contract
@@ -522,6 +555,13 @@ function deriveOperations() {
         params.filter((p) => p.in === 'query').map((p) => p.name),
       );
 
+      const { source: example, lang: exampleLang } = exampleFor(
+        op,
+        op.operationId,
+        params,
+        request,
+      );
+
       operations.push({
         id: op.operationId,
         method: method.toUpperCase(),
@@ -532,9 +572,11 @@ function deriveOperations() {
         scopes,
         params,
         request,
+        sdkCallable,
         response: deriveResponse(op),
         componentRefs: componentRefsFor(op),
-        example: exampleFor(op, op.operationId, params, request),
+        example,
+        exampleLang,
         keywords: [...new Set([...keywords, ...synonyms])],
       });
     }
@@ -788,9 +830,13 @@ function renderRequest(request) {
 function renderRich(op) {
   const notable = op.params.filter(isNotable);
   const plain = op.params.filter((p) => !isNotable(p));
+  // A non-SDK operation's `call` IS its wire signature, so appending the
+  // method and path again would just stutter.
   const lines = [
     `### ${op.id}`,
-    `\`${op.call}\` — ${op.method} ${op.path}`,
+    op.sdkCallable
+      ? `\`${op.call}\` — ${op.method} ${op.path}`
+      : `\`${op.call}\` — not callable through the \`oa\` client`,
     op.summary,
   ];
   if (op.description) lines.push('', op.description);
@@ -807,7 +853,7 @@ function renderRich(op) {
   if (request) lines.push('', request);
   const response = renderResponse(op.response);
   if (response) lines.push('', response);
-  lines.push('', 'Example:', '```ts', op.example, '```');
+  lines.push('', 'Example:', `\`\`\`${op.exampleLang}`, op.example, '```');
   return lines.join('\n');
 }
 

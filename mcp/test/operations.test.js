@@ -362,11 +362,43 @@ describe('componentRefs (transitive component collection)', () => {
 });
 
 describe('examples', () => {
-  it('every operation carries a runnable oa.<id>(…) example', () => {
-    for (const op of OPERATIONS) {
+  it('every SDK-callable operation carries a runnable oa.<id>(…) example', () => {
+    for (const op of OPERATIONS.filter((o) => o.sdkCallable)) {
       expect(op.example).toContain(`oa.${op.id}(`);
       expect(op.example).toMatch(/return /);
     }
+  });
+
+  // `uploads.staged` is authorized by a single-use X-Upload-Ticket, not by the
+  // key or token the `oa` client carries, and its description says as much in
+  // as many words: "Call it with a plain HTTPS POST, NOT through the typed API
+  // client". Its only curated sample is the curl invocation — which the TS-only
+  // filter used to discard, leaving the skeleton to advertise
+  // `oa.uploads.staged()`: no ticket, no file, no body, and the one call the
+  // contract forbids.
+  it('keeps the curated sample of an operation the SDK cannot call', () => {
+    const op = byId('uploads.staged');
+    expect(op.sdkCallable).toBe(false);
+    expect(op.example).not.toContain('oa.uploads.staged(');
+    expect(op.example).toContain('curl');
+    expect(op.example).toContain('X-Upload-Ticket');
+    expect(op.exampleLang).toBe('shell');
+    // The signature is the first line the LLM reads — it must not offer a call
+    // that cannot authenticate.
+    expect(op.call).toBe('POST /uploads/staged');
+  });
+
+  it('renders a non-SDK sample under its own fence, not as ts', () => {
+    const card = renderOperation(byId('uploads.staged'), 0);
+    expect(card).toContain('```shell');
+    expect(card).not.toContain('```ts');
+  });
+
+  it('leaves every other operation SDK-callable', () => {
+    const notCallable = OPERATIONS.filter((o) => !o.sdkCallable).map(
+      (o) => o.id,
+    );
+    expect(notCallable).toEqual(['uploads.staged']);
   });
 
   it('uses the curated x-codeSamples sample when present', () => {
@@ -702,7 +734,10 @@ describe('OPERATIONS catalogue', () => {
   it('every entry is well-formed (id, call, summary, params, response, example)', () => {
     for (const op of OPERATIONS) {
       expect(typeof op.id).toBe('string');
-      expect(op.call).toContain(`oa.${op.id}(`);
+      // Only the operations the SDK can authenticate are named as `oa.*`.
+      expect(op.call).toContain(
+        op.sdkCallable ? `oa.${op.id}(` : `${op.method} ${op.path}`,
+      );
       expect(op.summary.length).toBeGreaterThan(0);
       expect(Array.isArray(op.keywords)).toBe(true);
       expect(op.keywords.length).toBeGreaterThan(0);
