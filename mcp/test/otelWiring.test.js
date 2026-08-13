@@ -53,7 +53,7 @@ describe('mcp - otel wiring (in-memory, no network)', () => {
   it('a @openagenda/logs record (otel:true) reaches an SDK-registered provider', async () => {
     const exporter = new InMemoryLogRecordExporter();
     const provider = new LoggerProvider({
-      processors: [new SimpleLogRecordProcessor(exporter)],
+      processors: [new SimpleLogRecordProcessor({ exporter })],
     });
     apiLogs.setGlobalLoggerProvider(provider);
     try {
