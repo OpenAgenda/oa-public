@@ -509,14 +509,17 @@ describe('loadConfig', () => {
       });
       // openid/offline_access are the manual OIDC pair; the rest is every
       // oauth2 scope the bundled contract's operations require, sorted. A
-      // declared-but-unused scope (members:read today) is deliberately NOT
-      // advertised; a scope shipping with a new endpoint appears here without
-      // a code change — this assertion is the canary that the list moved.
+      // declared-but-unused scope (agendas:write, locations:write, members:*
+      // today) is deliberately NOT advertised; a scope shipping with a new
+      // endpoint appears here without a code change — this assertion is the
+      // canary that the list moved (events:write arrived with the v3 event
+      // writes and uploads).
       expect(cfg.oauth.scopesSupported).toEqual([
         'openid',
         'offline_access',
         'agendas:read',
         'events:read',
+        'events:write',
         'locations:read',
         'me:read',
       ]);
