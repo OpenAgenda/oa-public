@@ -44,6 +44,12 @@ import MiniSearch from 'minisearch';
  * @property {{variants:string[], fields:Field[]}} [item]  List item (list kind).
  * @property {boolean} pagination
  *
+ * @typedef {object} RequestShape
+ * @property {string|null} root       Schema name of the request body.
+ * @property {string} contentType     Media type it is sent as.
+ * @property {boolean} required
+ * @property {Field[]} fields         Top-level fields ([] for an opaque body).
+ *
  * @typedef {object} Operation
  * @property {string} id            operationId (e.g. "agendas.events.list").
  * @property {string} method        HTTP verb (GET…).
@@ -53,6 +59,7 @@ import MiniSearch from 'minisearch';
  * @property {string} description
  * @property {string[]} scopes      OAuth scopes the operation requires.
  * @property {Param[]} params
+ * @property {RequestShape|null} request   Body the operation expects (null when it takes none).
  * @property {ResponseShape|null} response
  * @property {string[]} componentRefs  Component schemas the success body references (transitive, discovery order).
  * @property {string} example       A runnable `oa.…` snippet (curated or skeleton).
@@ -234,18 +241,79 @@ function successBody(op) {
   return undefined;
 }
 
+// Components the operation's PROSE sends the reader to, via the contract's
+// `(see `X`)` convention. These are real cross-references — the upload cards
+// point at `ImageInput`/`AdditionalFields` to say how the returned `ref` is
+// attached, and those live on the event-write schema, not on the upload's own
+// multipart body — so without this they resolve to nothing unless an event
+// write happens to share the page.
+//
+// Deliberately keyed on `see `X``, NOT on every backticked word: the contract
+// also writes prose like "with a `Location` header", and `Location` IS a
+// component name, so a blanket scan would pull in a schema the sentence never
+// meant. The narrow form is an authoring convention that says "go read this".
+const SEE_REFERENCE = /\bsee\s+((?:`[A-Za-z]+`(?:\s*(?:,|and)\s*)?)+)/g;
+function crossReferencedSchemas(description) {
+  const names = [];
+  for (const match of String(description || '').matchAll(SEE_REFERENCE)) {
+    for (const [, name] of match[1].matchAll(/`([A-Za-z]+)`/g)) {
+      if (spec.components?.schemas?.[name] && !names.includes(name)) {
+        names.push(name);
+      }
+    }
+  }
+  return names;
+}
+
 // Every component an operation's card can name: its success body first (the
-// shape the LLM reads), then its param schemas (a $ref'd filter enum like
-// `status (EventStatus[])` needs its definition too). One shared `seen` so a
-// component referenced by both sides is collected once.
+// shape the LLM reads), then the body it must SEND — `EventInput` was named in
+// the prose of every write op and defined nowhere, so the LLM got 40 typed
+// response fields and had to guess the input from an example — then its param
+// schemas (a $ref'd filter enum like `status (EventStatus[])` needs its
+// definition too). One shared `seen` so a component referenced by several sides
+// is collected once.
 function componentRefsFor(op) {
   const names = [];
   const seen = new Set();
   collectComponentRefs(successBody(op), names, seen);
+  const requestBody = deref(op.requestBody);
+  for (const media of Object.values(requestBody?.content || {})) {
+    collectComponentRefs(media?.schema, names, seen);
+  }
   for (const p of (op.parameters || []).map(deref)) {
     collectComponentRefs(p.schema, names, seen);
   }
+  // Last, so a cross-reference never displaces the operation's own shapes from
+  // the head of the list. Collected transitively like any other, or the
+  // component would land defined while ITS field types dangled.
+  for (const name of crossReferencedSchemas(op.description)) {
+    collectComponentRefs({ $ref: `#/components/schemas/${name}` }, names, seen);
+  }
   return names;
+}
+
+// The body an operation expects. JSON is preferred when a route offers several
+// media types; a multipart upload has no component to name, so it surfaces its
+// content type and an empty field list rather than being dropped entirely.
+/**
+ * @param {any} op
+ * @returns {RequestShape | null}
+ */
+function deriveRequest(op) {
+  const requestBody = deref(op.requestBody);
+  const content = requestBody?.content;
+  if (!content) return null;
+  const contentType = 'application/json' in content
+    ? 'application/json'
+    : Object.keys(content)[0];
+  if (!contentType) return null;
+  const schema = content[contentType]?.schema;
+  return {
+    root: schema?.$ref ? refName(schema.$ref) : null,
+    contentType,
+    required: !!requestBody.required,
+    fields: topLevelFields(deref(schema)),
+  };
 }
 
 // Resolve the success body into a shallow shape. List endpoints wrap their
@@ -368,7 +436,12 @@ function placeholder(param) {
 // a return. Guarantees every op carries a runnable shape without curating each.
 // Exported so the skeleton path is unit-tested even when every current op is
 // curated (and so never exercises it through exampleFor).
-export function skeletonExample(operationId, params) {
+/**
+ * @param {string} operationId
+ * @param {Param[]} params
+ * @param {RequestShape | null} [request]
+ */
+export function skeletonExample(operationId, params, request = null) {
   const path = params.filter((p) => p.in === 'path');
   const query = params.filter((p) => p.in === 'query' && p.required);
   const args = [];
@@ -382,6 +455,12 @@ export function skeletonExample(operationId, params) {
       `query: { ${query.map((p) => `${p.name}: ${placeholder(p)}`).join(', ')} }`,
     );
   }
+  if (request) {
+    // Name the component rather than inventing a body: the fields (and which
+    // are required) are rendered on the card right above, and a half-invented
+    // literal is the thing an LLM copies wholesale.
+    args.push(`body: ${request.root ? `/* ${request.root} */ {}` : '{}'}`);
+  }
   const arg = args.length ? `{ ${args.join(', ')} }` : '';
   return [
     `const { data, error } = await oa.${operationId}(${arg});`,
@@ -392,12 +471,14 @@ export function skeletonExample(operationId, params) {
 
 // Prefer a curated TypeScript `x-codeSamples` sample (co-located with the op in
 // the contract, also consumable by Scalar); fall back to an auto skeleton.
-function exampleFor(op, operationId, params) {
+function exampleFor(op, operationId, params, request) {
   const samples = op['x-codeSamples'];
   const curated = Array.isArray(samples)
     ? samples.find((s) => /^(ts|typescript|js|javascript)$/i.test(s?.lang))
     : null;
-  return curated?.source?.trim() || skeletonExample(operationId, params);
+  return (
+    curated?.source?.trim() || skeletonExample(operationId, params, request)
+  );
 }
 
 // Derive the catalogue from the contract. Kept in spec declaration order (list
@@ -419,9 +500,12 @@ function deriveOperations() {
         .map((p) => p.name);
       const hasQuery = params.some((p) => p.in === 'query');
 
+      const request = deriveRequest(op);
+
       const args = [];
       if (pathNames.length) args.push(`path: { ${pathNames.join(', ')} }`);
       if (hasQuery) args.push('query');
+      if (request) args.push('body');
       const argList = args.length ? `{ ${args.join(', ')} }` : '';
       const call = `oa.${op.operationId}(${argList})`;
 
@@ -447,9 +531,10 @@ function deriveOperations() {
         description: oneLine(op.description),
         scopes,
         params,
+        request,
         response: deriveResponse(op),
         componentRefs: componentRefsFor(op),
-        example: exampleFor(op, op.operationId, params),
+        example: exampleFor(op, op.operationId, params, request),
         keywords: [...new Set([...keywords, ...synonyms])],
       });
     }
@@ -683,6 +768,23 @@ const isNotable = (p) =>
   || p.min !== undefined
   || p.max !== undefined;
 
+// The body is NAMED, not inlined: `EventInput` is ~40 fields shared by four
+// write operations, so rendering it on each card would blow the payload budget
+// depth-by-rank exists to protect. The Components section defines it once for
+// the whole response — the same locality rule the response side already uses in
+// reverse (the root IS the card's payload, so it renders inline; a body the
+// card merely references does not).
+function renderRequest(request) {
+  if (!request) return '';
+  const meta = [
+    request.contentType,
+    request.required ? 'required' : 'optional',
+  ].join(', ');
+  return request.root
+    ? `Request body: \`${request.root}\` (${meta})`
+    : `Request body: ${meta} — see the example.`;
+}
+
 function renderRich(op) {
   const notable = op.params.filter(isNotable);
   const plain = op.params.filter((p) => !isNotable(p));
@@ -701,6 +803,8 @@ function renderRich(op) {
       `Other optional parameters: ${plain.map((p) => p.name).join(', ')}.`,
     );
   }
+  const request = renderRequest(op.request);
+  if (request) lines.push('', request);
   const response = renderResponse(op.response);
   if (response) lines.push('', response);
   lines.push('', 'Example:', '```ts', op.example, '```');

@@ -270,6 +270,51 @@ describe('response shape (derived from the success body)', () => {
   });
 });
 
+describe('request body (derived from the contract)', () => {
+  // The catalogue described what came BACK and never what to send: the write
+  // cards rendered a signature with no `body`, and `EventInput` — named in
+  // their own prose — was defined nowhere in the payload. The LLM got 40 typed
+  // response fields and had to guess a ~40-field input from a 6-field example.
+  it('derives the JSON body of a write operation', () => {
+    const { request } = byId('agendas.events.create');
+    expect(request).toMatchObject({
+      root: 'EventInput',
+      contentType: 'application/json',
+      required: true,
+    });
+    expect(request.fields.length).toBeGreaterThan(0);
+  });
+
+  it('distinguishes the full input from the patch variant', () => {
+    expect(byId('agendas.events.update').request.root).toBe('EventInput');
+    expect(byId('agendas.events.patch').request.root).toBe('EventPatch');
+  });
+
+  it('carries a multipart body with no component to name', () => {
+    const { request } = byId('agendas.uploads.create');
+    expect(request.contentType).toBe('multipart/form-data');
+    expect(request.root).toBeNull();
+  });
+
+  it('leaves a read operation without a body', () => {
+    expect(byId('agendas.events.list').request).toBeNull();
+    expect(byId('agendas.events.get').request).toBeNull();
+  });
+
+  it('names the body in the call signature', () => {
+    expect(byId('agendas.events.create').call).toContain('body');
+    expect(byId('agendas.events.list').call).not.toContain('body');
+  });
+
+  it('defines the body component in the payload it is named in', () => {
+    const payload = renderSearch(searchOperations('create an event'));
+    expect(payload).toContain('Request body: `EventInput`');
+    // Named on the card, defined once in the Components section — not inlined
+    // on each of the four write cards that share it.
+    expect(payload).toMatch(/(^|\n)`EventInput`[ (\n]/);
+  });
+});
+
 describe('componentRefs (transitive component collection)', () => {
   it('collects the components the success body references, root included', () => {
     const { componentRefs } = byId('agendas.events.list');
@@ -586,6 +631,12 @@ describe('renderSearch', () => {
         'locations',
         'list my agendas',
         '',
+        // Write and upload phrasings: every one of them surfaces a card whose
+        // body type and prose cross-references had no coverage here at all.
+        'create an event',
+        'update an event',
+        'upload an image',
+        'upsert by external id',
       ];
       for (const query of queries) {
         const payload = renderSearch(searchOperations(query));
@@ -594,6 +645,20 @@ describe('renderSearch', () => {
           for (const part of m[1].split(/[|&,]/)) {
             const base = part.trim().replace(/\[\]$/, '');
             if (componentNames.has(base)) rendered.add(base);
+          }
+        }
+        // Parenthesised type positions are not the only place a component name
+        // reaches the reader: the prose sends them somewhere too, and "(see
+        // `EventInput`)" is a dead end if nothing defines it. Scan that form as
+        // well — narrowly, because the contract also writes "a `Location`
+        // header", and `Location` is a component whose schema that sentence
+        // never meant. It is also the only thing naming a component on an
+        // upload card, whose own response fields are all plain strings.
+        for (const m of payload.matchAll(
+          /\bsee\s+((?:`[A-Za-z]+`(?:\s*(?:,|and)\s*)?)+)/g,
+        )) {
+          for (const [, name] of m[1].matchAll(/`([A-Za-z]+)`/g)) {
+            if (componentNames.has(name)) rendered.add(name);
           }
         }
         expect(rendered.size).toBeGreaterThan(0);
