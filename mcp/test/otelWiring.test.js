@@ -6,10 +6,12 @@
 //      provider is registered (server.js wraps every tool call in such a span).
 //   2. The CROSS-VERSION logs path: a @openagenda/logs record (which resolves its
 //      OWN @opentelemetry/api-logs copy) reaches a LoggerProvider registered through
-//      the SDK's api-logs copy. These differ in our tree (0.203 vs 0.218); the OTel
-//      global protocol (shared Symbol.for key + backwards-compat) is meant to bridge
-//      them, and log.js flips `otel:true` on that assumption — so guard it, to catch
-//      a future dep bump that breaks the bridge.
+//      the SDK's api-logs copy. Three copies coexist in our tree today (0.213.0,
+//      0.220.0, 0.221.0) — re-read them before diagnosing a failure here, since
+//      the pair that matters moves with every bump. The OTel global protocol
+//      (shared Symbol.for key + backwards-compat) is meant to bridge them, and
+//      log.js flips `otel:true` on that assumption — so guard it, to catch a
+//      future dep bump that breaks the bridge.
 //
 // Each test registers a global provider and DISABLES it again in afterEach, so it
 // can't leak to the other (--runInBand shares globalThis).
