@@ -81,6 +81,33 @@ describe('searchOperations', () => {
     );
   });
 
+  // Queries are addressed to an assistant, so they arrive padded with filler.
+  // Every phrasing below used to return `me.agendas.list`: its id carries the
+  // singleton "me", and its summary ("List THE agendas YOU are a member of")
+  // carried the singleton "the"/"you" — two different high-IDF collisions, so
+  // an earlier fix that only damped 1–2 character tokens left the "the"/"you"
+  // half of this list red. Sweep the phrasings, not one specimen.
+  it.each([
+    'show me events',
+    'show me the events',
+    'give me the events',
+    'give me the list of events',
+    'can you show me events',
+    'show me upcoming events',
+  ])('keeps a padded listing query on the listing op: %p', (query) => {
+    expect(searchOperations(query)[0].id).toBe('agendas.events.list');
+  });
+
+  // The other half of that trade-off: filler must be demoted, never muted, or
+  // the operation those same short words genuinely ASK for stops being
+  // reachable. Both directions belong here — a fix for one breaks the other.
+  it('still ranks the me.* op first when short words are the actual intent', () => {
+    expect(searchOperations('my agendas')[0].id).toBe('me.agendas.list');
+    expect(searchOperations('list my agendas')[0].id).toBe('me.agendas.list');
+    expect(searchOperations('memberships')[0].id).toBe('me.agendas.list');
+    expect(searchOperations('me')[0].id).toBe('me.agendas.list');
+  });
+
   it('ranks the listing op first for the bare resource term', () => {
     expect(searchOperations('events')[0].id).toBe('agendas.events.list');
   });

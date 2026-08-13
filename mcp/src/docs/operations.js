@@ -481,11 +481,46 @@ export const SCHEMA_VALIDATORS = Object.keys(spec.components?.schemas || {})
 // words into false hits (`show`→`how`, `events`→`event`), surfacing the wrong
 // operation for plain-language queries. Prefix matching covers partial words;
 // fuzzy is reserved for typos in longer tokens where an edit is unambiguous.
+//
+// Plain-language queries are addressed to an assistant ("show me the events",
+// "give me the list of events"), so they arrive padded with filler. BM25 ranks
+// by RARITY, which makes filler dangerous the moment it collides with a term
+// this catalogue happens to hold exactly once — a singleton's IDF, times a
+// field boost, buries the word the user actually meant. Two independent
+// sources of that collision, hence the two guards below; neither covers the
+// other, and dropping either lets the wrong operation win again (measured).
+//
+//   1. `processTerm` drops STOP words from the indexed SUMMARY. Only
+//      `me.agendas.list` is summarised "List the agendas you are a member of",
+//      so "the" and "you" were singleton terms in a x2-boosted field: any
+//      query containing them ranked that one operation first. STOP already
+//      existed for the derived `keywords`; the raw summary was indexed
+//      verbatim, which is the whole bug. Applied to `summary` ALONE — the
+//      curated `x-synonyms` deliberately contain stop words as signal ("by
+//      id", "by ext", "one"), and stripping those would break the very
+//      queries they were written for.
+//
+//   2. `boostTerm` damps the 1-2 character tokens of a multi-word query, the
+//      glue no stop-list can enumerate ("show ME events"). Here the singleton
+//      is STRUCTURAL, not prose: "me" is the namespace segment of exactly one
+//      operationId, in the x3-boosted `id` field, so no amount of summary
+//      filtering reaches it. Damping only LOWERS glue rather than dropping it,
+//      so the curated 2-letter synonyms ("my agendas" -> me.agendas.list) keep
+//      winning on their own merit.
+const GLUE_TERM_MAX_LENGTH = 2;
+const GLUE_TERM_WEIGHT = 0.35;
+
 const miniSearch = new MiniSearch({
   fields: ['id', 'summary', 'params', 'enums', 'keywords'],
+  processTerm: (term, fieldName) => {
+    const t = term.toLowerCase();
+    return fieldName === 'summary' && STOP.has(t) ? null : t;
+  },
   searchOptions: {
     boost: { id: 3, summary: 2, keywords: 2 },
     fuzzy: (term) => (term.length > 6 ? 0.2 : false),
+    boostTerm: (term) =>
+      (term.length <= GLUE_TERM_MAX_LENGTH ? GLUE_TERM_WEIGHT : 1),
     prefix: true,
     combineWith: 'OR',
   },
