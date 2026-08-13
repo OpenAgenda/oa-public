@@ -10,6 +10,11 @@
   "publishConfig": {
     "access": "public"
   },
+  "files": [
+    "dist",
+    "CHANGELOG.md"
+  ],
+  "sideEffects": false,
   "type": "module",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.mts",

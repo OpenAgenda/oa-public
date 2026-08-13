@@ -1,7 +1,8 @@
 {
   "extends": "@openagenda/tsconfig/base",
   "compilerOptions": {
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "target": "ES2022"
   },
   "include": ["src"]
 }

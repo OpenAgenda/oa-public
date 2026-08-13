@@ -100,13 +100,11 @@ export function sourceKeyOf(
 ): string | null {
   if (!descriptor || typeof descriptor !== 'object') return null;
   const full = fullVariant(descriptor);
-  const candidate = full?.filename
-    ? keyOf(full.filename)
-    : descriptor.filename
-      && keyOf(descriptor.filename).replace(
-        /\.base\.image\.jpg$/i,
-        '.full.image.jpg',
-      );
+  const topLevel = descriptor.filename ? keyOf(descriptor.filename) : null;
+  const fromTopLevel = topLevel
+    ? topLevel.replace(/\.base\.image\.jpg$/i, '.full.image.jpg')
+    : null;
+  const candidate = full?.filename ? keyOf(full.filename) : fromTopLevel;
   return candidate && SOURCE_SUFFIX.test(candidate) ? candidate : null;
 }
 
@@ -189,15 +187,16 @@ export default function responsiveImage(
   // A known intrinsic width caps the ladder (never upscale) and is offered as the
   // sharp width; an unknown/zero width can't be filtered, so offer the ladder as
   // is. `> 0` (not truthy) so a stray 0 falls to the unknown branch, not `[0]`.
-  const candidates = width !== null && width > 0
-    ? widths.filter((w) => w < width).concat(width)
+  const capped = width !== null && width > 0 ? width : null;
+  const candidates = capped
+    ? widths.filter((w) => w < capped).concat(capped)
     : widths;
   const srcset = [...new Set(candidates)]
     .sort((a, b) => a - b)
     .map((w) => ({ width: w, url: url(`${w}x0`) }));
 
   // `src` default width, capped at the source (never upscale).
-  const srcW = width !== null && width > 0 ? Math.min(srcWidth, width) : srcWidth;
+  const srcW = capped ? Math.min(srcWidth, capped) : srcWidth;
 
   return {
     credits,

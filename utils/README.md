@@ -14,7 +14,8 @@ La racine réexporte tout ; `./images` regroupe la composition d'images.
 ## Images
 
 Composent les URL Thumbor servies par img.openagenda.com. Voir
-`docs/design-thumbor-on-demand-images.md` pour le dessin d'ensemble.
+le dépôt privé `oa` (`docs/design-thumbor-on-demand-images.md`) pour le dessin
+d’ensemble.
 
 | Export                                      | Rôle                                                                    |
 | ------------------------------------------- | ----------------------------------------------------------------------- |
