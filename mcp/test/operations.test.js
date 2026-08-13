@@ -359,17 +359,19 @@ describe('request body (derived from the contract)', () => {
 describe('no card names a component the payload never defines', () => {
   it('holds for every operation rendered on its own', () => {
     const componentNames = new Set(SCHEMA_VALIDATORS.map((v) => v.slice(1)));
+    const dangling = [];
     for (const op of OPERATIONS) {
       const payload = renderSearch([op]);
       for (const [, name] of payload.matchAll(/`([A-Za-z]+)`/g)) {
         if (!componentNames.has(name)) continue;
         const defined = new RegExp(`(^|\\n)\`${name}\`[ (\\n]`).test(payload)
           || payload.includes(`Response: \`${name}\``);
-        if (!defined) {
-          throw new Error(`"${name}" rendered but never defined (${op.id})`);
-        }
+        if (!defined) dangling.push(`${op.id} names \`${name}\``);
       }
     }
+    // Collect the whole set before asserting: a failure should name every card
+    // that regressed, not just the first one to trip.
+    expect(dangling).toEqual([]);
   });
 });
 
