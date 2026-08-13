@@ -173,7 +173,7 @@ describe('structured params (derived from the contract)', () => {
   });
 });
 
-describe('response shape (derived from the 200 body)', () => {
+describe('response shape (derived from the success body)', () => {
   it('models a list endpoint as data[] + pagination, summary variant first', () => {
     const { response } = byId('agendas.events.list');
     expect(response.kind).toBe('list');
@@ -196,6 +196,25 @@ describe('response shape (derived from the 200 body)', () => {
     const { response } = byId('agendas.events.facets');
     expect(response.root).toBe('FacetResults');
   });
+
+  // A creation answers 201, not 200. Reading the body from a hardcoded '200'
+  // left this op — and only this op — with no response shape at all, so its
+  // card documented a call whose result it could not describe, and named zero
+  // components for the payload's Components section.
+  it('reads the body of a 201-only creation', () => {
+    const { response, componentRefs } = byId('agendas.events.create');
+    expect(response).not.toBeNull();
+    expect(response.kind).toBe('object');
+    expect(response.root).toBe('Event');
+    expect(componentRefs).toContain('Event');
+    expect(componentRefs).toContain('EventStatus');
+  });
+
+  // No test pins the lowest-2xx tie-break on purpose: every op in the contract
+  // that declares both 200 and 201 (the by-ext upserts) points them at the SAME
+  // `Event` component, so an assertion on the resolved root holds whichever
+  // status wins and would pass against a reversed sort. A test that cannot fail
+  // is worse than none — the rule is documented on `successBody` instead.
 
   it('resolves allOf-wrapped field types by name (not "any")', () => {
     // dateRange is `allOf: [$ref LocalizedString]`; it must keep its schema name.
@@ -225,7 +244,7 @@ describe('response shape (derived from the 200 body)', () => {
 });
 
 describe('componentRefs (transitive component collection)', () => {
-  it('collects the components the 200 body references, root included', () => {
+  it('collects the components the success body references, root included', () => {
     const { componentRefs } = byId('agendas.events.list');
     expect(componentRefs).toEqual(
       expect.arrayContaining([

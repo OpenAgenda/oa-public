@@ -38,7 +38,7 @@ import MiniSearch from 'minisearch';
  * @property {string} description     The property's own description ('' when none).
  *
  * @typedef {object} ResponseShape
- * @property {string|null} root        Schema name of the 200 body.
+ * @property {string|null} root        Schema name of the success body.
  * @property {'list'|'object'} kind
  * @property {Field[]} [fields]        Top-level fields (object kind).
  * @property {{variants:string[], fields:Field[]}} [item]  List item (list kind).
@@ -54,7 +54,7 @@ import MiniSearch from 'minisearch';
  * @property {string[]} scopes      OAuth scopes the operation requires.
  * @property {Param[]} params
  * @property {ResponseShape|null} response
- * @property {string[]} componentRefs  Component schemas the 200 body references (transitive, discovery order).
+ * @property {string[]} componentRefs  Component schemas the success body references (transitive, discovery order).
  * @property {string} example       A runnable `oa.…` snippet (curated or skeleton).
  * @property {string[]} keywords    Cheap relevance matching for search_docs.
  */
@@ -212,34 +212,52 @@ function collectComponentRefs(schema, names = [], seen = new Set()) {
   return names;
 }
 
-// Every component an operation's card can name: its 200 body first (the shape
-// the LLM reads), then its param schemas (a $ref'd filter enum like
+// The JSON body an operation answers with on success. NOT hardcoded to 200: a
+// pure creation answers 201 only (`agendas.events.create`), and it would
+// otherwise render with no response shape at all — the one hole in the
+// catalogue. Lowest 2xx wins, so the by-ext upserts (200 update / 201 create,
+// same `Event` either way) keep reading as their 200.
+function successBody(op) {
+  const codes = Object.keys(op.responses || {})
+    .filter((code) => /^2\d\d$/.test(code))
+    .sort();
+  for (const code of codes) {
+    // `deref` because a response may be written as a $ref into
+    // `#/components/responses/*` — the convention every 4xx in the contract
+    // already follows. Reading `.content` off the unresolved $ref would find
+    // nothing and silently drop the shape, which is the failure this whole
+    // function exists to remove.
+    const schema = deref(op.responses[code])?.content?.['application/json']
+      ?.schema;
+    if (schema) return schema;
+  }
+  return undefined;
+}
+
+// Every component an operation's card can name: its success body first (the
+// shape the LLM reads), then its param schemas (a $ref'd filter enum like
 // `status (EventStatus[])` needs its definition too). One shared `seen` so a
 // component referenced by both sides is collected once.
 function componentRefsFor(op) {
   const names = [];
   const seen = new Set();
-  collectComponentRefs(
-    op.responses?.['200']?.content?.['application/json']?.schema,
-    names,
-    seen,
-  );
+  collectComponentRefs(successBody(op), names, seen);
   for (const p of (op.parameters || []).map(deref)) {
     collectComponentRefs(p.schema, names, seen);
   }
   return names;
 }
 
-// Resolve the 200 body into a shallow shape. List endpoints wrap their rows in
-// `data: array<oneOf[Summary, Detailed]>` + `pagination`; we surface the DEFAULT
-// (summary) variant's fields and note the `detailed=true` upgrade. Everything
-// else is rendered as a flat top-level field list.
+// Resolve the success body into a shallow shape. List endpoints wrap their
+// rows in `data: array<oneOf[Summary, Detailed]>` + `pagination`; we surface
+// the DEFAULT (summary) variant's fields and note the `detailed=true` upgrade.
+// Everything else is rendered as a flat top-level field list.
 /**
  * @param {any} op
  * @returns {ResponseShape | null}
  */
 function deriveResponse(op) {
-  const body = op.responses?.['200']?.content?.['application/json']?.schema;
+  const body = successBody(op);
   if (!body) return null;
   const root = body.$ref ? refName(body.$ref) : null;
   const schema = deref(body);
@@ -341,7 +359,7 @@ function placeholder(param) {
   // `items.enum` belongs to an array param, so it must still be wrapped in `[]`.
   const value = param.enum
     ? JSON.stringify(param.enum[0])
-    : SCALAR_PLACEHOLDER[param.type.replace(/\[\]$/, '')] ?? '{}';
+    : (SCALAR_PLACEHOLDER[param.type.replace(/\[\]$/, '')] ?? '{}');
   return param.type.endsWith('[]') ? `[${value}]` : value;
 }
 
@@ -597,7 +615,7 @@ export function renderComponentDef(name) {
 
 function renderResponse(response) {
   if (!response) return '';
-  // An inline (non-$ref) 200 body has no schema name — name it by kind rather
+  // An inline (non-$ref) success body has no schema name — name it by kind rather
   // than interpolating a literal `null`.
   const root = response.root ?? (response.kind === 'list' ? 'List' : 'Object');
   if (response.kind === 'list') {
