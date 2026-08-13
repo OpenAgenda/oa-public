@@ -313,6 +313,64 @@ describe('request body (derived from the contract)', () => {
     // on each of the four write cards that share it.
     expect(payload).toMatch(/(^|\n)`EventInput`[ (\n]/);
   });
+
+  // The upload cards point at components of the EVENT write to explain how the
+  // returned `ref` is attached; nothing collected them, so the reference died.
+  it('follows a prose cross-reference to another shape', () => {
+    expect(byId('agendas.uploads.createTicket').componentRefs).toContain(
+      'ImageInput',
+    );
+  });
+
+  // A card renders param descriptions too, and this one names `ExtId` with
+  // nothing structural behind it: the operation's 200 body is `DeletionResult`,
+  // which never touches `ExtId`. Seeding the scan from the operation
+  // description alone left the name on the page pointing at nothing.
+  it('follows a cross-reference made in a param description', () => {
+    expect(byId('agendas.events.deleteByExtId').componentRefs).toContain(
+      'ExtId',
+    );
+  });
+
+  it('marks a required body field in its component definition', () => {
+    expect(renderComponentDef('Timing')).toContain(
+      '- begin (string, required)',
+    );
+  });
+
+  it('parenthesises a union inside an array', () => {
+    expect(renderComponentDef('FacetReportRequest')).toContain(
+      '(FacetName | FacetSpec)[]',
+    );
+  });
+
+  it('renders the fields of a body that has no component to name', () => {
+    const card = renderOperation(byId('agendas.uploads.create'), 0);
+    expect(card).toContain('Request body: multipart/form-data, required');
+    expect(card).toContain('- file (string');
+  });
+});
+
+// The query-driven sweep only ever renders three cards richly, so an operation
+// can be shadowed by siblings that reach a component structurally —
+// `deleteByExtId` lost every race to the other by-ext routes, which all reach
+// `ExtId` through `Event.extIds`. Render each operation ALONE so no card can be
+// covered by a neighbour that happens to share the page.
+describe('no card names a component the payload never defines', () => {
+  it('holds for every operation rendered on its own', () => {
+    const componentNames = new Set(SCHEMA_VALIDATORS.map((v) => v.slice(1)));
+    for (const op of OPERATIONS) {
+      const payload = renderSearch([op]);
+      for (const [, name] of payload.matchAll(/`([A-Za-z]+)`/g)) {
+        if (!componentNames.has(name)) continue;
+        const defined = new RegExp(`(^|\\n)\`${name}\`[ (\\n]`).test(payload)
+          || payload.includes(`Response: \`${name}\``);
+        if (!defined) {
+          throw new Error(`"${name}" rendered but never defined (${op.id})`);
+        }
+      }
+    }
+  });
 });
 
 describe('componentRefs (transitive component collection)', () => {

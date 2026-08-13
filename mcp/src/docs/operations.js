@@ -54,17 +54,20 @@ import MiniSearch from 'minisearch';
  * @property {string} id            operationId (e.g. "agendas.events.list").
  * @property {string} method        HTTP verb (GET…).
  * @property {string} path          URL template.
- * @property {string} call          How to invoke the method on the `oa` client.
+ * @property {string} call          How to invoke it: an `oa` client call, or
+ *                                 the wire signature when not sdkCallable.
  * @property {string} summary
  * @property {string} description
  * @property {string[]} scopes      OAuth scopes the operation requires.
  * @property {Param[]} params
  * @property {RequestShape|null} request   Body the operation expects (null when it takes none).
  * @property {boolean} sdkCallable  False when the contract authorizes it outside the `oa` client.
- * @property {string} exampleLang   Fence language for `example` ("ts", "shell"…).
+ * @property {string} exampleLang   Fence language for `example` ("ts", "shell"),
+ *                                 '' when none applies.
  * @property {ResponseShape|null} response
  * @property {string[]} componentRefs  Component schemas the success body references (transitive, discovery order).
- * @property {string} example       A runnable `oa.…` snippet (curated or skeleton).
+ * @property {string} example       A runnable snippet (curated or skeleton); not
+ *                                 an `oa.…` call when not sdkCallable.
  * @property {string[]} keywords    Cheap relevance matching for search_docs.
  */
 
@@ -146,7 +149,12 @@ function resolveType(schema) {
     nullable = type.includes('null');
     type = type.find((t) => t !== 'null') || 'any';
   }
-  const base = type === 'array' ? `${resolveType(schema.items || {})}[]` : type || 'any';
+  // Parenthesise a union before suffixing `[]`, or `FacetName | FacetSpec[]`
+  // reads as "one name, or an array of specs" — and the LLM sends the scalar.
+  const item = type === 'array' ? resolveType(schema.items || {}) : '';
+  const base = type === 'array'
+    ? `${item.includes(' | ') ? `(${item})` : item}[]`
+    : type || 'any';
   return nullable && base !== 'null' ? `${base} | null` : base;
 }
 
@@ -243,6 +251,23 @@ function successBody(op) {
   return undefined;
 }
 
+// Pick the ONE media type the card documents. Matched on `json` as a word, not
+// on the exact string: `application/merge-patch+json` is the natural type for
+// the patch routes and `; charset=utf-8` is always legal, and an exact match
+// would fall through to whatever key came first — documenting a binary body for
+// a JSON endpoint. `componentRefsFor` resolves through here too, so the shape
+// the card names and the components it defines can never disagree.
+const JSON_MEDIA = /\bjson\b/;
+function requestContent(op) {
+  const requestBody = deref(op.requestBody);
+  const content = requestBody?.content;
+  if (!content) return null;
+  const types = Object.keys(content);
+  const contentType = types.find((t) => JSON_MEDIA.test(t)) ?? types[0];
+  if (!contentType) return null;
+  return { requestBody, contentType, schema: content[contentType]?.schema };
+}
+
 // Component names the operation's PROSE puts in front of the reader. The
 // descriptions cross-reference shapes the structural fields never touch — the
 // upload cards reach `ImageInput`/`AdditionalFields` to say how the returned
@@ -299,45 +324,43 @@ const componentProse = (name) => {
 function componentRefsFor(op) {
   const names = [];
   const seen = new Set();
+  const params = (op.parameters || []).map(deref);
+
   collectComponentRefs(successBody(op), names, seen);
-  const requestBody = deref(op.requestBody);
-  for (const media of Object.values(requestBody?.content || {})) {
-    collectComponentRefs(media?.schema, names, seen);
-  }
-  for (const p of (op.parameters || []).map(deref)) {
+  collectComponentRefs(requestContent(op)?.schema, names, seen);
+  for (const p of params) {
     collectComponentRefs(p.schema, names, seen);
   }
-  // Last, so a prose mention never displaces the operation's own shapes from
-  // the head of the list. Collected transitively like any other, or the
-  // component would land defined while ITS field types dangled.
-  const pending = mentionedSchemas(op.description);
-  while (pending.length) {
-    const name = pending.shift();
-    const before = names.length;
-    collectComponentRefs({ $ref: `#/components/schemas/${name}` }, names, seen);
-    // Only walk the prose of components this op actually pulled in, so the
-    // closure stays anchored to what the card renders.
-    if (names.length === before && !names.includes(name)) continue;
-    for (const text of componentProse(name)) {
-      for (const mentioned of mentionedSchemas(text)) {
-        if (!names.includes(mentioned) && !pending.includes(mentioned)) {
-          pending.push(mentioned);
-        }
-      }
+
+  // Then the prose. Seeded from every line the card renders as text — the
+  // operation's description AND its param descriptions, which is where
+  // `agendas.events.deleteByExtId` names `ExtId` ("the key of an `ExtId`
+  // mapping") with nothing structural to rescue it: its 200 body is
+  // `DeletionResult`, so the name reached the reader and resolved to nothing.
+  //
+  // Then closed to a FIXED POINT: the loop re-reads `names.length` each turn,
+  // so a component pulled in by prose gets its own prose walked in the same
+  // pass. That is how `EventLocation` — which says "the canonical, full record
+  // is the `Location` resource" INSIDE its own definition — reaches `Location`.
+  // `collectComponentRefs` is idempotent through `seen`, so no guard is needed
+  // and a cycle terminates on its own.
+  for (const text of [op.description, ...params.map((p) => p.description)]) {
+    for (const name of mentionedSchemas(text)) {
+      collectComponentRefs(
+        { $ref: `#/components/schemas/${name}` },
+        names,
+        seen,
+      );
     }
   }
-  // The op's own structural shapes can carry prose too — a response field's
-  // description, a component two levels down. Close over those as well.
   for (let i = 0; i < names.length; i += 1) {
     for (const text of componentProse(names[i])) {
-      for (const mentioned of mentionedSchemas(text)) {
-        if (!names.includes(mentioned)) {
-          collectComponentRefs(
-            { $ref: `#/components/schemas/${mentioned}` },
-            names,
-            seen,
-          );
-        }
+      for (const name of mentionedSchemas(text)) {
+        collectComponentRefs(
+          { $ref: `#/components/schemas/${name}` },
+          names,
+          seen,
+        );
       }
     }
   }
@@ -351,15 +374,11 @@ function componentRefsFor(op) {
  * @param {any} op
  * @returns {RequestShape | null}
  */
+
 function deriveRequest(op) {
-  const requestBody = deref(op.requestBody);
-  const content = requestBody?.content;
-  if (!content) return null;
-  const contentType = 'application/json' in content
-    ? 'application/json'
-    : Object.keys(content)[0];
-  if (!contentType) return null;
-  const schema = content[contentType]?.schema;
+  const selected = requestContent(op);
+  if (!selected) return null;
+  const { requestBody, contentType, schema } = selected;
   return {
     root: schema?.$ref ? refName(schema.$ref) : null,
     contentType,
@@ -375,10 +394,15 @@ function deriveRequest(op) {
 // POST, NOT through the typed API client"). Derived from the security block
 // rather than keyed on the operationId, so a second such route needs no edit.
 const SDK_AUTH_SCHEMES = new Set(['bearerAuth', 'oauth2']);
-const isSdkCallable = (op) =>
-  (op.security ?? spec.security ?? [])
-    .flatMap((requirement) => Object.keys(requirement))
-    .some((scheme) => SDK_AUTH_SCHEMES.has(scheme));
+function isSdkCallable(op) {
+  const requirements = op.security ?? spec.security ?? [];
+  // `security: []` is the OpenAPI idiom for "this route needs no auth", so the
+  // client can call it. Only a requirement it cannot SATISFY puts the route out
+  // of reach — the empty list means no requirement at all, not an impossible one.
+  if (!requirements.length) return true;
+  return requirements.some((requirement) =>
+    Object.keys(requirement).some((scheme) => SDK_AUTH_SCHEMES.has(scheme)));
+}
 
 // Resolve the success body into a shallow shape. List endpoints wrap their
 // rows in `data: array<oneOf[Summary, Detailed]>` + `pagination`; we surface
@@ -520,9 +544,10 @@ export function skeletonExample(operationId, params, request = null) {
     );
   }
   if (request) {
-    // Name the component rather than inventing a body: the fields (and which
-    // are required) are rendered on the card right above, and a half-invented
-    // literal is the thing an LLM copies wholesale.
+    // Name the component rather than invent a literal: a half-guessed body is
+    // what an LLM copies wholesale. The shape is not hidden — the card names it
+    // one line above and the Components section defines it field by field,
+    // required markers included.
     args.push(`body: ${request.root ? `/* ${request.root} */ {}` : '{}'}`);
   }
   const arg = args.length ? `{ ${args.join(', ')} }` : '';
@@ -543,18 +568,43 @@ export function skeletonExample(operationId, params, request = null) {
 // `await oa.uploads.staged()`, the exact call the contract forbids, with no
 // ticket, no file and no body.
 const TS_LANGS = /^(ts|typescript|js|javascript)$/i;
-function exampleFor(op, operationId, params, request) {
+
+// Fence languages we are willing to emit. The contract's `lang` is free text
+// (Scalar renders it as a label), so a typo, a multi-word value or an omitted
+// key would otherwise land verbatim after the backticks — ```undefined and
+// friends. Anything unrecognised degrades to no language rather than a broken
+// fence.
+const FENCE_LANGS = new Set([
+  'shell',
+  'bash',
+  'curl',
+  'http',
+  'json',
+  'python',
+]);
+const fenceLang = (lang) => {
+  if (TS_LANGS.test(lang)) return 'ts';
+  const normalized = String(lang ?? '').toLowerCase();
+  return FENCE_LANGS.has(normalized) ? normalized : '';
+};
+
+function exampleFor(op, operationId, params, request, sdkCallable, call) {
   const samples = Array.isArray(op['x-codeSamples']) ? op['x-codeSamples'] : [];
-  const curated = samples.find((s) => TS_LANGS.test(s?.lang)) ?? samples[0];
+  const ts = samples.find((s) => TS_LANGS.test(s?.lang));
+  // For an SDK-callable route the TypeScript sample is the ONE that matches
+  // what this payload frames — the `oa` client, run by an `execute` sandbox
+  // that only speaks JavaScript. A curated Python or Shell sample there
+  // documents a different way in, so it must not replace the call; the skeleton
+  // is the better answer. When the SDK cannot reach the route at all there is
+  // no call to fall back to, so any curated sample wins and a skeleton would
+  // be a fabrication.
+  const curated = sdkCallable ? ts : (ts ?? samples[0]);
   const source = curated?.source?.trim();
-  if (source) {
-    return {
-      source,
-      lang: TS_LANGS.test(curated.lang)
-        ? 'ts'
-        : String(curated.lang).toLowerCase(),
-    };
-  }
+  if (source) return { source, lang: fenceLang(curated.lang) };
+  // No sample and no SDK call: emit the wire signature rather than an `oa.*`
+  // skeleton that cannot authenticate — the exact bug `uploads.staged` had,
+  // which it escaped only by happening to carry a curl sample.
+  if (!sdkCallable) return { source: call, lang: '' };
   return { source: skeletonExample(operationId, params, request), lang: 'ts' };
 }
 
@@ -610,6 +660,8 @@ function deriveOperations() {
         op.operationId,
         params,
         request,
+        sdkCallable,
+        call,
       );
 
       operations.push({
@@ -797,6 +849,7 @@ export function renderComponentDef(name) {
     const gloss = `Values: ${enumGloss(schema.enum, schema['x-enum-descriptions'])}.`;
     return `\`${name}\` (${schema.type}) — ${[description, gloss].filter(Boolean).join(' ')}`;
   }
+  const required = new Set(schema.required || []);
   const props = Object.entries(schema.properties || {});
   if (!props.length) {
     const type = resolveType(schema);
@@ -819,7 +872,11 @@ export function renderComponentDef(name) {
       );
     }
     const tail = [oneLine(s.description), ...meta].filter(Boolean).join(' ');
-    return `- ${prop} (${resolveType(s)})${tail ? ` — ${tail}` : ''}`;
+    // `, required` exactly as `renderParamLine` marks a path param: a body
+    // field the caller MUST send read no differently from an optional one, so
+    // every newly-surfaced write payload looked entirely optional.
+    const type = `${resolveType(s)}${required.has(prop) ? ', required' : ''}`;
+    return `- ${prop} (${type})${tail ? ` — ${tail}` : ''}`;
   });
   const head = `\`${name}\`${description ? ` — ${description}` : ''}`;
   return [head, ...lines].join('\n');
@@ -872,9 +929,15 @@ function renderRequest(request) {
     request.contentType,
     request.required ? 'required' : 'optional',
   ].join(', ');
-  return request.root
-    ? `Request body: \`${request.root}\` (${meta})`
-    : `Request body: ${meta} — see the example.`;
+  if (request.root) return `Request body: \`${request.root}\` (${meta})`;
+  // No component to name (multipart, or an inline schema): the derived fields
+  // ARE the documentation, so they render here or nowhere. `agendas.uploads
+  // .create` was surfacing "see the example" while carrying a described `file`
+  // field the payload then threw away.
+  const lines = request.fields.map(renderFieldLine);
+  return lines.length
+    ? `Request body: ${meta} →\n${lines.join('\n')}`
+    : `Request body: ${meta}`;
 }
 
 function renderRich(op) {
