@@ -7410,6 +7410,23 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@openagenda/utils@workspace:utils":
+  version: 0.0.0-use.local
+  resolution: "@openagenda/utils@workspace:utils"
+  dependencies:
+    "@babel/core": "npm:^7.28.4"
+    "@babel/preset-env": "npm:^7.28.3"
+    "@openagenda/babel-preset": "npm:^2.0.0"
+    "@openagenda/eslint-config": "npm:^2.1.0"
+    "@openagenda/tsconfig": "npm:^0.0.0"
+    babel-jest: "npm:^30.4.1"
+    eslint: "npm:^8.36.0"
+    jest: "npm:^30.4.2"
+    tsdown: "npm:^0.22.0"
+    typescript: "npm:^5.6.3"
+  languageName: unknown
+  linkType: soft
+
 "@openagenda/verror@npm:^3.2.0":
   version: 3.2.0
   resolution: "@openagenda/verror@npm:3.2.0"
@@ -20620,11 +20637,11 @@ __metadata:
   linkType: hard
 
 "get-tsconfig@npm:^4.10.0":
-  version: 4.14.1
-  resolution: "get-tsconfig@npm:4.14.1"
+  version: 4.14.2
+  resolution: "get-tsconfig@npm:4.14.2"
   dependencies:
     resolve-pkg-maps: "npm:^1.0.0"
-  checksum: 10c0/c5e5d8fd298be9bc554b8ca3708a76732c27f632cd9b902c1d41b23ad1f4b6fefbe4dbdecd2fee84994d1ebf46e8cc50dd575fcff1b7ffafcdf6e2e0809a0337
+  checksum: 10c0/0b6e4fafd34adcc992258f9874a366222fac76b165a4b9c102fe25056a3f9c4dae1e365c213c040e56b0bd45fd5671343f9410d153af1aab0bbf699a54d59c1b
   languageName: node
   linkType: hard
 
