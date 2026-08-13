@@ -243,29 +243,51 @@ function successBody(op) {
   return undefined;
 }
 
-// Components the operation's PROSE sends the reader to, via the contract's
-// `(see `X`)` convention. These are real cross-references — the upload cards
-// point at `ImageInput`/`AdditionalFields` to say how the returned `ref` is
-// attached, and those live on the event-write schema, not on the upload's own
-// multipart body — so without this they resolve to nothing unless an event
-// write happens to share the page.
+// Component names the operation's PROSE puts in front of the reader. The
+// descriptions cross-reference shapes the structural fields never touch — the
+// upload cards reach `ImageInput`/`AdditionalFields` to say how the returned
+// `ref` is attached (those live on the event-write schema, not on the upload's
+// own multipart body), `me.agendas.list` cites `AgendaSummary` for its base
+// fields, `agendas.locations.getByExtId` cites `ExtId` — and every one of them
+// resolved to nothing unless another card happened to pull it in.
 //
-// Deliberately keyed on `see `X``, NOT on every backticked word: the contract
-// also writes prose like "with a `Location` header", and `Location` IS a
-// component name, so a blanket scan would pull in a schema the sentence never
-// meant. The narrow form is an authoring convention that says "go read this".
-const SEE_REFERENCE = /\bsee\s+((?:`[A-Za-z]+`(?:\s*(?:,|and)\s*)?)+)/g;
-function crossReferencedSchemas(description) {
+// The rule is STRUCTURAL — a backticked word that is a declared component — and
+// not a phrasing like "see `X`". An earlier cut did parse that phrasing and it
+// was the wrong instinct twice over: it silently missed a capitalised "See", an
+// "or"-separated list, and every other way a sentence can point somewhere ("the
+// `X` schema", "an `X` mapping"), which is exactly how the three references
+// above stayed dead. Worse, the test that was supposed to catch that shared the
+// regex, so it could only ever confirm the heuristic's own opinion.
+//
+// It is a deliberate SUPERSET: "with a `Location` header" names the response
+// header, not the venue schema, so `Location` gets defined on those cards for
+// nothing. That costs six component definitions across the whole catalogue —
+// cheap next to a dead reference, and no sentence has to be parsed to get it
+// right.
+function mentionedSchemas(description) {
   const names = [];
-  for (const match of String(description || '').matchAll(SEE_REFERENCE)) {
-    for (const [, name] of match[1].matchAll(/`([A-Za-z]+)`/g)) {
-      if (spec.components?.schemas?.[name] && !names.includes(name)) {
-        names.push(name);
-      }
+  for (const [, name] of String(description || '').matchAll(/`([A-Za-z]+)`/g)) {
+    if (spec.components?.schemas?.[name] && !names.includes(name)) {
+      names.push(name);
     }
   }
   return names;
 }
+
+// Every line of prose a component definition renders — its own description and
+// one per property — can name further components, and `renderComponentDef` puts
+// all of them in front of the reader. `EventLocation` says "the canonical, full
+// record is the `Location` resource", so a card that defines the snapshot owes
+// the reader the record too. Walked to a FIXED POINT, since the shape a mention
+// pulls in may cite another in turn.
+const componentProse = (name) => {
+  const schema = spec.components?.schemas?.[name];
+  if (!schema) return [];
+  return [
+    schema.description,
+    ...Object.values(schema.properties || {}).map((s) => s?.description),
+  ];
+};
 
 // Every component an operation's card can name: its success body first (the
 // shape the LLM reads), then the body it must SEND — `EventInput` was named in
@@ -285,11 +307,39 @@ function componentRefsFor(op) {
   for (const p of (op.parameters || []).map(deref)) {
     collectComponentRefs(p.schema, names, seen);
   }
-  // Last, so a cross-reference never displaces the operation's own shapes from
+  // Last, so a prose mention never displaces the operation's own shapes from
   // the head of the list. Collected transitively like any other, or the
   // component would land defined while ITS field types dangled.
-  for (const name of crossReferencedSchemas(op.description)) {
+  const pending = mentionedSchemas(op.description);
+  while (pending.length) {
+    const name = pending.shift();
+    const before = names.length;
     collectComponentRefs({ $ref: `#/components/schemas/${name}` }, names, seen);
+    // Only walk the prose of components this op actually pulled in, so the
+    // closure stays anchored to what the card renders.
+    if (names.length === before && !names.includes(name)) continue;
+    for (const text of componentProse(name)) {
+      for (const mentioned of mentionedSchemas(text)) {
+        if (!names.includes(mentioned) && !pending.includes(mentioned)) {
+          pending.push(mentioned);
+        }
+      }
+    }
+  }
+  // The op's own structural shapes can carry prose too — a response field's
+  // description, a component two levels down. Close over those as well.
+  for (let i = 0; i < names.length; i += 1) {
+    for (const text of componentProse(names[i])) {
+      for (const mentioned of mentionedSchemas(text)) {
+        if (!names.includes(mentioned)) {
+          collectComponentRefs(
+            { $ref: `#/components/schemas/${mentioned}` },
+            names,
+            seen,
+          );
+        }
+      }
+    }
   }
   return names;
 }

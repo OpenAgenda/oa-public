@@ -679,19 +679,15 @@ describe('renderSearch', () => {
             if (componentNames.has(base)) rendered.add(base);
           }
         }
-        // Parenthesised type positions are not the only place a component name
-        // reaches the reader: the prose sends them somewhere too, and "(see
-        // `EventInput`)" is a dead end if nothing defines it. Scan that form as
-        // well — narrowly, because the contract also writes "a `Location`
-        // header", and `Location` is a component whose schema that sentence
-        // never meant. It is also the only thing naming a component on an
-        // upload card, whose own response fields are all plain strings.
-        for (const m of payload.matchAll(
-          /\bsee\s+((?:`[A-Za-z]+`(?:\s*(?:,|and)\s*)?)+)/g,
-        )) {
-          for (const [, name] of m[1].matchAll(/`([A-Za-z]+)`/g)) {
-            if (componentNames.has(name)) rendered.add(name);
-          }
+        // Type positions are not the only place a component name reaches the
+        // reader: the prose names them too, and a name the payload never
+        // defines is a dead end. Scan EVERY backticked word that is a real
+        // component — structural, so there is no phrasing to miss and no
+        // heuristic shared with the code for this test to rubber-stamp. An
+        // earlier cut matched "see `X`" in both places at once and reported
+        // green while `AgendaSummary`, `UploadTicket` and `ExtId` dangled.
+        for (const m of payload.matchAll(/`([A-Za-z]+)`/g)) {
+          if (componentNames.has(m[1])) rendered.add(m[1]);
         }
         expect(rendered.size).toBeGreaterThan(0);
         for (const name of rendered) {
