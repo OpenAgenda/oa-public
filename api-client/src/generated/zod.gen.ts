@@ -29,7 +29,7 @@ export const zLocalizedString = z.record(z.string());
 export const zLocalizedStringArray = z.record(z.array(z.string()));
 
 /**
- * Event image, served on demand from a single source. Use `src` as a ready-to-use default rendition, or drive a responsive picture: substitute `{geo}` into `srcTemplate` (e.g. `800x0` for proportional width, `300x300s` for a smart-cropped square, `1000x1000f` for fit-in) or pick a ready-made width from `srcset`. `width`/`height` are the intrinsic source dimensions (a cap: renditions are never upscaled past them).
+ * Event image, served on demand from a single source. Use `src` as a ready-to-use default rendition, or drive a responsive picture: substitute `{geo}` into `srcTemplate` (e.g. `800x0` for proportional width, `300x300` for a center-cropped square, `300x300/smart` for a smart-cropped one, `fit-in/1000x1000` to contain without cropping) or pick a ready-made width from `srcset`. `width`/`height` are the intrinsic source dimensions (a cap: renditions are never upscaled past them).
  *
  */
 export const zImage = z.object({

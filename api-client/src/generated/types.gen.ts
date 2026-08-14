@@ -61,7 +61,7 @@ export type LocalizedStringArray = {
 };
 
 /**
- * Event image, served on demand from a single source. Use `src` as a ready-to-use default rendition, or drive a responsive picture: substitute `{geo}` into `srcTemplate` (e.g. `800x0` for proportional width, `300x300s` for a smart-cropped square, `1000x1000f` for fit-in) or pick a ready-made width from `srcset`. `width`/`height` are the intrinsic source dimensions (a cap: renditions are never upscaled past them).
+ * Event image, served on demand from a single source. Use `src` as a ready-to-use default rendition, or drive a responsive picture: substitute `{geo}` into `srcTemplate` (e.g. `800x0` for proportional width, `300x300` for a center-cropped square, `300x300/smart` for a smart-cropped one, `fit-in/1000x1000` to contain without cropping) or pick a ready-made width from `srcset`. `width`/`height` are the intrinsic source dimensions (a cap: renditions are never upscaled past them).
  *
  */
 export type Image = {
@@ -80,7 +80,7 @@ export type Image = {
      */
     src?: string | null;
     /**
-     * URL with a `{geo}` placeholder to substitute with a geometry token (`{W}x{H}`, `s` = smart-crop, `f` = fit-in; `0` = proportional).
+     * URL with a `{geo}` placeholder to substitute with a geometry: `{W}x{H}`, where `0` on an axis means proportional. Append `/smart` to crop on the detected point of interest rather than the centre, or prefix `fit-in/` to contain the image instead of cropping it.
      *
      */
     srcTemplate?: string | null;
@@ -438,7 +438,7 @@ export type ImageRef = {
      */
     src: string | null;
     /**
-     * A URL with a literal `{geo}` placeholder to substitute with a geometry token (`{W}x{H}`, `s` smart-crop, `f` fit-in, `0` proportional) to render the ref image at any size. `null` when the on-demand CDN is off or the source is not a Thumbor source.
+     * A URL with a literal `{geo}` placeholder to substitute with a geometry — `{W}x{H}` (`0` on an axis = proportional), optionally with `/smart` appended or `fit-in/` prefixed — to render the ref image at any size. `null` when the on-demand CDN is off or the source is not a Thumbor source.
      *
      */
     srcTemplate: string | null;
