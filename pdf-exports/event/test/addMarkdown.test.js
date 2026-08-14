@@ -1,9 +1,11 @@
+import * as url from 'node:url';
 import { readFile } from 'node:fs/promises';
 import fs from 'node:fs';
 import PDFDocument from 'pdfkit';
 import Cursor from '../lib/Cursor.js';
 import addMarkdown from '../lib/addMarkdown.js';
-import outputFolder from './lib/outputFolder.js';
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 // Get command line arguments
 let segments = process.argv.slice(2);
@@ -42,7 +44,7 @@ for (const segment of segments) {
 }
 
 const doc = new PDFDocument({ size: 'A5', margin: 0, layout: 'landscape' });
-doc.pipe(fs.createWriteStream(`${outputFolder}/addMarkdown.pdf`));
+doc.pipe(fs.createWriteStream(`${__dirname}/renders/addMarkdown.pdf`));
 
 const cursor = Cursor({ x: 0, y: 0 });
 let isFirstSegment = true;
@@ -58,20 +60,17 @@ for (const segment of segments) {
   if (segment === 'tiny') {
     // First segment - tiny.md
     await addMarkdown(doc, cursor, {
-      value: await readFile(`${import.meta.dirname}/fixtures/tiny.md`, 'utf-8'),
+      value: await readFile(`${__dirname}/fixtures/tiny.md`, 'utf-8'),
     });
   } else if (segment === 'emojis') {
     // Second segment - emojis.md
     await addMarkdown(doc, cursor, {
-      value: await readFile(
-        `${import.meta.dirname}/fixtures/emojis.md`,
-        'utf-8',
-      ),
+      value: await readFile(`${__dirname}/fixtures/emojis.md`, 'utf-8'),
     });
   } else if (segment === 'girls') {
     await addMarkdown(doc, cursor, {
       value: await readFile(
-        `${import.meta.dirname}/fixtures/girls-dont-cry-party-21.md`,
+        `${__dirname}/fixtures/girls-dont-cry-party-21.md`,
         'utf-8',
       ),
       availableWidth: 120,
@@ -79,21 +78,18 @@ for (const segment of segments) {
   } else if (segment === 'modalites') {
     await addMarkdown(doc, cursor, {
       value: await readFile(
-        `${import.meta.dirname}/fixtures/modalites-de-formation.md`,
+        `${__dirname}/fixtures/modalites-de-formation.md`,
         'utf-8',
       ),
     });
   } else if (segment === 'lienlong') {
     await addMarkdown(doc, cursor, {
-      value: await readFile(
-        `${import.meta.dirname}/fixtures/lien-long.md`,
-        'utf-8',
-      ),
+      value: await readFile(`${__dirname}/fixtures/lien-long.md`, 'utf-8'),
     });
   } else if (segment === 'lienEncorePlusLong') {
     await addMarkdown(doc, cursor, {
       value: await readFile(
-        `${import.meta.dirname}/fixtures/lien-encore-plus-long.md`,
+        `${__dirname}/fixtures/lien-encore-plus-long.md`,
         'utf-8',
       ),
       // availableWidth: 357.29999999999995, NOK
@@ -105,7 +101,7 @@ for (const segment of segments) {
     // Extracted from event 73878368 (agenda 97144113).
     await addMarkdown(doc, cursor, {
       value: await readFile(
-        `${import.meta.dirname}/fixtures/kropotkine-link.md`,
+        `${__dirname}/fixtures/kropotkine-link.md`,
         'utf-8',
       ),
       // Width used by renderEvent's longDescription column — triggers
@@ -116,7 +112,7 @@ for (const segment of segments) {
   } else if (segment === 'unhandledCharacters') {
     await addMarkdown(doc, cursor, {
       value: await readFile(
-        `${import.meta.dirname}/fixtures/unhandledCharacters.md`,
+        `${__dirname}/fixtures/unhandledCharacters.md`,
         'utf-8',
       ),
     });

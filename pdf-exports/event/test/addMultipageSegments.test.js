@@ -1,10 +1,12 @@
+import * as url from 'node:url';
 import { readFile } from 'node:fs/promises';
 import fs from 'node:fs';
 import PDFDocument from 'pdfkit';
 import addMultipageSegments from '../lib/addMultipageSegments.js';
 import addText from '../lib/addText.js';
 import loiretEvent from './fixtures/withRegistrationLink.event.json' with { type: 'json' };
-import outputFolder from './lib/outputFolder.js';
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const doc = new PDFDocument({
   size: 'A5',
@@ -12,12 +14,12 @@ const doc = new PDFDocument({
   margin: 20,
 });
 const writeStream = fs.createWriteStream(
-  `${outputFolder}/addMultipageSegments.pdf`,
+  `${__dirname}/renders/addMultipageSegments.pdf`,
 );
 doc.pipe(writeStream);
 
 const bdxFields = JSON.parse(
-  await readFile(`${import.meta.dirname}/fixtures/bdxFields.json`, 'utf-8'),
+  await readFile(`${__dirname}/fixtures/bdxFields.json`, 'utf-8'),
 ).filter((f) => ['agenda', 'network'].includes(f.schemaType));
 
 const column1 = {
@@ -60,7 +62,7 @@ const column1 = {
         label: { fr: "L'enfant et le maître d'école" },
       },
       value: await readFile(
-        `${import.meta.dirname}/fixtures/l-enfant-et-le-maitre-decole.md`,
+        `${__dirname}/fixtures/l-enfant-et-le-maitre-decole.md`,
         'utf-8',
       ),
     },
@@ -71,7 +73,7 @@ const column1 = {
         label: { fr: 'Le coche et la mouche' },
       },
       value: await readFile(
-        `${import.meta.dirname}/fixtures/le-coche-et-la-mouche.md`,
+        `${__dirname}/fixtures/le-coche-et-la-mouche.md`,
         'utf-8',
       ),
     },
@@ -167,10 +169,7 @@ const column2 = {
         fieldType: 'markdown',
         label: { fr: 'Causerie' },
       },
-      value: await readFile(
-        `${import.meta.dirname}/fixtures/causerie.md`,
-        'utf-8',
-      ),
+      value: await readFile(`${__dirname}/fixtures/causerie.md`, 'utf-8'),
     },
   ],
 };
@@ -186,7 +185,7 @@ const column3 = {
         label: { fr: 'Le Lion et le rat' },
       },
       value: await readFile(
-        `${import.meta.dirname}/fixtures/le-lion-et-le-rat.md`,
+        `${__dirname}/fixtures/le-lion-et-le-rat.md`,
         'utf-8',
       ),
       fontSize: '1.4em',

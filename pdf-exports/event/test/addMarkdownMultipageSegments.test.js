@@ -1,13 +1,15 @@
+import * as url from 'node:url';
 import { readFile } from 'node:fs/promises';
 import fs from 'node:fs';
 import PDFDocument from 'pdfkit';
 import addMultipageSegments from '../lib/addMultipageSegments.js';
 import addText from '../lib/addText.js';
-import outputFolder from './lib/outputFolder.js';
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const doc = new PDFDocument({ size: 'A4', margin: 0 });
 const writeStream = fs.createWriteStream(
-  `${outputFolder}/addMarkdownMultipageSegments.pdf`,
+  `${__dirname}/renders/addMarkdownMultipageSegments.pdf`,
 );
 doc.pipe(writeStream);
 
@@ -25,10 +27,7 @@ await addMultipageSegments(
               fieldType: 'markdown',
               label: { fr: 'Mise en forme problématique' },
             },
-            value: await readFile(
-              `${import.meta.dirname}/fixtures/paternap.md`,
-              'utf-8',
-            ),
+            value: await readFile(`${__dirname}/fixtures/paternap.md`, 'utf-8'),
           },
           {
             field: {
@@ -36,10 +35,7 @@ await addMultipageSegments(
               fieldType: 'markdown',
               label: { fr: 'Du text avec des emojs' },
             },
-            value: await readFile(
-              `${import.meta.dirname}/fixtures/emojis.md`,
-              'utf-8',
-            ),
+            value: await readFile(`${__dirname}/fixtures/emojis.md`, 'utf-8'),
           },
           {
             field: {
@@ -48,7 +44,7 @@ await addMultipageSegments(
               label: { fr: "L'enfant et le maître d'école" },
             },
             value: await readFile(
-              `${import.meta.dirname}/fixtures/l-enfant-et-le-maitre-decole.md`,
+              `${__dirname}/fixtures/l-enfant-et-le-maitre-decole.md`,
               'utf-8',
             ),
           },
@@ -59,7 +55,7 @@ await addMultipageSegments(
               label: { fr: 'Le coche et la mouche' },
             },
             value: await readFile(
-              `${import.meta.dirname}/fixtures/le-coche-et-la-mouche.md`,
+              `${__dirname}/fixtures/le-coche-et-la-mouche.md`,
               'utf-8',
             ),
           },
@@ -75,10 +71,7 @@ await addMultipageSegments(
               fieldType: 'markdown',
               label: { fr: 'Causerie' },
             },
-            value: await readFile(
-              `${import.meta.dirname}/fixtures/causerie.md`,
-              'utf-8',
-            ),
+            value: await readFile(`${__dirname}/fixtures/causerie.md`, 'utf-8'),
           },
         ],
       },
@@ -93,7 +86,7 @@ await addMultipageSegments(
               label: { fr: 'Des entêtes, des listes et des liens' },
             },
             value: await readFile(
-              `${import.meta.dirname}/fixtures/ateliers-urbbraye.md`,
+              `${__dirname}/fixtures/ateliers-urbbraye.md`,
               'utf-8',
             ),
           },
@@ -104,7 +97,7 @@ await addMultipageSegments(
               label: { fr: 'Tirade du nez' },
             },
             value: await readFile(
-              `${import.meta.dirname}/fixtures/tirade-du-nez.md`,
+              `${__dirname}/fixtures/tirade-du-nez.md`,
               'utf-8',
             ),
           },
@@ -123,7 +116,7 @@ await addMultipageSegments(
               label: { fr: 'Expositions Rodin/Bourdelle à La Piscine' },
             },
             value: await readFile(
-              `${import.meta.dirname}/fixtures/rodin-bourdelle.md`,
+              `${__dirname}/fixtures/rodin-bourdelle.md`,
               'utf-8',
             ),
           },

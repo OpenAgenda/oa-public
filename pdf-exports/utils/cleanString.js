@@ -24,23 +24,14 @@ export default function cleanString(str) {
     31, // Information separator
     8232,
     8233,
+    769, // U+0301
+    770, // circonflexe
     0x202f, // Narrow no-break space
   ];
 
-  // Escaped rather than literal, so the class cannot read as a combined
-  // character once the combining range below is appended.
-  const escaped = charsToClean
-    .map((code) => `\\u${code.toString(16).padStart(4, '0')}`)
-    .join('');
+  for (let i = 0; i < charsToClean.length; i++) {
+    charsToClean[i] = String.fromCharCode(charsToClean[i]);
+  }
 
-  // Compose first: a combining mark over a capital (`E` + U+0301 rather than
-  // `É`) has no GPOS anchor in the Assistant fonts, and fontkit dereferences
-  // that null anchor instead of skipping it, taking the whole render down.
-  // NFC turns those into the single glyphs the fonts carry, keeping the accent
-  // — stripping the mark, as this used to do for U+0301 and U+0302 only, both
-  // lost the accent and left U+0300 and U+0308 free to crash. Marks with no
-  // composed form are dropped afterwards, since those would still crash.
-  return str
-    .normalize('NFC')
-    .replace(new RegExp(`[${escaped}\\u0300-\\u036f]`, 'g'), '');
+  return str.replace(new RegExp(`[${charsToClean.join('')}]`, 'g'), '');
 }
