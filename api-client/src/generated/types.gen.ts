@@ -61,33 +61,33 @@ export type LocalizedStringArray = {
 };
 
 /**
- * Event image, served on demand from a single source. Use `src` as a ready-to-use default rendition, or drive a responsive picture: substitute `{geo}` into `srcTemplate` (e.g. `800x0` for proportional width, `300x300` for a center-cropped square, `300x300/smart` for a smart-cropped one, `fit-in/1000x1000` to contain without cropping) or pick a ready-made width from `srcset`. `width`/`height` are the intrinsic source dimensions (a cap: renditions are never upscaled past them).
+ * Image served on demand from a single source, for an event, an agenda or a location. Use `src` as a ready-to-use default rendition, or drive a responsive picture: substitute `{geo}` into `srcTemplate` (e.g. `800x0` for proportional width, `300x300` for a center-cropped square, `300x300/smart` for a smart-cropped one, `fit-in/1000x1000` to contain without cropping) or pick a ready-made width from `srcset`. `width`/`height` are the intrinsic source dimensions (a cap: renditions are never upscaled past them).
  *
  */
 export type Image = {
-    credits?: string | null;
+    credits: string | null;
     /**
      * Intrinsic width of the source image, in pixels.
      */
-    width?: number | null;
+    width: number | null;
     /**
      * Intrinsic height of the source image, in pixels.
      */
-    height?: number | null;
+    height: number | null;
     /**
      * Ready-to-use default rendition URL (a naive `<img src>` just works).
      *
      */
-    src?: string | null;
+    src: string | null;
     /**
-     * URL with a `{geo}` placeholder to substitute with a geometry: `{W}x{H}`, where `0` on an axis means proportional. Append `/smart` to crop on the detected point of interest rather than the centre, or prefix `fit-in/` to contain the image instead of cropping it.
+     * URL with a `{geo}` placeholder to substitute with a geometry, to render the image at any size. Supported geometries: `{W}x{H}`, where `0` on an axis means proportional to the other (e.g. `800x0`); append `/smart` to crop on the detected point of interest rather than the centre, or prefix `fit-in/` to contain the image instead of cropping it. No other form is supported. `null` when no rendition can be derived — use `src` as is.
      *
      */
-    srcTemplate?: string | null;
+    srcTemplate: string | null;
     /**
      * Ready-made proportional widths, never upscaled past the source.
      */
-    srcset?: Array<{
+    srcset: Array<{
         width?: number;
         url?: string;
     }>;
@@ -433,12 +433,12 @@ export type EnrichedLink = {
  */
 export type ImageRef = {
     /**
-     * A ready-to-use default rendition URL (a modest proportional width) — a naive `<img src>` just works. Falls back to the legacy URL until the on-demand image CDN is enabled; `null` only when the ref has no image.
+     * A ready-to-use default rendition URL (a modest proportional width) — a naive `<img src>` just works.
      *
      */
     src: string | null;
     /**
-     * A URL with a literal `{geo}` placeholder to substitute with a geometry — `{W}x{H}` (`0` on an axis = proportional), optionally with `/smart` appended or `fit-in/` prefixed — to render the ref image at any size. `null` when the on-demand CDN is off or the source is not a Thumbor source.
+     * A URL with a literal `{geo}` placeholder to substitute with a geometry, to render the ref image at any size. Supported geometries: `{W}x{H}`, where `0` on an axis means proportional to the other (e.g. `800x0`); append `/smart` to crop on the detected point of interest rather than the centre, or prefix `fit-in/` to contain the image instead of cropping it. No other form is supported. `null` when no rendition can be derived — use `src` as is.
      *
      */
     srcTemplate: string | null;

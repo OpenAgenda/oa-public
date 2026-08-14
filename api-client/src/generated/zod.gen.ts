@@ -29,19 +29,19 @@ export const zLocalizedString = z.record(z.string());
 export const zLocalizedStringArray = z.record(z.array(z.string()));
 
 /**
- * Event image, served on demand from a single source. Use `src` as a ready-to-use default rendition, or drive a responsive picture: substitute `{geo}` into `srcTemplate` (e.g. `800x0` for proportional width, `300x300` for a center-cropped square, `300x300/smart` for a smart-cropped one, `fit-in/1000x1000` to contain without cropping) or pick a ready-made width from `srcset`. `width`/`height` are the intrinsic source dimensions (a cap: renditions are never upscaled past them).
+ * Image served on demand from a single source, for an event, an agenda or a location. Use `src` as a ready-to-use default rendition, or drive a responsive picture: substitute `{geo}` into `srcTemplate` (e.g. `800x0` for proportional width, `300x300` for a center-cropped square, `300x300/smart` for a smart-cropped one, `fit-in/1000x1000` to contain without cropping) or pick a ready-made width from `srcset`. `width`/`height` are the intrinsic source dimensions (a cap: renditions are never upscaled past them).
  *
  */
 export const zImage = z.object({
-    credits: z.string().nullish(),
-    width: z.number().int().nullish(),
-    height: z.number().int().nullish(),
-    src: z.string().url().nullish(),
-    srcTemplate: z.string().nullish(),
+    credits: z.string().nullable(),
+    width: z.number().int().nullable(),
+    height: z.number().int().nullable(),
+    src: z.string().url().nullable(),
+    srcTemplate: z.string().nullable(),
     srcset: z.array(z.object({
         width: z.number().int().optional(),
         url: z.string().url().optional()
-    })).optional()
+    }))
 });
 
 /**
