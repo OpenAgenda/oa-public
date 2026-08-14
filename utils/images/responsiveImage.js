@@ -18,57 +18,12 @@
 // on with Thumbor. No LQIP: a useful placeholder is a base64-inlined blur stored
 // at upload, not a URL.
 //
-// Lives in @openagenda/utils so BOTH the v3 API mappers AND the event-search read
-// parsers compose Thumbor URLs from the one shared source of truth.
-
-export interface ImageSize {
-  width?: number;
-  height?: number;
-}
-
-export interface ImageVariant {
-  type?: string;
-  filename?: string;
-  size?: ImageSize;
-}
-
-export interface ImageDescriptor {
-  filename?: string;
-  base?: string;
-  credits?: string | null;
-  size?: ImageSize;
-  variants?: ImageVariant[];
-}
-
-export interface ImageOptions {
-  imageCdnPath?: string;
-  bucket?: string;
-  assetBase?: string;
-  widths?: number[];
-  srcWidth?: number;
-}
-
-export interface SrcSetEntry {
-  width: number;
-  url: string;
-}
-
-export interface Image {
-  credits: string | null;
-  width: number | null;
-  height: number | null;
-  src: string | null;
-  srcTemplate: string | null;
-  srcset: SrcSetEntry[];
-}
-
-export interface ImageRef {
-  src: string | null;
-  srcTemplate: string | null;
-}
+// Lives in @openagenda/utils (not cibul-node) so BOTH the v3 API mappers AND the
+// event-search read parsers can compose Thumbor URLs from the one shared source
+// of truth. Le paquet est en ESM pur, publié tel quel sans build.
 
 // A stored filename may carry a `?_ts=` cache-buster — strip it for the S3 key.
-const keyOf = (name: string) => String(name).split('?')[0];
+const keyOf = (name) => String(name).split('?')[0];
 
 // An already-absolute image value. Embedded agenda refs snapshot the full CDN
 // URL at index time (`https://cdn…/dev/agenda{uid}.jpg?__ts=…`), and legacy
@@ -81,11 +36,11 @@ const ABSOLUTE = /^(?:https?:)?\/\//i;
 // yields responsive URLs when its source resolves to this exact suffix — anything
 // else (a default logo `graylogo140.png`, an un-normalized legacy or `evf…`
 // variant) has no on-demand source and MUST NOT advertise URLs Thumbor can't
-// serve. Same suffix `@openagenda/utils/images` `imageAtSize` gates on, so the
-// read shape and the serving swap agree on what "a source" is.
+// serve. Same suffix `@openagenda/utils/imageAtSize` gates on, so the read shape
+// and the serving swap agree on what "a source" is.
 const SOURCE_SUFFIX = /\.full\.image\.jpg$/i;
 
-const fullVariant = (descriptor?: ImageDescriptor | null) =>
+const fullVariant = (descriptor) =>
   (Array.isArray(descriptor?.variants) ? descriptor.variants : []).find(
     (v) => v?.type === 'full',
   );
@@ -95,9 +50,7 @@ const fullVariant = (descriptor?: ImageDescriptor | null) =>
 //   - else swap a `{uuid}.base.image.jpg` top-level filename to `.full.`.
 // Returns null unless the result is a real source (SOURCE_SUFFIX) — a lenient
 // pass-through would hand back a non-source filename and build dead Thumbor URLs.
-export function sourceKeyOf(
-  descriptor?: ImageDescriptor | null,
-): string | null {
+function sourceKeyOf(descriptor) {
   if (!descriptor || typeof descriptor !== 'object') return null;
   const full = fullVariant(descriptor);
   const topLevel = descriptor.filename ? keyOf(descriptor.filename) : null;
@@ -112,12 +65,7 @@ export function sourceKeyOf(
 //   -> `https://img…/u/700x0/dev/{uuid}.full.image.jpg`
 // The `/u/` unsafe prefix + `{bucket}` loader segment match the prod Thumbor
 // scheme (and the Next app's thumborLoader).
-export function thumborUrl(
-  cdnBase: string,
-  geo: string,
-  bucket: string,
-  sourceKey: string,
-): string {
+function thumborUrl(cdnBase, geo, bucket, sourceKey) {
   const root = String(cdnBase).replace(/\/+$/, '');
   return `${root}/u/${geo}/${bucket}/${sourceKey}`;
 }
@@ -126,21 +74,21 @@ export function thumborUrl(
 // requests these via its Thumbor loader → shared CDN cache). Widths wider than the
 // intrinsic source are dropped (never upscale); the source width is offered as the
 // sharp cap. `src` default is a mid ladder stop (also a Next stop → warm render).
-export const DEFAULT_WIDTHS = [640, 828, 1080, 1200, 1920];
-export const DEFAULT_SRC_WIDTH = 1080;
+const DEFAULT_WIDTHS = [640, 828, 1080, 1200, 1920];
+const DEFAULT_SRC_WIDTH = 1080;
 
 // The clean v3 Image object. Keys are ALWAYS present (contract:
 // additionalProperties:false, every field emitted). Returns null only for a
 // non-image descriptor (caller coerces the field to null).
-export default function responsiveImage(
-  descriptor?: ImageDescriptor | null,
+function responsiveImage(
+  descriptor,
   {
     imageCdnPath,
     bucket,
     widths = DEFAULT_WIDTHS,
     srcWidth = DEFAULT_SRC_WIDTH,
-  }: ImageOptions = {},
-): Image | null {
+  } = {},
+) {
   if (!descriptor || typeof descriptor !== 'object') return null;
 
   const full = fullVariant(descriptor);
@@ -151,8 +99,8 @@ export default function responsiveImage(
   // was missing produces exactly this shape). Only a variant-less descriptor
   // (agenda/location from-source) reads the top-level size.
   const size = (full ? full.size : descriptor.size) || {};
-  const width = Number.isFinite(size.width) ? (size.width as number) : null;
-  const height = Number.isFinite(size.height) ? (size.height as number) : null;
+  const width = Number.isFinite(size.width) ? size.width : null;
+  const height = Number.isFinite(size.height) ? size.height : null;
   const credits = descriptor.credits ?? null;
 
   // Thumbor needs BOTH a host and a loader bucket; without the bucket the URL
@@ -163,7 +111,7 @@ export default function responsiveImage(
   // No Thumbor host/bucket, or no resolvable source → legacy fallback for `src`.
   if (!sourceKey) {
     const name = descriptor.filename;
-    let legacy: string | null = null;
+    let legacy = null;
     if (name && ABSOLUTE.test(name)) {
       // Already a full URL — serve it as-is (keep the cache-buster).
       legacy = name;
@@ -181,13 +129,12 @@ export default function responsiveImage(
     };
   }
 
-  const url = (geo: string) =>
-    thumborUrl(imageCdnPath as string, geo, bucket as string, sourceKey);
+  const url = (geo) => thumborUrl(imageCdnPath, geo, bucket, sourceKey);
 
   // A known intrinsic width caps the ladder (never upscale) and is offered as the
   // sharp width; an unknown/zero width can't be filtered, so offer the ladder as
   // is. `> 0` (not truthy) so a stray 0 falls to the unknown branch, not `[0]`.
-  const capped = width !== null && width > 0 ? width : null;
+  const capped = width > 0 ? width : null;
   const candidates = capped
     ? widths.filter((w) => w < capped).concat(capped)
     : widths;
@@ -221,10 +168,7 @@ export default function responsiveImage(
 // `cleanIndexedAgenda`) yield the bare `.full` source rather than a prefixed,
 // display-sized (`.300x0.`) URL — the responsive builder derives every geometry
 // from `.full` itself.
-export function responsiveImageFromSource(
-  source?: string | null,
-  imageOptions: ImageOptions = {},
-): Image | null {
+function responsiveImageFromSource(source, imageOptions = {}) {
   if (!source || typeof source !== 'string') return null;
   return responsiveImage(
     { filename: source, base: imageOptions.assetBase },
@@ -244,12 +188,9 @@ export function responsiveImageFromSource(
 // fallback as the full builder: `src` is the legacy URL (srcTemplate null) when
 // Thumbor is off or the source doesn't resolve. Returns null for an empty
 // source. See docs/design-thumbor-on-demand-images.md.
-export const DEFAULT_REF_WIDTH = 400;
+const DEFAULT_REF_WIDTH = 400;
 
-export function imageRefFromSource(
-  source?: string | null,
-  imageOptions: ImageOptions = {},
-): ImageRef | null {
+function imageRefFromSource(source, imageOptions = {}) {
   const image = responsiveImageFromSource(source, {
     ...imageOptions,
     srcWidth: DEFAULT_REF_WIDTH,
@@ -275,24 +216,13 @@ export function imageRefFromSource(
 // is migrated (un-migrated avatars keep serving from the plain CDN). Absolute
 // values (external/legacy full URLs) pass through untouched. Returns null for an
 // empty value.
-export function nativeImageUrl(
-  value?: string | ImageDescriptor | null,
-  geo?: string,
-  { imageCdnPath, bucket, assetBase }: ImageOptions = {},
-): string | null {
+function nativeImageUrl(value, geo, { imageCdnPath, bucket, assetBase } = {}) {
   if (!value) return null;
 
   // Event descriptor: resolve its canonical `.full` source, else the legacy base.
   if (typeof value === 'object') {
     const key = imageCdnPath && bucket ? sourceKeyOf(value) : null;
-    if (key) {
-      return thumborUrl(
-        imageCdnPath as string,
-        geo as string,
-        bucket as string,
-        key,
-      );
-    }
+    if (key) return thumborUrl(imageCdnPath, geo, bucket, key);
     const name = value.filename;
     if (!name) return null;
     if (ABSOLUTE.test(name)) return name;
@@ -312,7 +242,7 @@ export function nativeImageUrl(
   if (ABSOLUTE.test(value)) return value;
   const key = keyOf(value);
   if (imageCdnPath && bucket && SOURCE_SUFFIX.test(key)) {
-    return thumborUrl(imageCdnPath, geo as string, bucket, key);
+    return thumborUrl(imageCdnPath, geo, bucket, key);
   }
   // Keep the `?_ts=` cache-buster on the legacy URL (today's behavior).
   return assetBase ? `${assetBase}${value}` : null;
@@ -328,11 +258,9 @@ export function nativeImageUrl(
 // splitting it to a segment and re-basing onto `assetBase` was the aliased-URL bug.
 // Returns `{ absolute }` (pass through) or `{ source }` (compose), or null for a
 // non-string/empty value.
-function servedSource(
-  value?: string | null,
-): { absolute: string } | { source: string } | null {
+function servedSource(value) {
   if (!value || typeof value !== 'string') return null;
-  const segment = value.split('/').pop() as string;
+  const segment = value.split('/').pop();
   if (!SOURCE_SUFFIX.test(keyOf(segment)) && ABSOLUTE.test(value)) {
     return { absolute: value };
   }
@@ -342,13 +270,10 @@ function servedSource(
 // Full responsive Image from a SERVED image string (see servedSource). Absolute
 // values pass through as a ready `src` with no responsive template (can't Thumbor
 // an external URL); everything else composes via responsiveImageFromSource.
-export function responsiveImageFromServed(
-  value?: string | null,
-  imageOptions: ImageOptions = {},
-): Image | null {
+function responsiveImageFromServed(value, imageOptions = {}) {
   const parsed = servedSource(value);
   if (!parsed) return null;
-  if ('absolute' in parsed) {
+  if (parsed.absolute) {
     return {
       credits: null,
       width: null,
@@ -363,13 +288,10 @@ export function responsiveImageFromServed(
 
 // Lightweight ImageRef ({ src, srcTemplate }) from a SERVED image string. Same
 // absolute-passthrough rule as responsiveImageFromServed.
-export function imageRefFromServed(
-  value?: string | null,
-  imageOptions: ImageOptions = {},
-): ImageRef | null {
+function imageRefFromServed(value, imageOptions = {}) {
   const parsed = servedSource(value);
   if (!parsed) return null;
-  if ('absolute' in parsed) return { src: parsed.absolute, srcTemplate: null };
+  if (parsed.absolute) return { src: parsed.absolute, srcTemplate: null };
   return imageRefFromSource(parsed.source, imageOptions);
 }
 
@@ -390,16 +312,29 @@ export function imageRefFromServed(
 // passthrough list excludes `.svg`, so a legacy SVG degrade 404s on img where it
 // served on the plain CDN — accepted (SVG through the responsive/Thumbor path is
 // already unsupported). See docs/design-thumbor-on-demand-images.md.
-export function imageServingOptions(
-  s3: {
-    imageCdnPath?: string;
-    bucket?: string;
-    imageServingPath?: string;
-  } = {},
-): ImageOptions {
+function imageServingOptions(s3 = {}) {
   return {
     imageCdnPath: s3.imageCdnPath,
     bucket: s3.bucket,
     assetBase: s3.imageServingPath,
   };
 }
+
+// L'export par défaut reste le composeur d'Image complète ; les aides sont des
+// exports nommés, que le baril `./images` réexporte.
+export default responsiveImage;
+
+export {
+  sourceKeyOf,
+  thumborUrl,
+  responsiveImage,
+  responsiveImageFromSource,
+  responsiveImageFromServed,
+  imageRefFromSource,
+  imageRefFromServed,
+  nativeImageUrl,
+  imageServingOptions,
+  DEFAULT_WIDTHS,
+  DEFAULT_SRC_WIDTH,
+  DEFAULT_REF_WIDTH,
+};

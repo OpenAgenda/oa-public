@@ -10,45 +10,32 @@
   "publishConfig": {
     "access": "public"
   },
+  "type": "module",
+  "sideEffects": false,
   "files": [
-    "dist",
+    "index.js",
+    "cleanString.js",
+    "isInteger.js",
+    "Stopwatch.js",
+    "images",
     "CHANGELOG.md"
   ],
-  "sideEffects": false,
-  "type": "module",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.mts",
-  "scripts": {
-    "prepack": "tsdown",
-    "lint": "eslint src/**/*.ts",
-    "test": "jest"
-  },
   "exports": {
     "./package.json": "./package.json",
-    ".": {
-      "types": "./dist/index.d.mts",
-      "default": "./dist/index.mjs"
-    },
-    "./images": {
-      "types": "./dist/images/index.d.mts",
-      "default": "./dist/images/index.mjs"
-    }
+    ".": "./index.js",
+    "./images": "./images/index.js"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "test": "jest"
   },
   "devDependencies": {
     "@babel/core": "^7.28.4",
     "@babel/preset-env": "^7.28.3",
     "@openagenda/babel-preset": "^2.0.0",
     "@openagenda/eslint-config": "^2.1.0",
-    "@openagenda/tsconfig": "^0.0.0",
     "babel-jest": "^30.4.1",
     "eslint": "^8.36.0",
-    "jest": "^30.4.2",
-    "tsdown": "^0.22.0",
-    "typescript": "^5.6.3"
-  },
-  "jest": {
-    "moduleNameMapper": {
-      "^(\\.{1,2}/.*)\\.js$": "$1"
-    }
+    "jest": "^30.4.2"
   }
 }

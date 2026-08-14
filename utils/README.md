@@ -1,6 +1,7 @@
 # @openagenda/utils
 
-Utilitaires partagés d'OpenAgenda. **ESM uniquement**, sources TypeScript.
+Utilitaires partagés d'OpenAgenda. **ESM uniquement**, JavaScript publié tel
+quel — pas d'étape de build.
 
 ## Points d'entrée
 
@@ -36,6 +37,9 @@ d’ensemble.
 ## Développement
 
 ```sh
-yarn test      # jest
-yarn prepack   # tsdown → dist/
+yarn test
+yarn lint
 ```
+
+Les sources sont publiées telles quelles, sur le modèle de
+[`@openagenda/logs`](../logs) : rien à compiler.

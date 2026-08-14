@@ -1,5 +1,5 @@
 export {
-  default as responsiveImage,
+  responsiveImage,
   sourceKeyOf,
   thumborUrl,
   nativeImageUrl,
@@ -11,16 +11,6 @@ export {
   DEFAULT_WIDTHS,
   DEFAULT_SRC_WIDTH,
   DEFAULT_REF_WIDTH,
-} from './responsiveImage.js';
-
-export type {
-  Image,
-  ImageRef,
-  ImageDescriptor,
-  ImageOptions,
-  ImageSize,
-  ImageVariant,
-  SrcSetEntry,
 } from './responsiveImage.js';
 
 export { default as imageAtSize } from './imageAtSize.js';

@@ -1,7 +1,7 @@
 import {
   responsiveImageFromServed,
   imageRefFromServed,
-} from '../src/images/responsiveImage';
+} from '../images/responsiveImage.js';
 
 // Coverage for the "served image string" helpers shared by the v2 core read paths
 // (agenda get/search, event references, user avatar). The load-bearing case is the

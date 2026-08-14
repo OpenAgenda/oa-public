@@ -1,15 +1,8 @@
-export type Times = Record<string, number>;
-
-export interface StopwatchFn {
-  (label: string, subTimes?: Times): void;
-  getTimes: () => Times;
-}
-
-export default function Stopwatch(): StopwatchFn {
-  const times: Times = {};
+export default function Stopwatch() {
+  const times = {};
   let now = new Date();
 
-  const stopwatch = ((label: string, subTimes?: Times) => {
+  function stopwatch(label, subTimes) {
     const ms = new Date().getTime() - now.getTime();
     now = new Date();
 
@@ -20,7 +13,7 @@ export default function Stopwatch(): StopwatchFn {
         times[`${label}.${key}`] = value;
       }
     }
-  }) as StopwatchFn;
+  }
 
   stopwatch.getTimes = () => times;
 

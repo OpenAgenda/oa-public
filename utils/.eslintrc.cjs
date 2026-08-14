@@ -7,22 +7,11 @@ module.exports = {
     sourceType: 'module',
   },
 
-  ignorePatterns: ['/dist'],
-
-  settings: {
-    'import/resolver': {
-      typescript: true,
-    },
-  },
-
   rules: {
     'import/no-extraneous-dependencies': [
       'error',
       {
-        devDependencies: [
-          `${__dirname}/tsdown.config.ts`,
-          `${__dirname}/test/**/*.js`,
-        ],
+        devDependencies: [`${__dirname}/test/**/*.js`],
       },
     ],
   },

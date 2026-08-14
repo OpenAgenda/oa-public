@@ -17,8 +17,7 @@
 // swap must catch the already-applied alias, not just the raw source, or the
 // second resize silently no-ops and serves the wrong dimensions.
 const SIZED_SUFFIX = /\.(?:full|\d+x\d+[sf]?)\.image\.jpg$/i;
-
-export default function imageAtSize<T>(ref: T, geo: string): T | string {
+export default function imageAtSize(ref, geo) {
   if (typeof ref !== 'string' || !ref) return ref;
   const [path, query] = ref.split('?');
   if (!SIZED_SUFFIX.test(path)) return ref; // legacy / not normalized

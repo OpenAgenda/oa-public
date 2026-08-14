@@ -1,4 +1,4 @@
-import imageAtSize from '../src/images/imageAtSize';
+import imageAtSize from '../images/imageAtSize.js';
 
 describe('utils - imageAtSize', () => {
   it('swaps the source suffix for a geometry alias on a full URL', () => {

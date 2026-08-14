@@ -1,22 +1,8 @@
-import responsiveImage, {
-  imageRefFromSource,
+import {
+  responsiveImage,
   responsiveImageFromSource,
-  type ImageDescriptor,
-  type ImageOptions,
+  imageRefFromSource,
 } from './responsiveImage.js';
-
-interface WithImage {
-  image?: unknown;
-}
-
-// La forme minimale que ce composeur touche. Tout le reste de l'événement est
-// recopié tel quel, d'où l'index signature.
-export interface EventWithImages extends WithImage {
-  location?: WithImage;
-  originAgenda?: WithImage;
-  sourceAgendas?: WithImage[];
-  [key: string]: unknown;
-}
 
 // Opt-in (includeResponsiveImage): replace the stored v2 image shapes on an event
 // with ready-to-use v3 responsive images, composed server-side from config
@@ -38,14 +24,11 @@ export interface EventWithImages extends WithImage {
 //
 // Immutable: returns a new event; a null result (no resolvable source) leaves the
 // original value untouched so nothing regresses.
-export default function injectResponsiveImage<T extends EventWithImages>(
-  imageOptions: ImageOptions,
-  event: T,
-): T {
-  const next: EventWithImages = { ...event };
+export default function injectResponsiveImage(imageOptions, event) {
+  const next = { ...event };
 
   if (event.image && typeof event.image === 'object') {
-    const image = responsiveImage(event.image as ImageDescriptor, imageOptions);
+    const image = responsiveImage(event.image, imageOptions);
     if (image) next.image = image;
   }
 
@@ -67,5 +50,5 @@ export default function injectResponsiveImage<T extends EventWithImages>(
     });
   }
 
-  return next as T;
+  return next;
 }

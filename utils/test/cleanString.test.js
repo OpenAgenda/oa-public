@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import cleanString from '../src/cleanString';
+import cleanString from '../cleanString.js';
 
 // `__dirname` plutôt qu'`import.meta` : jest transpile ce fichier en CJS.
 const dirty = fs.readFileSync(`${__dirname}/dirty.txt`, 'utf-8');

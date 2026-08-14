@@ -1,4 +1,4 @@
-import injectResponsiveImage from '../src/images/injectResponsiveImage';
+import injectResponsiveImage from '../images/injectResponsiveImage.js';
 
 // Pure-function coverage for the opt-in `includeResponsiveImage` event composer,
 // shared by the event-search read parser (indexed events) and the cibul-node core
