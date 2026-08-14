@@ -268,81 +268,32 @@ function requestContent(op) {
   return { requestBody, contentType, schema: content[contentType]?.schema };
 }
 
-// Component names the operation's PROSE puts in front of the reader. The
-// descriptions cross-reference shapes the structural fields never touch — the
-// upload cards reach `ImageInput`/`AdditionalFields` to say how the returned
-// `ref` is attached (those live on the event-write schema, not on the upload's
-// own multipart body), `me.agendas.list` cites `AgendaSummary` for its base
-// fields, `agendas.locations.getByExtId` cites `ExtId` — and every one of them
-// resolved to nothing unless another card happened to pull it in.
+// Every component an operation's card can name: its success body (the shape the
+// LLM reads), the body it must SEND, and its param schemas — a $ref'd filter
+// enum like `status (EventStatus[])` needs its definition too. One shared `seen`
+// so a component reached from several sides is collected once.
 //
-// The rule is STRUCTURAL — a backticked word that is a declared component — and
-// not a phrasing like "see `X`". An earlier cut did parse that phrasing and it
-// was the wrong instinct twice over: it silently missed a capitalised "See", an
-// "or"-separated list, and every other way a sentence can point somewhere ("the
-// `X` schema", "an `X` mapping"), which is exactly how the three references
-// above stayed dead. Worse, the test that was supposed to catch that shared the
-// regex, so it could only ever confirm the heuristic's own opinion.
+// This traversal is the SAME one that produces the types the card renders, so
+// "every type name on a card is defined in that payload" holds by construction —
+// there is nothing to parse and nothing to keep in sync.
 //
-// It is a deliberate SUPERSET: "with a `Location` header" names the response
-// header, not the venue schema, so `Location` gets defined on those cards for
-// nothing. That costs six component definitions across the whole catalogue —
-// cheap next to a dead reference, and no sentence has to be parsed to get it
-// right.
-const schemasNamedIn = (text) =>
-  [...String(text ?? '').matchAll(/`([A-Za-z]+)`/g)]
-    .map(([, name]) => name)
-    .filter((name) => spec.components?.schemas?.[name]);
-
-// All the prose one component definition renders: its own description, and one
-// per property. `EventLocation` says "the canonical, full record is the
-// `Location` resource" in exactly this text, so a card defining the snapshot
-// owes the reader the record too.
-const proseOf = (name) => {
-  const schema = spec.components?.schemas?.[name];
-  return [
-    schema?.description,
-    ...Object.values(schema?.properties ?? {}).map((p) => p?.description),
-  ].join(' ');
-};
-
-// Every component an operation's card can name. Structural first: the success
-// body (the shape the LLM reads), the body it must SEND — `EventInput` was
-// named in the prose of every write op and defined nowhere, so the LLM got 40
-// typed response fields and had to guess the input from an example — then the
-// param schemas, since a $ref'd filter enum like `status (EventStatus[])` needs
-// its definition too.
-//
-// Then the prose, seeded from every line the card renders as text: the
-// operation's description AND its param descriptions, which is where
-// `agendas.events.deleteByExtId` names `ExtId` ("the key of an `ExtId` mapping")
-// with nothing structural to rescue it — its 200 body is `DeletionResult`.
-//
-// The second loop re-reads `names.length` each turn, so a component pulled in
-// by prose gets its own prose walked in the same pass: that is the fixed point.
-// One shared `seen` makes the collector idempotent, so nothing needs guarding
-// and a reference cycle terminates on its own.
+// Descriptions are deliberately NOT scanned for component names. The prose does
+// cite shapes ("attach with `image: { ref }` (see `ImageInput`)", "an `ExtId`
+// mapping"), and chasing those citations was tried: it cost a regex over free
+// text, two rounds of bugs, and 7-22% of payload. It bought nothing, because
+// every shape a caller needs to USE an operation is already reachable from that
+// operation — `ImageInput` lands on the event-write card through
+// `EventInput.image`, structurally. What the citations point at is another
+// operation's shapes, which are defined on THAT operation's card, where the
+// caller will be when they need them. Pulling them here imports one card's
+// payload into another.
 function componentRefsFor(op) {
   const names = [];
   const seen = new Set();
   const params = (op.parameters ?? []).map(deref);
-  const collectNamed = (text) => {
-    for (const name of schemasNamedIn(text)) {
-      collectComponentRefs(
-        { $ref: `#/components/schemas/${name}` },
-        names,
-        seen,
-      );
-    }
-  };
-
   collectComponentRefs(successBody(op), names, seen);
   collectComponentRefs(requestContent(op)?.schema, names, seen);
   for (const p of params) collectComponentRefs(p.schema, names, seen);
-
-  collectNamed([op.description, ...params.map((p) => p.description)].join(' '));
-  for (let i = 0; i < names.length; i += 1) collectNamed(proseOf(names[i]));
-
   return names;
 }
 

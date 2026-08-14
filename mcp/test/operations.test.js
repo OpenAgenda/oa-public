@@ -314,24 +314,6 @@ describe('request body (derived from the contract)', () => {
     expect(payload).toMatch(/(^|\n)`EventInput`[ (\n]/);
   });
 
-  // The upload cards point at components of the EVENT write to explain how the
-  // returned `ref` is attached; nothing collected them, so the reference died.
-  it('follows a prose cross-reference to another shape', () => {
-    expect(byId('agendas.uploads.createTicket').componentRefs).toContain(
-      'ImageInput',
-    );
-  });
-
-  // A card renders param descriptions too, and this one names `ExtId` with
-  // nothing structural behind it: the operation's 200 body is `DeletionResult`,
-  // which never touches `ExtId`. Seeding the scan from the operation
-  // description alone left the name on the page pointing at nothing.
-  it('follows a cross-reference made in a param description', () => {
-    expect(byId('agendas.events.deleteByExtId').componentRefs).toContain(
-      'ExtId',
-    );
-  });
-
   it('marks a required body field in its component definition', () => {
     expect(renderComponentDef('Timing')).toContain(
       '- begin (string, required)',
@@ -351,22 +333,23 @@ describe('request body (derived from the contract)', () => {
   });
 });
 
-// The query-driven sweep only ever renders three cards richly, so an operation
-// can be shadowed by siblings that reach a component structurally —
-// `deleteByExtId` lost every race to the other by-ext routes, which all reach
-// `ExtId` through `Event.extIds`. Render each operation ALONE so no card can be
-// covered by a neighbour that happens to share the page.
-describe('no card names a component the payload never defines', () => {
+// A query renders only three cards richly, so an operation can be shadowed by a
+// sibling that happens to define the same component. Render each one ALONE, so
+// the invariant is proved per card rather than per page.
+describe('no card renders a type it never defines', () => {
   it('holds for every operation rendered on its own', () => {
     const componentNames = new Set(SCHEMA_VALIDATORS.map((v) => v.slice(1)));
     const dangling = [];
     for (const op of OPERATIONS) {
       const payload = renderSearch([op]);
-      for (const [, name] of payload.matchAll(/`([A-Za-z]+)`/g)) {
-        if (!componentNames.has(name)) continue;
-        const defined = new RegExp(`(^|\\n)\`${name}\`[ (\\n]`).test(payload)
-          || payload.includes(`Response: \`${name}\``);
-        if (!defined) dangling.push(`${op.id} names \`${name}\``);
+      for (const m of payload.matchAll(/\(([A-Za-z ,[\]|&]+)\)/g)) {
+        for (const part of m[1].split(/[|&,]/)) {
+          const name = part.trim().replace(/\[\]$/, '');
+          if (!componentNames.has(name)) continue;
+          const defined = new RegExp(`(^|\\n)\`${name}\`[ (\\n]`).test(payload)
+            || payload.includes(`Response: \`${name}\``);
+          if (!defined) dangling.push(`${op.id} renders ${name}`);
+        }
       }
     }
     // Collect the whole set before asserting: a failure should name every card
@@ -723,13 +706,13 @@ describe('renderSearch', () => {
         'locations',
         'list my agendas',
         '',
-        // Write and upload phrasings: every one of them surfaces a card whose
-        // body type and prose cross-references had no coverage here at all.
+        // Write and upload phrasings: their body types had no coverage here.
         'create an event',
         'update an event',
         'upload an image',
         'upsert by external id',
       ];
+      let inspected = 0;
       for (const query of queries) {
         const payload = renderSearch(searchOperations(query));
         const rendered = new Set();
@@ -739,17 +722,7 @@ describe('renderSearch', () => {
             if (componentNames.has(base)) rendered.add(base);
           }
         }
-        // Type positions are not the only place a component name reaches the
-        // reader: the prose names them too, and a name the payload never
-        // defines is a dead end. Scan EVERY backticked word that is a real
-        // component — structural, so there is no phrasing to miss and no
-        // heuristic shared with the code for this test to rubber-stamp. An
-        // earlier cut matched "see `X`" in both places at once and reported
-        // green while `AgendaSummary`, `UploadTicket` and `ExtId` dangled.
-        for (const m of payload.matchAll(/`([A-Za-z]+)`/g)) {
-          if (componentNames.has(m[1])) rendered.add(m[1]);
-        }
-        expect(rendered.size).toBeGreaterThan(0);
+        inspected += rendered.size;
         for (const name of rendered) {
           const defined = new RegExp(`(^|\\n)\`${name}\`[ (\\n]`).test(payload)
             || payload.includes(`Response: \`${name}\``);
@@ -760,6 +733,10 @@ describe('renderSearch', () => {
           }
         }
       }
+      // Guard against a vacuous sweep, but across the whole set rather than per
+      // query: an upload page legitimately renders no component type at all —
+      // its responses are `{ ref: string, expiresAt: string }`.
+      expect(inspected).toBeGreaterThan(0);
     });
   });
 });
