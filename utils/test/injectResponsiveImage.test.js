@@ -71,6 +71,29 @@ describe('utils - injectResponsiveImage', () => {
     expect(out.sourceAgendas[0].image.srcTemplate).toContain('{geo}');
   });
 
+  // What the index actually holds is a snapshot, and an event indexed through a
+  // path that resolved its agenda with `includeImagePath` on carries the source
+  // already prefixed with the serving root. Composing that as if it were a bare
+  // source doubled the URL (`/u/{geo}/main/https://…`) and served a 404 in
+  // production — the reason this goes through `servedSource`.
+  it('recovers the source from a serving-root-prefixed logo', () => {
+    const source = 'cccccccccccccccccccccccccccccccc.full.image.jpg';
+    const out = injectResponsiveImage(OPTS, {
+      uid: 1,
+      originAgenda: { uid: 7, image: `${ASSET_BASE}${source}` },
+      sourceAgendas: [{ uid: 8, image: `${ASSET_BASE}${source}` }],
+      location: { uid: 9, image: `${ASSET_BASE}${source}` },
+    });
+
+    expect(out.originAgenda.image.srcTemplate).toBe(
+      `${CDN}u/{geo}/main/${source}`,
+    );
+    expect(out.sourceAgendas[0].image.srcTemplate).toBe(
+      `${CDN}u/{geo}/main/${source}`,
+    );
+    expect(out.location.image.srcTemplate).toBe(`${CDN}u/{geo}/main/${source}`);
+  });
+
   it('degrades to a legacy CDN src when Thumbor is unconfigured (no imageCdnPath)', () => {
     const out = injectResponsiveImage(
       { assetBase: ASSET_BASE },

@@ -1,8 +1,15 @@
 import {
   responsiveImage,
-  responsiveImageFromSource,
-  imageRefFromSource,
+  responsiveImageFromServed,
+  imageRefFromServed,
 } from './responsiveImage.js';
+
+// The `…FromServed` variants, like every other read path: what reaches this
+// function is whatever the value was when the event was indexed, and that is
+// sometimes a serving-root-prefixed URL rather than a bare source (a `agendas.get`
+// with `includeImagePath` on — see services/agendaEvents/lib/fallbackContextGet).
+// `…FromSource` takes the whole URL for the source key, because it ends in
+// `.full.image.jpg`, and composes `{cdn}/u/{geo}/{bucket}/https://…` — a 404.
 
 // Opt-in (includeResponsiveImage): replace the stored v2 image shapes on an event
 // with ready-to-use v3 responsive images, composed server-side from config
@@ -18,9 +25,13 @@ import {
 //
 //   - `event.image` (descriptor {filename,base,variants,size}) -> full Image
 //     {credits,width,height,src,srcTemplate,srcset}
-//   - `event.location.image` (bare source string) -> full Image (dims unknown)
-//   - embedded agenda logos (`originAgenda`/`sourceAgendas[].image`, bare
+//   - `event.location.image` (served string) -> full Image (dims unknown)
+//   - embedded agenda logos (`originAgenda`/`sourceAgendas[].image`, served
 //     strings) -> lightweight ImageRef {src,srcTemplate}
+//
+// "Served" and not "bare source": these are index snapshots, so the same field
+// holds a bare source, a serving-root-prefixed URL or a legacy name depending on
+// when the event was last indexed. `servedSource` absorbs all three.
 //
 // Immutable: returns a new event; a null result (no resolvable source) leaves the
 // original value untouched so nothing regresses.
@@ -33,19 +44,19 @@ export default function injectResponsiveImage(imageOptions, event) {
   }
 
   if (typeof event.location?.image === 'string') {
-    const image = responsiveImageFromSource(event.location.image, imageOptions);
+    const image = responsiveImageFromServed(event.location.image, imageOptions);
     if (image) next.location = { ...event.location, image };
   }
 
   if (typeof event.originAgenda?.image === 'string') {
-    const ref = imageRefFromSource(event.originAgenda.image, imageOptions);
+    const ref = imageRefFromServed(event.originAgenda.image, imageOptions);
     if (ref) next.originAgenda = { ...event.originAgenda, image: ref };
   }
 
   if (Array.isArray(event.sourceAgendas)) {
     next.sourceAgendas = event.sourceAgendas.map((sourceAgenda) => {
       if (typeof sourceAgenda?.image !== 'string') return sourceAgenda;
-      const ref = imageRefFromSource(sourceAgenda.image, imageOptions);
+      const ref = imageRefFromServed(sourceAgenda.image, imageOptions);
       return ref ? { ...sourceAgenda, image: ref } : sourceAgenda;
     });
   }
