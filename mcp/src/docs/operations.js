@@ -239,11 +239,9 @@ function successBody(op) {
     .filter((code) => /^2\d\d$/.test(code))
     .sort();
   for (const code of codes) {
-    // `deref` because a response may be written as a $ref into
-    // `#/components/responses/*` — the convention every 4xx in the contract
-    // already follows. Reading `.content` off the unresolved $ref would find
-    // nothing and silently drop the shape, which is the failure this whole
-    // function exists to remove.
+    // Derefed because a response may be a `$ref` into `#/components/responses/*`
+    // — the convention every 4xx here already follows — and reading `.content`
+    // off an unresolved ref would drop the shape silently.
     const schema = deref(op.responses[code])?.content?.['application/json']
       ?.schema;
     if (schema) return schema;
@@ -323,7 +321,25 @@ function deriveRequest(op) {
 // and its description says so in as many words ("Call it with a plain HTTPS
 // POST, NOT through the typed API client"). Derived from the security block
 // rather than keyed on the operationId, so a second such route needs no edit.
-const SDK_AUTH_SCHEMES = new Set(['bearerAuth', 'oauth2']);
+// The `oa` client authenticates one way: an `Authorization: Bearer` header, set
+// from its `auth` option. So a requirement is satisfiable when the scheme it
+// names is an OAuth2 flow or HTTP bearer, and out of reach otherwise — an
+// `apiKey` in a custom header (`uploadTicketAuth` sends `X-Upload-Ticket`),
+// HTTP basic, OpenID Connect.
+//
+// Read off the scheme's DEFINITION rather than matched against a list of scheme
+// names: the contract already states this, so listing `bearerAuth`/`oauth2` here
+// would re-encode by hand what it says structurally — and would misjudge a
+// renamed or newly added scheme without a word of warning.
+const isBearerScheme = (name) => {
+  const scheme = spec.components?.securitySchemes?.[name];
+  if (!scheme) return false;
+  return (
+    scheme.type === 'oauth2'
+    || (scheme.type === 'http' && scheme.scheme === 'bearer')
+  );
+};
+
 function isSdkCallable(op) {
   const requirements = op.security ?? spec.security ?? [];
   // `security: []` is the OpenAPI idiom for "this route needs no auth", so the
@@ -331,7 +347,7 @@ function isSdkCallable(op) {
   // of reach — the empty list means no requirement at all, not an impossible one.
   if (!requirements.length) return true;
   return requirements.some((requirement) =>
-    Object.keys(requirement).some((scheme) => SDK_AUTH_SCHEMES.has(scheme)));
+    Object.keys(requirement).some(isBearerScheme));
 }
 
 // Resolve the success body into a shallow shape. List endpoints wrap their
@@ -499,23 +515,16 @@ export function skeletonExample(operationId, params, request = null) {
 // ticket, no file and no body.
 const TS_LANGS = /^(ts|typescript|js|javascript)$/i;
 
-// Fence languages we are willing to emit. The contract's `lang` is free text
-// (Scalar renders it as a label), so a typo, a multi-word value or an omitted
-// key would otherwise land verbatim after the backticks — ```undefined and
-// friends. Anything unrecognised degrades to no language rather than a broken
-// fence.
-const FENCE_LANGS = new Set([
-  'shell',
-  'bash',
-  'curl',
-  'http',
-  'json',
-  'python',
-]);
+// The contract's `lang` is a free-text label (Scalar renders it as one) and it
+// lands straight after the fence backticks. Accept it only when it LOOKS like a
+// fence language — one bare token — so a multi-word label ("Shell script"), a
+// typo or an omitted key degrades to no language instead of ```undefined.
+// Shaped as a test, not an allowlist: a list of every language the contract
+// might one day curate is a list nobody remembers to extend.
 const fenceLang = (lang) => {
   if (TS_LANGS.test(lang)) return 'ts';
-  const normalized = String(lang ?? '').toLowerCase();
-  return FENCE_LANGS.has(normalized) ? normalized : '';
+  const normalized = lang == null ? '' : String(lang).trim().toLowerCase();
+  return /^[a-z0-9+#-]+$/.test(normalized) ? normalized : '';
 };
 
 function exampleFor(op, operationId, params, request, sdkCallable, call) {

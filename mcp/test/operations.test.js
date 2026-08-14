@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+import { parse } from 'yaml';
 import {
   OPERATIONS,
   searchOperations,
@@ -8,6 +10,14 @@ import {
   SCHEMA_VALIDATORS,
   enumSchemaOf,
 } from '../src/docs/operations.js';
+
+// The contract itself, to pin the structural facts the module derives from.
+const spec = parse(
+  readFileSync(
+    new URL(import.meta.resolve('@openagenda/api-spec/openapi.yaml')),
+    'utf8',
+  ),
+);
 
 // Extract the keys used under path:{…}/query:{…} in an example, walking braces
 // so it handles shorthand props (`after`) and nested objects without the
@@ -435,6 +445,28 @@ describe('examples', () => {
     const card = renderOperation(byId('uploads.staged'), 0);
     expect(card).toContain('```shell');
     expect(card).not.toContain('```ts');
+  });
+
+  // The distinction is read off each scheme's DEFINITION, not off a list of
+  // scheme names: `bearerAuth` is `type: http, scheme: bearer`, `oauth2` is
+  // `type: oauth2`, and `uploadTicketAuth` is an `apiKey` in a custom header the
+  // client never sets. Pinning the contract's own types here is what makes a
+  // renamed scheme keep working and a newly added one get judged on its merits.
+  it('judges reachability by the security scheme type, not its name', () => {
+    const schemes = spec.components.securitySchemes;
+    expect(schemes.bearerAuth).toMatchObject({
+      type: 'http',
+      scheme: 'bearer',
+    });
+    expect(schemes.oauth2).toMatchObject({ type: 'oauth2' });
+    expect(schemes.uploadTicketAuth).toMatchObject({
+      type: 'apiKey',
+      in: 'header',
+    });
+    // The one operation the client cannot authenticate is the one whose only
+    // requirement names that apiKey scheme.
+    expect(byId('uploads.staged').scopes).toEqual([]);
+    expect(byId('uploads.staged').sdkCallable).toBe(false);
   });
 
   it('leaves every other operation SDK-callable', () => {
