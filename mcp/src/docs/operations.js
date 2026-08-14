@@ -289,81 +289,60 @@ function requestContent(op) {
 // nothing. That costs six component definitions across the whole catalogue —
 // cheap next to a dead reference, and no sentence has to be parsed to get it
 // right.
-function mentionedSchemas(description) {
-  const names = [];
-  for (const [, name] of String(description || '').matchAll(/`([A-Za-z]+)`/g)) {
-    if (spec.components?.schemas?.[name] && !names.includes(name)) {
-      names.push(name);
-    }
-  }
-  return names;
-}
+const schemasNamedIn = (text) =>
+  [...String(text ?? '').matchAll(/`([A-Za-z]+)`/g)]
+    .map(([, name]) => name)
+    .filter((name) => spec.components?.schemas?.[name]);
 
-// Every line of prose a component definition renders — its own description and
-// one per property — can name further components, and `renderComponentDef` puts
-// all of them in front of the reader. `EventLocation` says "the canonical, full
-// record is the `Location` resource", so a card that defines the snapshot owes
-// the reader the record too. Walked to a FIXED POINT, since the shape a mention
-// pulls in may cite another in turn.
-const componentProse = (name) => {
+// All the prose one component definition renders: its own description, and one
+// per property. `EventLocation` says "the canonical, full record is the
+// `Location` resource" in exactly this text, so a card defining the snapshot
+// owes the reader the record too.
+const proseOf = (name) => {
   const schema = spec.components?.schemas?.[name];
-  if (!schema) return [];
   return [
-    schema.description,
-    ...Object.values(schema.properties || {}).map((s) => s?.description),
-  ];
+    schema?.description,
+    ...Object.values(schema?.properties ?? {}).map((p) => p?.description),
+  ].join(' ');
 };
 
-// Every component an operation's card can name: its success body first (the
-// shape the LLM reads), then the body it must SEND — `EventInput` was named in
-// the prose of every write op and defined nowhere, so the LLM got 40 typed
-// response fields and had to guess the input from an example — then its param
-// schemas (a $ref'd filter enum like `status (EventStatus[])` needs its
-// definition too). One shared `seen` so a component referenced by several sides
-// is collected once.
+// Every component an operation's card can name. Structural first: the success
+// body (the shape the LLM reads), the body it must SEND — `EventInput` was
+// named in the prose of every write op and defined nowhere, so the LLM got 40
+// typed response fields and had to guess the input from an example — then the
+// param schemas, since a $ref'd filter enum like `status (EventStatus[])` needs
+// its definition too.
+//
+// Then the prose, seeded from every line the card renders as text: the
+// operation's description AND its param descriptions, which is where
+// `agendas.events.deleteByExtId` names `ExtId` ("the key of an `ExtId` mapping")
+// with nothing structural to rescue it — its 200 body is `DeletionResult`.
+//
+// The second loop re-reads `names.length` each turn, so a component pulled in
+// by prose gets its own prose walked in the same pass: that is the fixed point.
+// One shared `seen` makes the collector idempotent, so nothing needs guarding
+// and a reference cycle terminates on its own.
 function componentRefsFor(op) {
   const names = [];
   const seen = new Set();
-  const params = (op.parameters || []).map(deref);
-
-  collectComponentRefs(successBody(op), names, seen);
-  collectComponentRefs(requestContent(op)?.schema, names, seen);
-  for (const p of params) {
-    collectComponentRefs(p.schema, names, seen);
-  }
-
-  // Then the prose. Seeded from every line the card renders as text — the
-  // operation's description AND its param descriptions, which is where
-  // `agendas.events.deleteByExtId` names `ExtId` ("the key of an `ExtId`
-  // mapping") with nothing structural to rescue it: its 200 body is
-  // `DeletionResult`, so the name reached the reader and resolved to nothing.
-  //
-  // Then closed to a FIXED POINT: the loop re-reads `names.length` each turn,
-  // so a component pulled in by prose gets its own prose walked in the same
-  // pass. That is how `EventLocation` — which says "the canonical, full record
-  // is the `Location` resource" INSIDE its own definition — reaches `Location`.
-  // `collectComponentRefs` is idempotent through `seen`, so no guard is needed
-  // and a cycle terminates on its own.
-  for (const text of [op.description, ...params.map((p) => p.description)]) {
-    for (const name of mentionedSchemas(text)) {
+  const params = (op.parameters ?? []).map(deref);
+  const collectNamed = (text) => {
+    for (const name of schemasNamedIn(text)) {
       collectComponentRefs(
         { $ref: `#/components/schemas/${name}` },
         names,
         seen,
       );
     }
-  }
-  for (let i = 0; i < names.length; i += 1) {
-    for (const text of componentProse(names[i])) {
-      for (const name of mentionedSchemas(text)) {
-        collectComponentRefs(
-          { $ref: `#/components/schemas/${name}` },
-          names,
-          seen,
-        );
-      }
-    }
-  }
+  };
+
+  collectComponentRefs(successBody(op), names, seen);
+  collectComponentRefs(requestContent(op)?.schema, names, seen);
+  for (const p of params) collectComponentRefs(p.schema, names, seen);
+
+  collectNamed([op.description, ...params.map((p) => p.description)].join(' '));
+  for (let i = 0; i < names.length; i += 1) collectNamed(proseOf(names[i]));
+
   return names;
 }
 
