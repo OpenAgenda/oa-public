@@ -1,19 +1,15 @@
-import * as url from 'node:url';
 import fs from 'node:fs';
 import PDFDocument from 'pdfkit';
 import addMultipageSegments from '../lib/addMultipageSegments.js';
 import addText from '../lib/addText.js';
-
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+import outputFolder from './lib/outputFolder.js';
 
 const doc = new PDFDocument({
   size: 'A5',
   layout: 'landscape',
   margin: 20,
 });
-const writeStream = fs.createWriteStream(
-  `${__dirname}/renders/addOptioned.pdf`,
-);
+const writeStream = fs.createWriteStream(`${outputFolder}/addOptioned.pdf`);
 doc.pipe(writeStream);
 
 const column1 = {

@@ -1,14 +1,12 @@
-import * as url from 'node:url';
 import fs from 'node:fs';
 import PDFDocument from 'pdfkit';
 import Cursor from '../lib/Cursor.js';
 import addRegistration from '../lib/addRegistration.js';
-
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+import outputFolder from './lib/outputFolder.js';
 
 const doc = new PDFDocument({ size: 'A4', margin: 0 });
 
-doc.pipe(fs.createWriteStream(`${__dirname}/renders/addRegistration.pdf`));
+doc.pipe(fs.createWriteStream(`${outputFolder}/addRegistration.pdf`));
 
 const cursor = Cursor({ x: 10, y: 10 });
 const availableWidth = 200;
