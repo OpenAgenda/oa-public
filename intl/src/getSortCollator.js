@@ -8,32 +8,54 @@
 // age brackets) in numeric order instead of "10e" landing between "1er" and
 // "2e".
 
+const OPTIONS = {
+  sensitivity: 'base',
+  numeric: true,
+  usage: 'sort',
+};
+
+// Locales are a bounded set in practice, but the tag can come from a request
+// in a long-lived server: rather than grow without bound, the cache is dropped
+// wholesale past a threshold no legitimate caller reaches.
+const MAX_CACHED = 100;
+
 const collators = new Map();
 
-export default function getSortCollator(locale, fallbackLocale = undefined) {
-  const key = `${locale}|${fallbackLocale}`;
-
-  if (!collators.has(key)) {
-    const options = {
-      sensitivity: 'base',
-      numeric: true,
-      usage: 'sort',
-    };
-
-    // An unknown or malformed tag would otherwise take the caller down. The
-    // host default (`undefined`) can't throw, so the chain always terminates.
-    let collator;
-    try {
-      collator = new Intl.Collator(locale || undefined, options);
-    } catch {
-      try {
-        collator = new Intl.Collator(fallbackLocale || undefined, options);
-      } catch {
-        collator = new Intl.Collator(undefined, options);
-      }
-    }
-    collators.set(key, collator);
+const build = (locale) => {
+  try {
+    return new Intl.Collator(locale || undefined, OPTIONS);
+  } catch {
+    // An unknown or malformed tag would otherwise take the caller down.
+    return null;
   }
+};
 
-  return collators.get(key);
+const cache = (key, collator) => {
+  if (collators.size >= MAX_CACHED) collators.clear();
+  collators.set(key, collator);
+  return collator;
+};
+
+export default function getSortCollator(locale, fallbackLocale = undefined) {
+  // Keyed on the requested locale alone whenever it yields a collator, so the
+  // two consumers share one instance per locale even though only one of them
+  // passes a fallback. `fallbackLocale` only ever matters for a tag that does
+  // not resolve, and then it belongs in the key: two callers can name
+  // different fallbacks for the same bad tag.
+  const key = String(locale ?? '');
+
+  if (collators.has(key)) return collators.get(key);
+
+  const collator = build(locale);
+  if (collator) return cache(key, collator);
+
+  const fallbackKey = `${key}|${String(fallbackLocale ?? '')}`;
+  if (collators.has(fallbackKey)) return collators.get(fallbackKey);
+
+  // The host default (`undefined`) can't throw, so the chain always
+  // terminates.
+  return cache(
+    fallbackKey,
+    build(fallbackLocale) ?? new Intl.Collator(undefined, OPTIONS),
+  );
 }
