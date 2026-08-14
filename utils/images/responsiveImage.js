@@ -198,6 +198,25 @@ function imageRefFromSource(source, imageOptions = {}) {
   return image && { src: image.src, srcTemplate: image.srcTemplate };
 }
 
+// A "served" image string as the v2 read layer returns it: a bare source
+// (`{uuid}.full.image.jpg`), a serving-root-prefixed URL
+// (`{root}/{uuid}.full.image.jpg`), or a legacy ABSOLUTE external URL. Recover the
+// bare source (last path segment) the builder derives geometries from — a real
+// Thumbor source survives as that bare `.full.image.jpg` name whether or not it was
+// prefixed. But if the last segment is NOT a source AND the value was ABSOLUTE, it
+// is an external/legacy URL that is already servable and must pass STRAIGHT THROUGH:
+// splitting it to a segment and re-basing onto `assetBase` was the aliased-URL bug.
+// Returns `{ absolute }` (pass through) or `{ source }` (compose), or null for a
+// non-string/empty value.
+function servedSource(value) {
+  if (!value || typeof value !== 'string') return null;
+  const segment = value.split('/').pop();
+  if (!SOURCE_SUFFIX.test(keyOf(segment)) && ABSOLUTE.test(value)) {
+    return { absolute: value };
+  }
+  return { source: segment };
+}
+
 // A single ready-to-load image URL at one Thumbor `geo`, for SERVER-RENDERED
 // consumers that emit ONE `<img src>` — share mails, the SSR error layout,
 // internal JSON (`/agenda.json`), inbox avatars. These have NO legacy client
@@ -239,32 +258,29 @@ function nativeImageUrl(value, geo, { imageCdnPath, bucket, assetBase } = {}) {
   }
 
   if (typeof value !== 'string') return null;
-  if (ABSOLUTE.test(value)) return value;
+  if (ABSOLUTE.test(value)) {
+    // An absolute value is not necessarily foreign: the v2 read layer serves our
+    // own sources as `{root}/{uuid}.full.image.jpg`, and returning that verbatim
+    // dropped the geometry the caller asked for — every `nativeImageUrl` site
+    // reading an agenda loaded with `includeImagePath` was silently serving the
+    // full-size original. `servedSource` draws the line: our source composes, an
+    // external/legacy URL still passes straight through.
+    const served = servedSource(value);
+    if (served.absolute) return value;
+    return nativeImageUrl(served.source, geo, {
+      imageCdnPath,
+      bucket,
+      // The value already carried its serving root; keep it for the degraded
+      // branch instead of re-basing onto a possibly different one.
+      assetBase: value.slice(0, value.length - served.source.length),
+    });
+  }
   const key = keyOf(value);
   if (imageCdnPath && bucket && SOURCE_SUFFIX.test(key)) {
     return thumborUrl(imageCdnPath, geo, bucket, key);
   }
   // Keep the `?_ts=` cache-buster on the legacy URL (today's behavior).
   return assetBase ? `${assetBase}${value}` : null;
-}
-
-// A "served" image string as the v2 read layer returns it: a bare source
-// (`{uuid}.full.image.jpg`), a serving-root-prefixed URL
-// (`{root}/{uuid}.full.image.jpg`), or a legacy ABSOLUTE external URL. Recover the
-// bare source (last path segment) the builder derives geometries from — a real
-// Thumbor source survives as that bare `.full.image.jpg` name whether or not it was
-// prefixed. But if the last segment is NOT a source AND the value was ABSOLUTE, it
-// is an external/legacy URL that is already servable and must pass STRAIGHT THROUGH:
-// splitting it to a segment and re-basing onto `assetBase` was the aliased-URL bug.
-// Returns `{ absolute }` (pass through) or `{ source }` (compose), or null for a
-// non-string/empty value.
-function servedSource(value) {
-  if (!value || typeof value !== 'string') return null;
-  const segment = value.split('/').pop();
-  if (!SOURCE_SUFFIX.test(keyOf(segment)) && ABSOLUTE.test(value)) {
-    return { absolute: value };
-  }
-  return { source: segment };
 }
 
 // Full responsive Image from a SERVED image string (see servedSource). Absolute
