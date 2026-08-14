@@ -7418,12 +7418,9 @@ __metadata:
     "@babel/preset-env": "npm:^7.28.3"
     "@openagenda/babel-preset": "npm:^2.0.0"
     "@openagenda/eslint-config": "npm:^2.1.0"
-    "@openagenda/tsconfig": "npm:^0.0.0"
     babel-jest: "npm:^30.4.1"
     eslint: "npm:^8.36.0"
     jest: "npm:^30.4.2"
-    tsdown: "npm:^0.22.0"
-    typescript: "npm:^5.6.3"
   languageName: unknown
   linkType: soft
 
