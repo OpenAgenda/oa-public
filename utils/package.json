@@ -17,13 +17,17 @@
     "cleanString.js",
     "isInteger.js",
     "Stopwatch.js",
+    "iso4217.js",
+    "isoDatetime.js",
     "images",
     "CHANGELOG.md"
   ],
   "exports": {
     "./package.json": "./package.json",
     ".": "./index.js",
-    "./images": "./images/index.js"
+    "./images": "./images/index.js",
+    "./iso4217": "./iso4217.js",
+    "./isoDatetime": "./isoDatetime.js"
   },
   "scripts": {
     "lint": "eslint .",
