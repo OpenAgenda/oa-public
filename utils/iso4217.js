@@ -87,19 +87,29 @@ const toMajor = (minor, code) => {
 // The inverse, for sources that expose major units. Rounds rather than
 // truncates: floating-point major units are the source's problem, not a reason
 // to lose a cent.
-const toMinor = (major, code) => {
-  const exponent = exponentOf(code);
-  const amount = Number(major);
+// A decimal amount, and nothing that merely survives `Number()`. The whole
+// family below coerces to a number without being one, and each lands as a real
+// price: `' '`, `[]` and `false` become 0 — a FREE ticket — `true` becomes 1,
+// `[5]` becomes 5, and `'0x10'` becomes 16. Exponent notation is refused with
+// them: `'1e3'` from a ticketing API is a bug at the source, not a price.
+const DECIMAL = /^\s*-?\d+(\.\d+)?\s*$/;
 
-  // Guard BEFORE the arithmetic, for two reasons that both end in wrong prices:
-  //   - `Number(null)` is 0, so a field that is absent-as-null would turn an
-  //     unknown price into a FREE one;
-  //   - NaN silently defeats the precision check below (`Math.abs(NaN - NaN) >
-  //     1e-6` is false), so `undefined`, `'abc'` or the very plausible French
-  //     decimal comma `'12,50'` would return NaN and blow up much later.
-  if (major === null || major === '' || !Number.isFinite(amount)) {
+const toMinor = (major, code) => {
+  // Guard BEFORE the arithmetic. `Number(null)` is 0, so a field that is
+  // absent-as-null would turn an unknown price into a free one, and NaN defeats
+  // the precision check below (`Math.abs(NaN - NaN) > 1e-6` is false), so
+  // `'abc'` or the very plausible French decimal comma `'12,50'` would blow up
+  // much later instead of here.
+  const usable = typeof major === 'number'
+    ? Number.isFinite(major)
+    : typeof major === 'string' && DECIMAL.test(major);
+
+  if (!usable) {
     throw new Error(`iso4217: ${JSON.stringify(major)} is not a usable amount`);
   }
+
+  const exponent = exponentOf(code);
+  const amount = Number(major);
 
   const scaled = amount * 10 ** exponent;
   const rounded = Math.round(scaled);

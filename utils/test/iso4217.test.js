@@ -110,3 +110,39 @@ describe('iso4217', () => {
     });
   });
 });
+
+// [F2, revue du lot A] La garde d'origine ne rejetait que `null`, `''` et les
+// résultats non finis de `Number()`. Toute cette famille se coerce en nombre
+// sans en être un, et chacune atterrissait comme un vrai prix — dont trois en
+// billet GRATUIT, précisément le bogue que la garde disait prévenir.
+describe('iso4217.toMinor — ce qui ressemble à un montant sans en être un', () => {
+  it.each([
+    ['une chaîne d\'espaces', ' '],
+    ['un tableau vide', []],
+    ['false', false],
+    ['true', true],
+    ['un tableau à un élément', [5]],
+    ['de l\'hexadécimal', '0x10'],
+    ['la notation exposant', '1e3'],
+    ['null', null],
+    ['undefined', undefined],
+    ['un objet', {}],
+    ['la virgule décimale française', '12,50'],
+    ['du texte', 'abc'],
+    ['NaN', NaN],
+    ['Infinity', Infinity],
+  ])('refuses %s', (_label, value) => {
+    expect(() => toMinor(value, 'EUR')).toThrow(/usable amount/);
+  });
+
+  it.each([
+    [12.5, 1250],
+    ['12.50', 1250],
+    [0, 0],
+    ['0', 0],
+    [-3.5, -350],
+    ['  7.25  ', 725],
+  ])('accepts %s', (value, expected) => {
+    expect(toMinor(value, 'EUR')).toBe(expected);
+  });
+});
