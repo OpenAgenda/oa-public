@@ -48,18 +48,26 @@ export default function shortId(length = LENGTH) {
   return out;
 }
 
-// The form to use when assigning ids to a set: draws until the id is not one
-// the set already holds.
+// The form to use when assigning ids to a collection: draws until the id is not
+// one the collection already holds.
 //
-// `taken` is anything with a `.has()` — a Set, or a Map of id -> whatever.
+// `taken` may be a Set, a Map keyed by id, or a plain array. The array case is
+// not indulgence: the natural call site is `unique(timings.map((t) => t.id))`,
+// and accepting only `.has()` would answer it with `taken.has is not a function`
+// — an API that invites the mistake it then punishes.
+//
 // Bounded rather than `while (true)`: at 800 taken ids out of 916 million, ten
 // consecutive collisions are impossible short of a broken RNG, and a loop that
 // cannot end is worse than an error that names its cause.
 export function unique(taken, length = LENGTH) {
+  const holds = Array.isArray(taken)
+    ? (id) => taken.includes(id)
+    : (id) => taken.has(id);
+
   for (let attempt = 0; attempt < 10; attempt += 1) {
     const candidate = shortId(length);
 
-    if (!taken.has(candidate)) {
+    if (!holds(candidate)) {
       return candidate;
     }
   }

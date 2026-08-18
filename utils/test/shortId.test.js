@@ -68,6 +68,17 @@ describe('utils.shortId.unique', () => {
     }
   });
 
+  // `unique(timings.map((t) => t.id))` is the natural call site; answering it
+  // with `taken.has is not a function` would be an API inviting the mistake it
+  // then punishes.
+  it('accepts a plain array', () => {
+    const taken = [...SIXTH];
+
+    for (let i = 0; i < 200; i += 1) {
+      expect(taken).not.toContain(unique(taken, 1));
+    }
+  });
+
   it('gives up loudly rather than looping when nothing is free', () => {
     const taken = new Set(ALPHABET.split(''));
 
