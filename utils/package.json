@@ -19,6 +19,7 @@
     "Stopwatch.js",
     "iso4217.js",
     "isoDatetime.js",
+    "shortId.js",
     "images",
     "CHANGELOG.md"
   ],
@@ -27,7 +28,8 @@
     ".": "./index.js",
     "./images": "./images/index.js",
     "./iso4217": "./iso4217.js",
-    "./isoDatetime": "./isoDatetime.js"
+    "./isoDatetime": "./isoDatetime.js",
+    "./shortId": "./shortId.js"
   },
   "scripts": {
     "lint": "eslint .",
