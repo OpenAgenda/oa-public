@@ -8,9 +8,13 @@ quel — pas d'étape de build.
 ```js
 import { Stopwatch, cleanString, isInteger } from '@openagenda/utils';
 import { nativeImageUrl, imageAtSize } from '@openagenda/utils/images';
+import shortId, { normalize } from '@openagenda/utils/shortId';
 ```
 
-La racine réexporte tout ; `./images` regroupe la composition d'images.
+La racine réexporte le fourre-tout et `./images` ; **les autres sous-chemins ne
+sont pas réexportés** et s'importent explicitement. Ils portent des noms trop
+génériques pour vivre à la racine (`ALPHABET`, `LENGTH`) ou n'ont qu'une
+poignée de consommateurs.
 
 ## Images
 

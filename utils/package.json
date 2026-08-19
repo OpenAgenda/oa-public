@@ -12,6 +12,9 @@
   },
   "type": "module",
   "sideEffects": false,
+  "engines": {
+    "node": ">=19"
+  },
   "files": [
     "index.js",
     "cleanString.js",
