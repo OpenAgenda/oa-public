@@ -1,4 +1,4 @@
-import { before, hasExplicitOffset, parseDuration, toInstant } from '../isoDatetime.js';
+import { hasExplicitOffset, parseDuration, toInstant } from '../isoDatetime.js';
 
 describe('hasExplicitOffset', () => {
   it('accepts an ISO datetime carrying an offset', () => {
@@ -34,6 +34,27 @@ describe('hasExplicitOffset', () => {
   it('accepts a Date instance — an unambiguous instant', () => {
     expect(hasExplicitOffset(new Date('2026-06-15T20:00:00Z'))).toBe(true);
     expect(hasExplicitOffset(new Date('nope'))).toBe(false);
+  });
+
+  // Conformant ISO-8601 spellings Date.parse does not read on every engine, so
+  // they are normalised before it sees them. A published validator that refused
+  // a legal form would freeze the refusal into the contract.
+  it('accepts the lowercase z, the decimal comma and the space separator', () => {
+    expect(hasExplicitOffset('2026-06-15T20:00:00z')).toBe(true);
+    expect(hasExplicitOffset('2026-06-15T20:00:00,500Z')).toBe(true);
+    expect(hasExplicitOffset('2026-06-15 20:00:00Z')).toBe(true);
+    expect(hasExplicitOffset('2026-06-15 20:00:00,500+02:00')).toBe(true);
+  });
+
+  it('still applies the calendar check to the forms it normalises', () => {
+    expect(hasExplicitOffset('2026-02-31T10:00:00z')).toBe(false);
+    expect(hasExplicitOffset('2026-02-31 10:00:00Z')).toBe(false);
+  });
+
+  it('reads a normalised form as the very same instant', () => {
+    expect(toInstant('2026-06-15 20:00:00,500z')).toBe(
+      toInstant('2026-06-15T20:00:00.500Z'),
+    );
   });
 
   it('checks the calendar day in the offset the value carries, not in UTC', () => {
@@ -92,14 +113,35 @@ describe('parseDuration', () => {
   });
 });
 
-describe('before', () => {
-  it('subtracts the duration from the occurrence start', () => {
-    expect(before('2026-06-15T20:00:00+02:00', 'P30D')).toBe(
-      Date.parse('2026-06-15T20:00:00+02:00') - 30 * 86400000,
+// The message prefix is this module's private business; `reason` is the part a
+// caller may re-emit in its own error shape. Asserted so the offers validator's
+// use of it cannot rot silently.
+describe('error shape', () => {
+  const thrownBy = (fn) => {
+    try {
+      fn();
+    } catch (error) {
+      return error;
+    }
+
+    return null;
+  };
+
+  it('carries the bare reason beside the prefixed message', () => {
+    const error = thrownBy(() => parseDuration('P1M'));
+
+    expect(error).toBeInstanceOf(Error);
+    expect(error.message).toMatch(/^isoDatetime: /);
+    expect(error.reason).toBe(
+      'calendar durations (years, months) are not supported, got P1M — use days',
     );
   });
 
-  it('refuses to guess without a begin', () => {
-    expect(() => before(undefined, 'P30D')).toThrow(/without a reference/);
+  it('carries it on the datetime side too', () => {
+    const error = thrownBy(() => toInstant('2026-06-15T20:00:00'));
+
+    expect(error.reason).toBe(
+      'expected ISO-8601 with an explicit offset, got 2026-06-15T20:00:00',
+    );
   });
 });
