@@ -96,16 +96,22 @@ describe('utils.shortId.normalize', () => {
 
 describe('utils.shortId (unique, the default export)', () => {
   // Single-character ids against a third of the alphabet: collisions land often
-  // enough that the redraw path is genuinely exercised, and ten in a row stays
-  // out of reach, so the test does not flake.
+  // enough that the redraw path is genuinely exercised, while ten in a row —
+  // what makes `unique` give up — stays far out of reach at this ratio.
   const third = () => new Set(ALPHABET.slice(0, 10).split(''));
 
-  // `unique` grows `taken`, so this deliberately stays well under the 32 values
-  // a single character has — the saturation case is its own test below.
+  // A FRESH set per iteration, and that is the whole point. `unique` adds each
+  // draw to `taken` — the behaviour the next test exists to pin — so a loop
+  // sharing one set walks it toward saturation instead of holding the ratio
+  // still: starting at 10 of 32 and drawing 15 times ends at 24 of 32, where ten
+  // collisions in a row carry a 5.6% chance on that iteration alone and the test
+  // as a whole failed about one run in seven. It was written believing `taken`
+  // stayed at 10, and it flaked. Measured before fixing: 2 failures in 25 runs.
+  //
+  // Held at 10 of 32, a spurious failure is around one run in ten thousand.
   it('never returns an id already taken', () => {
-    const taken = third();
-
     for (let i = 0; i < 15; i += 1) {
+      const taken = third();
       const before = new Set(taken);
 
       expect(before.has(unique(taken, 1))).toBe(false);
