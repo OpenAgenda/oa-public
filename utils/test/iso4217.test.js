@@ -135,6 +135,21 @@ describe('iso4217.toMinor — ce qui ressemble à un montant sans en être un', 
     expect(() => toMinor(value, 'EUR')).toThrow(/usable amount/);
   });
 
+  // [N2] Symétrie avec toMajor, qui refuse déjà ces magnitudes : au-delà de
+  // 2^53 le résultat mis à l'échelle est un arrondi mensonger, et un prix
+  // corrompu stocké en silence est exactement ce que ce module doit empêcher.
+  it.each([
+    ['99999999999999999', 'JPY'],
+    ['999999999999999.99', 'EUR'],
+    [Number.MAX_SAFE_INTEGER, 'EUR'],
+  ])('refuses %s %s, too large to be exact in minor units', (value, code) => {
+    expect(() => toMinor(value, code)).toThrow(/too large/);
+  });
+
+  it('still accepts the largest amount that stays exact', () => {
+    expect(toMinor(Number.MAX_SAFE_INTEGER, 'JPY')).toBe(Number.MAX_SAFE_INTEGER);
+  });
+
   it.each([
     [12.5, 1250],
     ['12.50', 1250],

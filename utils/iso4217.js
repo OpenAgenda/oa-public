@@ -120,6 +120,18 @@ const toMinor = (major, code) => {
     );
   }
 
+  // Symmetrical with `toMajor`, which refuses the same magnitudes on the way
+  // out. Scaling by the exponent can leave the safe-integer range even when the
+  // input was a perfectly ordinary finite number, and past 2^53 the result is a
+  // rounded lie: `toMinor('99999999999999999', 'JPY')` came back as
+  // 100000000000000000 without a word. A corrupted price stored silently is the
+  // one outcome this module exists to prevent.
+  if (!Number.isSafeInteger(rounded)) {
+    throw new Error(
+      `iso4217: ${major} ${code} is too large to represent exactly in minor units`,
+    );
+  }
+
   return rounded;
 };
 
