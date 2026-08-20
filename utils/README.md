@@ -8,7 +8,7 @@ quel — pas d'étape de build.
 ```js
 import { Stopwatch, cleanString, isInteger } from '@openagenda/utils';
 import { nativeImageUrl, imageAtSize } from '@openagenda/utils/images';
-import shortId, { normalize } from '@openagenda/utils/shortId';
+import unique, { draw, normalize } from '@openagenda/utils/shortId';
 ```
 
 La racine réexporte le fourre-tout et `./images` ; **les autres sous-chemins ne
