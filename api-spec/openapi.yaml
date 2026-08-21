@@ -3526,6 +3526,25 @@ components:
         end:
           type: string
           format: date-time
+        id:
+          type: string
+          pattern: '^[0-9ABCDEFGHJKMNPQRSTVWXYZ]{6}$'
+          description: >
+            Stable identifier for this occurrence, carried across writes so a
+            link to a single date keeps working when the event is edited. Six
+            characters in the Crockford base32 alphabet — the digits plus the
+            uppercase letters, minus `I`, `L`, `O` and `U`, which cannot be
+            confused when read out loud or typed from a printed page.
+
+            Optional, and absent rather than null when there is none: an
+            occurrence only gains an identifier when the event is written, so
+            events untouched since the feature shipped carry none. Never
+            reused, and never silently reassigned — an identifier that moved to
+            a different date would keep a shared link working while pointing at
+            the wrong occurrence, which is worse than having no link at all.
+
+            May be supplied on write to claim a specific occurrence; it is then
+            honoured verbatim, and must match the shape above.
 
     AgeRange:
       type: [object, 'null']
