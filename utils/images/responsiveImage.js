@@ -30,7 +30,12 @@ const keyOf = (name) => String(name).split('?')[0];
 // agenda/location rows may still hold an external URL. Such a value is ALREADY
 // servable and must NOT be re-based — `base + url` would yield a broken double
 // URL (and drop the cache-buster).
-const ABSOLUTE = /^(?:https?:)?\/\//i;
+// Any scheme, not just http(s): `lib/commons-app.js` hand-rolled this test and
+// accepted `ftp://` too, so keeping it to http(s) would have made a legacy `ftp`
+// row fall through to the compose branch and come back as
+// `{root}/ftp://host/logo.jpg`. The question this asks is "is this value already
+// a URL", and the answer does not depend on the scheme.
+const ABSOLUTE = /^(?:[a-z][a-z0-9+.-]*:)?\/\//i;
 
 // The canonical source form Thumbor derives geometries from. A descriptor only
 // yields responsive URLs when its source resolves to this exact suffix — anything
@@ -232,9 +237,18 @@ function servedSource(value) {
 // `{filename, base, variants}` descriptor. Degrades to the legacy CDN URL that
 // works today (`assetBase + name`) when Thumbor is off or the value isn't an
 // on-demand `.full` source — so it's a no-op until Thumbor is live AND the image
-// is migrated (un-migrated avatars keep serving from the plain CDN). Absolute
-// values (external/legacy full URLs) pass through untouched. Returns null for an
-// empty value.
+// is migrated (un-migrated avatars keep serving from the plain CDN).
+//
+// An absolute value is NOT automatically a pass-through: the v2 read layer
+// serves our own sources as `{root}/{uuid}.full.image.jpg`, and returning those
+// verbatim was dropping the geometry the caller asked for. `servedSource`
+// decides, and it decides BY SUFFIX, not by origin — a value whose last segment
+// is a `.full.image.jpg` source is treated as ours and recomposed, anything
+// else that is absolute passes through untouched. A foreign URL that happens to
+// end in our source suffix would therefore be recomposed onto our bucket; the
+// origin is not checked because the roots a value may legitimately carry (the
+// serving root, the plain bucket, an older indexed host) are not all in hand
+// here. Returns null for an empty value.
 function nativeImageUrl(value, geo, { imageCdnPath, bucket, assetBase } = {}) {
   if (!value) return null;
 

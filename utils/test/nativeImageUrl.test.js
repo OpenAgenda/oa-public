@@ -48,6 +48,15 @@ describe('utils - nativeImageUrl', () => {
     ).toBe(`${ASSET_BASE}${NAME}`);
   });
 
+  it('passes an absolute URL through whatever its scheme', () => {
+    // `lib/commons-app.js` hand-rolled this test and accepted `ftp://`; folding
+    // it into this helper must not quietly narrow it, or such a row comes back
+    // as `{root}/ftp://host/logo.jpg`.
+    const ftp = 'ftp://host.example.org/logo.jpg';
+
+    expect(nativeImageUrl(ftp, '100x100', OPTS)).toBe(ftp);
+  });
+
   it('returns null for an empty value', () => {
     expect(nativeImageUrl(null, '100x100', OPTS)).toBeNull();
   });
