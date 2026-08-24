@@ -203,6 +203,16 @@ function imageRefFromSource(source, imageOptions = {}) {
   return image && { src: image.src, srcTemplate: image.srcTemplate };
 }
 
+// The bucket segment of a served URL: `{root}/{bucket}/{source}` names where the
+// object actually lives, which is not necessarily the bucket this process is
+// configured for. Returns null when the path holds the source alone and there is
+// no bucket to read.
+function bucketOf(value) {
+  const path = String(value).replace(/^(?:[a-z][a-z0-9+.-]*:)?\/\/[^/]*/i, '');
+  const segments = path.split('/').filter(Boolean);
+  return segments.length >= 2 ? segments[segments.length - 2] : null;
+}
+
 // A "served" image string as the v2 read layer returns it: a bare source
 // (`{uuid}.full.image.jpg`), a serving-root-prefixed URL
 // (`{root}/{uuid}.full.image.jpg`), or a legacy ABSOLUTE external URL. Recover the
@@ -274,16 +284,22 @@ function nativeImageUrl(value, geo, { imageCdnPath, bucket, assetBase } = {}) {
   if (typeof value !== 'string') return null;
   if (ABSOLUTE.test(value)) {
     // An absolute value is not necessarily foreign: the v2 read layer serves our
-    // own sources as `{root}/{uuid}.full.image.jpg`, and returning that verbatim
-    // dropped the geometry the caller asked for — every `nativeImageUrl` site
-    // reading an agenda loaded with `includeImagePath` was silently serving the
-    // full-size original. `servedSource` draws the line: our source composes, an
-    // external/legacy URL still passes straight through.
+    // own sources as `{root}/{bucket}/{uuid}.full.image.jpg`, and returning that
+    // verbatim dropped the geometry the caller asked for — every
+    // `nativeImageUrl` site reading an agenda loaded with `includeImagePath` was
+    // silently serving the full-size original. `servedSource` draws the line:
+    // our source composes, an external/legacy URL still passes straight through.
     const served = servedSource(value);
     if (served.absolute) return value;
     return nativeImageUrl(served.source, geo, {
       imageCdnPath,
-      bucket,
+      // The value names the bucket it was served from, and that is the one the
+      // object lives in. Composing onto the CONFIGURED bucket instead would
+      // point at a key that exists in neither: a `dev`-seeded row read by a
+      // `main`-configured process resolves to nothing. The `dev`->`main`
+      // rewrites scattered across this repo are the evidence that such values
+      // do travel between environments.
+      bucket: bucketOf(value) ?? bucket,
       // The value already carried its serving root; keep it for the degraded
       // branch instead of re-basing onto a possibly different one.
       assetBase: value.slice(0, value.length - served.source.length),

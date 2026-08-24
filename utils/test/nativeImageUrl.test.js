@@ -25,6 +25,20 @@ describe('utils - nativeImageUrl', () => {
     );
   });
 
+  it('composes from the bucket the value names, not the configured one', () => {
+    // A value served from `dev` read by a `main`-configured process: the object
+    // lives in `dev`, and rebuilding it onto `main` points at nothing.
+    expect(
+      nativeImageUrl(`https://cdn.openagenda.com/dev/${NAME}`, '100x100', OPTS),
+    ).toBe(`${CDN}u/100x100/dev/${NAME}`);
+  });
+
+  it('falls back to the configured bucket when the value names none', () => {
+    expect(nativeImageUrl(`https://cdn.openagenda.com/${NAME}`, '100x100', OPTS)).toBe(
+      `${CDN}u/100x100/main/${NAME}`,
+    );
+  });
+
   it('passes an external absolute URL through untouched', () => {
     const external = 'https://example.org/some/logo.png';
 
