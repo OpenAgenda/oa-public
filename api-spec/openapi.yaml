@@ -3545,6 +3545,20 @@ components:
 
             May be supplied on write to claim a specific occurrence; it is then
             honoured verbatim, and must match the shape above.
+        sourceRef:
+          type: string
+          maxLength: 255
+          description: >
+            The ticketing connector's own key for this occurrence, opaque to
+            OpenAgenda and stored as sent. A connector that names its dates with
+            its own references keeps them matched across a resync even when the
+            dates themselves move, which `id` alone cannot do — so this is how a
+            connector holds on to an occurrence it has already published.
+
+            Optional, and bounded at 255 characters because it reaches a JSON
+            column. Not an identifier OpenAgenda issues or interprets: two
+            occurrences of the same event must not share one, or neither can be
+            matched and both are treated as new.
 
     AgeRange:
       type: [object, 'null']
