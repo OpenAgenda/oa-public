@@ -1171,7 +1171,7 @@ paths:
         - publicKey: []
         - secretKey: []
         - oauth2:
-            - events:read
+            - agendas:read
       parameters:
         - $ref: '#/components/parameters/AgendaUid'
       responses:
@@ -1291,7 +1291,7 @@ paths:
       security:
         - secretKey: []
         - oauth2:
-            - events:write
+            - media:write
       parameters:
         - $ref: '#/components/parameters/AgendaUid'
       requestBody:
@@ -1398,7 +1398,7 @@ paths:
       security:
         - secretKey: []
         - oauth2:
-            - events:write
+            - media:write
       parameters:
         - $ref: '#/components/parameters/AgendaUid'
       responses:
@@ -1720,15 +1720,22 @@ components:
           refreshUrl: https://openagenda.com/api/auth/oauth2/token
           scopes:
             me:read: >-
-              List the caller's agenda memberships and their role on each.
-            agendas:read: Read agendas
-            agendas:write: Create and modify agendas
-            events:read: Read events
-            events:write: Create and modify events
-            locations:read: Read locations
-            locations:write: Create and modify locations
-            members:read: Read members
-            members:write: Manage members
+              See who you are, the agendas you take part in and your roles on
+              them.
+            agendas:read: Read the agendas you have access to
+            agendas:write: Create, configure and delete agendas
+            events:read: Read the events you have access to
+            events:write: Create, modify and delete events
+            drafts:read: Read your unpublished event drafts
+            events:transverse: Search events across several agendas
+            locations:read: Read agenda locations
+            locations:write: Create, modify, merge and transfer locations
+            geocoding:use: Use the geocoding services
+            members:read: Read agenda members
+            members:write: Invite, manage and contact agenda members
+            media:write: Upload images and other media
+            bookings:read: Read the bookings attached to events
+            conversations:write: Send messages about events
     secretKey:
       type: http
       scheme: bearer
