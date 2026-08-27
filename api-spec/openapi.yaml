@@ -3560,6 +3560,34 @@ components:
             occurrences of the same event must not share one, or neither can be
             matched and both are treated as new.
 
+    OffersAggregate:
+      type: [object, 'null']
+      additionalProperties: false
+      description: >
+        What the ticketing sources of this event add up to, derived at read time
+        and never stored. Both halves are `null` when nothing can be said —
+        every occurrence past, or no source carrying a usable status.
+
+        The availability half is RECOMPUTED on every read rather than served as
+        synced: a sale window elapses between two connector polls, so a stored
+        status goes stale on its own. Inventory (`soldOut`, `limited`) is the
+        exception — only the provider knows it, and only at sync time.
+      properties:
+        availability:
+          type: [string, 'null']
+          enum: [available, limited, notYetOnSale, soldOut, salesClosed, unknown, mixed, null]
+          description: >
+            `mixed` means the occurrences disagree — one date sold out, another
+            closed — and is a real answer rather than a failure to decide: a
+            consumer should render it as "see dates".
+        pricing:
+          type: [string, 'null']
+          enum: [free, paid, donation, mixed, unknown, null]
+          description: >
+            A CATEGORY, never an amount. v1 stores no price envelope: a card
+            showing "à partir de 18 €" computes it from the tiers the detailed
+            endpoints carry.
+
     AgeRange:
       type: [object, 'null']
       additionalProperties: false
@@ -4666,6 +4694,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Registration'
+        offersAggregate:
+          allOf:
+            - $ref: '#/components/schemas/OffersAggregate'
+          description: >
+            Absent from an event with no ticketing catalogue, which is the
+            overwhelming majority — the projection adds nothing to those, by
+            design.
         createdAt:
           type: string
           format: date-time
