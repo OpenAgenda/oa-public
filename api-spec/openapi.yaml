@@ -238,7 +238,7 @@ paths:
         - publicKey: []
         - secretKey: []
         - oauth2:
-            - agendas:read
+            - events:read
       parameters:
         - $ref: '#/components/parameters/AgendaUid'
       responses:
