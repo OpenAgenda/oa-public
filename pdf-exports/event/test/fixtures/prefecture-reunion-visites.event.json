@@ -1,0 +1,360 @@
+{
+  "firstTiming": {
+    "end": "2026-09-19T09:15:00.000+04:00",
+    "begin": "2026-09-19T09:00:00.000+04:00"
+  },
+  "nextTiming": {
+    "end": "2026-09-19T09:15:00+04:00",
+    "begin": "2026-09-19T09:00:00+04:00"
+  },
+  "lastTiming": {
+    "end": "2026-09-20T15:45:00.000+04:00",
+    "begin": "2026-09-20T15:30:00.000+04:00"
+  },
+  "dateRange": {
+    "ar": "١٩ و ٢٠ سبتمبر ",
+    "de": "19 und 20 September",
+    "en": "19 and 20 September",
+    "it": "19 e 20 settembre",
+    "fr": "19 et 20 septembre",
+    "es": "19 i 20 septiembre",
+    "nl": "19 en 20 september"
+  },
+  "state": 2,
+  "featured": false,
+  "motive": null,
+  "originAgenda": {
+    "uid": 7168246,
+    "image": "https://img.openagenda.com/main/707f12214a954c5987608914237c1c08.full.image.jpg",
+    "description": "La 43e édition des Journées européennes du patrimoine se déroulera les 19 et 20 septembre 2026. La journée dédiée au public scolaire se déroulera le vendredi 18 septembre (opération « Levez les yeux ! »).",
+    "official": false,
+    "title": "Journées européennes du patrimoine 2026 - La Réunion",
+    "slug": "jep-2026-la-reunion",
+    "url": "http://www.journeesdupatrimoine.fr",
+    "_agg": "eyJ1aWQiOjcxNjgyNDYsInRpdGxlIjoiSm91cm7DqWVzIGV1cm9ww6llbm5lcyBkdSBwYXRyaW1vaW5lIDIwMjYgLSBMYSBSw6l1bmlvbiIsImltYWdlIjoiaHR0cHM6Ly9pbWcub3BlbmFnZW5kYS5jb20vbWFpbi83MDdmMTIyMTRhOTU0YzU5ODc2MDg5MTQyMzdjMWMwOC5mdWxsLmltYWdlLmpwZyIsInVybCI6Imh0dHA6Ly93d3cuam91cm5lZXNkdXBhdHJpbW9pbmUuZnIiLCJzbHVnIjoiamVwLTIwMjYtbGEtcmV1bmlvbiJ9"
+  },
+  "sourceAgendas": [],
+  "title": {
+    "de": "Führungen durch die Präfektur von La Réunion",
+    "en": "Guided tours of the Réunion Prefecture",
+    "it": "Visite guidate della Prefettura della Riunione",
+    "fr": "Visites guidées de la Préfecture de La Réunion",
+    "es": "Visitas guiadas a la prefectura de Reunión"
+  },
+  "types-devenement": 10,
+  "theme-jep": [],
+  "specificites": [14],
+  "image": {
+    "filename": "17951a8b7e9846ec96b7d67e25099a95.base.image.jpg",
+    "size": {
+      "width": 700,
+      "height": 469
+    },
+    "variants": [
+      {
+        "filename": "17951a8b7e9846ec96b7d67e25099a95.full.image.jpg",
+        "size": {
+          "width": 886,
+          "height": 593
+        },
+        "type": "full"
+      },
+      {
+        "filename": "17951a8b7e9846ec96b7d67e25099a95.thumb.image.jpg",
+        "size": {
+          "width": 200,
+          "height": 200
+        },
+        "type": "thumbnail"
+      }
+    ],
+    "base": "https://img.openagenda.com/main/"
+  },
+  "imageCredits": "©JL Allegre",
+  "jaccepte-que-limage-puisse-etre-librement-utilisee-a-la-condition": true,
+  "attendanceMode": 1,
+  "onlineAccessLink": null,
+  "location": {
+    "disqualifiedDuplicates": null,
+    "access": {},
+    "types-de-lieu": [13],
+    "city": "Saint-Denis",
+    "timezone": "Indian/Reunion",
+    "postalCode": "97400",
+    "latitude": -20.875268,
+    "imageCredits": null,
+    "description": {},
+    "setUid": null,
+    "uid": 23056931,
+    "createdAt": "2026-08-19T14:47:17.000Z",
+    "duplicateCandidates": null,
+    "countryCode": "FR",
+    "adminLevel5": "Saint-Jacques",
+    "links": [],
+    "state": 1,
+    "extId": null,
+    "department": "La Réunion",
+    "slug": "prefecture-de-la-reunion_2681792",
+    "email": null,
+    "longitude": 55.446388,
+    "updatedAt": "2026-09-01T08:02:48.000Z",
+    "image": null,
+    "website": null,
+    "address": "Rue du Gouvernement, 97400",
+    "adminLevel3": "Communauté intercommunale du Nord de la Réunion",
+    "agendaUid": 7168246,
+    "adminLevel4": "Saint-Denis",
+    "adminLevel1": "La Réunion",
+    "adminLevel2": "La Réunion",
+    "mergedIn": null,
+    "protections-appellation-et-labels": [5, 10],
+    "_agg": "eyJ1aWQiOjIzMDU2OTMxLCJuYW1lIjoiUHLDqWZlY3R1cmUgZGUgTGEgUsOpdW5pb24ifQ==",
+    "tags": [
+      {
+        "id": 5,
+        "label": {
+          "fr": "Monument historique"
+        }
+      },
+      {
+        "id": 10,
+        "label": {
+          "fr": "Villes et Pays d'art et d'histoire"
+        }
+      },
+      {
+        "id": 13,
+        "label": {
+          "fr": "Édifice civil public"
+        }
+      }
+    ],
+    "insee": "97411",
+    "phone": null,
+    "district": "Saint-Jacques",
+    "name": "Préfecture de La Réunion",
+    "region": "La Réunion",
+    "extIds": [
+      {
+        "value": null,
+        "key": "default"
+      }
+    ]
+  },
+  "timings": [
+    {
+      "end": "2026-09-19T09:15:00+04:00",
+      "begin": "2026-09-19T09:00:00+04:00"
+    },
+    {
+      "end": "2026-09-19T09:30:00+04:00",
+      "begin": "2026-09-19T09:15:00+04:00"
+    },
+    {
+      "end": "2026-09-19T09:45:00+04:00",
+      "begin": "2026-09-19T09:30:00+04:00"
+    },
+    {
+      "end": "2026-09-19T10:00:00+04:00",
+      "begin": "2026-09-19T09:45:00+04:00"
+    },
+    {
+      "end": "2026-09-19T10:15:00+04:00",
+      "begin": "2026-09-19T10:00:00+04:00"
+    },
+    {
+      "end": "2026-09-19T10:30:00+04:00",
+      "begin": "2026-09-19T10:15:00+04:00"
+    },
+    {
+      "end": "2026-09-19T10:45:00+04:00",
+      "begin": "2026-09-19T10:30:00+04:00"
+    },
+    {
+      "end": "2026-09-19T11:00:00+04:00",
+      "begin": "2026-09-19T10:45:00+04:00"
+    },
+    {
+      "end": "2026-09-19T11:15:00+04:00",
+      "begin": "2026-09-19T11:00:00+04:00"
+    },
+    {
+      "end": "2026-09-19T11:30:00+04:00",
+      "begin": "2026-09-19T11:15:00+04:00"
+    },
+    {
+      "end": "2026-09-19T13:15:00+04:00",
+      "begin": "2026-09-19T13:00:00+04:00"
+    },
+    {
+      "end": "2026-09-19T13:30:00+04:00",
+      "begin": "2026-09-19T13:15:00+04:00"
+    },
+    {
+      "end": "2026-09-19T13:45:00+04:00",
+      "begin": "2026-09-19T13:30:00+04:00"
+    },
+    {
+      "end": "2026-09-19T14:00:00+04:00",
+      "begin": "2026-09-19T13:45:00+04:00"
+    },
+    {
+      "end": "2026-09-19T14:15:00+04:00",
+      "begin": "2026-09-19T14:00:00+04:00"
+    },
+    {
+      "end": "2026-09-19T14:30:00+04:00",
+      "begin": "2026-09-19T14:15:00+04:00"
+    },
+    {
+      "end": "2026-09-19T14:45:00+04:00",
+      "begin": "2026-09-19T14:30:00+04:00"
+    },
+    {
+      "end": "2026-09-19T15:00:00+04:00",
+      "begin": "2026-09-19T14:45:00+04:00"
+    },
+    {
+      "end": "2026-09-19T15:15:00+04:00",
+      "begin": "2026-09-19T15:00:00+04:00"
+    },
+    {
+      "end": "2026-09-19T15:30:00+04:00",
+      "begin": "2026-09-19T15:15:00+04:00"
+    },
+    {
+      "end": "2026-09-19T15:45:00+04:00",
+      "begin": "2026-09-19T15:30:00+04:00"
+    },
+    {
+      "end": "2026-09-20T09:15:00+04:00",
+      "begin": "2026-09-20T09:00:00+04:00"
+    },
+    {
+      "end": "2026-09-20T09:30:00+04:00",
+      "begin": "2026-09-20T09:15:00+04:00"
+    },
+    {
+      "end": "2026-09-20T09:45:00+04:00",
+      "begin": "2026-09-20T09:30:00+04:00"
+    },
+    {
+      "end": "2026-09-20T10:00:00+04:00",
+      "begin": "2026-09-20T09:45:00+04:00"
+    },
+    {
+      "end": "2026-09-20T10:15:00+04:00",
+      "begin": "2026-09-20T10:00:00+04:00"
+    },
+    {
+      "end": "2026-09-20T10:30:00+04:00",
+      "begin": "2026-09-20T10:15:00+04:00"
+    },
+    {
+      "end": "2026-09-20T10:45:00+04:00",
+      "begin": "2026-09-20T10:30:00+04:00"
+    },
+    {
+      "end": "2026-09-20T11:00:00+04:00",
+      "begin": "2026-09-20T10:45:00+04:00"
+    },
+    {
+      "end": "2026-09-20T11:15:00+04:00",
+      "begin": "2026-09-20T11:00:00+04:00"
+    },
+    {
+      "end": "2026-09-20T11:30:00+04:00",
+      "begin": "2026-09-20T11:15:00+04:00"
+    },
+    {
+      "end": "2026-09-20T13:15:00+04:00",
+      "begin": "2026-09-20T13:00:00+04:00"
+    },
+    {
+      "end": "2026-09-20T13:30:00+04:00",
+      "begin": "2026-09-20T13:15:00+04:00"
+    },
+    {
+      "end": "2026-09-20T13:45:00+04:00",
+      "begin": "2026-09-20T13:30:00+04:00"
+    },
+    {
+      "end": "2026-09-20T14:00:00+04:00",
+      "begin": "2026-09-20T13:45:00+04:00"
+    },
+    {
+      "end": "2026-09-20T14:15:00+04:00",
+      "begin": "2026-09-20T14:00:00+04:00"
+    },
+    {
+      "end": "2026-09-20T14:30:00+04:00",
+      "begin": "2026-09-20T14:15:00+04:00"
+    },
+    {
+      "end": "2026-09-20T14:45:00+04:00",
+      "begin": "2026-09-20T14:30:00+04:00"
+    },
+    {
+      "end": "2026-09-20T15:00:00+04:00",
+      "begin": "2026-09-20T14:45:00+04:00"
+    },
+    {
+      "end": "2026-09-20T15:15:00+04:00",
+      "begin": "2026-09-20T15:00:00+04:00"
+    },
+    {
+      "end": "2026-09-20T15:30:00+04:00",
+      "begin": "2026-09-20T15:15:00+04:00"
+    },
+    {
+      "end": "2026-09-20T15:45:00+04:00",
+      "begin": "2026-09-20T15:30:00+04:00"
+    }
+  ],
+  "description": {
+    "de": "Führungen durch die Präfektur von La Réunion",
+    "en": "Guided tours of the Réunion Prefecture",
+    "it": "Visite guidate della Prefettura della Riunione",
+    "fr": "Visites guidées de la Préfecture de La Réunion",
+    "es": "Visitas guiadas a la prefectura de Reunión"
+  },
+  "longDescription": {
+    "de": "Wie jedes Jahr öffnet das Hôtel de la Préfecture, ein Wahrzeichen von La Réunion, seine Türen für Besucher und bietet von Gästeführern kommentierte Führungen an. Reservieren Sie Ihren Zeitfenster, um den Zugang zum Gebäude zu erleichtern und das Warten vor Ort zu vermeiden. Eröffnung der Online-Reservierungen am 1\\. September.",
+    "en": "As every year, the Hôtel de la Préfecture, an emblematic place in Réunion, opens its doors to visitors and offers guided tours by tour guides. Reserve your time slot to facilitate access to the building and avoid waiting on site. Opening of online bookings on 1 September.",
+    "it": "Come ogni anno, l'Hôtel de la Préfecture, luogo emblematico della Réunion, apre le sue porte ai visitatori e propone visite guidate. Prenota il tuo orario per facilitare l'accesso all'edificio ed evitare di dover aspettare. Apertura delle prenotazioni on-line il 1 settembre.",
+    "fr": "Comme chaque année, l'Hôtel de la préfecture, lieu emblématique de La Réunion, ouvre ses portes aux visiteurs et propose des visites commentées par des guides-conférenciers. Réservez votre créneau afin de faciliter l’accès au bâtiment et éviter l’attente sur place. Ouverture des réservations en ligne le 1er septembre.",
+    "es": "Como cada año, el Hôtel de la Préfecture, lugar emblemático de La Reunión, abre sus puertas a los visitantes y ofrece visitas guiadas. Reserve su horario para facilitar el acceso al edificio y evitar la espera en el lugar. Apertura de las reservas en línea el 1 de septiembre."
+  },
+  "conditions-de-participation": [23],
+  "registration": [],
+  "conditions": {
+    "de": "Begrenzte Plätze, reservieren Sie Ihren Slot ab dem 1\\. September 2026",
+    "en": "Limited places, reserve your slot starting from September 1, 2026",
+    "it": "Posti limitati, prenota il tuo orario dal 1° settembre 2026",
+    "fr": "Places limitées, réservez votre créneau à partir du 1er septembre 2026",
+    "es": "Plazas limitadas, reserve su franja a partir del 1 de septiembre de 2026"
+  },
+  "type-de-public": 30,
+  "accessibility": {
+    "ii": false,
+    "hi": false,
+    "vi": false,
+    "pi": false,
+    "mi": false
+  },
+  "age": {
+    "min": null,
+    "max": null
+  },
+  "keywords": {},
+  "status": 1,
+  "extIds": null,
+  "uid": 70063400,
+  "slug": "visites-guidees-de-la-prefecture-de-la-reunion",
+  "private": 0,
+  "timezone": "Indian/Reunion",
+  "draft": 0,
+  "createdAt": "2026-08-19T14:47:26.000Z",
+  "updatedAt": "2026-09-01T08:02:48.000Z",
+  "links": []
+}

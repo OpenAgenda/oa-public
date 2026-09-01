@@ -86,6 +86,14 @@ const fixturePairs = [
     event: await readFx('bunkers.event'),
   },
   {
+    // Event 70063400: 21 quarter-hour slots per day. Its date line used to be
+    // measured unbounded, never fit a column, and the paginator retried it on
+    // fresh pages forever — the web-node memory runaways of 2026-08-30 → 09-01.
+    name: 'prefecture-reunion-many-slots',
+    agenda: await readFx('jep-2026-la-reunion.agenda'),
+    event: await readFx('prefecture-reunion-visites.event'),
+  },
+  {
     name: 'gouton',
     agenda: await readFx('gouton').then((d) => d.agenda),
     event: await readFx('gouton').then((d) => d.event),
