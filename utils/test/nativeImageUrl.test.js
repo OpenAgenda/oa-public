@@ -34,9 +34,9 @@ describe('utils - nativeImageUrl', () => {
   });
 
   it('falls back to the configured bucket when the value names none', () => {
-    expect(nativeImageUrl(`https://cdn.openagenda.com/${NAME}`, '100x100', OPTS)).toBe(
-      `${CDN}u/100x100/main/${NAME}`,
-    );
+    expect(
+      nativeImageUrl(`https://cdn.openagenda.com/${NAME}`, '100x100', OPTS),
+    ).toBe(`${CDN}u/100x100/main/${NAME}`);
   });
 
   it('passes an external absolute URL through untouched', () => {
