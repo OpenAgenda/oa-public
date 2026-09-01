@@ -11,6 +11,7 @@ export default async function addTimingMonth(doc, parentCursor, params) {
   const {
     value: month,
     availableHeight,
+    availableWidth,
     evaluateTitleHeight = true,
     simulate = false,
     margins,
@@ -20,6 +21,19 @@ export default async function addTimingMonth(doc, parentCursor, params) {
     weeks: weekMargins = { bottom: 10 },
     monthTitle: monthTitleMargins = { bottom: 5 },
   } = margins;
+
+  // A date renders as one line — "sam. 19 - 09:00, 09:15, …" — that grows
+  // with its number of slots. Measured unbounded, a day with ~20 slots is
+  // wider than the whole timings area, so the month never fits anywhere and
+  // the paginator retries it on empty pages forever. Wrapping the line at
+  // the area's full width (less the segment's right margin, added back to
+  // the returned size) keeps the measure honest and the month placeable;
+  // months still flow into side columns on their natural width when that
+  // is narrower. Too narrow an area is left unbounded rather than wrapped
+  // character by character.
+  const MIN_WRAP_WIDTH = 40;
+  const wrapWidth = (availableWidth ?? 0) - (margins.right ?? 0);
+  const dateLineWidth = wrapWidth >= MIN_WRAP_WIDTH ? wrapWidth : undefined;
 
   const displayMonthName = month.displayMonthName ?? true;
 
@@ -90,6 +104,7 @@ export default async function addTimingMonth(doc, parentCursor, params) {
         { x: 0, y: 0 },
         {
           value,
+          availableWidth: dateLineWidth,
           simulate: true,
         },
       );
@@ -117,6 +132,7 @@ export default async function addTimingMonth(doc, parentCursor, params) {
       }
       await addText(doc, cursor, {
         ...params,
+        availableWidth: dateLineWidth,
         value,
       });
       adjustSize(size, dateSize);
