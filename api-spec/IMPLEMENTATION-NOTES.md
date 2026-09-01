@@ -470,16 +470,16 @@ ensemble filtré** que la liste (mêmes params de filtre), **sans données d'eve
 répartissent en **8 familles de formes** distinctes → on les livre **famille par famille** (granularité
 = unité de déploiement), pas en un bloc :
 
-| Famille               | Forme                         | Facettes                                                                                                             | État                                                                |
-| --------------------- | ----------------------------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| **A — termes**        | `[{value,count}]`             | cities, regions, departments, districts, countryCodes, keywords, languages, accessibilities, status, attendanceModes | **fait (6a)**                                                       |
-| B — geo points        | `[{value,count,lat,lng}]`     | geohash                                                                                                              | **fait (6c)**                                                       |
-| C — viewport          | objet `{topLeft,bottomRight}` | viewport                                                                                                             | **fait (6c)**                                                       |
-| D — tranches de dates | `[{value,count}]`             | eventsByDateRanges                                                                                                   | **fait (6e)** — slim, sans `sampleEvents` (cf. décision ci-dessous) |
-| E — timespan          | objet `{first,last}`          | timespan                                                                                                             | **fait (6d)**                                                       |
-| F — timings           | `[{value,timingCount}]`       | timings                                                                                                              | **fait (6d)**                                                       |
-| G — refs d'agenda     | `[{agenda,count}]`            | originAgendas, sourceAgendas                                                                                         | **fait (6b)**                                                       |
-| H — additionalFields  | map `{field:{label,values}}`  | additionalFields, additionalFieldMetrics                                                                             | **fait (6f)** — multi-champ, gate d'accès appliqué côté v3          |
+| Famille               | Forme                         | Facettes                                                                                                             | État                                                           |
+| --------------------- | ----------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| **A — termes**        | `[{value,count}]`             | cities, regions, departments, districts, countryCodes, keywords, languages, accessibilities, status, attendanceModes | **fait (6a)**                                                  |
+| B — geo points        | `[{value,count,lat,lng}]`     | geohash                                                                                                              | **fait (6c)**                                                  |
+| C — viewport          | objet `{topLeft,bottomRight}` | viewport                                                                                                             | **fait (6c)**                                                  |
+| D — tranches de dates | `[{value,count}]`             | eventsByDateRanges                                                                                                   | **fait (6e)** — slim, sans `samples` (cf. décision ci-dessous) |
+| E — timespan          | objet `{first,last}`          | timespan                                                                                                             | **fait (6d)**                                                  |
+| F — timings           | `[{value,timingCount}]`       | timings                                                                                                              | **fait (6d)**                                                  |
+| G — refs d'agenda     | `[{agenda,count}]`            | originAgendas, sourceAgendas                                                                                         | **fait (6b)**                                                  |
+| H — additionalFields  | map `{field:{label,values}}`  | additionalFields, additionalFieldMetrics                                                                             | **fait (6f)** — multi-champ, gate d'accès appliqué côté v3     |
 
 **Exclu (modération/interne)** : `members`, `valid`, `states`, `addMethods`, `additionalFieldMetrics`,
 `missingAdditionalFields`, `adminLevels3/5` — absents de l'enum, inatteignables (curation cohérente
@@ -567,11 +567,12 @@ null]`, `FacetResults.timings` → `FacetBucket[]` (réutilise la forme termes).
 
 **Famille D — tranches de dates (6e)** :
 
-**Décision : on ship D _slim_, sans `sampleEvents`.** L'agrégation `eventsByDateRanges` renvoie, par jour,
-`{key, eventCount, sampleEvents}` où `sampleEvents` = le **`_source` ES brut** d'un `top_hits` qui **ne
-passe PAS** par la projection de lecture (`parseEvents`/`postDSL` ne tourne que sur les hits top-niveau,
-pas sur les sous-agg). L'exposer proprement imposait de re-mapper chaque sample via `mapEventSummary`
-(strip modération + champs calculés absents) — risque pour une valeur marginale. On ne garde que la
+**Décision : on ship D _slim_, sans `samples`.** L'agrégation `eventsByDateRanges` renvoie, par jour,
+`{key, eventCount, samples}` (clé historique `sampleEvents`, renommée en 2026-08 avec l'ajout des
+samples sur `geohash` — zéro usage en prod sur 90 j de logs). Depuis ce même chantier, les samples
+**passent** par la chaîne de parsers de lecture (`eventParsers` transmis à `formatResult` :
+monolingue, composition d'images…). Les exposer en v3 imposerait encore de re-mapper chaque sample
+via `mapEventSummary` (strip modération + champs calculés absents) — risque pour une valeur marginale. On ne garde que la
 **grille dense de comptes** : `[{value,count}]` (forme `FacetBucket` réutilisée), un bucket **par jour de
 la fenêtre, jours vides inclus**. C'est ce qui distingue D de F (timings `date_histogram` n'a pas
 d'`extended_bounds` → ne remplit qu'entre premier/dernier event ; D garantit la grille complète du mois).
