@@ -3575,7 +3575,17 @@ components:
       properties:
         availability:
           type: [string, 'null']
-          enum: [available, limited, notYetOnSale, soldOut, salesClosed, unknown, mixed, null]
+          enum:
+            [
+              available,
+              limited,
+              notYetOnSale,
+              soldOut,
+              salesClosed,
+              unknown,
+              mixed,
+              null,
+            ]
           description: >
             `mixed` means the occurrences disagree — one date sold out, another
             closed — and is a real answer rather than a failure to decide: a
@@ -4698,9 +4708,12 @@ components:
           allOf:
             - $ref: '#/components/schemas/OffersAggregate'
           description: >
-            Absent from an event with no ticketing catalogue, which is the
+            `null` on an event with no ticketing catalogue, which is the
             overwhelming majority — the projection adds nothing to those, by
-            design.
+            design. Always present, never absent: like every declared field of
+            this API, it is emitted on every response, and it is its CONTENT that
+            says whether there is a catalogue behind it. Do not treat the key's
+            presence as a signal.
         createdAt:
           type: string
           format: date-time
