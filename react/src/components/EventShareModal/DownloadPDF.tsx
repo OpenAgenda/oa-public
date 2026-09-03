@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import { Button, Link, Flex, Text } from '@openagenda/uikit';
 import { Tag } from '@openagenda/uikit/snippets';
@@ -11,14 +12,29 @@ export default function DownloadPDF({
   rootUrl,
   agenda,
   event,
+  contentLocale,
 }: {
   rootUrl: string;
   agenda: Agenda;
   event: Event;
+  contentLocale: string;
 }): React.JSX.Element {
   const intl = useIntl();
 
-  const pdfUrl = `${rootUrl}/api/agendas/${agenda.uid}/events/${event.uid}.pdf`;
+  // `?lang` is what the renderer picks its content and its labels with. Without
+  // it the web `/api` mount falls back to the reader's own culture (or `fr`), so
+  // a PDF asked for from an event displayed in one language came out in another.
+  const pdfUrl = useMemo(() => {
+    const url = new URL(
+      `/api/agendas/${agenda.uid}/events/${event.uid}.pdf`,
+      rootUrl,
+    );
+    if (contentLocale) {
+      url.searchParams.set('lang', contentLocale);
+    }
+    return url.toString();
+  }, [rootUrl, agenda.uid, event.uid, contentLocale]);
+
   const eventUrl = `https://openagenda.com/agendas/${agenda.uid}/events/${event.uid}`;
   const mailtoHref = `mailto:support@openagenda.com?subject=${encodeURIComponent(
     intl.formatMessage(messages.feedbackEmailSubject),
