@@ -4708,12 +4708,14 @@ components:
           allOf:
             - $ref: '#/components/schemas/OffersAggregate'
           description: >
-            `null` on an event with no ticketing catalogue, which is the
+            ABSENT from an event with no ticketing catalogue, which is the
             overwhelming majority — the projection adds nothing to those, by
-            design. Always present, never absent: like every declared field of
-            this API, it is emitted on every response, and it is its CONTENT that
-            says whether there is a catalogue behind it. Do not treat the key's
-            presence as a signal.
+            design, and such an event answers exactly as it did before this
+            field existed.
+
+            Present as soon as a catalogue is there, and then possibly `null` on
+            either half: `null` means "nothing can be said" — every occurrence
+            past, or no source carrying a usable status — never "no ticketing".
         createdAt:
           type: string
           format: date-time
