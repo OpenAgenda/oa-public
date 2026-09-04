@@ -4707,6 +4707,7 @@ components:
         offersAggregate:
           allOf:
             - $ref: '#/components/schemas/OffersAggregate'
+          readOnly: true
           description: >
             ABSENT from an event with no ticketing catalogue, which is the
             overwhelming majority — the projection adds nothing to those, by
