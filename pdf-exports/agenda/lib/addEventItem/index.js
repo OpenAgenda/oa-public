@@ -88,7 +88,22 @@ export default async function addEventItem(
     little,
     medium,
     mode = 'default',
+    includeAccessibility = true,
+    includeDescription = true,
+    includeEventLink = true,
+    includeLocation = true,
+    includeRegistration = true,
   } = options;
+
+  // The lines an export can leave out. Every option defaults to true: a caller
+  // asks to drop a line, never to add one.
+  const excludedItems = [
+    includeAccessibility ? null : 'accessibility',
+    includeDescription ? null : 'description',
+    includeEventLink ? null : 'eventLink',
+    includeLocation ? null : 'location',
+    includeRegistration ? null : 'registration',
+  ].filter(Boolean);
 
   const localCursor = {
     y: cursor.y,
@@ -156,11 +171,17 @@ export default async function addEventItem(
   let columnWidth = 0;
 
   for (const line of modes[mode]) {
+    const lineItems = []
+      .concat(line)
+      .map(extractModeOptions)
+      .filter(({ name }) => !excludedItems.includes(name));
+
+    // A line emptied by the options takes no room at all.
+    if (!lineItems.length) continue;
+
     let lineWidth = 0;
     let lineHeight = 0;
-    for (const lineItem of [].concat(line)) {
-      const lineItemOptions = extractModeOptions(lineItem);
-
+    for (const lineItemOptions of lineItems) {
       const { width, height } = positioningFunctions[lineItemOptions.name](
         doc,
         localCursor,
@@ -192,9 +213,17 @@ export default async function addEventItem(
     });
   }
 
+  // The thumbnail sets a floor on the item height only when there is one:
+  // without images a short item takes the room of its lines, no more.
+  const imageFloor = includeEventImages ? imageHeight : 0;
+
+  // The gap to the next item: two thirds of the base margin, a full one read
+  // as a blank block once items lost their lines.
+  const itemGap = (base.margin * 2) / 3;
+
   return {
-    width: imageWidth + columnWidth + base.margin,
-    height: Math.max(imageHeight, localCursor.y - cursor.y) + base.margin,
+    width: (includeEventImages ? imageWidth : 0) + columnWidth + base.margin,
+    height: Math.max(imageFloor, localCursor.y - cursor.y) + itemGap,
     cursor: localCursor,
   };
 }

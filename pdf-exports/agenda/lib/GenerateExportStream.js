@@ -29,6 +29,11 @@ export default async function GenerateExportStream(
     logBundle,
     sections,
     total,
+    includeAccessibility = true,
+    includeDescription = true,
+    includeEventLink = true,
+    includeLocation = true,
+    includeRegistration = true,
   } = options;
 
   const startTime = Date.now();
@@ -37,6 +42,20 @@ export default async function GenerateExportStream(
   log.info('Start processing', { ...logBundle, sections });
 
   const intl = getIntl(lang);
+
+  const eventItemOptions = {
+    intl,
+    lang,
+    includeEventImages,
+    little,
+    medium,
+    mode,
+    includeAccessibility,
+    includeDescription,
+    includeEventLink,
+    includeLocation,
+    includeRegistration,
+  };
 
   const doc = new PDFDocument({ size: 'A4', margin: 0 });
 
@@ -144,15 +163,7 @@ export default async function GenerateExportStream(
       event,
       doc,
       cursor,
-      {
-        simulate: true,
-        intl,
-        lang,
-        includeEventImages,
-        little,
-        medium,
-        mode,
-      },
+      { ...eventItemOptions, simulate: true },
     );
 
     simulatedHeight += simulatedEventItemHeight;
@@ -197,14 +208,7 @@ export default async function GenerateExportStream(
       event,
       doc,
       cursor,
-      {
-        intl,
-        lang,
-        includeEventImages,
-        little,
-        medium,
-        mode,
-      },
+      eventItemOptions,
     );
 
     const endTime = Date.now();
