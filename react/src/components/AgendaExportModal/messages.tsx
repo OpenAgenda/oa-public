@@ -184,6 +184,42 @@ const messages: Record<string, MessageDescriptor> = defineMessages({
     id: 'react.components.AgendaExportModal.PDFSelectSub',
     defaultMessage: 'Drag and drop options to adjust order',
   },
+  PDFContentTitle: {
+    id: 'react.components.AgendaExportModal.PDFContentTitle',
+    defaultMessage: 'Include for each event',
+  },
+  PDFAlwaysIncluded: {
+    id: 'react.components.AgendaExportModal.PDFAlwaysIncluded',
+    defaultMessage: 'The title and the summary of dates and times',
+  },
+  PDFIncludeImage: {
+    id: 'react.components.AgendaExportModal.PDFIncludeImage',
+    defaultMessage: 'The image',
+  },
+  PDFImagesUnavailable: {
+    id: 'react.components.AgendaExportModal.PDFImagesUnavailable',
+    defaultMessage: 'Images are not included from {limit} events',
+  },
+  PDFIncludeDescription: {
+    id: 'react.components.AgendaExportModal.PDFIncludeDescription',
+    defaultMessage: 'The short description',
+  },
+  PDFIncludeAccessibility: {
+    id: 'react.components.AgendaExportModal.PDFIncludeAccessibility',
+    defaultMessage: 'The accessibility icons',
+  },
+  PDFIncludeEventLink: {
+    id: 'react.components.AgendaExportModal.PDFIncludeEventLink',
+    defaultMessage: 'The link to the event page on OpenAgenda',
+  },
+  PDFIncludeLocation: {
+    id: 'react.components.AgendaExportModal.PDFIncludeLocation',
+    defaultMessage: 'The location details',
+  },
+  PDFIncludeRegistration: {
+    id: 'react.components.AgendaExportModal.PDFIncludeRegistration',
+    defaultMessage: 'The registration details',
+  },
   showFilters: {
     id: 'react.components.AgendaExportModal.showFilters',
     defaultMessage: 'Show filters',

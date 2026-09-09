@@ -1,5 +1,6 @@
 export type CompleteUrlsResult = {
   agendaExportSettings: string;
+  count: string;
   me: string;
   export: {
     jsonV2: string;
@@ -27,6 +28,8 @@ export type SpreadsheetSubmitOptions = {
 export type PdfSubmitOptions = {
   locationInHeader: boolean;
   sort: string[];
+  // null: everything, the export's default. A list names every line to keep.
+  includeFields: string[] | null;
 };
 
 export type SpreadsheetSubmitHandler = (

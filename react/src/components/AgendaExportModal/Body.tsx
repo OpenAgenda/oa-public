@@ -59,9 +59,17 @@ function completeUrls(
 
   const apiQueryString = qs.stringify(apiQuery, { addQueryPrefix: true });
   const embedQueryString = qs.stringify(query, { addQueryPrefix: true });
+  const countQueryString = qs.stringify(
+    { ...apiQuery, size: 0 },
+    { addQueryPrefix: true },
+  );
 
   return {
     agendaExportSettings: `/agendas/${agendaUid}/settings/exports`,
+    // How many events the export covers: the PDF greys its image option past
+    // the server threshold. Through the UI API, not the `.v2.json` export,
+    // which `trackFormat` would log as a JSON export of the agenda.
+    count: `${rootUrl}/api/agendas/${agendaUid}/events${countQueryString}`,
     me: '/api/me',
     export: {
       jsonV2: `${apiRootUrl}/v2/agendas/${agendaUid}/events${apiQueryString}`,
@@ -111,8 +119,11 @@ export default function Body({
       ? fetchAgendaExportSettings(agenda.uid)
       : fetcher<ExportSettings>(url)));
 
+  const { data: countData } = useSWR<{ total?: number }>(res.count, fetcher);
+
   const languages = exportSettingsData?.languages;
   const hasMultipleLocations = exportSettingsData?.hasMultipleLocations ?? true;
+  const pdfImageLimit = exportSettingsData?.pdfImageLimit;
   const fields = exportSettingsData?.spreadsheetColumns;
   const choiceFields = exportSettingsData?.choiceFields;
 
@@ -145,6 +156,9 @@ export default function Body({
       url.searchParams.append('locationInHeader', 'true');
     }
     options.sort.forEach((s) => url.searchParams.append('sort[]', s));
+    // Every line is in by default: a list only travels when something is out.
+    options.includeFields?.forEach((f) =>
+      url.searchParams.append('includeFields[]', f));
     window.open(url, '_blank');
     onClose();
   };
@@ -224,6 +238,8 @@ export default function Body({
           <PdfAccordionItem
             onSubmit={handlePdfSubmit}
             hasMultipleLocations={hasMultipleLocations}
+            total={countData?.total}
+            pdfImageLimit={pdfImageLimit}
           />
           <JsonAccordionItem res={res} />
           <GcalAccordionItem res={res} />

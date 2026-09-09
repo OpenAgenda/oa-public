@@ -101,4 +101,5 @@ export type ExportSettings = {
   hasMultipleLocations?: boolean;
   spreadsheetColumns?: ExportField[];
   choiceFields?: ChoiceField[];
+  pdfImageLimit?: number;
 };
