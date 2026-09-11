@@ -1,0 +1,234 @@
+{
+  "firstTiming": {
+    "end": "2026-09-18T17:00:00.000-04:00",
+    "id": "ST2H43",
+    "begin": "2026-09-18T09:00:00.000-04:00"
+  },
+  "nextTiming": {
+    "end": "2026-09-18T17:00:00-04:00",
+    "id": "ST2H43",
+    "begin": "2026-09-18T09:00:00-04:00"
+  },
+  "lastTiming": {
+    "end": "2026-09-20T17:00:00.000-04:00",
+    "id": "HBXT65",
+    "begin": "2026-09-20T09:00:00.000-04:00"
+  },
+  "dateRange": {
+    "ar": "١٨ - ٢٠ سبتمبر",
+    "de": "18 - 20 September",
+    "en": "18 - 20 September",
+    "it": "18 - 20 settembre",
+    "fr": "18 - 20 septembre",
+    "es": "18 - 20 septiembre",
+    "nl": "18 - 20 september"
+  },
+  "state": 2,
+  "featured": false,
+  "motive": null,
+  "originAgenda": {
+    "uid": 4879539,
+    "image": "https://img.openagenda.com/main/25a028f1c8844841835b04485cbdc332.full.image.jpg",
+    "description": "La 43e édition des Journées européennes du patrimoine se déroulera les 19 et 20 septembre 2026. La journée dédiée au public scolaire se déroulera le vendredi 18 septembre (opération « Levez les yeux ! »).",
+    "official": false,
+    "title": "Journées européennes du patrimoine 2026 - Martinique",
+    "slug": "jep-2026-martinique",
+    "url": "http://www.journeesdupatrimoine.fr",
+    "_agg": "eyJ1aWQiOjQ4Nzk1MzksInRpdGxlIjoiSm91cm7DqWVzIGV1cm9ww6llbm5lcyBkdSBwYXRyaW1vaW5lIDIwMjYgLSBNYXJ0aW5pcXVlIiwiaW1hZ2UiOiJodHRwczovL2ltZy5vcGVuYWdlbmRhLmNvbS9tYWluLzI1YTAyOGYxYzg4NDQ4NDE4MzViMDQ0ODVjYmRjMzMyLmZ1bGwuaW1hZ2UuanBnIiwidXJsIjoiaHR0cDovL3d3dy5qb3VybmVlc2R1cGF0cmltb2luZS5mciIsInNsdWciOiJqZXAtMjAyNi1tYXJ0aW5pcXVlIn0="
+  },
+  "sourceAgendas": [],
+  "title": {
+    "de": "Die Habitation Saint James, Erbe der Martinique",
+    "en": "The Habitation Saint James, Martiniquais heritage",
+    "it": "La Habitation Saint James, patrimonio della Martinica",
+    "fr": "Patrimoine Martiniquais : L'Habitation Saint James & ses dépendances",
+    "es": "La Habitation Saint James, patrimonio de Martinique"
+  },
+  "types-devenement": 9,
+  "theme-jep": [11, 12],
+  "specificites": [],
+  "image": {
+    "filename": "95fd71555da049ffbe2ffd0ecad3ffc8.base.image.jpg",
+    "size": {
+      "width": 700,
+      "height": 396
+    },
+    "variants": [
+      {
+        "filename": "95fd71555da049ffbe2ffd0ecad3ffc8.full.image.jpg",
+        "size": {
+          "width": 4134,
+          "height": 2337
+        },
+        "type": "full"
+      },
+      {
+        "filename": "95fd71555da049ffbe2ffd0ecad3ffc8.thumb.image.jpg",
+        "size": {
+          "width": 200,
+          "height": 200
+        },
+        "type": "thumbnail"
+      }
+    ],
+    "base": "https://img.openagenda.com/main/"
+  },
+  "imageCredits": "@RMSJ",
+  "jaccepte-que-limage-puisse-etre-librement-utilisee-a-la-condition": true,
+  "attendanceMode": 1,
+  "onlineAccessLink": null,
+  "location": {
+    "disqualifiedDuplicates": null,
+    "access": {
+      "fr": "parking, accès PMR"
+    },
+    "city": "Sainte-Marie",
+    "timezone": "America/Martinique",
+    "postalCode": "97230",
+    "latitude": 14.783794,
+    "imageCredits": "@rmsj",
+    "description": {
+      "fr": "Distillerie Saint James, ancienne usine de Sainte Marie"
+    },
+    "setUid": null,
+    "uid": 66429113,
+    "createdAt": "2026-08-28T17:19:28.000Z",
+    "duplicateCandidates": null,
+    "countryCode": "FR",
+    "adminLevel5": null,
+    "links": ["https://www.instagram.com/distillerie_saintjames_mq/"],
+    "state": 0,
+    "extId": null,
+    "department": "Martinique",
+    "slug": "distillerie-saint-james_5290352",
+    "email": "musee.saintjames@rmsj.mq",
+    "longitude": -60.998411,
+    "updatedAt": "2026-08-28T17:19:28.000Z",
+    "image": "c57a150f266e4dd8bdc4961008d75441.full.image.jpg",
+    "website": "https://rhum-saintjames.com/",
+    "address": "Boulevard Raymond Huygues Despointes 97230 Sainte Marie",
+    "adminLevel3": "Communauté d'agglomération du Pays Nord Martinique",
+    "agendaUid": 4879539,
+    "adminLevel4": "Sainte-Marie",
+    "adminLevel1": "Martinique",
+    "adminLevel2": "Martinique",
+    "mergedIn": null,
+    "_agg": "eyJ1aWQiOjY2NDI5MTEzLCJuYW1lIjoiRGlzdGlsbGVyaWUgU0FJTlQgSkFNRVMifQ==",
+    "tags": [
+      {
+        "id": 1,
+        "label": {
+          "fr": "Architecture contemporaine remarquable"
+        }
+      },
+      {
+        "id": 12,
+        "label": {
+          "fr": "Château, hôtel urbain, palais, manoir"
+        }
+      },
+      {
+        "id": 15,
+        "label": {
+          "fr": "Edifice d’artisanat, du commerce et du tertiaire"
+        }
+      },
+      {
+        "id": 17,
+        "label": {
+          "fr": "Édifice industriel, scientifique et technique"
+        }
+      },
+      {
+        "id": 21,
+        "label": {
+          "fr": "Édifice scolaire et éducatif"
+        }
+      },
+      {
+        "id": 22,
+        "label": {
+          "fr": "Espace naturel, parc, jardin"
+        }
+      },
+      {
+        "id": 24,
+        "label": {
+          "fr": "Lieu de culture, spectacles, sports et loisirs"
+        }
+      },
+      {
+        "id": 27,
+        "label": {
+          "fr": "Patrimoine ferroviaire, des transports et du génie civil"
+        }
+      }
+    ],
+    "insee": "97228",
+    "phone": "0596 69 50 37",
+    "district": null,
+    "name": "Distillerie SAINT JAMES",
+    "region": "Martinique",
+    "extIds": null
+  },
+  "timings": [
+    {
+      "end": "2026-09-18T17:00:00-04:00",
+      "id": "ST2H43",
+      "begin": "2026-09-18T09:00:00-04:00"
+    },
+    {
+      "end": "2026-09-19T17:00:00-04:00",
+      "id": "T2VDPP",
+      "begin": "2026-09-19T09:00:00-04:00"
+    },
+    {
+      "end": "2026-09-20T17:00:00-04:00",
+      "id": "HBXT65",
+      "begin": "2026-09-20T09:00:00-04:00"
+    }
+  ],
+  "description": {
+    "de": "Das Museum des Rhum Saint-James in der Brennerei von Ste Marie ist ein Haus im Kolonialstil, das uns eine sehr interessante Ausstellung von Objekten und alten Gravuren über die Geschichte des Rohres …",
+    "en": "The Saint-James Rum Museum in the grounds of the Ste Marie distillery, is a colonial style house that offers us a very interesting exhibition of objects and ancient engravings on the history of cane …",
+    "it": "Il Museo del Rum Saint-James, all'interno della distilleria di Ste Marie, è una casa in stile coloniale che offre una mostra molto interessante di oggetti e incisioni antiche sulla storia della canna…",
+    "fr": "Le Musée du Rhum Saint-James, dans l'enceinte de la distillerie de Sainte-Marie, est une maison de style coloniale qui propose une très intéressante exposition d'objets et de gravures anciennes sur à…",
+    "es": "El Museo del Ron Saint-James en el recinto de la destilería de Ste Marie, es una casa de estilo colonial que nos ofrece una exposición muy interesante de objetos y grabados antiguos sobre la historia…"
+  },
+  "longDescription": {
+    "de": "Das Museum des Rhum Saint-James in der Brennerei von Ste Marie ist ein Haus im Kolonialstil, das uns eine sehr interessante Ausstellung von Objekten und alten Gravuren über die Geschichte des Rohres und des Rums seit 1765 bietet, dem Datum der Gründung der ersten St. Mary’s DistilleryJames in St. Peter. Im hinteren Teil des Gartens befindet sich das Destillationshaus, in dem die charantanesischen Destillierapparate vom Typ \"Père Labat\" ausgestellt sind. In den Gärten befinden sich auch Dampfmaschinen, ein riesiges Laufrad und zwei Lokomotiven, von denen eine Sie zur Sucrerie La Salle bringt.  \n-Shuttle ununterbrochen an Bord des \"Train des Plantations\" zwischen dem Rhum Museum und der Sucrerie La Salle zum Rhythmus der Musik der Mornes  \n-Entdeckung & Verkostung von lokalen Produkten im Art Boutik  \n-Ponyritt für Kinder mit dem Verein \"Les Sabots dans le sable\".  \n-Jeff’s Rides (E-Bikes) auf Reservierung  \nIn Zusammenarbeit mit KAYNOU, dem Kulturbüro der Stadt  \nSainte Marie:  \n- Fotoausstellung von Jean Michel Terrine im Maison de la distillation  \n- Workshops für Malerei, kreative Kunst und Handwerk sowie eine Einführung in die Korbflechterei werden angeboten  \n- 11h BOKANTAJ PAWOL: Treffen Sie Regis PENNONT und Luc LERANDY Samstag, den 21\\. September unter dem Mangobaum ab 11 Uhr für einen Austausch zwischen Künstler und Historiker",
+    "en": "The Saint-James Rum Museum in the grounds of the Ste Marie distillery, is a colonial style house that offers us a very interesting exhibition of objects and ancient engravings on the history of cane and rum since 1765, date of the creation of the first Saint-James in Saint-Pierre. At the back of the garden is the distillation house where Charantais stills of the \"Père Labat\" type are displayed. In the gardens there are also steam engines, a huge paddle wheel and two locomotives, one of which will take you to the Sucrerie La Salle.  \n-Continuous shuttle on board the 'Train of the Plantations' between the Rum Museum and the Sucrerie La Salle to the rhythm of the music of the mornes  \n-Discovery & tasting of local products at the Art Boutik  \n-Pony ride for children with the association \"Les Sabots dans le sable\".  \n-Jeff’s rides (electric bikes) on reservation  \nIn partnership with KAYNOU, the City’s culture office  \nSainte Marie:  \n- Photo exhibition of Jean Michel Terrine at the Maison de la distillation  \n- Painting, creative art & craft workshops as well as an introduction to basket making will be offered  \n- 11am BOKANTAJ PAWOL: Join Regis PENNONT and Luc LERANDY Saturday, September 21 under the mango tree from 11am for an exchange between artist and historian",
+    "it": "Il Museo del Rum Saint-James, all'interno della distilleria di Ste Marie, è una casa in stile coloniale che offre una mostra molto interessante di oggetti e incisioni antiche sulla storia della canna e del rum dal 1765, data della creazione della prima distilleria di Saint-LouisJames a Saint-Pierre. In fondo al giardino si trova la casa della distillazione dove sono esposti degli alambicchi charantanesi di tipo \"Pere Labat\". Nei giardini si trovano anche macchine a vapore, un'enorme ruota a pale e due locomotive di cui una vi porterà alla Sucrerie La Salle.  \n-Navetta continua a bordo del \"Train des Plantations\" tra il Museo del Rum e la Sucrerie La Salle al ritmo della musica dei mornes  \n-Scoperta e degustazione di prodotti locali all'Art Boutik  \n-Passeggiata in pony per i bambini con l'associazione \"Les Sabots dans le sable\".  \n-Le passeggiate di Jeff (biciclette elettriche) su prenotazione  \nIn collaborazione con KAYNOU, l'ufficio della cultura della città di  \nSanta Maria:  \n- Mostra fotografica di Jean Michel Terrine alla Maison de la distillation  \n- Saranno proposti laboratori di pittura, arte creativa e artigianato nonché un'iniziazione alla lavorazione del vimini  \n- 11h BOKANTAJ PAWOL: Unisciti a Regis PENNONT e Luc LERANDY sabato 21 settembre sotto il mango dalle 11:00 per uno scambio tra artista e storico",
+    "fr": "Le Musée du Rhum Saint-James, dans l'enceinte de la distillerie de Sainte-Marie, est une maison de style coloniale qui propose une très intéressante exposition d'objets et de gravures anciennes sur l'histoire de la canne et du rhum depuis 1765, date de la création de la première distillerie Saint-James à Saint-Pierre. Au fond du jardin se trouve la maison de la distillation où sont exposés des alambics Charentais de type \"Père Labat\". Dans les jardins on trouve également, des machines à vapeur, une énorme roue à aubes et deux locomotives dont l'une vous amènera à la Sucrerie La Salle.\n\n**1\\_Navette en continu à bord du \"Train des Plantations\"** entre le Musée du Rhum Saint James et la Sucrerie La Salle\n\n**2\\_Rencontre avec Sully CALLY, tonnelier à Saint James, à 11h et 15h:** \\* Présentation des outils de tonnellerie et de la fabrication des fûts et des tambours  \n\\* Démonstration du Bèlè le matin (11h) et l'après-midi (15h)  \n\\* Causerie/débat sur le Bèlè et le Danmié\n\n**3\\_De 10h à 15h le samedi : Atelier, vente et dégustation de cocktails Saint James** avec un bartender professionnel Caribbean Bartenderz\n\n**4\\_L'ART BOUTIK,** nichée au cœur de la distillerie Saint James, vous fait parcourir notre patrimoine au travers de l’**artisanat local**\n\n**5\\_Initiation à la KIZOMBA - Samedi à partir de 11h**  \nTiti & Maria (Association Beev) proposent une initiation à la Kizomba à la maison de la distillation, derrière le musée du rhum Saint James  \nOuvert à tous à partir de 17 ans, sans réservation.  \nContact : 06 96 64 35 00 - Instagram : @association.beev\n\n**6\\_Initiation au tambour Bèlè - Dimanche à partir de 11h**  \nStella Gonis (Madin' Bèlè) propose une initiation au tambour Bèlè à la maison de la distillation, derrière le musée du rhum Saint James  \nOuvert à tous à partir de 5 ans, durée 30 minutes, sans réservation.  \nContact : 06 96 60 99 38 - Instagram : @stellagonis  \n  \n**7\\_9h à 13h le dimanche : Les balades de Jeff** (vélos électriques), réservation sur place, au départ du Musée Saint James vers la Sucrerie La Salle  \n  \n**8\\_De 11h à 11h45 :** Animation musicale avec la célèbre compagnie de danse traditionnelle **POM'KANEL**\n\n**A voir également :**  \nVisite libre des jardins, du Musée du Rhum, de la maison de la distillation et de la cave à millésimes",
+    "es": "El Museo del Ron Saint-James en el recinto de la destilería de Ste Marie, es una casa de estilo colonial que nos ofrece una exposición muy interesante de objetos y grabados antiguos sobre la historia de la caña y del ron desde 1765, fecha de creación de la primera destilería Saint-MarieJames en San Pedro. En el fondo del jardín se encuentra la casa de destilación donde se exponen alambiques Charantais de tipo \"Pere Labat\". En los jardines también hay máquinas de vapor, una enorme rueda de álabes y dos locomotoras, una de las cuales te llevará a la Sucrerie La Salle.  \n-Traslado continuo a bordo del \"Tren de las Plantaciones\" entre el Museo del Ron y la Sucrerie La Salle al ritmo de la música de los mornes  \n-Descubrimiento y degustación de productos locales en el Art Boutik  \n-Paseo en pony para los niños con la asociación \"Les Sabots dans le sable\".  \n-Los paseos de Jeff (bicicletas eléctricas) con reserva  \nEn colaboración con KAYNOU, la oficina de cultura de la ciudad de  \nSanta María:  \n- Exposición de fotos de Jean Michel Terrine en la Maison de la distillation  \n- Talleres de pintura, arte creativo y artesanía, así como una iniciación a la cestería  \n- 11h BOKANTAJ PAWOL: Regis Únase a Pennont y Luc lerandy Sábado 21 de septiembre bajo el mango a partir de las 11:00 para un intercambio entre artista e historiador"
+  },
+  "conditions-de-participation": [21],
+  "registration": [],
+  "conditions": {},
+  "type-de-public": 30,
+  "accessibility": {
+    "ii": false,
+    "hi": true,
+    "vi": false,
+    "pi": false,
+    "mi": true
+  },
+  "age": {
+    "min": null,
+    "max": null
+  },
+  "keywords": {},
+  "status": 1,
+  "extIds": null,
+  "uid": 4901119,
+  "slug": "la-habitation-saint-james-patrimonio-de-martinique",
+  "private": 0,
+  "timezone": "America/Martinique",
+  "draft": 0,
+  "createdAt": "2026-08-28T17:19:41.000Z",
+  "creatorUid": 24724360,
+  "ownerUid": 24724360,
+  "updatedAt": "2026-09-04T19:36:32.000Z",
+  "links": [],
+  "valid": true
+}

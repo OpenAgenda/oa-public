@@ -94,6 +94,14 @@ const fixturePairs = [
     event: await readFx('prefecture-reunion-visites.event'),
   },
   {
+    // Event 4901119: three September slots in America/Martinique (UTC-4). The
+    // timings block used to be titled "Août 2026" and dated a day early —
+    // see timingsTimezone.test.js.
+    name: 'saint-james',
+    agenda: await readFx('jep-2026-martinique.agenda'),
+    event: await readFx('saint-james.event'),
+  },
+  {
     name: 'gouton',
     agenda: await readFx('gouton').then((d) => d.agenda),
     event: await readFx('gouton').then((d) => d.event),

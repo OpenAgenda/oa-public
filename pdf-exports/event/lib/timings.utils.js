@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { format, parseISO } from 'date-fns';
 import { formatInTimeZone } from 'date-fns-tz';
 
 import { spreadTimings } from '@openagenda/date-utils';
@@ -19,14 +20,23 @@ const formatTimingLabel = (t, timezone, lang) =>
     locale: locales[lang],
   });
 
-const formatDateLabel = (date, timezone, lang) =>
-  formatInTimeZone(new Date(date), timezone, 'EEEE d', {
+// The month and day keys spreadTimings returns ("2026-09", "2026-09-18") are
+// already wall-clock calendar values in the event timezone — the zone did its
+// work when the key was built and is gone from the string. They must therefore
+// be formatted as calendar values: `new Date()` would read them as UTC
+// midnight, and shifting that back into a negative offset lands on the day
+// before (event 4901119, 18 September in America/Martinique, was titled
+// "Août 2026" over "jeudi 17"). parseISO reads a date-only string as local
+// midnight, which `format` then prints back verbatim, whatever the server
+// timezone.
+const formatDateLabel = (date, lang) =>
+  format(parseISO(date), 'EEEE d', {
     locale: locales[lang],
   });
 
-const formatMonthLabel = (month, timezone, lang) =>
+const formatMonthLabel = (month, lang) =>
   _.capitalize(
-    formatInTimeZone(new Date(month), timezone, 'MMMM yyyy', {
+    format(parseISO(month), 'MMMM yyyy', {
       locale: locales[lang],
     }),
   );
@@ -38,11 +48,11 @@ export function getTimingMonthSegments({ value, relatedValues, lang }) {
 
   return Object.keys(datesByMonth).map((month) => ({
     value: month,
-    label: formatMonthLabel(month, timezone, lang),
+    label: formatMonthLabel(month, lang),
     weeks: Object.keys(datesByMonth[month]).map((week) => ({
       value: week,
       dates: Object.keys(datesByMonth[month][week]).map((date) => ({
-        label: formatDateLabel(date, timezone, lang),
+        label: formatDateLabel(date, lang),
         value: date,
         timings: datesByMonth[month][week][date].map((t) => ({
           value: t,
