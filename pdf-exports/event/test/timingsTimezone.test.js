@@ -45,6 +45,54 @@ const cases = [
     ],
   },
   {
+    // The labels have to follow the event timezone, not the instant's UTC day.
+    // This slot is 23:00 in Martinique, i.e. 03:00 the next day in UTC: read
+    // as UTC it would be dated « samedi 19 ».
+    name: 'America/Martinique, a late-evening slot whose UTC day is the next one',
+    timezone: 'America/Martinique',
+    timings: [
+      { begin: '2026-09-18T23:00:00-04:00', end: '2026-09-18T23:30:00-04:00' },
+    ],
+    expected: [
+      {
+        label: 'Septembre 2026',
+        dates: [{ label: 'vendredi 18', timings: ['23:00'] }],
+      },
+    ],
+  },
+  {
+    // The very same instant, displayed for a Paris agenda, is a day later —
+    // the day label moves with the timezone, which is what makes it a display
+    // in the event's own context rather than a formatting of a fixed instant.
+    name: 'Europe/Paris, that same instant, a day later locally',
+    timezone: 'Europe/Paris',
+    timings: [
+      { begin: '2026-09-18T23:00:00-04:00', end: '2026-09-18T23:30:00-04:00' },
+    ],
+    expected: [
+      {
+        label: 'Septembre 2026',
+        dates: [{ label: 'samedi 19', timings: ['05:00'] }],
+      },
+    ],
+  },
+  {
+    // Same thing across a month boundary: 22:00 on the last day of August in
+    // Martinique is already 1 September in UTC, and must still be titled
+    // « Août 2026 ».
+    name: 'America/Martinique, the last evening of the month',
+    timezone: 'America/Martinique',
+    timings: [
+      { begin: '2026-08-31T22:00:00-04:00', end: '2026-08-31T23:00:00-04:00' },
+    ],
+    expected: [
+      {
+        label: 'Août 2026',
+        dates: [{ label: 'lundi 31', timings: ['22:00'] }],
+      },
+    ],
+  },
+  {
     name: 'Pacific/Gambier (UTC-9), a slot on the first of the month',
     timezone: 'Pacific/Gambier',
     timings: [
