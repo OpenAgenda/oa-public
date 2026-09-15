@@ -819,6 +819,167 @@ describe('every card defines exactly the types it leads to', () => {
   });
 });
 
+// Shapes the renderer cannot show yet. None is in the contract today, so
+// supporting them would be speculative code; instead this fails the day one
+// arrives, naming what `search_docs` must learn — rather than letting a card
+// silently drop what the contract says.
+function unrenderableShapes(contract) {
+  const found = [];
+  const hasOwnFields = (schema) =>
+    !!schema && !schema.$ref && !!schema.properties;
+  const deref = (node) =>
+    (node?.$ref
+      ? node.$ref
+        .replace(/^#\//, '')
+        .split('/')
+        .reduce((n, k) => n?.[k], contract)
+      : node);
+
+  // `position` says what already handles the node: a component root renders its
+  // union branches and merges its `allOf`; a list's `data` items fall back to
+  // the fields of an inline variant. Components are walked on their own, so a
+  // `$ref` is never followed.
+  const walk = (schema, where, position) => {
+    if (!schema || typeof schema !== 'object' || schema.$ref) return;
+    if (schema.patternProperties) {
+      found.push(
+        `${where}: patternProperties — the key patterns are not rendered`,
+      );
+    }
+    if (hasOwnFields(schema.additionalProperties)) {
+      found.push(
+        `${where}: a map of inline objects — the values' fields are not rendered`,
+      );
+    }
+    const union = schema.oneOf ?? schema.anyOf;
+    if (
+      union?.some(hasOwnFields)
+      && position !== 'component'
+      && position !== 'list item'
+    ) {
+      found.push(
+        `${where}: an inline union with an object branch — its fields are not rendered`,
+      );
+    }
+    if (schema.allOf?.some((member) => member.$ref)) {
+      if (position === 'body') {
+        found.push(
+          `${where}: a body wrapped in allOf around a component — renders inline, leaving that component defined with no card leading to it`,
+        );
+      } else if (position !== 'component' && schema.allOf.some(hasOwnFields)) {
+        found.push(
+          `${where}: allOf adding fields to a component — the added fields are not rendered`,
+        );
+      }
+    }
+    const root = position === 'component' || position === 'body';
+    for (const [name, property] of Object.entries(schema.properties ?? {})) {
+      walk(
+        property,
+        `${where}.${name}`,
+        root && name === 'data' ? 'data' : 'property',
+      );
+    }
+    walk(
+      schema.items,
+      `${where}[]`,
+      position === 'data' ? 'list item' : 'item',
+    );
+    if (typeof schema.additionalProperties === 'object') {
+      walk(schema.additionalProperties, `${where}{}`, 'value');
+    }
+    for (const key of ['allOf', 'oneOf', 'anyOf']) {
+      (schema[key] ?? []).forEach((member, i) =>
+        walk(member, `${where}.${key}[${i}]`, 'member'));
+    }
+  };
+
+  for (const [name, schema] of Object.entries(
+    contract.components?.schemas ?? {},
+  )) {
+    walk(schema, name, 'component');
+  }
+  for (const item of Object.values(contract.paths ?? {})) {
+    for (const op of Object.values(item)) {
+      if (!op?.operationId) continue;
+      const bodies = [
+        ['request', deref(op.requestBody)],
+        ...Object.entries(op.responses ?? {}).map(([code, r]) => [
+          code,
+          deref(r),
+        ]),
+      ];
+      for (const [label, body] of bodies) {
+        for (const [type, media] of Object.entries(body?.content ?? {})) {
+          walk(media.schema, `${op.operationId} ${label} ${type}`, 'body');
+        }
+      }
+      for (const param of (op.parameters ?? []).map(deref)) {
+        walk(param.schema, `${op.operationId} param ${param.name}`, 'param');
+      }
+    }
+  }
+  return found;
+}
+
+describe('contract shapes search_docs cannot render yet', () => {
+  it('none is used by the contract', () => {
+    expect(unrenderableShapes(spec)).toEqual([]);
+  });
+
+  // The canary must be able to fire, or it guards nothing.
+  it('reports each of them', () => {
+    const object = { type: 'object', properties: { x: { type: 'string' } } };
+    const ref = { $ref: '#/components/schemas/Named' };
+    const contract = {
+      components: {
+        schemas: {
+          Named: object,
+          Patterns: {
+            type: 'object',
+            patternProperties: { '^x-': { type: 'string' } },
+          },
+          MapOfObjects: { type: 'object', additionalProperties: object },
+          WithUnion: {
+            type: 'object',
+            properties: { u: { oneOf: [object, { type: 'null' }] } },
+          },
+          WithRefinement: {
+            type: 'object',
+            properties: { r: { allOf: [ref, object] } },
+          },
+          // Handled today, so never reported: a component-level union and
+          // allOf, and an inline variant in a list's `data` items.
+          Union: { oneOf: [object, { type: 'null' }] },
+          Merged: { allOf: [ref, object] },
+          List: {
+            type: 'object',
+            properties: { data: { type: 'array', items: { oneOf: [object] } } },
+          },
+        },
+      },
+      paths: {
+        '/x': {
+          post: {
+            operationId: 'x.create',
+            requestBody: {
+              content: { 'application/json': { schema: { allOf: [ref] } } },
+            },
+            responses: {},
+          },
+        },
+      },
+    };
+    expect(unrenderableShapes(contract)).toEqual([
+      'Patterns: patternProperties — the key patterns are not rendered',
+      "MapOfObjects: a map of inline objects — the values' fields are not rendered",
+      'WithUnion.u: an inline union with an object branch — its fields are not rendered',
+      'WithRefinement.r: allOf adding fields to a component — the added fields are not rendered',
+      'x.create request application/json: a body wrapped in allOf around a component — renders inline, leaving that component defined with no card leading to it',
+    ]);
+  });
+});
+
 describe('componentRefs (transitive component collection)', () => {
   it('collects the components the success body references, root included', () => {
     const { componentRefs } = byId('agendas.events.list');
