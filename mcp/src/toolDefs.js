@@ -63,9 +63,9 @@ export function executeTool(limits, sandboxFacts) {
       description: [
         'Run JavaScript against the OpenAgenda v3 API and return its result.',
         'A ready-to-use `oa` client (an OpenAgenda instance) is available. Every operation is',
-        '`oa.<resource>.<action>({ path?, query? })`, is async, and resolves to { data, error }',
+        '`oa.<resource>.<action>({ path?, query?, body? })`, is async, and resolves to { data, error }',
         '— it does NOT throw on HTTP errors, so check `error`. Call search_docs to discover the',
-        "full catalogue with each operation's params, response shape and a runnable example, e.g.:",
+        "full catalogue with each operation's params, request body, response shape and a runnable example, e.g.:",
         '  oa.agendas.events.list({ path: { agendaUid }, query: { relative: ["upcoming"] } })',
         'A `schemas` namespace (zod validators, prefixed z…) is also available to validate payloads.',
         'Working with an agenda? Fetch its event form schema first (`oa.agendas.events.schema`) — it',

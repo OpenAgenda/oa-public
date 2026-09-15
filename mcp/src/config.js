@@ -259,8 +259,16 @@ function specScopes() {
       .flatMap((path) => Object.values(path))
       .flatMap((op) => op?.security ?? []),
   ];
+  // By the scheme's TYPE, not the name `oauth2` — the same reading as the
+  // search_docs catalogue, so a renamed scheme cannot drop out of the PRM.
+  const schemes = spec.components?.securitySchemes ?? {};
   cachedSpecScopes = [
-    ...new Set(securities.flatMap((req) => req.oauth2 ?? [])),
+    ...new Set(
+      securities.flatMap((req) =>
+        Object.entries(req)
+          .filter(([name]) => schemes[name]?.type === 'oauth2')
+          .flatMap(([, scopes]) => scopes ?? [])),
+    ),
   ].sort();
   return cachedSpecScopes;
 }

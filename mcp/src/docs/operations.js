@@ -36,13 +36,17 @@ import MiniSearch from 'minisearch';
  * @property {string} name
  * @property {string} type
  * @property {string} description     The property's own description ('' when none).
+ * @property {boolean} required
+ * @property {unknown[]} [enum]        Inline enum (a $ref'd one keeps its component name).
+ * @property {Record<string, string>} [enumDescriptions]
+ * @property {Field[]} [fields]        An inline (unnamed) object's own fields.
  *
  * @typedef {object} ResponseShape
  * @property {string|null} root        Schema name of the success body.
  * @property {'list'|'object'} kind
  * @property {Field[]} [fields]        Top-level fields (object kind).
  * @property {{variants:string[], fields:Field[]}} [item]  List item (list kind).
- * @property {boolean} pagination
+ * @property {string|null} pagination  Type of the `pagination` field (null when none).
  *
  * @typedef {object} RequestShape
  * @property {string|null} root       Schema name of the request body.
@@ -65,7 +69,8 @@ import MiniSearch from 'minisearch';
  * @property {string} exampleLang   Fence language for `example` ("ts", "shell"),
  *                                 '' when none applies.
  * @property {ResponseShape|null} response
- * @property {string[]} componentRefs  Component schemas the success body references (transitive, discovery order).
+ * @property {string[]} componentRefs  Component schemas the card can name — success
+ *                                 body, request body and params (transitive, discovery order).
  * @property {string} example       A runnable snippet (curated or skeleton); not
  *                                 an `oa.…` call when not sdkCallable.
  * @property {string[]} keywords    Cheap relevance matching for search_docs.
@@ -152,9 +157,23 @@ function resolveType(schema) {
   // Parenthesise a union before suffixing `[]`, or `FacetName | FacetSpec[]`
   // reads as "one name, or an array of specs" — and the LLM sends the scalar.
   const item = type === 'array' ? resolveType(schema.items || {}) : '';
-  const base = type === 'array'
+  let base = type === 'array'
     ? `${item.includes(' | ') ? `(${item})` : item}[]`
     : type || 'any';
+  // A map (`additionalProperties` and no declared keys) names its value type: a
+  // bare `object` would leave that component unreachable from the card.
+  const values = schema.additionalProperties;
+  if (
+    type === 'object'
+    && !schema.properties
+    && values
+    && typeof values === 'object'
+    // A vendor annotation alone (`x-additionalPropertiesName`) says nothing
+    // about the values, so it does not make the object a typed map.
+    && Object.keys(values).some((key) => !key.startsWith('x-'))
+  ) {
+    base = `Record<string, ${resolveType(values)}>`;
+  }
   return nullable && base !== 'null' ? `${base} | null` : base;
 }
 
@@ -188,15 +207,90 @@ function deriveParams(op) {
   });
 }
 
+// The object a schema describes, with `allOf` members merged in — properties
+// merged per name, so a member adding only a description keeps the type another
+// gave. `nodes` lists every schema object the view was read from, so a caller
+// walking down through the fields can tell a shape it is already inside.
+function objectView(schema, seen = new Set()) {
+  const node = deref(schema);
+  if (!node || typeof node !== 'object' || seen.has(node)) {
+    return { properties: {}, required: [], nodes: seen };
+  }
+  seen.add(node);
+  const view = {
+    properties: { ...node.properties },
+    required: [...node.required ?? []],
+    nodes: seen,
+  };
+  for (const member of node.allOf ?? []) {
+    const merged = objectView(member, seen);
+    for (const [name, property] of Object.entries(merged.properties)) {
+      view.properties[name] = { ...view.properties[name], ...property };
+    }
+    view.required.push(...merged.required);
+  }
+  return view;
+}
+
+// Whether a schema renders as a component NAME — the rule `resolveType` follows:
+// a `$ref`, or a composition with one among its members.
+const namesComponent = (schema) =>
+  !!schema
+  && (!!schema.$ref
+    || ['allOf', 'oneOf', 'anyOf'].some((key) =>
+      (schema[key] ?? []).some(namesComponent)));
+
 // Fields carry the property's OWN description only: a bare `$ref` property
 // reads as its component, whose semantics live in the Components section, not
-// repeated on every field that uses it.
-const topLevelFields = (schema) =>
-  Object.entries(schema?.properties || {}).map(([name, s]) => ({
-    name,
-    type: resolveType(s),
-    description: oneLine(s.description),
-  }));
+// repeated on every field that uses it. What has no component to point to
+// travels with the field instead: `required`, an inline enum, and an inline
+// object's own fields — a bare `object` would leave the types beneath it
+// unreachable from the card. One derivation for every place fields render, so
+// none of them can lose what another shows.
+//
+// `ancestors` holds the schema objects being unfolded above this one; meeting
+// one again is a cycle (a `$ref` inside nested compositions, a YAML alias), left
+// folded instead of recursed into.
+/**
+ * @param {any} schema
+ * @param {Set<any>} [ancestors]
+ * @returns {Field[]}
+ */
+function topLevelFields(schema, ancestors = new Set()) {
+  const { properties, required, nodes } = objectView(schema);
+  if ([...nodes].some((node) => ancestors.has(node))) return [];
+  const within = new Set([...ancestors, ...nodes]);
+  const mandatory = new Set(required);
+  return Object.entries(properties).map(([name, s]) => {
+    /** @type {Field} */
+    const field = {
+      name,
+      type: resolveType(s),
+      description: oneLine(s.description),
+      required: mandatory.has(name),
+    };
+    let inline;
+    if (s.enum) {
+      inline = s;
+    } else if (s.items?.enum) {
+      inline = s.items;
+    }
+    if (inline) {
+      field.enum = inline.enum;
+      if (inline['x-enum-descriptions']) {
+        field.enumDescriptions = inline['x-enum-descriptions'];
+      }
+    }
+    // Named shapes stay named (their definition is a Components entry); only a
+    // shape with no name to point at is unfolded, one indent deeper.
+    const shape = s.type === 'array' ? s.items : s;
+    if (shape && !namesComponent(shape)) {
+      const nested = topLevelFields(shape, within);
+      if (nested.length) field.fields = nested;
+    }
+    return field;
+  });
+}
 
 // Names of every component schema transitively referenced by `schema`, in
 // discovery order. Drives the Components section: each named type a rich card
@@ -233,29 +327,39 @@ function collectComponentRefs(schema, names = [], seen = new Set()) {
 // pure creation answers 201 only (`agendas.events.create`), and it would
 // otherwise render with no response shape at all — the one hole in the
 // catalogue. Lowest 2xx wins, so the by-ext upserts (200 update / 201 create,
-// same `Event` either way) keep reading as their 200.
-function successBody(op) {
+// same `Event` either way) keep reading as their 200. The `2XX` range key
+// OpenAPI allows sorts after every explicit code, so a precise status still
+// wins. `default` is NOT read: it covers errors too.
+//
+// JSON is recognised by the media type itself — a `json` subtype or a `+json`
+// suffix, case-insensitively (RFC 9110) — so `application/merge-patch+json` and
+// `; charset=utf-8` pass and `text/plain; profile=json` does not. One matcher
+// for requests and responses alike.
+const JSON_MEDIA = /^[^;/]+\/(?:[^;]*\+)?json\s*(?:;|$)/i;
+/**
+ * @param {any} op
+ */
+export function successBody(op) {
   const codes = Object.keys(op.responses || {})
-    .filter((code) => /^2\d\d$/.test(code))
+    .filter((code) => /^2(\d\d|XX)$/i.test(code))
     .sort();
   for (const code of codes) {
     // Derefed because a response may be a `$ref` into `#/components/responses/*`
     // — the convention every 4xx here already follows — and reading `.content`
     // off an unresolved ref would drop the shape silently.
-    const schema = deref(op.responses[code])?.content?.['application/json']
-      ?.schema;
+    const content = deref(op.responses[code])?.content ?? {};
+    const type = Object.keys(content).find((t) => JSON_MEDIA.test(t));
+    const schema = type && content[type]?.schema;
     if (schema) return schema;
   }
   return undefined;
 }
 
-// Pick the ONE media type the card documents. Matched on `json` as a word, not
-// on the exact string: `application/merge-patch+json` is the natural type for
-// the patch routes and `; charset=utf-8` is always legal, and an exact match
-// would fall through to whatever key came first — documenting a binary body for
-// a JSON endpoint. `componentRefsFor` resolves through here too, so the shape
-// the card names and the components it defines can never disagree.
-const JSON_MEDIA = /\bjson\b/;
+// Pick the ONE media type the card documents: JSON when the route offers it,
+// or an exact match would fall through to whatever key came first — documenting
+// a binary body for a JSON endpoint. `componentRefsFor` resolves through here
+// too, so the shape the card names and the components it defines can never
+// disagree.
 function requestContent(op) {
   const requestBody = deref(op.requestBody);
   const content = requestBody?.content;
@@ -298,12 +402,12 @@ function componentRefsFor(op) {
 // The body an operation expects. JSON is preferred when a route offers several
 // media types; a multipart upload has no component to name, so it surfaces its
 // content type and an empty field list rather than being dropped entirely.
+// Exported, like `skeletonExample`, to unit-test shapes the contract does not use.
 /**
  * @param {any} op
  * @returns {RequestShape | null}
  */
-
-function deriveRequest(op) {
+export function deriveRequest(op) {
   const selected = requestContent(op);
   if (!selected) return null;
   const { requestBody, contentType, schema } = selected;
@@ -311,28 +415,28 @@ function deriveRequest(op) {
     root: schema?.$ref ? refName(schema.$ref) : null,
     contentType,
     required: !!requestBody.required,
-    fields: topLevelFields(deref(schema)),
+    fields: topLevelFields(schema),
   };
 }
 
-// The `oa` client authenticates with the schemes the SDK carries (an API key or
-// an OAuth token). An operation secured by anything else CANNOT be reached
-// through it — `uploads.staged` takes a single-use `X-Upload-Ticket` instead,
-// and its description says so in as many words ("Call it with a plain HTTPS
-// POST, NOT through the typed API client"). Derived from the security block
-// rather than keyed on the operationId, so a second such route needs no edit.
 // The `oa` client authenticates one way: an `Authorization: Bearer` header, set
 // from its `auth` option. So a requirement is satisfiable when the scheme it
 // names is an OAuth2 flow or HTTP bearer, and out of reach otherwise — an
 // `apiKey` in a custom header (`uploadTicketAuth` sends `X-Upload-Ticket`),
-// HTTP basic, OpenID Connect.
+// HTTP basic, OpenID Connect. `uploads.staged` is the case in point, and its
+// description says so in as many words ("Call it with a plain HTTPS POST, NOT
+// through the typed API client"). Derived from the security block rather than
+// keyed on the operationId, so a second such route needs no edit.
 //
 // Read off the scheme's DEFINITION rather than matched against a list of scheme
 // names: the contract already states this, so listing `bearerAuth`/`oauth2` here
 // would re-encode by hand what it says structurally — and would misjudge a
 // renamed or newly added scheme without a word of warning.
-const isBearerScheme = (name) => {
-  const scheme = spec.components?.securitySchemes?.[name];
+const schemeOf = (name, contract) =>
+  contract.components?.securitySchemes?.[name];
+
+const isBearerScheme = (name, contract) => {
+  const scheme = schemeOf(name, contract);
   if (!scheme) return false;
   return (
     scheme.type === 'oauth2'
@@ -340,14 +444,43 @@ const isBearerScheme = (name) => {
   );
 };
 
-function isSdkCallable(op) {
-  const requirements = op.security ?? spec.security ?? [];
+// An operation's own `security` overrides the document default, including with
+// `[]`; only an ABSENT key inherits.
+const requirementsOf = (op, contract) => op.security ?? contract.security ?? [];
+
+// Exported for unit tests on requirement shapes the contract does not use yet.
+// `contract` defaults to the bundled spec; a test passes its own.
+/**
+ * @param {any} op
+ * @param {any} [contract]
+ */
+export function isSdkCallable(op, contract = spec) {
+  const requirements = requirementsOf(op, contract);
   // `security: []` is the OpenAPI idiom for "this route needs no auth", so the
   // client can call it. Only a requirement it cannot SATISFY puts the route out
   // of reach — the empty list means no requirement at all, not an impossible one.
   if (!requirements.length) return true;
+  // Requirements are alternatives; the schemes inside one combine. So some
+  // requirement must name only schemes the client carries — which `{}`
+  // (anonymous access) trivially does.
   return requirements.some((requirement) =>
-    Object.keys(requirement).some(isBearerScheme));
+    Object.keys(requirement).every((name) => isBearerScheme(name, contract)));
+}
+
+// The OAuth scopes a route needs, from the requirements whose scheme IS an
+// OAuth2 flow — by the scheme's type, like reachability above, not by the name
+// `oauth2`, and inheriting the document default like the rest of the contract.
+/**
+ * @param {any} op
+ * @param {any} [contract]
+ * @returns {string[]}
+ */
+export function oauthScopes(op, contract = spec) {
+  const scopes = requirementsOf(op, contract).flatMap((requirement) =>
+    Object.entries(requirement)
+      .filter(([name]) => schemeOf(name, contract)?.type === 'oauth2')
+      .flatMap(([, list]) => list ?? []));
+  return [...new Set(scopes)];
 }
 
 // Resolve the success body into a shallow shape. List endpoints wrap their
@@ -358,13 +491,12 @@ function isSdkCallable(op) {
  * @param {any} op
  * @returns {ResponseShape | null}
  */
-function deriveResponse(op) {
+export function deriveResponse(op) {
   const body = successBody(op);
   if (!body) return null;
   const root = body.$ref ? refName(body.$ref) : null;
-  const schema = deref(body);
-  const props = schema?.properties || {};
-  const { data } = props;
+  const props = objectView(body).properties;
+  const data = deref(props.data);
   if (data?.type === 'array' && Array.isArray(data.items?.oneOf)) {
     // Normalize variants to [summary, detailed] regardless of contract order:
     // the summary branch is the one with the smaller property set (detailed is
@@ -373,12 +505,12 @@ function deriveResponse(op) {
     // keys), while these docs lead with the default (summary) shape — so the
     // order must be derived structurally, not positionally.
     const branches = data.items.oneOf
-      .map((v) => ({ name: resolveType(v), schema: deref(v) }))
-      .sort(
-        (a, b) =>
-          Object.keys(a.schema?.properties ?? {}).length
-          - Object.keys(b.schema?.properties ?? {}).length,
-      );
+      .map((v) => ({
+        name: resolveType(v),
+        schema: v,
+        size: Object.keys(objectView(v).properties).length,
+      }))
+      .sort((a, b) => a.size - b.size);
     return {
       root,
       kind: 'list',
@@ -386,14 +518,14 @@ function deriveResponse(op) {
         variants: branches.map((b) => b.name),
         fields: topLevelFields(branches[0].schema),
       },
-      pagination: !!props.pagination,
+      pagination: props.pagination ? resolveType(props.pagination) : null,
     };
   }
   return {
     root,
     kind: 'object',
-    fields: topLevelFields(schema),
-    pagination: !!props.pagination,
+    fields: topLevelFields(body),
+    pagination: props.pagination ? resolveType(props.pagination) : null,
   };
 }
 
@@ -581,7 +713,7 @@ function deriveOperations() {
         ? `oa.${op.operationId}(${argList})`
         : `${method.toUpperCase()} ${path}`;
 
-      const scopes = (op.security || []).flatMap((req) => req.oauth2 || []);
+      const scopes = oauthScopes(op);
       // Hand-curated search synonyms travel WITH the operation in the contract
       // (`x-synonyms`, alongside `x-codeSamples`) — one place to think about when
       // adding a route. Keep them to the plain-language words a user types that
@@ -767,11 +899,43 @@ function renderParamLine(p) {
   return `- \`${p.name}\` (${p.type}${p.required ? ', required' : ''})${tail ? ` — ${tail}` : ''}`;
 }
 
-// A response field line: `- name (Type) — its own description`. The type names
-// are join keys: every component named here is defined in the Components
-// section of the same search_docs response (or is the inline root itself).
-const renderFieldLine = (f) =>
-  `- ${f.name} (${f.type})${f.description ? ` — ${f.description}` : ''}`;
+// Nest a rendered block one level: every line, not just the first.
+const indent = (block) => block.replace(/^/gm, '  ');
+
+// A field line: `- name (Type, required) — its own description [one of: …]`.
+// The type names are join keys: every component named here is defined in the
+// Components section of the same search_docs response (or is the inline root
+// itself). The same line for a component property, an inline response root and
+// a multipart body field — `, required` exactly as `renderParamLine` marks a
+// path param, and an inline enum decoded where no component could carry it.
+/**
+ * @param {Field} f
+ * @returns {string}
+ */
+function renderFieldLine(f) {
+  const meta = f.enum
+    ? `[one of: ${enumGloss(f.enum, f.enumDescriptions)}]`
+    : '';
+  const tail = [f.description, meta].filter(Boolean).join(' ');
+  const line = `- ${f.name} (${f.type}${f.required ? ', required' : ''})${tail ? ` — ${tail}` : ''}`;
+  return [line, ...(f.fields ?? []).map(renderFieldLine).map(indent)].join(
+    '\n',
+  );
+}
+
+// The alternatives of a union component, one per line: a named branch points at
+// its own definition, an inline object lists its fields beneath it.
+function renderVariantLines(variants) {
+  return variants.flatMap((variant) => {
+    if (variant.$ref) return [`- \`${refName(variant.$ref)}\``];
+    const fields = topLevelFields(variant);
+    if (!fields.length) return [`- ${resolveType(variant)}`];
+    return [
+      `- ${resolveType(variant)}:`,
+      ...fields.map(renderFieldLine).map(indent),
+    ];
+  });
+}
 
 // One definition per named type the rich cards reference. Enum components get
 // their decode table — the response-side complement of the params' inline
@@ -779,7 +943,8 @@ const renderFieldLine = (f) =>
 // able to decode it from the same search_docs payload). Object components get
 // their description and per-property typed lines — this is where component
 // property semantics (e.g. FormSchemaField.schemaId marking additional fields)
-// surface, without duplicating them into every operation's prose.
+// surface, without duplicating them into every operation's prose. Union
+// components list their alternatives.
 export function renderComponentDef(name) {
   const schema = spec.components?.schemas?.[name];
   if (!schema) return '';
@@ -788,37 +953,15 @@ export function renderComponentDef(name) {
     const gloss = `Values: ${enumGloss(schema.enum, schema['x-enum-descriptions'])}.`;
     return `\`${name}\` (${schema.type}) — ${[description, gloss].filter(Boolean).join(' ')}`;
   }
-  const required = new Set(schema.required || []);
-  const props = Object.entries(schema.properties || {});
-  if (!props.length) {
-    const type = resolveType(schema);
-    return `\`${name}\` (${type})${description ? ` — ${description}` : ''}`;
+  const fields = topLevelFields(schema);
+  if (fields.length) {
+    const head = `\`${name}\`${description ? ` — ${description}` : ''}`;
+    return [head, ...fields.map(renderFieldLine)].join('\n');
   }
-  const lines = props.map(([prop, s]) => {
-    const meta = [];
-    // An enum declared inline on the property has no named component to point
-    // to — decode it here. A $ref'd enum keeps its name; its table is its own
-    // definition in this section.
-    let inline;
-    if (s.enum) {
-      inline = s;
-    } else if (s.items?.enum) {
-      inline = s.items;
-    }
-    if (inline) {
-      meta.push(
-        `[one of: ${enumGloss(inline.enum, inline['x-enum-descriptions'])}]`,
-      );
-    }
-    const tail = [oneLine(s.description), ...meta].filter(Boolean).join(' ');
-    // `, required` exactly as `renderParamLine` marks a path param: a body
-    // field the caller MUST send read no differently from an optional one, so
-    // every newly-surfaced write payload looked entirely optional.
-    const type = `${resolveType(s)}${required.has(prop) ? ', required' : ''}`;
-    return `- ${prop} (${type})${tail ? ` — ${tail}` : ''}`;
-  });
-  const head = `\`${name}\`${description ? ` — ${description}` : ''}`;
-  return [head, ...lines].join('\n');
+  const head = `\`${name}\` (${resolveType(schema)})${description ? ` — ${description}` : ''}`;
+  const variants = schema.oneOf ?? schema.anyOf;
+  if (!Array.isArray(variants)) return head;
+  return [head, 'One of:', ...renderVariantLines(variants)].join('\n');
 }
 
 function renderResponse(response) {
@@ -831,11 +974,18 @@ function renderResponse(response) {
     const upgrade = detailed
       ? ` (+ \`${detailed}\` fields when \`detailed=true\`)`
       : '';
-    const head = `Response: \`${root}\` → { data: \`${summary}\`[]${upgrade}, pagination }`;
+    // Typed like `data`, or its component is defined below with nothing on the
+    // card leading to it.
+    const pagination = response.pagination
+      ? `, pagination: \`${response.pagination}\``
+      : '';
+    const head = `Response: \`${root}\` → { data: \`${summary}\`[]${upgrade}${pagination} }`;
     // The summary item IS this operation's payload — same locality rule as
     // object roots: its full definition renders here, and the Components
     // section excludes it (it would be a duplicate).
-    const def = summary ? renderComponentDef(summary) : '';
+    // An inline branch has no component to render by name: use its fields.
+    const def = (summary && renderComponentDef(summary))
+      || response.item.fields.map(renderFieldLine).join('\n');
     return def ? `${head}\n${def}` : head;
   }
   // Object kind: the root component is rendered inline, field by field, typed
@@ -888,7 +1038,7 @@ function renderRich(op) {
     `### ${op.id}`,
     op.sdkCallable
       ? `\`${op.call}\` — ${op.method} ${op.path}`
-      : `\`${op.call}\` — not callable through the \`oa\` client`,
+      : `\`${op.call}\` — call it over plain HTTPS, not through the \`oa\` client`,
     op.summary,
   ];
   if (op.description) lines.push('', op.description);
@@ -961,7 +1111,8 @@ const SCHEMAS_FOOTER = 'Validators: a `schemas` namespace of zod validators is a
 const SDK_LEAD = [
   'The operations below are the `@openagenda/api-client` npm SDK — the same `oa` '
     + 'client the `execute` tool runs, so code prototyped here ships unchanged in your '
-    + 'own site or tool. One-time setup, then call exactly as shown below:',
+    + 'own site or tool. One-time setup, then call the `oa.*` operations exactly as shown '
+    + 'below (the rare route marked not to go through the client shows its own call):',
   '```ts',
   "import { OpenAgenda, client } from '@openagenda/api-client';",
   "client.setConfig({ baseUrl: 'https://api.openagenda.com/v3', auth: 'oa_pk_…' });",

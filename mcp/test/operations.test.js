@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs';
+import ts from 'typescript';
 import { parse } from 'yaml';
 import {
   OPERATIONS,
@@ -9,6 +10,11 @@ import {
   skeletonExample,
   SCHEMA_VALIDATORS,
   enumSchemaOf,
+  isSdkCallable,
+  oauthScopes,
+  successBody,
+  deriveRequest,
+  deriveResponse,
 } from '../src/docs/operations.js';
 
 // The contract itself, to pin the structural facts the module derives from.
@@ -19,31 +25,145 @@ const spec = parse(
   ),
 );
 
-// Extract the keys used under path:{…}/query:{…} in an example, walking braces
-// so it handles shorthand props (`after`) and nested objects without the
-// false-negatives/positives a flat regex would produce.
-function exampleParamKeys(example) {
-  const keys = new Set();
-  const re = /\b(path|query)\s*:\s*\{/g;
-  let m;
-  while ((m = re.exec(example))) {
-    let depth = 1;
-    let i = m.index + m[0].length;
-    const start = i;
-    while (i < example.length && depth > 0) {
-      if (example[i] === '{') depth += 1;
-      else if (example[i] === '}') depth -= 1;
-      i += 1;
+// Every `oa.<id>(…)` call in an example, with the keys its `path`, `query` and
+// `body` object literals set — parsed with the TypeScript compiler the package
+// already builds with, since the samples ARE TypeScript. Per call, not per
+// example: a sample may chain operations (stage an upload, then attach it on an
+// event write), and each call answers to its own operation's contract. Nested
+// keys (`extId: { key }`) are values, not parameters, and never surface.
+function exampleCalls(example) {
+  const source = ts.createSourceFile(
+    'example.ts',
+    example,
+    ts.ScriptTarget.Latest,
+    true,
+  );
+  const keysOf = (node) =>
+    (node && ts.isObjectLiteralExpression(node)
+      ? node.properties.flatMap((p) => (p.name ? [p.name.text] : []))
+      : []);
+  const calls = [];
+  const visit = (node) => {
+    if (
+      ts.isCallExpression(node)
+      && node.expression.getText().startsWith('oa.')
+    ) {
+      const [arg] = node.arguments;
+      const member = (name) =>
+        (arg && ts.isObjectLiteralExpression(arg)
+          ? arg.properties.find(
+            (p) => ts.isPropertyAssignment(p) && p.name.getText() === name,
+          )?.initializer
+          : undefined);
+      calls.push({
+        id: node.expression.getText().slice('oa.'.length),
+        path: keysOf(member('path')),
+        query: keysOf(member('query')),
+        body: keysOf(member('body')),
+      });
     }
-    const body = example.slice(start, i - 1);
-    // Top-level tokens only: blank out nested braces before scanning.
-    const flat = body.replace(/\{[^{}]*\}/g, '');
-    for (const tok of flat.split(',')) {
-      const key = tok.split(':')[0].trim();
-      if (/^[A-Za-z_$][\w$]*$/.test(key)) keys.add(key);
+    ts.forEachChild(node, visit);
+  };
+  visit(source);
+  return calls;
+}
+
+// The type expression at the start of `text`, up to the parenthesis closing the
+// one just before it — `(FacetName | FacetSpec)[], required` keeps its inner
+// parentheses.
+function typeExpression(text) {
+  let depth = 1;
+  let i = 0;
+  for (; i < text.length && depth > 0; i += 1) {
+    if (text[i] === '(') depth += 1;
+    else if (text[i] === ')') depth -= 1;
+  }
+  return text.slice(0, depth ? i : i - 1);
+}
+
+// search_docs's invariant, over a rendered payload. A type REFERENCE is a
+// component name in a type position — the parenthesised type of a param, field
+// or component head, the named body and response roots, a union's named
+// branch — never a prose mention: descriptions cite shapes that live on other
+// cards by design.
+const COMPONENT_NAMES = new Set(SCHEMA_VALIDATORS.map((v) => v.slice(1)));
+const COMPONENTS_HEADER = 'Components — the named types used above:';
+
+function typeReferences(text) {
+  const names = new Set();
+  const collect = (typeText) => {
+    for (const [id] of typeText.matchAll(/\b[A-Z]\w*\b/g)) {
+      if (COMPONENT_NAMES.has(id)) names.add(id);
+    }
+  };
+  for (const line of text.split('\n')) {
+    const typed = line.match(/^\s*- `?[\w$.-]+`? \((.*)$/) ?? line.match(/^`\w+` \((.*)$/);
+    if (typed) collect(typeExpression(typed[1]));
+    if (/^(Request body|Response): /.test(line) || /^\s*- `\w+`$/.test(line)) {
+      for (const [, id] of line.matchAll(/`(\w+)`/g)) {
+        if (COMPONENT_NAMES.has(id)) names.add(id);
+      }
     }
   }
-  return [...keys];
+  return names;
+}
+
+// Split a payload into what the cards render and the Components entries, each
+// entry keyed by the name its head defines. Read structurally: a card line that
+// merely starts with a backticked name is prose, not a definition.
+function payloadParts(payload) {
+  const at = payload.indexOf(COMPONENTS_HEADER);
+  const cards = at === -1 ? payload : payload.slice(0, at);
+  const entries = new Map();
+  if (at !== -1) {
+    const section = payload
+      .slice(at + COMPONENTS_HEADER.length)
+      .split('\n\n---\n\n')[0];
+    for (const chunk of section.split('\n\n')) {
+      const head = chunk.match(/^`(\w+)`/);
+      if (head) entries.set(head[1], chunk);
+    }
+  }
+  // A card defines its own root in place: an object root field by field, a
+  // list's summary item on the line after its `Response:` head.
+  const onCards = new Set();
+  const lines = cards.split('\n');
+  lines.forEach((line, i) => {
+    const root = line.match(/^Response: `(\w+)` →/);
+    if (root) onCards.add(root[1]);
+    const item = line.match(/^Response: .*\{ data: `(\w+)`\[\]/);
+    if (item && lines[i + 1]?.startsWith(`\`${item[1]}\``)) onCards.add(item[1]);
+  });
+  return { cards, entries, onCards };
+}
+
+// Problems for one payload, found by WALKING from the cards: start from the
+// types the cards name, follow each reached Components entry to the types it
+// names in turn. What is reached must be defined; what is defined must be
+// reached. A comparison of global sets would let two definitions that cite each
+// other vouch for one another with no card leading to either.
+function sweep(label, payload) {
+  const { cards, entries, onCards } = payloadParts(payload);
+  const reached = new Set(typeReferences(cards));
+  const queue = [...reached];
+  while (queue.length) {
+    const entry = entries.get(queue.pop());
+    if (!entry) continue;
+    for (const name of typeReferences(entry)) {
+      if (!reached.has(name)) {
+        reached.add(name);
+        queue.push(name);
+      }
+    }
+  }
+  return [
+    ...[...reached]
+      .filter((name) => !entries.has(name) && !onCards.has(name))
+      .map((name) => `${label} renders ${name} but never defines it`),
+    ...[...entries.keys()]
+      .filter((name) => !reached.has(name))
+      .map((name) => `${label} defines ${name} but no card leads to it`),
+  ];
 }
 
 // search_docs is the LLM's entry point — it must surface the right operation
@@ -116,6 +236,35 @@ describe('searchOperations', () => {
     expect(searchOperations('list my agendas')[0].id).toBe('me.agendas.list');
     expect(searchOperations('memberships')[0].id).toBe('me.agendas.list');
     expect(searchOperations('me')[0].id).toBe('me.agendas.list');
+  });
+
+  // Top-1 is not the contract; the RICH CARD is. The first three hits render in
+  // full, so what an LLM needs is the intended operation among them. Tuning
+  // for top-1 on plain-language phrasings is a trade, not a fix — measured on a
+  // wider set, bounding prefix expansion or stripping stop words from the query
+  // flips as many phrasings the wrong way as it rescues ("show me the events of
+  // my agenda" → me.agendas.list, "find concerts in lyon" → agendas.list). So
+  // pin what holds: these phrasings, several of which rank a sibling first,
+  // keep the operation they mean on a full card.
+  it.each([
+    ['what events do we have', 'agendas.events.list'],
+    ['events we like', 'agendas.events.list'],
+    ['what is on this week', 'agendas.events.list'],
+    ['show events for my agenda', 'agendas.events.list'],
+    ['get me all the events', 'agendas.events.list'],
+    ['find concerts in lyon', 'agendas.events.list'],
+    ['show me the events of my agenda', 'agendas.events.list'],
+    ['which agendas am i a member of', 'me.agendas.list'],
+    ['find an agenda', 'agendas.list'],
+    ['add a new event', 'agendas.events.create'],
+    ['remove an event', 'agendas.events.delete'],
+    ['upload an image', 'agendas.uploads.create'],
+    ['what fields does the form have', 'agendas.events.schema'],
+    ['find event by external id', 'agendas.events.getByExtId'],
+    ['distribution of events by month', 'agendas.events.facets'],
+  ])('keeps %p on a rich card for %s', (query, id) => {
+    const payload = renderSearch(searchOperations(query));
+    expect(payload).toContain(`### ${id}\n`);
   });
 
   it('ranks the listing op first for the bare resource term', () => {
@@ -215,7 +364,7 @@ describe('response shape (derived from the success body)', () => {
     const { response } = byId('agendas.events.list');
     expect(response.kind).toBe('list');
     expect(response.root).toBe('EventList');
-    expect(response.pagination).toBe(true);
+    expect(response.pagination).toBe('Pagination');
     expect(response.item.variants).toEqual(['EventSummary', 'Event']);
     const fields = response.item.fields.map((f) => f.name);
     expect(fields).toEqual(
@@ -252,6 +401,119 @@ describe('response shape (derived from the success body)', () => {
   // `Event` component, so an assertion on the resolved root holds whichever
   // status wins and would pass against a reversed sort. A test that cannot fail
   // is worse than none — the rule is documented on `successBody` instead.
+
+  // The shapes below are legal OpenAPI the contract does not use today; each
+  // one used to read as "no response" or "no fields", silently.
+  describe('success body selection', () => {
+    const schema = { type: 'object', properties: { ok: { type: 'boolean' } } };
+    const json = (type = 'application/json') => ({
+      content: { [type]: { schema } },
+    });
+
+    it('reads a 2XX range response', () => {
+      expect(successBody({ responses: { '2XX': json() } })).toBe(schema);
+    });
+
+    it('prefers an explicit status over the range', () => {
+      const explicit = { type: 'string' };
+      expect(
+        successBody({
+          responses: {
+            '2XX': json(),
+            201: { content: { 'application/json': { schema: explicit } } },
+          },
+        }),
+      ).toBe(explicit);
+    });
+
+    it('matches a JSON media type by word, whatever its case or suffix', () => {
+      expect(
+        successBody({
+          responses: { 200: json('Application/JSON; charset=utf-8') },
+        }),
+      ).toBe(schema);
+      expect(
+        successBody({ responses: { 200: json('application/problem+json') } }),
+      ).toBe(schema);
+    });
+
+    it('does not take a parameter mentioning json for a JSON type', () => {
+      expect(
+        successBody({ responses: { 200: json('text/plain; profile=json') } }),
+      ).toBeUndefined();
+    });
+
+    it('does not read `default`, which covers errors too', () => {
+      expect(successBody({ responses: { default: json() } })).toBeUndefined();
+    });
+  });
+
+  it('renders an allOf-wrapped root inline, from its merged fields', () => {
+    const response = deriveResponse({
+      responses: {
+        200: {
+          content: {
+            'application/json': {
+              schema: {
+                allOf: [
+                  { $ref: '#/components/schemas/Event' },
+                  { description: 'The event as stored' },
+                ],
+              },
+            },
+          },
+        },
+      },
+    });
+    // Only a bare `$ref` names a component: a wrapper may constrain what it
+    // wraps, and the component's own definition would then document the wrong
+    // shape.
+    expect(response.root).toBeNull();
+    expect(response.fields.map((f) => f.name)).toContain('uid');
+  });
+
+  it('renders the fields of an inline list item that has no component name', () => {
+    const response = deriveResponse({
+      responses: {
+        200: {
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  data: {
+                    type: 'array',
+                    items: {
+                      oneOf: [
+                        {
+                          type: 'object',
+                          required: ['id'],
+                          properties: { id: { type: 'integer' } },
+                        },
+                      ],
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+    const card = renderOperation(
+      {
+        ...byId('agendas.list'),
+        response,
+      },
+      0,
+    );
+    expect(card).toContain('- id (integer, required)');
+  });
+
+  it('types the list pagination so its component is reachable', () => {
+    const card = renderOperation(byId('agendas.events.list'), 0);
+    expect(card).toContain('pagination: `Pagination` }');
+  });
 
   it('resolves allOf-wrapped field types by name (not "any")', () => {
     // dateRange is `allOf: [$ref LocalizedString]`; it must keep its schema name.
@@ -339,32 +601,221 @@ describe('request body (derived from the contract)', () => {
   it('renders the fields of a body that has no component to name', () => {
     const card = renderOperation(byId('agendas.uploads.create'), 0);
     expect(card).toContain('Request body: multipart/form-data, required');
-    expect(card).toContain('- file (string');
+    // Marked required like any component property: the inline path used to
+    // drop the marker, so the one field an upload needs read as optional.
+    expect(card).toContain('- file (string, required)');
+  });
+
+  it('keeps the fields of a body wrapped in allOf', () => {
+    const request = deriveRequest({
+      requestBody: {
+        required: true,
+        content: {
+          'application/json': {
+            schema: {
+              allOf: [
+                { $ref: '#/components/schemas/EventInput' },
+                { description: 'Refined for this route' },
+              ],
+            },
+          },
+        },
+      },
+    });
+    expect(request.root).toBeNull();
+    expect(request.fields.length).toBeGreaterThan(0);
+  });
+
+  it('marks a field an allOf member makes required', () => {
+    const request = deriveRequest({
+      requestBody: {
+        content: {
+          'application/json': {
+            schema: {
+              allOf: [
+                { $ref: '#/components/schemas/EventInput' },
+                { required: ['image'] },
+              ],
+            },
+          },
+        },
+      },
+    });
+    expect(request.root).toBeNull();
+    expect(request.fields.find((f) => f.name === 'image').required).toBe(true);
+  });
+
+  it('merges a property several members declare instead of keeping the last', () => {
+    const request = deriveRequest({
+      requestBody: {
+        content: {
+          'application/json': {
+            schema: {
+              allOf: [
+                { properties: { x: { type: 'string', enum: ['a', 'b'] } } },
+                { properties: { x: { description: 'Refined' } } },
+              ],
+            },
+          },
+        },
+      },
+    });
+    expect(request.fields).toEqual([
+      expect.objectContaining({
+        name: 'x',
+        type: 'string',
+        enum: ['a', 'b'],
+        description: 'Refined',
+      }),
+    ]);
+  });
+
+  // A cycle the unfolding cannot see by name: the self-reference hides inside
+  // nested compositions (a `$ref` resolves to the same object every time, which
+  // is what this identity stands for), or the parser materialised a YAML alias.
+  it('leaves a cyclic inline shape folded instead of overflowing the stack', () => {
+    const node = { type: 'object', properties: { id: { type: 'integer' } } };
+    node.properties.child = { allOf: [{ allOf: [node] }] };
+    node.properties.children = { type: 'array', items: node };
+    const request = deriveRequest({
+      requestBody: { content: { 'application/json': { schema: node } } },
+    });
+    expect(request.fields.map((f) => f.name)).toEqual([
+      'id',
+      'child',
+      'children',
+    ]);
+    expect(
+      request.fields.find((f) => f.name === 'child').fields,
+    ).toBeUndefined();
+  });
+
+  it('picks the JSON media type, not a parameter mentioning json', () => {
+    const request = deriveRequest({
+      requestBody: {
+        content: {
+          'text/plain; profile=json': { schema: { type: 'string' } },
+          'application/json': {
+            schema: { $ref: '#/components/schemas/EventInput' },
+          },
+        },
+      },
+    });
+    expect(request.contentType).toBe('application/json');
+  });
+
+  it('merges an inline allOf body, required markers included', () => {
+    const request = deriveRequest({
+      requestBody: {
+        content: {
+          'application/json': {
+            schema: {
+              allOf: [
+                {
+                  type: 'object',
+                  required: ['a'],
+                  properties: { a: { type: 'string' } },
+                },
+                { type: 'object', properties: { b: { type: 'integer' } } },
+              ],
+            },
+          },
+        },
+      },
+    });
+    expect(request.root).toBeNull();
+    expect(request.fields).toEqual([
+      expect.objectContaining({ name: 'a', required: true }),
+      expect.objectContaining({ name: 'b', required: false }),
+    ]);
   });
 });
 
 // A query renders only three cards richly, so an operation can be shadowed by a
 // sibling that happens to define the same component. Render each one ALONE, so
 // the invariant is proved per card rather than per page.
-describe('no card renders a type it never defines', () => {
+describe('every card defines exactly the types it leads to', () => {
   it('holds for every operation rendered on its own', () => {
-    const componentNames = new Set(SCHEMA_VALIDATORS.map((v) => v.slice(1)));
-    const dangling = [];
-    for (const op of OPERATIONS) {
-      const payload = renderSearch([op]);
-      for (const m of payload.matchAll(/\(([A-Za-z ,[\]|&]+)\)/g)) {
-        for (const part of m[1].split(/[|&,]/)) {
-          const name = part.trim().replace(/\[\]$/, '');
-          if (!componentNames.has(name)) continue;
-          const defined = new RegExp(`(^|\\n)\`${name}\`[ (\\n]`).test(payload)
-            || payload.includes(`Response: \`${name}\``);
-          if (!defined) dangling.push(`${op.id} renders ${name}`);
-        }
-      }
-    }
     // Collect the whole set before asserting: a failure should name every card
     // that regressed, not just the first one to trip.
-    expect(dangling).toEqual([]);
+    const problems = OPERATIONS.flatMap((op) =>
+      sweep(op.id, renderSearch([op])));
+    expect(problems).toEqual([]);
+  });
+
+  // The sweep must be able to fail, or it proves nothing. Pin that it sees each
+  // kind of type position — a sweep blind to one would pass a card that drops
+  // that side's definitions.
+  it('reads every kind of type position', () => {
+    expect([
+      ...typeReferences(renderSearch([byId('agendas.events.create')])),
+    ]).toEqual(expect.arrayContaining(['EventInput', 'ImageInput', 'Event']));
+    expect([
+      ...typeReferences('Request body: `EventInput` (application/json)'),
+    ]).toEqual(['EventInput']);
+    expect([
+      ...typeReferences(
+        '- facets (Record<string, FacetReportEntry>, required)',
+      ),
+    ]).toEqual(['FacetReportEntry']);
+    expect([
+      ...typeReferences('- status (EventStatus) — see `Timing` in prose'),
+    ]).toEqual(['EventStatus']);
+  });
+
+  // Each way the sweep must fail, on a hand-built payload.
+  describe('sweep', () => {
+    const withComponents = (cards, ...defs) =>
+      `${cards}\n\n---\n\n${COMPONENTS_HEADER}\n\n${defs.join('\n\n')}\n\n---\n\nValidators: …`;
+
+    it('reports a name a card renders but the payload never defines', () => {
+      expect(
+        sweep('x', 'Request body: `EventInput` (application/json)'),
+      ).toEqual(['x renders EventInput but never defines it']);
+    });
+
+    it('reports a definition no card leads to', () => {
+      expect(
+        sweep(
+          'x',
+          withComponents(
+            '### op',
+            '`EventStatus` (integer) — Values: 1 = Scheduled.',
+          ),
+        ),
+      ).toEqual(['x defines EventStatus but no card leads to it']);
+    });
+
+    it('does not let two definitions that cite each other vouch for one another', () => {
+      const payload = withComponents(
+        '### op',
+        '`EventInput` — input\n- image (ImageInput)',
+        '`ImageInput` — image\n- event (EventInput)',
+      );
+      expect(sweep('x', payload)).toEqual([
+        'x defines EventInput but no card leads to it',
+        'x defines ImageInput but no card leads to it',
+      ]);
+      // The same pair, once a card names one of them, is fully reached.
+      expect(
+        sweep(
+          'x',
+          payload.replace(
+            '### op',
+            'Request body: `EventInput` (application/json)',
+          ),
+        ),
+      ).toEqual([]);
+    });
+
+    it('does not take a prose line starting with a backticked name for a definition', () => {
+      expect(
+        sweep(
+          'x',
+          'Response: `Event` →\n- timings (Timing[])\n`Timing` is described on another card',
+        ),
+      ).toEqual(['x renders Timing but never defines it']);
+    });
   });
 });
 
@@ -445,6 +896,10 @@ describe('examples', () => {
     const card = renderOperation(byId('uploads.staged'), 0);
     expect(card).toContain('```shell');
     expect(card).not.toContain('```ts');
+    // The SDK does generate a method for the route; what the card must say is
+    // that the client's credentials do not authorize it — not that no call
+    // exists.
+    expect(card).toContain('not through the `oa` client');
   });
 
   // The distinction is read off each scheme's DEFINITION, not off a list of
@@ -469,11 +924,113 @@ describe('examples', () => {
     expect(byId('uploads.staged').sdkCallable).toBe(false);
   });
 
-  it('leaves every other operation SDK-callable', () => {
-    const notCallable = OPERATIONS.filter((o) => !o.sdkCallable).map(
-      (o) => o.id,
-    );
-    expect(notCallable).toEqual(['uploads.staged']);
+  // Not an exhaustive list of the non-callable routes: a second ticket-style
+  // endpoint must need no edit here. Pin both sides structurally instead — the
+  // known exception, and every route an Authorization: Bearer can satisfy.
+  it('leaves every bearer- or OAuth-secured operation SDK-callable', () => {
+    expect(byId('uploads.staged').sdkCallable).toBe(false);
+    const secured = Object.values(spec.paths)
+      .flatMap((item) => Object.values(item))
+      .filter((op) => op?.operationId)
+      .filter((op) =>
+        (op.security ?? spec.security).some((req) => {
+          // All of one requirement's schemes combine, so it counts only when
+          // every one of them is a scheme the client carries.
+          const schemes = Object.keys(req);
+          return (
+            schemes.length > 0
+            && schemes.every((name) => name === 'bearerAuth' || name === 'oauth2')
+          );
+        }));
+    expect(secured.length).toBeGreaterThan(0);
+    for (const op of secured) {
+      expect(byId(op.operationId).sdkCallable).toBe(true);
+    }
+  });
+
+  describe('isSdkCallable (requirement shapes)', () => {
+    const contract = {
+      security: [{ bearerAuth: [] }],
+      components: {
+        securitySchemes: {
+          bearerAuth: { type: 'http', scheme: 'bearer' },
+          oauth: { type: 'oauth2' },
+          ticket: { type: 'apiKey', in: 'header', name: 'X-Ticket' },
+          basic: { type: 'http', scheme: 'basic' },
+        },
+      },
+    };
+
+    it('inherits the document default when the operation declares none', () => {
+      expect(isSdkCallable({}, contract)).toBe(true);
+      expect(
+        isSdkCallable({}, { ...contract, security: [{ ticket: [] }] }),
+      ).toBe(false);
+    });
+
+    it('treats `security: []` as no auth needed', () => {
+      expect(isSdkCallable({ security: [] }, contract)).toBe(true);
+    });
+
+    it('treats the empty requirement `{}` as anonymous access', () => {
+      expect(isSdkCallable({ security: [{ ticket: [] }, {}] }, contract)).toBe(
+        true,
+      );
+    });
+
+    it('needs EVERY scheme of one requirement, since they combine', () => {
+      expect(
+        isSdkCallable({ security: [{ bearerAuth: [], ticket: [] }] }, contract),
+      ).toBe(false);
+      expect(
+        isSdkCallable({ security: [{ bearerAuth: [], oauth: [] }] }, contract),
+      ).toBe(true);
+    });
+
+    it('needs only ONE requirement, since they are alternatives', () => {
+      expect(
+        isSdkCallable(
+          { security: [{ basic: [] }, { oauth: ['x'] }] },
+          contract,
+        ),
+      ).toBe(true);
+    });
+
+    it('rejects a scheme the contract does not define', () => {
+      expect(isSdkCallable({ security: [{ nope: [] }] }, contract)).toBe(false);
+    });
+  });
+
+  describe('oauthScopes', () => {
+    const contract = {
+      security: [{ renamedOAuth: ['events:read'] }],
+      components: {
+        securitySchemes: {
+          renamedOAuth: { type: 'oauth2' },
+          bearerAuth: { type: 'http', scheme: 'bearer' },
+        },
+      },
+    };
+
+    it('reads scopes off schemes of type oauth2, whatever their name', () => {
+      expect(
+        oauthScopes(
+          {
+            security: [{ bearerAuth: [] }, { renamedOAuth: ['events:write'] }],
+          },
+          contract,
+        ),
+      ).toEqual(['events:write']);
+    });
+
+    it('inherits the document default', () => {
+      expect(oauthScopes({}, contract)).toEqual(['events:read']);
+    });
+
+    it('matches the contract on a real operation', () => {
+      expect(byId('agendas.events.create').scopes).toEqual(['events:write']);
+      expect(byId('uploads.staged').scopes).toEqual([]);
+    });
   });
 
   it('uses the curated x-codeSamples sample when present', () => {
@@ -521,31 +1078,50 @@ describe('examples', () => {
   // Anti-drift: any param identifier used as a key in an example's path/query
   // object MUST be a real param of the operation — catches a curated
   // x-codeSamples sample (or skeleton) that drifts from a renamed param.
-  it('example param keys all reference real params', () => {
+  // Anti-drift: every key an example passes — in `path`, `query` or `body` —
+  // must exist on the operation that call targets, so a curated sample cannot
+  // drift from a renamed param or body field.
+  it('example keys all reference the operation they are passed to', () => {
+    const problems = [];
+    const checked = { params: 0, body: 0 };
     for (const op of OPERATIONS) {
-      const known = new Set(op.params.map((p) => p.name));
-      for (const key of exampleParamKeys(op.example)) {
-        expect(known.has(key)).toBe(true);
+      for (const call of exampleCalls(op.example)) {
+        const target = byId(call.id);
+        const params = new Set(target?.params.map((p) => p.name));
+        const fields = new Set(target?.request?.fields.map((f) => f.name));
+        for (const key of [...call.path, ...call.query]) {
+          checked.params += 1;
+          if (!params.has(key)) problems.push(`${op.id} example passes ${key} to ${call.id}`);
+        }
+        for (const key of call.body) {
+          checked.body += 1;
+          if (!fields.has(key)) problems.push(`${op.id} example sends ${key} to ${call.id}`);
+        }
       }
     }
+    expect(problems).toEqual([]);
+    // Dozens of keys between the samples; too few means the extractor stopped
+    // finding calls, not that every sample is clean.
+    expect(checked.params).toBeGreaterThan(20);
+    expect(checked.body).toBeGreaterThan(10);
   });
 
-  it('the anti-drift extractor catches shorthand props (after)', () => {
-    // `query: { …, after }` — the shorthand `after` must be extracted (it is a
-    // real AfterCursor param); a flat regex would silently drop it.
-    expect(exampleParamKeys('oa.x({ query: { limit: 100, after } })')).toEqual(
-      expect.arrayContaining(['limit', 'after']),
-    );
-  });
-
-  it('the anti-drift extractor handles nested objects without false hits', () => {
-    // A nested value (extId deepObject) must not leak its inner keys as params,
-    // and a top-level key after the nested object must still be caught.
-    const keys = exampleParamKeys(
-      "oa.x({ query: { extId: { key: 'a' }, slug: 'b' } })",
-    );
-    expect(keys).toEqual(expect.arrayContaining(['extId', 'slug']));
-    expect(keys).not.toContain('key');
+  it('the example extractor reads each call, shorthand and quoted keys, not nested ones', () => {
+    expect(
+      exampleCalls(
+        'await oa.a.create({ path: { x: 1 }, body: { file } });\n'
+          + "await oa.b.update ({ query: { extId: { key: 'a' }, after }, "
+          + "body: { 'title': { fr: 'It\\'s, b: c' }, image: { ref } } });",
+      ),
+    ).toEqual([
+      { id: 'a.create', path: ['x'], query: [], body: ['file'] },
+      {
+        id: 'b.update',
+        path: [],
+        query: ['extId', 'after'],
+        body: ['title', 'image'],
+      },
+    ]);
   });
 });
 
@@ -694,7 +1270,7 @@ describe('renderSearch', () => {
       // The get card renders `title (LocalizedString)`; the name must be
       // defined in the same payload.
       expect(section).toMatch(
-        /`LocalizedString` \(object\) — A string localized per language/,
+        /`LocalizedString` \(Record<string, string>\) — A string localized per language/,
       );
     });
 
@@ -725,11 +1301,11 @@ describe('renderSearch', () => {
     });
 
     // The structural invariant of the whole feature: a component name rendered
-    // as a type anywhere in the payload (param or field line) is never opaque —
-    // it is defined in that same payload, either inline as a rich root or as a
-    // Components entry. Sweeps every query shape we serve.
+    // as a type anywhere in the payload is never opaque — it is defined in that
+    // same payload, either inline as a rich root or as a Components entry — and
+    // no definition is stranded without a type leading to it. Sweeps every
+    // query shape we serve.
     it('never renders a dangling component name', () => {
-      const componentNames = new Set(SCHEMA_VALIDATORS.map((v) => v.slice(1)));
       const queries = [
         'events',
         'get one event by uid',
@@ -744,31 +1320,17 @@ describe('renderSearch', () => {
         'upload an image',
         'upsert by external id',
       ];
-      let inspected = 0;
-      for (const query of queries) {
+      const problems = queries.flatMap((query) => {
         const payload = renderSearch(searchOperations(query));
-        const rendered = new Set();
-        for (const m of payload.matchAll(/\(([A-Za-z ,[\]|&]+)\)/g)) {
-          for (const part of m[1].split(/[|&,]/)) {
-            const base = part.trim().replace(/\[\]$/, '');
-            if (componentNames.has(base)) rendered.add(base);
-          }
-        }
-        inspected += rendered.size;
-        for (const name of rendered) {
-          const defined = new RegExp(`(^|\\n)\`${name}\`[ (\\n]`).test(payload)
-            || payload.includes(`Response: \`${name}\``);
-          if (!defined) {
-            throw new Error(
-              `"${name}" rendered but never defined (query: "${query}")`,
-            );
-          }
-        }
-      }
-      // Guard against a vacuous sweep, but across the whole set rather than per
-      // query: an upload page legitimately renders no component type at all —
-      // its responses are `{ ref: string, expiresAt: string }`.
-      expect(inspected).toBeGreaterThan(0);
+        // Per query: every page names at least one component (an upload page
+        // through its `UploadTicket` root), so an empty set means the sweep
+        // stopped seeing types, not that there were none.
+        const vacuous = typeReferences(payload).size
+          ? []
+          : [`${JSON.stringify(query)} yielded no type to check`];
+        return [...vacuous, ...sweep(JSON.stringify(query), payload)];
+      });
+      expect(problems).toEqual([]);
     });
   });
 });
@@ -783,6 +1345,77 @@ describe('renderComponentDef', () => {
 
   it('returns an empty string for an unknown component', () => {
     expect(renderComponentDef('Nope')).toBe('');
+  });
+
+  // A union component has no properties of its own; rendered as its prose
+  // alone, `ImageInput` — what an event write attaches media with — showed
+  // neither `ref` nor `url`.
+  it("lists the alternatives of a union, with each inline branch's fields", () => {
+    const def = renderComponentDef('ImageInput');
+    expect(def).toContain('One of:');
+    expect(def).toMatch(/\n- object:\n {2}- ref \(string, required\)/);
+    expect(def).toMatch(/\n- object:\n {2}- url \(string, required\)/);
+    expect(def).toMatch(/\n- null$/);
+  });
+
+  it('names the value type of a map instead of a bare object', () => {
+    expect(renderComponentDef('FacetReport')).toContain(
+      '- facets (Record<string, FacetReportEntry>, required)',
+    );
+  });
+
+  it('does not type a map whose values carry only a vendor annotation', () => {
+    // `additionalProperties: { x-additionalPropertiesName: … }` names the key,
+    // not the values — `Record<string, any>` would be a guess dressed as a type.
+    expect(renderComponentDef('AdditionalFields')).toMatch(
+      /^`AdditionalFields` \(object\) — /,
+    );
+  });
+
+  it('unfolds an inline object into its own fields', () => {
+    const card = renderOperation(byId('agendas.overview'), 0);
+    expect(card).toMatch(
+      /- events \(object, required\)\n {2}- published \(PublishedEventStats, required\)/,
+    );
+  });
+
+  it('indents every level of a nested inline object', () => {
+    const request = deriveRequest({
+      requestBody: {
+        content: {
+          'application/json': {
+            schema: {
+              type: 'object',
+              properties: {
+                a: {
+                  type: 'object',
+                  properties: {
+                    b: {
+                      type: 'object',
+                      properties: { c: { type: 'string' } },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+    const card = renderOperation(
+      { ...byId('agendas.uploads.create'), request },
+      0,
+    );
+    expect(card).toContain('- a (object)\n  - b (object)\n    - c (string)');
+  });
+
+  // An object root renders on its card, not in Components — so it must carry
+  // everything its definition would, or that detail exists nowhere.
+  it('renders an inline root exactly as its definition would', () => {
+    const card = renderOperation(byId('agendas.events.delete'), 0);
+    expect(card).toContain('- deleted (boolean, required) — [one of: true]');
+    const def = renderComponentDef('DeletionResult').split('\n').slice(1);
+    for (const line of def) expect(card).toContain(line);
   });
 });
 
