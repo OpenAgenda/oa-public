@@ -336,6 +336,7 @@ paths:
         - $ref: '#/components/parameters/FilterLocalTime'
         - $ref: '#/components/parameters/FilterCreatedAt'
         - $ref: '#/components/parameters/FilterUpdatedAt'
+        - $ref: '#/components/parameters/FilterAvailabilityUpdatedAt'
         # audience & additional fields
         - $ref: '#/components/parameters/FilterAge'
         - $ref: '#/components/parameters/FilterAdditionalFields'
@@ -1059,6 +1060,7 @@ paths:
         - $ref: '#/components/parameters/FilterLocalTime'
         - $ref: '#/components/parameters/FilterCreatedAt'
         - $ref: '#/components/parameters/FilterUpdatedAt'
+        - $ref: '#/components/parameters/FilterAvailabilityUpdatedAt'
         - $ref: '#/components/parameters/FilterAge'
         - $ref: '#/components/parameters/FilterAdditionalFields'
       responses:
@@ -2333,6 +2335,8 @@ components:
           - lastTimingWithFeatured.asc
           - updatedAt.asc
           - updatedAt.desc
+          - availabilityUpdatedAt.asc
+          - availabilityUpdatedAt.desc
           - location.name.asc
           - location.name.desc
           - location.city.asc
@@ -2345,6 +2349,8 @@ components:
           lastTimingWithFeatured.asc: By last occurrence, featured events first
           updatedAt.asc: Least recently updated first
           updatedAt.desc: Most recently updated first
+          availabilityUpdatedAt.asc: Least recently synced inventory first; events with no inventory last
+          availabilityUpdatedAt.desc: Most recently synced inventory first; events with no inventory last
           location.name.asc: By location name, A→Z
           location.name.desc: By location name, Z→A
           location.city.asc: By city, A→Z
@@ -2744,6 +2750,31 @@ components:
         `updatedAt[gte]=…&updatedAt[lte]=…`. Useful for incremental sync.
         Date-times must carry an explicit offset (e.g. `Z`); a bare date
         (`YYYY-MM-DD`) is read as UTC midnight.
+      schema:
+        type: object
+        additionalProperties: false
+        properties:
+          gte:
+            type: string
+            format: date-time
+          lte:
+            type: string
+            format: date-time
+
+    FilterAvailabilityUpdatedAt:
+      name: availabilityUpdatedAt
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: >
+        Restrict by inventory sync date, as RFC 3339 date-times:
+        `availabilityUpdatedAt[gte]=…&availabilityUpdatedAt[lte]=…`. The
+        inventory counterpart of `updatedAt`, for a consumer following
+        availability: pair it with `sort=availabilityUpdatedAt.asc` and a
+        watermark. Events that never received availability carry no stamp and
+        never match — following inventory does not mean paging through the
+        whole corpus. Same date-time rules as `updatedAt`.
       schema:
         type: object
         additionalProperties: false
@@ -4934,6 +4965,29 @@ components:
           type: string
           format: date-time
           readOnly: true
+        availabilityUpdatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+          description: >
+            A SECOND CURSOR, for inventory rather than catalogue.
+
+            An availability write does not move `updatedAt`: an inventory tick is
+            not a content change, and a catalogue consumer paging on
+            `updatedAt.asc` must not see an event resurface every time a seat is
+            sold. This stamp moves instead, so availability stays followable on
+            its own — `?sort=availabilityUpdatedAt.asc&availabilityUpdatedAt[gte]=<watermark>`.
+
+            Its value is the instant OpenAgenda last WROTE an availability row
+            of this event — the write clock, so it is monotonic and a watermark
+            set on it never misses a later write. It is not the rows' own
+            `syncedAt`, which says when each provider was read and may sit
+            behind another provider's row.
+
+            ABSENT from an event that has never received availability, which is
+            the overwhelming majority. A `[gte]` filter therefore excludes them
+            naturally, which is the intent: following inventory should not mean
+            paging through the whole corpus.
         accessibility:
           $ref: '#/components/schemas/Accessibility'
         age:
