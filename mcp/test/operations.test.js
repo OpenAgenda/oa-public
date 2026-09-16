@@ -1202,6 +1202,16 @@ describe('renderOperation', () => {
     }
   });
 
+  it('does not let a partial enum read as the whole type', () => {
+    // `threshold` is `oneOf: [enum(off, auto), number]`. A bare `one of:` says
+    // those two values are all there is, and hides the absolute score the
+    // other branch takes - which the type line does announce.
+    const md = renderOperation(byId('agendas.events.list'), 0);
+    expect(md).toContain('[one of: off, auto, or a number; default "off"]');
+    // A parameter whose enum IS the whole type keeps the plain wording.
+    expect(md).toMatch(/`relative`.*\[one of: passed, upcoming, current\]/);
+  });
+
   it("lists the values a map parameter's entries accept", () => {
     // `facetSorts` is `Record<string, string>` on the card, so `count`/`alpha`
     // have nowhere else to appear: the enum sits on the map's VALUES.

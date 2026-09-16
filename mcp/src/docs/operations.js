@@ -33,6 +33,7 @@ import { checkContract, contractWarning, formatFindings } from './compat.js';
  * @property {number} [min]
  * @property {number} [max]
  * @property {Field[]} [fields]       A structured param's own keys (`timings[gte]`).
+ * @property {string[]} [enumAlso]     Types the enum does NOT cover (`threshold` also takes a number).
  * @property {string} description
  *
  * @typedef {object} Field
@@ -311,6 +312,13 @@ function deriveParams(op) {
     const fields = topLevelFields(schema);
     if (fields.length) param.fields = fields;
     if (enumValues) param.enum = enumValues;
+    // `threshold` is `oneOf: [enum(off, auto), number]`: the values cover ONE
+    // branch of the type, and a bare `one of:` reads as the whole of it, which
+    // would hide the absolute score the other branch accepts.
+    const others = (schema.oneOf ?? schema.anyOf ?? [])
+      .filter((branch) => branch !== enumSchema && !enumSchemaOf(branch))
+      .map((branch) => resolveType(branch));
+    if (enumValues && others.length) param.enumAlso = [...new Set(others)];
     if (enumDescriptions) param.enumDescriptions = enumDescriptions;
     if (schema.default !== undefined) param.default = schema.default;
     if (schema.minimum !== undefined) param.min = schema.minimum;
@@ -938,7 +946,8 @@ function renderFieldLine(f) {
 function renderParamLine(p) {
   const meta = [];
   if (p.enum) {
-    meta.push(`one of: ${enumGloss(p.enum, p.enumDescriptions)}`);
+    const also = p.enumAlso ? `, or a ${p.enumAlso.join(' / a ')}` : '';
+    meta.push(`one of: ${enumGloss(p.enum, p.enumDescriptions)}${also}`);
   }
   if (p.default !== undefined) meta.push(`default ${JSON.stringify(p.default)}`);
   if (p.min !== undefined || p.max !== undefined) {
@@ -1153,6 +1162,10 @@ export function renderEverything(contract) {
     for (const name of Object.keys(spec.components?.schemas ?? {})) {
       definitions.set(name, renderComponentDef(name));
     }
+    // Which definitions a payload carries is decided here, and that decision
+    // reads the contract too: every render path `renderSearch` takes has to be
+    // taken once, or the measurement quietly covers less than it claims.
+    renderComponentsSection(operations);
     return { operations, cards, definitions };
   } finally {
     spec = served;
@@ -1224,6 +1237,8 @@ const unrenderableFindings = () => {
   return unrenderable;
 };
 
+// Every render path below must also be exercised by `renderEverything`: what
+// the compat check measures is what that dry run reads.
 export function renderSearch(hits) {
   const warning = contractWarning(unrenderableFindings());
   if (!hits.length) {
