@@ -423,6 +423,25 @@ describe('a definition nothing on the card leads to', () => {
     ]);
   });
 
+  it('is not led there by the prose', () => {
+    // The description cites the members by name, as the live contract's do
+    // ("returns the created `Event`"). Prose leads nowhere: matched over the
+    // whole card, it vouched for the very body that renders opaque.
+    expect(
+      pointers(
+        operation(
+          {
+            description: 'Sends a `Named` or an `Other`.',
+            requestBody: json({
+              oneOf: [ref, { $ref: '#/components/schemas/Other' }],
+            }),
+          },
+          { Other: object },
+        ),
+      ),
+    ).toEqual(['/paths/~1x/post', '/paths/~1x/post']);
+  });
+
   it('reports a response that is a bare array of components', () => {
     expect(
       pointers(
@@ -601,6 +620,42 @@ describe('operations, parameters and responses', () => {
     expect(messages(responses(object))).toEqual([
       'a second success response with a different shape - only the lowest is rendered, and the LLM reads the one it happened not to get',
     ]);
+  });
+
+  it('reads the same shape through a different spelling of it', () => {
+    // Keys in another order and an example beside the schema are how a
+    // contract author writes a 201, not a second shape.
+    expect(
+      messages(
+        operation({
+          responses: {
+            200: {
+              description: 'ok',
+              content: { 'application/json': { schema: ref, example: {} } },
+            },
+            201: {
+              description: 'created',
+              content: {
+                'application/json': { example: { x: 'made' }, schema: ref },
+              },
+            },
+          },
+        }),
+      ),
+    ).toEqual([]);
+  });
+
+  it('stops at a schema that contains itself', () => {
+    // A YAML anchor aliased beneath itself parses to a node that is its own
+    // descendant, with no `$ref` for a guard keyed on one to see. Both walks
+    // here and the renderer's own recursed until the stack went.
+    const cyclic = operation({});
+    const node = { type: 'object', properties: { id: { type: 'integer' } } };
+    node.properties.child = { allOf: [{ allOf: [node] }] };
+    node.properties.children = { type: 'array', items: node };
+    cyclic.paths['/x'].post.requestBody = json(node);
+    cyclic.components.schemas.Cyclic = node;
+    expect(() => check(cyclic)).not.toThrow();
   });
 
   it('reports a success body no card can show', () => {

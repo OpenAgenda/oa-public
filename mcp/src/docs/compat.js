@@ -63,6 +63,16 @@ const escape = (segment) =>
 const pointerOf = (segments) =>
   segments.map((segment) => `/${escape(segment)}`).join('');
 
+const canonical = (value) =>
+  JSON.stringify(value, (_, v) =>
+    (v && typeof v === 'object' && !Array.isArray(v)
+      ? Object.fromEntries(
+        Object.keys(v)
+          .sort()
+          .map((k) => [k, v[k]]),
+      )
+      : v));
+
 const deref = (contract, node) => {
   if (!node || typeof node !== 'object' || !node.$ref) return node;
   return node.$ref
@@ -282,11 +292,19 @@ const RULES = {
   ),
   // A second success code is fine when it answers with the shape the card
   // already shows (the by-ext upserts: 200 update / 201 create, same `Event`).
+  // The shape is the schema per media type: key order is spelling, and an
+  // example beside the schema is not the shape either.
   'responses/2xx': (ctx) => {
     if (ctx.read) return null;
     const { contract, node, reads } = ctx;
     const shape = (code) =>
-      JSON.stringify(deref(contract, node[code])?.content ?? null);
+      canonical(
+        Object.fromEntries(
+          Object.entries(deref(contract, node[code])?.content ?? {}).map(
+            ([type, media]) => [type, media?.schema ?? null],
+          ),
+        ),
+      );
     const shown = [...reads].filter((code) => /^2/.test(code) && node[code]);
     return shown.some((code) => shape(code) === shape(ctx.key))
       ? omit('a second success code answering with the shape the card shows')
@@ -483,9 +501,11 @@ function run(contract, renderEverything) {
   };
 
   // Walk the raw contract beside the record. `segments` is the path so far;
-  // `parent` the key this node hangs from.
+  // `parent` the key this node hangs from. A node met again beneath itself (a
+  // YAML alias) was verdicted where it was first met.
+  const above = new Set();
   const walk = (node, segments, inArray = false) => {
-    if (!node || typeof node !== 'object') return;
+    if (!node || typeof node !== 'object' || above.has(node)) return;
     const pointer = pointerOf(segments);
     const read = reads.get(node) ?? new Set();
     const keys = Object.keys(node);
@@ -520,6 +540,7 @@ function run(contract, renderEverything) {
       );
       return;
     }
+    above.add(node);
     for (const key of keys) {
       const value = node[key];
       const at = [...segments, key];
@@ -546,6 +567,7 @@ function run(contract, renderEverything) {
         walk(value, at, Array.isArray(node));
       }
     }
+    above.delete(node);
   };
   walk(contract, []);
 
@@ -553,11 +575,12 @@ function run(contract, renderEverything) {
   // field, so the card offers a request field the API refuses, or promises a
   // response field that never comes. Reachability is walked through `$ref`
   // here, since the record cannot tell a request read from a response read.
+  // `seen` holds nodes, so a cycle through a `$ref` and one through a YAML
+  // alias stop alike.
   const reach = (schema, segments, flag, from, seen) => {
-    if (!schema || typeof schema !== 'object') return;
+    if (!schema || typeof schema !== 'object' || seen.has(schema)) return;
+    seen.add(schema);
     if (schema.$ref) {
-      if (seen.has(schema.$ref)) return;
-      seen.add(schema.$ref);
       const target = deref(contract, schema);
       return reach(
         target,
@@ -636,8 +659,22 @@ function run(contract, renderEverything) {
   // nothing leads to is a shape the card rendered opaque - a body that is a
   // union of components, say, whose members the derivation collected and the
   // request line never named.
-  const mentions = (text, names) =>
-    names.filter((name) => new RegExp(`\\b${name}\\b`).test(text));
+  //
+  // Only a TYPE position leads anywhere: a body or response head, the
+  // parenthesised type of a field, a param or a definition head, a union's
+  // named branch - what stands before the ` — ` that opens a description.
+  // Prose cites shapes that live on other cards by design, so an operation
+  // description naming the component would otherwise vouch for its opaque body.
+  const typePositions = (text) =>
+    text
+      .split('\n')
+      .filter((line) => /^(Request body|Response): |^\s*- |^`/.test(line))
+      .map((line) => line.split(' — ')[0])
+      .join('\n');
+  const mentions = (text, names) => {
+    const typed = typePositions(text);
+    return names.filter((name) => new RegExp(`\\b${name}\\b`).test(typed));
+  };
   for (const op of operations) {
     const names = op.componentRefs;
     const reached = new Set(mentions(cards.get(op.id), names));

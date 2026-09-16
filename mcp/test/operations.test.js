@@ -7,6 +7,7 @@ import {
   renderOperation,
   renderSearch,
   renderComponentDef,
+  renderEverything,
   skeletonExample,
   SCHEMA_VALIDATORS,
   enumSchemaOf,
@@ -1081,6 +1082,21 @@ describe('examples', () => {
       expect(ex).toContain('query: { facets: ["cities"] }');
     });
 
+    it('puts a map-valued enum under a key, not in place of the map', () => {
+      // `facetSorts` derives as `Record<string, string>` with the enum lifted
+      // off its VALUES - written bare, `"count"` is the wrong type entirely.
+      const ex = skeletonExample('agendas.events.facets', [
+        {
+          name: 'facetSorts',
+          in: 'query',
+          required: true,
+          type: 'Record<string, string>',
+          enum: ['count', 'alpha'],
+        },
+      ]);
+      expect(ex).toContain('query: { facetSorts: { \'…\': "count" } }');
+    });
+
     it('omits required query params that have none', () => {
       const ex = skeletonExample('agendas.get', [
         { name: 'agendaUid', in: 'path', required: true, type: 'integer' },
@@ -1376,6 +1392,29 @@ describe('renderSearch', () => {
       expect(section.match(/`EventStatus` \(integer\)/g)).toHaveLength(1);
     });
 
+    it('DOES define an object root the card names without a field', () => {
+      // A root that is a union has no top-level field: the card says
+      // `Response: \`X\`` and nothing more, so its alternatives can only come
+      // from the section - excluded as "already inline", the name dangled.
+      const op = {
+        ...byId('agendas.events.get'),
+        id: 'x.outcome',
+        response: {
+          root: 'ImageInput',
+          kind: 'object',
+          fields: [],
+          pagination: null,
+        },
+        componentRefs: ['ImageInput'],
+      };
+      const payload = renderSearch([op]);
+      expect(payload).toContain('Response: `ImageInput`\n');
+      expect(payload).toMatch(
+        /Components — .*\n\n`ImageInput` \(.*\n(.*\n)*One of:/,
+      );
+      expect(sweep('x.outcome', payload)).toEqual([]);
+    });
+
     it('surfaces component property semantics (the schemaId discriminant)', () => {
       // The original failure this feature fixes: FormSchemaField.schemaId marks
       // additional fields, but that semantics lived only in the component and
@@ -1449,6 +1488,21 @@ describe('renderComponentDef', () => {
 
   it('returns an empty string for an unknown component', () => {
     expect(renderComponentDef('Nope')).toBe('');
+  });
+
+  it('types a nullable enum component as the cards type it', () => {
+    // The head took `schema.type` verbatim, so `['string', 'null']` joined to
+    // `(string,null)` - not the dialect a field line uses to point here.
+    const { definitions } = renderEverything({
+      openapi: '3.1.0',
+      paths: {},
+      components: {
+        schemas: { Kind: { type: ['string', 'null'], enum: ['a', 'b', null] } },
+      },
+    });
+    expect(definitions.get('Kind')).toBe(
+      '`Kind` (string | null) — Values: a, b, null.',
+    );
   });
 
   // A union component has no properties of its own; rendered as its prose

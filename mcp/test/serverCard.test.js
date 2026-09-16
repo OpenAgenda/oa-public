@@ -55,6 +55,16 @@ describe('buildServerCard', () => {
     expect(execute.description).toContain(`${config.limits.memoryMb} MiB`);
   });
 
+  it('carves the non-SDK routes out of the `oa.*` claim, as the cards do', () => {
+    // `uploads.staged` is shown as `POST /uploads/staged`; an execute
+    // description saying EVERY operation is an `oa.*` call contradicted it.
+    const execute = card.tools.find((t) => t.name === 'execute');
+    expect(execute.description).not.toMatch(/Every operation is/);
+    expect(execute.description).toMatch(
+      /shown as a bare `METHOD \/path`\s+goes over plain HTTPS, not through the client/,
+    );
+  });
+
   it('refuses to build without OAuth config (stdio has no well-known)', () => {
     expect(() =>
       buildServerCard({ config: loadConfig({ OA_API_KEY: 'k' }) })).toThrow(/OAuth/);

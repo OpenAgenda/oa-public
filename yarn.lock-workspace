@@ -6981,6 +6981,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/mcp@workspace:mcp"
   dependencies:
+    "@jest/globals": "npm:^30.4.1"
     "@modelcontextprotocol/sdk": "npm:^1.29.0"
     "@openagenda/api-client": "npm:^0.3.0"
     "@openagenda/api-spec": "npm:^0.3.0"

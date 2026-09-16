@@ -1,4 +1,4 @@
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import ts from 'typescript';
 import { OPERATIONS } from '../src/docs/operations.js';
 
@@ -19,25 +19,21 @@ const generated = new URL(
   new URL(import.meta.resolve('@openagenda/api-client/package.json')),
 );
 
-// `@openagenda/api-client` publishes `dist` only, so the generated SOURCE is
-// there when the workspace is checked out and absent from an installed copy.
-// Skipping is right: this guards the two packages against drifting apart in the
-// repo, which is the only place they can drift.
-const available = existsSync(generated);
-const parity = available ? describe : describe.skip;
-
+// `@openagenda/api-client` publishes `dist` only, and this suite is not
+// published at all: it runs in the repo, where the generated source is checked
+// in beside it. So a missing file is not an installed copy to skip over - it is
+// the workspace resolving to a registry copy, and the guard would be gone with
+// the suite still green. Let the read fail, naming the path.
+const source = ts.createSourceFile(
+  'types.gen.ts',
+  readFileSync(generated, 'utf8'),
+  ts.ScriptTarget.Latest,
+  true,
+);
 const aliases = new Map();
-if (available) {
-  const source = ts.createSourceFile(
-    'types.gen.ts',
-    readFileSync(generated, 'utf8'),
-    ts.ScriptTarget.Latest,
-    true,
-  );
-  ts.forEachChild(source, (node) => {
-    if (ts.isTypeAliasDeclaration(node)) aliases.set(node.name.text, node.type);
-  });
-}
+ts.forEachChild(source, (node) => {
+  if (ts.isTypeAliasDeclaration(node)) aliases.set(node.name.text, node.type);
+});
 
 // Hey API names the types after the operationId: `agendas.events.list` becomes
 // `AgendasEventsListData`, `…Responses`.
@@ -150,9 +146,11 @@ const cardKey = (field, depth = DEPTH) => {
   // A named type keeps its name even when the card also lists its values: the
   // enum belongs to the component, and the client names it too.
   if (/^[A-Z]\w*$/.test(type)) return `named:${type}`;
-  if (field.enum) return `enum:${names(field.enum)}`;
+  // A map's enum constrains its VALUES (where `enumSchemaOf` found it), so it
+  // travels down with them, and never collapses the map to a scalar.
   const map = type.match(/^Record<string, (.*)>$/);
-  if (map) return `record:${cardKey({ type: map[1] }, depth - 1)}`;
+  if (map) return `record:${cardKey({ ...field, type: map[1] }, depth - 1)}`;
+  if (field.enum) return `enum:${names(field.enum)}`;
   if (type.includes(' | ')) {
     const kept = type.split(' | ').filter((branch) => branch !== 'null');
     if (kept.length === 1) return cardKey({ ...field, type: kept[0] }, depth);
@@ -183,83 +181,50 @@ const alike = (sdk, card) => {
 const same = (sdk, card) =>
   sdk === null || card === null || sdk === card || alike(sdk, card);
 
-parity(
-  'the cards and the generated client read the contract the same way',
-  () => {
-    it('documents every operation the client generates, and no other', () => {
-      const generatedIds = [...aliases.keys()]
-        .filter((name) => name.endsWith('Data'))
-        .map((name) => name.slice(0, -'Data'.length))
-        .sort();
-      expect(OPERATIONS.map((op) => pascal(op.id)).sort()).toEqual(
-        generatedIds,
-      );
-    });
+describe('the cards and the generated client read the contract the same way', () => {
+  it('documents every operation the client generates, and no other', () => {
+    const generatedIds = [...aliases.keys()]
+      .filter((name) => name.endsWith('Data'))
+      .map((name) => name.slice(0, -'Data'.length))
+      .sort();
+    expect(OPERATIONS.map((op) => pascal(op.id)).sort()).toEqual(generatedIds);
+  });
 
-    it('gives each call the same argument groups', () => {
-      const disagreements = [];
-      for (const op of OPERATIONS) {
-        const groups = groupsOf(op.id);
-        const card = {
-          path: op.params.some((p) => p.in === 'path'),
-          query: op.params.some((p) => p.in === 'query'),
-          body: !!op.request,
-        };
-        for (const group of ['path', 'query', 'body']) {
-          const sdk = groups[group] ? text(groups[group]) !== 'never' : false;
-          if (sdk !== card[group]) {
-            disagreements.push(
-              `${op.id}: the client takes ${sdk ? '' : 'no '}\`${group}\`, the card shows ${card[group] ? '' : 'none'}`,
-            );
-          }
-        }
-      }
-      expect(disagreements).toEqual([]);
-    });
-
-    it('gives each parameter the same name, optionality and type', () => {
-      const disagreements = [];
-      for (const op of OPERATIONS) {
-        const groups = groupsOf(op.id);
-        for (const group of ['path', 'query']) {
-          const sdk = fieldsOf(groups[group]) ?? {};
-          const card = Object.fromEntries(
-            op.params.filter((p) => p.in === group).map((p) => [p.name, p]),
+  it('gives each call the same argument groups', () => {
+    const disagreements = [];
+    for (const op of OPERATIONS) {
+      const groups = groupsOf(op.id);
+      const card = {
+        path: op.params.some((p) => p.in === 'path'),
+        query: op.params.some((p) => p.in === 'query'),
+        body: !!op.request,
+      };
+      for (const group of ['path', 'query', 'body']) {
+        const sdk = groups[group] ? text(groups[group]) !== 'never' : false;
+        if (sdk !== card[group]) {
+          disagreements.push(
+            `${op.id}: the client takes ${sdk ? '' : 'no '}\`${group}\`, the card shows ${card[group] ? '' : 'none'}`,
           );
-          for (const name of new Set([
-            ...Object.keys(sdk),
-            ...Object.keys(card),
-          ])) {
-            const at = `${op.id} ${group}.${name}`;
-            if (!sdk[name]) disagreements.push(`${at}: on the card, not in the client`);
-            else if (!card[name]) disagreements.push(`${at}: in the client, not on the card`);
-            else if (sdk[name].optional === card[name].required) {
-              disagreements.push(
-                `${at}: the client says ${sdk[name].optional ? 'optional' : 'required'}, the card says ${card[name].required ? 'required' : 'optional'}`,
-              );
-            } else if (!same(sdkKey(sdk[name].node), cardKey(card[name]))) {
-              disagreements.push(
-                `${at}: the client takes ${text(sdk[name].node)}, the card says ${card[name].type}`,
-              );
-            }
-          }
         }
       }
-      expect(disagreements).toEqual([]);
-    });
+    }
+    expect(disagreements).toEqual([]);
+  });
 
-    it('gives each request body the same fields — this is what `Blob | File` was', () => {
-      const disagreements = [];
-      for (const op of OPERATIONS.filter((o) => o.request)) {
-        const sdk = fieldsOf(groupsOf(op.id).body) ?? {};
+  it('gives each parameter the same name, optionality and type', () => {
+    const disagreements = [];
+    for (const op of OPERATIONS) {
+      const groups = groupsOf(op.id);
+      for (const group of ['path', 'query']) {
+        const sdk = fieldsOf(groups[group]) ?? {};
         const card = Object.fromEntries(
-          (op.request.fields ?? []).map((field) => [field.name, field]),
+          op.params.filter((p) => p.in === group).map((p) => [p.name, p]),
         );
         for (const name of new Set([
           ...Object.keys(sdk),
           ...Object.keys(card),
         ])) {
-          const at = `${op.id} body.${name}`;
+          const at = `${op.id} ${group}.${name}`;
           if (!sdk[name]) disagreements.push(`${at}: on the card, not in the client`);
           else if (!card[name]) disagreements.push(`${at}: in the client, not on the card`);
           else if (sdk[name].optional === card[name].required) {
@@ -273,40 +238,65 @@ parity(
           }
         }
       }
-      expect(disagreements).toEqual([]);
-    });
+    }
+    expect(disagreements).toEqual([]);
+  });
 
-    it('reads the same success response', () => {
-      const disagreements = [];
-      for (const op of OPERATIONS) {
-        const responses = fieldsOf(aliases.get(`${pascal(op.id)}Responses`)) ?? {};
-        const codes = Object.keys(responses);
-        // The card renders the lowest 2xx; anything else the client exposes is a
-        // shape the LLM would never be shown (the compat check reports it).
-        const [lowest] = codes.sort();
-        if (!lowest) {
-          if (op.response) {
-            disagreements.push(
-              `${op.id}: a response on the card, none in the client`,
-            );
-          }
-          continue;
-        }
-        if (!op.response) {
+  it('gives each request body the same fields — this is what `Blob | File` was', () => {
+    const disagreements = [];
+    for (const op of OPERATIONS.filter((o) => o.request)) {
+      const sdk = fieldsOf(groupsOf(op.id).body) ?? {};
+      const card = Object.fromEntries(
+        (op.request.fields ?? []).map((field) => [field.name, field]),
+      );
+      for (const name of new Set([...Object.keys(sdk), ...Object.keys(card)])) {
+        const at = `${op.id} body.${name}`;
+        if (!sdk[name]) disagreements.push(`${at}: on the card, not in the client`);
+        else if (!card[name]) disagreements.push(`${at}: in the client, not on the card`);
+        else if (sdk[name].optional === card[name].required) {
           disagreements.push(
-            `${op.id}: ${text(responses[lowest].node)} in the client, no response on the card`,
+            `${at}: the client says ${sdk[name].optional ? 'optional' : 'required'}, the card says ${card[name].required ? 'required' : 'optional'}`,
           );
-          continue;
-        }
-        const { root } = op.response;
-        const sdk = text(responses[lowest].node);
-        if (root && sdk !== root) {
+        } else if (!same(sdkKey(sdk[name].node), cardKey(card[name]))) {
           disagreements.push(
-            `${op.id}: the client answers ${sdk}, the card says ${root}`,
+            `${at}: the client takes ${text(sdk[name].node)}, the card says ${card[name].type}`,
           );
         }
       }
-      expect(disagreements).toEqual([]);
-    });
-  },
-);
+    }
+    expect(disagreements).toEqual([]);
+  });
+
+  it('reads the same success response', () => {
+    const disagreements = [];
+    for (const op of OPERATIONS) {
+      const responses = fieldsOf(aliases.get(`${pascal(op.id)}Responses`)) ?? {};
+      const codes = Object.keys(responses);
+      // The card renders the lowest 2xx; anything else the client exposes is a
+      // shape the LLM would never be shown (the compat check reports it).
+      const [lowest] = codes.sort();
+      if (!lowest) {
+        if (op.response) {
+          disagreements.push(
+            `${op.id}: a response on the card, none in the client`,
+          );
+        }
+        continue;
+      }
+      if (!op.response) {
+        disagreements.push(
+          `${op.id}: ${text(responses[lowest].node)} in the client, no response on the card`,
+        );
+        continue;
+      }
+      const { root } = op.response;
+      const sdk = text(responses[lowest].node);
+      if (root && sdk !== root) {
+        disagreements.push(
+          `${op.id}: the client answers ${sdk}, the card says ${root}`,
+        );
+      }
+    }
+    expect(disagreements).toEqual([]);
+  });
+});

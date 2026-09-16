@@ -14,6 +14,7 @@
 // contract this package resolves.
 
 import { readFileSync } from 'node:fs';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { parse } from 'yaml';
 import {
   checkContract,
@@ -24,11 +25,12 @@ import { renderEverything } from '../src/docs/operations.js';
 
 const args = process.argv.slice(2);
 const wanted = args.filter((arg) => !arg.startsWith('-'));
-const path = wanted[0]
-  ? new URL(wanted[0], `file://${process.cwd()}/`)
+const url = wanted[0]
+  ? new URL(wanted[0], pathToFileURL(`${process.cwd()}/`))
   : new URL(import.meta.resolve('@openagenda/api-spec/openapi.yaml'));
+const path = fileURLToPath(url);
 
-const contract = parse(readFileSync(path, 'utf8'));
+const contract = parse(readFileSync(url, 'utf8'));
 const findings = checkContract(contract, renderEverything);
 
 if (args.includes('--omissions')) {
@@ -36,15 +38,13 @@ if (args.includes('--omissions')) {
 }
 
 if (!findings.length) {
-  process.stdout.write(
-    `search_docs can render every construct in ${path.pathname}.\n`,
-  );
+  process.stdout.write(`search_docs can render every construct in ${path}.\n`);
   process.exit(0);
 }
 
 process.stderr.write(
   [
-    `${findings.length} construct(s) in ${path.pathname} that @openagenda/mcp's search_docs cannot render:`,
+    `${findings.length} construct(s) in ${path} that @openagenda/mcp's search_docs cannot render:`,
     formatFindings(findings),
     '',
     'Each one is a card that would drop or misstate what the contract says.',

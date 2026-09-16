@@ -105,14 +105,12 @@ const refName = (ref) => ref.split('/').pop();
 // the parameter is modelled (`sort`'s inline enum, `status`'s `items: $ref`, a
 // direct `$ref` to a shared enum, an `allOf: [{$ref}]` like the `state` field,
 // or a nullable `type: [integer, 'null']` enum). Returns the enum-bearing
-// schema, or undefined. `seen` guards against $ref cycles.
+// schema, or undefined. `seen` holds the nodes visited, against a cycle
+// through a `$ref` or a YAML alias.
 export function enumSchemaOf(schema, seen = new Set()) {
-  if (!schema || typeof schema !== 'object') return undefined;
-  if (schema.$ref) {
-    if (seen.has(schema.$ref)) return undefined;
-    seen.add(schema.$ref);
-    return enumSchemaOf(resolveRef(schema.$ref), seen);
-  }
+  if (!schema || typeof schema !== 'object' || seen.has(schema)) return undefined;
+  seen.add(schema);
+  if (schema.$ref) return enumSchemaOf(resolveRef(schema.$ref), seen);
   if (schema.enum) return schema;
   if (schema.items) return enumSchemaOf(schema.items, seen);
   // A map's values carry the enum (`facetSorts[cities]=alpha`): the card names
@@ -336,13 +334,13 @@ function deriveParams(op) {
 // Names of every component schema transitively referenced by `schema`, in
 // discovery order. Drives the Components section: each named type a rich card
 // surfaces — in its response shape OR its param types — gets defined once in
-// the same search_docs response, so no rendered name dangles. `seen` guards
-// against $ref cycles.
+// the same search_docs response, so no rendered name dangles. `seen` holds the
+// nodes visited, so a cycle through a `$ref` and one through a YAML alias stop
+// alike.
 function collectComponentRefs(schema, names = [], seen = new Set()) {
-  if (!schema || typeof schema !== 'object') return names;
+  if (!schema || typeof schema !== 'object' || seen.has(schema)) return names;
+  seen.add(schema);
   if (schema.$ref) {
-    if (seen.has(schema.$ref)) return names;
-    seen.add(schema.$ref);
     if (schema.$ref.startsWith('#/components/schemas/')) {
       const name = refName(schema.$ref);
       if (!names.includes(name)) names.push(name);
@@ -631,10 +629,15 @@ const SCALAR_PLACEHOLDER = {
 
 function placeholder(param) {
   // Resolve the inner (scalar) value first, THEN wrap — an enum lifted from
-  // `items.enum` belongs to an array param, so it must still be wrapped in `[]`.
+  // `items.enum` belongs to an array param, so it must still be wrapped in `[]`;
+  // one lifted from a map's `additionalProperties` belongs to its values, so it
+  // goes under a key the caller replaces.
+  const map = param.type.match(/^Record<string, (.*)>$/);
+  const inner = map ? map[1] : param.type.replace(/\[\]$/, '');
   const value = param.enum
     ? JSON.stringify(param.enum[0])
-    : (SCALAR_PLACEHOLDER[param.type.replace(/\[\]$/, '')] ?? '{}');
+    : (SCALAR_PLACEHOLDER[inner] ?? '{}');
+  if (map) return `{ '…': ${value} }`;
   return param.type.endsWith('[]') ? `[${value}]` : value;
 }
 
@@ -1001,7 +1004,7 @@ export function renderComponentDef(name) {
   const description = oneLine(schema.description);
   if (schema.enum) {
     const gloss = `Values: ${enumGloss(schema.enum, schema['x-enum-descriptions'])}.`;
-    return `\`${name}\` (${schema.type}) — ${[description, gloss].filter(Boolean).join(' ')}`;
+    return `\`${name}\` (${resolveType(schema)}) — ${[description, gloss].filter(Boolean).join(' ')}`;
   }
   const fields = topLevelFields(schema);
   if (fields.length) {
@@ -1127,8 +1130,15 @@ const renderCompact = (op) => `### ${op.id} — ${op.summary}\n\`${op.call}\``;
 // between the operations that use them (same rule as the prose descriptions).
 function renderComponentsSection(hits) {
   const rich = hits.slice(0, RICH_RANK_CUTOFF);
+  // An object root with no field to render (a union) is named on its card
+  // and nothing more: its definition has to come from here.
   const inline = new Set(
-    rich.flatMap((op) => [op.response?.root, op.response?.item?.variants?.[0]]),
+    rich.flatMap((op) => [
+      op.response?.kind === 'list' || op.response?.fields?.length
+        ? op.response.root
+        : undefined,
+      op.response?.item?.variants?.[0],
+    ]),
   );
   const defs = [...new Set(rich.flatMap((op) => op.componentRefs))]
     .filter((name) => !inline.has(name))
@@ -1252,7 +1262,21 @@ function renderCompactNote(hits) {
 let unrenderable;
 const unrenderableFindings = () => {
   if (!unrenderable) {
-    unrenderable = checkContract(spec, renderEverything);
+    try {
+      unrenderable = checkContract(spec, renderEverything);
+    } catch (err) {
+      // The check walks constructs the renderer never touches, so it can fail
+      // on a contract the cards render fine. That is one more thing this
+      // version cannot vouch for - said once, like any other finding, rather
+      // than turning every search_docs call into an error.
+      const reason = err instanceof Error ? err.message : String(err);
+      unrenderable = [
+        {
+          pointer: '/',
+          message: `the contract check itself failed (${reason}), so no card is vouched for`,
+        },
+      ];
+    }
     if (unrenderable.length) {
       log.warn(
         'search_docs renders a contract with %d construct(s) this version does not read:\n%s',
