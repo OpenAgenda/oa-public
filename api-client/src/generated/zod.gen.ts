@@ -218,8 +218,34 @@ export const zMeAgendaItem = z.object({
 
 export const zTiming = z.object({
     begin: z.string().datetime(),
-    end: z.string().datetime()
+    end: z.string().datetime(),
+    id: z.string().regex(/^[0-9ABCDEFGHJKMNPQRSTVWXYZ]{6}$/).optional(),
+    sourceRef: z.string().max(255).optional()
 });
+
+/**
+ * What the ticketing sources of this event add up to, derived at read time and never stored. Both halves are `null` when nothing can be said — every occurrence past, or no source carrying a usable status.
+ * The availability half is RECOMPUTED on every read rather than served as synced: a sale window elapses between two connector polls, so a stored status goes stale on its own. Inventory (`soldOut`, `limited`) is the exception — only the provider knows it, and only at sync time.
+ *
+ */
+export const zOffersAggregate = z.object({
+    availability: z.enum([
+        'available',
+        'limited',
+        'notYetOnSale',
+        'soldOut',
+        'salesClosed',
+        'unknown',
+        'mixed'
+    ]).nullish(),
+    pricing: z.enum([
+        'free',
+        'paid',
+        'donation',
+        'mixed',
+        'unknown'
+    ]).nullish()
+}).nullable();
 
 export const zAgeRange = z.object({
     min: z.number().int().nullish(),
@@ -517,6 +543,7 @@ export const zEvent = z.object({
     conditions: zLocalizedString,
     country: zLocalizedString.nullable(),
     registration: z.array(zRegistration),
+    offersAggregate: zOffersAggregate.readonly().optional(),
     createdAt: z.string().datetime().readonly(),
     updatedAt: z.string().datetime().readonly(),
     accessibility: zAccessibility,

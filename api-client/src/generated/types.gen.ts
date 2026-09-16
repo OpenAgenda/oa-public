@@ -375,7 +375,38 @@ export type MeAgendaList = {
 export type Timing = {
     begin: string;
     end: string;
+    /**
+     * Stable identifier for this occurrence, carried across writes so a link to a single date keeps working when the event is edited. Six characters in the Crockford base32 alphabet — the digits plus the uppercase letters, minus `I`, `L`, `O` and `U`, which cannot be confused when read out loud or typed from a printed page.
+     * Optional, and absent rather than null when there is none: an occurrence only gains an identifier when the event is written, so events untouched since the feature shipped carry none. Never reused, and never silently reassigned — an identifier that moved to a different date would keep a shared link working while pointing at the wrong occurrence, which is worse than having no link at all.
+     * May be supplied on write to claim a specific occurrence; it is then honoured verbatim, and must match the shape above.
+     *
+     */
+    id?: string;
+    /**
+     * The ticketing connector's own key for this occurrence, opaque to OpenAgenda and stored as sent. A connector that names its dates with its own references keeps them matched across a resync even when the dates themselves move, which `id` alone cannot do — so this is how a connector holds on to an occurrence it has already published.
+     * Optional, and bounded at 255 characters because it reaches a JSON column. Not an identifier OpenAgenda issues or interprets: two occurrences of the same event must not share one, or neither can be matched and both are treated as new.
+     *
+     */
+    sourceRef?: string;
 };
+
+/**
+ * What the ticketing sources of this event add up to, derived at read time and never stored. Both halves are `null` when nothing can be said — every occurrence past, or no source carrying a usable status.
+ * The availability half is RECOMPUTED on every read rather than served as synced: a sale window elapses between two connector polls, so a stored status goes stale on its own. Inventory (`soldOut`, `limited`) is the exception — only the provider knows it, and only at sync time.
+ *
+ */
+export type OffersAggregate = {
+    /**
+     * `mixed` means the occurrences disagree — one date sold out, another closed — and is a real answer rather than a failure to decide: a consumer should render it as "see dates".
+     *
+     */
+    availability?: 'available' | 'limited' | 'notYetOnSale' | 'soldOut' | 'salesClosed' | 'unknown' | 'mixed' | null;
+    /**
+     * A CATEGORY, never an amount. v1 stores no price envelope: a card showing "à partir de 18 €" computes it from the tiers the detailed endpoints carry.
+     *
+     */
+    pricing?: 'free' | 'paid' | 'donation' | 'mixed' | 'unknown' | null;
+} | null;
 
 export type AgeRange = {
     min?: number | null;
@@ -868,6 +899,12 @@ export type Event = {
      */
     readonly country: LocalizedString | null;
     registration: Array<Registration>;
+    /**
+     * ABSENT from an event with no ticketing catalogue, which is the overwhelming majority — the projection adds nothing to those, by design, and such an event answers exactly as it did before this field existed.
+     * Present as soon as a catalogue is there, and then possibly `null` on either half: `null` means "nothing can be said" — every occurrence past, or no source carrying a usable status — never "no ticketing".
+     *
+     */
+    readonly offersAggregate?: OffersAggregate;
     readonly createdAt: string;
     readonly updatedAt: string;
     accessibility: Accessibility;
