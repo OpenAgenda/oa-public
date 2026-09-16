@@ -995,8 +995,8 @@ paths:
         Returns event counts grouped by the requested facets, computed over the
         **same filtered set** as `agendas.events.list`. Pass the same filter
         parameters to scope the counts (e.g. `?keyword=concert` then facet on
-        `cities`). No event data is returned — only `{ value, count }` buckets
-        per facet.
+        `cities`). No event data is returned — only the requested facets, each
+        in the shape the `facets` parameter describes.
 
 
         The native facets are not the whole story: the agenda's own fields
@@ -2006,9 +2006,8 @@ components:
       in: query
       required: true
       description: >
-        Comma-separated list of facets to compute. Each returns an array of
-        buckets over the filtered events, ordered by the facet's default
-        ordering. Unknown facet names return `400`. Shapes by family: term facets
+        Comma-separated list of facets to compute over the filtered events.
+        Unknown facet names return `400`. Shapes by family: term facets
         yield `{ value, count }`; provenance (`originAgendas`, `sourceAgendas`)
         yields `{ agenda, count }`; `locations` yields
         `{ location: { uid, name }, count }` buckets (the uid feeds the
@@ -5428,10 +5427,10 @@ components:
           description: >
             One entry per requested facet, under the facet's name. A facet that
             was not requested is absent; a requested one is always present, even
-            with nothing to report — empty as `[]`, `{}` or `null`, according to
-            its own shape. Shapes differ by facet: the property below for each is
-            the authority, and the `facets` parameter describes them family by
-            family.
+            when no event matches — its value is then an empty array, an empty
+            object, `null`, or its own fixed structure with zero counts,
+            depending on the facet. Each property below defines its shape, and
+            the `facets` parameter describes them family by family.
           properties:
             cities:
               type: array
