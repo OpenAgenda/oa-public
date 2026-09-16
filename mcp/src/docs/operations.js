@@ -131,7 +131,7 @@ const oneLine = (text) =>
 // (`status (EventStatus)`) and as a validator (`schemas.zEventStatus`). Params
 // additionally inline their passable values on the param line, so writing a
 // call never requires the jump.
-function resolveType(schema) {
+export function resolveType(schema) {
   if (!schema) return 'any';
   if (schema.$ref) {
     return refName(schema.$ref);
@@ -160,6 +160,11 @@ function resolveType(schema) {
   let base = type === 'array'
     ? `${item.includes(' | ') ? `(${item})` : item}[]`
     : type || 'any';
+  // A binary string is not a string once it reaches the client: the generated
+  // SDK types it `Blob | File`, and an agent that follows a `string` card sends
+  // the file name instead of the file. `format` is otherwise a refinement of the
+  // same JS type (`date-time`, `int64`, `uri`), which the description carries.
+  if (type === 'string' && schema.format === 'binary') base = 'Blob | File';
   // A map (`additionalProperties` and no declared keys) names its value type: a
   // bare `object` would leave that component unreachable from the card.
   const values = schema.additionalProperties;

@@ -10,6 +10,7 @@ import {
   skeletonExample,
   SCHEMA_VALIDATORS,
   enumSchemaOf,
+  resolveType,
   isSdkCallable,
   oauthScopes,
   successBody,
@@ -603,7 +604,20 @@ describe('request body (derived from the contract)', () => {
     expect(card).toContain('Request body: multipart/form-data, required');
     // Marked required like any component property: the inline path used to
     // drop the marker, so the one field an upload needs read as optional.
-    expect(card).toContain('- file (string, required)');
+    // Typed as the SDK types it (`file: Blob | File` in types.gen.ts): a card
+    // reading `string` invites the agent to send the file name.
+    expect(card).toContain('- file (Blob | File, required)');
+  });
+
+  it('types a binary string as the SDK does, not as a string', () => {
+    const binary = { type: 'string', format: 'binary' };
+    expect(resolveType(binary)).toBe('Blob | File');
+    // The union is parenthesised inside an array, like any other union.
+    expect(resolveType({ type: 'array', items: binary })).toBe(
+      '(Blob | File)[]',
+    );
+    // Every other format refines a type the card already states correctly.
+    expect(resolveType({ type: 'string', format: 'date-time' })).toBe('string');
   });
 
   it('keeps the fields of a body wrapped in allOf', () => {
