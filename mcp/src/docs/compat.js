@@ -5,32 +5,45 @@
 // matters is silent: it adopts a construct the renderer does not read, the card
 // drops or misstates it, and the LLM writes a wrong call against a green suite.
 //
-// So every keyword is classified HERE, BY POSITION, and anything unclassified
-// fails. The position is the point: "the renderer knows this keyword" is not the
-// same claim as "the renderer reads it HERE". `additionalProperties` names a map
-// alone and hides free-form keys next to `properties`; `oneOf` lists its
-// branches at a component root and flattens to a union of names on a property;
-// `default` and `minimum` reach the card from a parameter and are dropped from a
-// field; `format: binary` changes the type a caller must send while
-// `format: date-time` refines a string the card already names. A flat list of
-// known keywords passes all four.
+// The check is not a description of the renderer - a second one, kept in step
+// by hand, is what this file used to be, and it disagreed with the first in
+// five places. It is a measurement of it: the contract is wrapped in a proxy
+// that records every `(node, key)` read, the catalogue is derived and every
+// card and component definition rendered over that proxy, and then the raw
+// contract is walked. A key present on a node that nothing read is, by
+// construction, something no card shows; a node whose reference was read but
+// whose contents never were is a shape the card renders opaque (an object
+// parameter reads `properties` to decide "not a map" and never opens them).
 //
-// Three verdicts, and only the last is a failure:
-//   - read       (`null`)      the renderer reads it in this position, and a
-//                              test pins what comes out;
-//   - `omit`                   deliberately not shown, with the reason recorded.
-//                              `omissions()` lists the ones a contract actually
-//                              uses and a test pins THAT list, so adopting a new
-//                              omission is a decision somebody makes rather than
-//                              a silence nobody hears;
-//   - `broken`                 the card would be wrong or incomplete. A finding.
+// What it measures is READS, not uses: a key the renderer looks at and then
+// discards counts as read. Dropping the `required` markers downstream of
+// `objectView` raises nothing here - it is the rendering tests that catch that.
+// The two are complementary, and this one covers the case no rendering test
+// can: a construct nobody has written yet.
 //
-// Pure: no I/O, no module state, contract passed in. Callers: the MCP test
-// suite, `scripts/check-contract.js` (which api-spec runs, so the failure
-// reaches whoever is WRITING the contract), and `operations.js` at load — the
-// published server takes `@openagenda/api-spec` on a `^` range, so an install
-// can carry a contract newer than any tested here, and it must say so rather
-// than render plausible, wrong cards.
+// What the walk raises is then classified by KEYWORD, with no notion of
+// position - the position is a fact recorded by the proxy, not a claim made
+// here. Two verdicts:
+//   - `omit`         deliberately not shown, with the reason next to it. The
+//                    omissions a contract actually exercises are pinned by a
+//                    test as positions (generalised pointers), so a construct
+//                    reaching a new place is a decision somebody makes rather
+//                    than a silence nobody hears;
+//   - unsupported    a finding, with a JSON Pointer at the node. Anything not
+//                    in the table is unsupported by default.
+// A handful of keywords are read and then narrowed (`type` takes its first
+// non-null entry, `format` is compared to `binary` and nothing else, `anyOf` is
+// looked at for a name and rendered `any`): those carry a rule on the VALUE,
+// consulted whether the key was read or not.
+//
+// Callers: the MCP test suite, `scripts/check-contract.js` (which api-spec
+// runs, so the failure reaches whoever is WRITING the contract), and
+// `operations.js` on its first payload - the published server takes
+// `@openagenda/api-spec` on a `^` range, so an install can carry a contract
+// newer than any tested here, and it must say so rather than render plausible,
+// wrong cards. The renderer's `renderEverything` is passed in by each of them
+// rather than imported here: operations.js imports this module to check the
+// contract it serves, and importing it back would be a cycle.
 
 /** @typedef {{pointer: string, message: string}} Finding */
 /** @typedef {null | {omit: string} | {broken: string}} Verdict */
@@ -39,345 +52,16 @@
 const omit = (reason) => ({ omit: reason });
 /** @returns {Verdict} */
 const broken = (message) => ({ broken: message });
+// A verdict that applies only when the key went unread; a read key is fine.
+const unread = (verdict) => (ctx) => (ctx.read ? null : verdict);
 
 // A JSON Pointer segment (RFC 6901): `/` and `~` are escaped, so the pointer a
 // finding carries can be pasted into any contract tool and lands on the node.
 const escape = (segment) =>
   String(segment).replace(/~/g, '~0').replace(/\//g, '~1');
 
-// The positions a schema is read in — the renderer treats them differently, and
-// so do the rules below.
-//
-//   component  a `#/components/schemas/*` root — renders as its own entry, with
-//              union branches listed and `allOf` merged
-//   body       a request or response root — same treatment as a component
-//   data       the `data` property of a list response
-//   list item  the items of that `data` array — inline variants are unfolded
-//   property   a property of any of the above — named shapes stay named, and
-//              only an UNNAMED object is unfolded, one level
-//   item       array items outside a list response
-//   value      the values of a map (`additionalProperties`)
-//   member     a member of an `allOf`/`oneOf`/`anyOf` below a root
-//   param      a parameter schema — the only position where `default`,
-//              `minimum` and `maximum` reach the card
-const ROOTS = new Set(['component', 'body']);
-
-// Every `format` the renderer has a decision for. An unlisted one fails:
-// deciding is the whole point of the entry.
-const FORMATS = {
-  // Rendered: the generated client takes a `Blob | File` here, and a card
-  // reading `string` invites the agent to send a file name.
-  binary: null,
-  'date-time': omit(
-    'an ISO 8601 string — the type is `string`, and the description says which shape',
-  ),
-  date: omit(
-    'an ISO 8601 date — the type is `string`, and the description says which shape',
-  ),
-  uri: omit('a URL string — the type is `string`'),
-  email: omit('an email string — the type is `string`'),
-  uuid: omit('a UUID string — the type is `string`'),
-  int32: omit('an integer, as the card says'),
-  int64: omit('an integer, as the card says — the client takes a JS number'),
-  float: omit('a number, as the card says'),
-  double: omit('a number, as the card says'),
-};
-
-// Schema keywords. A rule reads `(value, schema, ctx)` and returns a verdict.
-// Anything ABSENT from this table is unsupported by default: a keyword nobody
-// thought about cannot pass for handled. That is what catches `anyOf`, `const`,
-// `patternProperties`, `prefixItems`, `not`, `if`, `discriminator`,
-// `propertyNames`, `unevaluated*`, `dependent*`, `$defs`, 3.0's `nullable`…
-const SCHEMA_KEYWORDS = {
-  $ref: (value) =>
-    (value.startsWith('#/components/schemas/')
-      ? null
-      : broken(
-        `a \`$ref\` to ${value} — only \`#/components/schemas/<Name>\` resolves into a named, defined type`,
-      )),
-  type: (value) =>
-    (Array.isArray(value) && value.filter((t) => t !== 'null').length > 1
-      ? broken(
-        `\`type: [${value.join(', ')}]\` — only the first non-null type is rendered`,
-      )
-      : null),
-  format: (value) =>
-    (FORMATS[value] === undefined
-      ? broken(
-        `\`format: ${value}\` — decide whether it changes the type the caller must pass, like \`binary\`, or refines one the card already gives`,
-      )
-      : FORMATS[value]),
-  properties: () => null,
-  required: () => null,
-  items: () => null,
-  allOf: () => null,
-  oneOf: () => null,
-  description: () => null,
-  'x-enum-descriptions': () => null,
-  enum: (value, schema, ctx) =>
-    (ctx.position === 'param' || ctx.position === 'item' || ctx.underProperty
-      ? null
-      : omit(
-        'an `enum` at a component root — the values are not listed there; the ones worth knowing are spelled out by hand in the description, as `EventStatus` does',
-      )),
-  additionalProperties: (value, schema) => {
-    // `true`/`false` say the object is open or closed: no shape to render.
-    if (typeof value !== 'object' || value === null) return null;
-    if (schema.properties) {
-      return omit(
-        '`additionalProperties` next to `properties` — the card lists the declared keys and says nothing of the free-form ones',
-      );
-    }
-    return null; // a map, rendered `Record<string, T>`
-  },
-  // Names the map's index key in the generated client (`AdditionalFields`); the
-  // card renders `Record<string, T>`, where that key needs no name.
-  'x-additionalPropertiesName': () =>
-    omit("the generated client's name for a map key"),
-  readOnly: (value, schema, ctx) =>
-    (ctx.direction === 'request'
-      ? broken(
-        '`readOnly` on a field a request body reaches — the card offers a field the API will refuse',
-      )
-      : omit('a server-set field, rendered like any other on a response')),
-  writeOnly: (value, schema, ctx) =>
-    (ctx.direction === 'response'
-      ? broken(
-        '`writeOnly` on a field a response reaches — the card promises a field that never comes back',
-      )
-      : omit('an input-only field, rendered like any other on a request body')),
-  default: (value, schema, ctx) =>
-    (ctx.position === 'param' ? null : omit('a field `default` — not shown')),
-  minimum: (value, schema, ctx) =>
-    (ctx.position === 'param' ? null : omit('a field `minimum` — not shown')),
-  maximum: (value, schema, ctx) =>
-    (ctx.position === 'param' ? null : omit('a field `maximum` — not shown')),
-  // Constraints the API enforces and answers `422` on. The card gives the
-  // shape; a limit worth knowing before the call belongs in the description,
-  // which IS rendered.
-  minLength: () => omit('a length constraint — enforced by the API, not shown'),
-  maxLength: () => omit('a length constraint — enforced by the API, not shown'),
-  pattern: () => omit('a string pattern — enforced by the API, not shown'),
-  minItems: () => omit('an array constraint — enforced by the API, not shown'),
-  maxItems: () => omit('an array constraint — enforced by the API, not shown'),
-  uniqueItems: () =>
-    omit('an array constraint — enforced by the API, not shown'),
-  exclusiveMinimum: () => omit('a bound — enforced by the API, not shown'),
-  exclusiveMaximum: () => omit('a bound — enforced by the API, not shown'),
-  multipleOf: () => omit('a bound — enforced by the API, not shown'),
-  title: () =>
-    omit('a human title — the component NAME is what a card renders'),
-  example: () =>
-    omit('a per-schema example — cards carry one runnable example instead'),
-  examples: () =>
-    omit('per-schema examples — cards carry one runnable example instead'),
-  externalDocs: () => omit('a link out — the card is the documentation'),
-  deprecated: () =>
-    omit('`deprecated` — no card marks the field, and the LLM will use it'),
-};
-
-const hasOwnFields = (schema) =>
-  !!schema && typeof schema === 'object' && !schema.$ref && !!schema.properties;
-
-// Compositions a per-keyword rule cannot express: each is about a COMBINATION,
-// or about a keyword that is read at a root and lossy one level down. Every one
-// of them was a real mis-rendering, or one probe away from being one.
-const SCHEMA_SHAPES = [
-  {
-    when: (schema) => !!(schema.oneOf || schema.anyOf) && !!schema.properties,
-    message:
-      'a union that also declares `properties` — only the properties render, and the alternatives vanish',
-  },
-  {
-    when: (schema, ctx) =>
-      !ROOTS.has(ctx.position)
-      && ctx.position !== 'list item'
-      && (schema.oneOf ?? []).some(hasOwnFields),
-    message:
-      'an inline union with an object branch — the branch renders as `object`, and its fields are lost',
-  },
-  {
-    when: (schema, ctx) =>
-      !ROOTS.has(ctx.position)
-      && (schema.allOf ?? []).some((member) => member?.$ref)
-      && (schema.allOf ?? []).some(hasOwnFields),
-    message:
-      'an `allOf` adding fields to a referenced component — the card names the component, and the added fields are lost',
-  },
-  {
-    when: (schema, ctx) =>
-      ctx.position === 'body'
-      && (schema.allOf ?? []).some((member) => member?.$ref),
-    message:
-      'a body wrapped in `allOf` around a component — it renders inline, leaving that component defined with no card leading to it',
-  },
-  {
-    when: (schema) => hasOwnFields(schema.additionalProperties),
-    message:
-      'a map whose values are inline objects — the values render as `object`, and their fields are lost',
-  },
-];
-
-// The non-schema positions, same three verdicts, same default.
-const DOCUMENT_KEYS = {
-  openapi: null,
-  paths: null,
-  components: null,
-  security: null, // inherited by every operation
-  info: omit('contract metadata — not part of a card'),
-  servers: omit('the base URLs — the client holds one, cards give the call'),
-  tags: omit('grouping metadata — `search_docs` ranks, it does not browse'),
-  'x-tagGroups': omit(
-    'reference-site navigation — `search_docs` ranks, it does not browse',
-  ),
-  externalDocs: omit('a link out — the card is the documentation'),
-  webhooks: omit(
-    'calls the API makes TO you — `execute` only makes outgoing calls, so there is nothing to render',
-  ),
-  jsonSchemaDialect: broken(
-    '`jsonSchemaDialect` — the renderer assumes 2020-12 semantics and cannot honour another dialect',
-  ),
-};
-
-const PATH_ITEM_KEYS = {
-  get: null,
-  put: null,
-  post: null,
-  delete: null,
-  patch: null,
-  options: null,
-  head: null,
-  trace: null,
-  summary: omit("the operation's own summary is what a card shows"),
-  description: omit("the operation's own description is what a card shows"),
-  $ref: broken(
-    'a `$ref` path item — its operations are not read at all, and vanish from the catalogue',
-  ),
-  parameters: broken(
-    "parameters declared on the path item — only an operation's own `parameters` are read, so these are missing from every card on this path",
-  ),
-  servers: broken(
-    "a per-path base URL — every card gives an `oa` call against the client's one host",
-  ),
-};
-
-const OPERATION_KEYS = {
-  operationId: null,
-  summary: null,
-  description: null,
-  parameters: null,
-  requestBody: null,
-  responses: null,
-  security: null,
-  'x-codeSamples': null,
-  'x-synonyms': null,
-  tags: omit('grouping metadata — `search_docs` ranks, it does not browse'),
-  externalDocs: omit('a link out — the card is the documentation'),
-  callbacks: omit(
-    'calls the API makes TO you — `execute` only makes outgoing calls, so there is nothing to render',
-  ),
-  deprecated: omit(
-    '`deprecated` — no card warns, and the LLM will call the route',
-  ),
-  servers: broken(
-    "a per-operation base URL — the card gives an `oa` call against the client's one host",
-  ),
-};
-
-const PARAMETER_KEYS = {
-  name: null,
-  in: null,
-  required: null,
-  schema: null,
-  description: null,
-  example: omit('cards carry one runnable example instead'),
-  examples: omit('cards carry one runnable example instead'),
-  style: omit('wire serialization — the client does it'),
-  explode: omit('wire serialization — the client does it'),
-  allowReserved: omit('wire serialization — the client does it'),
-  allowEmptyValue: omit('wire serialization — the client does it'),
-  deprecated: omit('`deprecated` — no card marks the parameter'),
-  content: broken(
-    'a parameter carried as a media type instead of a `schema` — it renders as `any`',
-  ),
-};
-
-const REQUEST_BODY_KEYS = { content: null, required: null, description: null };
-
-// The reusable-object containers. A `$ref`'d parameter, response or body is
-// checked HERE, at its definition, and skipped at every use site — the contract
-// shares one `AgendaUid` across sixty operations, and sixty copies of the same
-// finding help nobody.
-const COMPONENTS_KEYS = {
-  schemas: null,
-  parameters: null,
-  responses: null,
-  requestBodies: null,
-  securitySchemes: null,
-  headers: broken(
-    'reusable headers — nothing renders a header, so whatever they describe is invisible',
-  ),
-  pathItems: broken(
-    'reusable path items — they are reachable only through a `$ref` path item, which the catalogue does not read',
-  ),
-  examples: omit(
-    'reusable examples — cards carry one runnable example instead',
-  ),
-  links: omit(
-    "declared follow-up calls — a card's example chains them explicitly",
-  ),
-  callbacks: omit(
-    'calls the API makes TO you — `execute` only makes outgoing calls',
-  ),
-};
-
-// Reachability and scopes are read off a scheme's TYPE (and `scheme` for HTTP);
-// the rest describes how to obtain a credential, which is the client's problem
-// and not a card's.
-const SECURITY_SCHEME_KEYS = {
-  type: null,
-  scheme: null,
-  description: omit(
-    'how to obtain the credential — the payload states the Bearer contract once, up front',
-  ),
-  bearerFormat: omit('the token format — the client carries it'),
-  name: omit(
-    'the header or query name a non-Bearer scheme uses — such a route is marked as not callable through the client',
-  ),
-  in: omit(
-    'where a non-Bearer credential goes — such a route is marked as not callable through the client',
-  ),
-  flows: omit(
-    'the OAuth endpoints — scopes are read off the security requirements, and the flow URLs belong to the authorization server',
-  ),
-  openIdConnectUrl: omit(
-    'the OIDC discovery document — the client resolves it',
-  ),
-};
-
-const RESPONSE_KEYS = {
-  description: null,
-  content: null,
-  headers: omit(
-    'response headers — a `Location` on a creation, a rate-limit budget: not shown',
-  ),
-  links: omit(
-    "declared follow-up calls — a card's example chains them explicitly",
-  ),
-};
-
-const MEDIA_TYPE_KEYS = {
-  schema: null,
-  example: omit('cards carry one runnable example instead'),
-  examples: omit('cards carry one runnable example instead'),
-  encoding: omit(
-    '`encoding` — the per-part content types and headers of a multipart body are not rendered',
-  ),
-};
-
-// The renderer's own JSON matcher, kept in step with `operations.js`: a `json`
-// subtype or a `+json` suffix, on the media type itself and not its parameters.
-const JSON_MEDIA = /^[^;/]+\/(?:[^;]*\+)?json\s*(?:;|$)/i;
+const pointerOf = (segments) =>
+  segments.map((segment) => `/${escape(segment)}`).join('');
 
 const deref = (contract, node) => {
   if (!node || typeof node !== 'object' || !node.$ref) return node;
@@ -388,298 +72,589 @@ const deref = (contract, node) => {
     .reduce((current, key) => current?.[key], contract);
 };
 
-function run(contract) {
+// Wrap a contract so that every `(node, key)` read goes on record. Proxies are
+// memoised per target: the renderer guards its cycles by object identity
+// (`seen.has(node)`), and a fresh proxy per access would defeat that and hang.
+// Functions pass through unwrapped, so `array.map` runs against the proxy and
+// its index reads land here.
+function record(contract) {
+  /** @type {Map<object, Set<string>>} */
+  const reads = new Map();
+  const proxies = new WeakMap();
+  const wrap = (target) => {
+    if (!target || typeof target !== 'object') return target;
+    let proxy = proxies.get(target);
+    if (proxy) return proxy;
+    proxy = new Proxy(target, {
+      get(node, key, receiver) {
+        if (typeof key === 'string') {
+          let keys = reads.get(node);
+          if (!keys) {
+            keys = new Set();
+            reads.set(node, keys);
+          }
+          keys.add(key);
+        }
+        return wrap(Reflect.get(node, key, receiver));
+      },
+    });
+    proxies.set(target, proxy);
+    return proxy;
+  };
+  return { proxy: wrap(contract), reads };
+}
+
+// Keywords whose children are named by the contract author, not by the spec:
+// a key under one of these is an entry, and the position generalises it to `*`.
+const MAPS = new Set([
+  'paths',
+  'schemas',
+  'parameters',
+  'responses',
+  'requestBodies',
+  'securitySchemes',
+  'headers',
+  'examples',
+  'links',
+  'callbacks',
+  'pathItems',
+  'properties',
+  'patternProperties',
+  'content',
+  'encoding',
+  'x-enum-descriptions',
+  '$defs',
+]);
+
+// Which segments of a pointer are the author's names rather than keywords: an
+// array index, or an entry of a map keyword. A name's own children are
+// keywords again, so a property called `links` does not make the `readOnly`
+// beneath it an entry of `links`.
+const nameFlags = (segments) => {
+  const flags = [];
+  segments.forEach((segment, i) => {
+    flags[i] = /^\d+$/.test(segment)
+      || (i > 0 && !flags[i - 1] && MAPS.has(segments[i - 1]));
+  });
+  return flags;
+};
+
+// The keyword the last segment stands for in the tables: itself, or for an
+// element of an array the array's name (`x-codeSamples[]`), or for an entry of
+// a map the map's name (`properties/*`). `parameters` is both - a map under
+// `components`, an array on an operation - so the parent's shape decides.
+// Response entries split by code: a second success code and an error response
+// are different decisions.
+const keywordOf = (segments, inArray) => {
+  const key = segments.at(-1);
+  const parent = segments.at(-2);
+  if (inArray) return `${parent}[]`;
+  if (!nameFlags(segments).at(-1)) return key;
+  if (parent === 'responses' && /^(\d[\dX]{2}|default)$/i.test(key)) {
+    return /^2/.test(key) ? 'responses/2xx' : 'responses/error';
+  }
+  return `${parent}/*`;
+};
+
+// Where a keyword sits, with the author's names taken out: the shape of the
+// position, stable across renames, and what the omissions test pins.
+const generalise = (segments) => {
+  const names = nameFlags(segments);
+  return `/${segments.map((segment, i) => (names[i] ? '*' : segment)).join('/')}`;
+};
+
+// Every `format` the renderer has a decision for. An unlisted one fails: the
+// decision is the whole point of the entry.
+const FORMATS = {
+  binary: 'rendered', // `Blob | File`, the type the generated client takes
+  'date-time': 'an ISO 8601 string - the type is `string`',
+  date: 'an ISO 8601 date - the type is `string`',
+  uri: 'a URL string - the type is `string`',
+  email: 'an email string - the type is `string`',
+  uuid: 'a UUID string - the type is `string`',
+  int32: 'an integer, as the card says',
+  int64: 'an integer, as the card says - the client takes a JS number',
+  float: 'a number, as the card says',
+  double: 'a number, as the card says',
+};
+
+const CONSTRAINT = 'enforced by the API, which answers 422 - a limit worth knowing before the call belongs in the description';
+const SAMPLE = 'a curated sample in a language the card does not render - the TypeScript one is what the sandbox runs';
+const EXAMPLE = 'cards carry one runnable example instead';
+const RANKS = '`search_docs` ranks, it does not browse';
+const OUTGOING = 'calls the API makes TO you - `execute` only makes outgoing calls';
+const NOT_BEARER = 'such a route is marked as not callable through the client';
+const BOOLEAN_SCHEMA = 'a boolean schema (`true`/`false` in place of an object) - it renders as `any`';
+
+// What an unsupported keyword costs the card, where the generic line would
+// leave the reader guessing.
+const SKIPPED = 'an operation with no `operationId` - it is skipped, and the route is absent from the catalogue';
+const COSTS = {
+  ...Object.fromEntries(
+    ['get', 'put', 'post', 'delete', 'patch', 'options', 'head', 'trace'].map(
+      (method) => [method, SKIPPED],
+    ),
+  ),
+  'properties/*':
+    'a declared field nothing renders - the object it belongs to reaches the card as a bare `object`',
+  properties: 'declared fields the card never opens',
+  required: 'required markers the card does not show',
+  enum: 'values the card never lists',
+  items: 'an array whose item type the card never resolves',
+  oneOf: 'alternatives the card never lists - they vanish',
+  allOf: 'a composition the card never merges - its members vanish',
+  parameters:
+    "parameters declared on the path item - only an operation's own `parameters` are read, so these are missing from every card on this path",
+  pathItems:
+    'reusable path items - they are reachable only through a `$ref` path item, which the catalogue does not follow',
+  jsonSchemaDialect:
+    '`jsonSchemaDialect` - the renderer assumes 2020-12 semantics and cannot honour another dialect',
+  'x-enum-descriptions/*': 'a label for a value the enum does not carry',
+  nullable:
+    "`nullable` is OpenAPI 3.0 - 2020-12 says `type: [T, 'null']`, which IS rendered",
+};
+
+const costOf = (keyword) =>
+  COSTS[keyword]
+  ?? (keyword.startsWith('x-')
+    ? `\`${keyword}\` - an extension the renderer does not read; decide whether a card must show it`
+    : `\`${keyword}\` - the renderer never reads it, so the card drops what it says; teach operations.js the shape, or classify it in compat.js`);
+
+// The keyword table. A rule reads `ctx` - `value`, `node`, `read` (was the key
+// read), `reads` (the keys read on this node), `pointer` - and answers a
+// verdict; most are `unread(omit(...))`. A keyword absent from the table is
+// read or unsupported, nothing else, which is what catches `const`, `not`,
+// `if`, `patternProperties`, `prefixItems`, `discriminator`, `nullable`, an
+// unknown `x-` extension, a `security` scheme key nobody classified...
+const RULES = {
+  // The document.
+  openapi: unread(omit('the version - the renderer assumes 3.1')),
+  info: unread(omit('contract metadata - not part of a card')),
+  servers: (ctx) => {
+    if (ctx.read) return null;
+    if (ctx.pointer === '/servers') {
+      return omit('the base URLs - the client holds one, cards give the call');
+    }
+    return broken(
+      "a per-route base URL - every card gives an `oa` call against the client's one host",
+    );
+  },
+  security: unread(
+    omit(
+      'the document default - read only by an operation with no `security` of its own',
+    ),
+  ),
+  tags: unread(omit(`grouping metadata - ${RANKS}`)),
+  'x-tagGroups': unread(omit(`reference-site navigation - ${RANKS}`)),
+  externalDocs: unread(omit('a link out - the card is the documentation')),
+  webhooks: unread(omit(`${OUTGOING}, so there is nothing to render`)),
+  callbacks: unread(omit(`${OUTGOING}, so there is nothing to render`)),
+  // A path item.
+  summary: unread(omit("the operation's own summary is what a card shows")),
+  description: unread(
+    omit(
+      "prose at a depth the card does not carry - a path item's, a response's, an array's items, a security scheme's",
+    ),
+  ),
+  // An operation.
+  deprecated: unread(
+    omit('`deprecated` - no card marks it, and the LLM will use it'),
+  ),
+  'x-codeSamples[]': unread(omit(SAMPLE)),
+  source: unread(omit(SAMPLE)),
+  label: unread(omit(SAMPLE)),
+  'responses/error': unread(
+    omit(
+      'an error response - the card documents the success body; an error comes back typed as `error`',
+    ),
+  ),
+  'responses/*': unread(
+    omit(
+      'a shared error response - the card documents the success body; an error comes back typed as `error`',
+    ),
+  ),
+  // The container itself goes unread when no success response is shared: only
+  // a 2xx is followed into it.
+  responses: unread(
+    omit(
+      'shared error responses - the card documents the success body; an error comes back typed as `error`',
+    ),
+  ),
+  // A second success code is fine when it answers with the shape the card
+  // already shows (the by-ext upserts: 200 update / 201 create, same `Event`).
+  'responses/2xx': (ctx) => {
+    if (ctx.read) return null;
+    const { contract, node, reads } = ctx;
+    const shape = (code) =>
+      JSON.stringify(deref(contract, node[code])?.content ?? null);
+    const shown = [...reads].filter((code) => /^2/.test(code) && node[code]);
+    return shown.some((code) => shape(code) === shape(ctx.key))
+      ? omit('a second success code answering with the shape the card shows')
+      : broken(
+        'a second success response with a different shape - only the lowest is rendered, and the LLM reads the one it happened not to get',
+      );
+  },
+  'content/*': (ctx) => {
+    if (ctx.read) return null;
+    // One media type was followed and this is another: the card documents one
+    // body. None was: this is the only one, and it is not JSON.
+    const followed = Object.keys(ctx.node).some((type) => ctx.reads.has(type));
+    return followed
+      ? omit(
+        'a second media type - the card documents one body, JSON when the route offers it',
+      )
+      : broken(
+        `a body in ${ctx.key} - only a JSON media type is rendered, so this card shows no body at all`,
+      );
+  },
+  // A parameter.
+  in: (ctx) => {
+    if (!ctx.read) {
+      return omit(`where a non-Bearer credential goes - ${NOT_BEARER}`);
+    }
+    if (ctx.value === 'path' || ctx.value === 'query') return null;
+    return broken(
+      `a \`${ctx.value}\` parameter - a card's signature carries \`path\` and \`query\` only, so \`${ctx.node.name}\` is invisible`,
+    );
+  },
+  content: unread(
+    broken(
+      'a parameter carried as a media type instead of a `schema` - it renders as `any`',
+    ),
+  ),
+  example: unread(omit(EXAMPLE)),
+  examples: unread(omit(EXAMPLE)),
+  style: unread(omit('wire serialization - the client does it')),
+  explode: unread(omit('wire serialization - the client does it')),
+  allowReserved: unread(omit('wire serialization - the client does it')),
+  allowEmptyValue: unread(omit('wire serialization - the client does it')),
+  // A media type, a response.
+  encoding: unread(
+    omit(
+      'the per-part content types and headers of a multipart body - not rendered',
+    ),
+  ),
+  headers: unread(
+    omit(
+      'headers - a `Location` on a creation, a rate-limit budget: nothing renders a header',
+    ),
+  ),
+  links: unread(
+    omit("declared follow-up calls - a card's example chains them explicitly"),
+  ),
+  // A security scheme.
+  bearerFormat: unread(omit('the token format - the client carries it')),
+  name: unread(
+    omit(`the header or query name a non-Bearer scheme uses - ${NOT_BEARER}`),
+  ),
+  flows: unread(
+    omit(
+      'the OAuth endpoints - scopes are read off the security requirements, and the flow URLs belong to the authorization server',
+    ),
+  ),
+  openIdConnectUrl: unread(
+    omit('the OIDC discovery document - the client resolves it'),
+  ),
+  // A schema.
+  $ref: (ctx) =>
+    (/^#\/components\/(schemas|parameters|responses|requestBodies)\//.test(
+      ctx.value,
+    )
+      ? null
+      : broken(
+        `a \`$ref\` to ${ctx.value} - only a reference into \`#/components/schemas|parameters|responses|requestBodies\` is followed`,
+      )),
+  type: (ctx) => {
+    const { value, reads } = ctx;
+    if (Array.isArray(value) && value.filter((t) => t !== 'null').length > 1) {
+      return broken(
+        `\`type: [${value.join(', ')}]\` - only the first non-null type is rendered`,
+      );
+    }
+    if (ctx.read) return null;
+    // A component root rendered by its fields is named on the field that
+    // references it, and `renderComponentDef` never reads its `type`: the
+    // `null` in `[object, 'null']` reaches no card.
+    if (Array.isArray(value)) {
+      return broken(
+        `\`type: [${value.join(', ')}]\` on a root rendered by its fields - the card names the component and never says it can be \`null\``,
+      );
+    }
+    // An object rendered by its fields, or an array by its items, has its type
+    // on the card without the keyword being read.
+    const shown = (value === 'object'
+        && ['properties', 'allOf', 'additionalProperties'].some((key) =>
+          reads.has(key)))
+      || (value === 'array' && reads.has('items'));
+    return shown
+      ? null
+      : broken('a `type` the card never resolves - the field renders `any`');
+  },
+  format: (ctx) => {
+    const decision = FORMATS[ctx.value];
+    if (decision === undefined) {
+      return broken(
+        `\`format: ${ctx.value}\` - decide whether it changes the type the caller must pass, like \`binary\`, or refines one the card already gives`,
+      );
+    }
+    if (ctx.value !== 'binary') return omit(decision);
+    // `resolveType` turns a binary STRING into `Blob | File`; anywhere else the
+    // keyword is not read and the card keeps the declared type.
+    return ctx.read
+      ? null
+      : broken(
+        'a `format: binary` on a non-string - the card keeps the declared type, and the client takes `Blob | File`',
+      );
+  },
+  // A boolean in place of a schema is a primitive: the proxy records nothing on
+  // it, and `resolveType(true)` answers `any`.
+  'properties/*': (ctx) => {
+    if (typeof ctx.value === 'boolean') return broken(BOOLEAN_SCHEMA);
+    return ctx.read ? null : broken(costOf('properties/*'));
+  },
+  items: (ctx) => {
+    if (typeof ctx.value === 'boolean') return broken(BOOLEAN_SCHEMA);
+    return ctx.read ? null : broken(costOf('items'));
+  },
+  anyOf: () =>
+    broken(
+      '`anyOf` - a name is looked for among its members, but the type renders `any`',
+    ),
+  additionalProperties: (ctx) => {
+    // `true`/`false` say the object is open or closed: nothing to read.
+    if (typeof ctx.value !== 'object' || ctx.value === null) return null;
+    // Unread, or read and never opened: beside `properties` the card lists the
+    // declared keys and says nothing of the free-form ones; a map whose values
+    // carry no type (a vendor annotation alone) renders `object`.
+    return ctx.read
+      ? null
+      : omit(
+        '`additionalProperties` the card does not open - next to `properties`, or a map with no value type',
+      );
+  },
+  'x-additionalPropertiesName': unread(
+    omit("the generated client's name for a map key"),
+  ),
+  default: unread(omit('a field `default` - not shown')),
+  minimum: unread(omit('a field `minimum` - not shown')),
+  maximum: unread(omit('a field `maximum` - not shown')),
+  minLength: unread(omit(`a length constraint - ${CONSTRAINT}`)),
+  maxLength: unread(omit(`a length constraint - ${CONSTRAINT}`)),
+  pattern: unread(omit(`a string pattern - ${CONSTRAINT}`)),
+  minItems: unread(omit(`an array constraint - ${CONSTRAINT}`)),
+  maxItems: unread(omit(`an array constraint - ${CONSTRAINT}`)),
+  uniqueItems: unread(omit(`an array constraint - ${CONSTRAINT}`)),
+  exclusiveMinimum: unread(omit(`a bound - ${CONSTRAINT}`)),
+  exclusiveMaximum: unread(omit(`a bound - ${CONSTRAINT}`)),
+  multipleOf: unread(omit(`a bound - ${CONSTRAINT}`)),
+  title: unread(
+    omit('a human title - the component NAME is what a card renders'),
+  ),
+  $comment: unread(omit("an author's note - not part of a card")),
+  readOnly: unread(
+    omit(
+      'a server-set field, rendered like any other - see the direction check',
+    ),
+  ),
+  writeOnly: unread(
+    omit(
+      'an input-only field, rendered like any other - see the direction check',
+    ),
+  ),
+};
+
+function run(contract, renderEverything) {
   /** @type {Finding[]} */
   const findings = [];
   /** @type {string[]} */
   const omitted = [];
-  const seen = new Set();
-
   const report = (pointer, message) => findings.push({ pointer, message });
 
-  // Apply one verdict. `label` names the keyword in the omission line; `what`
-  // names the position it sits in.
-  const record = (verdict, pointer, what, label) => {
+  const { proxy, reads } = record(contract);
+  const { operations, cards, definitions } = renderEverything(proxy);
+
+  // One verdict, applied. `where` is the generalised position an omission is
+  // pinned under; for `format` it carries the value, since the decision is
+  // about `binary` versus `int64`, not about the keyword.
+  const apply = (verdict, pointer, where) => {
     if (!verdict) return;
     if (verdict.broken) report(pointer, verdict.broken);
-    else omitted.push(`${what} \`${label}\` — ${verdict.omit}`);
+    else omitted.push(where);
   };
 
-  // Read a table of keys: an unclassified one is a finding, by default.
-  const table = (node, keys, pointer, what) => {
-    for (const key of Object.keys(node)) {
-      const rule = keys[key];
-      if (rule === undefined) {
-        report(
-          `${pointer}/${escape(key)}`,
-          key.startsWith('x-')
-            ? `\`${key}\` — an extension the renderer does not read; decide whether a card must show it`
-            : `\`${key}\` on ${what} — the renderer does not read it; classify it in compat.js before the contract relies on it`,
-        );
-      } else {
-        record(rule, `${pointer}/${escape(key)}`, what, key);
-      }
-    }
-  };
-
-  const walkSchema = (schema, pointer, ctx) => {
-    if (schema === undefined || schema === null) return;
-    if (typeof schema === 'boolean') {
-      report(
-        pointer,
-        'a boolean schema (`true`/`false` in place of an object) — it renders as `any`',
-      );
-      return;
-    }
-    if (typeof schema !== 'object') return;
-    // A `$ref` is not followed: components are walked once from their own
-    // definition, which also ends the cycles the contract legitimately has.
-    if (schema.$ref) {
-      record(
-        SCHEMA_KEYWORDS.$ref(schema.$ref),
-        `${pointer}/$ref`,
-        'a schema',
-        '$ref',
-      );
-      const siblings = Object.keys(schema).filter((key) => key !== '$ref');
-      if (siblings.length) {
-        report(
+  // Walk the raw contract beside the record. `segments` is the path so far;
+  // `parent` the key this node hangs from.
+  const walk = (node, segments, inArray = false) => {
+    if (!node || typeof node !== 'object') return;
+    const pointer = pointerOf(segments);
+    const read = reads.get(node) ?? new Set();
+    const keys = Object.keys(node);
+    // A map (`properties`, `content`, `components`...) is never opaque as a
+    // whole: each entry carries its own verdict, reported one by one below. An
+    // array is: its elements are one thing, read or not.
+    const map = !Array.isArray(node)
+      && (segments.length < 2
+        || (MAPS.has(segments.at(-1)) && !nameFlags(segments).at(-1)));
+    if (!map && keys.length && !keys.some((key) => read.has(key))) {
+      // Its reference was read, its contents never: the card renders it as an
+      // opaque value, or not at all. One finding at the node, nothing beneath.
+      const keyword = keywordOf(segments, inArray);
+      const rule = RULES[keyword];
+      const verdict = rule
+        ? rule({
+          value: node,
+          node,
+          read: false,
+          reads: read,
           pointer,
-          `a \`$ref\` with ${siblings.map((key) => `\`${key}\``).join(', ')} beside it — the card renders the referenced component and drops the rest`,
-        );
-      }
+          key: segments.at(-1),
+          contract,
+        })
+        : broken(costOf(keyword));
+      apply(
+        verdict && verdict.broken
+          ? broken(`nothing in it is read: ${verdict.broken}`)
+          : verdict,
+        pointer,
+        generalise(segments),
+      );
       return;
     }
-    // The same shape can be reached twice (a body and a response share a
-    // schema object); the position is part of the identity, since that is what
-    // the verdicts turn on.
-    const visit = `${pointer}|${ctx.position}|${ctx.direction}`;
-    if (seen.has(visit)) return;
-    seen.add(visit);
-
-    for (const [name, value] of Object.entries(schema)) {
-      const rule = SCHEMA_KEYWORDS[name];
-      if (rule === undefined) {
-        report(
-          `${pointer}/${escape(name)}`,
-          name.startsWith('x-')
-            ? `\`${name}\` — an extension the renderer does not read; decide whether a card must show it`
-            : `\`${name}\` — the renderer does not read it; classify it in compat.js before the contract relies on it`,
-        );
-        continue;
+    for (const key of keys) {
+      const value = node[key];
+      const at = [...segments, key];
+      const keyword = keywordOf(at, Array.isArray(node));
+      const rule = RULES[keyword];
+      let verdict = null;
+      if (rule) {
+        verdict = rule({
+          value,
+          node,
+          read: read.has(key),
+          reads: read,
+          pointer: pointerOf(at),
+          key,
+          contract,
+        });
+      } else if (!read.has(key)) {
+        verdict = broken(costOf(keyword));
       }
-      // `format` is recorded per VALUE: the decision is about `binary` versus
-      // `int64`, not about the keyword.
-      const label = name === 'format' ? `${name}: ${value}` : name;
-      record(
-        rule(value, schema, ctx),
-        `${pointer}/${escape(name)}`,
-        'a schema',
-        label,
+      const where = keyword === 'format' ? `${generalise(at)}:${value}` : generalise(at);
+      apply(verdict, pointerOf(at), where);
+      // Beneath an unread key nothing was read either: reported once, here.
+      if (read.has(key) && !verdict?.broken) {
+        walk(value, at, Array.isArray(node));
+      }
+    }
+  };
+  walk(contract, []);
+
+  // The direction check. `readOnly`/`writeOnly` are rendered like any other
+  // field, so the card offers a request field the API refuses, or promises a
+  // response field that never comes. Reachability is walked through `$ref`
+  // here, since the record cannot tell a request read from a response read.
+  const reach = (schema, segments, flag, from, seen) => {
+    if (!schema || typeof schema !== 'object') return;
+    if (schema.$ref) {
+      if (seen.has(schema.$ref)) return;
+      seen.add(schema.$ref);
+      const target = deref(contract, schema);
+      return reach(
+        target,
+        schema.$ref.replace(/^#\//, '').split('/'),
+        flag,
+        from,
+        seen,
       );
     }
-
-    for (const shape of SCHEMA_SHAPES) {
-      if (shape.when(schema, ctx)) report(pointer, shape.message);
+    if (schema[flag] === true) {
+      report(
+        `/${segments.map(escape).join('/')}/${flag}`,
+        flag === 'readOnly'
+          ? `\`readOnly\` on a field the request body of ${from} reaches - the card offers a field the API will refuse`
+          : `\`writeOnly\` on a field the response of ${from} reaches - the card promises a field that never comes back`,
+      );
     }
-
-    const root = ROOTS.has(ctx.position);
     for (const [name, property] of Object.entries(schema.properties ?? {})) {
-      walkSchema(property, `${pointer}/properties/${escape(name)}`, {
-        ...ctx,
-        position: root && name === 'data' ? 'data' : 'property',
-        underProperty: true,
-      });
+      reach(property, [...segments, 'properties', name], flag, from, seen);
     }
-    walkSchema(schema.items, `${pointer}/items`, {
-      ...ctx,
-      position: ctx.position === 'data' ? 'list item' : 'item',
-    });
-    if (
-      schema.additionalProperties
-      && typeof schema.additionalProperties === 'object'
-    ) {
-      walkSchema(
+    reach(schema.items, [...segments, 'items'], flag, from, seen);
+    if (typeof schema.additionalProperties === 'object') {
+      reach(
         schema.additionalProperties,
-        `${pointer}/additionalProperties`,
-        {
-          ...ctx,
-          position: 'value',
-        },
+        [...segments, 'additionalProperties'],
+        flag,
+        from,
+        seen,
       );
     }
     for (const composed of ['allOf', 'oneOf', 'anyOf']) {
-      const members = schema[composed];
-      if (!Array.isArray(members)) continue;
-      members.forEach((member, i) =>
-        walkSchema(member, `${pointer}/${composed}/${i}`, {
-          ...ctx,
-          // A branch of a root composition is still read as that root: the
-          // renderer merges an `allOf` and lists a union's branches there.
-          position:
-            root || ctx.position === 'list item' ? ctx.position : 'member',
-        }));
+      (schema[composed] ?? []).forEach((member, i) =>
+        reach(member, [...segments, composed, String(i)], flag, from, seen));
     }
   };
-
-  // A parameter, wherever it is declared. `in: header` and a `content` instead
-  // of a `schema` are both invisible on a card, so both are read here rather
-  // than at each of the sixty operations sharing an `AgendaUid`.
-  const checkParameter = (parameter, pointer) => {
-    if (!parameter || typeof parameter !== 'object') return;
-    table(parameter, PARAMETER_KEYS, pointer, 'a parameter');
-    if (parameter.in !== 'path' && parameter.in !== 'query') {
-      report(
-        pointer,
-        `a \`${parameter.in}\` parameter — a card's signature carries \`path\` and \`query\` only, so \`${parameter.name}\` is invisible`,
-      );
-    }
-    walkSchema(parameter.schema, `${pointer}/schema`, {
-      position: 'param',
-      direction: 'request',
-    });
-  };
-
-  const checkRequestBody = (body, pointer) => {
-    if (!body || typeof body !== 'object') return;
-    table(body, REQUEST_BODY_KEYS, pointer, 'a request body');
-    for (const [type, media] of Object.entries(body.content ?? {})) {
-      const mediaAt = `${pointer}/content/${escape(type)}`;
-      table(media, MEDIA_TYPE_KEYS, mediaAt, 'a media type');
-      walkSchema(media.schema, `${mediaAt}/schema`, {
-        position: 'body',
-        direction: 'request',
-      });
-    }
-  };
-
-  // `rendered` says whether a card shows this response at all: only a success
-  // one is, so the media-type and shape rules apply there. A shared error
-  // response is still checked — for the keys it declares — where it is defined.
-  const walkResponse = (response, pointer, rendered) => {
-    if (!response || typeof response !== 'object') return null;
-    table(response, RESPONSE_KEYS, pointer, 'a response');
-    const content = response.content ?? {};
-    const json = Object.keys(content).find((type) => JSON_MEDIA.test(type));
-    if (rendered && Object.keys(content).length && !json) {
-      report(
-        pointer,
-        `a body in ${Object.keys(content).join(', ')} — only a JSON media type is rendered, so this card shows no response at all`,
-      );
-    }
-    for (const [type, media] of Object.entries(content)) {
-      const mediaAt = `${pointer}/content/${escape(type)}`;
-      table(media, MEDIA_TYPE_KEYS, mediaAt, 'a media type');
-      if (rendered) {
-        walkSchema(media.schema, `${mediaAt}/schema`, {
-          position: 'body',
-          direction: 'response',
-        });
-      }
-    }
-    return json ? JSON.stringify(content[json]?.schema ?? null) : null;
-  };
-
-  // The JSON shape a shared response carries, without re-checking it: its keys
-  // and schemas were read at `/components/responses/*`.
-  const shapeOfShared = (node, pointer, success) => {
-    const content = node?.content ?? {};
-    const json = Object.keys(content).find((type) => JSON_MEDIA.test(type));
-    if (success && Object.keys(content).length && !json) {
-      report(
-        pointer,
-        `a body in ${Object.keys(content).join(', ')} — only a JSON media type is rendered, so this card shows no response at all`,
-      );
-    }
-    return json ? JSON.stringify(content[json]?.schema ?? null) : null;
-  };
-
-  const walkResponses = (responses, pointer, operationId) => {
-    const shapes = [];
-    for (const [code, response] of Object.entries(responses)) {
-      const at = `${pointer}/${escape(code)}`;
-      const success = /^2(\d\d|XX)$/i.test(code);
-      // A `$ref`'d response is a shared component (every 4xx here is one),
-      // checked where it is defined and not at each use.
-      const node = response?.$ref ? deref(contract, response) : response;
-      const shape = response?.$ref
-        ? shapeOfShared(node, at, success)
-        : walkResponse(node, at, success);
-      if (success && shape) shapes.push([code, shape]);
-    }
-    // The card renders the LOWEST 2xx. A second, different success shape is
-    // documented nowhere, and the LLM reads the one it happened not to get.
-    if (new Set(shapes.map(([, shape]) => shape)).size > 1) {
-      report(
-        pointer,
-        `${operationId} answers ${shapes.map(([code]) => code).join(' and ')} with different shapes — only the lowest is rendered`,
-      );
-    }
-  };
-
-  table(contract, DOCUMENT_KEYS, '', 'the document');
-
-  const components = contract.components ?? {};
-  table(components, COMPONENTS_KEYS, '/components', 'the components section');
-
-  for (const [name, parameter] of Object.entries(components.parameters ?? {})) {
-    checkParameter(parameter, `/components/parameters/${escape(name)}`);
-  }
-  for (const [name, response] of Object.entries(components.responses ?? {})) {
-    walkResponse(response, `/components/responses/${escape(name)}`, false);
-  }
-  for (const [name, body] of Object.entries(components.requestBodies ?? {})) {
-    checkRequestBody(body, `/components/requestBodies/${escape(name)}`);
-  }
-  for (const [name, scheme] of Object.entries(
-    components.securitySchemes ?? {},
-  )) {
-    table(
-      scheme,
-      SECURITY_SCHEME_KEYS,
-      `/components/securitySchemes/${escape(name)}`,
-      'a security scheme',
-    );
-  }
-
-  for (const [name, schema] of Object.entries(components.schemas ?? {})) {
-    // A component is reachable from both directions unless the contract keeps
-    // input and output shapes apart (this one does). `direction: 'any'` is what
-    // keeps the readOnly/writeOnly rules quiet here and fires them where a body
-    // actually reaches the field.
-    walkSchema(schema, `/components/schemas/${escape(name)}`, {
-      position: 'component',
-      direction: 'any',
-    });
-  }
 
   for (const [path, item] of Object.entries(contract.paths ?? {})) {
-    const pathAt = `/paths/${escape(path)}`;
-    table(item, PATH_ITEM_KEYS, pathAt, 'a path item');
     for (const [method, op] of Object.entries(item)) {
-      if (!op || typeof op !== 'object' || PATH_ITEM_KEYS[method] !== null) {
-        continue;
-      }
-      const opAt = `${pathAt}/${escape(method)}`;
-      if (!op.operationId) {
-        report(
-          opAt,
-          'an operation with no `operationId` — it is skipped, and the route is absent from the catalogue',
+      if (!op || typeof op !== 'object' || !op.operationId) continue;
+      const at = ['paths', path, method];
+      const body = deref(contract, op.requestBody);
+      for (const [type, media] of Object.entries(body?.content ?? {})) {
+        const from = op.requestBody?.$ref
+          ? op.requestBody.$ref.replace(/^#\//, '').split('/')
+          : [...at, 'requestBody'];
+        reach(
+          media.schema,
+          [...from, 'content', type, 'schema'],
+          'readOnly',
+          op.operationId,
+          new Set(),
         );
-        continue;
       }
-      table(op, OPERATION_KEYS, opAt, 'an operation');
-
-      (op.parameters ?? []).forEach((parameter, i) => {
-        if (parameter?.$ref) return; // checked at /components/parameters/*
-        checkParameter(parameter, `${opAt}/parameters/${i}`);
-      });
-
-      if (op.requestBody && !op.requestBody.$ref) {
-        checkRequestBody(op.requestBody, `${opAt}/requestBody`);
+      for (const [code, response] of Object.entries(op.responses ?? {})) {
+        if (!/^2/.test(code)) continue;
+        const from = response?.$ref
+          ? response.$ref.replace(/^#\//, '').split('/')
+          : [...at, 'responses', code];
+        for (const [type, media] of Object.entries(
+          deref(contract, response)?.content ?? {},
+        )) {
+          reach(
+            media.schema,
+            [...from, 'content', type, 'schema'],
+            'writeOnly',
+            op.operationId,
+            new Set(),
+          );
+        }
       }
+    }
+  }
 
-      walkResponses(op.responses ?? {}, `${opAt}/responses`, op.operationId);
+  // Every component a card defines must be led to from that card: by a name
+  // on the card itself, or on a definition already reached. A definition
+  // nothing leads to is a shape the card rendered opaque - a body that is a
+  // union of components, say, whose members the derivation collected and the
+  // request line never named.
+  const mentions = (text, names) =>
+    names.filter((name) => new RegExp(`\\b${name}\\b`).test(text));
+  for (const op of operations) {
+    const names = op.componentRefs;
+    const reached = new Set(mentions(cards.get(op.id), names));
+    const queue = [...reached];
+    while (queue.length) {
+      for (const name of mentions(definitions.get(queue.pop()) ?? '', names)) {
+        if (!reached.has(name)) {
+          reached.add(name);
+          queue.push(name);
+        }
+      }
+    }
+    for (const name of names.filter((each) => !reached.has(each))) {
+      report(
+        `/paths/${escape(op.path)}/${op.method.toLowerCase()}`,
+        `\`${name}\` is defined for this card, and nothing on the card leads to it - the shape that references it renders opaque`,
+      );
     }
   }
 
@@ -690,23 +665,27 @@ function run(contract) {
  * Check one contract against what `search_docs` can render.
  *
  * @param {any} contract  A parsed OpenAPI document.
+ * @param {(contract: any) => {operations: any[], cards: Map<string, string>, definitions: Map<string, string>}} renderEverything
+ *   The renderer's dry run, from operations.js.
  * @returns {Finding[]} Unsupported constructs, in document order. Empty is the
  *   only acceptable state: each finding is a card that would be wrong.
  */
-export function checkContract(contract) {
-  return run(contract).findings;
+export function checkContract(contract, renderEverything) {
+  return run(contract, renderEverything).findings;
 }
 
 /**
- * The deliberate omissions this contract actually exercises — a `pattern` on a
- * field, a `style` on a parameter, a `Location` header. Each is something the
- * contract states and no card shows.
+ * The deliberate omissions this contract actually exercises, as positions:
+ * generalised JSON Pointers, one per place a keyword the card does not show
+ * is used (`/components/schemas/*\/properties/*\/pattern`). Each is something
+ * the contract states and no card shows.
  *
  * @param {any} contract
- * @returns {string[]} Sorted `<position> \`keyword\` — reason` lines, deduplicated.
+ * @param {(contract: any) => object} renderEverything  As for `checkContract`.
+ * @returns {string[]} Sorted, deduplicated.
  */
-export function omissions(contract) {
-  return [...new Set(run(contract).omitted)].sort();
+export function omissions(contract, renderEverything) {
+  return [...new Set(run(contract, renderEverything).omitted)].sort();
 }
 
 /**
@@ -728,7 +707,7 @@ const SHOWN = 5;
  * The warning a `search_docs` payload leads with when the contract it loaded
  * goes beyond this version. A published server resolves `@openagenda/api-spec`
  * on a `^` range, so an install can carry a contract newer than any this
- * version was tested against — and a card that silently drops a required field
+ * version was tested against - and a card that silently drops a required field
  * is worse than one that says it may be incomplete.
  *
  * @param {Finding[]} findings
@@ -739,7 +718,7 @@ export function contractWarning(findings) {
   const shown = findings.slice(0, SHOWN);
   const rest = findings.length - shown.length;
   const many = findings.length > 1;
-  const head = `⚠ This server is rendering an API contract that goes beyond what it understands: ${findings.length} construct${many ? 's' : ''} below ${many ? 'are' : 'is'} not read by this version, so a card may omit or misstate a field. Upgrade \`@openagenda/mcp\`; until then, treat the affected shapes as incomplete and check a call against the API reference before relying on it.`;
+  const head = `⚠ This server is rendering an API contract that goes beyond what it understands: ${findings.length} construct${many ? 's' : ''} below ${many ? 'are' : 'is'} not read by this version, so a card may omit or misstate a field. Treat the shapes named below as incomplete and check a call against the API reference before relying on it. The fix is a newer \`@openagenda/mcp\`, which whoever runs this server installs - reading it here does not mean you can.`;
   const lines = shown.map((f) => `  ${f.pointer}: ${f.message}`);
   if (rest) lines.push(`  … and ${rest} more.`);
   return [head, ...lines].join('\n');

@@ -9,8 +9,9 @@
 // cards have been wrong in between.
 //
 // Exits 1 with a JSON Pointer per unrenderable construct, and prints the
-// deliberate omissions under `--omissions` (what the contract states and no card
-// shows). Defaults to the contract this package resolves.
+// deliberate omissions under `--omissions` - the positions, as generalised
+// pointers, where the contract states something no card shows. Defaults to the
+// contract this package resolves.
 
 import { readFileSync } from 'node:fs';
 import { parse } from 'yaml';
@@ -19,6 +20,7 @@ import {
   omissions,
   formatFindings,
 } from '../src/docs/compat.js';
+import { renderEverything } from '../src/docs/operations.js';
 
 const args = process.argv.slice(2);
 const wanted = args.filter((arg) => !arg.startsWith('-'));
@@ -27,10 +29,10 @@ const path = wanted[0]
   : new URL(import.meta.resolve('@openagenda/api-spec/openapi.yaml'));
 
 const contract = parse(readFileSync(path, 'utf8'));
-const findings = checkContract(contract);
+const findings = checkContract(contract, renderEverything);
 
 if (args.includes('--omissions')) {
-  process.stdout.write(`${omissions(contract).join('\n')}\n`);
+  process.stdout.write(`${omissions(contract, renderEverything).join('\n')}\n`);
 }
 
 if (!findings.length) {

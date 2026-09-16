@@ -50,7 +50,10 @@ const pascal = (id) =>
 const text = (node) => node.getText().replace(/\s+/g, ' ');
 
 // The members of a type literal, through a reference to a named alias and
-// through an intersection — the shapes an `allOf` generates.
+// through an intersection — the shapes an `allOf` generates. The member NODE is
+// kept, not its text: the comparison below reads the TypeScript AST rather than
+// re-parsing type strings, which is what a `'a|b'` literal or a union nested in
+// an `Array<>` would break.
 const fieldsOf = (node) => {
   if (!node) return null;
   if (ts.isTypeReferenceNode(node)) return fieldsOf(aliases.get(text(node)));
@@ -65,7 +68,7 @@ const fieldsOf = (node) => {
     if (!ts.isPropertySignature(member) || !member.name) continue;
     members[member.name.getText().replace(/^['"]|['"]$/g, '')] = {
       optional: !!member.questionToken,
-      type: member.type ? text(member.type) : 'unknown',
+      node: member.type,
     };
   }
   return members;
@@ -78,79 +81,107 @@ const groupsOf = (operationId) => {
   return groups;
 };
 
-const LITERAL = /^(['"].*['"]|-?\d+)$/;
+const names = (values) => `{${[...values].map(String).sort().join(', ')}}`;
+const unquote = (value) => value.replace(/^['"]|['"]$/g, '');
 
-// Split a union at the TOP level only: `Array<'a' | 'b'>` is one type, and
-// `{ [key: string]: 'count' | 'alpha' }` is one type. Splitting on every `|`
-// reads both as unions and reports a disagreement that is not there.
-const branches = (type) => {
-  const parts = [];
-  let depth = 0;
-  let current = '';
-  for (const char of type) {
-    if ('<{(['.includes(char)) depth += 1;
-    else if ('>})]'.includes(char)) depth -= 1;
-    if (char === '|' && depth === 0) {
-      parts.push(current.trim());
-      current = '';
-    } else current += char;
-  }
-  parts.push(current.trim());
-  return parts.filter(
-    (part) => part && part !== 'null' && part !== 'undefined',
-  );
-};
+// Both sides reduced to the SAME canonical key, one structural level deep on
+// each: `array:string`, `record:enum{count, alpha}`, `object:{gte, lte}`. A flat
+// kind ("both are arrays") let `Array<string>` match `number[]` and a map of
+// literals match `Record<string, string>` — which is how the 22 `deepObject`
+// query parameters went unnoticed. `null` means no confident reading, and skips
+// the comparison rather than inventing a disagreement.
+const DEPTH = 2;
 
-// Both sides, reduced to the same vocabulary. `null` means "no confident
-// reading" and skips the comparison rather than inventing a disagreement.
-const sdkKind = (type) => {
-  const bare = branches(type);
-  if (bare.length > 1) {
-    return bare.every((part) => LITERAL.test(part)) ? 'enum' : 'union';
+const sdkKey = (node, depth = DEPTH) => {
+  if (!node) return null;
+  if (depth <= 0) return 'deep';
+  if (ts.isParenthesizedTypeNode(node)) return sdkKey(node.type, depth);
+  if (ts.isUnionTypeNode(node)) {
+    const kept = node.types.filter(
+      (branch) => text(branch) !== 'null' && text(branch) !== 'undefined',
+    );
+    if (kept.length === 1) return sdkKey(kept[0], depth);
+    const texts = kept.map(text);
+    // The generated client takes a file as two named types; a card says it in
+    // one word.
+    if (
+      texts.length === 2
+      && texts.includes('Blob')
+      && texts.includes('File')
+    ) {
+      return 'blob';
+    }
+    return kept.every((branch) => ts.isLiteralTypeNode(branch))
+      ? `enum:${names(texts.map(unquote))}`
+      : `union:${names(texts)}`;
   }
-  const one = bare[0] ?? 'null';
-  if (/^Array</.test(one) || one.endsWith('[]')) return 'array';
-  if (['string', 'number', 'boolean'].includes(one)) return one;
-  if (one.startsWith('{')) return 'object';
-  if (LITERAL.test(one)) return 'enum';
-  if (/^[A-Z]\w*$/.test(one)) return `named:${one}`;
+  if (ts.isArrayTypeNode(node)) return `array:${sdkKey(node.elementType, depth - 1)}`;
+  if (ts.isTypeReferenceNode(node)) {
+    const name = node.typeName.getText();
+    if (name === 'Array') return `array:${sdkKey(node.typeArguments?.[0], depth - 1)}`;
+    return `named:${name}`;
+  }
+  if (ts.isLiteralTypeNode(node)) return `enum:${names([unquote(text(node))])}`;
+  if (ts.isTypeLiteralNode(node)) {
+    const [index] = node.members.filter(ts.isIndexSignatureDeclaration);
+    if (index && node.members.length === 1) {
+      const value = sdkKey(index.type, depth - 1);
+      // A map of `unknown` is an opaque object, which is what a card calls it.
+      return value === null ? 'object' : `record:${value}`;
+    }
+    return `object:${names(Object.keys(fieldsOf(node) ?? {}))}`;
+  }
+  const keyword = text(node);
+  if (['string', 'number', 'boolean'].includes(keyword)) return keyword;
   return null;
 };
 
-const cardKind = (field) => {
-  const bare = branches(field.type);
-  const one = bare.length === 1 ? bare[0] : null;
-  // An array of enum values is an array on both sides; only a SCALAR enum is
-  // where the two say the same thing differently.
-  if (one?.endsWith('[]')) return 'array';
-  if (field.enum) return 'enum';
-  if (field.type === 'Blob | File') return 'blob';
-  if (!one) return 'union';
-  if (one === 'string' || one === 'boolean') return one;
-  if (one === 'integer' || one === 'number') return 'number';
-  if (one === 'object' || one.startsWith('Record<')) return 'object';
-  if (/^[A-Z]\w*$/.test(one)) return `named:${one}`;
+const cardKey = (field, depth = DEPTH) => {
+  if (!field) return null;
+  if (depth <= 0) return 'deep';
+  const { type } = field;
+  if (type === 'Blob | File') return 'blob';
+  // A card unfolds an array of unnamed objects into the ITEM's fields, so the
+  // element carries this field's `enum` and `fields`.
+  if (type.endsWith('[]')) {
+    const element = type.slice(0, -2).replace(/^\((.*)\)$/, '$1');
+    return `array:${cardKey({ ...field, type: element }, depth - 1)}`;
+  }
+  // A named type keeps its name even when the card also lists its values: the
+  // enum belongs to the component, and the client names it too.
+  if (/^[A-Z]\w*$/.test(type)) return `named:${type}`;
+  if (field.enum) return `enum:${names(field.enum)}`;
+  const map = type.match(/^Record<string, (.*)>$/);
+  if (map) return `record:${cardKey({ type: map[1] }, depth - 1)}`;
+  if (type.includes(' | ')) {
+    const kept = type.split(' | ').filter((branch) => branch !== 'null');
+    if (kept.length === 1) return cardKey({ ...field, type: kept[0] }, depth);
+    return `union:${names(kept)}`;
+  }
+  if (type === 'string' || type === 'boolean') return type;
+  if (type === 'integer' || type === 'number') return 'number';
+  if (type === 'object') {
+    return field.fields
+      ? `object:${names(field.fields.map((nested) => nested.name))}`
+      : 'object';
+  }
+  if (/^[A-Z]\w*$/.test(type)) return `named:${type}`;
   return null;
 };
 
-// Where the two describe the same thing in different words. A card gives the
-// wire type and lists the values (`sort (string) [one of: …]`) where the client
-// generates a union of literals; `Blob | File` is two named types there and one
-// word here. Everything else must match, or the comparison guards nothing.
-const ALIKE = [
-  ['enum', 'union'],
-  ['enum', 'string'],
-  ['enum', 'number'],
-  ['blob', 'union'],
-];
+// The one place the two dialects genuinely differ: a card gives the wire type
+// and lists the values on the same line (`threshold (string | number) [one of:
+// off, auto]`), where the client widens the same enum into a union of literals
+// and the underlying primitive. Accepted only when every value the card lists is
+// one the client accepts — not as a blanket "enum is like union".
+const alike = (sdk, card) => {
+  if (!card?.startsWith('enum:') || !sdk) return false;
+  const values = card.slice('enum:{'.length, -1).split(', ');
+  return values.every((value) => sdk.includes(value));
+};
 
 const same = (sdk, card) =>
-  sdk === null
-  || card === null
-  || sdk === card
-  || ALIKE.some(
-    ([a, b]) => (a === card && b === sdk) || (a === sdk && b === card),
-  );
+  sdk === null || card === null || sdk === card || alike(sdk, card);
 
 parity(
   'the cards and the generated client read the contract the same way',
@@ -206,9 +237,9 @@ parity(
               disagreements.push(
                 `${at}: the client says ${sdk[name].optional ? 'optional' : 'required'}, the card says ${card[name].required ? 'required' : 'optional'}`,
               );
-            } else if (!same(sdkKind(sdk[name].type), cardKind(card[name]))) {
+            } else if (!same(sdkKey(sdk[name].node), cardKey(card[name]))) {
               disagreements.push(
-                `${at}: the client takes ${sdk[name].type}, the card says ${card[name].type}`,
+                `${at}: the client takes ${text(sdk[name].node)}, the card says ${card[name].type}`,
               );
             }
           }
@@ -235,9 +266,9 @@ parity(
             disagreements.push(
               `${at}: the client says ${sdk[name].optional ? 'optional' : 'required'}, the card says ${card[name].required ? 'required' : 'optional'}`,
             );
-          } else if (!same(sdkKind(sdk[name].type), cardKind(card[name]))) {
+          } else if (!same(sdkKey(sdk[name].node), cardKey(card[name]))) {
             disagreements.push(
-              `${at}: the client takes ${sdk[name].type}, the card says ${card[name].type}`,
+              `${at}: the client takes ${text(sdk[name].node)}, the card says ${card[name].type}`,
             );
           }
         }
@@ -263,12 +294,12 @@ parity(
         }
         if (!op.response) {
           disagreements.push(
-            `${op.id}: ${responses[lowest].type} in the client, no response on the card`,
+            `${op.id}: ${text(responses[lowest].node)} in the client, no response on the card`,
           );
           continue;
         }
         const { root } = op.response;
-        const sdk = responses[lowest].type;
+        const sdk = text(responses[lowest].node);
         if (root && sdk !== root) {
           disagreements.push(
             `${op.id}: the client answers ${sdk}, the card says ${root}`,

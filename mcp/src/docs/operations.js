@@ -32,6 +32,7 @@ import { checkContract, contractWarning, formatFindings } from './compat.js';
  * @property {unknown} [default]
  * @property {number} [min]
  * @property {number} [max]
+ * @property {Field[]} [fields]       A structured param's own keys (`timings[gte]`).
  * @property {string} description
  *
  * @typedef {object} Field
@@ -82,21 +83,10 @@ import { checkContract, contractWarning, formatFindings } from './compat.js';
 // ./openapi.yaml), not by reaching across the workspace with a relative path —
 // so it holds regardless of where the package sits on disk.
 const specUrl = import.meta.resolve('@openagenda/api-spec/openapi.yaml');
-const spec = parse(readFileSync(new URL(specUrl), 'utf8'));
-
-// The contract an INSTALL loads can be newer than any this version was tested
-// against — the dependency is a `^` range — and a construct the renderer does
-// not read makes a card plausible and wrong. So the mismatch is stated, once
-// here and again at the top of every payload, instead of being rendered over.
-// Empty for the contract this repo ships with: a test fails otherwise.
-const UNRENDERABLE = checkContract(spec);
-if (UNRENDERABLE.length) {
-  log.warn(
-    'search_docs renders a contract with %d construct(s) this version does not read:\n%s',
-    UNRENDERABLE.length,
-    formatFindings(UNRENDERABLE),
-  );
-}
+// Reassignable for one reason: `renderEverything` below swaps in another
+// contract for the length of a dry run, so the compat check reads the SAME
+// derivation and rendering code the server runs, not a description of it.
+let spec = parse(readFileSync(new URL(specUrl), 'utf8'));
 
 const resolveRef = (ref) =>
   ref
@@ -123,6 +113,16 @@ export function enumSchemaOf(schema, seen = new Set()) {
   }
   if (schema.enum) return schema;
   if (schema.items) return enumSchemaOf(schema.items, seen);
+  // A map's values carry the enum (`facetSorts[cities]=alpha`): the card names
+  // the map `Record<string, string>`, so the values it accepts have nowhere
+  // else to appear.
+  if (
+    schema.additionalProperties
+    && typeof schema.additionalProperties === 'object'
+  ) {
+    const found = enumSchemaOf(schema.additionalProperties, seen);
+    if (found) return found;
+  }
   for (const key of ['allOf', 'oneOf', 'anyOf']) {
     if (Array.isArray(schema[key])) {
       for (const member of schema[key]) {
@@ -196,36 +196,6 @@ export function resolveType(schema) {
     base = `Record<string, ${resolveType(values)}>`;
   }
   return nullable && base !== 'null' ? `${base} | null` : base;
-}
-
-// Structured params, path params INCLUDED (the contract carries both; the LLM
-// needs the path shape too). Enums/default/min/max are lifted from the schema
-// (arrays carry them under `items`) so the renderer can surface them inline.
-function deriveParams(op) {
-  return (op.parameters || []).map(deref).map((p) => {
-    const schema = p.schema || {};
-    // The enum (and its x-enum-descriptions labels) may sit on the param schema
-    // directly (`sort`), under array `items`, behind a $ref to a shared enum, or
-    // wrapped in allOf/oneOf/anyOf — enumSchemaOf resolves through all of them.
-    // The labels travel WITH the enum, so a renamed/extended enum stays in sync.
-    const enumSchema = enumSchemaOf(schema);
-    const enumValues = enumSchema?.enum;
-    const enumDescriptions = enumSchema?.['x-enum-descriptions'];
-    /** @type {Param} */
-    const param = {
-      name: p.name,
-      in: p.in,
-      required: !!p.required,
-      type: resolveType(schema),
-      description: oneLine(p.description),
-    };
-    if (enumValues) param.enum = enumValues;
-    if (enumDescriptions) param.enumDescriptions = enumDescriptions;
-    if (schema.default !== undefined) param.default = schema.default;
-    if (schema.minimum !== undefined) param.min = schema.minimum;
-    if (schema.maximum !== undefined) param.max = schema.maximum;
-    return param;
-  });
 }
 
 // The object a schema describes, with `allOf` members merged in — properties
@@ -310,6 +280,42 @@ function topLevelFields(schema, ancestors = new Set()) {
       if (nested.length) field.fields = nested;
     }
     return field;
+  });
+}
+
+// Structured params, path params INCLUDED (the contract carries both; the LLM
+// needs the path shape too). Enums/default/min/max are lifted from the schema
+// (arrays carry them under `items`) so the renderer can surface them inline.
+function deriveParams(op) {
+  return (op.parameters || []).map(deref).map((p) => {
+    const schema = p.schema || {};
+    // The enum (and its x-enum-descriptions labels) may sit on the param schema
+    // directly (`sort`), under array `items`, behind a $ref to a shared enum, or
+    // wrapped in allOf/oneOf/anyOf — enumSchemaOf resolves through all of them.
+    // The labels travel WITH the enum, so a renamed/extended enum stays in sync.
+    const enumSchema = enumSchemaOf(schema);
+    const enumValues = enumSchema?.enum;
+    const enumDescriptions = enumSchema?.['x-enum-descriptions'];
+    /** @type {Param} */
+    const param = {
+      name: p.name,
+      in: p.in,
+      required: !!p.required,
+      type: resolveType(schema),
+      description: oneLine(p.description),
+    };
+    // A structured parameter (`timings[gte]=…&timings[lte]=…`, `extId[key]=…`)
+    // is declared as an object with properties, and a bare `object` on the card
+    // tells the caller nothing about what to put in it. Same derivation as
+    // every other field list, so the lines read identically.
+    const fields = topLevelFields(schema);
+    if (fields.length) param.fields = fields;
+    if (enumValues) param.enum = enumValues;
+    if (enumDescriptions) param.enumDescriptions = enumDescriptions;
+    if (schema.default !== undefined) param.default = schema.default;
+    if (schema.minimum !== undefined) param.min = schema.minimum;
+    if (schema.maximum !== undefined) param.max = schema.maximum;
+    return param;
   });
 }
 
@@ -902,24 +908,6 @@ function enumGloss(values, labels) {
     .join(', ');
 }
 
-// Render a param verbatim: when an op is surfaced as a top hit, the LLM needs
-// its full semantics to call it correctly — depth-by-rank bounds the payload by
-// op COUNT (only the top few render rich), never by truncating a single op.
-function renderParamLine(p) {
-  const meta = [];
-  if (p.enum) {
-    meta.push(`one of: ${enumGloss(p.enum, p.enumDescriptions)}`);
-  }
-  if (p.default !== undefined) meta.push(`default ${JSON.stringify(p.default)}`);
-  if (p.min !== undefined || p.max !== undefined) {
-    meta.push(`range ${p.min ?? '−∞'}…${p.max ?? '∞'}`);
-  }
-  const tail = [p.description, meta.length ? `[${meta.join('; ')}]` : '']
-    .filter(Boolean)
-    .join(' ');
-  return `- \`${p.name}\` (${p.type}${p.required ? ', required' : ''})${tail ? ` — ${tail}` : ''}`;
-}
-
 // Nest a rendered block one level: every line, not just the first.
 const indent = (block) => block.replace(/^/gm, '  ');
 
@@ -940,6 +928,27 @@ function renderFieldLine(f) {
   const tail = [f.description, meta].filter(Boolean).join(' ');
   const line = `- ${f.name} (${f.type}${f.required ? ', required' : ''})${tail ? ` — ${tail}` : ''}`;
   return [line, ...(f.fields ?? []).map(renderFieldLine).map(indent)].join(
+    '\n',
+  );
+}
+
+// Render a param verbatim: when an op is surfaced as a top hit, the LLM needs
+// its full semantics to call it correctly — depth-by-rank bounds the payload by
+// op COUNT (only the top few render rich), never by truncating a single op.
+function renderParamLine(p) {
+  const meta = [];
+  if (p.enum) {
+    meta.push(`one of: ${enumGloss(p.enum, p.enumDescriptions)}`);
+  }
+  if (p.default !== undefined) meta.push(`default ${JSON.stringify(p.default)}`);
+  if (p.min !== undefined || p.max !== undefined) {
+    meta.push(`range ${p.min ?? '−∞'}…${p.max ?? '∞'}`);
+  }
+  const tail = [p.description, meta.length ? `[${meta.join('; ')}]` : '']
+    .filter(Boolean)
+    .join(' ');
+  const line = `- \`${p.name}\` (${p.type}${p.required ? ', required' : ''})${tail ? ` — ${tail}` : ''}`;
+  return [line, ...(p.fields ?? []).map(renderFieldLine).map(indent)].join(
     '\n',
   );
 }
@@ -976,7 +985,10 @@ export function renderComponentDef(name) {
   }
   const fields = topLevelFields(schema);
   if (fields.length) {
-    const head = `\`${name}\`${description ? ` — ${description}` : ''}`;
+    // A nullable root renders its fields like any other, so `null` would reach
+    // no card: the field lines that point here name the component alone.
+    const nullable = Array.isArray(schema.type) && schema.type.includes('null');
+    const head = `\`${name}\`${nullable ? ' (object | null)' : ''}${description ? ` — ${description}` : ''}`;
     return [head, ...fields.map(renderFieldLine)].join('\n');
   }
   const head = `\`${name}\` (${resolveType(schema)})${description ? ` — ${description}` : ''}`;
@@ -1022,6 +1034,9 @@ function renderResponse(response) {
 // optional filters are compacted to a names line so the block stays scannable.
 const isNotable = (p) =>
   p.required
+  // A structured parameter carries a shape: compacted to its name, the caller
+  // cannot guess the keys it takes.
+  || p.fields
   || p.enum
   || p.default !== undefined
   || p.min !== undefined
@@ -1112,6 +1127,38 @@ export function renderOperation(op, rank = 0) {
   return rank < RICH_RANK_CUTOFF ? renderRich(op) : renderCompact(op);
 }
 
+// Derive and render everything `contract` can become - every card in both
+// render modes, every component definition. This is the seam compat.js
+// instruments: it hands in a recording proxy, and what the renderer never read
+// is, by construction, what no card shows. The module contract is swapped for
+// the duration and restored, so the catalogue the server serves is untouched
+// and `contract` is never kept. The texts come back because a check on them
+// (does anything on the card lead to each definition?) must read the same
+// contract, and `renderComponentDef` reads whichever one is current.
+/**
+ * @param {any} contract
+ * @returns {{operations: Operation[], cards: Map<string, string>, definitions: Map<string, string>}}
+ */
+export function renderEverything(contract) {
+  const served = spec;
+  spec = contract;
+  try {
+    const operations = deriveOperations();
+    const cards = new Map();
+    for (const op of operations) {
+      cards.set(op.id, renderOperation(op, 0));
+      renderOperation(op, RICH_RANK_CUTOFF);
+    }
+    const definitions = new Map();
+    for (const name of Object.keys(spec.components?.schemas ?? {})) {
+      definitions.set(name, renderComponentDef(name));
+    }
+    return { operations, cards, definitions };
+  } finally {
+    spec = served;
+  }
+}
+
 const SCHEMAS_FOOTER = 'Validators: a `schemas` namespace of zod validators is available in `execute` '
   + 'to parse payloads (e.g. `schemas.zEvent.parse(data)`). Available: '
   + `${SCHEMA_VALIDATORS.join(', ')}.`;
@@ -1154,8 +1201,31 @@ const SDK_LEAD = [
  * comes back (decode tables, field semantics).
  * @param {Operation[]} hits
  */
+// The contract an INSTALL loads can be newer than any this version was tested
+// against - the dependency is a `^` range - and a construct the renderer does
+// not read makes a card plausible and wrong. So the mismatch is stated, once in
+// the log and again at the top of every payload, instead of being rendered
+// over. Computed on the first payload rather than at load, since the check
+// dry-runs the whole catalogue through `renderEverything` and that needs every
+// binding of this module in place. Empty for the contract this repo ships
+// with: a test fails otherwise.
+let unrenderable;
+const unrenderableFindings = () => {
+  if (!unrenderable) {
+    unrenderable = checkContract(spec, renderEverything);
+    if (unrenderable.length) {
+      log.warn(
+        'search_docs renders a contract with %d construct(s) this version does not read:\n%s',
+        unrenderable.length,
+        formatFindings(unrenderable),
+      );
+    }
+  }
+  return unrenderable;
+};
+
 export function renderSearch(hits) {
-  const warning = contractWarning(UNRENDERABLE);
+  const warning = contractWarning(unrenderableFindings());
   if (!hits.length) {
     return [warning, SDK_LEAD, SCHEMAS_FOOTER]
       .filter(Boolean)

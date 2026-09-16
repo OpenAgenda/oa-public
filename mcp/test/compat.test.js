@@ -8,6 +8,7 @@ import {
 } from '../src/docs/compat.js';
 import {
   renderComponentDef,
+  renderEverything,
   renderOperation,
   renderSearch,
   searchOperations,
@@ -21,82 +22,137 @@ const spec = parse(
   ),
 );
 
-const messages = (contract) => checkContract(contract).map((f) => f.message);
-const at = (contract, needle) =>
-  checkContract(contract).filter((f) => f.pointer.includes(needle));
+// The renderer's dry run is what the check measures; every call hands it in.
+const check = (contract) => checkContract(contract, renderEverything);
+const omitted = (contract) => omissions(contract, renderEverything);
+const messages = (contract) => check(contract).map((f) => f.message);
+const pointers = (contract) => check(contract).map((f) => f.pointer);
 
-// A contract fragment is checked as a whole document, so each fixture below is
-// a minimal one: the components and paths it needs, nothing else.
-const contract = (parts) => ({ openapi: '3.1.0', ...parts });
+// A contract fragment is checked as a whole document - derived and rendered
+// like the real one - so each fixture below is a minimal one: the components
+// and paths it needs, nothing else. Copied WITHOUT shared references (which
+// `structuredClone` keeps), because the record is keyed by node identity: a
+// literal shared between a component and an inline branch would be read
+// through the component and pass as rendered (which is also what a YAML anchor
+// does, and is right).
+const contract = (parts) =>
+  JSON.parse(JSON.stringify({ openapi: '3.1.0', paths: {}, ...parts }));
 const object = { type: 'object', properties: { x: { type: 'string' } } };
 const ref = { $ref: '#/components/schemas/Named' };
-const operation = (op) =>
+const operation = (op, schemas = {}, components = {}) =>
   contract({
-    components: { schemas: { Named: object } },
+    components: { schemas: { Named: object, ...schemas }, ...components },
     paths: {
       '/x': { post: { operationId: 'x.create', responses: {}, ...op } },
     },
   });
+const withProperty = (schema, schemas = {}) =>
+  contract({
+    components: {
+      schemas: {
+        Named: object,
+        S: { type: 'object', properties: { a: schema } },
+        ...schemas,
+      },
+    },
+  });
+const json = (schema) => ({ content: { 'application/json': { schema } } });
 
 describe('the contract stays inside what search_docs can render', () => {
   it('holds for the contract this server ships with', () => {
     // The failure message is the finding list itself: a pointer per node and
-    // what the card would get wrong.
-    expect(formatFindings(checkContract(spec))).toBe('');
+    // what the card gets wrong.
+    expect(formatFindings(check(spec))).toBe('');
   });
 
-  // Every construct the contract states and no card shows. A NEW line here is
-  // not a bug — it is a decision: somebody deprecated an operation, added a
-  // `Location` header, set a field `default`, and nothing on the card says so.
+  // Every place the contract states something no card shows, as a position
+  // with the author's names generalised. A NEW line here is not a bug - it is
+  // a decision: somebody set a field `default`, added a `Location` header,
+  // curated a sample in another language, and nothing on the card says so.
   // Read the rendered card, decide whether it must learn the construct, then
   // update this list.
   it('omits exactly these, and knowingly', () => {
-    expect(omissions(spec)).toEqual([
-      'a media type `example` — cards carry one runnable example instead',
-      'a media type `examples` — cards carry one runnable example instead',
-      'a parameter `explode` — wire serialization — the client does it',
-      'a parameter `style` — wire serialization — the client does it',
-      'a response `headers` — response headers — a `Location` on a creation, a rate-limit budget: not shown',
-      'a schema `additionalProperties` — `additionalProperties` next to `properties` — the card lists the declared keys and says nothing of the free-form ones',
-      'a schema `default` — a field `default` — not shown',
-      'a schema `enum` — an `enum` at a component root — the values are not listed there; the ones worth knowing are spelled out by hand in the description, as `EventStatus` does',
-      'a schema `example` — a per-schema example — cards carry one runnable example instead',
-      'a schema `examples` — per-schema examples — cards carry one runnable example instead',
-      'a schema `format: date-time` — an ISO 8601 string — the type is `string`, and the description says which shape',
-      'a schema `format: double` — a number, as the card says',
-      'a schema `format: int64` — an integer, as the card says — the client takes a JS number',
-      'a schema `format: uri` — a URL string — the type is `string`',
-      'a schema `maxLength` — a length constraint — enforced by the API, not shown',
-      'a schema `maximum` — a field `maximum` — not shown',
-      'a schema `minItems` — an array constraint — enforced by the API, not shown',
-      'a schema `minimum` — a field `minimum` — not shown',
-      'a schema `pattern` — a string pattern — enforced by the API, not shown',
-      'a schema `readOnly` — a server-set field, rendered like any other on a response',
-      "a schema `x-additionalPropertiesName` — the generated client's name for a map key",
-      'a security scheme `description` — how to obtain the credential — the payload states the Bearer contract once, up front',
-      'a security scheme `flows` — the OAuth endpoints — scopes are read off the security requirements, and the flow URLs belong to the authorization server',
-      'a security scheme `in` — where a non-Bearer credential goes — such a route is marked as not callable through the client',
-      'a security scheme `name` — the header or query name a non-Bearer scheme uses — such a route is marked as not callable through the client',
-      'an operation `tags` — grouping metadata — `search_docs` ranks, it does not browse',
-      'the document `info` — contract metadata — not part of a card',
-      'the document `servers` — the base URLs — the client holds one, cards give the call',
-      'the document `tags` — grouping metadata — `search_docs` ranks, it does not browse',
-      'the document `x-tagGroups` — reference-site navigation — `search_docs` ranks, it does not browse',
+    expect(omitted(spec)).toEqual([
+      '/components/parameters/*/explode',
+      '/components/parameters/*/schema/additionalProperties',
+      '/components/parameters/*/schema/additionalProperties/maximum',
+      '/components/parameters/*/schema/additionalProperties/minimum',
+      '/components/parameters/*/schema/example',
+      '/components/parameters/*/schema/format:int64',
+      '/components/parameters/*/schema/items/format:int64',
+      '/components/parameters/*/schema/items/pattern',
+      '/components/parameters/*/schema/minItems',
+      '/components/parameters/*/schema/oneOf/*/minimum',
+      '/components/parameters/*/schema/pattern',
+      '/components/parameters/*/schema/properties/*/format:date-time',
+      '/components/parameters/*/schema/properties/*/maximum',
+      '/components/parameters/*/schema/properties/*/minimum',
+      '/components/parameters/*/style',
+      '/components/responses',
+      '/components/schemas/*/additionalProperties',
+      '/components/schemas/*/additionalProperties/x-additionalPropertiesName',
+      '/components/schemas/*/example',
+      '/components/schemas/*/examples',
+      '/components/schemas/*/oneOf/*/properties/*/format:uri',
+      '/components/schemas/*/oneOf/*/properties/*/maxLength',
+      '/components/schemas/*/properties/*/default',
+      '/components/schemas/*/properties/*/format:date-time',
+      '/components/schemas/*/properties/*/format:double',
+      '/components/schemas/*/properties/*/format:int64',
+      '/components/schemas/*/properties/*/format:uri',
+      '/components/schemas/*/properties/*/items/properties/*/format:uri',
+      '/components/schemas/*/properties/*/maxLength',
+      '/components/schemas/*/properties/*/maximum',
+      '/components/schemas/*/properties/*/minItems',
+      '/components/schemas/*/properties/*/minimum',
+      '/components/schemas/*/properties/*/properties/*/additionalProperties/x-additionalPropertiesName',
+      '/components/schemas/*/properties/*/properties/*/examples',
+      '/components/schemas/*/properties/*/properties/*/format:int64',
+      '/components/schemas/*/properties/*/readOnly',
+      '/components/securitySchemes/*/description',
+      '/components/securitySchemes/*/flows',
+      '/components/securitySchemes/*/in',
+      '/components/securitySchemes/*/name',
+      '/info',
+      '/openapi',
+      '/paths/*/delete/responses/*',
+      '/paths/*/delete/responses/*/description',
+      '/paths/*/delete/tags',
+      '/paths/*/delete/x-codeSamples/*/label',
+      '/paths/*/get/responses/*',
+      '/paths/*/get/responses/*/description',
+      '/paths/*/get/tags',
+      '/paths/*/get/x-codeSamples/*',
+      '/paths/*/get/x-codeSamples/*/label',
+      '/paths/*/patch/responses/*',
+      '/paths/*/patch/responses/*/description',
+      '/paths/*/patch/tags',
+      '/paths/*/patch/x-codeSamples/*/label',
+      '/paths/*/post/responses/*',
+      '/paths/*/post/responses/*/content/*/example',
+      '/paths/*/post/responses/*/description',
+      '/paths/*/post/responses/*/headers',
+      '/paths/*/post/tags',
+      '/paths/*/post/x-codeSamples/*/label',
+      '/paths/*/put/responses/*',
+      '/paths/*/put/responses/*/description',
+      '/paths/*/put/tags',
+      '/paths/*/put/x-codeSamples/*/label',
+      '/security',
+      '/servers',
+      '/tags',
+      '/x-tagGroups',
     ]);
   });
 });
 
-// Each block below states a claim the renderer makes, and the fixture that
+// Each block below states something the renderer does, and the fixture that
 // makes the checker fire on its opposite. A checker that cannot fire guards
-// nothing — and one that fires on a shape the renderer DOES handle would be
-// worked around instead of read.
+// nothing - and one that fires on a shape the renderer DOES handle gets worked
+// around instead of read, so the false positives are pinned too.
 describe('a keyword nobody classified fails by default', () => {
-  it('reports a JSON Schema keyword the renderer does not read', () => {
-    // The whole reason this is a table and not an allowlist of "known" words:
-    // these are all valid 2020-12, and every one of them changes what a caller
-    // must send while the card says nothing.
+  it('reports a JSON Schema keyword the renderer never reads', () => {
     for (const keyword of [
-      'anyOf',
       'const',
       'not',
       'if',
@@ -114,11 +170,9 @@ describe('a keyword nobody classified fails by default', () => {
       '$anchor',
     ]) {
       const shape = contract({
-        components: { schemas: { S: { type: 'object', [keyword]: {} } } },
+        components: { schemas: { S: { ...object, [keyword]: {} } } },
       });
-      expect(messages(shape)).toEqual([
-        `\`${keyword}\` — the renderer does not read it; classify it in compat.js before the contract relies on it`,
-      ]);
+      expect(pointers(shape)).toEqual([`/components/schemas/S/${keyword}`]);
     }
   });
 
@@ -128,164 +182,211 @@ describe('a keyword nobody classified fails by default', () => {
     expect(
       messages(
         contract({
-          components: {
-            schemas: { S: { type: 'object', 'x-oa-secret': true } },
-          },
+          components: { schemas: { S: { ...object, 'x-oa-secret': true } } },
         }),
       ),
     ).toEqual([
-      '`x-oa-secret` — an extension the renderer does not read; decide whether a card must show it',
+      '`x-oa-secret` - an extension the renderer does not read; decide whether a card must show it',
     ]);
-  });
-
-  it('reports an unclassified key on an operation, a parameter and the document', () => {
-    expect(messages({ openapi: '3.1.0', speculative: {} })).toEqual([
-      '`speculative` on the document — the renderer does not read it; classify it in compat.js before the contract relies on it',
+    expect(pointers(operation({ 'x-retry': true }))).toEqual([
+      '/paths/~1x/post/x-retry',
     ]);
-    expect(messages(operation({ 'x-retry': true }))).toEqual([
-      '`x-retry` — an extension the renderer does not read; decide whether a card must show it',
+    expect(pointers({ openapi: '3.1.0', paths: {}, speculative: {} })).toEqual([
+      '/speculative',
     ]);
     expect(
-      messages(
-        operation({ parameters: [{ name: 'q', in: 'query', speculative: 1 }] }),
+      pointers(
+        operation({
+          parameters: [
+            {
+              name: 'q',
+              in: 'query',
+              schema: { type: 'string' },
+              speculative: 1,
+            },
+          ],
+        }),
       ),
-    ).toEqual([
-      '`speculative` on a parameter — the renderer does not read it; classify it in compat.js before the contract relies on it',
-    ]);
+    ).toEqual(['/paths/~1x/post/parameters/0/speculative']);
+  });
+
+  it('reports an unclassified key on a security scheme', () => {
+    // Reachability is read off `type` (and `scheme`): a key nobody classified
+    // may be the one that decides whether the `oa` client can authenticate.
+    expect(
+      pointers(
+        operation({ security: [{ k: [] }] }, undefined, {
+          securitySchemes: {
+            k: { type: 'http', scheme: 'bearer', proof: 'dpop' },
+          },
+        }),
+      ),
+    ).toEqual(['/components/securitySchemes/k/proof']);
   });
 });
 
-describe('a keyword the renderer reads elsewhere, in a position it does not', () => {
-  it('reports a `$ref` that does not name a component schema', () => {
-    expect(
-      messages(
-        contract({
-          components: {
-            schemas: {
-              S: {
-                type: 'object',
-                properties: {
-                  a: { $ref: 'shapes.yaml#/Thing' },
-                  b: { $ref: '#/$defs/Thing' },
-                },
-              },
-            },
-          },
-        }),
-      ),
-    ).toEqual([
-      'a `$ref` to shapes.yaml#/Thing — only `#/components/schemas/<Name>` resolves into a named, defined type',
-      'a `$ref` to #/$defs/Thing — only `#/components/schemas/<Name>` resolves into a named, defined type',
+describe('a keyword the renderer reads, and then narrows', () => {
+  it('reports a `$ref` outside the components the renderer follows', () => {
+    expect(pointers(withProperty({ $ref: '#/$defs/Thing' }))).toEqual([
+      '/components/schemas/S/properties/a/$ref',
     ]);
   });
 
-  it('reports keywords sitting beside a `$ref`', () => {
-    // 2020-12 allows it (3.0 did not) and it reads as a refinement; the card
-    // renders the component alone.
-    expect(
-      messages(
-        contract({
-          components: {
-            schemas: {
-              Named: object,
-              S: {
-                type: 'object',
-                properties: {
-                  a: { ...ref, description: 'Refined', default: 2 },
-                },
-              },
-            },
-          },
-        }),
-      ),
-    ).toEqual([
-      'a `$ref` with `description`, `default` beside it — the card renders the referenced component and drops the rest',
-    ]);
+  it('accepts a `description` beside a `$ref`, and omits a `default` there', () => {
+    // 2020-12 allows siblings; `topLevelFields` reads the property's own
+    // description and `resolveType` names the component - both render.
+    const described = withProperty({ ...ref, description: 'Refined' });
+    expect(messages(described)).toEqual([]);
+    const defaulted = withProperty({ ...ref, default: 2 });
+    expect(messages(defaulted)).toEqual([]);
+    expect(omitted(defaulted)).toContain(
+      '/components/schemas/*/properties/*/default',
+    );
   });
 
   it('reports a multi-type schema, but not a nullable one', () => {
-    const multi = (type) =>
-      contract({
-        components: {
-          schemas: { S: { type: 'object', properties: { a: { type } } } },
-        },
-      });
-    expect(messages(multi(['string', 'integer']))).toEqual([
-      '`type: [string, integer]` — only the first non-null type is rendered',
+    expect(messages(withProperty({ type: ['string', 'integer'] }))).toEqual([
+      '`type: [string, integer]` - only the first non-null type is rendered',
     ]);
-    // A nullable type IS rendered — `string | null`.
-    expect(messages(multi(['string', 'null']))).toEqual([]);
+    expect(messages(withProperty({ type: ['string', 'null'] }))).toEqual([]);
   });
 
-  it('reports a format whose rendering nobody decided', () => {
+  it('accepts a nullable component root, now that its head says so', () => {
+    // This one was a finding until `renderComponentDef` learned to render it:
+    // the fields render like any other and the referencing line names the
+    // component, so `(object | null)` on the head is where `null` reaches a
+    // reader. The rendering itself is pinned in operations.test.js.
     expect(
       messages(
-        contract({
-          components: {
-            schemas: {
-              S: {
-                type: 'object',
-                properties: { a: { type: 'string', format: 'password' } },
-              },
-            },
-          },
-        }),
+        withProperty(ref, { Named: { ...object, type: ['object', 'null'] } }),
       ),
+    ).toEqual([]);
+  });
+
+  it('reports a format whose rendering nobody decided, and a binary non-string', () => {
+    expect(
+      messages(withProperty({ type: 'string', format: 'password' })),
     ).toEqual([
-      '`format: password` — decide whether it changes the type the caller must pass, like `binary`, or refines one the card already gives',
+      '`format: password` - decide whether it changes the type the caller must pass, like `binary`, or refines one the card already gives',
+    ]);
+    expect(
+      messages(withProperty({ type: 'integer', format: 'binary' })),
+    ).toEqual([
+      'a `format: binary` on a non-string - the card keeps the declared type, and the client takes `Blob | File`',
     ]);
   });
 
-  it('reports a boolean schema', () => {
-    expect(
-      messages(
-        contract({
-          components: {
-            schemas: { S: { type: 'object', properties: { a: true } } },
-          },
-        }),
-      ),
-    ).toEqual([
-      'a boolean schema (`true`/`false` in place of an object) — it renders as `any`',
+  it('reports `anyOf`, which is searched for a name and rendered `any`', () => {
+    expect(pointers(withProperty({ anyOf: [ref, { type: 'null' }] }))).toEqual([
+      '/components/schemas/S/properties/a/anyOf',
+    ]);
+  });
+
+  it('reports a boolean schema, which the record cannot see', () => {
+    expect(messages(withProperty(true))).toEqual([
+      'a boolean schema (`true`/`false` in place of an object) - it renders as `any`',
     ]);
   });
 });
 
-describe('the same keyword, handled in one position and lossy in another', () => {
-  const inComponentAndProperty = (schema) =>
-    contract({
-      components: {
-        schemas: {
-          Named: object,
-          AtRoot: schema,
-          OnAProperty: { type: 'object', properties: { a: schema } },
+describe('a shape whose reference is read and whose contents never are', () => {
+  it('reports the fields of an object parameter, which the card shows as `object`', () => {
+    const shape = operation({
+      parameters: [
+        {
+          name: 'filter',
+          in: 'query',
+          style: 'deepObject',
+          explode: true,
+          schema: {
+            type: 'object',
+            required: ['from'],
+            properties: { from: { type: 'string' }, to: { type: 'string' } },
+          },
         },
-      },
+      ],
     });
-
-  it('accepts a union at a component root and reports one on a property', () => {
-    // `renderComponentDef` lists a root union's branches; a property renders as
-    // a union of NAMES, so an inline object branch becomes `object`.
-    const shape = inComponentAndProperty({ oneOf: [object, { type: 'null' }] });
-    expect(at(shape, '/AtRoot')).toEqual([]);
-    expect(messages(shape)).toEqual([
-      'an inline union with an object branch — the branch renders as `object`, and its fields are lost',
-    ]);
+    // The 22 `deepObject` filters of the live contract were exactly this, and
+    // this is what the check reported until `deriveParams` started carrying
+    // their fields. What it proves now is the measurement itself: the keys are
+    // read, so nothing is reported.
+    expect(pointers(shape)).toEqual([]);
   });
 
-  it('accepts an `allOf` at a component root and reports one refining a $ref', () => {
-    const shape = inComponentAndProperty({ allOf: [ref, object] });
-    expect(at(shape, '/AtRoot')).toEqual([]);
-    expect(messages(shape)).toEqual([
-      'an `allOf` adding fields to a referenced component — the card names the component, and the added fields are lost',
+  it('still reports an object parameter whose fields reach no card', () => {
+    // The same shape one level further down, where nothing unfolds it: the
+    // values of a map are named by type, never by field.
+    const shape = operation({
+      parameters: [
+        {
+          name: 'filter',
+          in: 'query',
+          schema: {
+            type: 'object',
+            additionalProperties: {
+              type: 'object',
+              properties: { from: { type: 'string' } },
+            },
+          },
+        },
+      ],
+    });
+    expect(pointers(shape)).toEqual([
+      '/paths/~1x/post/parameters/0/schema/additionalProperties/properties/from',
     ]);
+    expect(messages(shape)[0]).toBe(
+      'nothing in it is read: a declared field nothing renders - the object it belongs to reaches the card as a bare `object`',
+    );
+  });
+
+  it('reports an inline object branch of a property union, and a map of inline objects', () => {
+    expect(
+      pointers(withProperty({ oneOf: [object, { type: 'null' }] })),
+    ).toEqual(['/components/schemas/S/properties/a/oneOf/0/properties/x']);
+    expect(
+      pointers(withProperty({ type: 'object', additionalProperties: object })),
+    ).toEqual([
+      '/components/schemas/S/properties/a/additionalProperties/properties/x',
+    ]);
+    // A map of NAMED values renders `Record<string, Named>`.
+    expect(
+      messages(withProperty({ type: 'object', additionalProperties: ref })),
+    ).toEqual([]);
+  });
+
+  it('reports the fields an `allOf` adds to a referenced component', () => {
+    expect(pointers(withProperty({ allOf: [ref, object] }))).toEqual([
+      '/components/schemas/S/properties/a/allOf/1/properties/x',
+    ]);
+    // At a component root the members are merged.
+    expect(
+      messages(
+        contract({
+          components: {
+            schemas: { Named: object, M: { allOf: [ref, object] } },
+          },
+        }),
+      ),
+    ).toEqual([]);
+  });
+
+  it('reports the items of a nullable array of inline objects', () => {
+    // `topLevelFields` unfolds `items` only when `type` is the string `array`.
+    expect(
+      pointers(withProperty({ type: ['array', 'null'], items: object })),
+    ).toEqual(['/components/schemas/S/properties/a/items/properties/x']);
+  });
+
+  it('reports an `enum` beneath a property composition, which no card lists', () => {
+    expect(
+      pointers(withProperty({ allOf: [{ type: 'integer', enum: [1, 2] }] })),
+    ).toEqual(['/components/schemas/S/properties/a/allOf/0/enum']);
   });
 
   it('reports a union that also declares properties', () => {
-    // No component is shaped this way today, and `objectView` would render the
-    // properties and drop the branches without a word.
+    // `objectView` renders the properties and never reads the branches.
     expect(
-      messages(
+      pointers(
         contract({
           components: {
             schemas: {
@@ -298,68 +399,111 @@ describe('the same keyword, handled in one position and lossy in another', () =>
           },
         }),
       ),
+    ).toEqual(['/components/schemas/S/oneOf']);
+  });
+});
+
+describe('a definition nothing on the card leads to', () => {
+  it('reports a body that is a union of components', () => {
+    // `deriveRequest` reads no `oneOf`: the request line names no component,
+    // and both are defined beneath a card that never mentions them.
+    expect(
+      messages(
+        operation(
+          {
+            requestBody: json({
+              oneOf: [ref, { $ref: '#/components/schemas/Other' }],
+            }),
+          },
+          { Other: object },
+        ),
+      ),
     ).toEqual([
-      'a union that also declares `properties` — only the properties render, and the alternatives vanish',
+      '`Named` is defined for this card, and nothing on the card leads to it - the shape that references it renders opaque',
+      '`Other` is defined for this card, and nothing on the card leads to it - the shape that references it renders opaque',
     ]);
   });
 
-  it('accepts a map of named values and reports a map of inline objects', () => {
-    const map = (values) =>
-      contract({
-        components: {
-          schemas: {
-            Named: object,
-            S: { type: 'object', additionalProperties: values },
+  it('reports a response that is a bare array of components', () => {
+    expect(
+      pointers(
+        operation({
+          responses: {
+            200: { description: 'ok', ...json({ type: 'array', items: ref }) },
           },
-        },
-      });
-    expect(messages(map(ref))).toEqual([]);
-    expect(messages(map(object))).toEqual([
-      'a map whose values are inline objects — the values render as `object`, and their fields are lost',
-    ]);
+        }),
+      ),
+    ).toEqual(['/paths/~1x/post']);
   });
 
   it('reports a body wrapped in `allOf` around a component', () => {
     expect(
-      messages(
-        operation({
-          requestBody: {
-            content: { 'application/json': { schema: { allOf: [ref] } } },
-          },
-        }),
+      pointers(operation({ requestBody: json({ allOf: [ref] }) })),
+    ).toEqual(['/paths/~1x/post']);
+    // Named directly, the body line leads to it.
+    expect(messages(operation({ requestBody: json(ref) }))).toEqual([]);
+  });
+});
+
+describe('the direction a field is reached from', () => {
+  const flagged = (flag, value = true) => ({
+    type: 'object',
+    properties: { a: { type: 'string', [flag]: value } },
+  });
+
+  it('reports `readOnly` a request body reaches through a `$ref`', () => {
+    expect(
+      check(
+        operation({ requestBody: json(ref) }, { Named: flagged('readOnly') }),
       ),
     ).toEqual([
-      'a body wrapped in `allOf` around a component — it renders inline, leaving that component defined with no card leading to it',
+      {
+        pointer: '/components/schemas/Named/properties/a/readOnly',
+        message:
+          '`readOnly` on a field the request body of x.create reaches - the card offers a field the API will refuse',
+      },
     ]);
   });
 
-  it('reports `readOnly` a request body reaches, and `writeOnly` a response reaches', () => {
-    const field = (flag) => ({
-      type: 'object',
-      properties: { a: { type: 'string', [flag]: true } },
-    });
-    const both = contract({
-      paths: {
-        '/x': {
-          post: {
-            operationId: 'x.create',
-            requestBody: {
-              content: { 'application/json': { schema: field('readOnly') } },
-            },
-            responses: {
-              200: {
-                description: 'ok',
-                content: { 'application/json': { schema: field('writeOnly') } },
-              },
-            },
+  it('reports `writeOnly` a response reaches, and nothing the other way round', () => {
+    const both = operation(
+      {
+        requestBody: json({ $ref: '#/components/schemas/In' }),
+        responses: {
+          200: {
+            description: 'ok',
+            ...json({ $ref: '#/components/schemas/Out' }),
           },
         },
       },
-    });
-    expect(messages(both)).toEqual([
-      '`readOnly` on a field a request body reaches — the card offers a field the API will refuse',
-      '`writeOnly` on a field a response reaches — the card promises a field that never comes back',
+      { In: flagged('writeOnly'), Out: flagged('readOnly') },
+    );
+    expect(messages(both)).toEqual([]);
+    const wrong = operation(
+      {
+        responses: {
+          200: {
+            description: 'ok',
+            ...json({ $ref: '#/components/schemas/Out' }),
+          },
+        },
+      },
+      { Out: flagged('writeOnly') },
+    );
+    expect(messages(wrong)).toEqual([
+      '`writeOnly` on a field the response of x.create reaches - the card promises a field that never comes back',
     ]);
+  });
+
+  it('does not take `readOnly: false` for a read-only field', () => {
+    expect(
+      messages(
+        operation(
+          { requestBody: json(ref) },
+          { Named: flagged('readOnly', false) },
+        ),
+      ),
+    ).toEqual([]);
   });
 });
 
@@ -368,14 +512,15 @@ describe('operations, parameters and responses', () => {
     expect(
       messages(contract({ paths: { '/x': { get: { responses: {} } } } })),
     ).toEqual([
-      'an operation with no `operationId` — it is skipped, and the route is absent from the catalogue',
+      'nothing in it is read: an operation with no `operationId` - it is skipped, and the route is absent from the catalogue',
     ]);
   });
 
   it('reports a path item that carries parameters or hides behind a $ref', () => {
     expect(
-      messages(
+      pointers(
         contract({
+          components: { pathItems: { Y: {} } },
           paths: {
             '/x': {
               parameters: [
@@ -388,8 +533,9 @@ describe('operations, parameters and responses', () => {
         }),
       ),
     ).toEqual([
-      "parameters declared on the path item — only an operation's own `parameters` are read, so these are missing from every card on this path",
-      'a `$ref` path item — its operations are not read at all, and vanish from the catalogue',
+      '/paths/~1x/parameters',
+      '/paths/~1y/$ref',
+      '/components/pathItems',
     ]);
   });
 
@@ -402,76 +548,18 @@ describe('operations, parameters and responses', () => {
             {
               name: 'filter',
               in: 'query',
-              content: { 'application/json': { schema: object } },
+              content: { 'application/json': { schema: ref } },
             },
           ],
         }),
       ),
     ).toEqual([
-      "a `header` parameter — a card's signature carries `path` and `query` only, so `X-Tenant` is invisible",
-      'a parameter carried as a media type instead of a `schema` — it renders as `any`',
+      "a `header` parameter - a card's signature carries `path` and `query` only, so `X-Tenant` is invisible",
+      'a parameter carried as a media type instead of a `schema` - it renders as `any`',
     ]);
   });
 
-  it('reports two success codes answering with different shapes', () => {
-    const responses = (created) =>
-      operation({
-        responses: {
-          200: {
-            description: 'ok',
-            content: { 'application/json': { schema: ref } },
-          },
-          201: {
-            description: 'created',
-            content: { 'application/json': { schema: created } },
-          },
-        },
-      });
-    expect(messages(responses(ref))).toEqual([]);
-    expect(messages(responses(object))).toEqual([
-      'x.create answers 200 and 201 with different shapes — only the lowest is rendered',
-    ]);
-  });
-
-  it('reports a success body no card can show', () => {
-    expect(
-      messages(
-        operation({
-          responses: {
-            200: {
-              description: 'ok',
-              content: { 'text/csv': { schema: { type: 'string' } } },
-            },
-          },
-        }),
-      ),
-    ).toEqual([
-      'a body in text/csv — only a JSON media type is rendered, so this card shows no response at all',
-    ]);
-  });
-
-  it('reports multipart `encoding`, which decides how a part is sent', () => {
-    expect(
-      omissions(
-        operation({
-          requestBody: {
-            content: {
-              'multipart/form-data': {
-                schema: object,
-                encoding: { x: { contentType: 'image/png' } },
-              },
-            },
-          },
-        }),
-      ),
-    ).toContain(
-      'a media type `encoding` — `encoding` — the per-part content types and headers of a multipart body are not rendered',
-    );
-  });
-});
-
-describe('the reusable objects, checked where they are defined', () => {
-  it('reports a shared parameter once, not once per operation using it', () => {
+  it('reports a shared parameter once, where it is defined', () => {
     const shared = contract({
       components: {
         parameters: {
@@ -499,66 +587,89 @@ describe('the reusable objects, checked where they are defined', () => {
         },
       },
     });
-    expect(checkContract(shared)).toEqual([
-      {
-        pointer: '/components/parameters/Tenant',
-        message:
-          "a `header` parameter — a card's signature carries `path` and `query` only, so `X-Tenant` is invisible",
-      },
-    ]);
+    expect(pointers(shared)).toEqual(['/components/parameters/Tenant/in']);
   });
 
-  it('checks a shared response where it is defined', () => {
-    const shared = contract({
-      components: {
+  it('reports two success codes answering with different shapes, not the same', () => {
+    const responses = (created) =>
+      operation({
         responses: {
-          Made: {
-            description: 'created',
-            content: { 'application/json': { schema: object } },
-            headers: { Location: { schema: { type: 'string' } } },
-          },
+          200: { description: 'ok', ...json(ref) },
+          201: { description: 'created', ...json(created) },
         },
-      },
-      paths: {
-        '/a': {
-          post: {
-            operationId: 'a.create',
-            responses: { 201: { $ref: '#/components/responses/Made' } },
-          },
-        },
-      },
-    });
-    expect(messages(shared)).toEqual([]);
-    expect(omissions(shared)).toContain(
-      'a response `headers` — response headers — a `Location` on a creation, a rate-limit budget: not shown',
-    );
-  });
-
-  it('reports a components container the renderer never opens', () => {
-    expect(
-      messages(contract({ components: { headers: {}, pathItems: {} } })),
-    ).toEqual([
-      'reusable headers — nothing renders a header, so whatever they describe is invisible',
-      'reusable path items — they are reachable only through a `$ref` path item, which the catalogue does not read',
+      });
+    expect(messages(responses(ref))).toEqual([]);
+    expect(messages(responses(object))).toEqual([
+      'a second success response with a different shape - only the lowest is rendered, and the LLM reads the one it happened not to get',
     ]);
   });
 
-  it('reports an unclassified key on a security scheme', () => {
-    // Reachability is read off `type` (and `scheme`): a key nobody classified
-    // may be the one that decides whether the `oa` client can authenticate.
+  it('reports a success body no card can show', () => {
     expect(
       messages(
-        contract({
-          components: {
-            securitySchemes: {
-              k: { type: 'http', scheme: 'bearer', proof: 'dpop' },
+        operation({
+          responses: {
+            200: {
+              description: 'ok',
+              content: { 'text/csv': { schema: { type: 'string' } } },
             },
           },
         }),
       ),
     ).toEqual([
-      '`proof` on a security scheme — the renderer does not read it; classify it in compat.js before the contract relies on it',
+      'a body in text/csv - only a JSON media type is rendered, so this card shows no body at all',
     ]);
+  });
+
+  it('checks the schema of a shared response where the card reads it', () => {
+    // `successBody` follows a 2xx `$ref` into `components.responses`, so what
+    // is inside is read - and checked - like an inline response.
+    expect(
+      pointers(
+        contract({
+          components: {
+            responses: {
+              Made: {
+                description: 'created',
+                ...json({
+                  type: 'object',
+                  properties: { a: { type: 'string', format: 'password' } },
+                }),
+                headers: { Location: { schema: { type: 'string' } } },
+              },
+            },
+          },
+          paths: {
+            '/a': {
+              post: {
+                operationId: 'a.create',
+                responses: { 201: { $ref: '#/components/responses/Made' } },
+              },
+            },
+          },
+        }),
+      ),
+    ).toEqual([
+      '/components/responses/Made/content/application~1json/schema/properties/a/format',
+    ]);
+  });
+
+  it('reports a label for a value the enum does not carry', () => {
+    expect(
+      pointers(
+        contract({
+          components: {
+            schemas: {
+              E: {
+                type: 'integer',
+                enum: [1, 2],
+                'x-enum-descriptions': { 1: 'one', 2: 'two', 3: 'three' },
+              },
+            },
+          },
+        }),
+      ),
+    ).toEqual(['/components/schemas/E/x-enum-descriptions/3']);
   });
 });
 
@@ -578,14 +689,12 @@ describe('what "rendered" means, on the contract itself', () => {
     );
   });
 
-  it('renders a parameter enum, where a component root leaves it to the prose', () => {
+  it('renders an enum on a parameter line and at a component root', () => {
     const card = renderOperation(
       OPERATIONS.find((o) => o.id === 'agendas.events.list'),
       0,
     );
     expect(card).toMatch(/`sort`.*timings\.asc/s);
-    // `EventStatus` is `enum` at a component root: its values reach the reader
-    // through the description, which is why the omission is recorded.
     expect(renderComponentDef('EventStatus')).toContain('1 = Scheduled');
   });
 
@@ -614,7 +723,10 @@ describe('a contract newer than the server rendering it', () => {
     }));
     const warning = contractWarning(findings);
     expect(warning).toContain('7 constructs');
-    expect(warning).toContain('Upgrade `@openagenda/mcp`');
+    // The reader may be talking to a hosted server it does not run, so the
+    // warning says what to distrust, not what to install.
+    expect(warning).toContain('check a call against the API reference');
+    expect(warning).toContain('whoever runs this server installs');
     expect(warning).toContain(
       '/components/schemas/S0: a thing this version does not read',
     );

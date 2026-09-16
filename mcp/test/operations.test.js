@@ -1183,6 +1183,34 @@ describe('enumSchemaOf — resolves the enum through every wrapper', () => {
 });
 
 describe('renderOperation', () => {
+  // A `deepObject` filter (`timings[gte]=…&timings[lte]=…`) is declared as an
+  // object with properties. Rendered as a bare `object`, and compacted into the
+  // names line because nothing marked it notable, it told the caller nothing at
+  // all - the same class of silence as the upload's `file (string)`.
+  it('renders the keys of a structured parameter, and keeps it on a full line', () => {
+    const md = renderOperation(byId('agendas.events.list'), 0);
+    expect(md).toContain('- `timings` (object)');
+    expect(md).toMatch(
+      /- `timings` \(object\).*\n {2}- gte \(string\)\n {2}- lte \(string\)/,
+    );
+    expect(md).toContain('  - key (string, required)');
+    // Never again in the compacted list, where a shape cannot be guessed.
+    const [, compacted = ''] = md.match(/Other optional parameters: (.*)\./) ?? [];
+    const names = compacted.split(', ');
+    for (const name of ['timings', 'createdAt', 'extId', 'age']) {
+      expect(names).not.toContain(name);
+    }
+  });
+
+  it("lists the values a map parameter's entries accept", () => {
+    // `facetSorts` is `Record<string, string>` on the card, so `count`/`alpha`
+    // have nowhere else to appear: the enum sits on the map's VALUES.
+    const md = renderOperation(byId('agendas.events.facets'), 0);
+    expect(md).toMatch(
+      /`facetSorts` \(Record<string, string>\).*one of: count, alpha/,
+    );
+  });
+
   it('renders a rich block (rank 0): signature, params, response, example', () => {
     const md = renderOperation(byId('agendas.events.list'), 0);
     expect(md).toContain('### agendas.events.list');
@@ -1350,6 +1378,16 @@ describe('renderSearch', () => {
 });
 
 describe('renderComponentDef', () => {
+  it('says a component root is nullable, where no field line can', () => {
+    // The fields render like any other object, and every line pointing here
+    // names the component alone - so the head is the only place `null` can
+    // reach a reader.
+    expect(renderComponentDef('AgeRange')).toMatch(
+      /^`AgeRange` \(object \| null\)/,
+    );
+    expect(renderComponentDef('Timing')).toMatch(/^`Timing`(?! \()/);
+  });
+
   it('renders an enum component as a one-line decode table', () => {
     expect(renderComponentDef('AttendanceMode')).toBe(
       '`AttendanceMode` (integer) — How attendees take part. '
