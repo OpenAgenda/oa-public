@@ -49,6 +49,7 @@
     "smoke:oauth": "node scripts/smoke-oauth.js",
     "build": "tsdown",
     "check": "tsc --noEmit",
+    "check:contract": "node scripts/check-contract.js",
     "prepack": "yarn build",
     "pack:mcpb": "npx -y @anthropic-ai/mcpb pack mcpb openagenda.mcpb",
     "test": "yarn build && NODE_OPTIONS=\"--experimental-vm-modules\" jest --runInBand --forceExit"

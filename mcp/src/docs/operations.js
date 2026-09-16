@@ -18,6 +18,8 @@
 import { readFileSync } from 'node:fs';
 import { parse } from 'yaml';
 import MiniSearch from 'minisearch';
+import { log } from '../log.js';
+import { checkContract, contractWarning, formatFindings } from './compat.js';
 
 /**
  * @typedef {object} Param
@@ -81,6 +83,20 @@ import MiniSearch from 'minisearch';
 // so it holds regardless of where the package sits on disk.
 const specUrl = import.meta.resolve('@openagenda/api-spec/openapi.yaml');
 const spec = parse(readFileSync(new URL(specUrl), 'utf8'));
+
+// The contract an INSTALL loads can be newer than any this version was tested
+// against — the dependency is a `^` range — and a construct the renderer does
+// not read makes a card plausible and wrong. So the mismatch is stated, once
+// here and again at the top of every payload, instead of being rendered over.
+// Empty for the contract this repo ships with: a test fails otherwise.
+const UNRENDERABLE = checkContract(spec);
+if (UNRENDERABLE.length) {
+  log.warn(
+    'search_docs renders a contract with %d construct(s) this version does not read:\n%s',
+    UNRENDERABLE.length,
+    formatFindings(UNRENDERABLE),
+  );
+}
 
 const resolveRef = (ref) =>
   ref
@@ -1139,9 +1155,20 @@ const SDK_LEAD = [
  * @param {Operation[]} hits
  */
 export function renderSearch(hits) {
-  if (!hits.length) return [SDK_LEAD, SCHEMAS_FOOTER].join('\n\n---\n\n');
+  const warning = contractWarning(UNRENDERABLE);
+  if (!hits.length) {
+    return [warning, SDK_LEAD, SCHEMAS_FOOTER]
+      .filter(Boolean)
+      .join('\n\n---\n\n');
+  }
   const body = hits.map((op, i) => renderOperation(op, i)).join('\n\n---\n\n');
-  return [SDK_LEAD, body, renderComponentsSection(hits), SCHEMAS_FOOTER]
+  return [
+    warning,
+    SDK_LEAD,
+    body,
+    renderComponentsSection(hits),
+    SCHEMAS_FOOTER,
+  ]
     .filter(Boolean)
     .join('\n\n---\n\n');
 }
