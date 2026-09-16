@@ -33,6 +33,7 @@ import { checkContract, contractWarning, formatFindings } from './compat.js';
  * @property {number} [min]
  * @property {number} [max]
  * @property {Field[]} [fields]       A structured param's own keys (`timings[gte]`).
+ * @property {string} [pattern]       Regex a non-free-form string must match (`near` is `lat,lng`).
  * @property {string[]} [enumAlso]     Types the enum does NOT cover (`threshold` also takes a number).
  * @property {string} description
  *
@@ -323,6 +324,11 @@ function deriveParams(op) {
     if (schema.default !== undefined) param.default = schema.default;
     if (schema.minimum !== undefined) param.min = schema.minimum;
     if (schema.maximum !== undefined) param.max = schema.maximum;
+    // A `pattern` says the string is NOT free-form: `near` is `lat,lng`, `bbox`
+    // four comma-separated floats, `month` a `YYYY-MM`. Same case as a
+    // structured param - the type alone (`string`) lets the caller invent a
+    // shape the API rejects - so the regex travels and makes the param notable.
+    if (schema.pattern) param.pattern = schema.pattern;
     return param;
   });
 }
@@ -947,8 +953,13 @@ function renderParamLine(p) {
   const meta = [];
   if (p.enum) {
     const also = p.enumAlso ? `, or a ${p.enumAlso.join(' / a ')}` : '';
-    meta.push(`one of: ${enumGloss(p.enum, p.enumDescriptions)}${also}`);
+    // On a map the enum constrains the VALUES, not the parameter - which is
+    // where `enumSchemaOf` found it. A bare `one of:` after `Record<string,
+    // string>` reads as the whole parameter being one of two strings.
+    const head = p.type.startsWith('Record<') ? 'each value one of' : 'one of';
+    meta.push(`${head}: ${enumGloss(p.enum, p.enumDescriptions)}${also}`);
   }
+  if (p.pattern) meta.push(`matches ${p.pattern}`);
   if (p.default !== undefined) meta.push(`default ${JSON.stringify(p.default)}`);
   if (p.min !== undefined || p.max !== undefined) {
     meta.push(`range ${p.min ?? '−∞'}…${p.max ?? '∞'}`);
@@ -1044,8 +1055,10 @@ function renderResponse(response) {
 const isNotable = (p) =>
   p.required
   // A structured parameter carries a shape: compacted to its name, the caller
-  // cannot guess the keys it takes.
+  // cannot guess the keys it takes. A patterned string is the same case one
+  // level down - compacted, the caller cannot guess the format it takes.
   || p.fields
+  || p.pattern
   || p.enum
   || p.default !== undefined
   || p.min !== undefined
@@ -1193,7 +1206,8 @@ const SDK_LEAD = [
   'The operations below are the `@openagenda/api-client` npm SDK — the same `oa` '
     + 'client the `execute` tool runs, so code prototyped here ships unchanged in your '
     + 'own site or tool. One-time setup, then call the `oa.*` operations exactly as shown '
-    + 'below (the rare route marked not to go through the client shows its own call):',
+    + 'below (a call shown as a bare `METHOD /path` instead of `oa.*` goes over plain '
+    + 'HTTPS, not through the client):',
   '```ts',
   "import { OpenAgenda, client } from '@openagenda/api-client';",
   "client.setConfig({ baseUrl: 'https://api.openagenda.com/v3', auth: 'oa_pk_…' });",
@@ -1206,6 +1220,19 @@ const SDK_LEAD = [
     + '(`oa_sk_…`, server-only) for writes. The `schemas` zod validators are exported '
     + 'from the package too.',
 ].join('\n');
+
+// A tail entry carries its id, its summary and a call line - nothing of what a
+// card adds, and nothing else in the payload says it can be opened. Searching an
+// id ranks it first (`id` is x3-boosted; a test pins it for every operation):
+// this line points at that way out, naming an entry actually in this tail. Say
+// what searching BUYS rather than what the entry lacks, and keep it conditional:
+// an unconditional "search again" would cost a 30 kB payload for nothing. Reads
+// no contract, so `renderEverything` has nothing to dry-run here.
+function renderCompactNote(hits) {
+  const tail = hits.slice(RICH_RANK_CUTOFF);
+  if (!tail.length) return '';
+  return `The last ${tail.length} entries above show an id, a summary and a call line only. If you need one's parameters, request body, response shape or example, search its id (e.g. \`${tail[0].id}\`).`;
+}
 
 /**
  * Render a full search_docs response: each hit by rank, the component
@@ -1251,6 +1278,7 @@ export function renderSearch(hits) {
     warning,
     SDK_LEAD,
     body,
+    renderCompactNote(hits),
     renderComponentsSection(hits),
     SCHEMAS_FOOTER,
   ]

@@ -68,9 +68,10 @@ export function executeTool(limits, sandboxFacts) {
         "full catalogue with each operation's params, request body, response shape and a runnable example, e.g.:",
         '  oa.agendas.events.list({ path: { agendaUid }, query: { relative: ["upcoming"] } })',
         'A `schemas` namespace (zod validators, prefixed z…) is also available to validate payloads.',
-        'Working with an agenda? Fetch its event form schema first (`oa.agendas.events.schema`) — it',
-        "defines the agenda's topology: its own fields drive stats (the `additionalFields` facet) and",
-        'complete event payloads.',
+        "A call that touches an agenda's additional fields - filling them in an event you write,",
+        "filtering or faceting on them - needs that agenda's event form schema first",
+        '(`oa.agendas.events.schema`): it declares which fields exist and the shape of each value.',
+        'Any other call needs no schema fetch.',
         'Write an async body and `return` the value you want back (JSON-serialised).',
         'Compose freely: fetch, filter and aggregate in one script; return only what you need.',
         'The `oa` client is the `@openagenda/api-client` npm package: code you prototype here '

@@ -718,7 +718,7 @@ export function contractWarning(findings) {
   const shown = findings.slice(0, SHOWN);
   const rest = findings.length - shown.length;
   const many = findings.length > 1;
-  const head = `⚠ This server is rendering an API contract that goes beyond what it understands: ${findings.length} construct${many ? 's' : ''} below ${many ? 'are' : 'is'} not read by this version, so a card may omit or misstate a field. Treat the shapes named below as incomplete and check a call against the API reference before relying on it. The fix is a newer \`@openagenda/mcp\`, which whoever runs this server installs - reading it here does not mean you can.`;
+  const head = `⚠ This server renders ${findings.length} construct${many ? 's' : ''} of the loaded API contract incompletely, so a card may omit or misstate a field. Where a card and a live response disagree on the shapes named below, the response is right.`;
   const lines = shown.map((f) => `  ${f.pointer}: ${f.message}`);
   if (rest) lines.push(`  … and ${rest} more.`);
   return [head, ...lines].join('\n');

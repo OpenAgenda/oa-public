@@ -83,7 +83,6 @@ describe('the contract stays inside what search_docs can render', () => {
       '/components/parameters/*/schema/items/pattern',
       '/components/parameters/*/schema/minItems',
       '/components/parameters/*/schema/oneOf/*/minimum',
-      '/components/parameters/*/schema/pattern',
       '/components/parameters/*/schema/properties/*/format:date-time',
       '/components/parameters/*/schema/properties/*/maximum',
       '/components/parameters/*/schema/properties/*/minimum',
@@ -723,10 +722,12 @@ describe('a contract newer than the server rendering it', () => {
     }));
     const warning = contractWarning(findings);
     expect(warning).toContain('7 constructs');
-    // The reader may be talking to a hosted server it does not run, so the
-    // warning says what to distrust, not what to install.
-    expect(warning).toContain('check a call against the API reference');
-    expect(warning).toContain('whoever runs this server installs');
+    // The reader is an LLM talking to a server it does not run: it cannot
+    // upgrade anything and has no reference to consult - the payload IS its
+    // reference. So the warning offers the one check it can actually perform,
+    // and no advice it cannot act on.
+    expect(warning).toContain('a live response');
+    expect(warning).not.toMatch(/upgrade|install|API reference/i);
     expect(warning).toContain(
       '/components/schemas/S0: a thing this version does not read',
     );
@@ -739,7 +740,7 @@ describe('a contract newer than the server rendering it', () => {
 
   it('reads as one construct when there is one', () => {
     const warning = contractWarning([{ pointer: '/x', message: 'unread' }]);
-    expect(warning).toContain('1 construct below is not read');
+    expect(warning).toContain('1 construct of the loaded API contract');
     expect(warning).not.toContain('… and');
   });
 });

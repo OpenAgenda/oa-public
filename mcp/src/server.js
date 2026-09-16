@@ -200,7 +200,7 @@ export function createServer({
         'Compose `execute` bodies from `search_docs` results: operation names and '
         + 'parameters are not guessable from convention. Call it before your first '
         + '`execute`; the catalogue is stable, so earlier results stay valid — search '
-        + 'again only when you need operations you have not yet seen documented.',
+        + 'again only for an operation whose parameters you have not yet seen.',
     },
   );
 

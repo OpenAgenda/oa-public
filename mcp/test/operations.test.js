@@ -1202,6 +1202,22 @@ describe('renderOperation', () => {
     }
   });
 
+  // A `pattern` says the string is not free-form. Compacted to its name, such a
+  // param invited a plausible wrong guess: `bbox` is four floats in an order the
+  // name does not give, and its `west,south,east,north` gloss lived only in the
+  // description the compacted line drops. Two small models guessed `near` right
+  // by convention, and this author guessed it wrong - which is the whole point.
+  it('keeps a patterned string on a full line, with the format it must match', () => {
+    const md = renderOperation(byId('agendas.events.list'), 0);
+    expect(md).toMatch(/- `near` \(string\).*\[matches \^/);
+    // The gloss the compacted line used to swallow is what actually saves the
+    // caller; the regex alone would not say which corner comes first.
+    expect(md).toContain('`west,south,east,north`');
+    const [, compacted = ''] = md.match(/Other optional parameters: (.*)\./) ?? [];
+    const names = compacted.split(', ');
+    for (const name of ['near', 'bbox']) expect(names).not.toContain(name);
+  });
+
   it('does not let a partial enum read as the whole type', () => {
     // `threshold` is `oneOf: [enum(off, auto), number]`. A bare `one of:` says
     // those two values are all there is, and hides the absolute score the
@@ -1284,6 +1300,32 @@ describe('renderSearch', () => {
     // Precedes the first operation card, not buried after the catalogue.
     expect(text.indexOf('@openagenda/api-client')).toBeLessThan(
       text.indexOf('### '),
+    );
+  });
+
+  // A tail entry carries an id, a summary and a call line - none of what a card
+  // adds. An LLM that treats it as documented could call the operation without
+  // ever seeing its parameters. Searching the id ranks it first, so the way out
+  // exists — but nothing said so. Pin the pointer, that it names an entry in the
+  // tail, and that it stays conditional (an unconditional "search again" would
+  // buy a 30 kB payload for nothing).
+  it('tells the reader the compact tail entries open, and how', () => {
+    const hits = searchOperations('what is happening this weekend');
+    const text = renderSearch(hits);
+    const tail = hits.slice(3);
+    expect(tail.length).toBeGreaterThan(0);
+    expect(text).toContain(`search its id (e.g. \`${tail[0].id}\`)`);
+    expect(text).toMatch(/If you need/);
+    // The escape hatch it points at has to work for every operation, or the
+    // sentence sends the model somewhere it cannot arrive.
+    for (const op of OPERATIONS) {
+      expect(searchOperations(op.id).indexOf(op)).toBeLessThan(3);
+    }
+  });
+
+  it('says nothing about a tail when every hit got a full card', () => {
+    expect(renderSearch(searchOperations('facettes'))).not.toContain(
+      'entries above',
     );
   });
 
