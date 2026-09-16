@@ -33,6 +33,9 @@ Or point any OpenAPI tooling at `node_modules/@openagenda/api-spec/openapi.yaml`
   nothing here imports the MCP, and a standalone install of this package never
   runs it.
 - `yarn lint` — `@redocly/cli lint` over the contract.
+- `yarn test` — an alias for `yarn validate`: for a contract package, being
+  well-formed and renderable IS the test, and it is what CI runs across
+  workspaces.
 
 ## Conventions
 

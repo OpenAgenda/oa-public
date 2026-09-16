@@ -21,6 +21,7 @@
     "./package.json": "./package.json"
   },
   "scripts": {
+    "test": "yarn validate",
     "validate": "node scripts/validate.js && yarn workspace @openagenda/mcp check:contract",
     "lint": "npx --yes @redocly/cli lint openapi.yaml"
   },
