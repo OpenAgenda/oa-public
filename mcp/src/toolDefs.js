@@ -14,13 +14,31 @@ import { z } from 'zod';
 // search_docs — progressive disclosure: find the right operation + how to call
 // it before writing code. Pure metadata, no network, no side effects (hence
 // readOnly + closed-world).
+//
+// The description says what the tool RETURNS, and says it completely. "Find the
+// operations relevant to a question" described a filter handing back a subset;
+// the tool is a ranker that scores the catalogue and returns everything it
+// matched, the top hits in full and the rest named. It also promised only
+// "signatures, parameters and examples" while the payload carries a request
+// body and a response shape, and said nothing at all of the tail.
+//
+// What this wording is NOT: a cure for a caller that searches several times.
+// That was the hypothesis - a filter framing invites fanning out paraphrases -
+// and an A/B measured it dead. 120 runs on the production API, three models,
+// ten tasks, arms interleaved: first-turn searches went 0.90 -> 0.90, 2.40 ->
+// 2.40, 1.15 -> 1.05. The 30B model still fires three parallel searches on
+// seven tasks of ten under both wordings. Correctness was identical. So this
+// stands on being true, and nothing else; do not re-derive a behavioural claim
+// from it.
 export const searchDocsTool = {
   name: 'search_docs',
   config: {
     title: 'Search OpenAgenda API docs',
     description:
-      'Find the OpenAgenda v3 operations relevant to a question. Returns '
-      + 'operation signatures, parameters and examples to use from the `execute` tool.',
+      'Rank the OpenAgenda v3 operations against a question. A single call returns '
+      + 'the complete result: the top hits in full (signature, parameters, request '
+      + 'body, response shape, and a runnable example for the `execute` tool), and '
+      + 'every other match as a name, a summary and a call line.',
     inputSchema: {
       query: z
         .string()

@@ -65,6 +65,18 @@ describe('buildServerCard', () => {
     );
   });
 
+  it('promises search_docs returns one complete result, not a subset to refine', () => {
+    // Framed as a filter ("find the operations relevant to a question"), the
+    // tool reads like a web search, and a reader widens the net by rephrasing -
+    // paying for several payloads to reach one answer. It ranks and returns
+    // everything it matched, so a second phrasing uncovers nothing.
+    const search = card.tools.find((t) => t.name === 'search_docs');
+    expect(search.description).not.toMatch(/\bFind\b[^.]*\brelevant\b/);
+    expect(search.description).toMatch(/complete result/);
+    // The tail is named, or an entry the reader cannot see reads as a gap.
+    expect(search.description).toMatch(/call line/);
+  });
+
   it('refuses to build without OAuth config (stdio has no well-known)', () => {
     expect(() =>
       buildServerCard({ config: loadConfig({ OA_API_KEY: 'k' }) })).toThrow(/OAuth/);

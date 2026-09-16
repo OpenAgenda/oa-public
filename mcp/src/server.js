@@ -196,11 +196,19 @@ export function createServer({
   const server = new McpServer(
     { name: SERVICE_NAME, version: pkg.version },
     {
+      // When to search AGAIN is keyed on what the reader still HAS, not on what
+      // it was once shown. "Parameters you have not yet seen" is a fact about
+      // history, and history is the one thing a client can lose: a context that
+      // has been compacted or trimmed no longer holds the cards, while the model
+      // has still "seen" them - so the rule forbade the single search that would
+      // have recovered them. Availability is the property the reader can
+      // actually check.
       instructions:
         'Compose `execute` bodies from `search_docs` results: operation names and '
         + 'parameters are not guessable from convention. Call it before your first '
-        + '`execute`; the catalogue is stable, so earlier results stay valid — search '
-        + 'again only for an operation whose parameters you have not yet seen.',
+        + '`execute`; the catalogue is stable, so a result you still have stays '
+        + 'valid. Search again when the operation you need is not documented in '
+        + 'front of you.',
     },
   );
 

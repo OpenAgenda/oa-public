@@ -91,6 +91,17 @@ describe('MCP server', () => {
       );
     });
 
+    // A context that has been compacted no longer holds the cards, though the
+    // model has still SEEN them. Keyed on history, the rule forbade the one
+    // search that recovers them; it has to be keyed on what is still there.
+    it('keys a second search on what is still in context, not on what was once shown', async () => {
+      ({ client } = await connect());
+      const instructions = client.getInstructions();
+      expect(instructions).not.toMatch(/not yet seen|already seen/);
+      expect(instructions).toMatch(/still have/);
+      expect(instructions).toMatch(/not documented in front of you/);
+    });
+
     it('marks search_docs read-only; execute is NOT (runs arbitrary code) and is open-world', async () => {
       ({ client } = await connect());
       const { tools } = await client.listTools();
