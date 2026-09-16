@@ -1,5 +1,66 @@
 # @openagenda/api-spec
 
+## 0.4.0
+
+### Minor Changes
+
+- [#398](https://github.com/OpenAgenda/oa/pull/398) [`8b03d1a`](https://github.com/OpenAgenda/oa/commit/8b03d1a35313201ad67d627418902872a03f93dd) Thanks [@clement180](https://github.com/clement180)! - Declare `Event.offersAggregate` and its `OffersAggregate` schema.
+
+  Additive and nullable: absent from an event with no ticketing catalogue — the
+  overwhelming majority, which answers exactly as before — and present with either
+  half possibly `null` as soon as a catalogue is there.
+
+  Derived at read time and never stored — the availability half has to be,
+  since a sale window elapses between two connector polls and a stored
+  status goes stale on its own.
+
+- [#377](https://github.com/OpenAgenda/oa/pull/377) [`7d463dc`](https://github.com/OpenAgenda/oa/commit/7d463dcceecc06098d87e778c09efa6fa109d4c9) Thanks [@clement180](https://github.com/clement180)! - Declare `Timing.id`, the stable per-occurrence identifier.
+
+  Additive and optional: an occurrence only gains an identifier when the event is
+  written, so events untouched since the feature shipped carry none. Six
+  characters in the Crockford base32 alphabet, which the `pattern` pins to exactly
+  what the write path accepts.
+
+  `Timing` is `additionalProperties: false` and is also the schema behind
+  `firstTiming` / `lastTiming` / `nextTiming`, so until this declaration every v3
+  event write response carrying an identifier failed the contract it publishes.
+
+- [#221](https://github.com/OpenAgenda/oa/pull/221) [`9ea8905`](https://github.com/OpenAgenda/oa/commit/9ea89054f0f866da4bb1cb4a48410c27db8894b8) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Accept `image: { url }` on v3 event writes, in addition to `image: { ref }` and `null`. The `url` is a publicly reachable `http(s)` image the server retrieves and stores like a staged upload. A URL that is malformed, not `http(s)`, carries credentials, is not publicly reachable, cannot be retrieved, is not a valid image, or is larger than the size limit is rejected with `422`.
+
+- [#236](https://github.com/OpenAgenda/oa/pull/236) [`bc7984b`](https://github.com/OpenAgenda/oa/commit/bc7984bc39d9d0aecd652bf9861eaee7c4bb7ee6) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Add the out-of-band upload flow: `POST /agendas/{agendaUid}/uploads/ticket` (`agendas.uploads.createTicket`) authorizes the upload and returns an `UploadDescriptor` (`uploadUrl`, a short-lived single-use `ticket`, and the header/field to use); the caller then pushes the LOCAL file's raw bytes to `POST /uploads/staged` (`uploads.staged`) over HTTPS — without base64 in the request body — and attaches the returned `ref` with `image: { ref }`. The staged upload is authorized by the `X-Upload-Ticket` header (a single-use ticket, no account credential); both operations answer `503` (`service_unavailable`) when upload staging is not configured. For an already-online image, `image: { url }` still needs no upload.
+
+- [#221](https://github.com/OpenAgenda/oa/pull/221) [`f45f9b6`](https://github.com/OpenAgenda/oa/commit/f45f9b6808ba90cb44f49938b0e5c0fda33bfb03) Thanks [@bertho-zero](https://github.com/bertho-zero)! - v3 event writes: attach custom `file`/`image` form-schema fields by reference.
+  Under `additionalFields`, a `file`/`image` field accepts `{ ref, name? }` (a
+  staged upload from `POST /agendas/{uid}/uploads`, `name` being the original
+  filename) or `null` to clear it. On read the field returns its stored
+  `{ originalName, extension, filename }` descriptor.
+
+- [#221](https://github.com/OpenAgenda/oa/pull/221) [`c5f74f6`](https://github.com/OpenAgenda/oa/commit/c5f74f68ce6fd42723bc6e5c969d1fac4a2dd503) Thanks [@bertho-zero](https://github.com/bertho-zero)! - v3 event writes: accept an image by reference. `EventInput`/`EventPatch` now
+  accept `image` as an `ImageInput` — `{ ref }` to attach a freshly-staged upload
+  (the ref returned by `POST /agendas/{uid}/uploads`), or `null` to clear it. The
+  read `Image` (with its generated size variants) is unchanged.
+
+- [#230](https://github.com/OpenAgenda/oa/pull/230) [`087b12e`](https://github.com/OpenAgenda/oa/commit/087b12ef0488b512b4199f653224c5d7d188a6db) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Rework the v3 `Image` schema into a clean responsive shape served on demand from a single source object via Thumbor (behind KeyCDN). The v2 internals (`filename`, `base`, `variants`, `size`) are removed; an event image now carries `credits`, `width`/`height` (intrinsic source dimensions, a no-upscale cap), `src` (a ready-to-use default rendition URL — a naive `<img src>` just works), `srcTemplate` (a URL with a `{geo}` placeholder to substitute with a geometry — `{W}x{H}` with `0` meaning proportional on that axis, optionally with `/smart` appended or `fit-in/` prefixed), and `srcset` (ready-made proportional widths, never upscaled past the source, aligned on Next's `deviceSizes`). URLs are built natively from config (the CDN host + loader bucket), not from a stored base URL. All six keys are always present (`required`), matching `ImageRef`, so the generated zod validator now rejects a missing key rather than treating it as optional. See `docs/design-thumbor-on-demand-images.md`. The full `Agenda` (and its list/me shapes) and `Location` `image` now carry the same responsive `Image` object instead of a scalar URL. The lightweight `AgendaRef`/`SourceAgendaRef` embedded in events (and provenance facet buckets) carry a new `ImageRef` object — `{ src, srcTemplate }` — instead of a scalar URL: a ready-to-use `src` plus the `{geo}` template, without the full responsive kit (a ref has no intrinsic dimensions, so no `srcset`/`width`/`height`); a client wanting the full `Image` follows the ref to its agenda endpoint.
+
+- [#221](https://github.com/OpenAgenda/oa/pull/221) [`ba35930`](https://github.com/OpenAgenda/oa/commit/ba35930a2722b27ead1d691bddfeacfc5cb70b34) Thanks [@bertho-zero](https://github.com/bertho-zero)! - v3 media surface. Add the `POST /agendas/{uid}/uploads` endpoint to the contract
+  — it accepts a media file as `multipart/form-data`, validates its real type
+  (by content) and size, stores it, and returns a `ref` to attach on an event
+  write. Regenerate the SDK so it exposes `oa.agendas.uploads.create`, the
+  `ImageInput` image-by-reference shape, and the custom `file`/`image` attach
+  under `additionalFields`.
+
+### Patch Changes
+
+- [#446](https://github.com/OpenAgenda/oa/pull/446) [`9e158bd`](https://github.com/OpenAgenda/oa/commit/9e158bd1dc50c20ed1c4201346561ffc37d39862) Thanks [@bertho-zero](https://github.com/bertho-zero)! - The facets endpoint described a shape that only some of its facets have.
+
+  `FacetResults.facets` read "Each value is an array of `{ value, count }` buckets", which the properties right below it contradict: `viewport` and `timespan` are single objects or `null`, `additionalFields` and `additionalFieldMetrics` are keyed records, and the provenance and `locations` facets carry `{ agenda, count }` and `{ location, count }`. A reader following the summary rather than the properties writes the wrong destructuring. It now names no facet at all - the properties below define the shapes, and the `facets` parameter describes the families - and it states what a property list cannot: a requested facet is always present, a facet that was not requested is absent.
+
+  The same sentence stood twice more on the same card, and both are gone too. The operation description said "No event data is returned - only `{ value, count }` buckets per facet"; the `facets` parameter opened with "Each returns an array of buckets over the filtered events", then spent the rest of its own paragraph listing the families that do not (a bounding box, a `{ first, last }` span, two keyed records, a dense daily grid).
+
+  What "empty" means is now stated as it actually is, which took a measurement rather than a reading. Against the live API, with a filter matching zero events: the bucket lists answer `[]`, `viewport` and `timespan` answer `null`, `additionalFieldMetrics` answers `{}` - but `dateRanges` answers its full 31-bucket month with every count at zero, and `additionalFields` answers one entry per readable agenda field. An earlier draft of this description promised the empty-container form for all of them, and was wrong for two families out of seven; the contract already said so correctly, twenty lines above, about the dense daily grid.
+
+  Found by an agent reading the MCP's card for this operation and reporting the contradiction on its own.
+
 ## 0.3.0
 
 ### Minor Changes

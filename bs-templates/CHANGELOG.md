@@ -1,5 +1,25 @@
 # Change Log
 
+## 2.6.2
+
+### Patch Changes
+
+- [#321](https://github.com/OpenAgenda/oa/pull/321) [`0674eea`](https://github.com/OpenAgenda/oa/commit/0674eea84b1ceda8027042d08585161d34fae1ad) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Import the `@openagenda/react-filters` stylesheet at the end of `compiled/main.scss`, after bootstrap. That package stopped injecting its rules at runtime, so the filter components rendered in the admin — active filter badges, choice filter search, map — would otherwise lose their styles.
+
+- [#276](https://github.com/OpenAgenda/oa/pull/276) [`0eef788`](https://github.com/OpenAgenda/oa/commit/0eef78859859f816f27c4c1ba5ceed35dcd93fc1) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Require React 19.2.8, up from 19.2.2 (19.1.0 for `@openagenda/widgets`).
+
+  React 19.2.3 through 19.2.8 are all React Server Components hardening: DoS mitigations for Server Actions, cycle protections, type hardening and a fix for `FormData` entries dropped from Server Actions. Nothing in these packages' own code changes.
+
+  The bump is `minor` wherever a `dependencies` or `peerDependencies` floor moves, since it narrows what consumers may install; `patch` where only `devDependencies` are involved. Consumers already on React 19.2.8 or later are unaffected.
+
+- [#270](https://github.com/OpenAgenda/oa/pull/270) [`903ab34`](https://github.com/OpenAgenda/oa/commit/903ab34745418c627c13cc126a0016bd6a49c84b) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Align the build toolchain with the versions `@openagenda/agenda-portal` moved to, so the monorepo resolves a single copy of each. Build-time dependencies only — no runtime or API change — but the published bundles are produced by a newer webpack.
+
+  `webpack` 5.89 → 5.109, `webpack-cli` 5 → 7, `sass` 1.69/1.83 → 1.102, `sass-loader` 10 → 17, `babel-loader` 9 → 10, `webpackbar` 5.0.0-3 → 7, `terser-webpack-plugin` → 5.6.1, `source-map-loader` 2 → 5, `style-loader` → 4.
+
+  `webpackbar` was the blocker: the 5.0.0-3 prerelease passes options that webpack 5.109's tightened `ProgressPlugin` schema rejects, which broke the build outright. In `@openagenda/react-filters` the progress bar sits behind `process.stdout.isTTY`, so this would have failed in a developer's terminal while CI stayed green.
+
+  `@openagenda/react-filters` also gains an explicit `style-loader` devDependency: its Storybook config used the loader while relying on it being hoisted from another workspace.
+
 ## 2.6.1
 
 ### Patch Changes

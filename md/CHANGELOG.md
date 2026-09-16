@@ -1,5 +1,15 @@
 # @openagenda/md
 
+## 2.0.2
+
+### Patch Changes
+
+- [#282](https://github.com/OpenAgenda/oa/pull/282) [`e0d6bfc`](https://github.com/OpenAgenda/oa/commit/e0d6bfcfb51628d469e5cc2936d2fa8de75645e5) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Move Jest from 29.7 to 30.4.2, along with `babel-jest`, `@jest/globals` and `jest-environment-jsdom` (30.4.1). Development tooling only — no runtime or API change, and nothing in the published output differs.
+
+  Jest 30 supports `import.meta.filename` and `import.meta.dirname` natively, so the local patch these packages relied on (`jest-runtime@29.7.0`) is removed along with its `resolutions` entry.
+
+- [#273](https://github.com/OpenAgenda/oa/pull/273) [`75e2a2f`](https://github.com/OpenAgenda/oa/commit/75e2a2f48a5ba8f8cffa925ce608b6e70ddc337c) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Adjust a test expectation to DOMPurify's attribute serialisation. Since 3.4.12 it emits `href` before `target`, where it previously emitted `target` first. Semantically identical HTML — no change to what the package produces or to its API.
+
 ## 2.0.1
 
 ### Patch Changes

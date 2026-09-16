@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/react",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -67,11 +67,11 @@
     "@fortawesome/free-brands-svg-icons": "^6.6.0",
     "@fortawesome/free-regular-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.3",
-    "@openagenda/common-labels": "^2.0.0",
-    "@openagenda/mails": "^6.0.2",
-    "@openagenda/react-filters": "^2.13.8",
-    "@openagenda/react-shared": "^3.0.1",
-    "@openagenda/uikit": "^0.2.0",
+    "@openagenda/common-labels": "^2.0.1",
+    "@openagenda/mails": "^6.0.3",
+    "@openagenda/react-filters": "^3.0.0",
+    "@openagenda/react-shared": "^3.1.0",
+    "@openagenda/uikit": "^0.3.0",
     "base64-js": "^1.5.1",
     "ky": "^1.7.2",
     "lodash": "^4.17.21",
@@ -82,8 +82,8 @@
     "swr": "^2.1.1"
   },
   "devDependencies": {
-    "@openagenda/eslint-config": "^2.1.0",
-    "@openagenda/intl": "^2.0.0",
+    "@openagenda/eslint-config": "^2.2.0",
+    "@openagenda/intl": "^2.1.0",
     "@openagenda/tsconfig": "^0.0.0",
     "@storybook/addon-webpack5-compiler-babel": "^4.0.1",
     "@storybook/react-webpack5": "^10.5.7",

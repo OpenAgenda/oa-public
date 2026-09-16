@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.2.2
+
+### Patch Changes
+
+- [#282](https://github.com/OpenAgenda/oa/pull/282) [`e0d6bfc`](https://github.com/OpenAgenda/oa/commit/e0d6bfcfb51628d469e5cc2936d2fa8de75645e5) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Move Jest from 29.7 to 30.4.2, along with `babel-jest`, `@jest/globals` and `jest-environment-jsdom` (30.4.1). Development tooling only — no runtime or API change, and nothing in the published output differs.
+
+  Jest 30 supports `import.meta.filename` and `import.meta.dirname` natively, so the local patch these packages relied on (`jest-runtime@29.7.0`) is removed along with its `resolutions` entry.
+
+- [#262](https://github.com/OpenAgenda/oa/pull/262) [`adf3653`](https://github.com/OpenAgenda/oa/commit/adf36534bde6e3590951e0b27649fb04e5c27e61) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Bump the Sentry (`@sentry/*` → 10.67) and OpenTelemetry (`@opentelemetry/*` → 2.10 stable / 0.221 experimental) dependencies. Adapt to the `@opentelemetry/sdk-logs` breaking change where `BatchLogRecordProcessor` now takes an options object (`{ exporter }`) instead of a positional exporter.
+
 ## 1.2.1
 
 ### Patch Changes

@@ -1,5 +1,65 @@
 # Change Log
 
+## 7.0.0
+
+### Major Changes
+
+- [#269](https://github.com/OpenAgenda/oa/pull/269) [`56b8f61`](https://github.com/OpenAgenda/oa/commit/56b8f61580f6cde92c9d4cf57cd14b6a91945703) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Update the whole webpack toolchain to its latest majors and declare the Node floor it implies.
+
+  **Breaking — Node >= 22.15.0 is now required** (`engines` field added, previously absent). This is the floor imposed by `webpack-dev-server` 6; `webpack-cli` 7 and `webpack-dev-middleware` 8 require >= 20.9. Node 20 reached end of life in April 2026.
+
+  Bumped: `webpack` 5.89 → 5.109, `webpack-cli` 5 → 7, `webpack-dev-server` 4 → 6, `webpack-dev-middleware` 4 → 8, `webpack-hot-middleware` → 2.26, `sass` 1.69 → 1.102, `sass-loader` 12 → 17, `babel-loader` 9 → 10, `css-minimizer-webpack-plugin` 5 → 8, `copy-webpack-plugin` 13 → 14, `mini-css-extract-plugin` → 2.10, `css-loader` → 7.1.4, `string-replace-loader` → 3.3.
+
+  No portal-facing configuration change is needed: the `devServer` options in use (`port`, `headers`, `compress`) are unchanged in v6, `webpack serve --hot` still works, and `webpack-dev-middleware`'s `publicPath` option is still supported. `sass-loader` 17 drops the legacy Sass JS API, but the SCSS chain (`resolve-url-loader` included) compiles unchanged on the modern API.
+
+  Stop compilation warnings from taking over the browser in dev. `sass-loader`'s legacy API reported Sass deprecations through webpack's infrastructure logging (terminal only); the modern API emits them as real module warnings, so the 52 deprecations Bootstrap 4 and our own `@import`s produce started covering the portal with a full-screen dev-server overlay on every rebuild. The overlay is now scoped to `{ errors: true, warnings: false, runtimeErrors: true }` — warnings remain fully reported in the terminal, they just no longer hide the page. Errors and runtime errors still take over the screen.
+
+  Also fix the one deprecation that was actually ours: `darken()` → `color.adjust()` in `boot/sass/_header.scss`.
+
+  Note that `sass` 1.102 serializes some computed colors as `rgb(90%, 90%, 90%)` where 1.69 emitted hex. This is cosmetic and renders identically; `darken()` and `color.adjust()` were verified to produce byte-identical output.
+
+  Removed two dependencies:
+
+  - `style-loader`, which was declared but referenced nowhere — the CSS chain goes through `MiniCssExtractPlugin.loader`.
+  - `clean-webpack-plugin`, unmaintained and peer-capped at `webpack < 6`, replaced by webpack's built-in `output.clean` (already used by `bin/webpack.server.js`).
+
+  Pin `experiments.typescript` off in the four shipped webpack configs. Left on its `"auto"` default, webpack enables its built-in TypeScript support on Node >= 22.6, which activates enhanced-resolve's `TsconfigPathsPlugin`; that plugin walks up the tree and hard-fails on the `tsconfig.json` shipped by several transitive dependencies (`side-channel`, `hasown`, `es-set-tostringtag`) whose `extends` target is a devDependency that is never installed. Pinning it off also makes builds identical across the Node versions portals run on.
+
+  As a side effect, `bundle-server` no longer fails to minify an `i18n/index.js` that uses import attributes (`with { type: 'json' }`).
+
+### Minor Changes
+
+- [#276](https://github.com/OpenAgenda/oa/pull/276) [`0eef788`](https://github.com/OpenAgenda/oa/commit/0eef78859859f816f27c4c1ba5ceed35dcd93fc1) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Require React 19.2.8, up from 19.2.2 (19.1.0 for `@openagenda/widgets`).
+
+  React 19.2.3 through 19.2.8 are all React Server Components hardening: DoS mitigations for Server Actions, cycle protections, type hardening and a fix for `FormData` entries dropped from Server Actions. Nothing in these packages' own code changes.
+
+  The bump is `minor` wherever a `dependencies` or `peerDependencies` floor moves, since it narrows what consumers may install; `patch` where only `devDependencies` are involved. Consumers already on React 19.2.8 or later are unaffected.
+
+### Patch Changes
+
+- [#321](https://github.com/OpenAgenda/oa/pull/321) [`895171d`](https://github.com/OpenAgenda/oa/commit/895171d0fcfbe2b25241698a161e24d23ad67e8a) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Import the `@openagenda/react-filters` stylesheet from `sass/main.scss`. That package stopped injecting its rules at runtime, so the filters would otherwise render unstyled.
+
+  **A portal with its own sass file has to add the same line**, after bootstrap:
+
+  ```scss
+  @import '@openagenda/react-filters/style';
+  ```
+
+  It sits after bootstrap because those rules overrule `.btn`, `.badge` and `.form-control` by source order rather than by specificity — the position emotion used to hold at runtime, so existing overrides keep working.
+
+- [#282](https://github.com/OpenAgenda/oa/pull/282) [`e0d6bfc`](https://github.com/OpenAgenda/oa/commit/e0d6bfcfb51628d469e5cc2936d2fa8de75645e5) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Move Jest from 29.7 to 30.4.2, along with `babel-jest`, `@jest/globals` and `jest-environment-jsdom` (30.4.1). Development tooling only — no runtime or API change, and nothing in the published output differs.
+
+  Jest 30 supports `import.meta.filename` and `import.meta.dirname` natively, so the local patch these packages relied on (`jest-runtime@29.7.0`) is removed along with its `resolutions` entry.
+
+- Updated dependencies [[`e0d6bfc`](https://github.com/OpenAgenda/oa/commit/e0d6bfcfb51628d469e5cc2936d2fa8de75645e5), [`adf3653`](https://github.com/OpenAgenda/oa/commit/adf36534bde6e3590951e0b27649fb04e5c27e61), [`0eef788`](https://github.com/OpenAgenda/oa/commit/0eef78859859f816f27c4c1ba5ceed35dcd93fc1), [`b32510d`](https://github.com/OpenAgenda/oa/commit/b32510d2625563744bdfbf88946f07674de158c7), [`903ab34`](https://github.com/OpenAgenda/oa/commit/903ab34745418c627c13cc126a0016bd6a49c84b), [`ffc274e`](https://github.com/OpenAgenda/oa/commit/ffc274eab4d1173d5f5463b6db345cfc47383fb8), [`8ec6dc2`](https://github.com/OpenAgenda/oa/commit/8ec6dc23471a3b60fb14fedad7bf647741c071b5), [`5aafa09`](https://github.com/OpenAgenda/oa/commit/5aafa0995e9a91b4df187536c559610121dc8c44), [`75e2a2f`](https://github.com/OpenAgenda/oa/commit/75e2a2f48a5ba8f8cffa925ce608b6e70ddc337c), [`5b06981`](https://github.com/OpenAgenda/oa/commit/5b06981f2da0f07a29b37fc299da6bcb47f6db97), [`7501a67`](https://github.com/OpenAgenda/oa/commit/7501a677b9bd5e4d41406be9fb7e63c7352dd845), [`570c34b`](https://github.com/OpenAgenda/oa/commit/570c34ba1b093196268e309f6745f0fad080869b), [`a5214af`](https://github.com/OpenAgenda/oa/commit/a5214afb4357242e5b65490b13e87547fe590e07)]:
+  - @openagenda/logs@1.2.2
+  - @openagenda/md@2.0.2
+  - @openagenda/react-filters@3.0.0
+  - @openagenda/react-shared@3.1.0
+  - @openagenda/intl@2.1.0
+  - @openagenda/react-portal-ssr@1.2.0
+  - @openagenda/babel-preset@2.0.1
+
 ## 6.15.2
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # Change Log
 
+## 2.2.0
+
+### Minor Changes
+
+- [#314](https://github.com/OpenAgenda/oa/pull/314) [`0bd84fb`](https://github.com/OpenAgenda/oa/commit/0bd84fb6c0e9fbb0c053d12583c7438ed0ffa155) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Let `no-extra-parens` accept the parentheses Prettier puts around a logical expression used as a ternary operand, via `ternaryOperandBinaryExpressions: false`.
+
+  Without it the two tools undo each other indefinitely: Prettier writes `cond ? (a ?? b) : c`, the rule rejects those parentheses, `--fix` removes them, and the next Prettier run puts them back. A file could satisfy the formatter or the linter, never both — and since `lint-staged` runs ESLint last, what got committed was code the formatter rejects.
+
+  ESLint added the option in 8.36 for exactly this conflict. The option block here predates it: it was carried over from `eslint-config-airbnb-base`, which ships the rule off.
+
+  Purely permissive — no previously valid code becomes invalid.
+
 ## 2.1.0
 
 ### Minor Changes

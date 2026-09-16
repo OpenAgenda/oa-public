@@ -1,5 +1,21 @@
 # Change Log
 
+## 6.0.3
+
+### Patch Changes
+
+- [#282](https://github.com/OpenAgenda/oa/pull/282) [`e0d6bfc`](https://github.com/OpenAgenda/oa/commit/e0d6bfcfb51628d469e5cc2936d2fa8de75645e5) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Move Jest from 29.7 to 30.4.2, along with `babel-jest`, `@jest/globals` and `jest-environment-jsdom` (30.4.1). Development tooling only — no runtime or API change, and nothing in the published output differs.
+
+  Jest 30 supports `import.meta.filename` and `import.meta.dirname` natively, so the local patch these packages relied on (`jest-runtime@29.7.0`) is removed along with its `resolutions` entry.
+
+- [#277](https://github.com/OpenAgenda/oa/pull/277) [`e583f34`](https://github.com/OpenAgenda/oa/commit/e583f343fbe1109c7c311f1df82a3fb28541b2ad) Thanks [@clement180](https://github.com/clement180)! - Respect the transport's own `rateLimit` instead of forcing it off: the SMTP
+  branch of `createTransport` overrode any configured value with `undefined`,
+  disabling nodemailer's pooled rate limiter — precisely on transports that
+  need it (fresh-IP warm-up throttling).
+- Updated dependencies [[`e0d6bfc`](https://github.com/OpenAgenda/oa/commit/e0d6bfcfb51628d469e5cc2936d2fa8de75645e5), [`adf3653`](https://github.com/OpenAgenda/oa/commit/adf36534bde6e3590951e0b27649fb04e5c27e61), [`0eef788`](https://github.com/OpenAgenda/oa/commit/0eef78859859f816f27c4c1ba5ceed35dcd93fc1), [`5aafa09`](https://github.com/OpenAgenda/oa/commit/5aafa0995e9a91b4df187536c559610121dc8c44)]:
+  - @openagenda/logs@1.2.2
+  - @openagenda/intl@2.1.0
+
 ## 6.0.2
 
 ### Patch Changes

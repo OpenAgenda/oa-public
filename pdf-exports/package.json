@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/pdf-exports",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "type": "module",
   "main": "index.js",
   "exports": {
@@ -16,9 +16,9 @@
     "extract-messages": "oa-intl 'lib/**/*.js' 'agenda/**/*.js' 'event/**/*.js' --output 'locales/%lang%.json' --compiled 'locales-compiled/%lang%.json' --esm"
   },
   "dependencies": {
-    "@openagenda/date-utils": "^0.0.2",
-    "@openagenda/intl": "^2.0.0",
-    "@openagenda/logs": "^1.2.1",
+    "@openagenda/date-utils": "^0.0.3",
+    "@openagenda/intl": "^2.1.0",
+    "@openagenda/logs": "^1.2.2",
     "@openagenda/verror": "^3.2.0",
     "date-fns": "^2.29.3",
     "date-fns-tz": "^2.0.0",
@@ -33,7 +33,7 @@
     "sharp": "^0.35.3"
   },
   "devDependencies": {
-    "@openagenda/eslint-config": "^2.1.0",
+    "@openagenda/eslint-config": "^2.2.0",
     "nodemon": "^3.0.3"
   }
 }
