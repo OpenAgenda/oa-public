@@ -9,11 +9,14 @@
 // by hand, is what this file used to be, and it disagreed with the first in
 // five places. It is a measurement of it: the contract is wrapped in a proxy
 // that records every `(node, key)` read, the catalogue is derived and every
-// card and component definition rendered over that proxy, and then the raw
-// contract is walked. A key present on a node that nothing read is, by
-// construction, something no card shows; a node whose reference was read but
-// whose contents never were is a shape the card renders opaque (an object
-// parameter reads `properties` to decide "not a map" and never opens them).
+// card rendered over that proxy - along with every component definition a
+// payload can carry, which is every one but a list root, whose card gives
+// `{ data, pagination }` on the head line and whose definition no payload
+// prints. Then the raw contract is walked. A key present on a node that
+// nothing read is, by construction, something no card shows; a node whose
+// reference was read but whose contents never were is a shape the card renders
+// opaque (an object parameter reads `properties` to decide "not a map" and
+// never opens them).
 //
 // What it measures is READS, not uses: a key the renderer looks at and then
 // discards counts as read. Dropping the `required` markers downstream of
@@ -654,40 +657,29 @@ function run(contract, renderEverything) {
     }
   }
 
-  // Every component a card defines must be led to from that card: by a name
-  // on the card itself, or on a definition already reached. A definition
-  // nothing leads to is a shape the card rendered opaque - a body that is a
-  // union of components, say, whose members the derivation collected and the
-  // request line never named.
+  // Every component a card defines must be led to from that card: by a name in
+  // a TYPE position on the card itself, or on a definition already reached. A
+  // definition nothing leads to is a shape the card rendered opaque - a body
+  // that is a union of components, say, whose members the derivation collected
+  // and the request line never named.
   //
-  // Only a TYPE position leads anywhere: a body or response head, the
-  // parenthesised type of a field, a param or a definition head, a union's
-  // named branch - what stands before the ` — ` that opens a description.
-  // Prose cites shapes that live on other cards by design, so an operation
-  // description naming the component would otherwise vouch for its opaque body.
-  const typePositions = (text) =>
-    text
-      .split('\n')
-      .filter((line) => /^(Request body|Response): |^\s*- |^`/.test(line))
-      .map((line) => line.split(' — ')[0])
-      .join('\n');
-  const mentions = (text, names) => {
-    const typed = typePositions(text);
-    return names.filter((name) => new RegExp(`\\b${name}\\b`).test(typed));
-  };
+  // Only a type position leads anywhere, and the renderer reports its own as it
+  // writes them: `cards` and `definitions` hold NAMES, not text. Reading them
+  // back out of the rendered block instead would also find them in the prose
+  // beside the types, and prose cites shapes that live on other cards by
+  // design - an operation description naming the component would vouch for its
+  // opaque body.
   for (const op of operations) {
-    const names = op.componentRefs;
-    const reached = new Set(mentions(cards.get(op.id), names));
-    const queue = [...reached];
+    const names = new Set(op.componentRefs);
+    const reached = new Set();
+    const queue = [...cards.get(op.id)?.types ?? []];
     while (queue.length) {
-      for (const name of mentions(definitions.get(queue.pop()) ?? '', names)) {
-        if (!reached.has(name)) {
-          reached.add(name);
-          queue.push(name);
-        }
-      }
+      const name = queue.pop();
+      if (!names.has(name) || reached.has(name)) continue;
+      reached.add(name);
+      queue.push(...definitions.get(name)?.types ?? []);
     }
-    for (const name of names.filter((each) => !reached.has(each))) {
+    for (const name of op.componentRefs.filter((each) => !reached.has(each))) {
       report(
         `/paths/${escape(op.path)}/${op.method.toLowerCase()}`,
         `\`${name}\` is defined for this card, and nothing on the card leads to it - the shape that references it renders opaque`,
@@ -702,8 +694,10 @@ function run(contract, renderEverything) {
  * Check one contract against what `search_docs` can render.
  *
  * @param {any} contract  A parsed OpenAPI document.
- * @param {(contract: any) => {operations: any[], cards: Map<string, string>, definitions: Map<string, string>}} renderEverything
- *   The renderer's dry run, from operations.js.
+ * @param {(contract: any) => {operations: any[], cards: Map<string, {types: Set<string>}>, definitions: Map<string, {types: Set<string>}>}} renderEverything
+ *   The renderer's dry run, from operations.js: it renders everything the
+ *   contract can become over the proxy, and reports the component names each
+ *   block put in a type position.
  * @returns {Finding[]} Unsupported constructs, in document order. Empty is the
  *   only acceptable state: each finding is a card that would be wrong.
  */

@@ -1500,7 +1500,7 @@ describe('renderComponentDef', () => {
         schemas: { Kind: { type: ['string', 'null'], enum: ['a', 'b', null] } },
       },
     });
-    expect(definitions.get('Kind')).toBe(
+    expect(definitions.get('Kind').text).toBe(
       '`Kind` (string | null) — Values: a, b, null.',
     );
   });

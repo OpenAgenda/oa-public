@@ -67,7 +67,9 @@ import { checkContract, contractWarning, formatFindings } from './compat.js';
  *                                 the wire signature when not sdkCallable.
  * @property {string} summary
  * @property {string} description
- * @property {string[]} scopes      OAuth scopes the operation requires.
+ * @property {string[]} scopes      OAuth scopes the operation requires. No card
+ *                                 shows them; `config.js` advertises their
+ *                                 union as the resource scopes of the PRM.
  * @property {Param[]} params
  * @property {RequestShape|null} request   Body the operation expects (null when it takes none).
  * @property {boolean} sdkCallable  False when the contract authorizes it outside the `oa` client.
@@ -928,6 +930,29 @@ function enumGloss(values, labels) {
 // Nest a rendered block one level: every line, not just the first.
 const indent = (block) => block.replace(/^/gm, '  ');
 
+// Set for the length of one block by `renderEverything`: every component name a
+// render function writes in a TYPE position lands here. The reachability check
+// in compat.js reads it, so what leads a reader from a card to a definition is
+// a fact the renderer states as it writes it — not one re-read afterwards out
+// of its own output, where a description citing a shape that lives on another
+// card is the same characters as a type.
+/** @type {Set<string> | null} */
+let typeSink = null;
+
+// Record a type as rendered, and hand it back so the call wraps the
+// interpolation it documents. A type string is names by construction
+// (`Event[]`, `(A | B)[]`, `Record<string, FacetEntry>`), so splitting it on
+// the punctuation the grammar uses is enough; the reader matches what comes out
+// against the names it asked about, so `Record` and `string` cost nothing.
+function named(type) {
+  if (typeSink && type) {
+    for (const name of String(type).split(/[^\w$]+/)) {
+      if (name) typeSink.add(name);
+    }
+  }
+  return type;
+}
+
 // A field line: `- name (Type, required) — its own description [one of: …]`.
 // The type names are join keys: every component named here is defined in the
 // Components section of the same search_docs response (or is the inline root
@@ -943,7 +968,7 @@ function renderFieldLine(f) {
     ? `[one of: ${enumGloss(f.enum, f.enumDescriptions)}]`
     : '';
   const tail = [f.description, meta].filter(Boolean).join(' ');
-  const line = `- ${f.name} (${f.type}${f.required ? ', required' : ''})${tail ? ` — ${tail}` : ''}`;
+  const line = `- ${f.name} (${named(f.type)}${f.required ? ', required' : ''})${tail ? ` — ${tail}` : ''}`;
   return [line, ...(f.fields ?? []).map(renderFieldLine).map(indent)].join(
     '\n',
   );
@@ -970,7 +995,7 @@ function renderParamLine(p) {
   const tail = [p.description, meta.length ? `[${meta.join('; ')}]` : '']
     .filter(Boolean)
     .join(' ');
-  const line = `- \`${p.name}\` (${p.type}${p.required ? ', required' : ''})${tail ? ` — ${tail}` : ''}`;
+  const line = `- \`${p.name}\` (${named(p.type)}${p.required ? ', required' : ''})${tail ? ` — ${tail}` : ''}`;
   return [line, ...(p.fields ?? []).map(renderFieldLine).map(indent)].join(
     '\n',
   );
@@ -980,11 +1005,11 @@ function renderParamLine(p) {
 // its own definition, an inline object lists its fields beneath it.
 function renderVariantLines(variants) {
   return variants.flatMap((variant) => {
-    if (variant.$ref) return [`- \`${refName(variant.$ref)}\``];
+    if (variant.$ref) return [`- \`${named(refName(variant.$ref))}\``];
     const fields = topLevelFields(variant);
-    if (!fields.length) return [`- ${resolveType(variant)}`];
+    if (!fields.length) return [`- ${named(resolveType(variant))}`];
     return [
-      `- ${resolveType(variant)}:`,
+      `- ${named(resolveType(variant))}:`,
       ...fields.map(renderFieldLine).map(indent),
     ];
   });
@@ -1004,7 +1029,7 @@ export function renderComponentDef(name) {
   const description = oneLine(schema.description);
   if (schema.enum) {
     const gloss = `Values: ${enumGloss(schema.enum, schema['x-enum-descriptions'])}.`;
-    return `\`${name}\` (${resolveType(schema)}) — ${[description, gloss].filter(Boolean).join(' ')}`;
+    return `\`${name}\` (${named(resolveType(schema))}) — ${[description, gloss].filter(Boolean).join(' ')}`;
   }
   const fields = topLevelFields(schema);
   if (fields.length) {
@@ -1014,7 +1039,7 @@ export function renderComponentDef(name) {
     const head = `\`${name}\`${nullable ? ' (object | null)' : ''}${description ? ` — ${description}` : ''}`;
     return [head, ...fields.map(renderFieldLine)].join('\n');
   }
-  const head = `\`${name}\` (${resolveType(schema)})${description ? ` — ${description}` : ''}`;
+  const head = `\`${name}\` (${named(resolveType(schema))})${description ? ` — ${description}` : ''}`;
   const variants = schema.oneOf ?? schema.anyOf;
   if (!Array.isArray(variants)) return head;
   return [head, 'One of:', ...renderVariantLines(variants)].join('\n');
@@ -1024,18 +1049,18 @@ function renderResponse(response) {
   if (!response) return '';
   // An inline (non-$ref) success body has no schema name — name it by kind rather
   // than interpolating a literal `null`.
-  const root = response.root ?? (response.kind === 'list' ? 'List' : 'Object');
+  const root = named(response.root) ?? (response.kind === 'list' ? 'List' : 'Object');
   if (response.kind === 'list') {
     const [summary, detailed] = response.item.variants;
     const upgrade = detailed
-      ? ` (+ \`${detailed}\` fields when \`detailed=true\`)`
+      ? ` (+ \`${named(detailed)}\` fields when \`detailed=true\`)`
       : '';
     // Typed like `data`, or its component is defined below with nothing on the
     // card leading to it.
     const pagination = response.pagination
-      ? `, pagination: \`${response.pagination}\``
+      ? `, pagination: \`${named(response.pagination)}\``
       : '';
-    const head = `Response: \`${root}\` → { data: \`${summary}\`[]${upgrade}${pagination} }`;
+    const head = `Response: \`${root}\` → { data: \`${named(summary)}\`[]${upgrade}${pagination} }`;
     // The summary item IS this operation's payload — same locality rule as
     // object roots: its full definition renders here, and the Components
     // section excludes it (it would be a duplicate).
@@ -1079,7 +1104,7 @@ function renderRequest(request) {
     request.contentType,
     request.required ? 'required' : 'optional',
   ].join(', ');
-  if (request.root) return `Request body: \`${request.root}\` (${meta})`;
+  if (request.root) return `Request body: \`${named(request.root)}\` (${meta})`;
   // No component to name (multipart, or an inline schema): the derived fields
   // ARE the documentation, so they render here or nowhere. `agendas.uploads
   // .create` was surfacing "see the example" while carrying a described `file`
@@ -1164,26 +1189,55 @@ export function renderOperation(op, rank = 0) {
 // instruments: it hands in a recording proxy, and what the renderer never read
 // is, by construction, what no card shows. The module contract is swapped for
 // the duration and restored, so the catalogue the server serves is untouched
-// and `contract` is never kept. The texts come back because a check on them
-// (does anything on the card lead to each definition?) must read the same
-// contract, and `renderComponentDef` reads whichever one is current.
+// and `contract` is never kept. Each block comes back as what it rendered plus
+// the component names it put in a TYPE position — the join keys of the payload,
+// recorded by `named` as they were written, which is what the reachability
+// check downstream reads instead of parsing them back out of the text.
 /**
+ * @typedef {{text: string, types: Set<string>}} Rendered
+ *
  * @param {any} contract
- * @returns {{operations: Operation[], cards: Map<string, string>, definitions: Map<string, string>}}
+ * @returns {{operations: Operation[], cards: Map<string, Rendered>, definitions: Map<string, Rendered>}}
  */
 export function renderEverything(contract) {
   const served = spec;
   spec = contract;
+  /** @returns {Rendered} */
+  const collect = (render) => {
+    typeSink = new Set();
+    try {
+      return { text: render(), types: typeSink };
+    } finally {
+      typeSink = null;
+    }
+  };
   try {
     const operations = deriveOperations();
     const cards = new Map();
     for (const op of operations) {
-      cards.set(op.id, renderOperation(op, 0));
+      cards.set(
+        op.id,
+        collect(() => renderOperation(op, 0)),
+      );
       renderOperation(op, RICH_RANK_CUTOFF);
     }
+    // A list root is the one component no payload ever DEFINES: its card gives
+    // `{ data, pagination }` on the head line, and `renderComponentsSection`
+    // excludes it for that reason. Defining it here would read properties
+    // beyond those two and record them as shown, which is the silence this
+    // whole check exists to break — a third property at a list root reaches no
+    // reader.
+    const listRoots = new Set(
+      operations.flatMap((op) =>
+        (op.response?.kind === 'list' ? [op.response.root] : [])),
+    );
     const definitions = new Map();
     for (const name of Object.keys(spec.components?.schemas ?? {})) {
-      definitions.set(name, renderComponentDef(name));
+      if (listRoots.has(name)) continue;
+      definitions.set(
+        name,
+        collect(() => renderComponentDef(name)),
+      );
     }
     // Which definitions a payload carries is decided here, and that decision
     // reads the contract too: every render path `renderSearch` takes has to be

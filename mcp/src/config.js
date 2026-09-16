@@ -51,8 +51,8 @@
 // below). `srt` is NOT a value here — it is an outer *wrapper*, applied at launch
 // (`srt -- node server.js`), selected with OA_CODE_EGRESS_AUTHORITY=wrapper.
 
-import { existsSync, readFileSync } from 'node:fs';
-import { parse as parseYaml } from 'yaml';
+import { existsSync } from 'node:fs';
+import { OPERATIONS } from './docs/operations.js';
 
 const MODES = ['local', 'hosted'];
 const EXECUTORS = ['node', 'deno', 'microsandbox'];
@@ -237,41 +237,28 @@ function parseScopes(raw) {
   return [...new Set(raw.split(/[\s,]+/).filter(Boolean))];
 }
 
-// The resource scopes the contract actually uses: every `oauth2` security
-// requirement across the spec's operations, plus the document-level default.
-// Derived (not hand-maintained) so the PRM and the DCR client track the
-// contract — before this, `me:read` shipped in the spec while the hand-kept
-// list here silently omitted it, and /me/agendas was unreachable over OAuth
-// (`insufficient_scope` with no way for the client to even request the scope).
+// The resource scopes the contract actually uses: the `oauth2` scopes of every
+// operation in the catalogue, which each carry the document-level default when
+// they declare no `security` of their own. Derived (not hand-maintained) so the
+// PRM and the DCR client track the contract — before this, `me:read` shipped in
+// the spec while the hand-kept list here silently omitted it, and /me/agendas
+// was unreachable over OAuth (`insufficient_scope` with no way for the client
+// to even request the scope).
+//
+// Read off `op.scopes` rather than walked again here: the catalogue already
+// resolves security requirements by the scheme's TYPE (not the name `oauth2`),
+// and a second reading of the same fact is a second thing to keep in step. It
+// also bounds what is advertised to what is REACHABLE — an operation with no
+// `operationId` is absent from the catalogue, and a scope only it needed would
+// be a scope no client can spend.
+//
 // Deliberate consequence: the MCP advertises what its BUNDLED
 // @openagenda/api-spec version declares, so bumping that dependency is the act
 // that publishes new scopes — only do it once the production AS issues them,
 // or DCR clients will request a scope the AS rejects as out-of-scope (the same
 // failure mode the `offline_access` note below describes).
-let cachedSpecScopes = null;
-function specScopes() {
-  if (cachedSpecScopes) return cachedSpecScopes;
-  const specUrl = import.meta.resolve('@openagenda/api-spec/openapi.yaml');
-  const spec = parseYaml(readFileSync(new URL(specUrl), 'utf8'));
-  const securities = [
-    ...spec.security ?? [],
-    ...Object.values(spec.paths ?? {})
-      .flatMap((path) => Object.values(path))
-      .flatMap((op) => op?.security ?? []),
-  ];
-  // By the scheme's TYPE, not the name `oauth2` — the same reading as the
-  // search_docs catalogue, so a renamed scheme cannot drop out of the PRM.
-  const schemes = spec.components?.securitySchemes ?? {};
-  cachedSpecScopes = [
-    ...new Set(
-      securities.flatMap((req) =>
-        Object.entries(req)
-          .filter(([name]) => schemes[name]?.type === 'oauth2')
-          .flatMap(([, scopes]) => scopes ?? [])),
-    ),
-  ].sort();
-  return cachedSpecScopes;
-}
+const specScopes = () =>
+  [...new Set(OPERATIONS.flatMap((op) => op.scopes))].sort();
 
 // Resolve and validate the OAuth resource-server config for the HTTP transport.
 // FAIL CLOSED: transport=http with no issuer/resource would expose an

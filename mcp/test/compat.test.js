@@ -95,6 +95,11 @@ describe('the contract stays inside what search_docs can render', () => {
       '/components/schemas/*/oneOf/*/properties/*/format:uri',
       '/components/schemas/*/oneOf/*/properties/*/maxLength',
       '/components/schemas/*/properties/*/default',
+      // A list root is never DEFINED in a payload - its card gives
+      // `{ data, pagination }` on the head line - so the prose on `data` has
+      // nowhere to land. The item type is what a reader follows, and it is
+      // named right there.
+      '/components/schemas/*/properties/*/description',
       '/components/schemas/*/properties/*/format:date-time',
       '/components/schemas/*/properties/*/format:double',
       '/components/schemas/*/properties/*/format:int64',
@@ -399,6 +404,49 @@ describe('a shape whose reference is read and whose contents never are', () => {
         }),
       ),
     ).toEqual(['/components/schemas/S/oneOf']);
+  });
+});
+
+describe('a list root', () => {
+  // Its card gives `{ data, pagination }` on the head line and the Components
+  // section leaves it out, so it is the one component a payload never defines.
+  // The dry run used to define it anyway and read the whole root there, which
+  // made a property beside those two look rendered when nothing shows it.
+  const listRoot = (extra) =>
+    operation(
+      {
+        responses: {
+          200: {
+            description: 'ok',
+            ...json({ $ref: '#/components/schemas/L' }),
+          },
+        },
+      },
+      {
+        L: {
+          type: 'object',
+          properties: {
+            data: { type: 'array', items: { oneOf: [ref] } },
+            pagination: { $ref: '#/components/schemas/P' },
+            ...extra,
+          },
+        },
+        P: object,
+      },
+    );
+
+  it('renders clean with the two properties the head line shows', () => {
+    expect(messages(listRoot({}))).toEqual([]);
+  });
+
+  it('reports a third property, which the head line cannot show', () => {
+    expect(check(listRoot({ total: { type: 'integer' } }))).toEqual([
+      {
+        pointer: '/components/schemas/L/properties/total',
+        message:
+          'nothing in it is read: a declared field nothing renders - the object it belongs to reaches the card as a bare `object`',
+      },
+    ]);
   });
 });
 
