@@ -1490,6 +1490,28 @@ describe('renderComponentDef', () => {
     expect(renderComponentDef('Nope')).toBe('');
   });
 
+  it('carries a field pattern, which says the string is not free-form', () => {
+    // A patterned parameter already travels with its regex; a patterned FIELD
+    // needs it more, because fields go in a request body. `Timing.id` is six
+    // Crockford base32 characters and rides in six event writes: typed
+    // `string` alone, the caller invents a value the API answers 422 to.
+    const { definitions } = renderEverything({
+      openapi: '3.1.0',
+      paths: {},
+      components: {
+        schemas: {
+          T: {
+            type: 'object',
+            properties: { id: { type: 'string', pattern: '^[0-9A-Z]{6}$' } },
+          },
+        },
+      },
+    });
+    expect(definitions.get('T').text).toContain(
+      '- id (string) — [matches ^[0-9A-Z]{6}$]',
+    );
+  });
+
   it('types a nullable enum component as the cards type it', () => {
     // The head took `schema.type` verbatim, so `['string', 'null']` joined to
     // `(string,null)` - not the dialect a field line uses to point here.

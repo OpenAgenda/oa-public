@@ -44,6 +44,7 @@ import { checkContract, contractWarning, formatFindings } from './compat.js';
  * @property {boolean} required
  * @property {unknown[]} [enum]        Inline enum (a $ref'd one keeps its component name).
  * @property {Record<string, string>} [enumDescriptions]
+ * @property {string} [pattern]       Regex a non-free-form string must match (`Timing.id`).
  * @property {Field[]} [fields]        An inline (unnamed) object's own fields.
  *
  * @typedef {object} ResponseShape
@@ -262,6 +263,12 @@ function topLevelFields(schema, ancestors = new Set()) {
       description: oneLine(s.description),
       required: mandatory.has(name),
     };
+    // Same case as a patterned parameter, one level down: a `pattern` says the
+    // string is NOT free-form, and the type alone lets a caller invent a value
+    // the API answers 422 to. It matters more here than on a filter, because
+    // these fields travel in a request body - `Timing.id` is six Crockford
+    // base32 characters and rides in six event writes.
+    if (s.pattern) field.pattern = s.pattern;
     let inline;
     if (s.enum) {
       inline = s;
@@ -964,10 +971,12 @@ function named(type) {
  * @returns {string}
  */
 function renderFieldLine(f) {
-  const meta = f.enum
-    ? `[one of: ${enumGloss(f.enum, f.enumDescriptions)}]`
-    : '';
-  const tail = [f.description, meta].filter(Boolean).join(' ');
+  const meta = [];
+  if (f.enum) meta.push(`one of: ${enumGloss(f.enum, f.enumDescriptions)}`);
+  if (f.pattern) meta.push(`matches ${f.pattern}`);
+  const tail = [f.description, meta.length ? `[${meta.join('; ')}]` : '']
+    .filter(Boolean)
+    .join(' ');
   const line = `- ${f.name} (${named(f.type)}${f.required ? ', required' : ''})${tail ? ` — ${tail}` : ''}`;
   return [line, ...(f.fields ?? []).map(renderFieldLine).map(indent)].join(
     '\n',
