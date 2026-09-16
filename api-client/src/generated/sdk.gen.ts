@@ -246,7 +246,7 @@ export class Events extends HeyApiClient {
     /**
      * Faceted counts for an agenda's events — native facets plus its `additionalFields`
      *
-     * Returns event counts grouped by the requested facets, computed over the **same filtered set** as `agendas.events.list`. Pass the same filter parameters to scope the counts (e.g. `?keyword=concert` then facet on `cities`). No event data is returned — only `{ value, count }` buckets per facet.
+     * Returns event counts grouped by the requested facets, computed over the **same filtered set** as `agendas.events.list`. Pass the same filter parameters to scope the counts (e.g. `?keyword=concert` then facet on `cities`). No event data is returned — only the requested facets, each in the shape the `facets` parameter describes.
      *
      * The native facets are not the whole story: the agenda's own fields (its categories, labels…) are faceted by `additionalFields` — request it too for an agenda-wide stats overview (`additionalFieldMetrics` covers its numeric fields). The fields themselves are declared by the agenda's event form schema (`GET /agendas/{agendaUid}/events/schema`).
      *
