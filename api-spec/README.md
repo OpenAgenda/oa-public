@@ -23,7 +23,15 @@ Or point any OpenAPI tooling at `node_modules/@openagenda/api-spec/openapi.yaml`
 ## Scripts
 
 - `yarn validate` — structural validation: every `$ref` resolves and every
-  `example`/`examples` entry validates against its schema (ajv, 2020-12).
+  `example`/`examples` entry validates against its schema (ajv, 2020-12). It
+  then runs `yarn workspace @openagenda/mcp check:contract`, which answers a
+  different question: can the MCP's `search_docs` _render_ what this contract
+  says? That server hand-interprets a subset of OpenAPI 3.1 to build the cards
+  an LLM writes calls from, so a construct it does not read becomes a card that
+  silently drops or misstates a field. The check names each one with a JSON
+  Pointer. It is invoked as a workspace script, not depended on as a package:
+  nothing here imports the MCP, and a standalone install of this package never
+  runs it.
 - `yarn lint` — `@redocly/cli lint` over the contract.
 
 ## Conventions
