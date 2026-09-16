@@ -1275,7 +1275,7 @@ export type FacetBucket = {
 
 export type FacetResults = {
     /**
-     * One entry per requested facet; a facet that was not requested is absent. Each value is an array of `{ value, count }` buckets.
+     * One entry per requested facet; a facet that was not requested is absent. The shape depends on the facet family, and the properties below give each one: the term facets are `{ value, count }` bucket lists, while the provenance, `locations`, `geohash`, `viewport`, `timespan` and additional-field facets each have their own.
      *
      */
     facets: {
