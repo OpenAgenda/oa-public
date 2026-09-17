@@ -295,7 +295,7 @@ export type FormSchemaField = {
      */
     optionalWith?: unknown;
     /**
-     * Set on a field converted from the agenda's tags or categories: what it was converted from.
+     * Set on a field converted from an earlier agenda setting: what it was converted from.
      *
      */
     origin?: 'tags' | 'categories' | 'custom' | null;
@@ -369,7 +369,7 @@ export type Timing = {
     begin: string;
     end: string;
     /**
-     * Stable identifier of this occurrence, kept across writes so a link to a single date keeps working when the event is edited. Absent (rather than `null`) when none has been assigned. Never reused for another occurrence. Supplied on write, it is stored as sent and names that occurrence; a value repeated within the submitted timings is kept on the first occurrence only. A supplied `id` that does not match the pattern answers `422`.
+     * Stable identifier of this occurrence, kept across writes so a link to a single date keeps working when the event is edited. Absent (rather than `null`) when none has been assigned. The server never moves a stored `id` to another occurrence; an occurrence it cannot match to a stored one receives a fresh `id`. Supplied on write, it is stored as sent and names that occurrence; a value repeated within the submitted timings is kept on the first occurrence only. A supplied `id` that does not match the pattern answers `422`.
      *
      */
     id?: string;
@@ -448,7 +448,7 @@ export type EnrichedLink = {
 };
 
 /**
- * A lightweight image for an embedded reference (an agenda logo on an event's originAgenda/sourceAgendas, or a provenance facet bucket): a ready-to-use `src` plus the `{geo}` template. The agenda's own `image` (single-agenda get) carries the full `Image`.
+ * A lightweight image for an embedded reference (an agenda logo on an event's originAgenda/sourceAgendas, or a provenance facet bucket): a ready-to-use `src` plus the `{geo}` template. The agenda's own `image` carries the full `Image`.
  *
  */
 export type ImageRef = {
@@ -521,7 +521,7 @@ export type AgendaLocationSetRef = {
 } | null;
 
 /**
- * Base agenda representation returned by the list endpoints by default (`detailed: false`) - identity and display essentials only.
+ * Base agenda representation returned by the list endpoint by default (`detailed: false`) - identity and display essentials only.
  *
  */
 export type AgendaSummary = {
@@ -537,7 +537,7 @@ export type AgendaSummary = {
 };
 
 /**
- * Detailed agenda representation returned by the list endpoints when `detailed: true`. `url`, `updatedAt`, `officializedAt`, `private` and `indexed` are returned by the single-agenda get only.
+ * Detailed agenda representation returned by the list endpoint when `detailed: true`. `url`, `updatedAt`, `officializedAt`, `private` and `indexed` are returned by the single-agenda get only.
  *
  */
 export type AgendaDetailed = {
@@ -740,7 +740,7 @@ export type AllEventStats = {
 };
 
 /**
- * Published events added within the last `window` days and still to end, counted by add method. Identical for every caller.
+ * Published events whose `originAgenda` is this agenda, added within the last `window` days and with an occurrence still to begin, counted by add method. Identical for every caller.
  *
  */
 export type RecentlyAddedStats = {
@@ -879,7 +879,7 @@ export type Event = {
     readonly country: LocalizedString | null;
     registration: Array<Registration>;
     /**
-     * Present only on an event with a ticketing catalogue. Its `availability` is `null` when nothing can be said - every occurrence past, or no source carrying a usable status - never to mean "no ticketing".
+     * Present only on an event with a ticketing catalogue.
      *
      */
     readonly offersAggregate?: OffersAggregate;
@@ -958,7 +958,7 @@ export type UploadDescriptor = {
  */
 export type ImageInput = {
     /**
-     * A staging reference returned by the upload endpoint (of the form `staging/{agendaUid}/…`). It must belong to this agenda — a reference for another agenda answers `422` - and be attached before the upload's `expiresAt`; attaching it later may answer `422`.
+     * A staging reference returned by the upload endpoint (of the form `staging/{agendaUid}/…`). It must belong to this agenda - a reference for another agenda answers `422` - and be attached before the upload's `expiresAt`; attaching it later may answer `422`.
      *
      */
     ref: string;
@@ -975,7 +975,7 @@ export type ImageInput = {
  *
  * Required fields depend on the target agenda: an event needs at least `title`, `description` and `timings`, plus a `location` unless it is online-only, plus whatever the agenda marks required; a missing one answers `422` with the per-field set under `error.details.errors[]`.
  *
- * The `image` is set either by reference — stage the bytes via `POST /agendas/{uid}/uploads` and pass the returned `ref` here - or by a public `url` the server fetches (or `null` to clear it). An event's privacy is derived from its agenda.
+ * The `image` is set either by reference - stage the bytes via `POST /agendas/{uid}/uploads` and pass the returned `ref` here - or by a public `url` the server fetches (or `null` to clear it). An event's privacy is derived from its agenda.
  *
  */
 export type EventInput = {
@@ -994,7 +994,7 @@ export type EventInput = {
      */
     timings?: Array<Timing>;
     /**
-     * The event's location, referenced by the uid of a location of the agenda (or of its shared location set).
+     * The event's location, referenced by its uid; a uid that matches no location answers `422`.
      *
      */
     location?: EventLocationRef | null;
@@ -1380,7 +1380,7 @@ export type FacetResults = {
          */
         timings?: Array<FacetBucket>;
         /**
-         * Daily event counts over the `month` calendar month, one bucket per day, zero-count days included.
+         * Occurrence counts per day over the `month` calendar month, one bucket per day, zero-count days included.
          *
          */
         dateRanges?: Array<FacetBucket>;
@@ -1861,7 +1861,7 @@ export type FacetSorts = {
 };
 
 /**
- * Per-facet label for a synthetic bucket counting the filtered events that have **no value** for the facet's field (`facetMissing[district]=Unknown` adds an `{ value: "Unknown", count }` bucket). Honoured by the term facets (those whose buckets are keyed by the displayed value); ignored by the provenance, `locations` and remaining families. The bucket appears only when such events exist.
+ * Per-facet label for a synthetic bucket counting the filtered events that have **no value** for the facet's field (`facetMissing[district]=Unknown` adds an `{ value: "Unknown", count }` bucket). Honoured by the term facets (those whose buckets are keyed by the displayed value) except `accessibilities`; ignored by the provenance, `locations` and remaining families. The bucket appears only when such events exist.
  *
  */
 export type FacetMissing = {
@@ -3051,7 +3051,7 @@ export type AgendasEventsFacetsData = {
             [key: string]: 'count' | 'alpha';
         };
         /**
-         * Per-facet label for a synthetic bucket counting the filtered events that have **no value** for the facet's field (`facetMissing[district]=Unknown` adds an `{ value: "Unknown", count }` bucket). Honoured by the term facets (those whose buckets are keyed by the displayed value); ignored by the provenance, `locations` and remaining families. The bucket appears only when such events exist.
+         * Per-facet label for a synthetic bucket counting the filtered events that have **no value** for the facet's field (`facetMissing[district]=Unknown` adds an `{ value: "Unknown", count }` bucket). Honoured by the term facets (those whose buckets are keyed by the displayed value) except `accessibilities`; ignored by the provenance, `locations` and remaining families. The bucket appears only when such events exist.
          *
          */
         facetMissing?: {

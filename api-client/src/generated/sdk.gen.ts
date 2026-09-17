@@ -293,8 +293,6 @@ export class Events extends HeyApiClient {
      *
      * Descriptors are scoped to your read access: a field whose `read` access levels exclude the caller (e.g. a moderator-only field) is omitted from `fields`, so a public caller sees only the public fields.
      *
-     * Descriptors may carry keys beyond those documented on `FormSchemaField`.
-     *
      */
     public schema<ThrowOnError extends boolean = false>(options: Options<AgendasEventsSchemaData, ThrowOnError>) {
         return (options.client ?? this.client).get<AgendasEventsSchemaResponses, AgendasEventsSchemaErrors, ThrowOnError>({
@@ -336,7 +334,7 @@ export class Uploads extends HeyApiClient {
      *
      * Authorizes an OUT-OF-BAND upload of a LOCAL image file, made from outside this API client (e.g. with curl), so its bytes never pass through the caller's prompt. Returns a self-contained descriptor: an `uploadUrl`, a short-lived single-use `ticket`, and the `header`/`field` to use.
      *
-     * Upload the file with a plain HTTPS `POST` to `uploadUrl`: send the `ticket` in the `X-Upload-Ticket` header and the file as multipart field `file`. That call returns a staging `ref` (an `UploadTicket`), which you then attach with `image: { ref }` on an event write.
+     * Upload the file with a plain HTTPS `POST` to `uploadUrl`: send the `ticket` in the `X-Upload-Ticket` header and the file as multipart field `file`. That call returns a staging `ref`, which you then attach with `image: { ref }` on an event write.
      *
      * An image already reachable at a public `http(s)` URL is attached directly with `image: { url }` on the write, with no ticket.
      *
@@ -413,7 +411,7 @@ export class Agendas extends HeyApiClient {
      *
      * Returns a cursor-paginated list of agendas. Pass the `after` cursor returned in `pagination.after` to fetch the next page, with the same filters.
      *
-     * Items are the lighter `AgendaSummary` by default, or `AgendaDetailed` with `detailed=true`; the single-agenda get returns the full `Agenda`.
+     * Items are the lighter `AgendaSummary` by default, or `AgendaDetailed` with `detailed=true`; the single-agenda get returns every field.
      *
      * Unknown or malformed filter values return `400`.
      *

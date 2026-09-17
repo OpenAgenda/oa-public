@@ -274,7 +274,7 @@ export const zEnrichedLink = z.object({
 });
 
 /**
- * A lightweight image for an embedded reference (an agenda logo on an event's originAgenda/sourceAgendas, or a provenance facet bucket): a ready-to-use `src` plus the `{geo}` template. The agenda's own `image` (single-agenda get) carries the full `Image`.
+ * A lightweight image for an embedded reference (an agenda logo on an event's originAgenda/sourceAgendas, or a provenance facet bucket): a ready-to-use `src` plus the `{geo}` template. The agenda's own `image` carries the full `Image`.
  *
  */
 export const zImageRef = z.object({
@@ -360,7 +360,7 @@ export const zMeAgendaList = z.object({
 });
 
 /**
- * Base agenda representation returned by the list endpoints by default (`detailed: false`) - identity and display essentials only.
+ * Base agenda representation returned by the list endpoint by default (`detailed: false`) - identity and display essentials only.
  *
  */
 export const zAgendaSummary = z.object({
@@ -373,7 +373,7 @@ export const zAgendaSummary = z.object({
 });
 
 /**
- * Detailed agenda representation returned by the list endpoints when `detailed: true`. `url`, `updatedAt`, `officializedAt`, `private` and `indexed` are returned by the single-agenda get only.
+ * Detailed agenda representation returned by the list endpoint when `detailed: true`. `url`, `updatedAt`, `officializedAt`, `private` and `indexed` are returned by the single-agenda get only.
  *
  */
 export const zAgendaDetailed = z.object({
@@ -415,7 +415,7 @@ export const zAgendaList = z.object({
 });
 
 /**
- * Published events added within the last `window` days and still to end, counted by add method. Identical for every caller.
+ * Published events whose `originAgenda` is this agenda, added within the last `window` days and with an occurrence still to begin, counted by add method. Identical for every caller.
  *
  */
 export const zRecentlyAddedStats = z.object({
@@ -584,7 +584,7 @@ export const zEventLocationRef = z.object({
  *
  * Required fields depend on the target agenda: an event needs at least `title`, `description` and `timings`, plus a `location` unless it is online-only, plus whatever the agenda marks required; a missing one answers `422` with the per-field set under `error.details.errors[]`.
  *
- * The `image` is set either by reference — stage the bytes via `POST /agendas/{uid}/uploads` and pass the returned `ref` here - or by a public `url` the server fetches (or `null` to clear it). An event's privacy is derived from its agenda.
+ * The `image` is set either by reference - stage the bytes via `POST /agendas/{uid}/uploads` and pass the returned `ref` here - or by a public `url` the server fetches (or `null` to clear it). An event's privacy is derived from its agenda.
  *
  */
 export const zEventInput = z.object({
@@ -1344,7 +1344,7 @@ export const zFacetSort = z.enum(['count', 'alpha']).default('count');
 export const zFacetSorts = z.record(z.enum(['count', 'alpha']));
 
 /**
- * Per-facet label for a synthetic bucket counting the filtered events that have **no value** for the facet's field (`facetMissing[district]=Unknown` adds an `{ value: "Unknown", count }` bucket). Honoured by the term facets (those whose buckets are keyed by the displayed value); ignored by the provenance, `locations` and remaining families. The bucket appears only when such events exist.
+ * Per-facet label for a synthetic bucket counting the filtered events that have **no value** for the facet's field (`facetMissing[district]=Unknown` adds an `{ value: "Unknown", count }` bucket). Honoured by the term facets (those whose buckets are keyed by the displayed value) except `accessibilities`; ignored by the provenance, `locations` and remaining families. The bucket appears only when such events exist.
  *
  */
 export const zFacetMissing = z.record(z.string());
