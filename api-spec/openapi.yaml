@@ -4625,6 +4625,10 @@ components:
         slug:
           type: string
           readOnly: true
+          description: >
+            Unique across all events. Set by the server from the title when the
+            event is created, and never changed afterwards, even if the title
+            changes.
         title:
           $ref: '#/components/schemas/LocalizedString'
         description:
@@ -4899,7 +4903,12 @@ components:
       additionalProperties: false
       properties:
         title:
-          $ref: '#/components/schemas/LocalizedString'
+          allOf:
+            - $ref: '#/components/schemas/LocalizedString'
+          description: >
+            When the event is created, its `slug` is derived from this title,
+            preferring the language that comes first in the request body. Put
+            the event's original language first.
         description:
           $ref: '#/components/schemas/LocalizedString'
         longDescription:
@@ -4978,7 +4987,12 @@ components:
       additionalProperties: false
       properties:
         title:
-          $ref: '#/components/schemas/LocalizedString'
+          allOf:
+            - $ref: '#/components/schemas/LocalizedString'
+          description: >
+            When the event is created, its `slug` is derived from this title,
+            preferring the language that comes first in the request body. Put
+            the event's original language first.
         description:
           $ref: '#/components/schemas/LocalizedString'
         longDescription:
