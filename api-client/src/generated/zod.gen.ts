@@ -18,7 +18,7 @@ export const zPagination = z.object({
 });
 
 /**
- * A string localized per language (ISO 639-1 code). Common keys: fr, en, de, es, it, nl, br, oc.
+ * A string localized per language, keyed by ISO 639-1 code (e.g. `fr`, `en`).
  *
  */
 export const zLocalizedString = z.record(z.string());
@@ -29,7 +29,7 @@ export const zLocalizedString = z.record(z.string());
 export const zLocalizedStringArray = z.record(z.array(z.string()));
 
 /**
- * Image served on demand from a single source, for an event, an agenda or a location. Use `src` as a ready-to-use default rendition, or drive a responsive picture: substitute `{geo}` into `srcTemplate` (e.g. `800x0` for proportional width, `300x300` for a center-cropped square, `300x300/smart` for a smart-cropped one, `fit-in/1000x1000` to contain without cropping) or pick a ready-made width from `srcset`. `width`/`height` are the intrinsic source dimensions (a cap: renditions are never upscaled past them).
+ * Image of an event, an agenda or a location, rendered on demand from a single source. Use `src` as a ready-to-use default rendition, or drive a responsive picture: substitute a geometry into `srcTemplate` or pick a ready-made width from `srcset`. `width`/`height` are the source dimensions, which cap every rendition.
  *
  */
 export const zImage = z.object({
@@ -44,7 +44,7 @@ export const zImage = z.object({
 });
 
 /**
- * The denormalized location snapshot an event carries — a nullable subset captured at indexing time. The canonical, full record is the `Location` resource (`GET /agendas/{agendaUid}/locations/{locationUid}`, same `uid`).
+ * The location snapshot an event carries - a nullable subset of the `Location` record. The canonical, full record is the `Location` resource (`GET /agendas/{agendaUid}/locations/{locationUid}`, same `uid`).
  *
  */
 export const zEventLocation = z.object({
@@ -68,8 +68,6 @@ export const zEventLocation = z.object({
 /**
  * Compact location representation returned by the list endpoint (`detailed: false`) — identity, coordinates and verification status only; fetch with `detailed=true` or the single-location get for the full record.
  *
- * Empty-as-empty rule: every field is always present; singular optional values are present as `null` when absent.
- *
  */
 export const zLocationSummary = z.object({
     uid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }).readonly(),
@@ -90,7 +88,7 @@ export const zLocationExtId = z.object({
 });
 
 /**
- * Agenda-specific additional fields of the location. Today this carries a single `tags` key — the location's tags filtered against the tag set declared in the agenda's schema. As the platform converges legacy tags into real additional fields, agenda-defined keys will appear here (non-breaking).
+ * Agenda-specific additional fields of the location, keyed by field name. `tags` carries the location's tags, filtered against the tag set declared in the agenda's schema.
  *
  */
 export const zLocationAdditionalFields = z.object({
@@ -105,8 +103,6 @@ export const zLocationAdditionalFields = z.object({
 
 /**
  * Full location representation returned by the single-get endpoint and by the list when `detailed=true` — the canonical record (the events' embedded `EventLocation` is a nullable snapshot of it).
- *
- * Empty-as-empty rule: every field is always present. Collections are never null/omitted (arrays → `[]`, localized maps → `{}`); singular optional values are present as `null` when absent.
  *
  */
 export const zLocation = z.object({
@@ -149,7 +145,7 @@ export const zLocationList = z.object({
 });
 
 /**
- * A descriptor in the OpenAgenda form-schema vocabulary, served raw. Two kinds share the array: **data field descriptors** (carrying `field`, the key the value lives under on events) and **section separators** (`type: 'section'`, no `field` — structure the form into titled groups). The properties below are the stable core; descriptors may carry further engine-specific keys (conditions, display hints, sub-schemas such as `schema` on the `location` field, …).
+ * A form field descriptor. Two kinds share the array: **data field descriptors** (carrying `field`, the key the value lives under on events) and **section separators** (`type: 'section'`, no `field` - structure the form into titled groups). Descriptors may carry keys beyond those listed below.
  *
  */
 export const zFormSchemaField = z.object({
@@ -201,8 +197,6 @@ export const zMemberRole = z.enum([
 /**
  * An agenda the authenticated user is a member of: the AgendaSummary base fields plus the user's `role` and the agenda's `private` flag (private agendas the user belongs to are listed).
  *
- * Empty-as-empty rule: every field is always present; singular optional values are present as `null` when absent.
- *
  */
 export const zMeAgendaItem = z.object({
     uid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }).readonly(),
@@ -223,8 +217,7 @@ export const zTiming = z.object({
 });
 
 /**
- * What the ticketing sources of this event add up to, derived at read time and never stored. Both halves are `null` when nothing can be said — every occurrence past, or no source carrying a usable status.
- * The availability half is RECOMPUTED on every read rather than served as synced: a sale window elapses between two connector polls, so a stored status goes stale on its own. Inventory (`soldOut`, `limited`) is the exception — only the provider knows it, and only at sync time.
+ * What the ticketing sources of this event add up to, computed on each read. `availability` is `null` when nothing can be said - every occurrence past, or no source carrying a usable status - and reflects the current time, except `soldOut` and `limited`, which reflect the last sync with the provider. `pricing` is a category rolled up from the sources' price lists and declared pricing.
  *
  */
 export const zOffersAggregate = z.object({
@@ -281,7 +274,7 @@ export const zEnrichedLink = z.object({
 });
 
 /**
- * A lightweight image for an embedded reference (an agenda logo on an event's originAgenda/sourceAgendas, or a provenance facet bucket). Unlike the full `Image`, a ref carries no intrinsic dimensions (its source is a bare string), so it offers only a ready-to-use `src` plus the `{geo}` template — not the responsive `srcset`/`width`/`height`. A client needing the full responsive image follows the ref to its agenda endpoint, whose `image` is an `Image`.
+ * A lightweight image for an embedded reference (an agenda logo on an event's originAgenda/sourceAgendas, or a provenance facet bucket): a ready-to-use `src` plus the `{geo}` template. The agenda's own `image` (single-agenda get) carries the full `Image`.
  *
  */
 export const zImageRef = z.object({
@@ -302,7 +295,7 @@ export const zAgendaRef = z.object({
 });
 
 /**
- * A source-agenda reference as carried by provenance facets. Narrower than AgendaRef: the search index only stores uid/title/image for source agendas (slug/url/official are not indexed for sources), so this type deliberately omits them. (On events, sourceAgendas use the full AgendaRef.)
+ * A source-agenda reference as carried by provenance facet buckets.
  *
  */
 export const zSourceAgendaRef = z.object({
@@ -320,9 +313,9 @@ export const zExtId = z.object({
 });
 
 /**
- * Agenda-specific additional fields. The available keys and the shape of each value are defined by the agenda's event form schema (see `GET /agendas/{agendaUid}/events/schema`). Each value follows its field's fieldType (text, choice, multilingual, …).
+ * Agenda-specific additional fields. The available keys and the shape of each value are defined by the agenda's event form schema (`GET /agendas/{agendaUid}/events/schema`): each value follows its field's `fieldType`.
  *
- * A `file`/`image` field is set by reference, like the native image: stage the bytes via `POST /agendas/{uid}/uploads`, then send `{ ref, name? }` here (`name` is the original filename, used for the download; optional), or `null` to clear it. On READ the same field returns the stored descriptor `{ originalName, extension, filename }` (build its URL from the media base + `filename`).
+ * A `file`/`image` field is set by reference, like the native image: stage the bytes via `POST /agendas/{uid}/uploads`, then send `{ ref, name? }` here (`name` is the original filename, used for the download; optional), or `null` to clear it. On read the same field returns the stored descriptor `{ originalName, extension, filename }`.
  *
  */
 export const zAdditionalFields = z.record(z.unknown());
@@ -367,11 +360,7 @@ export const zMeAgendaList = z.object({
 });
 
 /**
- * Base agenda representation returned by the list endpoint by default (`detailed: false`). It is the search-index base projection — identity and display essentials only.
- *
- * The three agenda read shapes are distinct and reflect their source: `AgendaSummary` (list base) ⊂ `AgendaDetailed` (list `detailed=true`, the search-index detailed projection) and `Agenda` (the single-get, full SQL record).
- *
- * Empty-as-empty rule: every field is always present; singular optional values are present as `null` when absent. NOTE: unlike events, agenda `title`/`description` are plain strings, not localized maps.
+ * Base agenda representation returned by the list endpoints by default (`detailed: false`) - identity and display essentials only.
  *
  */
 export const zAgendaSummary = z.object({
@@ -384,9 +373,7 @@ export const zAgendaSummary = z.object({
 });
 
 /**
- * Detailed agenda representation returned by the list endpoint when `detailed: true`. It is the search-index detailed projection: the `AgendaSummary` base set PLUS `createdAt`, `network` and `locationSet`.
- *
- * It is narrower than the single-get `Agenda`: the search index does not carry `url`, `updatedAt`, `officializedAt`, `private` or `indexed`, so those are only available by fetching a single agenda.
+ * Detailed agenda representation returned by the list endpoints when `detailed: true`. `url`, `updatedAt`, `officializedAt`, `private` and `indexed` are returned by the single-agenda get only.
  *
  */
 export const zAgendaDetailed = z.object({
@@ -402,9 +389,7 @@ export const zAgendaDetailed = z.object({
 });
 
 /**
- * Full agenda representation returned by the single-get endpoint. The canonical record (SQL), with the richest field set: the base fields plus `url`, `createdAt`, `updatedAt`, `officializedAt`, `private`, `indexed`, `network` and `locationSet`.
- *
- * Empty-as-empty rule: every field is always present; singular optional values are present as `null` when absent.
+ * Full agenda representation returned by the single-agenda get.
  *
  */
 export const zAgenda = z.object({
@@ -430,7 +415,7 @@ export const zAgendaList = z.object({
 });
 
 /**
- * A windowed slice of the agenda's own recent contributions — published events added within the recent window and not yet ended — broken down by add method. Published-only for every caller (a single-meaning public stat, never an access-dependent value). A time-slice, not a visibility scope, hence hoisted to the root of `AgendaOverview`.
+ * Published events added within the last `window` days and still to end, counted by add method. Identical for every caller.
  *
  */
 export const zRecentlyAddedStats = z.object({
@@ -439,7 +424,7 @@ export const zRecentlyAddedStats = z.object({
 });
 
 /**
- * Publication status of the event.
+ * Lifecycle status of the event.
  */
 export const zEventStatus = z.union([
     z.literal(1),
@@ -482,11 +467,7 @@ export const zAccessibilityCode = z.enum([
 ]);
 
 /**
- * Compact event representation returned by the list endpoint (`detailed: false`). It carries the base field set only — the detailed fields (longDescription, conditions, country, registration, createdAt, updatedAt, accessibility, age, state, links, extIds, sourceAgendas) are NOT present here; fetch a single event for those.
- *
- * The full `timings` array is also detailed-only: the compact view exposes the occurrence span through `firstTiming`/`lastTiming`/`nextTiming` instead, interpreted in `timezone` (the IANA name needed to render those instants correctly across DST). Fetch a single event for the full list of occurrences.
- *
- * Empty-as-empty rule: every field is always present. Collections are never null/omitted (arrays → `[]`, localized maps → `{}`); singular optional values are present as `null` when absent. `additionalFields` is typically `{}` in summaries because agenda additional fields are detailed-level.
+ * Compact event representation returned by the list endpoint (`detailed: false`); the single-event get and `detailed=true` return the full `Event`. The compact view exposes the occurrence span through `firstTiming`/`lastTiming`/`nextTiming`, interpreted in `timezone`; fetch a single event for the full list of occurrences.
  *
  */
 export const zEventSummary = z.object({
@@ -512,9 +493,7 @@ export const zEventSummary = z.object({
 });
 
 /**
- * Full event representation returned by the single-get endpoint (`detailed: true`). It carries the EventSummary base field set PLUS the detailed-only fields.
- *
- * Empty-as-empty rule: every field is always present. Collections are never null/omitted (arrays → `[]`, localized maps → `{}`); singular optional values are present as `null` when absent.
+ * Full event representation returned by the single-event get, the writes, and the list when `detailed=true`. It carries the EventSummary base field set plus the detailed-only fields.
  *
  */
 export const zEvent = z.object({
@@ -563,7 +542,7 @@ export const zUploadTicket = z.object({
 });
 
 /**
- * An out-of-band upload authorization. `POST` the raw file to `uploadUrl`, sending `ticket` in the `header` header and the file as multipart `field`; the bytes travel over HTTPS directly, NOT through this API client. That call returns an `UploadTicket` whose `ref` you attach with `image: { ref }`.
+ * An out-of-band upload authorization. `POST` the raw file to `uploadUrl` with a plain HTTPS request, sending `ticket` in the `header` header and the file as multipart `field`. That call returns an `UploadTicket` whose `ref` you attach with `image: { ref }`.
  *
  */
 export const zUploadDescriptor = z.object({
@@ -577,9 +556,9 @@ export const zUploadDescriptor = z.object({
 });
 
 /**
- * Write shape for an event image, distinct from the read `Image` (which carries the rendition URLs). Attach the image one of two ways — a freshly-staged upload by its `ref` (the value returned by `POST /agendas/{uid}/uploads`), or a publicly reachable `url` the server fetches — or send `null` to remove the current image. The original is processed into the standard size variants and stored as part of the SAME write, so an image change lands in one activity alongside the rest of the edit.
+ * Write shape for an event image (the read `Image` carries the rendition URLs). Attach the image one of two ways - a freshly-staged upload by its `ref` (the value returned by `POST /agendas/{uid}/uploads`), or a publicly reachable `url` the server fetches - or send `null` to remove the current image. The image is stored as part of the same write as the rest of the edit; renditions are derived from it on demand.
  *
- * The `url` must be a publicly reachable `http(s)` image, without credentials in the URL. A URL that is malformed, not `http(s)`, carries credentials, is not publicly reachable, cannot be retrieved, is not a valid image, or is larger than the size limit is rejected with `422`. The retrievability checks (public host, actually an image, within the size limit) run when the server fetches the URL — i.e. on create/update, not on `validate`, which only checks the URL syntax (it does not fetch).
+ * The `url` must be a publicly reachable `http(s)` image, without credentials in the URL. A URL that is malformed, not `http(s)`, carries credentials, is not publicly reachable, cannot be retrieved, is not a valid image, or is larger than 20 MiB is rejected with `422`.
  *
  * An object carrying both `ref` and `url`, or any other key, is rejected with `400`.
  *
@@ -601,15 +580,11 @@ export const zEventLocationRef = z.object({
 });
 
 /**
- * Request body for creating (and, later, replacing) an event. This is the WRITE shape, deliberately distinct from the read `Event`: it carries only the fields a client may set. Read-only/computed fields the read projection emits (`uid`, `slug`, `dateRange`, `featured`, `originAgenda`, `timezone`, first/last/next timing digests, `country`, `createdAt`, `updatedAt`, `links`, `sourceAgendas`) are NOT accepted and are rejected with `400` if sent.
+ * Request body for creating or replacing an event: the fields a client may set. Agenda-specific fields go under `additionalFields`, never at the top level; any other top-level key (a read-only field such as `uid` or `slug`, an unknown name) is rejected with `400`, as is an `additionalFields` name that collides with a native field. Field values are validated by the server (a `422` with per-field `error.details.errors[]` on failure).
  *
- * Agenda-specific fields go under `additionalFields`, never at the top level; an unknown top-level key is a `400`, as is an `additionalFields` name that collides with a native field. Field VALUES are validated by the server (a `422` with per-field `error.details.errors[]` on failure).
+ * Required fields depend on the target agenda: an event needs at least `title`, `description` and `timings`, plus a `location` unless it is online-only, plus whatever the agenda marks required; a missing one answers `422` with the per-field set under `error.details.errors[]`.
  *
- * Required fields are enforced server-side, not declared here: a published event needs at least `title`, `description` and `timings`, plus a `location` unless it is online-only, plus whatever a given agenda marks required. These requirements are relaxed for drafts, so no top-level `required` is declared on this schema — send a body and read the `422` `error.details.errors[]` for the exact, per-agenda set.
- *
- * Two fields are settable but authorization-gated, so the value you send may be adjusted or refused: `state` (moderation) and `status` (lifecycle). The moderation `state` is arbitrated by the server from the agenda's contribution settings and your role — a moderator's value is honored, a `state: 2` (publish) without permission answers `403`, and a contributor's value is ignored in favour of the agenda default. The `status` field is a per-agenda opt-in feature (`settings.lab.status`): when it is disabled for the agenda, sending `status` answers `422`. See each field for details.
- *
- * The `image` is set either by reference — stage the bytes via `POST /agendas/{uid}/uploads` and pass the returned `ref` here — or by a public `url` the server fetches (or `null` to clear it); see `ImageInput`. Not settable in this version: draft creation. `private` is never accepted: an event's privacy is derived from its agenda, not set per-event.
+ * The `image` is set either by reference — stage the bytes via `POST /agendas/{uid}/uploads` and pass the returned `ref` here - or by a public `url` the server fetches (or `null` to clear it). An event's privacy is derived from its agenda.
  *
  */
 export const zEventInput = z.object({
@@ -634,7 +609,7 @@ export const zEventInput = z.object({
 });
 
 /**
- * Partial update body: the same fields as `EventInput`, all optional. Only the provided fields are changed. Will be used by the upcoming partial-update (PATCH) endpoint.
+ * Partial update body: every field is optional, and only the provided fields are changed.
  *
  */
 export const zEventPatch = z.object({
@@ -659,7 +634,7 @@ export const zEventPatch = z.object({
 });
 
 /**
- * Confirmation returned by a delete: the uid of the removed resource and a `deleted: true` marker (Stripe-style), so a client can confirm the outcome without a follow-up read.
+ * Confirmation returned by a delete: the uid of the removed resource and a `deleted: true` marker.
  *
  */
 export const zDeletionResult = z.object({
@@ -729,7 +704,7 @@ export const zDateRangeFilter = z.object({
 });
 
 /**
- * Filters scoping the facet report — the same fields as the `agendas.events.list` query parameters, in their native JSON types. Unknown keys are ignored (forward-compatible).
+ * Filters scoping the facet report - the event list filters, in their native JSON types. Unknown keys are ignored.
  *
  */
 export const zEventFilters = z.object({
@@ -831,7 +806,7 @@ export const zAdditionalFieldFacet = z.object({
 });
 
 /**
- * Summary statistics over the field's numeric values across the filtered set. Each is `null` when no event in the set carries a value.
+ * Summary statistics over the field's numeric values across the filtered set. `avg`, `max` and `min` are `null` when no event in the set carries a value; `sum` is then `0`.
  *
  */
 export const zAdditionalFieldMetrics = z.object({
@@ -850,7 +825,7 @@ export const zAdditionalFieldMetricsFacet = z.object({
 });
 
 /**
- * An origin-agenda facet bucket — events grouped by origin agenda. `agenda` is an `AgendaRef` (uid, title, slug, image, url; `official` is not indexed for this aggregation). Use the uid with the `originAgendaUid` filter.
+ * An origin-agenda facet bucket — events grouped by origin agenda. `agenda` is an `AgendaRef` without `official`. Use the uid with the `originAgendaUid` filter.
  *
  */
 export const zAgendaFacetBucket = z.object({
@@ -859,7 +834,7 @@ export const zAgendaFacetBucket = z.object({
 });
 
 /**
- * A source-agenda facet bucket — events grouped by source (aggregated) agenda. `agenda` is a `SourceAgendaRef` (uid, title, image only). Use the uid with the `sourceAgendaUid` filter.
+ * A source-agenda facet bucket — events grouped by source (aggregated) agenda. Use the uid with the `sourceAgendaUid` filter.
  *
  */
 export const zSourceAgendaFacetBucket = z.object({
@@ -868,7 +843,7 @@ export const zSourceAgendaFacetBucket = z.object({
 });
 
 /**
- * A location facet bucket — events grouped by their attached location. `location` carries only what the aggregation indexes (uid and name), narrower than events' `location`. Use the uid with the `locationUid` filter.
+ * A location facet bucket — events grouped by their attached location. `location` carries `uid` and `name`. Use the uid with the `locationUid` filter.
  *
  */
 export const zLocationFacetBucket = z.object({
@@ -905,7 +880,7 @@ export const zViewport = z.object({
 });
 
 /**
- * Statistics over an agenda's **publicly visible** events (`events.published`), returned to every caller. Carries the exact distinct counts `locations` and `creators` (computed over the published set).
+ * Statistics over an agenda's **publicly visible** events (`events.published`), including the exact distinct counts `locations` and `creators`.
  *
  */
 export const zPublishedEventStats = z.object({
@@ -926,7 +901,7 @@ export const zPublishedEventStats = z.object({
 });
 
 /**
- * Statistics over an agenda's events of **any moderation state** (moderation and refused included) — `events.all`. Returned ONLY to `administrator|moderator|internal` callers. Carries `byState` (the per-moderation-state breakdown). It does NOT carry the distinct `locations`/`creators` counts: an exact distinct count over the all-states population is intentionally not computed (cost).
+ * Statistics over an agenda's events of **any moderation state** (moderation and refused included) - `events.all`, with the per-moderation-state breakdown `byState`.
  *
  */
 export const zAllEventStats = z.object({
@@ -946,9 +921,7 @@ export const zAllEventStats = z.object({
 });
 
 /**
- * Live activity overview of one agenda: event volume, distributions, spatial extent and thematic keywords, organised along two orthogonal axes — **visibility scope** (`events.published` / `events.all`) × a shared **metric vocabulary** — plus a hoisted `recentlyAdded` slice.
- *
- * Always computed live (never from the search-index snapshot), so access-gated data cannot leak through a stale cache. `events.published` (`PublishedEventStats`) is always present; `events.all` (`AllEventStats`) is present only for `administrator|moderator|internal` callers.
+ * Activity overview of one agenda, computed on each request: event volume, distributions, spatial extent and thematic keywords per visibility scope (`events.published` / `events.all`), plus the `recentlyAdded` slice. `events.published` (`PublishedEventStats`) is always present; `events.all` (`AllEventStats`) is present only for `administrator|moderator|internal` callers.
  *
  */
 export const zAgendaOverview = z.object({
@@ -1057,7 +1030,7 @@ export const zFacetResults = z.object({
 });
 
 /**
- * The denormalized location snapshot an event carries — a nullable subset captured at indexing time. The canonical, full record is the `Location` resource (`GET /agendas/{agendaUid}/locations/{locationUid}`, same `uid`).
+ * The location snapshot an event carries - a nullable subset of the `Location` record. The canonical, full record is the `Location` resource (`GET /agendas/{agendaUid}/locations/{locationUid}`, same `uid`).
  *
  */
 export const zEventLocationWritable = z.object({
@@ -1080,8 +1053,6 @@ export const zEventLocationWritable = z.object({
 /**
  * Compact location representation returned by the list endpoint (`detailed: false`) — identity, coordinates and verification status only; fetch with `detailed=true` or the single-location get for the full record.
  *
- * Empty-as-empty rule: every field is always present; singular optional values are present as `null` when absent.
- *
  */
 export const zLocationSummaryWritable = z.object({
     name: z.string(),
@@ -1093,8 +1064,6 @@ export const zLocationSummaryWritable = z.object({
 
 /**
  * Full location representation returned by the single-get endpoint and by the list when `detailed=true` — the canonical record (the events' embedded `EventLocation` is a nullable snapshot of it).
- *
- * Empty-as-empty rule: every field is always present. Collections are never null/omitted (arrays → `[]`, localized maps → `{}`); singular optional values are present as `null` when absent.
  *
  */
 export const zLocationWritable = z.object({
@@ -1134,8 +1103,6 @@ export const zLocationListWritable = z.object({
 /**
  * An agenda the authenticated user is a member of: the AgendaSummary base fields plus the user's `role` and the agenda's `private` flag (private agendas the user belongs to are listed).
  *
- * Empty-as-empty rule: every field is always present; singular optional values are present as `null` when absent.
- *
  */
 export const zMeAgendaItemWritable = z.object({
     title: z.string().nullable(),
@@ -1168,11 +1135,7 @@ export const zMeAgendaListWritable = z.object({
 });
 
 /**
- * Compact event representation returned by the list endpoint (`detailed: false`). It carries the base field set only — the detailed fields (longDescription, conditions, country, registration, createdAt, updatedAt, accessibility, age, state, links, extIds, sourceAgendas) are NOT present here; fetch a single event for those.
- *
- * The full `timings` array is also detailed-only: the compact view exposes the occurrence span through `firstTiming`/`lastTiming`/`nextTiming` instead, interpreted in `timezone` (the IANA name needed to render those instants correctly across DST). Fetch a single event for the full list of occurrences.
- *
- * Empty-as-empty rule: every field is always present. Collections are never null/omitted (arrays → `[]`, localized maps → `{}`); singular optional values are present as `null` when absent. `additionalFields` is typically `{}` in summaries because agenda additional fields are detailed-level.
+ * Compact event representation returned by the list endpoint (`detailed: false`); the single-event get and `detailed=true` return the full `Event`. The compact view exposes the occurrence span through `firstTiming`/`lastTiming`/`nextTiming`, interpreted in `timezone`; fetch a single event for the full list of occurrences.
  *
  */
 export const zEventSummaryWritable = z.object({
@@ -1189,9 +1152,7 @@ export const zEventSummaryWritable = z.object({
 });
 
 /**
- * Full event representation returned by the single-get endpoint (`detailed: true`). It carries the EventSummary base field set PLUS the detailed-only fields.
- *
- * Empty-as-empty rule: every field is always present. Collections are never null/omitted (arrays → `[]`, localized maps → `{}`); singular optional values are present as `null` when absent.
+ * Full event representation returned by the single-event get, the writes, and the list when `detailed=true`. It carries the EventSummary base field set plus the detailed-only fields.
  *
  */
 export const zEventWritable = z.object({
@@ -1236,13 +1197,13 @@ export const zEventUid = z.coerce.bigint().min(BigInt('-9223372036854775808'), {
 export const zExtKey = z.string();
 
 /**
- * The resource's identifier within that external system (the `value` of an `ExtId` mapping — see the event's `extIds` or the location's `extIds`). Percent-encode reserved characters.
+ * The resource's identifier within that external system (the `value` of an `ExtId` mapping carried in the resource's `extIds`). Percent-encode reserved characters.
  *
  */
 export const zExtIdValue = z.string();
 
 /**
- * On a by-uid write, whether the body's `extIds` are merged with the ones already stored (`true`, the default — a content write never drops an existing external identity) or replace them wholesale (`false`). Omitting `extIds` from the body with `mergeExtIds=false` clears them.
+ * On the by-uid `PUT`, whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`). On `PATCH`, `extIds` present in the body are always merged.
  *
  */
 export const zMergeExtIds = z.boolean().default(true);
@@ -1266,7 +1227,7 @@ export const zLimit = z.number().int().gte(1).lte(100).default(20);
 export const zDetailed = z.boolean().default(false);
 
 /**
- * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` no longer applies (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. `uid` is always returned. Dotted paths descend into nested objects and arrays (`location.name`, `timings.begin`, `additionalFields.myField`). An unknown top-level field is rejected with `400`; an unknown nested sub-field may be too (e.g. `location.zzz`), except under an open container — the `additionalFields` custom-field bag or a localized text map — where any sub-key is accepted and yields nothing when absent. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
+ * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` does not apply (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. `uid` is always returned. Dotted paths descend into nested objects and arrays (`location.name`, `timings.begin`, `additionalFields.myField`). An unknown top-level field is rejected with `400`, and so is an unknown sub-field under a closed object (e.g. `location.zzz`); under an open container - the `additionalFields` custom-field bag or a localized text map - any sub-key is accepted and yields nothing when absent. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
  *
  */
 export const zFields = z.array(z.string());
@@ -1332,8 +1293,7 @@ export const zLocationFilterExtId = z.object({
 export const zLocationBoundingBox = z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$/);
 
 /**
- * Comma-separated list of facets to compute over the filtered events. Unknown facet names return `400`. Shapes by family: term facets yield `{ value, count }`; provenance (`originAgendas`, `sourceAgendas`) yields `{ agenda, count }`; `locations` yields `{ location: { uid, name }, count }` buckets (the uid feeds the `locationUid` filter); `geohash` yields geo cluster buckets (`{ value, count, latitude, longitude }`); `viewport` yields a single bounding box object (or `null`); `timespan` yields the earliest/latest event date as `{ first, last }` (or `null`); `timings` yields a date histogram as `{ value, count }` buckets (bucket width set by `timingsInterval`); `dateRanges` yields a **dense daily grid** of `{ value, count }` over a calendar month (one bucket per day, including zero-count days; month set by `month`); `additionalFields` yields, per agenda choice/boolean field, its option counts as `{ <field>: { label, values:[{ value, label, count }] } }` (fields named by `additionalFieldsKeys`, or all readable when omitted); `additionalFieldMetrics` yields, per agenda numeric field, summary stats as `{ <field>: { label, metrics:{ sum, avg, max, min } } }` (fields named by `additionalFieldMetricsKeys`). Both honor per-field read access.
- * Bucket-list facets (the term, provenance and `locations` families) return the **top buckets by event count**, capped by `facetSize` (default 10, max 250) and overridable per facet with `facetSizes[<facet>]`; `facetSort` reorders them (`count` or `alpha`). There is no bucket pagination — past the cap, narrow the filter instead. `additionalFields` is exhaustive (one bucket per option). The fields, their option ids and their labels are the ones the agenda's event form schema declares (`GET /agendas/{agendaUid}/events/schema`).
+ * Comma-separated list of facets to compute over the filtered events. Unknown facet names return `400`. Each facet's result shape is defined by `FacetResults`. Bucket-list facets (the term, provenance and `locations` families) return the top buckets by event count, capped by `facetSize` (overridable per facet with `facetSizes[<facet>]`) and reordered by `facetSort`; past the cap, narrow the filter. `additionalFields` and `additionalFieldMetrics` cover the agenda's own fields as its event form schema declares them (`GET /agendas/{agendaUid}/events/schema`), named by `additionalFieldsKeys`/`additionalFieldMetricsKeys` or all readable fields when omitted; `additionalFields` returns one bucket per option. `timings` bucket width is set by `timingsInterval`, the `dateRanges` month by `month`, `geohash` granularity by `geohashZoom`.
  *
  */
 export const zFacets = z.array(z.enum([
@@ -1360,7 +1320,7 @@ export const zFacets = z.array(z.enum([
 ])).min(1);
 
 /**
- * Default maximum number of buckets for the bucket-list facets (the term, provenance and `locations` families), ordered by event count. Override a single facet with `facetSizes[<facet>]`. Out-of-range values are clamped; the other families (geohash, viewport, timespan, timings, dateRanges, `additionalFields`/`additionalFieldMetrics`) have their own bounded shapes and ignore it.
+ * Default maximum number of buckets for the bucket-list facets (the term, provenance and `locations` families), ordered by event count. Override a single facet with `facetSizes[<facet>]`. Out-of-range values are clamped; other facets ignore it.
  *
  */
 export const zFacetSize = z.number().int().gte(1).lte(250).default(10);
@@ -1384,7 +1344,7 @@ export const zFacetSort = z.enum(['count', 'alpha']).default('count');
 export const zFacetSorts = z.record(z.enum(['count', 'alpha']));
 
 /**
- * Per-facet label for a synthetic bucket counting the filtered events that have **no value** for the facet's field (`facetMissing[district]=Unknown` adds an `{ value: "Unknown", count }` bucket). Honoured by the value-keyed term facets (cities, regions, departments, districts, countryCodes, keywords, languages, status, attendanceModes); ignored for the others (the provenance and `locations` families key on an encoded ref, so they carry no missing bucket). The bucket appears only when such events exist.
+ * Per-facet label for a synthetic bucket counting the filtered events that have **no value** for the facet's field (`facetMissing[district]=Unknown` adds an `{ value: "Unknown", count }` bucket). Honoured by the term facets (those whose buckets are keyed by the displayed value); ignored by the provenance, `locations` and remaining families. The bucket appears only when such events exist.
  *
  */
 export const zFacetMissing = z.record(z.string());
@@ -1450,20 +1410,7 @@ export const zSort = z.enum([
 export const zSearch = z.string();
 
 /**
- * Relevance score floor for `search` results, used to drop weakly-matching events from the long tail (e.g. a single query term buried in a long description). Ignored when `search` is not set.
- *
- * - `off` (default) — no score filtering; every match is returned.
- * - `auto` — a dynamic cutoff derived from the score distribution of the
- * current query: the largest relative drop ("elbow") in the top scores
- * becomes the floor. It self-calibrates per query, adapting to rare vs
- * common terms and small vs large agendas.
- *
- * - a non-negative number — an absolute minimum score. Relevance scores are
- * not comparable across queries nor stable across reindexes, so a fixed
- * value suits a single tuned query rather than general use; prefer `auto`.
- *
- *
- * Filtering is consistent across the returned events, their `total`, and facet counts: the cutoff is an Elasticsearch `min_score`, applied during document collection, so the same trimmed set drives the hit list and the aggregations. Pass the same `threshold` to the facets endpoint to keep its counts aligned with the list.
+ * Relevance score floor for `search` results, used to drop weakly-matching events from the long tail (e.g. a single query term buried in a long description). Ignored when `search` is not set. `off` (the default) returns every match. `auto` derives the floor from the score distribution of the current query: the largest relative drop ("elbow") in the top scores becomes the cutoff, so it adapts to each query. A non-negative number is an absolute minimum score; relevance scores are specific to a query, so a fixed value suits a single tuned query rather than general use - prefer `auto`. The cutoff applies before counting, so the returned events, their `total` and the facet counts describe the same trimmed set; pass the same `threshold` to the facets endpoint to keep its counts aligned with the list.
  *
  */
 export const zRelevanceThreshold = z.union([
@@ -1821,7 +1768,7 @@ export const zAgendasEventsDeletePath = z.object({
 });
 
 /**
- * The event was deleted.
+ * The event was removed from this agenda.
  */
 export const zAgendasEventsDeleteResponse = zDeletionResult;
 
@@ -1874,7 +1821,7 @@ export const zAgendasEventsDeleteByExtIdPath = z.object({
 });
 
 /**
- * The event was deleted.
+ * The event was removed from this agenda.
  */
 export const zAgendasEventsDeleteByExtIdResponse = zDeletionResult;
 

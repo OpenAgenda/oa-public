@@ -52,7 +52,7 @@ export class Events extends HeyApiClient {
      *
      * Returns a cursor-paginated list of events for the given agenda. Pass the `after` cursor returned in `pagination.after` to fetch the next page.
      *
-     * Filters narrow the result set; they are NOT encoded in the cursor, so resend the same filter parameters when fetching subsequent pages.
+     * Filters narrow the result set; resend the same filter parameters when fetching subsequent pages.
      *
      * Only published events are listed. Unknown or malformed filter values return `400` with per-field context under `error.details`.
      *
@@ -73,7 +73,7 @@ export class Events extends HeyApiClient {
      *
      * Requires a WRITE credential: a secret key (`bearerAuth`) or an OAuth2 access token carrying `events:write`. A publishable key or an agenda key is read-only and answers `403` (`error.code` `read_only_credential`).
      *
-     * Native writable fields sit at the top level; agenda-specific fields go under `additionalFields`. Read-only/computed fields (`uid`, `slug`, `dateRange`, timings digests, …) are rejected. The moderation `state` of the created event is arbitrated by the caller's role and the agenda's contribution settings — a contributor's event may be created pending moderation rather than published — and `status` requires the agenda's `settings.lab.status` opt-in (see `EventInput`).
+     * Native writable fields sit at the top level; agenda-specific fields go under `additionalFields`; any other top-level key is rejected with `400`. The moderation `state` of the created event is arbitrated by the caller's role and the agenda's contribution settings - a contributor's event may be created pending moderation rather than published.
      *
      */
     public create<ThrowOnError extends boolean = false>(options: Options<AgendasEventsCreateData, ThrowOnError>) {
@@ -91,9 +91,9 @@ export class Events extends HeyApiClient {
     /**
      * Validate an event without creating it
      *
-     * Runs the same clean/validate path as create WITHOUT persisting anything. A well-formed, valid body answers `200 { "valid": true }`; invalid field values answer `422` with per-field problems under `error.details.errors[]`. Structural body problems (an unknown top-level key, an `additionalFields` name colliding with a native field) answer `400`. Same write credential requirement as create.
+     * Validates the body exactly as create does, without persisting anything. A well-formed, valid body answers `200 { "valid": true }`; invalid field values answer `422` with per-field problems under `error.details.errors[]`. Structural body problems (an unknown top-level key, an `additionalFields` name colliding with a native field) answer `400`. Requires a write credential: a secret key or an OAuth2 access token carrying `events:write`; a read-only credential answers `403` (`read_only_credential`).
      *
-     * One deliberate exception to "same path as create": a native `image: { url }` is checked only for URL **syntax** here, not retrievability. Verifying that the URL resolves to a public host, returns a real image and fits the size limit requires fetching it — a side effect validate must not perform — so a URL that create would reject at fetch time (dead host, private address, too large, not an image) still passes validate. The image is treated as present, so an agenda whose schema requires one validates as it would create.
+     * A native `image: { url }` is checked for URL syntax only (an `http(s)` URL without embedded credentials): the URL is not fetched, so a URL that create rejects with `422` at fetch time (unreachable host, private address, over 20 MiB, not an image) passes validate. The image counts as present, so an agenda whose schema requires one validates as it would create.
      *
      */
     public validate<ThrowOnError extends boolean = false>(options: Options<AgendasEventsValidateData, ThrowOnError>) {
@@ -140,7 +140,7 @@ export class Events extends HeyApiClient {
     /**
      * Partially update an event
      *
-     * Updates only the fields present in the body (an `EventPatch`, all fields optional) and returns the updated `Event`. Fields left out are unchanged. Same write credential and edit-rights requirements as `PUT`; an unknown event uid answers `404`, invalid field values `422`.
+     * Updates only the fields present in the body (an `EventPatch`) and returns the updated `Event`. Fields left out are unchanged; `extIds` present in the body are merged by key with the stored ones. Requires a WRITE credential (a secret key or an OAuth2 token carrying `events:write`) whose member may edit the event; a read-only credential answers `403` (`read_only_credential`), a member without edit rights `403`. An unknown event uid answers `404`, invalid field values `422`.
      *
      */
     public patch<ThrowOnError extends boolean = false>(options: Options<AgendasEventsPatchData, ThrowOnError>) {
@@ -158,11 +158,11 @@ export class Events extends HeyApiClient {
     /**
      * Replace an event
      *
-     * Replaces the event's content with the submitted body and returns the updated `Event` (identical in shape to the single-get). A full write: the same server-side requirements as create apply (see `EventInput`). Use `PATCH` to change only a few fields.
+     * Replaces the event's content with the submitted body and returns the updated `Event` (identical in shape to the single-get). A full write: the server-side requirements of create apply. Use `PATCH` to change only a few fields.
      *
-     * External id mappings (`extIds`) are merged with the stored ones by default, so a content write never silently drops an existing external identity; pass `?mergeExtIds=false` to replace them wholesale instead (omitting `extIds` from the body then clears them).
+     * External id mappings (`extIds`) in the body are merged by key with the stored ones; pass `?mergeExtIds=false` to replace them wholesale.
      *
-     * Requires a WRITE credential (a secret key or an OAuth2 token carrying `events:write`) whose member may edit the event; a read-only credential answers `403` (`read_only_credential`), a member without edit rights a core `403`. An unknown event uid answers `404`.
+     * Requires a WRITE credential (a secret key or an OAuth2 token carrying `events:write`) whose member may edit the event; a read-only credential answers `403` (`read_only_credential`), a member without edit rights `403`. An unknown event uid answers `404`.
      *
      */
     public update<ThrowOnError extends boolean = false>(options: Options<AgendasEventsUpdateData, ThrowOnError>) {
@@ -180,7 +180,7 @@ export class Events extends HeyApiClient {
     /**
      * Delete an event by external id
      *
-     * Resolves the event carrying the `(extKey, extId)` pair and removes it — a delete when this agenda is the event's origin, a de-referencing otherwise. Answers `200` with a deletion marker (`{ uid, deleted: true }`, the resolved uid). An unknown pair answers `404`. Same write credential requirement as the other by-ext writes.
+     * Resolves the event carrying the `(extKey, extId)` pair and removes it — a delete when this agenda is the event's origin, a de-referencing otherwise. Answers `200` with a deletion marker (`{ uid, deleted: true }`, the resolved uid). An unknown pair answers `404`. Requires a WRITE credential (a secret key or an OAuth2 token carrying `events:write`) whose member may remove the event; a read-only credential answers `403` (`read_only_credential`), a member without rights `403`.
      *
      */
     public deleteByExtId<ThrowOnError extends boolean = false>(options: Options<AgendasEventsDeleteByExtIdData, ThrowOnError>) {
@@ -194,7 +194,7 @@ export class Events extends HeyApiClient {
     /**
      * Get a single event by external id
      *
-     * Returns a single event by its external identifier within the given agenda — the `(key, value)` pair an `ExtId` mapping carries on the event (see `extIds` on the `Event` schema). Use this when you sync from your own system and hold its id rather than the OpenAgenda uid. Resolves to the same `Event` as the by-uid get; an unknown pair answers `404`.
+     * Returns a single event by its external identifier within the given agenda - the `(key, value)` pair an `ExtId` mapping carries in the event's `extIds`. Use this when you sync from your own system and hold its id rather than the OpenAgenda uid. Resolves to the same `Event` as the by-uid get; an unknown pair answers `404`.
      *
      */
     public getByExtId<ThrowOnError extends boolean = false>(options: Options<AgendasEventsGetByExtIdData, ThrowOnError>) {
@@ -208,7 +208,7 @@ export class Events extends HeyApiClient {
     /**
      * Upsert an event by external id (partial)
      *
-     * Like the `PUT` upsert, but when the event already exists only the fields present in the body (an `EventPatch`) are changed — the rest is left untouched (`200`). If no event carries the pair it is created (`201` + `Location`), in which case the full server-side requirements apply, so the body must be complete enough to create a valid event (else `422`). The path pair is added to the event's `extIds` (merged, never replacing mappings from other systems) as for `PUT`.
+     * Upserts the event carrying the `(extKey, extId)` pair. When it already exists, only the fields present in the body (an `EventPatch`) are changed - the rest is left untouched (`200`). If no event carries the pair it is created (`201` + a `Location` header pointing at its canonical by-uid URL), in which case the full server-side requirements apply, so the body must be complete enough to create a valid event (else `422`). The path pair is added to the event's `extIds`, keeping the mappings from other systems; any `extIds` in the body are ignored. Requires a WRITE credential (a secret key or an OAuth2 token carrying `events:write`) whose member may create or edit the event; a read-only credential answers `403` (`read_only_credential`), a member without rights `403`.
      *
      */
     public patchByExtId<ThrowOnError extends boolean = false>(options: Options<AgendasEventsPatchByExtIdData, ThrowOnError>) {
@@ -226,9 +226,9 @@ export class Events extends HeyApiClient {
     /**
      * Upsert an event by external id (replace)
      *
-     * Upserts the event carrying the `(extKey, extId)` pair: its content is REPLACED if it already exists (`200`), or the event is CREATED if not (`201` + a `Location` header pointing at its canonical by-uid URL). The path pair is authoritative — it is added to the event's `extIds` (merged, never replacing mappings from other systems), so the event always carries its own external identity; any `extIds` in the body are ignored. This is the recommended write path for syncing from your own system: it is idempotent by external identity, so a lost response can be retried without creating a duplicate.
+     * Upserts the event carrying the `(extKey, extId)` pair: its content is REPLACED if it already exists (`200`), or the event is CREATED if not (`201` + a `Location` header pointing at its canonical by-uid URL). The path pair is authoritative - it is added to the event's `extIds`, keeping the mappings from other systems, so the event always carries its own external identity; any `extIds` in the body are ignored. This is the recommended write path for syncing from your own system: it is idempotent by external identity, so a lost response can be retried without creating a duplicate.
      *
-     * Requires a WRITE credential carrying `events:write` whose member may create/edit the event (see the by-uid create and replace endpoints).
+     * Requires a WRITE credential (a secret key or an OAuth2 token carrying `events:write`) whose member may create or edit the event; a read-only credential answers `403` (`read_only_credential`), a member without rights `403`.
      *
      */
     public setByExtId<ThrowOnError extends boolean = false>(options: Options<AgendasEventsSetByExtIdData, ThrowOnError>) {
@@ -246,11 +246,11 @@ export class Events extends HeyApiClient {
     /**
      * Faceted counts for an agenda's events — native facets plus its `additionalFields`
      *
-     * Returns event counts grouped by the requested facets, computed over the **same filtered set** as `agendas.events.list`. Pass the same filter parameters to scope the counts (e.g. `?keyword=concert` then facet on `cities`). No event data is returned — only the requested facets, each in the shape the `facets` parameter describes.
+     * Returns event counts grouped by the requested facets, computed over the **same filtered set** as `agendas.events.list`. Pass the same filter parameters to scope the counts (e.g. `?keyword=concert` then facet on `cities`). The response carries only the requested facets, in the shapes `FacetResults` defines.
      *
-     * The native facets are not the whole story: the agenda's own fields (its categories, labels…) are faceted by `additionalFields` — request it too for an agenda-wide stats overview (`additionalFieldMetrics` covers its numeric fields). The fields themselves are declared by the agenda's event form schema (`GET /agendas/{agendaUid}/events/schema`).
+     * The agenda's own fields (its categories, labels…) are faceted by `additionalFields` - request it too for an agenda-wide stats overview (`additionalFieldMetrics` covers its numeric fields). The fields themselves are declared by the agenda's event form schema (`GET /agendas/{agendaUid}/events/schema`).
      *
-     * Only published events are counted. `facets` selects which facets to compute; an unknown facet name returns `400`. There is no pagination: facets describe the whole filtered set.
+     * Only published events are counted. `facets` selects which facets to compute; an unknown facet name returns `400`. Facets cover the whole filtered set in one response.
      *
      */
     public facets<ThrowOnError extends boolean = false>(options: Options<AgendasEventsFacetsData, ThrowOnError>) {
@@ -269,9 +269,9 @@ export class Events extends HeyApiClient {
     /**
      * Named, repeatable facet aggregations for an agenda's events
      *
-     * The analytical projection of the facets surface. Where the `GET` form computes one bucket list per facet name, this `POST` form takes a JSON body of **named, repeatable** aggregations: the same facet `type` may appear several times under distinct `name` aliases, so a field can be aggregated several ways in one request (e.g. `timings` by `month` AND by `year`). Filters live under `filters` (the same shape as the `agendas.events.list` query parameters) and scope every facet.
+     * Takes a JSON body of **named, repeatable** aggregations: the same facet `type` may appear several times under distinct `name` aliases, so a field can be aggregated several ways in one request (e.g. `timings` by `month` AND by `year`). Filters live under `filters` (an `EventFilters` object) and scope every facet.
      *
-     * Each facet item is either a bare facet name (the simple form, identical to the `GET` enum) or an object `{ name?, type, … }` carrying per-instance options (`size`, `sort`, `missing`, `zoom`, `interval`, `fields`). `facetSize`/`facetSort` at the top level set the request-wide defaults an item overrides. The response is keyed by alias, each entry tagged with its `type` so the value shape is unambiguous. Only published events are counted.
+     * Each facet item is either a bare facet name or a `FacetSpec` object carrying per-instance options; `facetSize`/`facetSort` at the top level set the request-wide defaults an item overrides. The response is keyed by alias, each entry tagged with its `type` so the value shape is unambiguous. Only published events are counted.
      *
      */
     public facetsReport<ThrowOnError extends boolean = false>(options: Options<AgendasEventsFacetsReportData, ThrowOnError>) {
@@ -289,11 +289,11 @@ export class Events extends HeyApiClient {
     /**
      * Event form schema of an agenda
      *
-     * Returns the agenda's **merged event form schema** — the dynamic contract the events of this agenda follow. It merges the platform's native event fields with the network's and the agenda's own declarations: an agenda can add its own additional fields and override natives (make one required, restrict its options, relabel it). This is the same schema the OpenAgenda UI uses to build the event form: use it to know which fields exist, which are required and what their options are — e.g. to build payloads for the (upcoming) event write operations, to interpret `additionalFields` on events, or to discover the agenda-specific facets of the facets endpoint.
+     * Returns the agenda's **merged event form schema** — the dynamic contract the events of this agenda follow. It merges the platform's native event fields with the network's and the agenda's own declarations: an agenda can add its own additional fields and override natives (make one required, restrict its options, relabel it). This is the same schema the OpenAgenda UI uses to build the event form: use it to know which fields exist, which are required and what their options are - e.g. to build payloads for the event write operations, to interpret `additionalFields` on events, or to discover the agenda-specific facets of the facets endpoint.
      *
-     * Descriptors are scoped to your read access: a field whose `read` access levels restrict it (e.g. a moderator-only field) is part of the organiser's internal structure, so its descriptor is omitted for callers that may not read it — a public caller sees only the public fields. This matches the facets endpoint and the per-field read access applied to event values.
+     * Descriptors are scoped to your read access: a field whose `read` access levels exclude the caller (e.g. a moderator-only field) is omitted from `fields`, so a public caller sees only the public fields.
      *
-     * The descriptors follow the OpenAgenda form-schema vocabulary (`field`, `fieldType`, `label`, `options`, `optional`, …). The properties documented here are stable; descriptors may carry further engine-specific keys.
+     * Descriptors may carry keys beyond those documented on `FormSchemaField`.
      *
      */
     public schema<ThrowOnError extends boolean = false>(options: Options<AgendasEventsSchemaData, ThrowOnError>) {
@@ -311,9 +311,9 @@ export class Uploads extends HeyApiClient {
      *
      * Stages a media file — the native event `image`, or a custom `file`/`image` form-schema field. Send the file as `multipart/form-data` (field `file`); the API validates its real type and size, stores it, and returns a short- lived `ref`.
      *
-     * Then attach `ref` on an event write — `image: { ref }` or a custom field under `additionalFields` (see `ImageInput` and `AdditionalFields`) — so the media lands in the same write as the rest of the edit.
+     * Then attach `ref` on an event write — `image: { ref }` or a custom field under `additionalFields` as `{ ref, name? }` (`name` being the download filename) - so the media lands in the same write as the rest of the edit.
      *
-     * The file must be a platform-supported type (images, PDF, and common office documents). When the content has a recognizable signature the real type wins — a lying `Content-Type`/filename cannot smuggle a disallowed type past; signature-less types (e.g. CSV) are taken from the filename extension. A disallowed type answers `422`. The size is capped at 20 MiB (`422` past it). This is a coarse gate: the precise types a given field accepts are enforced on the event write, against the agenda's form schema.
+     * The type is detected from the file content, or from the filename extension for signature-less formats such as CSV; a type outside the platform's allowed set (images, PDF and common office documents) answers `422`. The size is capped at 20 MiB (`422` past it). This is a coarse gate: the precise types a given field accepts are enforced on the event write, against the agenda's form schema.
      *
      * Requires a write credential — a read-only publishable or agenda key answers `403` (`read_only_credential`).
      *
@@ -334,13 +334,13 @@ export class Uploads extends HeyApiClient {
     /**
      * Authorize an out-of-band image upload
      *
-     * Authorizes an OUT-OF-BAND upload of a LOCAL image file, so its bytes never pass through the caller's prompt/token stream (pasting base64 is slow and unnecessary). Returns a self-contained descriptor: an `uploadUrl`, a short-lived single-use `ticket`, and the `header`/`field` to use.
+     * Authorizes an OUT-OF-BAND upload of a LOCAL image file, made from outside this API client (e.g. with curl), so its bytes never pass through the caller's prompt. Returns a self-contained descriptor: an `uploadUrl`, a short-lived single-use `ticket`, and the `header`/`field` to use.
      *
-     * Upload the file with a plain HTTPS `POST` to `uploadUrl` — send the `ticket` in the `X-Upload-Ticket` header and the file as multipart field `file`, NOT through this API client (the bytes go straight to storage). That call returns a staging `ref` (an `UploadTicket`), which you then attach with `image: { ref }` on an event write (see `ImageInput`).
+     * Upload the file with a plain HTTPS `POST` to `uploadUrl`: send the `ticket` in the `X-Upload-Ticket` header and the file as multipart field `file`. That call returns a staging `ref` (an `UploadTicket`), which you then attach with `image: { ref }` on an event write.
      *
-     * For an image ALREADY reachable at an `http(s)` URL, do NOT use this — pass `image: { url }` on the write instead (no upload step).
+     * An image already reachable at a public `http(s)` URL is attached directly with `image: { url }` on the write, with no ticket.
      *
-     * The ticket is upload-only, bound to THIS agenda, one file, ~5 min, and single-use; it carries no account credential. Requires a write credential (`events:write`); a read-only publishable or agenda key answers `403`.
+     * The ticket expires after 5 minutes (`expiresAt`) and is consumed by a successful upload. Requires a write credential (`events:write`); a read-only publishable or agenda key answers `403`.
      *
      */
     public createTicket<ThrowOnError extends boolean = false>(options: Options<AgendasUploadsCreateTicketData, ThrowOnError>) {
@@ -356,7 +356,7 @@ export class Locations extends HeyApiClient {
     /**
      * List an agenda's locations
      *
-     * Returns a cursor-paginated list of the agenda's locations, newest first (insertion order — this matches creation date except for records whose `createdAt` was backfilled, e.g. imports preserving source dates). Pass the `after` cursor returned in `pagination.after` to fetch the next page; resend the same filters (they are not encoded in the cursor).
+     * Returns a cursor-paginated list of the agenda's locations, newest first (insertion order, which can differ from `createdAt`). Pass the `after` cursor returned in `pagination.after` to fetch the next page, with the same filters.
      *
      * By default items are the lighter `LocationSummary`; pass `detailed=true` for the full `Location` (the same shape as the single-location get).
      *
@@ -377,7 +377,7 @@ export class Locations extends HeyApiClient {
     /**
      * Get a single location by external id
      *
-     * Returns a single location by its external identifier within the given agenda — the `(key, value)` pair an `ExtId` mapping carries on the location (see `extIds` on the `Location` schema). Use this when you sync from your own system and hold its id rather than the OpenAgenda uid. Resolves to the same `Location` as the by-uid get.
+     * Returns a single location by its external identifier within the given agenda - the `(key, value)` pair an `ExtId` mapping carries in the location's `extIds`. Use this when you sync from your own system and hold its id rather than the OpenAgenda uid. Resolves to the same `Location` as the by-uid get.
      *
      * A location that was merged into another one answers `404` with the machine-readable code `merged` and the surviving location's uid in `error.details.mergedIn` — use it to repair stale references. Any other deleted or unknown pair is a plain `404` with code `not_found`.
      *
@@ -411,11 +411,9 @@ export class Agendas extends HeyApiClient {
     /**
      * List agendas
      *
-     * Returns a cursor-paginated list of agendas. Pass the `after` cursor returned in `pagination.after` to fetch the next page; resend the same filters (they are not encoded in the cursor).
+     * Returns a cursor-paginated list of agendas. Pass the `after` cursor returned in `pagination.after` to fetch the next page, with the same filters.
      *
-     * When `search` is set, results are ranked by relevance by default; otherwise they are ordered by `createdAt.desc`. Override with `sort` (see the parameter for the allowed values).
-     *
-     * By default items are the lighter `AgendaSummary`; pass `detailed=true` for `AgendaDetailed` (adds `createdAt`, `network`, `locationSet` — the search-index detailed projection). The full canonical record (with `url`, `updatedAt`, `officializedAt`, `private`, `indexed`) is only available via the single-agenda `GET /agendas/{agendaUid}`.
+     * Items are the lighter `AgendaSummary` by default, or `AgendaDetailed` with `detailed=true`; the single-agenda get returns the full `Agenda`.
      *
      * Unknown or malformed filter values return `400`.
      *
@@ -432,7 +430,7 @@ export class Agendas extends HeyApiClient {
     /**
      * Get one agenda
      *
-     * Returns a single agenda in its full `Agenda` representation, including `network` and `locationSet`.
+     * Returns a single agenda in its full `Agenda` representation.
      *
      */
     public get<ThrowOnError extends boolean = false>(options: Options<AgendasGetData, ThrowOnError>) {
@@ -448,9 +446,7 @@ export class Agendas extends HeyApiClient {
      *
      * Returns a live activity overview of the agenda: event volume, distributions (by language, source, end-day…), spatial viewport and thematic keywords.
      *
-     * Two visibility scopes. `events.published` (publicly visible events) is returned to every caller. `events.all` (events of any moderation state, moderation/refused included) is returned ONLY to `administrator|moderator|internal` callers and is absent otherwise.
-     *
-     * Always computed live, so access-gated figures never leak through a stale cache.
+     * Two visibility scopes. `events.published` (publicly visible events) is returned to every caller. `events.all` (events of any moderation state, moderation/refused included) is returned ONLY to `administrator|moderator|internal` callers and is absent otherwise. Computed on each request.
      *
      */
     public overview<ThrowOnError extends boolean = false>(options: Options<AgendasOverviewData, ThrowOnError>) {
@@ -483,7 +479,7 @@ export class Agendas2 extends HeyApiClient {
      *
      * Returns a cursor-paginated list of the agendas the authenticated user is a member of, with their role on each. Private agendas the user belongs to ARE included (each item carries a `private` flag).
      *
-     * By default items carry the `AgendaSummary` base fields; pass `detailed=true` to add `createdAt`, `network` and `locationSet`.
+     * Items are `MeAgendaItem` by default, or `MeAgendaItemDetailed` with `detailed=true`.
      *
      * Requires a user identity: a secret key (`oa_sk_…`) or an OAuth access token granted the `me:read` scope. A publishable key (`oa_pk_…`) carries no identity and is answered `401`.
      *
@@ -509,13 +505,13 @@ export class Uploads2 extends HeyApiClient {
     /**
      * Upload a file with an upload ticket
      *
-     * Receives the raw bytes of an OUT-OF-BAND upload authorized by `agendas.uploads.createTicket`, and returns the staging `ref` to attach on an event write (`image: { ref }` or a custom `additionalFields` field). This is the endpoint the ticket descriptor's `uploadUrl` points at.
+     * Receives the bytes of an OUT-OF-BAND upload authorized by `agendas.uploads.createTicket`, and returns the staging `ref` to attach on an event write (`image: { ref }` or a custom `additionalFields` field). This is the endpoint the ticket descriptor's `uploadUrl` points at.
      *
-     * Call it with a plain HTTPS `POST`, NOT through the typed API client — the purpose of the ticket flow is that the file never transits the client (or an LLM's token stream). Authorize with the ticket in the `X-Upload-Ticket` header (no API key or access token) and send the file as `multipart/form-data` field `file`. The target agenda is taken from the signed ticket, so it is not in the path.
+     * Call it with a plain HTTPS `POST` from outside the typed API client, so the file never transits the client (or an LLM's token stream). Authorize with the ticket in the `X-Upload-Ticket` header (no API key or access token) and send the file as `multipart/form-data` field `file`. The target agenda is taken from the signed ticket.
      *
-     * Type and size rules match `agendas.uploads.create`: the real, content-detected type must be platform-supported (a lying `Content-Type`/filename cannot smuggle a disallowed type past), and the body is capped at 20 MiB.
+     * The type is detected from the file content, or from the filename extension for signature-less formats such as CSV; a type outside the platform's allowed set (images, PDF and common office documents) answers `422`. The file is capped at 20 MiB (`422` past it).
      *
-     * The ticket is single-use — the first upload consumes it, and a replay answers `401`.
+     * A successful upload consumes the ticket: reusing it answers `401`. A request rejected before staging (`400`, `422`) leaves the ticket usable until it expires.
      *
      */
     public staged<ThrowOnError extends boolean = false>(options: Options<UploadsStagedData, ThrowOnError>) {

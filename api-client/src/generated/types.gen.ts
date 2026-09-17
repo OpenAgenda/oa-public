@@ -25,7 +25,7 @@ export type Error = {
 
 export type Pagination = {
     /**
-     * Opaque cursor to fetch the next page (pass back as the `after` query parameter). Null when there are no more results.
+     * Opaque cursor to fetch the next page (pass back as the `after` query parameter). `null` when there are no more results; a full last page can still carry a cursor whose next page is empty.
      *
      */
     after: string | null;
@@ -34,7 +34,7 @@ export type Pagination = {
      */
     limit: number;
     /**
-     * Total number of matching records. May be omitted when counting is too expensive.
+     * Total number of matching records, when the operation counts them.
      *
      */
     total?: number;
@@ -46,7 +46,7 @@ export type Pagination = {
 };
 
 /**
- * A string localized per language (ISO 639-1 code). Common keys: fr, en, de, es, it, nl, br, oc.
+ * A string localized per language, keyed by ISO 639-1 code (e.g. `fr`, `en`).
  *
  */
 export type LocalizedString = {
@@ -61,7 +61,7 @@ export type LocalizedStringArray = {
 };
 
 /**
- * Image served on demand from a single source, for an event, an agenda or a location. Use `src` as a ready-to-use default rendition, or drive a responsive picture: substitute `{geo}` into `srcTemplate` (e.g. `800x0` for proportional width, `300x300` for a center-cropped square, `300x300/smart` for a smart-cropped one, `fit-in/1000x1000` to contain without cropping) or pick a ready-made width from `srcset`. `width`/`height` are the intrinsic source dimensions (a cap: renditions are never upscaled past them).
+ * Image of an event, an agenda or a location, rendered on demand from a single source. Use `src` as a ready-to-use default rendition, or drive a responsive picture: substitute a geometry into `srcTemplate` or pick a ready-made width from `srcset`. `width`/`height` are the source dimensions, which cap every rendition.
  *
  */
 export type Image = {
@@ -79,7 +79,7 @@ export type Image = {
      */
     src: string | null;
     /**
-     * URL with a `{geo}` placeholder to substitute with a geometry, to render the image at any size. Supported geometries: `{W}x{H}`, where `0` on an axis means proportional to the other (e.g. `800x0`); append `/smart` to crop on the detected point of interest rather than the centre, or prefix `fit-in/` to contain the image instead of cropping it. No other form is supported. `null` when no rendition can be derived — use `src` as is.
+     * URL with a `{geo}` placeholder to substitute with a geometry, to render the image at any size. Supported geometries: `{W}x{H}`, where `0` on an axis means proportional to the other (e.g. `800x0`); append `/smart` to crop on the detected point of interest rather than the centre, or prefix `fit-in/` to contain the image instead of cropping it (e.g. `300x300`, `300x300/smart`, `fit-in/1000x1000`). `null` when no rendition can be derived - use `src` as is.
      *
      */
     srcTemplate: string | null;
@@ -93,7 +93,7 @@ export type Image = {
 };
 
 /**
- * The denormalized location snapshot an event carries — a nullable subset captured at indexing time. The canonical, full record is the `Location` resource (`GET /agendas/{agendaUid}/locations/{locationUid}`, same `uid`).
+ * The location snapshot an event carries - a nullable subset of the `Location` record. The canonical, full record is the `Location` resource (`GET /agendas/{agendaUid}/locations/{locationUid}`, same `uid`).
  *
  */
 export type EventLocation = {
@@ -126,8 +126,6 @@ export type EventLocation = {
 /**
  * Compact location representation returned by the list endpoint (`detailed: false`) — identity, coordinates and verification status only; fetch with `detailed=true` or the single-location get for the full record.
  *
- * Empty-as-empty rule: every field is always present; singular optional values are present as `null` when absent.
- *
  */
 export type LocationSummary = {
     readonly uid: number;
@@ -143,8 +141,6 @@ export type LocationSummary = {
 
 /**
  * Full location representation returned by the single-get endpoint and by the list when `detailed=true` — the canonical record (the events' embedded `EventLocation` is a nullable snapshot of it).
- *
- * Empty-as-empty rule: every field is always present. Collections are never null/omitted (arrays → `[]`, localized maps → `{}`); singular optional values are present as `null` when absent.
  *
  */
 export type Location = {
@@ -214,7 +210,7 @@ export type LocationExtId = {
 };
 
 /**
- * Agenda-specific additional fields of the location. Today this carries a single `tags` key — the location's tags filtered against the tag set declared in the agenda's schema. As the platform converges legacy tags into real additional fields, agenda-defined keys will appear here (non-breaking).
+ * Agenda-specific additional fields of the location, keyed by field name. `tags` carries the location's tags, filtered against the tag set declared in the agenda's schema.
  *
  */
 export type LocationAdditionalFields = {
@@ -240,7 +236,7 @@ export type LocationList = {
 
 export type EventFormSchema = {
     /**
-     * Every field of the merged schema — native event fields (with any per-agenda overrides applied) and the agenda's/network's additional fields (`schemaId` non-null). Served complete: a field's `read` access levels gate the visibility of its VALUE on events, not the presence of its descriptor here.
+     * The fields of the merged schema readable at the caller's access level - native event fields (with any per-agenda overrides applied) and the agenda's/network's additional fields (`schemaId` non-null). A field whose `read` access levels exclude the caller is omitted.
      *
      */
     fields: Array<FormSchemaField>;
@@ -248,7 +244,7 @@ export type EventFormSchema = {
 };
 
 /**
- * A descriptor in the OpenAgenda form-schema vocabulary, served raw. Two kinds share the array: **data field descriptors** (carrying `field`, the key the value lives under on events) and **section separators** (`type: 'section'`, no `field` — structure the form into titled groups). The properties below are the stable core; descriptors may carry further engine-specific keys (conditions, display hints, sub-schemas such as `schema` on the `location` field, …).
+ * A form field descriptor. Two kinds share the array: **data field descriptors** (carrying `field`, the key the value lives under on events) and **section separators** (`type: 'section'`, no `field` - structure the form into titled groups). Descriptors may carry keys beyond those listed below.
  *
  */
 export type FormSchemaField = {
@@ -258,12 +254,12 @@ export type FormSchemaField = {
      */
     field?: string;
     /**
-     * Field kind in the form-schema vocabulary, e.g. `text`, `textarea`, `multilingual`, `radio`, `checkbox`, `select`, `number`, `date`, `image`, `link`, `abstract` (structural)…
+     * Field kind, which sets the shape of the value (e.g. `text`, `radio`, `number`, `image`).
      *
      */
     fieldType?: string;
     /**
-     * Descriptor kind marker — `section` for section separators; data fields usually omit it.
+     * Descriptor kind marker - `section` for section separators.
      *
      */
     type?: string;
@@ -294,12 +290,12 @@ export type FormSchemaField = {
      */
     enableWith?: unknown;
     /**
-     * The field is only required when another field (same reference forms as `enableWith`) has a value.
+     * The field is optional when another field has a value (either that field's name, or `{ field, value }` to require specific values) and required otherwise; an explicit `optional` takes precedence.
      *
      */
     optionalWith?: unknown;
     /**
-     * For converted legacy fields, what they were converted from.
+     * Set on a field converted from the agenda's tags or categories: what it was converted from.
      *
      */
     origin?: 'tags' | 'categories' | 'custom' | null;
@@ -329,8 +325,6 @@ export type MemberRole = 'administrator' | 'moderator' | 'contributor' | 'reader
 
 /**
  * An agenda the authenticated user is a member of: the AgendaSummary base fields plus the user's `role` and the agenda's `private` flag (private agendas the user belongs to are listed).
- *
- * Empty-as-empty rule: every field is always present; singular optional values are present as `null` when absent.
  *
  */
 export type MeAgendaItem = {
@@ -375,23 +369,19 @@ export type Timing = {
     begin: string;
     end: string;
     /**
-     * Stable identifier for this occurrence, carried across writes so a link to a single date keeps working when the event is edited. Six characters in the Crockford base32 alphabet — the digits plus the uppercase letters, minus `I`, `L`, `O` and `U`, which cannot be confused when read out loud or typed from a printed page.
-     * Optional, and absent rather than null when there is none: an occurrence only gains an identifier when the event is written, so events untouched since the feature shipped carry none. Never reused, and never silently reassigned — an identifier that moved to a different date would keep a shared link working while pointing at the wrong occurrence, which is worse than having no link at all.
-     * May be supplied on write to claim a specific occurrence; it is then honoured verbatim, and must match the shape above.
+     * Stable identifier of this occurrence, kept across writes so a link to a single date keeps working when the event is edited. Absent (rather than `null`) when none has been assigned. Never reused for another occurrence. Supplied on write, it is stored as sent and names that occurrence; a value repeated within the submitted timings is kept on the first occurrence only. A supplied `id` that does not match the pattern answers `422`.
      *
      */
     id?: string;
     /**
-     * The ticketing connector's own key for this occurrence, opaque to OpenAgenda and stored as sent. A connector that names its dates with its own references keeps them matched across a resync even when the dates themselves move, which `id` alone cannot do — so this is how a connector holds on to an occurrence it has already published.
-     * Optional, and bounded at 255 characters because it reaches a JSON column. Not an identifier OpenAgenda issues or interprets: two occurrences of the same event must not share one, or neither can be matched and both are treated as new.
+     * Your own key for this occurrence, opaque to OpenAgenda and stored as sent. On a resync, an occurrence carrying the same `sourceRef` keeps its `id` even when its dates moved, which is how a connector holds on to an occurrence it has already published. Two occurrences of the same event sharing a `sourceRef` are both treated as new.
      *
      */
     sourceRef?: string;
 };
 
 /**
- * What the ticketing sources of this event add up to, derived at read time and never stored. Both halves are `null` when nothing can be said — every occurrence past, or no source carrying a usable status.
- * The availability half is RECOMPUTED on every read rather than served as synced: a sale window elapses between two connector polls, so a stored status goes stale on its own. Inventory (`soldOut`, `limited`) is the exception — only the provider knows it, and only at sync time.
+ * What the ticketing sources of this event add up to, computed on each read. `availability` is `null` when nothing can be said - every occurrence past, or no source carrying a usable status - and reflects the current time, except `soldOut` and `limited`, which reflect the last sync with the provider. `pricing` is a category rolled up from the sources' price lists and declared pricing.
  *
  */
 export type OffersAggregate = {
@@ -401,7 +391,7 @@ export type OffersAggregate = {
      */
     availability?: 'available' | 'limited' | 'notYetOnSale' | 'soldOut' | 'salesClosed' | 'unknown' | 'mixed' | null;
     /**
-     * A CATEGORY, never an amount. v1 stores no price envelope: a card showing "à partir de 18 €" computes it from the tiers the detailed endpoints carry.
+     * A category, never an amount. `mixed` means the sources or the occurrences disagree (one date free, another paid); `unknown` means no source carries a usable pricing.
      *
      */
     pricing?: 'free' | 'paid' | 'donation' | 'mixed' | 'unknown' | null;
@@ -458,7 +448,7 @@ export type EnrichedLink = {
 };
 
 /**
- * A lightweight image for an embedded reference (an agenda logo on an event's originAgenda/sourceAgendas, or a provenance facet bucket). Unlike the full `Image`, a ref carries no intrinsic dimensions (its source is a bare string), so it offers only a ready-to-use `src` plus the `{geo}` template — not the responsive `srcset`/`width`/`height`. A client needing the full responsive image follows the ref to its agenda endpoint, whose `image` is an `Image`.
+ * A lightweight image for an embedded reference (an agenda logo on an event's originAgenda/sourceAgendas, or a provenance facet bucket): a ready-to-use `src` plus the `{geo}` template. The agenda's own `image` (single-agenda get) carries the full `Image`.
  *
  */
 export type ImageRef = {
@@ -468,7 +458,7 @@ export type ImageRef = {
      */
     src: string | null;
     /**
-     * A URL with a literal `{geo}` placeholder to substitute with a geometry, to render the ref image at any size. Supported geometries: `{W}x{H}`, where `0` on an axis means proportional to the other (e.g. `800x0`); append `/smart` to crop on the detected point of interest rather than the centre, or prefix `fit-in/` to contain the image instead of cropping it. No other form is supported. `null` when no rendition can be derived — use `src` as is.
+     * A URL with a literal `{geo}` placeholder to substitute with a geometry, to render the ref image at any size. Supported geometries: `{W}x{H}`, where `0` on an axis means proportional to the other (e.g. `800x0`); append `/smart` to crop on the detected point of interest rather than the centre, or prefix `fit-in/` to contain the image instead of cropping it. `null` when no rendition can be derived - use `src` as is.
      *
      */
     srcTemplate: string | null;
@@ -487,7 +477,7 @@ export type AgendaRef = {
 };
 
 /**
- * A source-agenda reference as carried by provenance facets. Narrower than AgendaRef: the search index only stores uid/title/image for source agendas (slug/url/official are not indexed for sources), so this type deliberately omits them. (On events, sourceAgendas use the full AgendaRef.)
+ * A source-agenda reference as carried by provenance facet buckets.
  *
  */
 export type SourceAgendaRef = {
@@ -505,9 +495,9 @@ export type ExtId = {
 };
 
 /**
- * Agenda-specific additional fields. The available keys and the shape of each value are defined by the agenda's event form schema (see `GET /agendas/{agendaUid}/events/schema`). Each value follows its field's fieldType (text, choice, multilingual, …).
+ * Agenda-specific additional fields. The available keys and the shape of each value are defined by the agenda's event form schema (`GET /agendas/{agendaUid}/events/schema`): each value follows its field's `fieldType`.
  *
- * A `file`/`image` field is set by reference, like the native image: stage the bytes via `POST /agendas/{uid}/uploads`, then send `{ ref, name? }` here (`name` is the original filename, used for the download; optional), or `null` to clear it. On READ the same field returns the stored descriptor `{ originalName, extension, filename }` (build its URL from the media base + `filename`).
+ * A `file`/`image` field is set by reference, like the native image: stage the bytes via `POST /agendas/{uid}/uploads`, then send `{ ref, name? }` here (`name` is the original filename, used for the download; optional), or `null` to clear it. On read the same field returns the stored descriptor `{ originalName, extension, filename }`.
  *
  */
 export type AdditionalFields = {
@@ -531,11 +521,7 @@ export type AgendaLocationSetRef = {
 } | null;
 
 /**
- * Base agenda representation returned by the list endpoint by default (`detailed: false`). It is the search-index base projection — identity and display essentials only.
- *
- * The three agenda read shapes are distinct and reflect their source: `AgendaSummary` (list base) ⊂ `AgendaDetailed` (list `detailed=true`, the search-index detailed projection) and `Agenda` (the single-get, full SQL record).
- *
- * Empty-as-empty rule: every field is always present; singular optional values are present as `null` when absent. NOTE: unlike events, agenda `title`/`description` are plain strings, not localized maps.
+ * Base agenda representation returned by the list endpoints by default (`detailed: false`) - identity and display essentials only.
  *
  */
 export type AgendaSummary = {
@@ -545,15 +531,13 @@ export type AgendaSummary = {
     description: string | null;
     image: Image | null;
     /**
-     * Whether the agenda is an official one. `null` is coerced to `false`.
+     * Whether the agenda is an official one.
      */
     official: boolean;
 };
 
 /**
- * Detailed agenda representation returned by the list endpoint when `detailed: true`. It is the search-index detailed projection: the `AgendaSummary` base set PLUS `createdAt`, `network` and `locationSet`.
- *
- * It is narrower than the single-get `Agenda`: the search index does not carry `url`, `updatedAt`, `officializedAt`, `private` or `indexed`, so those are only available by fetching a single agenda.
+ * Detailed agenda representation returned by the list endpoints when `detailed: true`. `url`, `updatedAt`, `officializedAt`, `private` and `indexed` are returned by the single-agenda get only.
  *
  */
 export type AgendaDetailed = {
@@ -563,7 +547,7 @@ export type AgendaDetailed = {
     description: string | null;
     image: Image | null;
     /**
-     * Whether the agenda is an official one. `null` is coerced to `false`.
+     * Whether the agenda is an official one.
      */
     official: boolean;
     createdAt: string;
@@ -572,9 +556,7 @@ export type AgendaDetailed = {
 };
 
 /**
- * Full agenda representation returned by the single-get endpoint. The canonical record (SQL), with the richest field set: the base fields plus `url`, `createdAt`, `updatedAt`, `officializedAt`, `private`, `indexed`, `network` and `locationSet`.
- *
- * Empty-as-empty rule: every field is always present; singular optional values are present as `null` when absent.
+ * Full agenda representation returned by the single-agenda get.
  *
  */
 export type Agenda = {
@@ -584,7 +566,7 @@ export type Agenda = {
     description: string | null;
     image: Image | null;
     /**
-     * Whether the agenda is an official one. `null` is coerced to `false`.
+     * Whether the agenda is an official one.
      */
     official: boolean;
     /**
@@ -619,7 +601,7 @@ export type AgendaList = {
 };
 
 /**
- * Statistics over an agenda's **publicly visible** events (`events.published`), returned to every caller. Carries the exact distinct counts `locations` and `creators` (computed over the published set).
+ * Statistics over an agenda's **publicly visible** events (`events.published`), including the exact distinct counts `locations` and `creators`.
  *
  */
 export type PublishedEventStats = {
@@ -689,7 +671,7 @@ export type PublishedEventStats = {
 };
 
 /**
- * Statistics over an agenda's events of **any moderation state** (moderation and refused included) — `events.all`. Returned ONLY to `administrator|moderator|internal` callers. Carries `byState` (the per-moderation-state breakdown). It does NOT carry the distinct `locations`/`creators` counts: an exact distinct count over the all-states population is intentionally not computed (cost).
+ * Statistics over an agenda's events of **any moderation state** (moderation and refused included) - `events.all`, with the per-moderation-state breakdown `byState`.
  *
  */
 export type AllEventStats = {
@@ -758,12 +740,12 @@ export type AllEventStats = {
 };
 
 /**
- * A windowed slice of the agenda's own recent contributions — published events added within the recent window and not yet ended — broken down by add method. Published-only for every caller (a single-meaning public stat, never an access-dependent value). A time-slice, not a visibility scope, hence hoisted to the root of `AgendaOverview`.
+ * Published events added within the last `window` days and still to end, counted by add method. Identical for every caller.
  *
  */
 export type RecentlyAddedStats = {
     /**
-     * Width of the slice in days (server-configured) — makes the counts interpretable.
+     * Width of the slice in days.
      *
      */
     window: number;
@@ -777,9 +759,7 @@ export type RecentlyAddedStats = {
 };
 
 /**
- * Live activity overview of one agenda: event volume, distributions, spatial extent and thematic keywords, organised along two orthogonal axes — **visibility scope** (`events.published` / `events.all`) × a shared **metric vocabulary** — plus a hoisted `recentlyAdded` slice.
- *
- * Always computed live (never from the search-index snapshot), so access-gated data cannot leak through a stale cache. `events.published` (`PublishedEventStats`) is always present; `events.all` (`AllEventStats`) is present only for `administrator|moderator|internal` callers.
+ * Activity overview of one agenda, computed on each request: event volume, distributions, spatial extent and thematic keywords per visibility scope (`events.published` / `events.all`), plus the `recentlyAdded` slice. `events.published` (`PublishedEventStats`) is always present; `events.all` (`AllEventStats`) is present only for `administrator|moderator|internal` callers.
  *
  */
 export type AgendaOverview = {
@@ -791,7 +771,7 @@ export type AgendaOverview = {
 };
 
 /**
- * Publication status of the event.
+ * Lifecycle status of the event.
  */
 export type EventStatus = 1 | 2 | 3 | 4 | 5 | 6;
 
@@ -811,11 +791,7 @@ export type ModerationState = -2 | -1 | 0 | 1 | 2;
 export type AccessibilityCode = 'hi' | 'ii' | 'mi' | 'pi' | 'vi';
 
 /**
- * Compact event representation returned by the list endpoint (`detailed: false`). It carries the base field set only — the detailed fields (longDescription, conditions, country, registration, createdAt, updatedAt, accessibility, age, state, links, extIds, sourceAgendas) are NOT present here; fetch a single event for those.
- *
- * The full `timings` array is also detailed-only: the compact view exposes the occurrence span through `firstTiming`/`lastTiming`/`nextTiming` instead, interpreted in `timezone` (the IANA name needed to render those instants correctly across DST). Fetch a single event for the full list of occurrences.
- *
- * Empty-as-empty rule: every field is always present. Collections are never null/omitted (arrays → `[]`, localized maps → `{}`); singular optional values are present as `null` when absent. `additionalFields` is typically `{}` in summaries because agenda additional fields are detailed-level.
+ * Compact event representation returned by the list endpoint (`detailed: false`); the single-event get and `detailed=true` return the full `Event`. The compact view exposes the occurrence span through `firstTiming`/`lastTiming`/`nextTiming`, interpreted in `timezone`; fetch a single event for the full list of occurrences.
  *
  */
 export type EventSummary = {
@@ -846,16 +822,15 @@ export type EventSummary = {
     readonly firstTiming: Timing | null;
     readonly lastTiming: Timing | null;
     /**
-     * The next upcoming timing, or null when the event is over.
+     * The first occurrence that has not ended yet (an occurrence in progress included), or `null` when every occurrence has ended.
+     *
      */
     readonly nextTiming: Timing | null;
     additionalFields: AdditionalFields;
 };
 
 /**
- * Full event representation returned by the single-get endpoint (`detailed: true`). It carries the EventSummary base field set PLUS the detailed-only fields.
- *
- * Empty-as-empty rule: every field is always present. Collections are never null/omitted (arrays → `[]`, localized maps → `{}`); singular optional values are present as `null` when absent.
+ * Full event representation returned by the single-event get, the writes, and the list when `detailed=true`. It carries the EventSummary base field set plus the detailed-only fields.
  *
  */
 export type Event = {
@@ -891,7 +866,8 @@ export type Event = {
     readonly firstTiming: Timing | null;
     readonly lastTiming: Timing | null;
     /**
-     * The next upcoming timing, or null when the event is over.
+     * The first occurrence that has not ended yet (an occurrence in progress included), or `null` when every occurrence has ended.
+     *
      */
     readonly nextTiming: Timing | null;
     additionalFields: AdditionalFields;
@@ -903,8 +879,7 @@ export type Event = {
     readonly country: LocalizedString | null;
     registration: Array<Registration>;
     /**
-     * ABSENT from an event with no ticketing catalogue, which is the overwhelming majority — the projection adds nothing to those, by design, and such an event answers exactly as it did before this field existed.
-     * Present as soon as a catalogue is there, and then possibly `null` on either half: `null` means "nothing can be said" — every occurrence past, or no source carrying a usable status — never "no ticketing".
+     * Present only on an event with a ticketing catalogue. Its `availability` is `null` when nothing can be said - every occurrence past, or no source carrying a usable status - never to mean "no ticketing".
      *
      */
     readonly offersAggregate?: OffersAggregate;
@@ -931,14 +906,14 @@ export type UploadTicket = {
      */
     ref: string;
     /**
-     * The staged upload is guaranteed attachable at least until this instant (ISO 8601). Afterwards a periodic sweep reclaims it if it was never attached; attaching a reclaimed reference answers `422`. Attach before this point — availability past it is best-effort.
+     * The staged upload is attachable at least until this instant (ISO 8601); attaching it later may answer `422`.
      *
      */
     expiresAt: string;
 };
 
 /**
- * An out-of-band upload authorization. `POST` the raw file to `uploadUrl`, sending `ticket` in the `header` header and the file as multipart `field`; the bytes travel over HTTPS directly, NOT through this API client. That call returns an `UploadTicket` whose `ref` you attach with `image: { ref }`.
+ * An out-of-band upload authorization. `POST` the raw file to `uploadUrl` with a plain HTTPS request, sending `ticket` in the `header` header and the file as multipart `field`. That call returns an `UploadTicket` whose `ref` you attach with `image: { ref }`.
  *
  */
 export type UploadDescriptor = {
@@ -974,16 +949,16 @@ export type UploadDescriptor = {
 };
 
 /**
- * Write shape for an event image, distinct from the read `Image` (which carries the rendition URLs). Attach the image one of two ways — a freshly-staged upload by its `ref` (the value returned by `POST /agendas/{uid}/uploads`), or a publicly reachable `url` the server fetches — or send `null` to remove the current image. The original is processed into the standard size variants and stored as part of the SAME write, so an image change lands in one activity alongside the rest of the edit.
+ * Write shape for an event image (the read `Image` carries the rendition URLs). Attach the image one of two ways - a freshly-staged upload by its `ref` (the value returned by `POST /agendas/{uid}/uploads`), or a publicly reachable `url` the server fetches - or send `null` to remove the current image. The image is stored as part of the same write as the rest of the edit; renditions are derived from it on demand.
  *
- * The `url` must be a publicly reachable `http(s)` image, without credentials in the URL. A URL that is malformed, not `http(s)`, carries credentials, is not publicly reachable, cannot be retrieved, is not a valid image, or is larger than the size limit is rejected with `422`. The retrievability checks (public host, actually an image, within the size limit) run when the server fetches the URL — i.e. on create/update, not on `validate`, which only checks the URL syntax (it does not fetch).
+ * The `url` must be a publicly reachable `http(s)` image, without credentials in the URL. A URL that is malformed, not `http(s)`, carries credentials, is not publicly reachable, cannot be retrieved, is not a valid image, or is larger than 20 MiB is rejected with `422`.
  *
  * An object carrying both `ref` and `url`, or any other key, is rejected with `400`.
  *
  */
 export type ImageInput = {
     /**
-     * A staging reference returned by the upload endpoint (of the form `staging/{agendaUid}/…`). It must belong to this agenda — a reference for another agenda answers `422`. A staged upload is short-lived (see the upload response's `expiresAt`): it is guaranteed attachable until that instant, and once it is reclaimed by the periodic sweep the reference can no longer be found and attaching it answers `422`. Attach promptly — availability past `expiresAt` is best-effort, not a hard deadline.
+     * A staging reference returned by the upload endpoint (of the form `staging/{agendaUid}/…`). It must belong to this agenda — a reference for another agenda answers `422` - and be attached before the upload's `expiresAt`; attaching it later may answer `422`.
      *
      */
     ref: string;
@@ -996,15 +971,11 @@ export type ImageInput = {
 } | null;
 
 /**
- * Request body for creating (and, later, replacing) an event. This is the WRITE shape, deliberately distinct from the read `Event`: it carries only the fields a client may set. Read-only/computed fields the read projection emits (`uid`, `slug`, `dateRange`, `featured`, `originAgenda`, `timezone`, first/last/next timing digests, `country`, `createdAt`, `updatedAt`, `links`, `sourceAgendas`) are NOT accepted and are rejected with `400` if sent.
+ * Request body for creating or replacing an event: the fields a client may set. Agenda-specific fields go under `additionalFields`, never at the top level; any other top-level key (a read-only field such as `uid` or `slug`, an unknown name) is rejected with `400`, as is an `additionalFields` name that collides with a native field. Field values are validated by the server (a `422` with per-field `error.details.errors[]` on failure).
  *
- * Agenda-specific fields go under `additionalFields`, never at the top level; an unknown top-level key is a `400`, as is an `additionalFields` name that collides with a native field. Field VALUES are validated by the server (a `422` with per-field `error.details.errors[]` on failure).
+ * Required fields depend on the target agenda: an event needs at least `title`, `description` and `timings`, plus a `location` unless it is online-only, plus whatever the agenda marks required; a missing one answers `422` with the per-field set under `error.details.errors[]`.
  *
- * Required fields are enforced server-side, not declared here: a published event needs at least `title`, `description` and `timings`, plus a `location` unless it is online-only, plus whatever a given agenda marks required. These requirements are relaxed for drafts, so no top-level `required` is declared on this schema — send a body and read the `422` `error.details.errors[]` for the exact, per-agenda set.
- *
- * Two fields are settable but authorization-gated, so the value you send may be adjusted or refused: `state` (moderation) and `status` (lifecycle). The moderation `state` is arbitrated by the server from the agenda's contribution settings and your role — a moderator's value is honored, a `state: 2` (publish) without permission answers `403`, and a contributor's value is ignored in favour of the agenda default. The `status` field is a per-agenda opt-in feature (`settings.lab.status`): when it is disabled for the agenda, sending `status` answers `422`. See each field for details.
- *
- * The `image` is set either by reference — stage the bytes via `POST /agendas/{uid}/uploads` and pass the returned `ref` here — or by a public `url` the server fetches (or `null` to clear it); see `ImageInput`. Not settable in this version: draft creation. `private` is never accepted: an event's privacy is derived from its agenda, not set per-event.
+ * The `image` is set either by reference — stage the bytes via `POST /agendas/{uid}/uploads` and pass the returned `ref` here - or by a public `url` the server fetches (or `null` to clear it). An event's privacy is derived from its agenda.
  *
  */
 export type EventInput = {
@@ -1023,20 +994,20 @@ export type EventInput = {
      */
     timings?: Array<Timing>;
     /**
-     * The event's location, referenced by its OpenAgenda uid. Create the location first (or reuse an existing one) and pass its uid here.
+     * The event's location, referenced by the uid of a location of the agenda (or of its shared location set).
      *
      */
     location?: EventLocationRef | null;
     attendanceMode?: AttendanceMode;
     /**
-     * Access link for an online or hybrid event (see `attendanceMode`).
+     * Access link for an online or hybrid event (`attendanceMode` `2` or `3`).
      *
      */
     onlineAccessLink?: string | null;
     accessibility?: Accessibility;
     age?: AgeRange;
     /**
-     * Ways for attendees to register (phone, email or link). The server validates each entry.
+     * Ways for attendees to register; an invalid entry answers `422`.
      *
      */
     registration?: Array<Registration>;
@@ -1046,12 +1017,12 @@ export type EventInput = {
      */
     extIds?: Array<ExtId>;
     /**
-     * Moderation state — arbitrated by the server, not set outright. Only a moderator/administrator can choose it; requesting `2` (published) without publish permission answers `403`; a contributor's value is ignored in favour of the agenda's default contribution state. Omit it to let the agenda's settings decide.
+     * Moderation state, arbitrated by the server. A moderator or administrator's value is applied; requesting `2` (published) without publish permission answers `403`. For other members, on creation the value is ignored and the agenda's default contribution state applies; on update, the agenda's moderation settings decide whether the existing state is kept or reset to `0` (to control). Omit it to let the agenda's settings decide.
      *
      */
     state?: ModerationState;
     /**
-     * Event lifecycle status (scheduled/cancelled/…). A per-agenda opt-in feature: it is only accepted when `settings.lab.status` is enabled for the target agenda — otherwise sending it answers `422`. Not gated by role.
+     * Event lifecycle status. Accepted only on agendas that have the event status feature enabled; otherwise sending it answers `422`.
      *
      */
     status?: EventStatus;
@@ -1065,7 +1036,7 @@ export type EventInput = {
 };
 
 /**
- * Partial update body: the same fields as `EventInput`, all optional. Only the provided fields are changed. Will be used by the upcoming partial-update (PATCH) endpoint.
+ * Partial update body: every field is optional, and only the provided fields are changed.
  *
  */
 export type EventPatch = {
@@ -1087,12 +1058,12 @@ export type EventPatch = {
     registration?: Array<Registration>;
     extIds?: Array<ExtId>;
     /**
-     * Moderation state — arbitrated by the server (see `EventInput.state`).
+     * Moderation state, arbitrated by the server. A moderator or administrator's value is applied; requesting `2` (published) without publish permission answers `403`. For other members, the agenda's moderation settings decide whether the existing state is kept or reset to `0` (to control).
      *
      */
     state?: ModerationState;
     /**
-     * Event lifecycle status — gated by `settings.lab.status` (see `EventInput.status`).
+     * Event lifecycle status. Accepted only on agendas that have the event status feature enabled; otherwise sending it answers `422`.
      *
      */
     status?: EventStatus;
@@ -1113,7 +1084,7 @@ export type EventLocationRef = {
 };
 
 /**
- * Confirmation returned by a delete: the uid of the removed resource and a `deleted: true` marker (Stripe-style), so a client can confirm the outcome without a follow-up read.
+ * Confirmation returned by a delete: the uid of the removed resource and a `deleted: true` marker.
  *
  */
 export type DeletionResult = {
@@ -1123,7 +1094,7 @@ export type DeletionResult = {
 
 export type EventList = {
     /**
-     * `EventSummary` items by default, or full `Event` items when `detailed=true` is passed. The two are mutually exclusive (`additionalProperties: false`), so each item validates against exactly one branch.
+     * `EventSummary` items by default, or full `Event` items when `detailed=true` is passed.
      *
      */
     data: Array<Event | EventSummary>;
@@ -1141,7 +1112,7 @@ export type FacetName = 'additionalFields' | 'additionalFieldMetrics' | 'cities'
  */
 export type FacetSpec = {
     /**
-     * Output key (alias). Defaults to `type`. Must be unique within the request — it is the key the result is returned under.
+     * Output key (alias) the result is returned under. Defaults to `type`. A duplicate name answers `400`.
      *
      */
     name?: string;
@@ -1199,7 +1170,7 @@ export type FacetReportRequest = {
 };
 
 /**
- * Filters scoping the facet report — the same fields as the `agendas.events.list` query parameters, in their native JSON types. Unknown keys are ignored (forward-compatible).
+ * Filters scoping the facet report - the event list filters, in their native JSON types. Unknown keys are ignored.
  *
  */
 export type EventFilters = {
@@ -1335,27 +1306,83 @@ export type FacetBucket = {
 
 export type FacetResults = {
     /**
-     * One entry per requested facet, under the facet's name. A facet that was not requested is absent; a requested one is always present, even when no event matches — its value is then an empty array, an empty object, `null`, or its own fixed structure with zero counts, depending on the facet. Each property below defines its shape, and the `facets` parameter describes them family by family.
+     * One entry per requested facet, under the facet's name. A facet that was not requested is absent; a requested one is always present, even when no event matches — its value is then an empty array, an empty object, `null`, or its own fixed structure with zero counts, depending on the facet. Each property below defines its shape.
      *
      */
     facets: {
+        /**
+         * Top cities by event count.
+         */
         cities?: Array<FacetBucket>;
+        /**
+         * Top regions by event count.
+         */
         regions?: Array<FacetBucket>;
+        /**
+         * Top departments by event count.
+         */
         departments?: Array<FacetBucket>;
+        /**
+         * Top districts by event count.
+         */
         districts?: Array<FacetBucket>;
+        /**
+         * Top countries (ISO 3166-1 alpha-2) by event count.
+         */
         countryCodes?: Array<FacetBucket>;
+        /**
+         * Top keywords by event count.
+         */
         keywords?: Array<FacetBucket>;
+        /**
+         * Top languages (ISO 639-1) by event count.
+         */
         languages?: Array<FacetBucket>;
+        /**
+         * Event count per accessibility facility code.
+         */
         accessibilities?: Array<FacetBucket>;
+        /**
+         * Event count per `EventStatus` code, as a string.
+         */
         status?: Array<FacetBucket>;
+        /**
+         * Event count per `AttendanceMode` code, as a string.
+         */
         attendanceModes?: Array<FacetBucket>;
+        /**
+         * Top origin agendas by event count.
+         */
         originAgendas?: Array<AgendaFacetBucket>;
+        /**
+         * Top source agendas by event count.
+         */
         sourceAgendas?: Array<SourceAgendaFacetBucket>;
+        /**
+         * Top locations by event count.
+         */
         locations?: Array<LocationFacetBucket>;
+        /**
+         * Geo clusters at the `geohashZoom` granularity.
+         */
         geohash?: Array<GeoFacetBucket>;
+        /**
+         * Bounding box enclosing the matching events, or `null`.
+         */
         viewport?: Viewport | null;
+        /**
+         * Earliest and latest event dates, or `null`.
+         */
         timespan?: Timespan | null;
+        /**
+         * Date histogram of occurrences, one bucket per `timingsInterval`.
+         *
+         */
         timings?: Array<FacetBucket>;
+        /**
+         * Daily event counts over the `month` calendar month, one bucket per day, zero-count days included.
+         *
+         */
         dateRanges?: Array<FacetBucket>;
         /**
          * One entry per requested (and readable) agenda choice/boolean field, keyed by field name.
@@ -1407,7 +1434,7 @@ export type AdditionalFieldMetricsFacet = {
 };
 
 /**
- * Summary statistics over the field's numeric values across the filtered set. Each is `null` when no event in the set carries a value.
+ * Summary statistics over the field's numeric values across the filtered set. `avg`, `max` and `min` are `null` when no event in the set carries a value; `sum` is then `0`.
  *
  */
 export type AdditionalFieldMetrics = {
@@ -1418,7 +1445,7 @@ export type AdditionalFieldMetrics = {
 };
 
 /**
- * An origin-agenda facet bucket — events grouped by origin agenda. `agenda` is an `AgendaRef` (uid, title, slug, image, url; `official` is not indexed for this aggregation). Use the uid with the `originAgendaUid` filter.
+ * An origin-agenda facet bucket — events grouped by origin agenda. `agenda` is an `AgendaRef` without `official`. Use the uid with the `originAgendaUid` filter.
  *
  */
 export type AgendaFacetBucket = {
@@ -1430,7 +1457,7 @@ export type AgendaFacetBucket = {
 };
 
 /**
- * A source-agenda facet bucket — events grouped by source (aggregated) agenda. `agenda` is a `SourceAgendaRef` (uid, title, image only). Use the uid with the `sourceAgendaUid` filter.
+ * A source-agenda facet bucket — events grouped by source (aggregated) agenda. Use the uid with the `sourceAgendaUid` filter.
  *
  */
 export type SourceAgendaFacetBucket = {
@@ -1442,7 +1469,7 @@ export type SourceAgendaFacetBucket = {
 };
 
 /**
- * A location facet bucket — events grouped by their attached location. `location` carries only what the aggregation indexes (uid and name), narrower than events' `location`. Use the uid with the `locationUid` filter.
+ * A location facet bucket — events grouped by their attached location. `location` carries `uid` and `name`. Use the uid with the `locationUid` filter.
  *
  */
 export type LocationFacetBucket = {
@@ -1494,7 +1521,7 @@ export type Timespan = {
 };
 
 /**
- * The denormalized location snapshot an event carries — a nullable subset captured at indexing time. The canonical, full record is the `Location` resource (`GET /agendas/{agendaUid}/locations/{locationUid}`, same `uid`).
+ * The location snapshot an event carries - a nullable subset of the `Location` record. The canonical, full record is the `Location` resource (`GET /agendas/{agendaUid}/locations/{locationUid}`, same `uid`).
  *
  */
 export type EventLocationWritable = {
@@ -1526,8 +1553,6 @@ export type EventLocationWritable = {
 /**
  * Compact location representation returned by the list endpoint (`detailed: false`) — identity, coordinates and verification status only; fetch with `detailed=true` or the single-location get for the full record.
  *
- * Empty-as-empty rule: every field is always present; singular optional values are present as `null` when absent.
- *
  */
 export type LocationSummaryWritable = {
     name: string;
@@ -1542,8 +1567,6 @@ export type LocationSummaryWritable = {
 
 /**
  * Full location representation returned by the single-get endpoint and by the list when `detailed=true` — the canonical record (the events' embedded `EventLocation` is a nullable snapshot of it).
- *
- * Empty-as-empty rule: every field is always present. Collections are never null/omitted (arrays → `[]`, localized maps → `{}`); singular optional values are present as `null` when absent.
  *
  */
 export type LocationWritable = {
@@ -1606,8 +1629,6 @@ export type LocationListWritable = {
 /**
  * An agenda the authenticated user is a member of: the AgendaSummary base fields plus the user's `role` and the agenda's `private` flag (private agendas the user belongs to are listed).
  *
- * Empty-as-empty rule: every field is always present; singular optional values are present as `null` when absent.
- *
  */
 export type MeAgendaItemWritable = {
     title: string | null;
@@ -1644,11 +1665,7 @@ export type MeAgendaListWritable = {
 };
 
 /**
- * Compact event representation returned by the list endpoint (`detailed: false`). It carries the base field set only — the detailed fields (longDescription, conditions, country, registration, createdAt, updatedAt, accessibility, age, state, links, extIds, sourceAgendas) are NOT present here; fetch a single event for those.
- *
- * The full `timings` array is also detailed-only: the compact view exposes the occurrence span through `firstTiming`/`lastTiming`/`nextTiming` instead, interpreted in `timezone` (the IANA name needed to render those instants correctly across DST). Fetch a single event for the full list of occurrences.
- *
- * Empty-as-empty rule: every field is always present. Collections are never null/omitted (arrays → `[]`, localized maps → `{}`); singular optional values are present as `null` when absent. `additionalFields` is typically `{}` in summaries because agenda additional fields are detailed-level.
+ * Compact event representation returned by the list endpoint (`detailed: false`); the single-event get and `detailed=true` return the full `Event`. The compact view exposes the occurrence span through `firstTiming`/`lastTiming`/`nextTiming`, interpreted in `timezone`; fetch a single event for the full list of occurrences.
  *
  */
 export type EventSummaryWritable = {
@@ -1665,9 +1682,7 @@ export type EventSummaryWritable = {
 };
 
 /**
- * Full event representation returned by the single-get endpoint (`detailed: true`). It carries the EventSummary base field set PLUS the detailed-only fields.
- *
- * Empty-as-empty rule: every field is always present. Collections are never null/omitted (arrays → `[]`, localized maps → `{}`); singular optional values are present as `null` when absent.
+ * Full event representation returned by the single-event get, the writes, and the list when `detailed=true`. It carries the EventSummary base field set plus the detailed-only fields.
  *
  */
 export type EventWritable = {
@@ -1692,7 +1707,7 @@ export type EventWritable = {
 
 export type EventListWritable = {
     /**
-     * `EventSummary` items by default, or full `Event` items when `detailed=true` is passed. The two are mutually exclusive (`additionalProperties: false`), so each item validates against exactly one branch.
+     * `EventSummary` items by default, or full `Event` items when `detailed=true` is passed.
      *
      */
     data: Array<EventWritable | EventSummaryWritable>;
@@ -1716,13 +1731,13 @@ export type EventUid = number;
 export type ExtKey = string;
 
 /**
- * The resource's identifier within that external system (the `value` of an `ExtId` mapping — see the event's `extIds` or the location's `extIds`). Percent-encode reserved characters.
+ * The resource's identifier within that external system (the `value` of an `ExtId` mapping carried in the resource's `extIds`). Percent-encode reserved characters.
  *
  */
 export type ExtIdValue = string;
 
 /**
- * On a by-uid write, whether the body's `extIds` are merged with the ones already stored (`true`, the default — a content write never drops an existing external identity) or replace them wholesale (`false`). Omitting `extIds` from the body with `mergeExtIds=false` clears them.
+ * On the by-uid `PUT`, whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`). On `PATCH`, `extIds` present in the body are always merged.
  *
  */
 export type MergeExtIds = boolean;
@@ -1746,7 +1761,7 @@ export type Limit = number;
 export type Detailed = boolean;
 
 /**
- * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` no longer applies (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. `uid` is always returned. Dotted paths descend into nested objects and arrays (`location.name`, `timings.begin`, `additionalFields.myField`). An unknown top-level field is rejected with `400`; an unknown nested sub-field may be too (e.g. `location.zzz`), except under an open container — the `additionalFields` custom-field bag or a localized text map — where any sub-key is accepted and yields nothing when absent. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
+ * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` does not apply (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. `uid` is always returned. Dotted paths descend into nested objects and arrays (`location.name`, `timings.begin`, `additionalFields.myField`). An unknown top-level field is rejected with `400`, and so is an unknown sub-field under a closed object (e.g. `location.zzz`); under an open container - the `additionalFields` custom-field bag or a localized text map - any sub-key is accepted and yields nothing when absent. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
  *
  */
 export type Fields = Array<string>;
@@ -1812,14 +1827,13 @@ export type LocationFilterExtId = {
 export type LocationBoundingBox = string;
 
 /**
- * Comma-separated list of facets to compute over the filtered events. Unknown facet names return `400`. Shapes by family: term facets yield `{ value, count }`; provenance (`originAgendas`, `sourceAgendas`) yields `{ agenda, count }`; `locations` yields `{ location: { uid, name }, count }` buckets (the uid feeds the `locationUid` filter); `geohash` yields geo cluster buckets (`{ value, count, latitude, longitude }`); `viewport` yields a single bounding box object (or `null`); `timespan` yields the earliest/latest event date as `{ first, last }` (or `null`); `timings` yields a date histogram as `{ value, count }` buckets (bucket width set by `timingsInterval`); `dateRanges` yields a **dense daily grid** of `{ value, count }` over a calendar month (one bucket per day, including zero-count days; month set by `month`); `additionalFields` yields, per agenda choice/boolean field, its option counts as `{ <field>: { label, values:[{ value, label, count }] } }` (fields named by `additionalFieldsKeys`, or all readable when omitted); `additionalFieldMetrics` yields, per agenda numeric field, summary stats as `{ <field>: { label, metrics:{ sum, avg, max, min } } }` (fields named by `additionalFieldMetricsKeys`). Both honor per-field read access.
- * Bucket-list facets (the term, provenance and `locations` families) return the **top buckets by event count**, capped by `facetSize` (default 10, max 250) and overridable per facet with `facetSizes[<facet>]`; `facetSort` reorders them (`count` or `alpha`). There is no bucket pagination — past the cap, narrow the filter instead. `additionalFields` is exhaustive (one bucket per option). The fields, their option ids and their labels are the ones the agenda's event form schema declares (`GET /agendas/{agendaUid}/events/schema`).
+ * Comma-separated list of facets to compute over the filtered events. Unknown facet names return `400`. Each facet's result shape is defined by `FacetResults`. Bucket-list facets (the term, provenance and `locations` families) return the top buckets by event count, capped by `facetSize` (overridable per facet with `facetSizes[<facet>]`) and reordered by `facetSort`; past the cap, narrow the filter. `additionalFields` and `additionalFieldMetrics` cover the agenda's own fields as its event form schema declares them (`GET /agendas/{agendaUid}/events/schema`), named by `additionalFieldsKeys`/`additionalFieldMetricsKeys` or all readable fields when omitted; `additionalFields` returns one bucket per option. `timings` bucket width is set by `timingsInterval`, the `dateRanges` month by `month`, `geohash` granularity by `geohashZoom`.
  *
  */
 export type Facets = Array<'additionalFields' | 'additionalFieldMetrics' | 'cities' | 'regions' | 'departments' | 'districts' | 'countryCodes' | 'keywords' | 'languages' | 'accessibilities' | 'status' | 'attendanceModes' | 'originAgendas' | 'sourceAgendas' | 'locations' | 'geohash' | 'viewport' | 'timespan' | 'timings' | 'dateRanges'>;
 
 /**
- * Default maximum number of buckets for the bucket-list facets (the term, provenance and `locations` families), ordered by event count. Override a single facet with `facetSizes[<facet>]`. Out-of-range values are clamped; the other families (geohash, viewport, timespan, timings, dateRanges, `additionalFields`/`additionalFieldMetrics`) have their own bounded shapes and ignore it.
+ * Default maximum number of buckets for the bucket-list facets (the term, provenance and `locations` families), ordered by event count. Override a single facet with `facetSizes[<facet>]`. Out-of-range values are clamped; other facets ignore it.
  *
  */
 export type FacetSize = number;
@@ -1847,7 +1861,7 @@ export type FacetSorts = {
 };
 
 /**
- * Per-facet label for a synthetic bucket counting the filtered events that have **no value** for the facet's field (`facetMissing[district]=Unknown` adds an `{ value: "Unknown", count }` bucket). Honoured by the value-keyed term facets (cities, regions, departments, districts, countryCodes, keywords, languages, status, attendanceModes); ignored for the others (the provenance and `locations` families key on an encoded ref, so they carry no missing bucket). The bucket appears only when such events exist.
+ * Per-facet label for a synthetic bucket counting the filtered events that have **no value** for the facet's field (`facetMissing[district]=Unknown` adds an `{ value: "Unknown", count }` bucket). Honoured by the term facets (those whose buckets are keyed by the displayed value); ignored by the provenance, `locations` and remaining families. The bucket appears only when such events exist.
  *
  */
 export type FacetMissing = {
@@ -1897,20 +1911,7 @@ export type Sort = 'timings.asc' | 'timingsWithFeatured.asc' | 'lastTiming.asc' 
 export type Search = string;
 
 /**
- * Relevance score floor for `search` results, used to drop weakly-matching events from the long tail (e.g. a single query term buried in a long description). Ignored when `search` is not set.
- *
- * - `off` (default) — no score filtering; every match is returned.
- * - `auto` — a dynamic cutoff derived from the score distribution of the
- * current query: the largest relative drop ("elbow") in the top scores
- * becomes the floor. It self-calibrates per query, adapting to rare vs
- * common terms and small vs large agendas.
- *
- * - a non-negative number — an absolute minimum score. Relevance scores are
- * not comparable across queries nor stable across reindexes, so a fixed
- * value suits a single tuned query rather than general use; prefer `auto`.
- *
- *
- * Filtering is consistent across the returned events, their `total`, and facet counts: the cutoff is an Elasticsearch `min_score`, applied during document collection, so the same trimmed set drives the hit list and the aggregations. Pass the same `threshold` to the facets endpoint to keep its counts aligned with the list.
+ * Relevance score floor for `search` results, used to drop weakly-matching events from the long tail (e.g. a single query term buried in a long description). Ignored when `search` is not set. `off` (the default) returns every match. `auto` derives the floor from the score distribution of the current query: the largest relative drop ("elbow") in the top scores becomes the cutoff, so it adapts to each query. A non-negative number is an absolute minimum score; relevance scores are specific to a query, so a fixed value suits a single tuned query rather than general use - prefer `auto`. The cutoff applies before counting, so the returned events, their `total` and the facet counts describe the same trimmed set; pass the same `threshold` to the facets endpoint to keep its counts aligned with the list.
  *
  */
 export type RelevanceThreshold = 'off' | 'auto' | number;
@@ -2126,7 +2127,7 @@ export type AgendasListData = {
          */
         detailed?: boolean;
         /**
-         * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` no longer applies (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. `uid` is always returned. Dotted paths descend into nested objects and arrays (`location.name`, `timings.begin`, `additionalFields.myField`). An unknown top-level field is rejected with `400`; an unknown nested sub-field may be too (e.g. `location.zzz`), except under an open container — the `additionalFields` custom-field bag or a localized text map — where any sub-key is accepted and yields nothing when absent. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
+         * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` does not apply (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. `uid` is always returned. Dotted paths descend into nested objects and arrays (`location.name`, `timings.begin`, `additionalFields.myField`). An unknown top-level field is rejected with `400`, and so is an unknown sub-field under a closed object (e.g. `location.zzz`); under an open container - the `additionalFields` custom-field bag or a localized text map - any sub-key is accepted and yields nothing when absent. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
          *
          */
         fields?: Array<string>;
@@ -2285,7 +2286,7 @@ export type AgendasEventsListData = {
          */
         detailed?: boolean;
         /**
-         * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` no longer applies (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. `uid` is always returned. Dotted paths descend into nested objects and arrays (`location.name`, `timings.begin`, `additionalFields.myField`). An unknown top-level field is rejected with `400`; an unknown nested sub-field may be too (e.g. `location.zzz`), except under an open container — the `additionalFields` custom-field bag or a localized text map — where any sub-key is accepted and yields nothing when absent. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
+         * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` does not apply (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. `uid` is always returned. Dotted paths descend into nested objects and arrays (`location.name`, `timings.begin`, `additionalFields.myField`). An unknown top-level field is rejected with `400`, and so is an unknown sub-field under a closed object (e.g. `location.zzz`); under an open container - the `additionalFields` custom-field bag or a localized text map - any sub-key is accepted and yields nothing when absent. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
          *
          */
         fields?: Array<string>;
@@ -2300,20 +2301,7 @@ export type AgendasEventsListData = {
          */
         search?: string;
         /**
-         * Relevance score floor for `search` results, used to drop weakly-matching events from the long tail (e.g. a single query term buried in a long description). Ignored when `search` is not set.
-         *
-         * - `off` (default) — no score filtering; every match is returned.
-         * - `auto` — a dynamic cutoff derived from the score distribution of the
-         * current query: the largest relative drop ("elbow") in the top scores
-         * becomes the floor. It self-calibrates per query, adapting to rare vs
-         * common terms and small vs large agendas.
-         *
-         * - a non-negative number — an absolute minimum score. Relevance scores are
-         * not comparable across queries nor stable across reindexes, so a fixed
-         * value suits a single tuned query rather than general use; prefer `auto`.
-         *
-         *
-         * Filtering is consistent across the returned events, their `total`, and facet counts: the cutoff is an Elasticsearch `min_score`, applied during document collection, so the same trimmed set drives the hit list and the aggregations. Pass the same `threshold` to the facets endpoint to keep its counts aligned with the list.
+         * Relevance score floor for `search` results, used to drop weakly-matching events from the long tail (e.g. a single query term buried in a long description). Ignored when `search` is not set. `off` (the default) returns every match. `auto` derives the floor from the score distribution of the current query: the largest relative drop ("elbow") in the top scores becomes the cutoff, so it adapts to each query. A non-negative number is an absolute minimum score; relevance scores are specific to a query, so a fixed value suits a single tuned query rather than general use - prefer `auto`. The cutoff applies before counting, so the returned events, their `total` and the facet counts describe the same trimmed set; pass the same `threshold` to the facets endpoint to keep its counts aligned with the list.
          *
          */
         threshold?: 'off' | 'auto' | number;
@@ -2643,7 +2631,7 @@ export type AgendasEventsDeleteError = AgendasEventsDeleteErrors[keyof AgendasEv
 
 export type AgendasEventsDeleteResponses = {
     /**
-     * The event was deleted.
+     * The event was removed from this agenda.
      */
     200: DeletionResult;
 };
@@ -2706,7 +2694,7 @@ export type AgendasEventsPatchData = {
     };
     query?: {
         /**
-         * On a by-uid write, whether the body's `extIds` are merged with the ones already stored (`true`, the default — a content write never drops an existing external identity) or replace them wholesale (`false`). Omitting `extIds` from the body with `mergeExtIds=false` clears them.
+         * On the by-uid `PUT`, whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`). On `PATCH`, `extIds` present in the body are always merged.
          *
          */
         mergeExtIds?: boolean;
@@ -2763,7 +2751,7 @@ export type AgendasEventsUpdateData = {
     };
     query?: {
         /**
-         * On a by-uid write, whether the body's `extIds` are merged with the ones already stored (`true`, the default — a content write never drops an existing external identity) or replace them wholesale (`false`). Omitting `extIds` from the body with `mergeExtIds=false` clears them.
+         * On the by-uid `PUT`, whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`). On `PATCH`, `extIds` present in the body are always merged.
          *
          */
         mergeExtIds?: boolean;
@@ -2819,7 +2807,7 @@ export type AgendasEventsDeleteByExtIdData = {
          */
         extKey: string;
         /**
-         * The resource's identifier within that external system (the `value` of an `ExtId` mapping — see the event's `extIds` or the location's `extIds`). Percent-encode reserved characters.
+         * The resource's identifier within that external system (the `value` of an `ExtId` mapping carried in the resource's `extIds`). Percent-encode reserved characters.
          *
          */
         extId: string;
@@ -2847,7 +2835,7 @@ export type AgendasEventsDeleteByExtIdError = AgendasEventsDeleteByExtIdErrors[k
 
 export type AgendasEventsDeleteByExtIdResponses = {
     /**
-     * The event was deleted.
+     * The event was removed from this agenda.
      */
     200: DeletionResult;
 };
@@ -2867,7 +2855,7 @@ export type AgendasEventsGetByExtIdData = {
          */
         extKey: string;
         /**
-         * The resource's identifier within that external system (the `value` of an `ExtId` mapping — see the event's `extIds` or the location's `extIds`). Percent-encode reserved characters.
+         * The resource's identifier within that external system (the `value` of an `ExtId` mapping carried in the resource's `extIds`). Percent-encode reserved characters.
          *
          */
         extId: string;
@@ -2915,7 +2903,7 @@ export type AgendasEventsPatchByExtIdData = {
          */
         extKey: string;
         /**
-         * The resource's identifier within that external system (the `value` of an `ExtId` mapping — see the event's `extIds` or the location's `extIds`). Percent-encode reserved characters.
+         * The resource's identifier within that external system (the `value` of an `ExtId` mapping carried in the resource's `extIds`). Percent-encode reserved characters.
          *
          */
         extId: string;
@@ -2976,7 +2964,7 @@ export type AgendasEventsSetByExtIdData = {
          */
         extKey: string;
         /**
-         * The resource's identifier within that external system (the `value` of an `ExtId` mapping — see the event's `extIds` or the location's `extIds`). Percent-encode reserved characters.
+         * The resource's identifier within that external system (the `value` of an `ExtId` mapping carried in the resource's `extIds`). Percent-encode reserved characters.
          *
          */
         extId: string;
@@ -3034,13 +3022,12 @@ export type AgendasEventsFacetsData = {
     };
     query: {
         /**
-         * Comma-separated list of facets to compute over the filtered events. Unknown facet names return `400`. Shapes by family: term facets yield `{ value, count }`; provenance (`originAgendas`, `sourceAgendas`) yields `{ agenda, count }`; `locations` yields `{ location: { uid, name }, count }` buckets (the uid feeds the `locationUid` filter); `geohash` yields geo cluster buckets (`{ value, count, latitude, longitude }`); `viewport` yields a single bounding box object (or `null`); `timespan` yields the earliest/latest event date as `{ first, last }` (or `null`); `timings` yields a date histogram as `{ value, count }` buckets (bucket width set by `timingsInterval`); `dateRanges` yields a **dense daily grid** of `{ value, count }` over a calendar month (one bucket per day, including zero-count days; month set by `month`); `additionalFields` yields, per agenda choice/boolean field, its option counts as `{ <field>: { label, values:[{ value, label, count }] } }` (fields named by `additionalFieldsKeys`, or all readable when omitted); `additionalFieldMetrics` yields, per agenda numeric field, summary stats as `{ <field>: { label, metrics:{ sum, avg, max, min } } }` (fields named by `additionalFieldMetricsKeys`). Both honor per-field read access.
-         * Bucket-list facets (the term, provenance and `locations` families) return the **top buckets by event count**, capped by `facetSize` (default 10, max 250) and overridable per facet with `facetSizes[<facet>]`; `facetSort` reorders them (`count` or `alpha`). There is no bucket pagination — past the cap, narrow the filter instead. `additionalFields` is exhaustive (one bucket per option). The fields, their option ids and their labels are the ones the agenda's event form schema declares (`GET /agendas/{agendaUid}/events/schema`).
+         * Comma-separated list of facets to compute over the filtered events. Unknown facet names return `400`. Each facet's result shape is defined by `FacetResults`. Bucket-list facets (the term, provenance and `locations` families) return the top buckets by event count, capped by `facetSize` (overridable per facet with `facetSizes[<facet>]`) and reordered by `facetSort`; past the cap, narrow the filter. `additionalFields` and `additionalFieldMetrics` cover the agenda's own fields as its event form schema declares them (`GET /agendas/{agendaUid}/events/schema`), named by `additionalFieldsKeys`/`additionalFieldMetricsKeys` or all readable fields when omitted; `additionalFields` returns one bucket per option. `timings` bucket width is set by `timingsInterval`, the `dateRanges` month by `month`, `geohash` granularity by `geohashZoom`.
          *
          */
         facets: Array<'additionalFields' | 'additionalFieldMetrics' | 'cities' | 'regions' | 'departments' | 'districts' | 'countryCodes' | 'keywords' | 'languages' | 'accessibilities' | 'status' | 'attendanceModes' | 'originAgendas' | 'sourceAgendas' | 'locations' | 'geohash' | 'viewport' | 'timespan' | 'timings' | 'dateRanges'>;
         /**
-         * Default maximum number of buckets for the bucket-list facets (the term, provenance and `locations` families), ordered by event count. Override a single facet with `facetSizes[<facet>]`. Out-of-range values are clamped; the other families (geohash, viewport, timespan, timings, dateRanges, `additionalFields`/`additionalFieldMetrics`) have their own bounded shapes and ignore it.
+         * Default maximum number of buckets for the bucket-list facets (the term, provenance and `locations` families), ordered by event count. Override a single facet with `facetSizes[<facet>]`. Out-of-range values are clamped; other facets ignore it.
          *
          */
         facetSize?: number;
@@ -3064,7 +3051,7 @@ export type AgendasEventsFacetsData = {
             [key: string]: 'count' | 'alpha';
         };
         /**
-         * Per-facet label for a synthetic bucket counting the filtered events that have **no value** for the facet's field (`facetMissing[district]=Unknown` adds an `{ value: "Unknown", count }` bucket). Honoured by the value-keyed term facets (cities, regions, departments, districts, countryCodes, keywords, languages, status, attendanceModes); ignored for the others (the provenance and `locations` families key on an encoded ref, so they carry no missing bucket). The bucket appears only when such events exist.
+         * Per-facet label for a synthetic bucket counting the filtered events that have **no value** for the facet's field (`facetMissing[district]=Unknown` adds an `{ value: "Unknown", count }` bucket). Honoured by the term facets (those whose buckets are keyed by the displayed value); ignored by the provenance, `locations` and remaining families. The bucket appears only when such events exist.
          *
          */
         facetMissing?: {
@@ -3101,20 +3088,7 @@ export type AgendasEventsFacetsData = {
          */
         search?: string;
         /**
-         * Relevance score floor for `search` results, used to drop weakly-matching events from the long tail (e.g. a single query term buried in a long description). Ignored when `search` is not set.
-         *
-         * - `off` (default) — no score filtering; every match is returned.
-         * - `auto` — a dynamic cutoff derived from the score distribution of the
-         * current query: the largest relative drop ("elbow") in the top scores
-         * becomes the floor. It self-calibrates per query, adapting to rare vs
-         * common terms and small vs large agendas.
-         *
-         * - a non-negative number — an absolute minimum score. Relevance scores are
-         * not comparable across queries nor stable across reindexes, so a fixed
-         * value suits a single tuned query rather than general use; prefer `auto`.
-         *
-         *
-         * Filtering is consistent across the returned events, their `total`, and facet counts: the cutoff is an Elasticsearch `min_score`, applied during document collection, so the same trimmed set drives the hit list and the aggregations. Pass the same `threshold` to the facets endpoint to keep its counts aligned with the list.
+         * Relevance score floor for `search` results, used to drop weakly-matching events from the long tail (e.g. a single query term buried in a long description). Ignored when `search` is not set. `off` (the default) returns every match. `auto` derives the floor from the score distribution of the current query: the largest relative drop ("elbow") in the top scores becomes the cutoff, so it adapts to each query. A non-negative number is an absolute minimum score; relevance scores are specific to a query, so a fixed value suits a single tuned query rather than general use - prefer `auto`. The cutoff applies before counting, so the returned events, their `total` and the facet counts describe the same trimmed set; pass the same `threshold` to the facets endpoint to keep its counts aligned with the list.
          *
          */
         threshold?: 'off' | 'auto' | number;
@@ -3414,7 +3388,7 @@ export type MeAgendasListData = {
          */
         detailed?: boolean;
         /**
-         * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` no longer applies (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. `uid` is always returned. Dotted paths descend into nested objects and arrays (`location.name`, `timings.begin`, `additionalFields.myField`). An unknown top-level field is rejected with `400`; an unknown nested sub-field may be too (e.g. `location.zzz`), except under an open container — the `additionalFields` custom-field bag or a localized text map — where any sub-key is accepted and yields nothing when absent. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
+         * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` does not apply (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. `uid` is always returned. Dotted paths descend into nested objects and arrays (`location.name`, `timings.begin`, `additionalFields.myField`). An unknown top-level field is rejected with `400`, and so is an unknown sub-field under a closed object (e.g. `location.zzz`); under an open container - the `additionalFields` custom-field bag or a localized text map - any sub-key is accepted and yields nothing when absent. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
          *
          */
         fields?: Array<string>;
@@ -3452,7 +3426,7 @@ export type MeAgendasListResponse = MeAgendasListResponses[keyof MeAgendasListRe
 export type AgendasUploadsCreateData = {
     body: {
         /**
-         * The media file — an image, PDF, or other platform-supported document (docx, xlsx, csv, …).
+         * The media file to stage - an image, a PDF or another platform-supported document.
          *
          */
         file: Blob | File;
@@ -3528,7 +3502,7 @@ export type AgendasUploadsCreateTicketErrors = {
      */
     404: Error;
     /**
-     * A dependency required to serve the request is temporarily unavailable — for example upload staging is not configured, or its single-use store is unreachable. `error.code` is `service_unavailable`; the request was not processed, so it is safe to retry after a short delay.
+     * A dependency required to serve the request is temporarily unavailable. `error.code` is `service_unavailable`; the request was not processed and can be retried after a short delay.
      */
     503: Error;
 };
@@ -3547,7 +3521,7 @@ export type AgendasUploadsCreateTicketResponse = AgendasUploadsCreateTicketRespo
 export type UploadsStagedData = {
     body: {
         /**
-         * The media file — an image, PDF, or other platform-supported document (docx, xlsx, csv, …).
+         * The media file to stage - an image, a PDF or another platform-supported document.
          *
          */
         file: Blob | File;
@@ -3572,7 +3546,7 @@ export type UploadsStagedErrors = {
      */
     422: Error;
     /**
-     * A dependency required to serve the request is temporarily unavailable — for example upload staging is not configured, or its single-use store is unreachable. `error.code` is `service_unavailable`; the request was not processed, so it is safe to retry after a short delay.
+     * A dependency required to serve the request is temporarily unavailable. `error.code` is `service_unavailable`; the request was not processed and can be retried after a short delay.
      */
     503: Error;
 };
@@ -3613,7 +3587,7 @@ export type AgendasLocationsListData = {
          */
         detailed?: boolean;
         /**
-         * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` no longer applies (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. `uid` is always returned. Dotted paths descend into nested objects and arrays (`location.name`, `timings.begin`, `additionalFields.myField`). An unknown top-level field is rejected with `400`; an unknown nested sub-field may be too (e.g. `location.zzz`), except under an open container — the `additionalFields` custom-field bag or a localized text map — where any sub-key is accepted and yields nothing when absent. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
+         * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` does not apply (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. `uid` is always returned. Dotted paths descend into nested objects and arrays (`location.name`, `timings.begin`, `additionalFields.myField`). An unknown top-level field is rejected with `400`, and so is an unknown sub-field under a closed object (e.g. `location.zzz`); under an open container - the `additionalFields` custom-field bag or a localized text map - any sub-key is accepted and yields nothing when absent. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
          *
          */
         fields?: Array<string>;
@@ -3704,7 +3678,7 @@ export type AgendasLocationsGetByExtIdData = {
          */
         extKey: string;
         /**
-         * The resource's identifier within that external system (the `value` of an `ExtId` mapping — see the event's `extIds` or the location's `extIds`). Percent-encode reserved characters.
+         * The resource's identifier within that external system (the `value` of an `ExtId` mapping carried in the resource's `extIds`). Percent-encode reserved characters.
          *
          */
         extId: string;
