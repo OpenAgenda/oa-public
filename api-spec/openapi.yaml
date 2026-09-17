@@ -2881,10 +2881,8 @@ components:
         `width`/`height` are the intrinsic source dimensions (a cap: renditions
         are never upscaled past them).
       additionalProperties: false
-      required: [credits, width, height, src, srcTemplate, srcset]
+      required: [width, height, src, srcTemplate, srcset]
       properties:
-        credits:
-          type: [string, 'null']
         width:
           type: [integer, 'null']
           description: Intrinsic width of the source image, in pixels.
@@ -3047,7 +3045,6 @@ components:
           fr: Ancienne maison forte des comtes du Roure.
         access: {}
         image:
-          credits: null
           width: 1200
           height: 800
           src: https://img.openagenda.com/u/1080x0/main/67890.full.image.jpg
@@ -3403,7 +3400,6 @@ components:
         title: Festival des Lumières
         description: La programmation du festival.
         image:
-          credits: null
           width: 1400
           height: 900
           src: https://img.openagenda.com/u/1080x0/main/12345.full.image.jpg
@@ -3807,7 +3803,6 @@ components:
         title: Festival des Lumières
         description: La programmation officielle du Festival des Lumières.
         image:
-          credits: null
           width: 1400
           height: 900
           src: https://img.openagenda.com/u/1080x0/main/12345.full.image.jpg
@@ -3916,7 +3911,6 @@ components:
         title: Festival des Lumières
         description: La programmation officielle du Festival des Lumières.
         image:
-          credits: null
           width: 1400
           height: 900
           src: https://img.openagenda.com/u/1080x0/main/12345.full.image.jpg
@@ -4348,7 +4342,6 @@ components:
           }
         featured: false
         image:
-          credits: Ville de Lyon
           width: 1200
           height: 800
           src: https://img.openagenda.com/u/1080x0/main/9876543.full.image.jpg
@@ -4535,7 +4528,6 @@ components:
           }
         featured: false
         image:
-          credits: Ville de Lyon
           width: 1200
           height: 800
           src: https://img.openagenda.com/u/1080x0/main/9876543.full.image.jpg
@@ -4812,7 +4804,7 @@ components:
     ImageInput:
       description: >
         Write shape for an event image, distinct from the read `Image` (which
-        carries the generated size variants). Attach the image one of two ways —
+        carries the rendition URLs). Attach the image one of two ways —
         a freshly-staged upload by its `ref` (the value returned by `POST
         /agendas/{uid}/uploads`), or a publicly reachable `url` the server
         fetches — or send `null` to remove the current image. The original is
@@ -4828,6 +4820,10 @@ components:
         The retrievability checks (public host, actually an image, within the
         size limit) run when the server fetches the URL — i.e. on create/update,
         not on `validate`, which only checks the URL syntax (it does not fetch).
+
+
+        An object carrying both `ref` and `url`, or any other key, is rejected
+        with `400`.
       oneOf:
         - type: object
           additionalProperties: false
@@ -4898,7 +4894,7 @@ components:
         The `image` is set either by reference — stage the bytes via `POST
         /agendas/{uid}/uploads` and pass the returned `ref` here — or by a public
         `url` the server fetches (or `null` to clear it); see `ImageInput`. Not
-        settable in this version: `imageCredits` and draft creation. `private` is never accepted: an event's privacy is
+        settable in this version: draft creation. `private` is never accepted: an event's privacy is
         derived from its agenda, not set per-event.
       additionalProperties: false
       properties:
@@ -4975,6 +4971,12 @@ components:
             role.
         image:
           $ref: '#/components/schemas/ImageInput'
+        imageCredits:
+          type: [string, 'null']
+          maxLength: 255
+          description: >
+            Credits for the event `image`. Ignored when the event has no image;
+            `null` clears them.
         additionalFields:
           $ref: '#/components/schemas/AdditionalFields'
 
@@ -5039,6 +5041,12 @@ components:
             `EventInput.status`).
         image:
           $ref: '#/components/schemas/ImageInput'
+        imageCredits:
+          type: [string, 'null']
+          maxLength: 255
+          description: >
+            Credits for the event `image`. Ignored when the event has no image;
+            `null` clears them.
         additionalFields:
           $ref: '#/components/schemas/AdditionalFields'
 

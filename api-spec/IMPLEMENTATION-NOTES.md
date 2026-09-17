@@ -36,7 +36,7 @@ Le mapping ne doit pas les émettre (modération/interne) : `addMethod`, `motive
 
 Le schéma a d'abord été ancré sur code + fixtures ; ces points ont été tranchés contre de vraies réponses :
 
-- `image.credits` vs `imageCredits` top-level : **les deux coexistent réellement** (confirmé tranche 2) → les deux restent déclarés.
+- `image.credits` vs `imageCredits` top-level : d'abord déclarés tous les deux, puis **`Image.credits` retiré** : il valait toujours `null` (le descripteur indexé d'un événement n'a pas de `credits`, `lastEventClean` les retire ; agendas et lieux passent par `responsiveImageFromServed`). Les crédits se lisent et s'écrivent via `imageCredits`.
 - Formes laxistes (`additionalProperties: true`) sur `Image`(+`variants`), `Location`, `Registration`, `EnrichedLink`, `AgendaRef` : **resserrées en `additionalProperties: false`** + nettoyage allowlist du mapper (tranche 3, cf. « Revue tranche 3 »).
 - `limit` max = 100 : **statu quo assumé** (clamp côté mapping ; `validateNavSize` v2 plafonne à 300, v3 borne plus strictement).
 - `AgendaRef.title` : modélisé `string` (inchangé).
@@ -177,8 +177,8 @@ agenda, agendaUid, _agg, …`.
   les `sourceAgendas` (renseigné `false`/booléen sur `originAgenda`). Validé par le
   contract-test d'intégration.
 - Points première-passe **confirmés OK tels quels** par les vraies réponses :
-  - `imageCredits` top-level ET `image.credits` coexistent réellement (event-2 : `imageCredits`
-    string ; `image` sans `credits`). Les deux restent déclarés.
+  - `imageCredits` top-level ET `image.credits` déclarés tous les deux (event-2 : `imageCredits`
+    string ; `image` sans `credits`). `Image.credits` a été retiré depuis (toujours `null`).
   - `Image.variants[]`, `Location`, `EnrichedLink`, `AgendaRef` (`additionalProperties: true`)
     encaissent les nombreux champs internes réels (`location._agg`, `disqualifiedDuplicates`,
     `sourceAgendas[].indexed/officializedAt`, …) — laxisme alors conservé, **resserré en
