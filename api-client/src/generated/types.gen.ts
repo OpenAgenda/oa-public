@@ -861,6 +861,10 @@ export type EventSummary = {
  */
 export type Event = {
     readonly uid: number;
+    /**
+     * Unique across all events. Set by the server from the title when the event is created, and never changed afterwards, even if the title changes.
+     *
+     */
     readonly slug: string;
     title: LocalizedString;
     description: LocalizedString;
@@ -1003,6 +1007,10 @@ export type ImageInput = {
  *
  */
 export type EventInput = {
+    /**
+     * When the event is created, its `slug` is derived from this title, preferring the language that comes first in the request body. Put the event's original language first.
+     *
+     */
     title?: LocalizedString;
     description?: LocalizedString;
     longDescription?: LocalizedString;
@@ -1055,6 +1063,10 @@ export type EventInput = {
  *
  */
 export type EventPatch = {
+    /**
+     * When the event is created, its `slug` is derived from this title, preferring the language that comes first in the request body. Put the event's original language first.
+     *
+     */
     title?: LocalizedString;
     description?: LocalizedString;
     longDescription?: LocalizedString;
