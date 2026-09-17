@@ -43,3 +43,45 @@ The contract is spec-first: endpoints are designed here before they are
 implemented, and the implementation is tested against it. Changes must keep
 `yarn validate` green; the SDK is regenerated from it
 (`yarn workspace @openagenda/api-client generate:check` guards drift).
+
+### Writing descriptions
+
+Every `description`, `summary` and `x-enum-descriptions` text is read by three
+consumers that never follow a link: the MCP `search_docs` tool (it flattens each
+description to one line, renders only the best-ranked operation cards in full
+and shows the others as a summary; its search index covers ids, summaries,
+parameters and `x-synonyms`, not descriptions), the JSDoc comments of the
+generated SDK, and the Scalar reference. Hence these rules:
+
+1. **Present tense, no timeline.** No "now", "no longer", "upcoming", "later",
+   "in this version", "not yet": a reader sees the text without knowing when it
+   was written, and a stale timeline is a false statement.
+2. **Say what is, not what is not.** A negation is worth writing only when a
+   reasonable reader would make that mistake and the server sanctions it; then
+   name the sanction (`answers 400`). A silent behaviour the reader cannot
+   guess is written affirmatively ("ignored when the event has no image").
+3. **Self-contained.** No "see X" and no pointer to another operation or field
+   for information the reader needs: write it in place, in one sentence. The
+   MCP card shows only the components of its own operation; a type present on
+   the same card may be named.
+4. **One rule, one level, once.** A property carries the meaning of its field,
+   a component its shape, an operation the behaviour of the call. A general
+   rule repeated on a single field reads as an exception.
+5. **Verified only.** Write nothing the code does not do; a doubtful sentence
+   is deleted, not replaced by another doubtful one.
+6. **No implementation history.** No fixed bugs, internal module or service
+   names, storage engines, "legacy", v2 or internal reasons: the reader holds
+   the contract, not the codebase.
+7. **Observable and actionable.** HTTP codes, error fields, numeric limits and
+   values ("rejected with `422`" rather than "invalid").
+8. **Do not paraphrase the schema.** What `type`, `enum`, `maxLength`,
+   `required`, `oneOf` or `readOnly` already state is not repeated in prose;
+   every reader sees the schema next to the text.
+9. **Readable on one line.** No markdown lists, tables or structure that
+   depends on line breaks: `search_docs` flattens the text.
+10. **No search keywords in descriptions.** Discoverability is the job of
+    `summary` and `x-synonyms`.
+11. **No prose enumeration of an evolving set** (fields, values, types): a
+    closed set belongs in the schema and the prose names the rule that defines
+    it. A partial example that helps writing a call (`800x0`) is fine; a list
+    that mimics the members of a schema set is not, because it drifts.
