@@ -29,7 +29,6 @@ describe('utils - injectResponsiveImage', () => {
     const out = injectResponsiveImage(OPTS, { uid: 1, image: eventDescriptor });
 
     expect(out.image).toEqual({
-      credits: null,
       width: 1400,
       height: 788,
       src: expect.stringContaining('/u/'),

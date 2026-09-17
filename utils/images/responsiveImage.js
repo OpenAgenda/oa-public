@@ -7,10 +7,10 @@
 // behind KeyCDN); `bucket` is the Thumbor loader segment (`config.s3.bucket`,
 // `main`/`dev`) — the SAME segment the Next app emits, so both warm one cache.
 //
-// The shape is the clean v3 `Image`: { credits, width, height, src, srcTemplate,
-// srcset } — no v2 internals (filename/base/variants). `src` is a ready-to-use
-// default rendition (a naive <img src> just works); `srcTemplate`/`srcset` drive
-// the responsive picture. Pure + side-effect-free (no I/O).
+// The shape is the clean v3 `Image`: { width, height, src, srcTemplate, srcset }
+// — no v2 internals (filename/base/variants), no credits (the owning resource's
+// `imageCredits`). `src` is a ready-to-use default rendition (a naive <img src>
+// just works); `srcTemplate`/`srcset` drive the responsive picture. Pure + side-effect-free (no I/O).
 //
 // Fallback: with no `imageCdnPath` (Thumbor not live) or no resolvable source,
 // `src` falls back to the legacy `base + filename` URL (what works today) and the
@@ -106,8 +106,6 @@ function responsiveImage(
   const size = (full ? full.size : descriptor.size) || {};
   const width = Number.isFinite(size.width) ? size.width : null;
   const height = Number.isFinite(size.height) ? size.height : null;
-  const credits = descriptor.credits ?? null;
-
   // Thumbor needs BOTH a host and a loader bucket; without the bucket the URL
   // would carry a literal `undefined` segment, so treat a missing bucket as
   // "Thumbor off" and fall back rather than emit a dead URL.
@@ -125,7 +123,6 @@ function responsiveImage(
       legacy = `${descriptor.base}${keyOf(name)}`;
     }
     return {
-      credits,
       width,
       height,
       src: legacy,
@@ -151,7 +148,6 @@ function responsiveImage(
   const srcW = capped ? Math.min(srcWidth, capped) : srcWidth;
 
   return {
-    credits,
     width,
     height,
     src: url(`${srcW}x0`),
@@ -321,7 +317,6 @@ function responsiveImageFromServed(value, imageOptions = {}) {
   if (!parsed) return null;
   if (parsed.absolute) {
     return {
-      credits: null,
       width: null,
       height: null,
       src: parsed.absolute,

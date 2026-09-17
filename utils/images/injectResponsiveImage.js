@@ -24,7 +24,7 @@ import {
 // mappers use, so v2-enriched and v3 reads agree on the shape.
 //
 //   - `event.image` (descriptor {filename,base,variants,size}) -> full Image
-//     {credits,width,height,src,srcTemplate,srcset}
+//     {width,height,src,srcTemplate,srcset}
 //   - `event.location.image` (served string) -> full Image (dims unknown)
 //   - embedded agenda logos (`originAgenda`/`sourceAgendas[].image`, served
 //     strings) -> lightweight ImageRef {src,srcTemplate}
