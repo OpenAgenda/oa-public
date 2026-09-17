@@ -65,7 +65,6 @@ export type LocalizedStringArray = {
  *
  */
 export type Image = {
-    credits: string | null;
     /**
      * Intrinsic width of the source image, in pixels.
      */
@@ -975,9 +974,11 @@ export type UploadDescriptor = {
 };
 
 /**
- * Write shape for an event image, distinct from the read `Image` (which carries the generated size variants). Attach the image one of two ways — a freshly-staged upload by its `ref` (the value returned by `POST /agendas/{uid}/uploads`), or a publicly reachable `url` the server fetches — or send `null` to remove the current image. The original is processed into the standard size variants and stored as part of the SAME write, so an image change lands in one activity alongside the rest of the edit.
+ * Write shape for an event image, distinct from the read `Image` (which carries the rendition URLs). Attach the image one of two ways — a freshly-staged upload by its `ref` (the value returned by `POST /agendas/{uid}/uploads`), or a publicly reachable `url` the server fetches — or send `null` to remove the current image. The original is processed into the standard size variants and stored as part of the SAME write, so an image change lands in one activity alongside the rest of the edit.
  *
  * The `url` must be a publicly reachable `http(s)` image, without credentials in the URL. A URL that is malformed, not `http(s)`, carries credentials, is not publicly reachable, cannot be retrieved, is not a valid image, or is larger than the size limit is rejected with `422`. The retrievability checks (public host, actually an image, within the size limit) run when the server fetches the URL — i.e. on create/update, not on `validate`, which only checks the URL syntax (it does not fetch).
+ *
+ * An object carrying both `ref` and `url`, or any other key, is rejected with `400`.
  *
  */
 export type ImageInput = {
@@ -1003,7 +1004,7 @@ export type ImageInput = {
  *
  * Two fields are settable but authorization-gated, so the value you send may be adjusted or refused: `state` (moderation) and `status` (lifecycle). The moderation `state` is arbitrated by the server from the agenda's contribution settings and your role — a moderator's value is honored, a `state: 2` (publish) without permission answers `403`, and a contributor's value is ignored in favour of the agenda default. The `status` field is a per-agenda opt-in feature (`settings.lab.status`): when it is disabled for the agenda, sending `status` answers `422`. See each field for details.
  *
- * The `image` is set either by reference — stage the bytes via `POST /agendas/{uid}/uploads` and pass the returned `ref` here — or by a public `url` the server fetches (or `null` to clear it); see `ImageInput`. Not settable in this version: `imageCredits` and draft creation. `private` is never accepted: an event's privacy is derived from its agenda, not set per-event.
+ * The `image` is set either by reference — stage the bytes via `POST /agendas/{uid}/uploads` and pass the returned `ref` here — or by a public `url` the server fetches (or `null` to clear it); see `ImageInput`. Not settable in this version: draft creation. `private` is never accepted: an event's privacy is derived from its agenda, not set per-event.
  *
  */
 export type EventInput = {
@@ -1055,6 +1056,11 @@ export type EventInput = {
      */
     status?: EventStatus;
     image?: ImageInput;
+    /**
+     * Credits for the event `image`. Ignored when the event has no image; `null` clears them.
+     *
+     */
+    imageCredits?: string | null;
     additionalFields?: AdditionalFields;
 };
 
@@ -1091,6 +1097,11 @@ export type EventPatch = {
      */
     status?: EventStatus;
     image?: ImageInput;
+    /**
+     * Credits for the event `image`. Ignored when the event has no image; `null` clears them.
+     *
+     */
+    imageCredits?: string | null;
     additionalFields?: AdditionalFields;
 };
 
