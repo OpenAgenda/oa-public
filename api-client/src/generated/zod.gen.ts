@@ -4,7 +4,15 @@ import { z } from 'zod';
 
 export const zError = z.object({
     error: z.object({
-        code: z.string(),
+        code: z.enum([
+            'bad_request',
+            'unauthorized',
+            'read_only_credential',
+            'insufficient_scope',
+            'forbidden',
+            'not_found',
+            'service_unavailable'
+        ]),
         message: z.string()
     })
 });
@@ -25,7 +33,7 @@ export const zValidationIssue = z.object({
  */
 export const zValidationError = z.object({
     error: z.object({
-        code: z.string(),
+        code: z.enum(['validation_error', 'bad_request']),
         message: z.string(),
         errors: z.array(zValidationIssue).min(1)
     })

@@ -9,7 +9,7 @@ export type Error = {
         /**
          * Stable, machine-readable error code.
          */
-        code: string;
+        code: 'bad_request' | 'unauthorized' | 'read_only_credential' | 'insufficient_scope' | 'forbidden' | 'not_found' | 'service_unavailable';
         /**
          * Human-readable explanation.
          */
@@ -25,7 +25,7 @@ export type ValidationError = {
         /**
          * Stable, machine-readable error code.
          */
-        code: string;
+        code: 'validation_error' | 'bad_request';
         /**
          * Human-readable explanation.
          */
@@ -2220,16 +2220,16 @@ export type AgendasListData = {
 
 export type AgendasListErrors = {
     /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
      *
      */
     400: Error | ValidationError;
     /**
-     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     * The request carries no credential this operation accepts.
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
 };
@@ -2259,15 +2259,15 @@ export type AgendasGetData = {
 
 export type AgendasGetErrors = {
     /**
-     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     * The request carries no credential this operation accepts.
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
-     * Resource not found. `error.code` is `not_found`.
+     * No resource answers this identifier.
      */
     404: Error;
 };
@@ -2297,15 +2297,15 @@ export type AgendasOverviewData = {
 
 export type AgendasOverviewErrors = {
     /**
-     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     * The request carries no credential this operation accepts.
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
-     * Resource not found. `error.code` is `not_found`.
+     * No resource answers this identifier.
      */
     404: Error;
 };
@@ -2531,20 +2531,20 @@ export type AgendasEventsListData = {
 
 export type AgendasEventsListErrors = {
     /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
      *
      */
     400: Error | ValidationError;
     /**
-     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     * The request carries no credential this operation accepts.
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
-     * Resource not found. `error.code` is `not_found`.
+     * No resource answers this identifier.
      */
     404: Error;
 };
@@ -2574,24 +2574,24 @@ export type AgendasEventsCreateData = {
 
 export type AgendasEventsCreateErrors = {
     /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
      *
      */
     400: Error | ValidationError;
     /**
-     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     * The request carries no credential this operation accepts.
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
-     * Resource not found. `error.code` is `not_found`.
+     * No resource answers this identifier.
      */
     404: Error;
     /**
-     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.errors`.
+     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
      */
     422: ValidationError;
 };
@@ -2621,24 +2621,24 @@ export type AgendasEventsValidateData = {
 
 export type AgendasEventsValidateErrors = {
     /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
      *
      */
     400: Error | ValidationError;
     /**
-     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     * The request carries no credential this operation accepts.
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
-     * Resource not found. `error.code` is `not_found`.
+     * No resource answers this identifier.
      */
     404: Error;
     /**
-     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.errors`.
+     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
      */
     422: ValidationError;
 };
@@ -2674,15 +2674,15 @@ export type AgendasEventsDeleteData = {
 
 export type AgendasEventsDeleteErrors = {
     /**
-     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     * The request carries no credential this operation accepts.
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
-     * Resource not found. `error.code` is `not_found`.
+     * No resource answers this identifier.
      */
     404: Error;
 };
@@ -2716,15 +2716,15 @@ export type AgendasEventsGetData = {
 
 export type AgendasEventsGetErrors = {
     /**
-     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     * The request carries no credential this operation accepts.
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
-     * Resource not found. `error.code` is `not_found`.
+     * No resource answers this identifier.
      */
     404: Error;
 };
@@ -2764,24 +2764,24 @@ export type AgendasEventsPatchData = {
 
 export type AgendasEventsPatchErrors = {
     /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
      *
      */
     400: Error | ValidationError;
     /**
-     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     * The request carries no credential this operation accepts.
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
-     * Resource not found. `error.code` is `not_found`.
+     * No resource answers this identifier.
      */
     404: Error;
     /**
-     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.errors`.
+     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
      */
     422: ValidationError;
 };
@@ -2821,24 +2821,24 @@ export type AgendasEventsUpdateData = {
 
 export type AgendasEventsUpdateErrors = {
     /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
      *
      */
     400: Error | ValidationError;
     /**
-     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     * The request carries no credential this operation accepts.
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
-     * Resource not found. `error.code` is `not_found`.
+     * No resource answers this identifier.
      */
     404: Error;
     /**
-     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.errors`.
+     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
      */
     422: ValidationError;
 };
@@ -2878,15 +2878,15 @@ export type AgendasEventsDeleteByExtIdData = {
 
 export type AgendasEventsDeleteByExtIdErrors = {
     /**
-     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     * The request carries no credential this operation accepts.
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
-     * Resource not found. `error.code` is `not_found`.
+     * No resource answers this identifier.
      */
     404: Error;
 };
@@ -2926,15 +2926,15 @@ export type AgendasEventsGetByExtIdData = {
 
 export type AgendasEventsGetByExtIdErrors = {
     /**
-     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     * The request carries no credential this operation accepts.
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
-     * Resource not found. `error.code` is `not_found`.
+     * No resource answers this identifier.
      */
     404: Error;
 };
@@ -2974,24 +2974,24 @@ export type AgendasEventsPatchByExtIdData = {
 
 export type AgendasEventsPatchByExtIdErrors = {
     /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
      *
      */
     400: Error | ValidationError;
     /**
-     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     * The request carries no credential this operation accepts.
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
-     * Resource not found. `error.code` is `not_found`.
+     * No resource answers this identifier.
      */
     404: Error;
     /**
-     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.errors`.
+     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
      */
     422: ValidationError;
 };
@@ -3035,24 +3035,24 @@ export type AgendasEventsSetByExtIdData = {
 
 export type AgendasEventsSetByExtIdErrors = {
     /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
      *
      */
     400: Error | ValidationError;
     /**
-     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     * The request carries no credential this operation accepts.
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
-     * Resource not found. `error.code` is `not_found`.
+     * No resource answers this identifier.
      */
     404: Error;
     /**
-     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.errors`.
+     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
      */
     422: ValidationError;
 };
@@ -3318,20 +3318,20 @@ export type AgendasEventsFacetsData = {
 
 export type AgendasEventsFacetsErrors = {
     /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
      *
      */
     400: Error | ValidationError;
     /**
-     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     * The request carries no credential this operation accepts.
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
-     * Resource not found. `error.code` is `not_found`.
+     * No resource answers this identifier.
      */
     404: Error;
 };
@@ -3361,20 +3361,20 @@ export type AgendasEventsFacetsReportData = {
 
 export type AgendasEventsFacetsReportErrors = {
     /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
      *
      */
     400: Error | ValidationError;
     /**
-     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     * The request carries no credential this operation accepts.
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
-     * Resource not found. `error.code` is `not_found`.
+     * No resource answers this identifier.
      */
     404: Error;
 };
@@ -3404,15 +3404,15 @@ export type AgendasEventsSchemaData = {
 
 export type AgendasEventsSchemaErrors = {
     /**
-     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     * The request carries no credential this operation accepts.
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
-     * Resource not found. `error.code` is `not_found`.
+     * No resource answers this identifier.
      */
     404: Error;
 };
@@ -3458,16 +3458,16 @@ export type MeAgendasListData = {
 
 export type MeAgendasListErrors = {
     /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
      *
      */
     400: Error | ValidationError;
     /**
-     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     * The request carries no credential this operation accepts.
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
 };
@@ -3503,24 +3503,24 @@ export type AgendasUploadsCreateData = {
 
 export type AgendasUploadsCreateErrors = {
     /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
      *
      */
     400: Error | ValidationError;
     /**
-     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     * The request carries no credential this operation accepts.
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
-     * Resource not found. `error.code` is `not_found`.
+     * No resource answers this identifier.
      */
     404: Error;
     /**
-     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.errors`.
+     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
      */
     422: ValidationError;
 };
@@ -3550,19 +3550,19 @@ export type AgendasUploadsCreateTicketData = {
 
 export type AgendasUploadsCreateTicketErrors = {
     /**
-     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     * The request carries no credential this operation accepts.
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
-     * Resource not found. `error.code` is `not_found`.
+     * No resource answers this identifier.
      */
     404: Error;
     /**
-     * A dependency required to serve the request is temporarily unavailable. `error.code` is `service_unavailable`; the request was not processed and can be retried after a short delay.
+     * The request was not processed and can be retried after a short delay.
      */
     503: Error;
 };
@@ -3593,20 +3593,20 @@ export type UploadsStagedData = {
 
 export type UploadsStagedErrors = {
     /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
      *
      */
     400: Error | ValidationError;
     /**
-     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     * The request carries no credential this operation accepts.
      */
     401: Error;
     /**
-     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.errors`.
+     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
      */
     422: ValidationError;
     /**
-     * A dependency required to serve the request is temporarily unavailable. `error.code` is `service_unavailable`; the request was not processed and can be retried after a short delay.
+     * The request was not processed and can be retried after a short delay.
      */
     503: Error;
 };
@@ -3696,20 +3696,20 @@ export type AgendasLocationsListData = {
 
 export type AgendasLocationsListErrors = {
     /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
      *
      */
     400: Error | ValidationError;
     /**
-     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     * The request carries no credential this operation accepts.
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
-     * Resource not found. `error.code` is `not_found`.
+     * No resource answers this identifier.
      */
     404: Error;
 };
@@ -3749,11 +3749,11 @@ export type AgendasLocationsGetByExtIdData = {
 
 export type AgendasLocationsGetByExtIdErrors = {
     /**
-     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     * The request carries no credential this operation accepts.
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
@@ -3792,16 +3792,16 @@ export type AgendasLocationsGetData = {
 
 export type AgendasLocationsGetErrors = {
     /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
      *
      */
     400: Error | ValidationError;
     /**
-     * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
+     * The request carries no credential this operation accepts.
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
