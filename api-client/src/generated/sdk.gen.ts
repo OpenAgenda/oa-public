@@ -58,7 +58,11 @@ export class Events extends HeyApiClient {
     public list<ThrowOnError extends boolean = false>(options: Options<AgendasEventsListData, ThrowOnError>) {
         return (options.client ?? this.client).get<AgendasEventsListResponses, AgendasEventsListErrors, ThrowOnError>({
             querySerializer: { parameters: { fields: { array: { explode: false } } } },
-            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { scheme: 'bearer', type: 'http' },
+                { scheme: 'bearer', type: 'http' }
+            ],
             url: '/agendas/{agendaUid}/events',
             ...options
         });
@@ -132,7 +136,11 @@ export class Events extends HeyApiClient {
      */
     public get<ThrowOnError extends boolean = false>(options: Options<AgendasEventsGetData, ThrowOnError>) {
         return (options.client ?? this.client).get<AgendasEventsGetResponses, AgendasEventsGetErrors, ThrowOnError>({
-            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { scheme: 'bearer', type: 'http' },
+                { scheme: 'bearer', type: 'http' }
+            ],
             url: '/agendas/{agendaUid}/events/{eventUid}',
             ...options
         });
@@ -204,7 +212,11 @@ export class Events extends HeyApiClient {
      */
     public getByExtId<ThrowOnError extends boolean = false>(options: Options<AgendasEventsGetByExtIdData, ThrowOnError>) {
         return (options.client ?? this.client).get<AgendasEventsGetByExtIdResponses, AgendasEventsGetByExtIdErrors, ThrowOnError>({
-            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { scheme: 'bearer', type: 'http' },
+                { scheme: 'bearer', type: 'http' }
+            ],
             url: '/agendas/{agendaUid}/events/ext/{extKey}/{extId}',
             ...options
         });
@@ -267,7 +279,11 @@ export class Events extends HeyApiClient {
                     additionalFieldsKeys: { array: { explode: false } },
                     additionalFieldMetricsKeys: { array: { explode: false } }
                 } },
-            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { scheme: 'bearer', type: 'http' },
+                { scheme: 'bearer', type: 'http' }
+            ],
             url: '/agendas/{agendaUid}/events/facets',
             ...options
         });
@@ -283,7 +299,11 @@ export class Events extends HeyApiClient {
      */
     public facetsReport<ThrowOnError extends boolean = false>(options: Options<AgendasEventsFacetsReportData, ThrowOnError>) {
         return (options.client ?? this.client).post<AgendasEventsFacetsReportResponses, AgendasEventsFacetsReportErrors, ThrowOnError>({
-            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { scheme: 'bearer', type: 'http' },
+                { scheme: 'bearer', type: 'http' }
+            ],
             url: '/agendas/{agendaUid}/events/facets',
             ...options,
             headers: {
@@ -303,7 +323,11 @@ export class Events extends HeyApiClient {
      */
     public schema<ThrowOnError extends boolean = false>(options: Options<AgendasEventsSchemaData, ThrowOnError>) {
         return (options.client ?? this.client).get<AgendasEventsSchemaResponses, AgendasEventsSchemaErrors, ThrowOnError>({
-            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { scheme: 'bearer', type: 'http' },
+                { scheme: 'bearer', type: 'http' }
+            ],
             url: '/agendas/{agendaUid}/events/schema',
             ...options
         });
@@ -371,7 +395,11 @@ export class Locations extends HeyApiClient {
     public list<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsListData, ThrowOnError>) {
         return (options.client ?? this.client).get<AgendasLocationsListResponses, AgendasLocationsListErrors, ThrowOnError>({
             querySerializer: { parameters: { fields: { array: { explode: false } } } },
-            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { scheme: 'bearer', type: 'http' },
+                { scheme: 'bearer', type: 'http' }
+            ],
             url: '/agendas/{agendaUid}/locations',
             ...options
         });
@@ -387,7 +415,11 @@ export class Locations extends HeyApiClient {
      */
     public getByExtId<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsGetByExtIdData, ThrowOnError>) {
         return (options.client ?? this.client).get<AgendasLocationsGetByExtIdResponses, AgendasLocationsGetByExtIdErrors, ThrowOnError>({
-            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { scheme: 'bearer', type: 'http' },
+                { scheme: 'bearer', type: 'http' }
+            ],
             url: '/agendas/{agendaUid}/locations/ext/{extKey}/{extId}',
             ...options
         });
@@ -403,7 +435,11 @@ export class Locations extends HeyApiClient {
      */
     public get<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsGetData, ThrowOnError>) {
         return (options.client ?? this.client).get<AgendasLocationsGetResponses, AgendasLocationsGetErrors, ThrowOnError>({
-            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { scheme: 'bearer', type: 'http' },
+                { scheme: 'bearer', type: 'http' }
+            ],
             url: '/agendas/{agendaUid}/locations/{locationUid}',
             ...options
         });
@@ -422,7 +458,11 @@ export class Agendas extends HeyApiClient {
     public list<ThrowOnError extends boolean = false>(options?: Options<AgendasListData, ThrowOnError>) {
         return (options?.client ?? this.client).get<AgendasListResponses, AgendasListErrors, ThrowOnError>({
             querySerializer: { parameters: { fields: { array: { explode: false } } } },
-            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { scheme: 'bearer', type: 'http' },
+                { scheme: 'bearer', type: 'http' }
+            ],
             url: '/agendas',
             ...options
         });
@@ -436,7 +476,11 @@ export class Agendas extends HeyApiClient {
      */
     public get<ThrowOnError extends boolean = false>(options: Options<AgendasGetData, ThrowOnError>) {
         return (options.client ?? this.client).get<AgendasGetResponses, AgendasGetErrors, ThrowOnError>({
-            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { scheme: 'bearer', type: 'http' },
+                { scheme: 'bearer', type: 'http' }
+            ],
             url: '/agendas/{agendaUid}',
             ...options
         });
@@ -452,7 +496,11 @@ export class Agendas extends HeyApiClient {
      */
     public overview<ThrowOnError extends boolean = false>(options: Options<AgendasOverviewData, ThrowOnError>) {
         return (options.client ?? this.client).get<AgendasOverviewResponses, AgendasOverviewErrors, ThrowOnError>({
-            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { scheme: 'bearer', type: 'http' },
+                { scheme: 'bearer', type: 'http' }
+            ],
             url: '/agendas/{agendaUid}/overview',
             ...options
         });
