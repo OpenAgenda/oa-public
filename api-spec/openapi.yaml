@@ -443,6 +443,7 @@ paths:
               path: { agendaUid: 12345 },
               body: {
                 title: { fr: 'Concert de jazz' },
+                description: { fr: 'Une soirée jazz.' },
                 timings: [
                   { begin: '2025-06-20T18:00:00+02:00', end: '2025-06-20T22:00:00+02:00' },
                 ],
@@ -1257,14 +1258,18 @@ paths:
             if (error) throw error;
 
             // 2. Attach the ref on a normal event write.
-            return await oa.agendas.events.create({
+            const created = await oa.agendas.events.create({
               path: { agendaUid: 12345 },
               body: {
                 title: { fr: 'Concert' },
+                description: { fr: 'Une soirée jazz.' },
                 timings: [{ begin: '2025-06-20T18:00:00+02:00', end: '2025-06-20T22:00:00+02:00' }],
+                location: { uid: 55512 },
                 image: { ref: staged.ref },
               },
             });
+            if (created.error) throw created.error;
+            return created.data;
       description: >
         Stages a media file - the native event `image`, or a custom
         `file`/`image` form-schema field. Send the file as
@@ -1355,16 +1360,20 @@ paths:
             //    (uploadUrl = t.uploadUrl, ticket = t.ticket)
 
             // 3. Attach the returned ref on a normal event write.
-            return await oa.agendas.events.create({
+            const created = await oa.agendas.events.create({
               path: { agendaUid: 12345 },
               body: {
                 title: { fr: 'Concert' },
+                description: { fr: 'Une soirée jazz.' },
                 timings: [
                   { begin: '2025-06-20T18:00:00+02:00', end: '2025-06-20T22:00:00+02:00' },
                 ],
+                location: { uid: 55512 },
                 image: { ref: '<the ref returned by the upload>' },
               },
             });
+            if (created.error) throw created.error;
+            return created.data;
       description: >
         Authorizes an OUT-OF-BAND upload of a LOCAL image file, made
         from outside this API client (e.g. with curl), so its bytes
@@ -1834,24 +1843,25 @@ components:
       in: query
       required: false
       description: >
-        Comma-separated list of fields to keep on each `data` item, to shrink the
-        payload of large pages. When set, it selects the response shape directly
-        over the resource's full field set, so `detailed` does not apply (it
-        only governs the default shape when `fields` is omitted) and `fields`
-        wins if both are given. `uid` is always returned. Dotted paths descend
-        into nested objects and arrays (`location.name`, `timings.begin`,
-        `additionalFields.myField`). An unknown top-level field is rejected with
-        `400`, and so is an unknown sub-field under a closed object (e.g.
-        `location.zzz`); under an open container - the `additionalFields`
-        custom-field bag or a localized text map - any sub-key is accepted and
-        yields nothing when absent. Response schemas stay complete, so a generated
-        client still types the omitted fields as present — read them as optional
-        on this path.
+        Comma-separated list of fields to keep on each `data` item, to shrink
+        the payload of large pages. When set, it selects the response shape
+        directly over the resource's full field set, so `detailed` does not
+        apply (it only governs the default shape when `fields` is omitted) and
+        `fields` wins if both are given. `uid` is always returned. Each resource
+        takes the names its own `data` item declares, and a dotted path descends
+        one segment per level: on an event, `location.name` or `timings.begin`.
+        An unknown top-level field is rejected with `400`, and so is an unknown
+        sub-field under a closed object (`location.zzz`); under an open
+        container - an `additionalFields` custom-field bag, on the resources
+        that carry one, or a localized text map - any sub-key is accepted and
+        yields nothing when absent (`additionalFields.myField`). Response
+        schemas stay complete, so a generated client still types the omitted
+        fields as present — read them as optional on this path.
       schema:
         type: array
         items:
           type: string
-        example: [uid, title, location]
+        example: [uid, slug]
       style: form
       explode: false
 
