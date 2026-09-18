@@ -918,16 +918,18 @@ describe('examples', () => {
   });
 
   // The distinction is read off each scheme's DEFINITION, not off a list of
-  // scheme names: `bearerAuth` is `type: http, scheme: bearer`, `oauth2` is
-  // `type: oauth2`, and `uploadTicketAuth` is an `apiKey` in a custom header the
-  // client never sets. Pinning the contract's own types here is what makes a
+  // scheme names: the API-key schemes are `type: http, scheme: bearer`, `oauth2`
+  // is `type: oauth2`, and `uploadTicketAuth` is an `apiKey` in a custom header
+  // the client never sets. Pinning the contract's own types here is what makes a
   // renamed scheme keep working and a newly added one get judged on its merits.
   it('judges reachability by the security scheme type, not its name', () => {
     const schemes = spec.components.securitySchemes;
-    expect(schemes.bearerAuth).toMatchObject({
-      type: 'http',
-      scheme: 'bearer',
-    });
+    for (const name of ['publicKey', 'secretKey']) {
+      expect(schemes[name]).toMatchObject({
+        type: 'http',
+        scheme: 'bearer',
+      });
+    }
     expect(schemes.oauth2).toMatchObject({ type: 'oauth2' });
     expect(schemes.uploadTicketAuth).toMatchObject({
       type: 'apiKey',
@@ -954,7 +956,8 @@ describe('examples', () => {
           const schemes = Object.keys(req);
           return (
             schemes.length > 0
-            && schemes.every((name) => name === 'bearerAuth' || name === 'oauth2')
+            && schemes.every((name) =>
+              ['publicKey', 'secretKey', 'oauth2'].includes(name))
           );
         }));
     expect(secured.length).toBeGreaterThan(0);
