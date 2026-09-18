@@ -80,8 +80,8 @@ const { data, error } = await oa.agendas.events.list({
 });
 ```
 
-Use a read-only publishable key (`oa_pk_…`, safe in browsers) for reads, a secret
-key (`oa_sk_…`, server-only) for writes. The `schemas` zod validators are exported
+Use a read-only public key (`oa_pk_…`, no user identity) for public reads, a
+secret key (`oa_sk_…`, server-only) for writes. The `schemas` zod validators are exported
 from the package too. `search_docs` (and Scalar at the API docs) is the operation
 reference; the calls it shows are the SDK's.
 
