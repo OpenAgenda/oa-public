@@ -225,8 +225,13 @@ const html = `<!doctype html>
         // outweighs the residual risk on this surface.
         persistAuth: true,
         authentication: {
-          // publicKey (an oa_pk_ key) stays the zero-friction default;
-          // oauth2 is fully wired below for the interactive flow.
+          // Which credential the page offers first. Left to the contract it
+          // would be the first entry of the root security list (publicKey), and
+          // a reader would have to go and find a key in their settings before
+          // the first try. oauth2 signs them in with the account they already
+          // have, in one click, and the flow is fully wired below. No backtick
+          // in this comment: the whole config is a template literal.
+          preferredSecurityScheme: 'oauth2',
           securitySchemes: {
             oauth2: {
               flows: {
