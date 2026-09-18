@@ -388,11 +388,8 @@ paths:
         pending moderation rather than published.
 
 
-        Requires a write credential: a secret key (`oa_sk_…`) or an
-        OAuth token carrying `events:write`; a public or agenda
-        key answers `403` (`read_only_credential`). The acting member
-        must be allowed to create events in this agenda, otherwise
-        `403`.
+        The acting member must be allowed to create events in this
+        agenda, otherwise `403`.
       security:
         - secretKey: []
         - oauth2:
@@ -467,11 +464,6 @@ paths:
         (unreachable host, private address, over 20 MiB, not an image)
         passes validate. The image counts as present, so an agenda
         whose schema requires one validates as it would create.
-
-
-        Requires a write credential: a secret key (`oa_sk_…`) or an
-        OAuth token carrying `events:write`; a public or agenda
-        key answers `403` (`read_only_credential`).
       security:
         - secretKey: []
         - oauth2:
@@ -583,11 +575,8 @@ paths:
         wholesale.
 
 
-        Requires a write credential: a secret key (`oa_sk_…`) or an
-        OAuth token carrying `events:write`; a public or agenda
-        key answers `403` (`read_only_credential`). The acting member
-        must be allowed to edit this event's content, otherwise `403`.
-        An unknown event uid answers `404`.
+        The acting member must be allowed to edit this event's
+        content, otherwise `403`. An unknown event uid answers `404`.
       security:
         - secretKey: []
         - oauth2:
@@ -641,12 +630,9 @@ paths:
         ones.
 
 
-        Requires a write credential: a secret key (`oa_sk_…`) or an
-        OAuth token carrying `events:write`; a public or agenda
-        key answers `403` (`read_only_credential`). The acting member
-        must be allowed to edit this event's content, otherwise `403`.
-        An unknown event uid answers `404`, invalid
-        field values `422`.
+        The acting member must be allowed to edit this event's
+        content, otherwise `403`. An unknown event uid answers `404`,
+        invalid field values `422`.
       security:
         - secretKey: []
         - oauth2:
@@ -699,11 +685,8 @@ paths:
         `200` with a `DeletionResult` carrying the removed event's uid.
 
 
-        Requires a write credential: a secret key (`oa_sk_…`) or an
-        OAuth token carrying `events:write`; a public or agenda
-        key answers `403` (`read_only_credential`). The acting member
-        must be allowed to remove the event, otherwise `403`. An
-        unknown event uid answers `404`.
+        The acting member must be allowed to remove the event,
+        otherwise `403`. An unknown event uid answers `404`.
       security:
         - secretKey: []
         - oauth2:
@@ -803,10 +786,8 @@ paths:
         creating a duplicate.
 
 
-        Requires a write credential: a secret key (`oa_sk_…`) or an
-        OAuth token carrying `events:write`; a public or agenda
-        key answers `403` (`read_only_credential`). The acting member
-        must be allowed to create or edit the event, otherwise `403`.
+        The acting member must be allowed to create or edit the event,
+        otherwise `403`.
       security:
         - secretKey: []
         - oauth2:
@@ -879,10 +860,8 @@ paths:
         ignored.
 
 
-        Requires a write credential: a secret key (`oa_sk_…`) or an
-        OAuth token carrying `events:write`; a public or agenda
-        key answers `403` (`read_only_credential`). The acting member
-        must be allowed to create or edit the event, otherwise `403`.
+        The acting member must be allowed to create or edit the event,
+        otherwise `403`.
       security:
         - secretKey: []
         - oauth2:
@@ -949,11 +928,8 @@ paths:
         carrying the resolved uid.
 
 
-        Requires a write credential: a secret key (`oa_sk_…`) or an
-        OAuth token carrying `events:write`; a public or agenda
-        key answers `403` (`read_only_credential`). The acting member
-        must be allowed to remove the event, otherwise `403`. An
-        unknown pair answers `404`.
+        The acting member must be allowed to remove the event,
+        otherwise `403`. An unknown pair answers `404`.
       security:
         - secretKey: []
         - oauth2:
@@ -1244,11 +1220,6 @@ paths:
         authenticated user is a member of, with their role on each.
         Private agendas the user belongs to ARE included (each item
         carries a `private` flag).
-
-
-        Requires a user identity: a secret key (`oa_sk_…`) or an OAuth
-        token carrying `me:read`; a public or agenda key carries
-        no identity and answers `401`.
       security:
         - secretKey: []
         - oauth2:
@@ -1316,11 +1287,6 @@ paths:
         (`422` past it). This is a coarse gate: the precise types a
         given field accepts are enforced on the event write, against
         the agenda's form schema.
-
-
-        Requires a write credential: a secret key (`oa_sk_…`) or an
-        OAuth token carrying `events:write`; a public or agenda
-        key answers `403` (`read_only_credential`).
       security:
         - secretKey: []
         - oauth2:
@@ -1424,11 +1390,6 @@ paths:
 
         The ticket expires after 5 minutes (`expiresAt`) and is
         consumed by a successful upload.
-
-
-        Requires a write credential: a secret key (`oa_sk_…`) or an
-        OAuth token carrying `events:write`; a public or agenda
-        key answers `403` (`read_only_credential`).
       security:
         - secretKey: []
         - oauth2:
@@ -2735,12 +2696,15 @@ components:
             $ref: '#/components/schemas/Error'
     Forbidden:
       description: >-
-        Authenticated, but not allowed to access this resource. For a blacklisted
-        account `error.code` is `forbidden`. For an OAuth2 access token that
-        lacks the scope this operation declares, `error.code` is
-        `insufficient_scope` and a `WWW-Authenticate: Bearer
-        error="insufficient_scope", scope="<required>"` header names the missing
-        scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+        Authenticated, but not allowed to access this resource. For a read-only
+        credential sent to an operation that writes - a public or a per-agenda
+        key - `error.code` is `read_only_credential`. For a member the agenda
+        does not allow to perform the operation, it is `forbidden`, as it is for
+        a blacklisted account. For a credential that carries scopes and lacks
+        the one this operation declares, `error.code` is `insufficient_scope`
+        and a `WWW-Authenticate: Bearer error="insufficient_scope",
+        scope="<required>"` header names the missing scope (RFC 6750 §3.1); an
+        API key carries scopes only when it declares its own permissions.
       headers:
         WWW-Authenticate:
           description: >-
