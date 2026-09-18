@@ -21,7 +21,9 @@ La réponse event de l'API actuelle vient de l'**`_source` Elasticsearch**, post
 ## Règles de la couche de mapping (Event, lecture)
 
 - **Enveloppe** : liste → `{ data, pagination }` ; ressource seule → objet `Event` nu. (L'API actuelle renvoie `{ success, event }` et `{ events, total, after, sort, aggregations, success }` — à transformer.)
-- **Erreur** : mapper les `err.name` de `core` vers `{ error: { code, message, details? } }` ; codes HTTP corrects (401 vs 403).
+- **Erreur** : mapper les `err.name` de `core` vers `{ error: { code, message } }`, enrichi du seul porteur que le schéma
+  de la réponse déclare (`errors` pour une requête refusée sur ses valeurs,
+  `mergedIn` pour un lieu fusionné) ; codes HTTP corrects (401 vs 403).
 - **Cursor `after`** : l'interne est un **tableau** `search_after` ES (ex. `[timing, tiebreaker]`), `null` quand tout est renvoyé. Le contrat l'expose en **string opaque** → **base64-encoder/décoder** le tableau (+ le sort, et idéalement le `limit`) en une string. En entrée, décoder vers `useAfterKey` / `search_after`. **Ne jamais exposer le tableau brut.**
 - **Champs additionnels** : séparation natif/additionnel par **allowlist de champs** (implémentée tranche 2-3) — `mapEvent.js` énumère les champs natifs (`BASE_FIELDS`/`FULL_FIELDS`), droppe les clés internes (`DROP_KEYS`), et route **toute clé restante** sous `additionalFields`. Le socle reste à plat. `additionalProperties: false` sur `EventSummary`/`Event` est correct **parce que** le mapping émet exactement les champs du contrat (il ne passe pas l'`_source` brut). _(Approche plus simple que le tri par `schemaId` initialement envisagé. La clé publique, d'abord `custom`, a été renommée `additionalFields` — cf. section « Renommage » ci-dessous.)_
 - **`readOnly`** : les champs `readOnly: true` (uid, slug, state, timestamps, dateRange, first/last/nextTiming, originAgenda, sourceAgendas, featured, country, links, timezone) ne sont pas acceptés en écriture.

@@ -136,7 +136,8 @@ paths:
 
 
         Unknown or malformed filter values answer `400`, with per-field
-        context under `error.details.errors`.
+        context under `error.errors`. An unrecognized top-level query parameter
+        is ignored.
       security:
         - publicKey: []
         - secretKey: []
@@ -283,8 +284,9 @@ paths:
         page, with the same filters.
 
 
-        Only published events are listed. Unknown or malformed filter values
-        answer `400`, with per-field context under `error.details.errors`.
+        Only published events are listed. Unknown or malformed filter values answer `400`, with per-field
+        context under `error.errors`. An unrecognized top-level query parameter
+        is ignored.
       security:
         - publicKey: []
         - secretKey: []
@@ -447,13 +449,13 @@ paths:
                 location: { uid: 55512 },
               },
             });
-            if (error) throw error; // 422 with details.errors[] when invalid
+            if (error) throw error; // 422 with error.errors when invalid
             return data.valid; // true
       description: >
         Validates the body exactly as create does, without persisting
         anything. A well-formed, valid body answers `200 { "valid":
         true }`; invalid field values answer `422` with per-field
-        problems under `error.details.errors[]`. Structural body
+        problems under `error.errors[]`. Structural body
         problems (an unknown top-level key, an `additionalFields` name
         colliding with a native field) answer `400`.
 
@@ -1519,7 +1521,8 @@ paths:
 
 
         Unknown or malformed filter values answer `400`, with per-field
-        context under `error.details.errors`.
+        context under `error.errors`. An unrecognized top-level query parameter
+        is ignored.
       security:
         - publicKey: []
         - secretKey: []
@@ -1589,7 +1592,7 @@ paths:
 
         A location that was merged into another one answers `404` with the
         machine-readable code `merged` and the surviving location's uid in
-        `error.details.mergedIn` — use it to repair stale references. Any other
+        `error.mergedIn` — use it to repair stale references. Any other
         deleted or unknown pair is a plain `404` with code `not_found`.
       security:
         - publicKey: []
@@ -1614,11 +1617,13 @@ paths:
         '404':
           description: >
             Agenda or location not found — or location merged into another
-            one (`code: merged`, surviving uid in `details.mergedIn`).
+            one (`code: merged`, surviving uid in `error.mergedIn`).
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                oneOf:
+                  - $ref: '#/components/schemas/Error'
+                  - $ref: '#/components/schemas/MergedLocationError'
               examples:
                 merged:
                   summary: Location merged into another one
@@ -1626,8 +1631,7 @@ paths:
                     error:
                       code: merged
                       message: location merged into another location
-                      details:
-                        mergedIn: 11111111
+                      mergedIn: 11111111
                 notFound:
                   summary: Unknown location
                   value:
@@ -1657,7 +1661,7 @@ paths:
 
         A location that was merged into another one answers `404` with the
         machine-readable code `merged` and the surviving location's uid in
-        `error.details.mergedIn` — use it to repair stale references. Any
+        `error.mergedIn` — use it to repair stale references. Any
         other deleted or unknown uid is a plain `404` with code `not_found`.
       security:
         - publicKey: []
@@ -1683,11 +1687,13 @@ paths:
         '404':
           description: >
             Agenda or location not found — or location merged into another
-            one (`code: merged`, surviving uid in `details.mergedIn`).
+            one (`code: merged`, surviving uid in `error.mergedIn`).
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                oneOf:
+                  - $ref: '#/components/schemas/Error'
+                  - $ref: '#/components/schemas/MergedLocationError'
               examples:
                 merged:
                   summary: Location merged into another one
@@ -1695,8 +1701,7 @@ paths:
                     error:
                       code: merged
                       message: location merged into another location
-                      details:
-                        mergedIn: 11111111
+                      mergedIn: 11111111
                 notFound:
                   summary: Unknown location
                   value:
@@ -2679,13 +2684,16 @@ components:
   responses:
     BadRequest:
       description: >
-        Malformed request — an invalid `after` cursor, a malformed path
-        identifier, or an unknown/malformed filter value. Per-field context is
-        provided under `error.details`.
+        Malformed request: the body is not valid JSON, it carries a field the
+        operation does not accept, or a recognized parameter carries an
+        invalid value. `error.code` is `bad_request`; `error.errors`, when
+        present, names the offending values.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            oneOf:
+              - $ref: '#/components/schemas/Error'
+              - $ref: '#/components/schemas/ValidationError'
     Unauthorized:
       description: >-
         Missing or invalid credentials: no API key was supplied, the key is
@@ -2721,7 +2729,7 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
     NotFound:
-      description: Resource not found.
+      description: Resource not found. `error.code` is `not_found`.
       content:
         application/json:
           schema:
@@ -2731,11 +2739,11 @@ components:
         The request was well-formed but its field values failed validation (e.g.
         a missing title, an invalid timing, an unknown location uid).
         `error.code` is `validation_error` and per-field problems are listed
-        under `error.details.errors[]`.
+        under `error.errors`.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/ValidationError'
     ServiceUnavailable:
       description: >-
         A dependency required to serve the request is temporarily unavailable.
@@ -2771,10 +2779,83 @@ components:
             message:
               type: string
               description: Human-readable explanation.
-            details:
-              type: object
-              description: Optional structured context (e.g. per-field validation errors).
-              additionalProperties: true
+
+    ValidationError:
+      type: object
+      description: A request refused because of the values it carries.
+      required: [error]
+      additionalProperties: false
+      properties:
+        error:
+          type: object
+          required: [code, message, errors]
+          additionalProperties: false
+          properties:
+            code:
+              type: string
+              description: Stable, machine-readable error code.
+              examples: ['validation_error', 'bad_request']
+            message:
+              type: string
+              description: Human-readable explanation.
+            errors:
+              type: array
+              description: The problems found in the request, one per value.
+              minItems: 1
+              items:
+                $ref: '#/components/schemas/ValidationIssue'
+
+    ValidationIssue:
+      type: object
+      description: >-
+        One problem found in a request. A validator describes the values it
+        refuses as precisely as it can, so an item carries the keys below plus
+        whatever else that validator knows, such as the rejected value or the
+        bounds it had to satisfy.
+      required: [message]
+      properties:
+        field:
+          type: string
+          description: >-
+            Name of the offending value in the request. It is absent when the
+            problem belongs to no single value.
+          examples: ['title', 'description', 'timings', 'image.url']
+        lang:
+          type: string
+          description: Language key of the offending value, on a localized field.
+        index:
+          type: integer
+          description: Position of the offending value, in a list field.
+        code:
+          type: string
+          description: Stable, machine-readable reason for the refusal.
+          examples: ['required', 'string.toolong', 'email.invalid']
+        message:
+          type: string
+          description: Human-readable explanation, in English.
+
+    MergedLocationError:
+      type: object
+      description: >-
+        An error response for a location that was merged into another one.
+      required: [error]
+      additionalProperties: false
+      properties:
+        error:
+          type: object
+          required: [code, message, mergedIn]
+          additionalProperties: false
+          properties:
+            code:
+              type: string
+              description: Stable, machine-readable error code.
+              enum: [merged]
+            message:
+              type: string
+              description: Human-readable explanation.
+            mergedIn:
+              type: integer
+              description: Uid of the location this one was merged into.
 
     Pagination:
       type: object
@@ -4716,13 +4797,13 @@ components:
         `uid` or `slug`, an unknown name) is rejected with `400`, as is an
         `additionalFields` name that collides with a native field. Field
         values are validated by the server (a `422` with per-field
-        `error.details.errors[]` on failure).
+        `error.errors[]` on failure).
 
 
         Required fields depend on the target agenda: an event needs at least
         `title`, `description` and `timings`, plus a `location` unless it is
         online-only, plus whatever the agenda marks required; a missing one
-        answers `422` with the per-field set under `error.details.errors[]`.
+        answers `422` with the per-field set under `error.errors[]`.
 
 
         The `image` is set either by reference - stage the bytes via `POST
