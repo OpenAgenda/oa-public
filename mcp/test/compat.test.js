@@ -100,6 +100,11 @@ describe('the contract stays inside what search_docs can render', () => {
       // nowhere to land. The item type is what a reader follows, and it is
       // named right there.
       '/components/schemas/*/properties/*/description',
+      // `ValidationIssue` names a few `field` and `code` values to make the
+      // shape concrete. The card already drops property examples one level
+      // down, so it drops these too; the prose on each property carries the
+      // meaning, and the examples only illustrate it.
+      '/components/schemas/*/properties/*/examples',
       '/components/schemas/*/properties/*/format:date-time',
       '/components/schemas/*/properties/*/format:double',
       '/components/schemas/*/properties/*/format:int64',
@@ -112,6 +117,9 @@ describe('the contract stays inside what search_docs can render', () => {
       '/components/schemas/*/properties/*/properties/*/additionalProperties/x-additionalPropertiesName',
       '/components/schemas/*/properties/*/properties/*/examples',
       '/components/schemas/*/properties/*/properties/*/format:int64',
+      // `ValidationError.error.errors` is never empty. Same construct the card
+      // already drops a level up, and a reader who gets the list reads it.
+      '/components/schemas/*/properties/*/properties/*/minItems',
       '/components/schemas/*/properties/*/readOnly',
       '/components/securitySchemes/*/description',
       '/components/securitySchemes/*/flows',
