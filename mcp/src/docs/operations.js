@@ -1412,9 +1412,11 @@ const SDK_LEAD = [
   // so the machine-readable reason sits one level in. A card names the body's
   // schema and the Components section defines it, but nothing on a card says how
   // the caller reaches it, and `error.code` reads like the obvious guess.
-  'Handling errors: a failed call resolves `{ error, response }` instead of throwing. The `error` '
-    + "is the body whose schema the card's `Errors:` line names for `response.status`, so "
-    + 'the machine-readable reason is at `error.error.code` — never `error.code`.',
+  'Handling errors: a failed call resolves `{ error, response }` instead of throwing. When the API '
+    + "answered, `error` IS the body whose schema the card's `Errors:` line names for "
+    + '`response.status`, so the reason is at `error.error.code`, not `error.code`; on a status two '
+    + 'schemas share, `error.errors` is the one that carries a list. A request that never got an '
+    + 'answer resolves without a `response`, and `error` is then not that body.',
 ].join('\n');
 
 // A tail entry carries its id, its summary and a call line - nothing of what a
