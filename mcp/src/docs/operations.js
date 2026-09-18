@@ -1395,6 +1395,14 @@ const SDK_LEAD = [
     + 'needs one) — `secretKey` a secret key (`oa_sk_…`, server-only) carrying the '
     + 'identity writes and `/me` need, and `oauth2` an access token granted the scopes '
     + 'in brackets. The `schemas` zod validators are exported from the package too.',
+  // The one thing the cards cannot say, and the mistake every reader makes: the
+  // SDK resolves rather than throws, and the `error` it hands back IS the body -
+  // so the machine-readable reason sits one level in. A card names the body's
+  // schema and the Components section defines it, but nothing on a card says how
+  // the caller reaches it, and `error.code` reads like the obvious guess.
+  'Handling errors: a failed call resolves `{ error, response }` instead of throwing. The `error` '
+    + "is the body whose schema the card's `Errors:` line names for `response.status`, so "
+    + 'the machine-readable reason is at `error.error.code` — never `error.code`.',
 ].join('\n');
 
 // A tail entry carries its id, its summary and a call line - nothing of what a

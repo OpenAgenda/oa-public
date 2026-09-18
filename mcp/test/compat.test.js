@@ -134,8 +134,10 @@ describe('the contract stays inside what search_docs can render', () => {
       '/paths/*/delete/responses/*/description',
       '/paths/*/delete/tags',
       '/paths/*/delete/x-codeSamples/*/label',
-      // Curated bodies for the two location 404s - the card gives the shape, and
-      // an example of an error is not what a reader is there for.
+      // Curated bodies for the two location 404s. Everything contractual in them
+      // is already rendered - the `merged` enum, `mergedIn`, the envelope - and
+      // what is left is an illustrative uid and a human sentence, which is not
+      // what a caller branches on.
       '/paths/*/get/responses/*/content/*/examples',
       '/paths/*/get/responses/*/description',
       '/paths/*/get/tags',

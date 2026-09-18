@@ -785,6 +785,32 @@ describe('every card defines exactly the types it leads to', () => {
 
   // Each way the sweep must fail, on a hand-built payload.
   describe('deriveErrors', () => {
+    // `deriveErrors` drops a branch it cannot name, and `collectComponentRefs`
+    // would still have read it - so a status whose body is an inline schema would
+    // vanish from the line with nothing to report it. The contract has none
+    // today; this is what says so tomorrow.
+    it('names every error status the contract declares, for every operation', () => {
+      const missing = [];
+      for (const [path, methods] of Object.entries(spec.paths)) {
+        for (const [method, op] of Object.entries(methods)) {
+          if (!op?.operationId) continue;
+          const declared = Object.keys(op.responses || {}).filter((c) =>
+            /^[45]\d\d$/.test(c));
+          const named = new Set(
+            byId(op.operationId).errors.flatMap((e) => e.statuses),
+          );
+          for (const status of declared) {
+            if (!named.has(status)) {
+              missing.push(
+                `${method.toUpperCase()} ${path} says nothing of ${status}`,
+              );
+            }
+          }
+        }
+      }
+      expect(missing).toEqual([]);
+    });
+
     it('groups each declared error shape by the statuses answering it', () => {
       expect(byId('agendas.locations.get').errors).toEqual(
         expect.arrayContaining([
