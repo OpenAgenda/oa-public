@@ -477,7 +477,7 @@ export function deriveRequest(op) {
 // keyed on the operationId, so a second such route needs no edit.
 //
 // Read off the scheme's DEFINITION rather than matched against a list of scheme
-// names: the contract already states this, so listing `bearerAuth`/`oauth2` here
+// names: the contract already states this, so listing the key/OAuth schemes here
 // would re-encode by hand what it says structurally — and would misjudge a
 // renamed or newly added scheme without a word of warning.
 const schemeOf = (name, contract) =>
