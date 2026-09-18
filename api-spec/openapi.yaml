@@ -14,9 +14,9 @@ info:
     one of two credentials (the only exception is `POST /uploads/staged`, which
     is authorized by an upload ticket in the `X-Upload-Ticket` header):
 
-    - **API key** — a publishable read-only key (`oa_pk_…`, safe to ship in a
-      browser) for reads, or a secret key (`oa_sk_…`) for reads and writes.
-      Best for server-to-server and scripts.
+    - **API key** — a read-only public key (`oa_pk_…`), which carries no
+      user identity and reads what is public, or a secret key (`oa_sk_…`) for
+      reads and writes. Best for server-to-server and scripts.
     - **OAuth 2.1** — authorization-code flow with mandatory PKCE (`S256`) for
       interactive apps acting on a user's behalf. The issued short-lived token
       carries the granted scopes (`agendas:read`, `events:read`, …). Public
@@ -85,7 +85,7 @@ tags:
     description: >
       The authenticated caller: the agendas they are a member of and their
       role on each. Requires a user identity — a secret key or an OAuth
-      token; a publishable (`oa_pk_…`) key carries no identity and answers
+      token; a public (`oa_pk_…`) key carries no identity and answers
       `401`.
   - name: Uploads
     description: >
@@ -384,7 +384,7 @@ paths:
 
 
         Requires a write credential: a secret key (`oa_sk_…`) or an
-        OAuth token carrying `events:write`; a publishable or agenda
+        OAuth token carrying `events:write`; a public or agenda
         key answers `403` (`read_only_credential`). The acting member
         must be allowed to create events in this agenda, otherwise
         `403`.
@@ -465,7 +465,7 @@ paths:
 
 
         Requires a write credential: a secret key (`oa_sk_…`) or an
-        OAuth token carrying `events:write`; a publishable or agenda
+        OAuth token carrying `events:write`; a public or agenda
         key answers `403` (`read_only_credential`).
       security:
         - bearerAuth: []
@@ -578,7 +578,7 @@ paths:
 
 
         Requires a write credential: a secret key (`oa_sk_…`) or an
-        OAuth token carrying `events:write`; a publishable or agenda
+        OAuth token carrying `events:write`; a public or agenda
         key answers `403` (`read_only_credential`). The acting member
         must be allowed to edit the event, otherwise `403`. An unknown
         event uid answers `404`.
@@ -636,7 +636,7 @@ paths:
 
 
         Requires a write credential: a secret key (`oa_sk_…`) or an
-        OAuth token carrying `events:write`; a publishable or agenda
+        OAuth token carrying `events:write`; a public or agenda
         key answers `403` (`read_only_credential`). The acting member
         must be allowed to edit the event, otherwise `403`. An unknown
         event uid answers `404`, invalid field values `422`.
@@ -693,7 +693,7 @@ paths:
 
 
         Requires a write credential: a secret key (`oa_sk_…`) or an
-        OAuth token carrying `events:write`; a publishable or agenda
+        OAuth token carrying `events:write`; a public or agenda
         key answers `403` (`read_only_credential`). The acting member
         must be allowed to remove the event, otherwise `403`. An
         unknown event uid answers `404`.
@@ -796,7 +796,7 @@ paths:
 
 
         Requires a write credential: a secret key (`oa_sk_…`) or an
-        OAuth token carrying `events:write`; a publishable or agenda
+        OAuth token carrying `events:write`; a public or agenda
         key answers `403` (`read_only_credential`). The acting member
         must be allowed to create or edit the event, otherwise `403`.
       security:
@@ -872,7 +872,7 @@ paths:
 
 
         Requires a write credential: a secret key (`oa_sk_…`) or an
-        OAuth token carrying `events:write`; a publishable or agenda
+        OAuth token carrying `events:write`; a public or agenda
         key answers `403` (`read_only_credential`). The acting member
         must be allowed to create or edit the event, otherwise `403`.
       security:
@@ -942,7 +942,7 @@ paths:
 
 
         Requires a write credential: a secret key (`oa_sk_…`) or an
-        OAuth token carrying `events:write`; a publishable or agenda
+        OAuth token carrying `events:write`; a public or agenda
         key answers `403` (`read_only_credential`). The acting member
         must be allowed to remove the event, otherwise `403`. An
         unknown pair answers `404`.
@@ -1236,7 +1236,7 @@ paths:
 
 
         Requires a user identity: a secret key (`oa_sk_…`) or an OAuth
-        token carrying `me:read`; a publishable or agenda key carries
+        token carrying `me:read`; a public or agenda key carries
         no identity and answers `401`.
       security:
         - bearerAuth: []
@@ -1308,7 +1308,7 @@ paths:
 
 
         Requires a write credential: a secret key (`oa_sk_…`) or an
-        OAuth token carrying `events:write`; a publishable or agenda
+        OAuth token carrying `events:write`; a public or agenda
         key answers `403` (`read_only_credential`).
       security:
         - bearerAuth: []
@@ -1416,7 +1416,7 @@ paths:
 
 
         Requires a write credential: a secret key (`oa_sk_…`) or an
-        OAuth token carrying `events:write`; a publishable or agenda
+        OAuth token carrying `events:write`; a public or agenda
         key answers `403` (`read_only_credential`).
       security:
         - bearerAuth: []
@@ -1735,9 +1735,9 @@ components:
       type: http
       scheme: bearer
       description: >
-        API key sent as a Bearer token. Use a publishable read-only key
-        (`oa_pk_…`, safe in browsers) for reads, or a secret key (`oa_sk_…`)
-        for reads and writes.
+        API key sent as a Bearer token. Use a read-only public key
+        (`oa_pk_…`), which carries no user identity, for reads, or a secret key
+        (`oa_sk_…`) for reads and writes.
     oauth2:
       type: oauth2
       description: >
