@@ -2169,7 +2169,7 @@ export type AgendasListErrors = {
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
 };
@@ -2203,7 +2203,7 @@ export type AgendasGetErrors = {
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
@@ -2241,7 +2241,7 @@ export type AgendasOverviewErrors = {
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
@@ -2480,7 +2480,7 @@ export type AgendasEventsListErrors = {
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
@@ -2523,7 +2523,7 @@ export type AgendasEventsCreateErrors = {
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
@@ -2570,7 +2570,7 @@ export type AgendasEventsValidateErrors = {
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
@@ -2618,7 +2618,7 @@ export type AgendasEventsDeleteErrors = {
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
@@ -2660,7 +2660,7 @@ export type AgendasEventsGetErrors = {
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
@@ -2713,7 +2713,7 @@ export type AgendasEventsPatchErrors = {
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
@@ -2770,7 +2770,7 @@ export type AgendasEventsUpdateErrors = {
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
@@ -2822,7 +2822,7 @@ export type AgendasEventsDeleteByExtIdErrors = {
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
@@ -2870,7 +2870,7 @@ export type AgendasEventsGetByExtIdErrors = {
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
@@ -2923,7 +2923,7 @@ export type AgendasEventsPatchByExtIdErrors = {
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
@@ -2984,7 +2984,7 @@ export type AgendasEventsSetByExtIdErrors = {
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
@@ -3267,7 +3267,7 @@ export type AgendasEventsFacetsErrors = {
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
@@ -3310,7 +3310,7 @@ export type AgendasEventsFacetsReportErrors = {
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
@@ -3348,7 +3348,7 @@ export type AgendasEventsSchemaErrors = {
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
@@ -3407,7 +3407,7 @@ export type MeAgendasListErrors = {
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
 };
@@ -3452,7 +3452,7 @@ export type AgendasUploadsCreateErrors = {
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
@@ -3494,7 +3494,7 @@ export type AgendasUploadsCreateTicketErrors = {
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
@@ -3645,7 +3645,7 @@ export type AgendasLocationsListErrors = {
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
@@ -3693,7 +3693,7 @@ export type AgendasLocationsGetByExtIdErrors = {
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**
@@ -3741,7 +3741,7 @@ export type AgendasLocationsGetErrors = {
      */
     401: Error;
     /**
-     * Authenticated, but not allowed to access this resource. For a blacklisted account `error.code` is `forbidden`. For an OAuth2 access token that lacks the scope this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+     * Authenticated, but not allowed to access this resource. For a read-only credential sent to an operation that writes - a public or a per-agenda key - `error.code` is `read_only_credential`. For a member the agenda does not allow to perform the operation, it is `forbidden`, as it is for a blacklisted account. For a credential that carries scopes and lacks the one this operation declares, `error.code` is `insufficient_scope` and a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
      */
     403: Error;
     /**

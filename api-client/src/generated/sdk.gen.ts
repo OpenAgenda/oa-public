@@ -75,7 +75,7 @@ export class Events extends HeyApiClient {
      *
      * Native writable fields sit at the top level; agenda-specific fields go under `additionalFields`; any other top-level key is rejected with `400`. The moderation `state` of the created event is arbitrated by the caller's role and the agenda's contribution settings - a contributor's event may be created pending moderation rather than published.
      *
-     * Requires a write credential: a secret key (`oa_sk_…`) or an OAuth token carrying `events:write`; a public or agenda key answers `403` (`read_only_credential`). The acting member must be allowed to create events in this agenda, otherwise `403`.
+     * The acting member must be allowed to create events in this agenda, otherwise `403`.
      *
      */
     public create<ThrowOnError extends boolean = false>(options: Options<AgendasEventsCreateData, ThrowOnError>) {
@@ -97,8 +97,6 @@ export class Events extends HeyApiClient {
      *
      * A native `image: { url }` is checked for URL syntax only (an `http(s)` URL without embedded credentials): the URL is not fetched, so a URL that create rejects with `422` at fetch time (unreachable host, private address, over 20 MiB, not an image) passes validate. The image counts as present, so an agenda whose schema requires one validates as it would create.
      *
-     * Requires a write credential: a secret key (`oa_sk_…`) or an OAuth token carrying `events:write`; a public or agenda key answers `403` (`read_only_credential`).
-     *
      */
     public validate<ThrowOnError extends boolean = false>(options: Options<AgendasEventsValidateData, ThrowOnError>) {
         return (options.client ?? this.client).post<AgendasEventsValidateResponses, AgendasEventsValidateErrors, ThrowOnError>({
@@ -117,7 +115,7 @@ export class Events extends HeyApiClient {
      *
      * Removes the event from this agenda. When the agenda is the event's origin this deletes the event; otherwise it de- references it from this agenda (the origin keeps it). Answers `200` with a `DeletionResult` carrying the removed event's uid.
      *
-     * Requires a write credential: a secret key (`oa_sk_…`) or an OAuth token carrying `events:write`; a public or agenda key answers `403` (`read_only_credential`). The acting member must be allowed to remove the event, otherwise `403`. An unknown event uid answers `404`.
+     * The acting member must be allowed to remove the event, otherwise `403`. An unknown event uid answers `404`.
      *
      */
     public delete<ThrowOnError extends boolean = false>(options: Options<AgendasEventsDeleteData, ThrowOnError>) {
@@ -151,7 +149,7 @@ export class Events extends HeyApiClient {
      *
      * Updates only the fields present in the body (an `EventPatch`) and returns the updated `Event`. Fields left out are unchanged; `extIds` present in the body are merged by key with the stored ones.
      *
-     * Requires a write credential: a secret key (`oa_sk_…`) or an OAuth token carrying `events:write`; a public or agenda key answers `403` (`read_only_credential`). The acting member must be allowed to edit this event's content, otherwise `403`. An unknown event uid answers `404`, invalid field values `422`.
+     * The acting member must be allowed to edit this event's content, otherwise `403`. An unknown event uid answers `404`, invalid field values `422`.
      *
      */
     public patch<ThrowOnError extends boolean = false>(options: Options<AgendasEventsPatchData, ThrowOnError>) {
@@ -173,7 +171,7 @@ export class Events extends HeyApiClient {
      *
      * External id mappings (`extIds`) in the body are merged by key with the stored ones; pass `?mergeExtIds=false` to replace them wholesale.
      *
-     * Requires a write credential: a secret key (`oa_sk_…`) or an OAuth token carrying `events:write`; a public or agenda key answers `403` (`read_only_credential`). The acting member must be allowed to edit this event's content, otherwise `403`. An unknown event uid answers `404`.
+     * The acting member must be allowed to edit this event's content, otherwise `403`. An unknown event uid answers `404`.
      *
      */
     public update<ThrowOnError extends boolean = false>(options: Options<AgendasEventsUpdateData, ThrowOnError>) {
@@ -193,7 +191,7 @@ export class Events extends HeyApiClient {
      *
      * Resolves the event carrying the `(extKey, extId)` pair and removes it. When the agenda is the event's origin this deletes the event; otherwise it de-references it from this agenda (the origin keeps it). Answers `200` with a `DeletionResult` carrying the resolved uid.
      *
-     * Requires a write credential: a secret key (`oa_sk_…`) or an OAuth token carrying `events:write`; a public or agenda key answers `403` (`read_only_credential`). The acting member must be allowed to remove the event, otherwise `403`. An unknown pair answers `404`.
+     * The acting member must be allowed to remove the event, otherwise `403`. An unknown pair answers `404`.
      *
      */
     public deleteByExtId<ThrowOnError extends boolean = false>(options: Options<AgendasEventsDeleteByExtIdData, ThrowOnError>) {
@@ -227,7 +225,7 @@ export class Events extends HeyApiClient {
      *
      * Upserts the event carrying the `(extKey, extId)` pair. When it already exists, only the fields present in the body (an `EventPatch`) are changed - the rest is left untouched (`200`). If no event carries the pair it is created (`201` + a `Location` header pointing at its canonical by-uid URL), in which case the full server-side requirements apply, so the body must be complete enough to create a valid event (else `422`). The path pair is added to the event's `extIds`, keeping the mappings from other systems; any `extIds` in the body are ignored.
      *
-     * Requires a write credential: a secret key (`oa_sk_…`) or an OAuth token carrying `events:write`; a public or agenda key answers `403` (`read_only_credential`). The acting member must be allowed to create or edit the event, otherwise `403`.
+     * The acting member must be allowed to create or edit the event, otherwise `403`.
      *
      */
     public patchByExtId<ThrowOnError extends boolean = false>(options: Options<AgendasEventsPatchByExtIdData, ThrowOnError>) {
@@ -247,7 +245,7 @@ export class Events extends HeyApiClient {
      *
      * Upserts the event carrying the `(extKey, extId)` pair: its content is REPLACED if it already exists (`200`), or the event is CREATED if not (`201` + a `Location` header pointing at its canonical by-uid URL). The path pair is authoritative - it is added to the event's `extIds`, keeping the mappings from other systems, so the event always carries its own external identity; any `extIds` in the body are ignored. This is the recommended write path for syncing from your own system: it is idempotent by external identity, so a lost response can be retried without creating a duplicate.
      *
-     * Requires a write credential: a secret key (`oa_sk_…`) or an OAuth token carrying `events:write`; a public or agenda key answers `403` (`read_only_credential`). The acting member must be allowed to create or edit the event, otherwise `403`.
+     * The acting member must be allowed to create or edit the event, otherwise `403`.
      *
      */
     public setByExtId<ThrowOnError extends boolean = false>(options: Options<AgendasEventsSetByExtIdData, ThrowOnError>) {
@@ -342,8 +340,6 @@ export class Uploads extends HeyApiClient {
      *
      * The type is detected from the file content, or from the filename extension for signature-less formats such as CSV; a type outside the platform's allowed set (images, PDF and common office documents) answers `422`. The file is capped at 20 MiB (`422` past it). This is a coarse gate: the precise types a given field accepts are enforced on the event write, against the agenda's form schema.
      *
-     * Requires a write credential: a secret key (`oa_sk_…`) or an OAuth token carrying `events:write`; a public or agenda key answers `403` (`read_only_credential`).
-     *
      */
     public create<ThrowOnError extends boolean = false>(options: Options<AgendasUploadsCreateData, ThrowOnError>) {
         return (options.client ?? this.client).post<AgendasUploadsCreateResponses, AgendasUploadsCreateErrors, ThrowOnError>({
@@ -368,8 +364,6 @@ export class Uploads extends HeyApiClient {
      * An image already reachable at a public `http(s)` URL is attached directly with `image: { url }` on the write, with no ticket.
      *
      * The ticket expires after 5 minutes (`expiresAt`) and is consumed by a successful upload.
-     *
-     * Requires a write credential: a secret key (`oa_sk_…`) or an OAuth token carrying `events:write`; a public or agenda key answers `403` (`read_only_credential`).
      *
      */
     public createTicket<ThrowOnError extends boolean = false>(options: Options<AgendasUploadsCreateTicketData, ThrowOnError>) {
@@ -527,8 +521,6 @@ export class Agendas2 extends HeyApiClient {
      * List the agendas you are a member of
      *
      * Returns a cursor-paginated list of the agendas the authenticated user is a member of, with their role on each. Private agendas the user belongs to ARE included (each item carries a `private` flag).
-     *
-     * Requires a user identity: a secret key (`oa_sk_…`) or an OAuth token carrying `me:read`; a public or agenda key carries no identity and answers `401`.
      *
      */
     public list<ThrowOnError extends boolean = false>(options?: Options<MeAgendasListData, ThrowOnError>) {
