@@ -438,20 +438,27 @@ function errorBodies(op) {
 // `components/responses`, which no card renders either.
 /**
  * @param {any} op
- * @returns {{name: string, statuses: string[]}[]}
+ * @returns {{statuses: string[], names: string[]}[]}
  */
 export function deriveErrors(op) {
-  const byName = new Map();
+  // Status first, and consecutive statuses that answer the same shapes merged:
+  // a caller branches on the status, and the generated type is keyed by it
+  // (`{ 400: Error | ValidationError; 401: Error; … }`). Grouped the other way,
+  // reading what a `400` can be means crossing every clause.
+  const groups = [];
   for (const { status, schema } of errorBodies(op)) {
-    const branches = schema.oneOf ?? [schema];
-    for (const branch of branches) {
-      const name = branch.$ref ? refName(branch.$ref) : null;
-      if (!name) continue;
-      if (!byName.has(name)) byName.set(name, []);
-      if (!byName.get(name).includes(status)) byName.get(name).push(status);
+    const names = (schema.oneOf ?? [schema])
+      .map((branch) => (branch.$ref ? refName(branch.$ref) : null))
+      .filter(Boolean);
+    if (!names.length) continue;
+    const last = groups[groups.length - 1];
+    if (last && String(last.names) === String(names)) {
+      last.statuses.push(status);
+    } else {
+      groups.push({ statuses: [status], names });
     }
   }
-  return [...byName].map(([name, statuses]) => ({ name, statuses }));
+  return groups;
 }
 
 // Pick the ONE media type the card documents: JSON when the route offers it,
@@ -1246,7 +1253,12 @@ function renderRich(op) {
     lines.push(
       '',
       `Errors: ${op.errors
-        .map((e) => `\`${named(e.name)}\` on ${e.statuses.join(', ')}`)
+        .map(
+          (e) =>
+            `${e.statuses.join(', ')} → ${e.names
+              .map((n) => `\`${named(n)}\``)
+              .join(' | ')}`,
+        )
         .join('; ')}.`,
     );
   }

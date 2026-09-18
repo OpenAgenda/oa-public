@@ -811,21 +811,20 @@ describe('every card defines exactly the types it leads to', () => {
       expect(missing).toEqual([]);
     });
 
-    it('groups each declared error shape by the statuses answering it', () => {
-      expect(byId('agendas.locations.get').errors).toEqual(
-        expect.arrayContaining([
-          { name: 'Error', statuses: expect.arrayContaining(['404']) },
-          { name: 'MergedLocationError', statuses: ['404'] },
-        ]),
-      );
+    it('merges consecutive statuses that answer the same shapes', () => {
+      expect(byId('agendas.locations.get').errors).toEqual([
+        { statuses: ['400'], names: ['Error', 'ValidationError'] },
+        { statuses: ['401', '403'], names: ['Error'] },
+        { statuses: ['404'], names: ['Error', 'MergedLocationError'] },
+      ]);
     });
 
     it('reads every branch of a oneOf response', () => {
       // The `400` of a write is `Error | ValidationError`: a structural refusal
       // carries no list, one refused for its values does.
-      const names = byId('agendas.events.create').errors.map((e) => e.name);
-      expect(names).toContain('Error');
-      expect(names).toContain('ValidationError');
+      const group = byId('agendas.events.create').errors.find((e) =>
+        e.statuses.includes('400'));
+      expect(group.names).toEqual(['Error', 'ValidationError']);
     });
 
     it('is empty for an operation that declares no error body', () => {
@@ -1505,8 +1504,10 @@ describe('renderSearch', () => {
       // Components section define it, and the envelope is the one type EVERY
       // caller needs.
       const card = renderOperation(byId('agendas.locations.get'), 0);
-      expect(card).toMatch(/^Errors: .*`Error` on .*400.*404/m);
-      expect(card).toContain('`MergedLocationError` on 404');
+      expect(card).toContain(
+        'Errors: 400 → `Error` | `ValidationError`; 401, 403 → `Error`; '
+          + '404 → `Error` | `MergedLocationError`.',
+      );
 
       // The envelope, defined for the first time on any card.
       const payload = renderSearch([byId('agendas.locations.get')]);
