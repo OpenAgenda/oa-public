@@ -813,10 +813,38 @@ describe('every card defines exactly the types it leads to', () => {
 
     it('merges consecutive statuses that answer the same shapes', () => {
       expect(byId('agendas.locations.get').errors).toEqual([
-        { statuses: ['400'], names: ['Error', 'ValidationError'] },
-        { statuses: ['401', '403'], names: ['Error'] },
-        { statuses: ['404'], names: ['Error', 'MergedLocationError'] },
+        { statuses: ['400'], names: ['Error', 'ValidationError'], note: null },
+        { statuses: ['401', '403'], names: ['Error'], note: null },
+        {
+          statuses: ['404'],
+          names: ['Error', 'MergedLocationError'],
+          note: expect.stringContaining('merged into another one'),
+        },
       ]);
+    });
+
+    it('does not merge two statuses that carry different notes', () => {
+      const groups = deriveErrors({
+        responses: {
+          400: {
+            description: 'first',
+            content: {
+              'application/json': {
+                schema: { $ref: '#/components/schemas/Error' },
+              },
+            },
+          },
+          401: {
+            description: 'second',
+            content: {
+              'application/json': {
+                schema: { $ref: '#/components/schemas/Error' },
+              },
+            },
+          },
+        },
+      });
+      expect(groups.map((g) => g.statuses)).toEqual([['400'], ['401']]);
     });
 
     it('reads every branch of a oneOf response', () => {
@@ -1317,9 +1345,21 @@ describe('renderOperation', () => {
     expect(md).toContain('  - key (string, required)');
     // Never again in the compacted list, where a shape cannot be guessed.
     const [, compacted = ''] = md.match(/Other optional parameters: (.*)\./) ?? [];
-    const names = compacted.split(', ');
+    const names = compacted.split(', ').map((e) => e.replace(/ \(.*/, ''));
     for (const name of ['timings', 'createdAt', 'extId', 'age']) {
       expect(names).not.toContain(name);
+    }
+  });
+
+  // A compacted parameter kept only its name, and a name does not say that
+  // `region` takes a LIST - which is what the generated client types it as.
+  it('gives every compacted parameter its type', () => {
+    const md = renderOperation(byId('agendas.events.list'), 0);
+    const [, compacted = ''] = md.match(/Other optional parameters: (.*)\./) ?? [];
+    expect(compacted).toContain('region (string[])');
+    expect(compacted).toContain('featured (boolean)');
+    for (const entry of compacted.split(', ')) {
+      expect(entry).toMatch(/^\S+ \(.+\)$/);
     }
   });
 
@@ -1335,7 +1375,7 @@ describe('renderOperation', () => {
     // caller; the regex alone would not say which corner comes first.
     expect(md).toContain('`west,south,east,north`');
     const [, compacted = ''] = md.match(/Other optional parameters: (.*)\./) ?? [];
-    const names = compacted.split(', ');
+    const names = compacted.split(', ').map((e) => e.replace(/ \(.*/, ''));
     for (const name of ['near', 'bbox']) expect(names).not.toContain(name);
   });
 
@@ -1508,6 +1548,15 @@ describe('renderSearch', () => {
         'Errors: 400 → `Error` | `ValidationError`; 401, 403 → `Error`; '
           + '404 → `Error` | `MergedLocationError`.',
       );
+
+      // What the two shapes on a `404` mean is on its own line, taken from the
+      // response the operation declares itself. The mapping stays scannable.
+      expect(card).toMatch(
+        /^404: Agenda or location not found\..*surviving one.*$/m,
+      );
+      // And it is written there ONCE: the operation description used to carry
+      // the same fact, the response another copy, the schema a third.
+      expect(card.match(/merged into another one/g)).toHaveLength(1);
 
       // The envelope, defined for the first time on any card.
       const payload = renderSearch([byId('agendas.locations.get')]);

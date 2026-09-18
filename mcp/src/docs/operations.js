@@ -422,10 +422,23 @@ function errorBodies(op) {
     .filter((code) => /^[45](\d\d|XX)$/i.test(code))
     .sort()
     .map((code) => {
-      const content = deref(op.responses[code])?.content ?? {};
+      const declared = op.responses[code];
+      const content = deref(declared)?.content ?? {};
       const type = Object.keys(content).find((t) => JSON_MEDIA.test(t));
       const schema = type && content[type]?.schema;
-      return schema ? { status: code, schema } : null;
+      if (!schema) return null;
+      // Only an INLINE response carries a note here. The shared responses are
+      // skipped for room, not because they say nothing: `Forbidden` also
+      // explains blacklisted accounts, conditional API-key scopes and the
+      // `WWW-Authenticate` challenge the server really sends, and none of that
+      // is in `Error`. Rendering all of them would put four or five paragraphs
+      // on every card and bury the two inline ones. They stay a known gap, in
+      // the omissions list, and closing it needs its own shape - not this
+      // line.
+      const note = declared?.$ref
+        ? null
+        : oneLine(deref(declared)?.description);
+      return { status: code, schema, note: note || null };
     })
     .filter(Boolean);
 }
@@ -438,7 +451,7 @@ function errorBodies(op) {
 // `components/responses`, which no card renders either.
 /**
  * @param {any} op
- * @returns {{statuses: string[], names: string[]}[]}
+ * @returns {{statuses: string[], names: string[], note: string|null}[]}
  */
 export function deriveErrors(op) {
   // Status first, and consecutive statuses that answer the same shapes merged:
@@ -446,16 +459,18 @@ export function deriveErrors(op) {
   // (`{ 400: Error | ValidationError; 401: Error; … }`). Grouped the other way,
   // reading what a `400` can be means crossing every clause.
   const groups = [];
-  for (const { status, schema } of errorBodies(op)) {
+  for (const { status, schema, note } of errorBodies(op)) {
     const names = (schema.oneOf ?? [schema])
       .map((branch) => (branch.$ref ? refName(branch.$ref) : null))
       .filter(Boolean);
     if (!names.length) continue;
     const last = groups[groups.length - 1];
-    if (last && String(last.names) === String(names)) {
+    // Merge on the note too: two statuses that answer the same shapes for
+    // different reasons are not one clause.
+    if (last && String(last.names) === String(names) && last.note === note) {
       last.statuses.push(status);
     } else {
-      groups.push({ statuses: [status], names });
+      groups.push({ statuses: [status], names, note });
     }
   }
   return groups;
@@ -1242,7 +1257,13 @@ function renderRich(op) {
   if (plain.length) {
     lines.push(
       '',
-      `Other optional parameters: ${plain.map((p) => p.name).join(', ')}.`,
+      // With its type: a bare name does not say that `region` takes a LIST,
+      // and the generated client types it as one. The server's query gate
+      // wraps a scalar (`asList`), so writing one is not punished - the caller
+      // simply has no way to know the shape the SDK expects.
+      `Other optional parameters: ${plain
+        .map((p) => `${p.name} (${p.type})`)
+        .join(', ')}.`,
     );
   }
   const request = renderRequest(op.request);
@@ -1260,6 +1281,11 @@ function renderRich(op) {
               .join(' | ')}`,
         )
         .join('; ')}.`,
+      // A note goes on its own line rather than inside the mapping: the
+      // mapping is scanned, the note is read.
+      ...op.errors
+        .filter((e) => e.note)
+        .map((e) => `${e.statuses.join(', ')}: ${e.note}`),
     );
   }
   lines.push('', 'Example:', `\`\`\`${op.exampleLang}`, op.example, '```');
