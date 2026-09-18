@@ -3757,7 +3757,7 @@ export type AgendasLocationsGetByExtIdErrors = {
      */
     403: Error;
     /**
-     * Agenda or location not found — or location merged into another one (`code: merged`, surviving uid in `error.mergedIn`).
+     * Agenda or location not found. A location merged into another one answers here too, and identifies the surviving one so a stale reference can be repaired.
      *
      */
     404: Error | MergedLocationError;
@@ -3805,7 +3805,7 @@ export type AgendasLocationsGetErrors = {
      */
     403: Error;
     /**
-     * Agenda or location not found — or location merged into another one (`code: merged`, surviving uid in `error.mergedIn`).
+     * Agenda or location not found. A location merged into another one answers here too, and identifies the surviving one so a stale reference can be repaired.
      *
      */
     404: Error | MergedLocationError;

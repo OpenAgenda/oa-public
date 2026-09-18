@@ -404,8 +404,6 @@ export class Locations extends HeyApiClient {
      *
      * Returns a single location by its external identifier within the given agenda - the `(key, value)` pair an `ExtId` mapping carries in the location's `extIds`. Use this when you sync from your own system and hold its id rather than the OpenAgenda uid. Resolves to the same `Location` as the by-uid get.
      *
-     * A location that was merged into another one answers `404` with the machine-readable code `merged` and the surviving location's uid in `error.mergedIn` — use it to repair stale references. Any other deleted or unknown pair is a plain `404` with code `not_found`.
-     *
      */
     public getByExtId<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsGetByExtIdData, ThrowOnError>) {
         return (options.client ?? this.client).get<AgendasLocationsGetByExtIdResponses, AgendasLocationsGetByExtIdErrors, ThrowOnError>({
@@ -423,8 +421,6 @@ export class Locations extends HeyApiClient {
      * Get a location
      *
      * Returns a single location of the agenda (or of its shared location set) in the full `Location` shape.
-     *
-     * A location that was merged into another one answers `404` with the machine-readable code `merged` and the surviving location's uid in `error.mergedIn` — use it to repair stale references. Any other deleted or unknown uid is a plain `404` with code `not_found`.
      *
      */
     public get<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsGetData, ThrowOnError>) {
