@@ -151,7 +151,7 @@ export class Events extends HeyApiClient {
      *
      * Updates only the fields present in the body (an `EventPatch`) and returns the updated `Event`. Fields left out are unchanged; `extIds` present in the body are merged by key with the stored ones.
      *
-     * Requires a write credential: a secret key (`oa_sk_…`) or an OAuth token carrying `events:write`; a public or agenda key answers `403` (`read_only_credential`). The acting member must be allowed to edit the event, otherwise `403`. An unknown event uid answers `404`, invalid field values `422`.
+     * Requires a write credential: a secret key (`oa_sk_…`) or an OAuth token carrying `events:write`; a public or agenda key answers `403` (`read_only_credential`). The acting member must be allowed to edit this event's content, otherwise `403`. An unknown event uid answers `404`, invalid field values `422`.
      *
      */
     public patch<ThrowOnError extends boolean = false>(options: Options<AgendasEventsPatchData, ThrowOnError>) {
@@ -173,7 +173,7 @@ export class Events extends HeyApiClient {
      *
      * External id mappings (`extIds`) in the body are merged by key with the stored ones; pass `?mergeExtIds=false` to replace them wholesale.
      *
-     * Requires a write credential: a secret key (`oa_sk_…`) or an OAuth token carrying `events:write`; a public or agenda key answers `403` (`read_only_credential`). The acting member must be allowed to edit the event, otherwise `403`. An unknown event uid answers `404`.
+     * Requires a write credential: a secret key (`oa_sk_…`) or an OAuth token carrying `events:write`; a public or agenda key answers `403` (`read_only_credential`). The acting member must be allowed to edit this event's content, otherwise `403`. An unknown event uid answers `404`.
      *
      */
     public update<ThrowOnError extends boolean = false>(options: Options<AgendasEventsUpdateData, ThrowOnError>) {
@@ -554,7 +554,7 @@ export class Uploads2 extends HeyApiClient {
      *
      * Receives the bytes of an OUT-OF-BAND upload authorized by `agendas.uploads.createTicket`, and returns the staging `ref` to attach on an event write (`image: { ref }` or a custom `additionalFields` field). This is the endpoint the ticket descriptor's `uploadUrl` points at.
      *
-     * Call it with a plain HTTPS `POST` from outside the typed API client, so the file never transits the client (or an LLM's token stream). Authorize with the ticket in the `X-Upload- Ticket` header (no API key or access token) and send the file as `multipart/form-data` field `file`. The target agenda is taken from the signed ticket.
+     * Call it with a plain HTTPS `POST` from outside the typed API client, so the file never transits the client (or an LLM's token stream). Authorize with the ticket in the `X-Upload-Ticket` header (no API key or access token) and send the file as `multipart/form-data` field `file`. The target agenda is taken from the signed ticket.
      *
      * The type is detected from the file content, or from the filename extension for signature-less formats such as CSV; a type outside the platform's allowed set (images, PDF and common office documents) answers `422`. The file is capped at 20 MiB (`422` past it).
      *

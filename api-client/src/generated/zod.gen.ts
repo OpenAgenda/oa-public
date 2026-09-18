@@ -315,7 +315,7 @@ export const zExtId = z.object({
 /**
  * Agenda-specific additional fields. The available keys and the shape of each value are defined by the agenda's event form schema (`GET /agendas/{agendaUid}/events/schema`): each value follows its field's `fieldType`.
  *
- * A `file`/`image` field is set by reference, like the native image: stage the bytes via `POST /agendas/{uid}/uploads`, then send `{ ref, name? }` here (`name` is the original filename, used for the download; optional), or `null` to clear it. On read the same field returns the stored descriptor `{ originalName, extension, filename }`.
+ * A `file`/`image` field is set by reference, like the native image: stage the bytes via `POST /agendas/{uid}/uploads`, then send `{ ref, name? }` here (`name` is the original filename, used for the download; optional), or `null` to clear it. On read the same field returns the stored descriptor `{ originalName, extension, filename }`, where `filename` is the stored object's key; the API does not return its absolute URL.
  *
  */
 export const zAdditionalFields = z.record(z.unknown());
@@ -1203,7 +1203,7 @@ export const zExtKey = z.string();
 export const zExtIdValue = z.string();
 
 /**
- * On the by-uid `PUT`, whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`). On `PATCH`, `extIds` present in the body are always merged.
+ * On the by-uid `PUT`, whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`). A `PATCH` merges a non-empty `extIds` whatever this parameter says; an empty array clears the stored mappings.
  *
  */
 export const zMergeExtIds = z.boolean().default(true);
