@@ -225,8 +225,8 @@ const html = `<!doctype html>
         // outweighs the residual risk on this surface.
         persistAuth: true,
         authentication: {
-          // bearerAuth (a publishable oa_pk_ key) stays the zero-friction
-          // default; oauth2 is fully wired below for the interactive flow.
+          // publicKey (an oa_pk_ key) stays the zero-friction default;
+          // oauth2 is fully wired below for the interactive flow.
           securitySchemes: {
             oauth2: {
               flows: {
