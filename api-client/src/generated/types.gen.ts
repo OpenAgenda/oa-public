@@ -14,12 +14,72 @@ export type Error = {
          * Human-readable explanation.
          */
         message: string;
+    };
+};
+
+/**
+ * A request refused because of the values it carries.
+ */
+export type ValidationError = {
+    error: {
         /**
-         * Optional structured context (e.g. per-field validation errors).
+         * Stable, machine-readable error code.
          */
-        details?: {
-            [key: string]: unknown;
-        };
+        code: string;
+        /**
+         * Human-readable explanation.
+         */
+        message: string;
+        /**
+         * The problems found in the request, one per value.
+         */
+        errors: Array<ValidationIssue>;
+    };
+};
+
+/**
+ * One problem found in a request. A validator describes the values it refuses as precisely as it can, so an item carries the keys below plus whatever else that validator knows, such as the rejected value or the bounds it had to satisfy.
+ */
+export type ValidationIssue = {
+    /**
+     * Name of the offending value in the request. It is absent when the problem belongs to no single value.
+     */
+    field?: string;
+    /**
+     * Language key of the offending value, on a localized field.
+     */
+    lang?: string;
+    /**
+     * Position of the offending value, in a list field.
+     */
+    index?: number;
+    /**
+     * Stable, machine-readable reason for the refusal.
+     */
+    code?: string;
+    /**
+     * Human-readable explanation, in English.
+     */
+    message: string;
+};
+
+/**
+ * An error response for a location that was merged into another one.
+ */
+export type MergedLocationError = {
+    error: {
+        /**
+         * Stable, machine-readable error code.
+         */
+        code: 'merged';
+        /**
+         * Human-readable explanation.
+         */
+        message: string;
+        /**
+         * Uid of the location this one was merged into.
+         */
+        mergedIn: number;
     };
 };
 
@@ -971,9 +1031,9 @@ export type ImageInput = {
 } | null;
 
 /**
- * Request body for creating or replacing an event: the fields a client may set. Agenda-specific fields go under `additionalFields`, never at the top level; any other top-level key (a read-only field such as `uid` or `slug`, an unknown name) is rejected with `400`, as is an `additionalFields` name that collides with a native field. Field values are validated by the server (a `422` with per-field `error.details.errors[]` on failure).
+ * Request body for creating or replacing an event: the fields a client may set. Agenda-specific fields go under `additionalFields`, never at the top level; any other top-level key (a read-only field such as `uid` or `slug`, an unknown name) is rejected with `400`, as is an `additionalFields` name that collides with a native field. Field values are validated by the server (a `422` with per-field `error.errors[]` on failure).
  *
- * Required fields depend on the target agenda: an event needs at least `title`, `description` and `timings`, plus a `location` unless it is online-only, plus whatever the agenda marks required; a missing one answers `422` with the per-field set under `error.details.errors[]`.
+ * Required fields depend on the target agenda: an event needs at least `title`, `description` and `timings`, plus a `location` unless it is online-only, plus whatever the agenda marks required; a missing one answers `422` with the per-field set under `error.errors[]`.
  *
  * The `image` is set either by reference - stage the bytes via `POST /agendas/{uid}/uploads` and pass the returned `ref` here - or by a public `url` the server fetches (or `null` to clear it). An event's privacy is derived from its agenda.
  *
@@ -2160,10 +2220,10 @@ export type AgendasListData = {
 
 export type AgendasListErrors = {
     /**
-     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
      *
      */
-    400: Error;
+    400: Error | ValidationError;
     /**
      * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
      */
@@ -2207,7 +2267,7 @@ export type AgendasGetErrors = {
      */
     403: Error;
     /**
-     * Resource not found.
+     * Resource not found. `error.code` is `not_found`.
      */
     404: Error;
 };
@@ -2245,7 +2305,7 @@ export type AgendasOverviewErrors = {
      */
     403: Error;
     /**
-     * Resource not found.
+     * Resource not found. `error.code` is `not_found`.
      */
     404: Error;
 };
@@ -2471,10 +2531,10 @@ export type AgendasEventsListData = {
 
 export type AgendasEventsListErrors = {
     /**
-     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
      *
      */
-    400: Error;
+    400: Error | ValidationError;
     /**
      * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
      */
@@ -2484,7 +2544,7 @@ export type AgendasEventsListErrors = {
      */
     403: Error;
     /**
-     * Resource not found.
+     * Resource not found. `error.code` is `not_found`.
      */
     404: Error;
 };
@@ -2514,10 +2574,10 @@ export type AgendasEventsCreateData = {
 
 export type AgendasEventsCreateErrors = {
     /**
-     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
      *
      */
-    400: Error;
+    400: Error | ValidationError;
     /**
      * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
      */
@@ -2527,13 +2587,13 @@ export type AgendasEventsCreateErrors = {
      */
     403: Error;
     /**
-     * Resource not found.
+     * Resource not found. `error.code` is `not_found`.
      */
     404: Error;
     /**
-     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.details.errors[]`.
+     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.errors`.
      */
-    422: Error;
+    422: ValidationError;
 };
 
 export type AgendasEventsCreateError = AgendasEventsCreateErrors[keyof AgendasEventsCreateErrors];
@@ -2561,10 +2621,10 @@ export type AgendasEventsValidateData = {
 
 export type AgendasEventsValidateErrors = {
     /**
-     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
      *
      */
-    400: Error;
+    400: Error | ValidationError;
     /**
      * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
      */
@@ -2574,13 +2634,13 @@ export type AgendasEventsValidateErrors = {
      */
     403: Error;
     /**
-     * Resource not found.
+     * Resource not found. `error.code` is `not_found`.
      */
     404: Error;
     /**
-     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.details.errors[]`.
+     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.errors`.
      */
-    422: Error;
+    422: ValidationError;
 };
 
 export type AgendasEventsValidateError = AgendasEventsValidateErrors[keyof AgendasEventsValidateErrors];
@@ -2622,7 +2682,7 @@ export type AgendasEventsDeleteErrors = {
      */
     403: Error;
     /**
-     * Resource not found.
+     * Resource not found. `error.code` is `not_found`.
      */
     404: Error;
 };
@@ -2664,7 +2724,7 @@ export type AgendasEventsGetErrors = {
      */
     403: Error;
     /**
-     * Resource not found.
+     * Resource not found. `error.code` is `not_found`.
      */
     404: Error;
 };
@@ -2704,10 +2764,10 @@ export type AgendasEventsPatchData = {
 
 export type AgendasEventsPatchErrors = {
     /**
-     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
      *
      */
-    400: Error;
+    400: Error | ValidationError;
     /**
      * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
      */
@@ -2717,13 +2777,13 @@ export type AgendasEventsPatchErrors = {
      */
     403: Error;
     /**
-     * Resource not found.
+     * Resource not found. `error.code` is `not_found`.
      */
     404: Error;
     /**
-     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.details.errors[]`.
+     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.errors`.
      */
-    422: Error;
+    422: ValidationError;
 };
 
 export type AgendasEventsPatchError = AgendasEventsPatchErrors[keyof AgendasEventsPatchErrors];
@@ -2761,10 +2821,10 @@ export type AgendasEventsUpdateData = {
 
 export type AgendasEventsUpdateErrors = {
     /**
-     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
      *
      */
-    400: Error;
+    400: Error | ValidationError;
     /**
      * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
      */
@@ -2774,13 +2834,13 @@ export type AgendasEventsUpdateErrors = {
      */
     403: Error;
     /**
-     * Resource not found.
+     * Resource not found. `error.code` is `not_found`.
      */
     404: Error;
     /**
-     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.details.errors[]`.
+     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.errors`.
      */
-    422: Error;
+    422: ValidationError;
 };
 
 export type AgendasEventsUpdateError = AgendasEventsUpdateErrors[keyof AgendasEventsUpdateErrors];
@@ -2826,7 +2886,7 @@ export type AgendasEventsDeleteByExtIdErrors = {
      */
     403: Error;
     /**
-     * Resource not found.
+     * Resource not found. `error.code` is `not_found`.
      */
     404: Error;
 };
@@ -2874,7 +2934,7 @@ export type AgendasEventsGetByExtIdErrors = {
      */
     403: Error;
     /**
-     * Resource not found.
+     * Resource not found. `error.code` is `not_found`.
      */
     404: Error;
 };
@@ -2914,10 +2974,10 @@ export type AgendasEventsPatchByExtIdData = {
 
 export type AgendasEventsPatchByExtIdErrors = {
     /**
-     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
      *
      */
-    400: Error;
+    400: Error | ValidationError;
     /**
      * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
      */
@@ -2927,13 +2987,13 @@ export type AgendasEventsPatchByExtIdErrors = {
      */
     403: Error;
     /**
-     * Resource not found.
+     * Resource not found. `error.code` is `not_found`.
      */
     404: Error;
     /**
-     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.details.errors[]`.
+     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.errors`.
      */
-    422: Error;
+    422: ValidationError;
 };
 
 export type AgendasEventsPatchByExtIdError = AgendasEventsPatchByExtIdErrors[keyof AgendasEventsPatchByExtIdErrors];
@@ -2975,10 +3035,10 @@ export type AgendasEventsSetByExtIdData = {
 
 export type AgendasEventsSetByExtIdErrors = {
     /**
-     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
      *
      */
-    400: Error;
+    400: Error | ValidationError;
     /**
      * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
      */
@@ -2988,13 +3048,13 @@ export type AgendasEventsSetByExtIdErrors = {
      */
     403: Error;
     /**
-     * Resource not found.
+     * Resource not found. `error.code` is `not_found`.
      */
     404: Error;
     /**
-     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.details.errors[]`.
+     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.errors`.
      */
-    422: Error;
+    422: ValidationError;
 };
 
 export type AgendasEventsSetByExtIdError = AgendasEventsSetByExtIdErrors[keyof AgendasEventsSetByExtIdErrors];
@@ -3258,10 +3318,10 @@ export type AgendasEventsFacetsData = {
 
 export type AgendasEventsFacetsErrors = {
     /**
-     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
      *
      */
-    400: Error;
+    400: Error | ValidationError;
     /**
      * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
      */
@@ -3271,7 +3331,7 @@ export type AgendasEventsFacetsErrors = {
      */
     403: Error;
     /**
-     * Resource not found.
+     * Resource not found. `error.code` is `not_found`.
      */
     404: Error;
 };
@@ -3301,10 +3361,10 @@ export type AgendasEventsFacetsReportData = {
 
 export type AgendasEventsFacetsReportErrors = {
     /**
-     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
      *
      */
-    400: Error;
+    400: Error | ValidationError;
     /**
      * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
      */
@@ -3314,7 +3374,7 @@ export type AgendasEventsFacetsReportErrors = {
      */
     403: Error;
     /**
-     * Resource not found.
+     * Resource not found. `error.code` is `not_found`.
      */
     404: Error;
 };
@@ -3352,7 +3412,7 @@ export type AgendasEventsSchemaErrors = {
      */
     403: Error;
     /**
-     * Resource not found.
+     * Resource not found. `error.code` is `not_found`.
      */
     404: Error;
 };
@@ -3398,10 +3458,10 @@ export type MeAgendasListData = {
 
 export type MeAgendasListErrors = {
     /**
-     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
      *
      */
-    400: Error;
+    400: Error | ValidationError;
     /**
      * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
      */
@@ -3443,10 +3503,10 @@ export type AgendasUploadsCreateData = {
 
 export type AgendasUploadsCreateErrors = {
     /**
-     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
      *
      */
-    400: Error;
+    400: Error | ValidationError;
     /**
      * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
      */
@@ -3456,13 +3516,13 @@ export type AgendasUploadsCreateErrors = {
      */
     403: Error;
     /**
-     * Resource not found.
+     * Resource not found. `error.code` is `not_found`.
      */
     404: Error;
     /**
-     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.details.errors[]`.
+     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.errors`.
      */
-    422: Error;
+    422: ValidationError;
 };
 
 export type AgendasUploadsCreateError = AgendasUploadsCreateErrors[keyof AgendasUploadsCreateErrors];
@@ -3498,7 +3558,7 @@ export type AgendasUploadsCreateTicketErrors = {
      */
     403: Error;
     /**
-     * Resource not found.
+     * Resource not found. `error.code` is `not_found`.
      */
     404: Error;
     /**
@@ -3533,18 +3593,18 @@ export type UploadsStagedData = {
 
 export type UploadsStagedErrors = {
     /**
-     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
      *
      */
-    400: Error;
+    400: Error | ValidationError;
     /**
      * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
      */
     401: Error;
     /**
-     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.details.errors[]`.
+     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid). `error.code` is `validation_error` and per-field problems are listed under `error.errors`.
      */
-    422: Error;
+    422: ValidationError;
     /**
      * A dependency required to serve the request is temporarily unavailable. `error.code` is `service_unavailable`; the request was not processed and can be retried after a short delay.
      */
@@ -3636,10 +3696,10 @@ export type AgendasLocationsListData = {
 
 export type AgendasLocationsListErrors = {
     /**
-     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
      *
      */
-    400: Error;
+    400: Error | ValidationError;
     /**
      * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
      */
@@ -3649,7 +3709,7 @@ export type AgendasLocationsListErrors = {
      */
     403: Error;
     /**
-     * Resource not found.
+     * Resource not found. `error.code` is `not_found`.
      */
     404: Error;
 };
@@ -3697,10 +3757,10 @@ export type AgendasLocationsGetByExtIdErrors = {
      */
     403: Error;
     /**
-     * Agenda or location not found — or location merged into another one (`code: merged`, surviving uid in `details.mergedIn`).
+     * Agenda or location not found — or location merged into another one (`code: merged`, surviving uid in `error.mergedIn`).
      *
      */
-    404: Error;
+    404: Error | MergedLocationError;
 };
 
 export type AgendasLocationsGetByExtIdError = AgendasLocationsGetByExtIdErrors[keyof AgendasLocationsGetByExtIdErrors];
@@ -3732,10 +3792,10 @@ export type AgendasLocationsGetData = {
 
 export type AgendasLocationsGetErrors = {
     /**
-     * Malformed request — an invalid `after` cursor, a malformed path identifier, or an unknown/malformed filter value. Per-field context is provided under `error.details`.
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.code` is `bad_request`; `error.errors`, when present, names the offending values.
      *
      */
-    400: Error;
+    400: Error | ValidationError;
     /**
      * Missing or invalid credentials: no API key was supplied, the key is unknown, or the access token is expired. `error.code` is `unauthorized`.
      */
@@ -3745,10 +3805,10 @@ export type AgendasLocationsGetErrors = {
      */
     403: Error;
     /**
-     * Agenda or location not found — or location merged into another one (`code: merged`, surviving uid in `details.mergedIn`).
+     * Agenda or location not found — or location merged into another one (`code: merged`, surviving uid in `error.mergedIn`).
      *
      */
-    404: Error;
+    404: Error | MergedLocationError;
 };
 
 export type AgendasLocationsGetError = AgendasLocationsGetErrors[keyof AgendasLocationsGetErrors];

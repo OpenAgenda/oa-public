@@ -52,7 +52,7 @@ export class Events extends HeyApiClient {
      *
      * Returns a cursor-paginated list of events for the given agenda. Pass the `after` cursor returned in `pagination.after` to fetch the next page, with the same filters.
      *
-     * Only published events are listed. Unknown or malformed filter values answer `400`, with per-field context under `error.details.errors`.
+     * Only published events are listed. Unknown or malformed filter values answer `400`, with per-field context under `error.errors`. An unrecognized top-level query parameter is ignored.
      *
      */
     public list<ThrowOnError extends boolean = false>(options: Options<AgendasEventsListData, ThrowOnError>) {
@@ -93,7 +93,7 @@ export class Events extends HeyApiClient {
     /**
      * Validate an event without creating it
      *
-     * Validates the body exactly as create does, without persisting anything. A well-formed, valid body answers `200 { "valid": true }`; invalid field values answer `422` with per-field problems under `error.details.errors[]`. Structural body problems (an unknown top-level key, an `additionalFields` name colliding with a native field) answer `400`.
+     * Validates the body exactly as create does, without persisting anything. A well-formed, valid body answers `200 { "valid": true }`; invalid field values answer `422` with per-field problems under `error.errors[]`. Structural body problems (an unknown top-level key, an `additionalFields` name colliding with a native field) answer `400`.
      *
      * A native `image: { url }` is checked for URL syntax only (an `http(s)` URL without embedded credentials): the URL is not fetched, so a URL that create rejects with `422` at fetch time (unreachable host, private address, over 20 MiB, not an image) passes validate. The image counts as present, so an agenda whose schema requires one validates as it would create.
      *
@@ -383,7 +383,7 @@ export class Locations extends HeyApiClient {
      *
      * When the agenda shares its locations through a location set, the whole set is listed - including locations contributed by the other agendas of the set (their `setUid` carries the set's uid).
      *
-     * Unknown or malformed filter values answer `400`, with per-field context under `error.details.errors`.
+     * Unknown or malformed filter values answer `400`, with per-field context under `error.errors`. An unrecognized top-level query parameter is ignored.
      *
      */
     public list<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsListData, ThrowOnError>) {
@@ -404,7 +404,7 @@ export class Locations extends HeyApiClient {
      *
      * Returns a single location by its external identifier within the given agenda - the `(key, value)` pair an `ExtId` mapping carries in the location's `extIds`. Use this when you sync from your own system and hold its id rather than the OpenAgenda uid. Resolves to the same `Location` as the by-uid get.
      *
-     * A location that was merged into another one answers `404` with the machine-readable code `merged` and the surviving location's uid in `error.details.mergedIn` — use it to repair stale references. Any other deleted or unknown pair is a plain `404` with code `not_found`.
+     * A location that was merged into another one answers `404` with the machine-readable code `merged` and the surviving location's uid in `error.mergedIn` — use it to repair stale references. Any other deleted or unknown pair is a plain `404` with code `not_found`.
      *
      */
     public getByExtId<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsGetByExtIdData, ThrowOnError>) {
@@ -424,7 +424,7 @@ export class Locations extends HeyApiClient {
      *
      * Returns a single location of the agenda (or of its shared location set) in the full `Location` shape.
      *
-     * A location that was merged into another one answers `404` with the machine-readable code `merged` and the surviving location's uid in `error.details.mergedIn` — use it to repair stale references. Any other deleted or unknown uid is a plain `404` with code `not_found`.
+     * A location that was merged into another one answers `404` with the machine-readable code `merged` and the surviving location's uid in `error.mergedIn` — use it to repair stale references. Any other deleted or unknown uid is a plain `404` with code `not_found`.
      *
      */
     public get<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsGetData, ThrowOnError>) {
@@ -446,7 +446,7 @@ export class Agendas extends HeyApiClient {
      *
      * Returns a cursor-paginated list of agendas. Pass the `after` cursor returned in `pagination.after` to fetch the next page, with the same filters.
      *
-     * Unknown or malformed filter values answer `400`, with per-field context under `error.details.errors`.
+     * Unknown or malformed filter values answer `400`, with per-field context under `error.errors`. An unrecognized top-level query parameter is ignored.
      *
      */
     public list<ThrowOnError extends boolean = false>(options?: Options<AgendasListData, ThrowOnError>) {

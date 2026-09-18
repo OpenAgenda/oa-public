@@ -5,8 +5,40 @@ import { z } from 'zod';
 export const zError = z.object({
     error: z.object({
         code: z.string(),
+        message: z.string()
+    })
+});
+
+/**
+ * One problem found in a request. A validator describes the values it refuses as precisely as it can, so an item carries the keys below plus whatever else that validator knows, such as the rejected value or the bounds it had to satisfy.
+ */
+export const zValidationIssue = z.object({
+    field: z.string().optional(),
+    lang: z.string().optional(),
+    index: z.number().int().optional(),
+    code: z.string().optional(),
+    message: z.string()
+});
+
+/**
+ * A request refused because of the values it carries.
+ */
+export const zValidationError = z.object({
+    error: z.object({
+        code: z.string(),
         message: z.string(),
-        details: z.record(z.unknown()).optional()
+        errors: z.array(zValidationIssue).min(1)
+    })
+});
+
+/**
+ * An error response for a location that was merged into another one.
+ */
+export const zMergedLocationError = z.object({
+    error: z.object({
+        code: z.enum(['merged']),
+        message: z.string(),
+        mergedIn: z.number().int()
     })
 });
 
@@ -580,9 +612,9 @@ export const zEventLocationRef = z.object({
 });
 
 /**
- * Request body for creating or replacing an event: the fields a client may set. Agenda-specific fields go under `additionalFields`, never at the top level; any other top-level key (a read-only field such as `uid` or `slug`, an unknown name) is rejected with `400`, as is an `additionalFields` name that collides with a native field. Field values are validated by the server (a `422` with per-field `error.details.errors[]` on failure).
+ * Request body for creating or replacing an event: the fields a client may set. Agenda-specific fields go under `additionalFields`, never at the top level; any other top-level key (a read-only field such as `uid` or `slug`, an unknown name) is rejected with `400`, as is an `additionalFields` name that collides with a native field. Field values are validated by the server (a `422` with per-field `error.errors[]` on failure).
  *
- * Required fields depend on the target agenda: an event needs at least `title`, `description` and `timings`, plus a `location` unless it is online-only, plus whatever the agenda marks required; a missing one answers `422` with the per-field set under `error.details.errors[]`.
+ * Required fields depend on the target agenda: an event needs at least `title`, `description` and `timings`, plus a `location` unless it is online-only, plus whatever the agenda marks required; a missing one answers `422` with the per-field set under `error.errors[]`.
  *
  * The `image` is set either by reference - stage the bytes via `POST /agendas/{uid}/uploads` and pass the returned `ref` here - or by a public `url` the server fetches (or `null` to clear it). An event's privacy is derived from its agenda.
  *
