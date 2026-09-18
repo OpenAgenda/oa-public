@@ -3749,6 +3749,86 @@ components:
             its `id` even when its dates moved, which is how a connector holds
             on to an occurrence it has already published. Two occurrences of
             the same event sharing a `sourceRef` are both treated as new.
+        availability:
+          type: array
+          maxItems: 50
+          description: >
+            The inventory of this occurrence, ONE ROW PER TICKETING PROVIDER —
+            the same occurrence can be sold out on pass Culture and open to the
+            general public. Absent, not empty, on an occurrence that never
+            received any.
+
+            Written by connectors through the availability route, or inline
+            with the timings on an ordinary write; carried across ordinary
+            writes that do not mention it, and cleared by an explicit `[]`.
+
+            Served wherever a `Timing` is: `timings[]`, and also
+            `firstTiming` / `lastTiming` / `nextTiming`, which copy the
+            occurrence whole — so a compact listing carries the inventory of
+            its next date.
+          items:
+            $ref: '#/components/schemas/TimingAvailability'
+
+    TimingAvailability:
+      type: object
+      required: [provider, status, syncedAt]
+      additionalProperties: false
+      description: >
+        What one ticketing provider says about one occurrence. `status` is the
+        provider's word as of `syncedAt`; the sale window is what lets a reader
+        tell `notYetOnSale` and `salesClosed` from a stock answer, and
+        `offersAggregate` recomputes that half at read time.
+      properties:
+        provider:
+          type: string
+          enum:
+            [
+              billetweb,
+              eventbrite,
+              helloasso,
+              mapado,
+              weezevent,
+              passculture,
+              manual,
+            ]
+          description: >
+            Which ticketing source this row belongs to. `passculture` is the
+            published spelling here; the `registration` service of the same
+            name is spelled `passCulture` — two fields, two namespaces.
+        status:
+          type: string
+          enum:
+            [available, limited, soldOut, notYetOnSale, salesClosed, unknown]
+          description: >
+            `mixed` never appears here — it only exists on the aggregate, where
+            occurrences may disagree.
+        syncedAt:
+          type: string
+          format: date-time
+          description: >
+            When the connector READ this at the provider, with an explicit
+            offset. Feeds the event's `availabilityUpdatedAt`; must not be in
+            the future.
+        sourceRef:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: >
+            The provider's own key for this occurrence (a session, a stock, a
+            series child). Opaque to OpenAgenda.
+        onSaleFrom:
+          type: string
+          format: date-time
+        onSaleThrough:
+          type: string
+          format: date-time
+          description: Must be at or after `onSaleFrom` when both are set.
+        closedBySource:
+          type: boolean
+          description: >
+            Provenance of a `salesClosed`: `true` when the provider itself shut
+            the channel, `false` or absent when only the sale window elapsed.
+            Decides whether a later read may reopen the row on the window alone.
 
     OffersAggregate:
       type: [object, 'null']
