@@ -68,9 +68,14 @@ import { checkContract, contractWarning, formatFindings } from './compat.js';
  *                                 the wire signature when not sdkCallable.
  * @property {string} summary
  * @property {string} description
- * @property {string[]} scopes      OAuth scopes the operation requires. No card
- *                                 shows them; `config.js` advertises their
- *                                 union as the resource scopes of the PRM.
+ * @property {string[]} scopes      OAuth scopes the operation requires. The
+ *                                 `Auth:` line of a rich card shows them beside
+ *                                 the scheme that grants them; `config.js`
+ *                                 advertises their union as the resource scopes
+ *                                 of the PRM.
+ * @property {string[]} auth        The credentials the operation accepts, one
+ *                                 entry per alternative of its `security` (a
+ *                                 `+` inside an entry means both are required).
  * @property {Param[]} params
  * @property {RequestShape|null} request   Body the operation expects (null when it takes none).
  * @property {boolean} sdkCallable  False when the contract authorizes it outside the `oa` client.
@@ -531,6 +536,29 @@ export function oauthScopes(op, contract = spec) {
   return [...new Set(scopes)];
 }
 
+// The credentials an operation accepts, in the contract's own words: one entry
+// per requirement (they are alternatives), each naming the schemes that
+// combine, with the scopes a scheme is granted. The scheme NAMES carry the
+// distinction that matters to a caller choosing a key — `publicKey` vs
+// `secretKey` — and the preamble glosses them once per response, so a card
+// costs one line and stays true to whatever the contract declares.
+/**
+ * @param {any} op
+ * @param {any} [contract]
+ * @returns {string[]}
+ */
+export function authAlternatives(op, contract = spec) {
+  const requirements = requirementsOf(op, contract);
+  // `security: []` is the OpenAPI idiom for "no credential at all". Rendering
+  // nothing would read as "the preamble's rule applies", which is its opposite.
+  if (!requirements.length) return ['none - this operation is public'];
+  return requirements.map((requirement) => {
+    const parts = Object.entries(requirement).map(([name, scopes]) =>
+      (scopes?.length ? `${name} (${scopes.join(', ')})` : name));
+    return parts.length ? parts.join(' + ') : 'anonymous';
+  });
+}
+
 // Resolve the success body into a shallow shape. List endpoints wrap their
 // rows in `data: array<oneOf[Summary, Detailed]>` + `pagination`; we surface
 // the DEFAULT (summary) variant's fields and note the `detailed=true` upgrade.
@@ -796,6 +824,7 @@ function deriveOperations() {
         summary: oneLine(op.summary),
         description: oneLine(op.description),
         scopes,
+        auth: authAlternatives(op),
         params,
         request,
         sdkCallable,
@@ -1089,8 +1118,17 @@ function renderResponse(response) {
 // A param is "notable" (worth a full line in the rich block) when it carries
 // signal the LLM can't guess: required, an enum, or a default/range. Plain
 // optional filters are compacted to a names line so the block stays scannable.
-const isNotable = (p) =>
-  p.required
+// Literal `includes`, not a RegExp built from the name: a parameter named `x[`
+// would make the pattern throw, and one named `foo.bar` would match text where
+// it does not appear.
+const mentionsSibling = (p, siblings) =>
+  siblings.some(
+    (name) => name !== p.name && (p.description ?? '').includes(`\`${name}\``),
+  );
+
+const isNotable = (p, siblings = []) =>
+  mentionsSibling(p, siblings)
+  || p.required
   // A structured parameter carries a shape: compacted to its name, the caller
   // cannot guess the keys it takes. A patterned string is the same case one
   // level down - compacted, the caller cannot guess the format it takes.
@@ -1125,8 +1163,9 @@ function renderRequest(request) {
 }
 
 function renderRich(op) {
-  const notable = op.params.filter(isNotable);
-  const plain = op.params.filter((p) => !isNotable(p));
+  const names = op.params.map((p) => p.name);
+  const notable = op.params.filter((p) => isNotable(p, names));
+  const plain = op.params.filter((p) => !isNotable(p, names));
   // A non-SDK operation's `call` IS its wire signature, so appending the
   // method and path again would just stutter.
   const lines = [
@@ -1137,6 +1176,9 @@ function renderRich(op) {
     op.summary,
   ];
   if (op.description) lines.push('', op.description);
+  if (op.auth?.length) {
+    lines.push('', `Auth: ${op.auth.join(' OR ')}`);
+  }
   if (notable.length) {
     lines.push('', 'Parameters:', ...notable.map(renderParamLine));
   }
@@ -1288,10 +1330,13 @@ const SDK_LEAD = [
   '```',
   'Auth: every request goes in the `Authorization: Bearer <key>` header — v3 takes '
     + 'the key (or an OAuth token) there, not as a `key` query parameter or header. The '
-    + 'SDK sets it from `auth`; with raw fetch you add the header yourself. Use a '
-    + 'read-only publishable key (`oa_pk_…`, safe in browsers) for reads, a secret key '
-    + '(`oa_sk_…`, server-only) for writes. The `schemas` zod validators are exported '
-    + 'from the package too.',
+    + 'SDK sets it from `auth`; with raw fetch you add the header yourself. Each card '
+    + 'names the credentials its operation accepts: `publicKey` is a read-only '
+    + 'public key (`oa_pk_…`, public reads) — it writes nothing (`403`, '
+    + '`read_only_credential`) and carries no identity (`401` on an operation that '
+    + 'needs one) — `secretKey` a secret key (`oa_sk_…`, server-only) carrying the '
+    + 'identity writes and `/me` need, and `oauth2` an access token granted the scopes '
+    + 'in brackets. The `schemas` zod validators are exported from the package too.',
 ].join('\n');
 
 // A tail entry carries its id, its summary and a call line - nothing of what a

@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import ts from 'typescript';
 import { parse } from 'yaml';
 import {
+  authAlternatives,
   OPERATIONS,
   searchOperations,
   renderOperation,
@@ -939,6 +940,55 @@ describe('examples', () => {
     // requirement names that apiKey scheme.
     expect(byId('uploads.staged').scopes).toEqual([]);
     expect(byId('uploads.staged').sdkCallable).toBe(false);
+  });
+
+  // The credential is the first thing a caller checks and the one thing a card
+  // could not show: `security` was derived for the PRM's scope union and never
+  // rendered, so an agent holding a public key learned it could not write
+  // only from the prose. Pinned against the contract, not a hand-written list,
+  // so a scheme added or renamed there shows up here.
+  it('names the credentials each operation accepts on its card', () => {
+    const authLine = (id) =>
+      renderOperation(byId(id), 0)
+        .split('\n')
+        .find((l) => l.startsWith('Auth: '));
+
+    for (const [id, expected] of [
+      ['agendas.list', 'Auth: publicKey OR secretKey OR oauth2 (agendas:read)'],
+      ['agendas.events.create', 'Auth: secretKey OR oauth2 (events:write)'],
+      ['me.agendas.list', 'Auth: secretKey OR oauth2 (me:read)'],
+      ['uploads.staged', 'Auth: uploadTicketAuth'],
+    ]) {
+      expect(authLine(id)).toBe(expected);
+    }
+
+    // Every rich card carries one: the line is derived, so no operation can
+    // silently ship without saying what it takes.
+    for (const op of OPERATIONS) {
+      expect(authLine(op.id)).toBeDefined();
+    }
+  });
+
+  // An operation declaring `security: []` needs no credential at all. Left
+  // unsaid, the preamble's rule would be read as applying to it.
+  it('says so when an operation needs no credential', () => {
+    expect(authAlternatives({ security: [] })).toEqual([
+      'none - this operation is public',
+    ]);
+    expect(authAlternatives({ security: [{}] })).toEqual(['anonymous']);
+    expect(
+      authAlternatives({ security: [{ secretKey: [], other: ['a', 'b'] }] }),
+    ).toEqual(['secretKey + other (a, b)']);
+  });
+
+  // A parameter compacted to its bare name loses its description, which is fine
+  // for a plain filter and wrong for one that governs another parameter:
+  // `fields` says it overrides `detailed`, and that rule is unreachable
+  // anywhere else on the card.
+  it('renders in full a parameter whose description names another one', () => {
+    const card = renderOperation(byId('agendas.list'), 0);
+    expect(card).toMatch(/- `fields` \(string\[\]\) — Comma-separated list/);
+    expect(card).not.toMatch(/Other optional parameters:[^\n]*\bfields\b/);
   });
 
   // Not an exhaustive list of the non-callable routes: a second ticket-style

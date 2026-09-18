@@ -145,7 +145,7 @@ import { OpenAgenda, client } from '@openagenda/api-client';
 client.setConfig({ baseUrl: 'https://api.openagenda.com/v3', auth: 'oa_pk_…' });
 const oa = new OpenAgenda();
 const { data, error } = await oa.agendas.events.list({ path: { agendaUid }, query: { relative: ['upcoming'] } });</code></pre>
-  <p>Use a read-only publishable key (<code>oa_pk_…</code>, safe in browsers) for reads, a secret key (<code>oa_sk_…</code>, server-only) for writes. <a href="https://www.npmjs.com/package/@openagenda/api-client">npm</a>.</p>
+  <p>Use a read-only public key (<code>oa_pk_…</code>, no user identity) for public reads, a secret key (<code>oa_sk_…</code>, server-only) for writes. <a href="https://www.npmjs.com/package/@openagenda/api-client">npm</a>.</p>
 
   <footer><a href="https://openagenda.com">openagenda.com</a></footer>
 </main>
