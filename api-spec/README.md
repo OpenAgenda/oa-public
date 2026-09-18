@@ -74,9 +74,15 @@ generated SDK, and the Scalar reference. Hence these rules:
    the contract, not the codebase.
 7. **Observable and actionable.** HTTP codes, error fields, numeric limits and
    values ("rejected with `422`" rather than "invalid").
-8. **Do not paraphrase the schema.** What `type`, `enum`, `maxLength`,
-   `required`, `oneOf` or `readOnly` already state is not repeated in prose;
-   every reader sees the schema next to the text.
+8. **Do not duplicate what the contract already carries.** A fact is carried
+   when explicit contract data - `type`, `enum`, `maxLength`, `required`,
+   `oneOf`, `readOnly`, a parameter's own description, `security` - states it
+   without assuming how the server behaves. Write it once, at the level that
+   owns it, and let each reader project it. Drop the prose only once every
+   reader shows the equivalent where it is read: a missing or truncated
+   rendering is a rendering gap to fix, not a reason to repeat the rule on the
+   operation. Business permissions, conditional behaviour and exceptions no
+   structured field carries stay in prose.
 9. **Readable on one line.** No markdown lists, tables or structure that
    depends on line breaks: `search_docs` flattens the text.
 10. **No search keywords in descriptions.** Discoverability is the job of
