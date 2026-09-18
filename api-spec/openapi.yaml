@@ -2686,8 +2686,8 @@ components:
       description: >
         Malformed request: the body is not valid JSON, it carries a field the
         operation does not accept, or a recognized parameter carries an
-        invalid value. `error.code` is `bad_request`; `error.errors`, when
-        present, names the offending values.
+        invalid value. `error.errors`, when present, names the offending
+        values.
       content:
         application/json:
           schema:
@@ -2696,23 +2696,19 @@ components:
               - $ref: '#/components/schemas/ValidationError'
     Unauthorized:
       description: >-
-        Missing or invalid credentials: no API key was supplied, the key is
-        unknown, or the access token is expired. `error.code` is `unauthorized`.
+        The request carries no credential this operation accepts.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     Forbidden:
       description: >-
-        Authenticated, but not allowed to access this resource. For a read-only
-        credential sent to an operation that writes - a public or a per-agenda
-        key - `error.code` is `read_only_credential`. For a member the agenda
-        does not allow to perform the operation, it is `forbidden`, as it is for
-        a blacklisted account. For a credential that carries scopes and lacks
-        the one this operation declares, `error.code` is `insufficient_scope`
-        and a `WWW-Authenticate: Bearer error="insufficient_scope",
-        scope="<required>"` header names the missing scope (RFC 6750 §3.1); an
-        API key carries scopes only when it declares its own permissions.
+        Authenticated, but not allowed to access this resource. A blacklisted
+        account is refused like a member the agenda does not allow to perform
+        the operation. On an `insufficient_scope` refusal a `WWW-Authenticate:
+        Bearer error="insufficient_scope", scope="<required>"` header names the
+        missing scope (RFC 6750 §3.1); an API key carries scopes only when it
+        declares its own permissions.
       headers:
         WWW-Authenticate:
           description: >-
@@ -2729,26 +2725,23 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
     NotFound:
-      description: Resource not found. `error.code` is `not_found`.
+      description: No resource answers this identifier.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     UnprocessableEntity:
       description: >-
-        The request was well-formed but its field values failed validation (e.g.
-        a missing title, an invalid timing, an unknown location uid).
-        `error.code` is `validation_error` and per-field problems are listed
-        under `error.errors`.
+        The request was well-formed but its field values failed validation
+        (e.g. a missing title, an invalid timing, an unknown location uid).
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ValidationError'
     ServiceUnavailable:
       description: >-
-        A dependency required to serve the request is temporarily unavailable.
-        `error.code` is `service_unavailable`; the request was not processed
-        and can be retried after a short delay.
+        The request was not processed and can be retried after a short
+        delay.
       content:
         application/json:
           schema:
@@ -2768,14 +2761,22 @@ components:
             code:
               type: string
               description: Stable, machine-readable error code.
-              examples:
+              enum:
                 [
-                  'not_found',
-                  'unauthorized',
-                  'forbidden',
-                  'insufficient_scope',
-                  'validation_error',
+                  bad_request,
+                  unauthorized,
+                  read_only_credential,
+                  insufficient_scope,
+                  forbidden,
+                  not_found,
+                  service_unavailable,
                 ]
+              x-enum-descriptions:
+                read_only_credential: >-
+                  403 - the credential may only read, and this operation writes
+                insufficient_scope: >-
+                  403 - the credential lacks the scope this operation declares
+                forbidden: 403 - any other refusal of an authenticated caller
             message:
               type: string
               description: Human-readable explanation.
@@ -2794,7 +2795,7 @@ components:
             code:
               type: string
               description: Stable, machine-readable error code.
-              examples: ['validation_error', 'bad_request']
+              enum: [validation_error, bad_request]
             message:
               type: string
               description: Human-readable explanation.
