@@ -3807,8 +3807,9 @@ components:
           format: date-time
           description: >
             When the connector READ this at the provider, with an explicit
-            offset. Feeds the event's `availabilityUpdatedAt`; must not be in
-            the future.
+            offset. A fact about the data, not about the feed: the event's
+            `availabilityUpdatedAt` is set by the write, not by this stamp.
+            Must not be in the future.
         sourceRef:
           type: string
           minLength: 1
