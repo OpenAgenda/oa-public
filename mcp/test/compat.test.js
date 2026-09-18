@@ -87,7 +87,11 @@ describe('the contract stays inside what search_docs can render', () => {
       '/components/parameters/*/schema/properties/*/maximum',
       '/components/parameters/*/schema/properties/*/minimum',
       '/components/parameters/*/style',
-      '/components/responses',
+      // The prose of a shared response, and the `WWW-Authenticate` challenge on
+      // `Forbidden`: the card names the SHAPE each status answers with, which is
+      // what a caller branches on. A header it never sets is not its business.
+      '/components/responses/*/description',
+      '/components/responses/*/headers',
       '/components/schemas/*/additionalProperties',
       '/components/schemas/*/additionalProperties/x-additionalPropertiesName',
       '/components/schemas/*/example',
@@ -127,11 +131,12 @@ describe('the contract stays inside what search_docs can render', () => {
       '/components/securitySchemes/*/name',
       '/info',
       '/openapi',
-      '/paths/*/delete/responses/*',
       '/paths/*/delete/responses/*/description',
       '/paths/*/delete/tags',
       '/paths/*/delete/x-codeSamples/*/label',
-      '/paths/*/get/responses/*',
+      // Curated bodies for the two location 404s - the card gives the shape, and
+      // an example of an error is not what a reader is there for.
+      '/paths/*/get/responses/*/content/*/examples',
       '/paths/*/get/responses/*/description',
       '/paths/*/get/tags',
       '/paths/*/get/x-codeSamples/*',
@@ -140,7 +145,6 @@ describe('the contract stays inside what search_docs can render', () => {
       '/paths/*/patch/responses/*/description',
       '/paths/*/patch/tags',
       '/paths/*/patch/x-codeSamples/*/label',
-      '/paths/*/post/responses/*',
       '/paths/*/post/responses/*/content/*/example',
       '/paths/*/post/responses/*/description',
       '/paths/*/post/responses/*/headers',

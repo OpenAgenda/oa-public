@@ -18,6 +18,7 @@ import {
   successBody,
   deriveRequest,
   deriveResponse,
+  deriveErrors,
 } from '../src/docs/operations.js';
 
 // The contract itself, to pin the structural facts the module derives from.
@@ -102,7 +103,10 @@ function typeReferences(text) {
   for (const line of text.split('\n')) {
     const typed = line.match(/^\s*- `?[\w$.-]+`? \((.*)$/) ?? line.match(/^`\w+` \((.*)$/);
     if (typed) collect(typeExpression(typed[1]));
-    if (/^(Request body|Response): /.test(line) || /^\s*- `\w+`$/.test(line)) {
+    if (
+      /^(Request body|Response|Errors): /.test(line)
+      || /^\s*- `\w+`$/.test(line)
+    ) {
       for (const [, id] of line.matchAll(/`(\w+)`/g)) {
         if (COMPONENT_NAMES.has(id)) names.add(id);
       }
@@ -780,6 +784,29 @@ describe('every card defines exactly the types it leads to', () => {
   });
 
   // Each way the sweep must fail, on a hand-built payload.
+  describe('deriveErrors', () => {
+    it('groups each declared error shape by the statuses answering it', () => {
+      expect(byId('agendas.locations.get').errors).toEqual(
+        expect.arrayContaining([
+          { name: 'Error', statuses: expect.arrayContaining(['404']) },
+          { name: 'MergedLocationError', statuses: ['404'] },
+        ]),
+      );
+    });
+
+    it('reads every branch of a oneOf response', () => {
+      // The `400` of a write is `Error | ValidationError`: a structural refusal
+      // carries no list, one refused for its values does.
+      const names = byId('agendas.events.create').errors.map((e) => e.name);
+      expect(names).toContain('Error');
+      expect(names).toContain('ValidationError');
+    });
+
+    it('is empty for an operation that declares no error body', () => {
+      expect(deriveErrors({ responses: { 200: {} } })).toEqual([]);
+    });
+  });
+
   describe('sweep', () => {
     const withComponents = (cards, ...defs) =>
       `${cards}\n\n---\n\n${COMPONENTS_HEADER}\n\n${defs.join('\n\n')}\n\n---\n\nValidators: …`;
@@ -1445,6 +1472,25 @@ describe('renderSearch', () => {
       expect(section.match(/`EventStatus` \(integer\)/g)).toHaveLength(1);
     });
 
+    it('names the error shapes an operation answers with', () => {
+      // The card showed the 2xx body and nothing else, so an agent learned the
+      // envelope by hitting it. Every status that carries a shape is named, the
+      // bare `Error` included: a card that names a type is what makes the
+      // Components section define it, and the envelope is the one type EVERY
+      // caller needs.
+      const card = renderOperation(byId('agendas.locations.get'), 0);
+      expect(card).toMatch(/^Errors: .*`Error` on .*400.*404/m);
+      expect(card).toContain('`MergedLocationError` on 404');
+
+      // The envelope, defined for the first time on any card.
+      const payload = renderSearch([byId('agendas.locations.get')]);
+      expect(payload).toMatch(
+        /^`Error`\n- error \(object, required\)\n {2}- code \(string, required\)/m,
+      );
+      expect(payload).toMatch(/^ {2}- mergedIn \(integer, required\)/m);
+      expect(sweep('locations.get', payload)).toEqual([]);
+    });
+
     it('DOES define an object root the card names without a field', () => {
       // A root that is a union has no top-level field: the card says
       // `Response: \`X\`` and nothing more, so its alternatives can only come
@@ -1458,6 +1504,9 @@ describe('renderSearch', () => {
           fields: [],
           pagination: null,
         },
+        // The fixture is about the response root; its error shapes would name
+        // types `componentRefs` is narrowed away from here.
+        errors: [],
         componentRefs: ['ImageInput'],
       };
       const payload = renderSearch([op]);

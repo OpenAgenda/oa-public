@@ -408,6 +408,52 @@ export function successBody(op) {
   return undefined;
 }
 
+// What an operation answers with when it FAILS, as `{ status, schema }`. The
+// card never showed any of it: `successBody` filters to 2xx by design, and the
+// component collector below read only the success body, the request and the
+// parameters — so `Error` and its two richer forms were defined nowhere, on any
+// card, and an agent learned the envelope by hitting it.
+//
+// Derefed like the success body: every 4xx here is a `$ref` into
+// `#/components/responses/*`, and reading `.content` off an unresolved ref
+// would drop the shape silently.
+function errorBodies(op) {
+  return Object.keys(op.responses || {})
+    .filter((code) => /^[45](\d\d|XX)$/i.test(code))
+    .sort()
+    .map((code) => {
+      const content = deref(op.responses[code])?.content ?? {};
+      const type = Object.keys(content).find((t) => JSON_MEDIA.test(t));
+      const schema = type && content[type]?.schema;
+      return schema ? { status: code, schema } : null;
+    })
+    .filter(Boolean);
+}
+
+// The error shapes an operation answers with, by the statuses that answer them.
+// `Error` is named like the rest rather than left implicit: a card that defines
+// a type must lead to it, and an agent reading one call has no other way to
+// learn that a failure is `{ error: { code, message } }` — no card renders a
+// response description, and the contract's own error prose lives under
+// `components/responses`, which no card renders either.
+/**
+ * @param {any} op
+ * @returns {{name: string, statuses: string[]}[]}
+ */
+export function deriveErrors(op) {
+  const byName = new Map();
+  for (const { status, schema } of errorBodies(op)) {
+    const branches = schema.oneOf ?? [schema];
+    for (const branch of branches) {
+      const name = branch.$ref ? refName(branch.$ref) : null;
+      if (!name) continue;
+      if (!byName.has(name)) byName.set(name, []);
+      if (!byName.get(name).includes(status)) byName.get(name).push(status);
+    }
+  }
+  return [...byName].map(([name, statuses]) => ({ name, statuses }));
+}
+
 // Pick the ONE media type the card documents: JSON when the route offers it,
 // or an exact match would fall through to whatever key came first — documenting
 // a binary body for a JSON endpoint. `componentRefsFor` resolves through here
@@ -447,6 +493,9 @@ function componentRefsFor(op) {
   const seen = new Set();
   const params = (op.parameters ?? []).map(deref);
   collectComponentRefs(successBody(op), names, seen);
+  for (const { schema } of errorBodies(op)) {
+    collectComponentRefs(schema, names, seen);
+  }
   collectComponentRefs(requestContent(op)?.schema, names, seen);
   for (const p of params) collectComponentRefs(p.schema, names, seen);
   return names;
@@ -829,6 +878,7 @@ function deriveOperations() {
         request,
         sdkCallable,
         response: deriveResponse(op),
+        errors: deriveErrors(op),
         componentRefs: componentRefsFor(op),
         example,
         exampleLang,
@@ -1192,6 +1242,14 @@ function renderRich(op) {
   if (request) lines.push('', request);
   const response = renderResponse(op.response);
   if (response) lines.push('', response);
+  if (op.errors?.length) {
+    lines.push(
+      '',
+      `Errors: ${op.errors
+        .map((e) => `\`${named(e.name)}\` on ${e.statuses.join(', ')}`)
+        .join('; ')}.`,
+    );
+  }
   lines.push('', 'Example:', `\`\`\`${op.exampleLang}`, op.example, '```');
   return lines.join('\n');
 }
