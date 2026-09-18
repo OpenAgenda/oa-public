@@ -40,7 +40,7 @@ anonymous read; requests without credentials get `401`.
 
 | Key prefix | Use                                      |
 | ---------- | ---------------------------------------- |
-| `oa_pk_…`  | publishable — read access                |
+| `oa_pk_…`  | public — read access, no user identity   |
 | `oa_sk_…`  | secret — write access (keep server-side) |
 
 The simplest setup: configure the shared `client` once (the default base URL is
