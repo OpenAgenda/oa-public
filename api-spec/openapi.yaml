@@ -23,7 +23,7 @@ info:
       clients hold no secret.
 
     Use the **Authentication** selector at the top of this page to try requests
-    with either credential directly from the browser.
+    with any of these credentials directly from the browser.
 
     ## Pagination
 
@@ -108,7 +108,8 @@ x-tagGroups:
 # Authenticate every request with either an API key or an OAuth2 token,
 # both carried as `Authorization: Bearer <token>`.
 security:
-  - bearerAuth: []
+  - publicKey: []
+  - secretKey: []
   - oauth2:
       - events:read
 
@@ -137,7 +138,8 @@ paths:
         Unknown or malformed filter values answer `400`, with per-field
         context under `error.details.errors`.
       security:
-        - bearerAuth: []
+        - publicKey: []
+        - secretKey: []
         - oauth2:
             - agendas:read
       parameters:
@@ -184,7 +186,8 @@ paths:
         Returns a single agenda in its full `Agenda` representation. An
         unknown agenda uid answers `404`.
       security:
-        - bearerAuth: []
+        - publicKey: []
+        - secretKey: []
         - oauth2:
             - agendas:read
       parameters:
@@ -231,7 +234,8 @@ paths:
         `administrator|moderator|internal` callers and is absent otherwise.
         Computed on each request.
       security:
-        - bearerAuth: []
+        - publicKey: []
+        - secretKey: []
         - oauth2:
             - agendas:read
       parameters:
@@ -282,7 +286,8 @@ paths:
         Only published events are listed. Unknown or malformed filter values
         answer `400`, with per-field context under `error.details.errors`.
       security:
-        - bearerAuth: []
+        - publicKey: []
+        - secretKey: []
         - oauth2:
             - events:read
       parameters:
@@ -389,7 +394,7 @@ paths:
         must be allowed to create events in this agenda, otherwise
         `403`.
       security:
-        - bearerAuth: []
+        - secretKey: []
         - oauth2:
             - events:write
       parameters:
@@ -468,7 +473,7 @@ paths:
         OAuth token carrying `events:write`; a public or agenda
         key answers `403` (`read_only_credential`).
       security:
-        - bearerAuth: []
+        - secretKey: []
         - oauth2:
             - events:write
       parameters:
@@ -524,7 +529,8 @@ paths:
         Returns a single event by its uid within the given agenda. An unknown
         event uid answers `404`.
       security:
-        - bearerAuth: []
+        - publicKey: []
+        - secretKey: []
         - oauth2:
             - events:read
       parameters:
@@ -583,7 +589,7 @@ paths:
         must be allowed to edit the event, otherwise `403`. An unknown
         event uid answers `404`.
       security:
-        - bearerAuth: []
+        - secretKey: []
         - oauth2:
             - events:write
       parameters:
@@ -641,7 +647,7 @@ paths:
         must be allowed to edit the event, otherwise `403`. An unknown
         event uid answers `404`, invalid field values `422`.
       security:
-        - bearerAuth: []
+        - secretKey: []
         - oauth2:
             - events:write
       parameters:
@@ -698,7 +704,7 @@ paths:
         must be allowed to remove the event, otherwise `403`. An
         unknown event uid answers `404`.
       security:
-        - bearerAuth: []
+        - secretKey: []
         - oauth2:
             - events:write
       parameters:
@@ -740,7 +746,8 @@ paths:
         its id rather than the OpenAgenda uid. Resolves to the same `Event` as
         the by-uid get; an unknown pair answers `404`.
       security:
-        - bearerAuth: []
+        - publicKey: []
+        - secretKey: []
         - oauth2:
             - events:read
       parameters:
@@ -800,7 +807,7 @@ paths:
         key answers `403` (`read_only_credential`). The acting member
         must be allowed to create or edit the event, otherwise `403`.
       security:
-        - bearerAuth: []
+        - secretKey: []
         - oauth2:
             - events:write
       parameters:
@@ -876,7 +883,7 @@ paths:
         key answers `403` (`read_only_credential`). The acting member
         must be allowed to create or edit the event, otherwise `403`.
       security:
-        - bearerAuth: []
+        - secretKey: []
         - oauth2:
             - events:write
       parameters:
@@ -947,7 +954,7 @@ paths:
         must be allowed to remove the event, otherwise `403`. An
         unknown pair answers `404`.
       security:
-        - bearerAuth: []
+        - secretKey: []
         - oauth2:
             - events:write
       parameters:
@@ -1028,7 +1035,8 @@ paths:
         compute; an unknown facet name returns `400`. Facets cover the whole
         filtered set in one response.
       security:
-        - bearerAuth: []
+        - publicKey: []
+        - secretKey: []
         - oauth2:
             - events:read
       parameters:
@@ -1113,7 +1121,8 @@ paths:
         by alias, each entry tagged with its `type` so the value shape is
         unambiguous. Only published events are counted.
       security:
-        - bearerAuth: []
+        - publicKey: []
+        - secretKey: []
         - oauth2:
             - events:read
       parameters:
@@ -1185,7 +1194,8 @@ paths:
         levels exclude the caller (e.g. a moderator-only field) is omitted from
         `fields`, so a public caller sees only the public fields.
       security:
-        - bearerAuth: []
+        - publicKey: []
+        - secretKey: []
         - oauth2:
             - events:read
       parameters:
@@ -1239,7 +1249,7 @@ paths:
         token carrying `me:read`; a public or agenda key carries
         no identity and answers `401`.
       security:
-        - bearerAuth: []
+        - secretKey: []
         - oauth2:
             - me:read
       parameters:
@@ -1311,7 +1321,7 @@ paths:
         OAuth token carrying `events:write`; a public or agenda
         key answers `403` (`read_only_credential`).
       security:
-        - bearerAuth: []
+        - secretKey: []
         - oauth2:
             - events:write
       parameters:
@@ -1419,7 +1429,7 @@ paths:
         OAuth token carrying `events:write`; a public or agenda
         key answers `403` (`read_only_credential`).
       security:
-        - bearerAuth: []
+        - secretKey: []
         - oauth2:
             - events:write
       parameters:
@@ -1549,7 +1559,8 @@ paths:
         Unknown or malformed filter values answer `400`, with per-field
         context under `error.details.errors`.
       security:
-        - bearerAuth: []
+        - publicKey: []
+        - secretKey: []
         - oauth2:
             - locations:read
       parameters:
@@ -1619,7 +1630,8 @@ paths:
         `error.details.mergedIn` — use it to repair stale references. Any other
         deleted or unknown pair is a plain `404` with code `not_found`.
       security:
-        - bearerAuth: []
+        - publicKey: []
+        - secretKey: []
         - oauth2:
             - locations:read
       parameters:
@@ -1686,7 +1698,8 @@ paths:
         `error.details.mergedIn` — use it to repair stale references. Any
         other deleted or unknown uid is a plain `404` with code `not_found`.
       security:
-        - bearerAuth: []
+        - publicKey: []
+        - secretKey: []
         - oauth2:
             - locations:read
       parameters:
@@ -1731,13 +1744,20 @@ paths:
 
 components:
   securitySchemes:
-    bearerAuth:
+    publicKey:
       type: http
       scheme: bearer
       description: >
-        API key sent as a Bearer token. Use a read-only public key
-        (`oa_pk_…`), which carries no user identity, for reads, or a secret key
-        (`oa_sk_…`) for reads and writes.
+        Public API key (`oa_pk_…`) sent as a Bearer token. Read-only, and
+        it carries no user identity: it reads what is public, an operation that
+        writes answers `403` (`read_only_credential`) and one that needs an
+        identity answers `401`. A per-agenda key reads the same way.
+    secretKey:
+      type: http
+      scheme: bearer
+      description: >
+        Secret API key (`oa_sk_…`) sent as a Bearer token. Server-side only: it
+        carries the user identity the writes and `/me` need, and reads as well.
     oauth2:
       type: oauth2
       description: >
@@ -1773,7 +1793,6 @@ components:
         It authorizes staging exactly ONE file for the ONE agenda it is bound to,
         carries no account credential, and grants nothing beyond that single
         upload. Used only by `POST /uploads/staged`.
-
   parameters:
     AgendaUid:
       name: agendaUid
