@@ -1588,12 +1588,6 @@ paths:
         location's `extIds`. Use this when you sync from your own system and
         hold its id rather than the OpenAgenda uid.
         Resolves to the same `Location` as the by-uid get.
-
-
-        A location that was merged into another one answers `404` with the
-        machine-readable code `merged` and the surviving location's uid in
-        `error.mergedIn` — use it to repair stale references. Any other
-        deleted or unknown pair is a plain `404` with code `not_found`.
       security:
         - publicKey: []
         - secretKey: []
@@ -1616,8 +1610,9 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           description: >
-            Agenda or location not found — or location merged into another
-            one (`code: merged`, surviving uid in `error.mergedIn`).
+            Agenda or location not found. A location merged into another one
+            answers here too, and identifies the surviving one so a stale
+            reference can be repaired.
           content:
             application/json:
               schema:
@@ -1657,12 +1652,6 @@ paths:
       description: >
         Returns a single location of the agenda (or of its shared location
         set) in the full `Location` shape.
-
-
-        A location that was merged into another one answers `404` with the
-        machine-readable code `merged` and the surviving location's uid in
-        `error.mergedIn` — use it to repair stale references. Any
-        other deleted or unknown uid is a plain `404` with code `not_found`.
       security:
         - publicKey: []
         - secretKey: []
@@ -1686,8 +1675,9 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           description: >
-            Agenda or location not found — or location merged into another
-            one (`code: merged`, surviving uid in `error.mergedIn`).
+            Agenda or location not found. A location merged into another one
+            answers here too, and identifies the surviving one so a stale
+            reference can be repaired.
           content:
             application/json:
               schema:
