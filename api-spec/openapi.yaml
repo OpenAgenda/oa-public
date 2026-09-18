@@ -108,10 +108,10 @@ x-tagGroups:
 # Authenticate every request with either an API key or an OAuth2 token,
 # both carried as `Authorization: Bearer <token>`.
 security:
-  - publicKey: []
-  - secretKey: []
   - oauth2:
       - events:read
+  - secretKey: []
+  - publicKey: []
 
 paths:
   /agendas:
