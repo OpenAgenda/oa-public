@@ -586,8 +586,8 @@ paths:
         Requires a write credential: a secret key (`oa_sk_…`) or an
         OAuth token carrying `events:write`; a public or agenda
         key answers `403` (`read_only_credential`). The acting member
-        must be allowed to edit the event, otherwise `403`. An unknown
-        event uid answers `404`.
+        must be allowed to edit this event's content, otherwise `403`.
+        An unknown event uid answers `404`.
       security:
         - secretKey: []
         - oauth2:
@@ -644,8 +644,9 @@ paths:
         Requires a write credential: a secret key (`oa_sk_…`) or an
         OAuth token carrying `events:write`; a public or agenda
         key answers `403` (`read_only_credential`). The acting member
-        must be allowed to edit the event, otherwise `403`. An unknown
-        event uid answers `404`, invalid field values `422`.
+        must be allowed to edit this event's content, otherwise `403`.
+        An unknown event uid answers `404`, invalid
+        field values `422`.
       security:
         - secretKey: []
         - oauth2:
@@ -1478,10 +1479,10 @@ paths:
 
         Call it with a plain HTTPS `POST` from outside the typed API
         client, so the file never transits the client (or an LLM's
-        token stream). Authorize with the ticket in the `X-Upload-
-        Ticket` header (no API key or access token) and send the file
-        as `multipart/form-data` field `file`. The target agenda is
-        taken from the signed ticket.
+        token stream). Authorize with the ticket in the
+        `X-Upload-Ticket` header (no API key or access token) and send
+        the file as `multipart/form-data` field `file`. The target
+        agenda is taken from the signed ticket.
 
 
         The type is detected from the file content, or from the
@@ -1744,20 +1745,6 @@ paths:
 
 components:
   securitySchemes:
-    publicKey:
-      type: http
-      scheme: bearer
-      description: >
-        Public API key (`oa_pk_…`) sent as a Bearer token. Read-only, and
-        it carries no user identity: it reads what is public, an operation that
-        writes answers `403` (`read_only_credential`) and one that needs an
-        identity answers `401`. A per-agenda key reads the same way.
-    secretKey:
-      type: http
-      scheme: bearer
-      description: >
-        Secret API key (`oa_sk_…`) sent as a Bearer token. Server-side only: it
-        carries the user identity the writes and `/me` need, and reads as well.
     oauth2:
       type: oauth2
       description: >
@@ -1783,6 +1770,22 @@ components:
             locations:write: Create and modify locations
             members:read: Read members
             members:write: Manage members
+    secretKey:
+      type: http
+      scheme: bearer
+      description: >
+        Secret API key (`oa_sk_…`) sent as a Bearer token. Server-side only: it
+        carries the user identity the writes and `/me` need, and reads as well.
+    publicKey:
+      type: http
+      scheme: bearer
+      description: >
+        Public API key (`oa_pk_…`) sent as a Bearer token. Read-only, and
+        it carries no user identity: it reads what is public, an operation that
+        writes answers `403` (`read_only_credential`) and one that needs an
+        identity answers `401` - or `403` (`insufficient_scope`) when the key
+        carries its own scopes and they exclude the operation. A per-agenda key
+        reads the same way.
     uploadTicketAuth:
       type: apiKey
       in: header
@@ -1836,7 +1839,8 @@ components:
       description: >
         On the by-uid `PUT`, whether the body's `extIds` are merged by key with
         the ones already stored (`true`, the default) or replace them wholesale
-        (`false`). On `PATCH`, `extIds` present in the body are always merged.
+        (`false`). A `PATCH` merges a non-empty `extIds` whatever this
+        parameter says; an empty array clears the stored mappings.
       schema:
         type: boolean
         default: true
@@ -3694,7 +3698,9 @@ components:
         stage the bytes via `POST /agendas/{uid}/uploads`, then send
         `{ ref, name? }` here (`name` is the original filename, used for the
         download; optional), or `null` to clear it. On read the same field
-        returns the stored descriptor `{ originalName, extension, filename }`.
+        returns the stored descriptor `{ originalName, extension, filename }`,
+        where `filename` is the stored object's key; the API does not return its
+        absolute URL.
       additionalProperties:
         x-additionalPropertiesName: fieldName
 
