@@ -1561,7 +1561,7 @@ describe('renderSearch', () => {
       // The envelope, defined for the first time on any card.
       const payload = renderSearch([byId('agendas.locations.get')]);
       expect(payload).toMatch(
-        /^`Error`\n- error \(object, required\)\n {2}- code \(string, required\)/m,
+        /^`Error` — .+\n- error \(object, required\)\n {2}- code \(string, required\)/m,
       );
       expect(payload).toMatch(/^ {2}- mergedIn \(integer, required\)/m);
       expect(sweep('locations.get', payload)).toEqual([]);
