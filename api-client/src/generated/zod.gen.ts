@@ -2,6 +2,9 @@
 
 import { z } from 'zod';
 
+/**
+ * A refused request, carrying nothing but the reason.
+ */
 export const zError = z.object({
     error: z.object({
         code: z.enum([
@@ -40,6 +43,13 @@ export const zValidationError = z.object({
 });
 
 /**
+ * The verdict of a dry run, reached when validation found nothing to refuse.
+ */
+export const zValidationVerdict = z.object({
+    valid: z.literal(true)
+});
+
+/**
  * An error response for a location that was merged into another one.
  */
 export const zMergedLocationError = z.object({
@@ -50,6 +60,9 @@ export const zMergedLocationError = z.object({
     })
 });
 
+/**
+ * Where a page of results stops, and how to ask for the next one.
+ */
 export const zPagination = z.object({
     after: z.string().nullable(),
     limit: z.number().int(),
@@ -223,6 +236,9 @@ export const zFormSchemaField = z.object({
     ]).nullish()
 });
 
+/**
+ * The event form an agenda declares.
+ */
 export const zEventFormSchema = z.object({
     fields: z.array(zFormSchemaField)
 });
@@ -249,6 +265,9 @@ export const zMeAgendaItem = z.object({
     role: zMemberRole
 });
 
+/**
+ * One occurrence of an event.
+ */
 export const zTiming = z.object({
     begin: z.string().datetime(),
     end: z.string().datetime(),
@@ -279,6 +298,9 @@ export const zOffersAggregate = z.object({
     ]).nullish()
 }).nullable();
 
+/**
+ * The audience age an event addresses.
+ */
 export const zAgeRange = z.object({
     min: z.number().int().nullish(),
     max: z.number().int().nullish()
@@ -826,11 +848,17 @@ export const zFacetReportRequest = z.object({
     facets: z.array(z.union([zFacetName, zFacetSpec])).min(1)
 });
 
+/**
+ * One value of a facet, with the number of events that carry it.
+ */
 export const zFacetBucket = z.object({
     value: z.string(),
     count: z.number().int()
 });
 
+/**
+ * One option of an agenda's own field, with the number of events that carry it.
+ */
 export const zAdditionalFieldBucket = z.object({
     value: z.string(),
     label: zLocalizedString.nullable(),
@@ -894,6 +922,9 @@ export const zLocationFacetBucket = z.object({
     count: z.number().int()
 });
 
+/**
+ * A geographic point, in decimal degrees.
+ */
 export const zGeoPoint = z.object({
     latitude: z.number(),
     longitude: z.number()
@@ -1044,6 +1075,9 @@ export const zFacetReport = z.object({
     facets: z.record(zFacetReportEntry)
 });
 
+/**
+ * The buckets computed for each facet the request asked for.
+ */
 export const zFacetResults = z.object({
     facets: z.object({
         cities: z.array(zFacetBucket).optional(),
@@ -1798,9 +1832,7 @@ export const zAgendasEventsValidatePath = z.object({
 /**
  * The body is valid.
  */
-export const zAgendasEventsValidateResponse = z.object({
-    valid: z.literal(true)
-});
+export const zAgendasEventsValidateResponse = zValidationVerdict;
 
 export const zAgendasEventsDeletePath = z.object({
     agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),

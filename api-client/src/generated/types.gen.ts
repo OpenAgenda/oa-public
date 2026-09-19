@@ -4,6 +4,9 @@ export type ClientOptions = {
     baseUrl: 'https://api.openagenda.com/v3' | 'https://dapi.openagenda.com/v3' | (string & {});
 };
 
+/**
+ * A refused request, carrying nothing but the reason.
+ */
 export type Error = {
     error: {
         /**
@@ -64,6 +67,13 @@ export type ValidationIssue = {
 };
 
 /**
+ * The verdict of a dry run, reached when validation found nothing to refuse.
+ */
+export type ValidationVerdict = {
+    valid: true;
+};
+
+/**
  * An error response for a location that was merged into another one.
  */
 export type MergedLocationError = {
@@ -83,6 +93,9 @@ export type MergedLocationError = {
     };
 };
 
+/**
+ * Where a page of results stops, and how to ask for the next one.
+ */
 export type Pagination = {
     /**
      * Opaque cursor to fetch the next page (pass back as the `after` query parameter). `null` when there are no more results; a full last page can still carry a cursor whose next page is empty.
@@ -294,6 +307,9 @@ export type LocationList = {
     pagination: Pagination;
 };
 
+/**
+ * The event form an agenda declares.
+ */
 export type EventFormSchema = {
     /**
      * The fields of the merged schema readable at the caller's access level - native event fields (with any per-agenda overrides applied) and the agenda's/network's additional fields (`schemaId` non-null). A field whose `read` access levels exclude the caller is omitted.
@@ -425,6 +441,9 @@ export type MeAgendaList = {
     pagination: Pagination;
 };
 
+/**
+ * One occurrence of an event.
+ */
 export type Timing = {
     begin: string;
     end: string;
@@ -457,6 +476,9 @@ export type OffersAggregate = {
     pricing?: 'free' | 'paid' | 'donation' | 'mixed' | 'unknown' | null;
 } | null;
 
+/**
+ * The audience age an event addresses.
+ */
 export type AgeRange = {
     min?: number | null;
     max?: number | null;
@@ -1352,6 +1374,9 @@ export type FacetReportEntry = {
     };
 };
 
+/**
+ * One value of a facet, with the number of events that carry it.
+ */
 export type FacetBucket = {
     /**
      * The facet value — e.g. a city name, a keyword, a language code, a status. Always a string (numeric-keyed facets are stringified).
@@ -1364,6 +1389,9 @@ export type FacetBucket = {
     count: number;
 };
 
+/**
+ * The buckets computed for each facet the request asked for.
+ */
 export type FacetResults = {
     /**
      * One entry per requested facet, under the facet's name. A facet that was not requested is absent; a requested one is always present, even when no event matches — its value is then an empty array, an empty object, `null`, or its own fixed structure with zero counts, depending on the facet. Each property below defines its shape.
@@ -1469,6 +1497,9 @@ export type AdditionalFieldFacet = {
     values: Array<AdditionalFieldBucket>;
 };
 
+/**
+ * One option of an agenda's own field, with the number of events that carry it.
+ */
 export type AdditionalFieldBucket = {
     /**
      * The option id (or `true`/`false` for boolean fields).
@@ -1543,6 +1574,9 @@ export type LocationFacetBucket = {
     count: number;
 };
 
+/**
+ * A geographic point, in decimal degrees.
+ */
 export type GeoPoint = {
     latitude: number;
     longitude: number;
@@ -2649,9 +2683,7 @@ export type AgendasEventsValidateResponses = {
     /**
      * The body is valid.
      */
-    200: {
-        valid: true;
-    };
+    200: ValidationVerdict;
 };
 
 export type AgendasEventsValidateResponse = AgendasEventsValidateResponses[keyof AgendasEventsValidateResponses];

@@ -71,7 +71,7 @@ export class Events extends HeyApiClient {
     /**
      * Create an event
      *
-     * Creates an event in the given agenda and returns the created `Event`, with a `Location` header pointing at its canonical by- uid URL.
+     * Creates an event in the given agenda and returns the created `Event`, with a `Location` header pointing at its canonical by-uid URL.
      *
      * Native writable fields sit at the top level; agenda-specific fields go under `additionalFields`; any other top-level key is rejected with `400`. The moderation `state` of the created event is arbitrated by the caller's role and the agenda's contribution settings - a contributor's event may be created pending moderation rather than published.
      *
@@ -113,7 +113,7 @@ export class Events extends HeyApiClient {
     /**
      * Delete an event
      *
-     * Removes the event from this agenda. When the agenda is the event's origin this deletes the event; otherwise it de- references it from this agenda (the origin keeps it). Answers `200` with a `DeletionResult` carrying the removed event's uid.
+     * Removes the event from this agenda. When the agenda is the event's origin this deletes the event; otherwise it de-references it from this agenda (the origin keeps it). Answers `200` with a `DeletionResult` carrying the removed event's uid.
      *
      * The acting member must be allowed to remove the event, otherwise `403`. An unknown event uid answers `404`.
      *
@@ -357,7 +357,7 @@ export class Uploads extends HeyApiClient {
     /**
      * Authorize an out-of-band image upload
      *
-     * Authorizes an OUT-OF-BAND upload of a LOCAL image file, made from outside this API client (e.g. with curl), so its bytes never pass through the caller's prompt. Returns a self- contained descriptor: an `uploadUrl`, a short-lived single-use `ticket`, and the `header`/`field` to use.
+     * Authorizes an OUT-OF-BAND upload of a LOCAL image file, made from outside this API client (e.g. with curl), so its bytes never pass through the caller's prompt. Returns a self-contained descriptor: an `uploadUrl`, a short-lived single-use `ticket`, and the `header`/`field` to use.
      *
      * Upload the file with a plain HTTPS `POST` to `uploadUrl`: send the `ticket` in the `X-Upload-Ticket` header and the file as multipart field `file`. That call returns a staging `ref`, which you then attach with `image: { ref }` on an event write.
      *
