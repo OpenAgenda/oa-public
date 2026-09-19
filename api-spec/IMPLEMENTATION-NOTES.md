@@ -144,7 +144,7 @@ standalone. Réutilise les middleware v2 (`api/middleware/`) sans les dupliquer.
 - `lib/mapEvent.js` — mapper PUR `event projeté → Event v3`.
 - `lib/cursor.js` — `encodeCursor`/`decodeCursor` (base64url(JSON) du couple `{ after, sort }`).
 - `lib/envelope.js` — enveloppe liste `{ data, pagination }`.
-- `errorHandler.js` — mapping `err.name` → `{ error: { code, message, details? } }` + statut HTTP.
+- `errorHandler.js` — mapping `err.name` → `{ error: { code, message, ...porteur } }` + statut HTTP.
 
 **Montage** : `server.js` ajoute `instanciateApiV3(core)` et chaîne
 `.use('/v3', secureHeaders, logRequestMw, setAPIType('standalone'), apiV3)` sur l'`apiServer`.
@@ -244,7 +244,7 @@ intégration (6) : tous verts.
   `Image`(+`variants`), `Registration`, `EnrichedLink` passés en `additionalProperties: false`,
   ET le mapper nettoie chaque objet imbriqué par **allowlist** (`pick`, default-deny) → plus de
   fuite de champs internes (`disqualifiedDuplicates`, `tags`, `indexed`, `officializedAt`,
-  agenda `private`/`description`, `_agg`…). Restent ouverts à dessein : `Error.details`,
+  agenda `private`/`description`, `_agg`…). Restent ouverts à dessein :
   `EnrichedLink.data` (métadonnées d'enrichissement), `CustomFields`, `LocalizedString`(map).
 - ~~**Filtres de liste**~~ : **fait (tranche 4)** — surface publique curée + translator strict + `geo_distance`.
 - ~~**Tri (`?sort=`)**~~ : **fait (tranche 4)** — enum curé exposé (le cursor encode déjà le sort).
@@ -328,10 +328,10 @@ et `derelativize` (dates « today »).
 
 1. **Les validateurs `choice` droppent silencieusement les valeurs inconnues**
    (`packages/validators/src/choice.js:14-21`, `.filter(idx !== -1)`) — v2 ne 400 PAS sur `status=99`,
-   il l'ignore. v3 voulant 400 + `details`, **le translator v3 (4c) doit valider strictement
+   il l'ignore. v3 voulant 400 + `errors`, **le translator v3 (4c) doit valider strictement
    lui-même**, sans compter sur `core`. (Les validateurs `text`/`integer`/`date` throw, eux : un
    tableau `{code,message,field}` → `search.js` l'emballe en `BadRequest({ info: { errors } })`, donc
-   `errorHandler` peut mapper `err.info.errors` → `error.details`.)
+   `errorHandler` peut mapper `err.info.errors` → `error.errors`.)
 2. **Verrou de visibilité** : `state` défaut = `2` (publié), `valid`/`removed`/`draft` gardent la
    modération. Le chemin liste v3 passe déjà `removed: false` et aucun `state` → publié-only tient.
    `state`, `valid`, `removed`, `addMethod`, `memberUid`, `ownerUid`, `ownerOrMemberUid`,
