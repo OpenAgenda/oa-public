@@ -47,6 +47,23 @@ let refCount = 0;
         walk(v, `${trail}/${k}`);
       }
     }
+  } else if (typeof node === 'string') {
+    // A folded scalar (`>`) joins its lines with a SPACE, so a line broken
+    // after a hyphen resolves to `self- contained` - a word the reader sees,
+    // the SDK types and the MCP card renders. It has come back three times.
+    // A slash and an underscore break the same way, in a URL, a path or a
+    // snake_case name.
+    //
+    // Only the RESOLVED string shows it. The source cannot be read for this:
+    // a line ending in a separator is legitimate there (a `website:` value
+    // ending in `/`), and every `>-` header would match. A separator used as
+    // punctuation carries a space BEFORE it, so it never matches here.
+    const broken = node.match(/\w+[-_/] \w+/g);
+    if (broken) {
+      errors.push(
+        `line broken after a separator, folds to "${broken.join('", "')}" at ${trail}`,
+      );
+    }
   }
 }(doc, ''));
 

@@ -378,8 +378,8 @@ paths:
             return data;
       description: >
         Creates an event in the given agenda and returns the created
-        `Event`, with a `Location` header pointing at its canonical by-
-        uid URL.
+        `Event`, with a `Location` header pointing at its canonical
+        by-uid URL.
 
 
         Native writable fields sit at the top level; agenda-specific
@@ -484,13 +484,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                additionalProperties: false
-                required: [valid]
-                properties:
-                  valid:
-                    type: boolean
-                    enum: [true]
+                $ref: '#/components/schemas/ValidationVerdict'
               example:
                 valid: true
         '400':
@@ -682,8 +676,8 @@ paths:
             return data.deleted; // true
       description: >
         Removes the event from this agenda. When the agenda is the
-        event's origin this deletes the event; otherwise it de-
-        references it from this agenda (the origin keeps it). Answers
+        event's origin this deletes the event; otherwise it
+        de-references it from this agenda (the origin keeps it). Answers
         `200` with a `DeletionResult` carrying the removed event's uid.
 
 
@@ -1374,8 +1368,8 @@ paths:
       description: >
         Authorizes an OUT-OF-BAND upload of a LOCAL image file, made
         from outside this API client (e.g. with curl), so its bytes
-        never pass through the caller's prompt. Returns a self-
-        contained descriptor: an `uploadUrl`, a short-lived single-use
+        never pass through the caller's prompt. Returns a
+        self-contained descriptor: an `uploadUrl`, a short-lived single-use
         `ticket`, and the `header`/`field` to use.
 
 
@@ -2740,6 +2734,7 @@ components:
   schemas:
     Error:
       type: object
+      description: A refused request, carrying nothing but the reason.
       required: [error]
       additionalProperties: false
       properties:
@@ -2825,6 +2820,18 @@ components:
           type: string
           description: Human-readable explanation, in English.
 
+    ValidationVerdict:
+      type: object
+      description: >-
+        The verdict of a dry run, reached when validation found nothing to
+        refuse.
+      required: [valid]
+      additionalProperties: false
+      properties:
+        valid:
+          type: boolean
+          enum: [true]
+
     MergedLocationError:
       type: object
       description: >-
@@ -2850,6 +2857,8 @@ components:
 
     Pagination:
       type: object
+      description: >-
+        Where a page of results stops, and how to ask for the next one.
       required: [after, limit]
       additionalProperties: false
       example:
@@ -3277,6 +3286,7 @@ components:
 
     EventFormSchema:
       type: object
+      description: The event form an agenda declares.
       required: [fields]
       # Served raw from the form engine: top-level keys beyond `fields` may
       # appear (engine vocabulary); only `fields` is contractual.
@@ -3523,6 +3533,7 @@ components:
 
     Timing:
       type: object
+      description: One occurrence of an event.
       required: [begin, end]
       additionalProperties: false
       properties:
@@ -3592,6 +3603,7 @@ components:
 
     AgeRange:
       type: [object, 'null']
+      description: The audience age an event addresses.
       additionalProperties: false
       properties:
         min:
@@ -5299,6 +5311,8 @@ components:
 
     FacetBucket:
       type: object
+      description: >-
+        One value of a facet, with the number of events that carry it.
       required: [value, count]
       additionalProperties: false
       properties:
@@ -5313,6 +5327,7 @@ components:
 
     FacetResults:
       type: object
+      description: The buckets computed for each facet the request asked for.
       required: [facets]
       additionalProperties: false
       example:
@@ -5468,6 +5483,9 @@ components:
 
     AdditionalFieldBucket:
       type: object
+      description: >-
+        One option of an agenda's own field, with the number of events that
+        carry it.
       required: [value, label, count]
       additionalProperties: false
       properties:
@@ -5568,6 +5586,7 @@ components:
 
     GeoPoint:
       type: object
+      description: A geographic point, in decimal degrees.
       required: [latitude, longitude]
       additionalProperties: false
       properties:
