@@ -300,8 +300,8 @@ export default {
     fr: 'Iles Féroée',
   },
   FR: {
-    en: 'France (Metropolitan)',
-    fr: 'France (Métropole)',
+    en: 'France',
+    fr: 'France',
   },
   GA: {
     en: 'Gabon',
@@ -730,8 +730,8 @@ export default {
     fr: 'Quatar',
   },
   RE: {
-    en: 'Reunion',
-    fr: 'Réunion',
+    en: 'Réunion',
+    fr: 'La Réunion',
   },
   RO: {
     en: 'Romania',
