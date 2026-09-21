@@ -21,14 +21,15 @@ export const zError = z.object({
 });
 
 /**
- * One problem found in a request. A validator describes the values it refuses as precisely as it can, so an item carries the keys below plus whatever else that validator knows, such as the rejected value or the bounds it had to satisfy.
+ * One problem found in a request. A validator describes the values it refuses as precisely as it can, so an item carries the keys below plus whatever else that validator knows, such as the bounds the value had to satisfy.
  */
 export const zValidationIssue = z.object({
     field: z.string().optional(),
     lang: z.string().optional(),
     index: z.number().int().optional(),
     code: z.string().optional(),
-    message: z.string()
+    message: z.string(),
+    input: z.unknown().optional()
 });
 
 /**

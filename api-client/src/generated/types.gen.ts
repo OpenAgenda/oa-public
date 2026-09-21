@@ -41,7 +41,7 @@ export type ValidationError = {
 };
 
 /**
- * One problem found in a request. A validator describes the values it refuses as precisely as it can, so an item carries the keys below plus whatever else that validator knows, such as the rejected value or the bounds it had to satisfy.
+ * One problem found in a request. A validator describes the values it refuses as precisely as it can, so an item carries the keys below plus whatever else that validator knows, such as the bounds the value had to satisfy.
  */
 export type ValidationIssue = {
     /**
@@ -64,6 +64,10 @@ export type ValidationIssue = {
      * Human-readable explanation, in English.
      */
     message: string;
+    /**
+     * The value the validator refused, as the request carried it. A validator that reports a problem without recording the value omits this key.
+     */
+    input?: unknown;
 };
 
 /**
