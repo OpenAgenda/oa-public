@@ -2811,8 +2811,8 @@ components:
       description: >-
         One problem found in a request. A validator describes the values it
         refuses as precisely as it can, so an item carries the keys below plus
-        whatever else that validator knows, such as the rejected value or the
-        bounds it had to satisfy.
+        whatever else that validator knows, such as the bounds the value had to
+        satisfy.
       required: [message]
       properties:
         field:
@@ -2834,6 +2834,11 @@ components:
         message:
           type: string
           description: Human-readable explanation, in English.
+        input:
+          description: >-
+            The value the validator refused, as the request carried it. A
+            validator that reports a problem without recording the value omits
+            this key.
 
     ValidationVerdict:
       type: object
