@@ -176,6 +176,42 @@ for (const [name, schema] of Object.entries(schemas)) {
   }
 }(doc, ''));
 
+// Every response body must name its schema. An inline one has no name to
+// print, so a reader is handed a type no section defines and cannot look up:
+// the MCP card falls back to `Object`, Scalar shows an anonymous shape, and the
+// SDK types it as a literal. `ValidationVerdict` was the last one, and naming
+// it fixed that response; this keeps the next one from being written at all.
+// A `oneOf` of `$ref`s is named too - the card renders the branches.
+function responseSchemaIsNamed(schema) {
+  if (!schema || typeof schema !== 'object') return true;
+  if (typeof schema.$ref === 'string') return true;
+  const variants = schema.oneOf ?? schema.anyOf;
+  return (
+    Array.isArray(variants)
+    && variants.length > 0
+    && variants.every((v) => typeof v?.$ref === 'string')
+  );
+}
+
+function checkResponses(responses, trail) {
+  for (const [status, response] of Object.entries(responses ?? {})) {
+    if (response?.$ref) continue; // a shared component, checked at its own site
+    const schema = response?.content?.['application/json']?.schema;
+    if (schema && !responseSchemaIsNamed(schema)) {
+      errors.push(`response body is not a named schema at ${trail}/${status}`);
+    }
+  }
+}
+
+for (const [path, item] of Object.entries(doc?.paths ?? {})) {
+  for (const [method, op] of Object.entries(item ?? {})) {
+    if (op && typeof op === 'object' && op.responses) {
+      checkResponses(op.responses, `#/paths/${path}/${method}/responses`);
+    }
+  }
+}
+checkResponses(doc?.components?.responses, '#/components/responses');
+
 const pathCount = Object.keys(doc?.paths ?? {}).length;
 const schemaCount = Object.keys(doc?.components?.schemas ?? {}).length;
 
