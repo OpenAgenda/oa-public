@@ -18,7 +18,6 @@ import {
   successBody,
   deriveRequest,
   deriveResponse,
-  deriveErrors,
 } from '../src/docs/operations.js';
 
 // The contract itself, to pin the structural facts the module derives from.
@@ -103,10 +102,7 @@ function typeReferences(text) {
   for (const line of text.split('\n')) {
     const typed = line.match(/^\s*- `?[\w$.-]+`? \((.*)$/) ?? line.match(/^`\w+` \((.*)$/);
     if (typed) collect(typeExpression(typed[1]));
-    if (
-      /^(Request body|Response|Errors): /.test(line)
-      || /^\s*- `\w+`$/.test(line)
-    ) {
+    if (/^(Request body|Response): /.test(line) || /^\s*- `\w+`$/.test(line)) {
       for (const [, id] of line.matchAll(/`(\w+)`/g)) {
         if (COMPONENT_NAMES.has(id)) names.add(id);
       }
@@ -784,82 +780,6 @@ describe('every card defines exactly the types it leads to', () => {
   });
 
   // Each way the sweep must fail, on a hand-built payload.
-  describe('deriveErrors', () => {
-    // `deriveErrors` drops a branch it cannot name, and `collectComponentRefs`
-    // would still have read it - so a status whose body is an inline schema would
-    // vanish from the line with nothing to report it. The contract has none
-    // today; this is what says so tomorrow.
-    it('names every error status the contract declares, for every operation', () => {
-      const missing = [];
-      for (const [path, methods] of Object.entries(spec.paths)) {
-        for (const [method, op] of Object.entries(methods)) {
-          if (!op?.operationId) continue;
-          const declared = Object.keys(op.responses || {}).filter((c) =>
-            /^[45]\d\d$/.test(c));
-          const named = new Set(
-            byId(op.operationId).errors.flatMap((e) => e.statuses),
-          );
-          for (const status of declared) {
-            if (!named.has(status)) {
-              missing.push(
-                `${method.toUpperCase()} ${path} says nothing of ${status}`,
-              );
-            }
-          }
-        }
-      }
-      expect(missing).toEqual([]);
-    });
-
-    it('merges consecutive statuses that answer the same shapes', () => {
-      expect(byId('agendas.locations.get').errors).toEqual([
-        { statuses: ['400'], names: ['Error', 'ValidationError'], note: null },
-        { statuses: ['401', '403'], names: ['Error'], note: null },
-        {
-          statuses: ['404'],
-          names: ['Error', 'MergedLocationError'],
-          note: expect.stringContaining('merged into another one'),
-        },
-      ]);
-    });
-
-    it('does not merge two statuses that carry different notes', () => {
-      const groups = deriveErrors({
-        responses: {
-          400: {
-            description: 'first',
-            content: {
-              'application/json': {
-                schema: { $ref: '#/components/schemas/Error' },
-              },
-            },
-          },
-          401: {
-            description: 'second',
-            content: {
-              'application/json': {
-                schema: { $ref: '#/components/schemas/Error' },
-              },
-            },
-          },
-        },
-      });
-      expect(groups.map((g) => g.statuses)).toEqual([['400'], ['401']]);
-    });
-
-    it('reads every branch of a oneOf response', () => {
-      // The `400` of a write is `Error | ValidationError`: a structural refusal
-      // carries no list, one refused for its values does.
-      const group = byId('agendas.events.create').errors.find((e) =>
-        e.statuses.includes('400'));
-      expect(group.names).toEqual(['Error', 'ValidationError']);
-    });
-
-    it('is empty for an operation that declares no error body', () => {
-      expect(deriveErrors({ responses: { 200: {} } })).toEqual([]);
-    });
-  });
-
   describe('sweep', () => {
     const withComponents = (cards, ...defs) =>
       `${cards}\n\n---\n\n${COMPONENTS_HEADER}\n\n${defs.join('\n\n')}\n\n---\n\nValidators: …`;
@@ -1345,21 +1265,9 @@ describe('renderOperation', () => {
     expect(md).toContain('  - key (string, required)');
     // Never again in the compacted list, where a shape cannot be guessed.
     const [, compacted = ''] = md.match(/Other optional parameters: (.*)\./) ?? [];
-    const names = compacted.split(', ').map((e) => e.replace(/ \(.*/, ''));
+    const names = compacted.split(', ');
     for (const name of ['timings', 'createdAt', 'extId', 'age']) {
       expect(names).not.toContain(name);
-    }
-  });
-
-  // A compacted parameter kept only its name, and a name does not say that
-  // `region` takes a LIST - which is what the generated client types it as.
-  it('gives every compacted parameter its type', () => {
-    const md = renderOperation(byId('agendas.events.list'), 0);
-    const [, compacted = ''] = md.match(/Other optional parameters: (.*)\./) ?? [];
-    expect(compacted).toContain('region (string[])');
-    expect(compacted).toContain('featured (boolean)');
-    for (const entry of compacted.split(', ')) {
-      expect(entry).toMatch(/^\S+ \(.+\)$/);
     }
   });
 
@@ -1375,7 +1283,7 @@ describe('renderOperation', () => {
     // caller; the regex alone would not say which corner comes first.
     expect(md).toContain('`west,south,east,north`');
     const [, compacted = ''] = md.match(/Other optional parameters: (.*)\./) ?? [];
-    const names = compacted.split(', ').map((e) => e.replace(/ \(.*/, ''));
+    const names = compacted.split(', ');
     for (const name of ['near', 'bbox']) expect(names).not.toContain(name);
   });
 
@@ -1537,36 +1445,6 @@ describe('renderSearch', () => {
       expect(section.match(/`EventStatus` \(integer\)/g)).toHaveLength(1);
     });
 
-    it('names the error shapes an operation answers with', () => {
-      // The card showed the 2xx body and nothing else, so an agent learned the
-      // envelope by hitting it. Every status that carries a shape is named, the
-      // bare `Error` included: a card that names a type is what makes the
-      // Components section define it, and the envelope is the one type EVERY
-      // caller needs.
-      const card = renderOperation(byId('agendas.locations.get'), 0);
-      expect(card).toContain(
-        'Errors: 400 → `Error` | `ValidationError`; 401, 403 → `Error`; '
-          + '404 → `Error` | `MergedLocationError`.',
-      );
-
-      // What the two shapes on a `404` mean is on its own line, taken from the
-      // response the operation declares itself. The mapping stays scannable.
-      expect(card).toMatch(
-        /^404: Agenda or location not found\..*surviving one.*$/m,
-      );
-      // And it is written there ONCE: the operation description used to carry
-      // the same fact, the response another copy, the schema a third.
-      expect(card.match(/merged into another one/g)).toHaveLength(1);
-
-      // The envelope, defined for the first time on any card.
-      const payload = renderSearch([byId('agendas.locations.get')]);
-      expect(payload).toMatch(
-        /^`Error` — .+\n- error \(object, required\)\n {2}- code \(string, required\)/m,
-      );
-      expect(payload).toMatch(/^ {2}- mergedIn \(integer, required\)/m);
-      expect(sweep('locations.get', payload)).toEqual([]);
-    });
-
     it('DOES define an object root the card names without a field', () => {
       // A root that is a union has no top-level field: the card says
       // `Response: \`X\`` and nothing more, so its alternatives can only come
@@ -1580,9 +1458,6 @@ describe('renderSearch', () => {
           fields: [],
           pagination: null,
         },
-        // The fixture is about the response root; its error shapes would name
-        // types `componentRefs` is narrowed away from here.
-        errors: [],
         componentRefs: ['ImageInput'],
       };
       const payload = renderSearch([op]);

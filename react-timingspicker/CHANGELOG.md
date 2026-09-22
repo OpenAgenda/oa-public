@@ -1,12 +1,5 @@
 # Change Log
 
-## 2.1.1
-
-### Patch Changes
-
-- Updated dependencies [[`c4972f8`](https://github.com/OpenAgenda/oa/commit/c4972f872f890720be964965056d6f333d40ae87)]:
-  - @openagenda/react-shared@3.2.0
-
 ## 2.1.0
 
 ### Minor Changes

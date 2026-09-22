@@ -1,26 +1,5 @@
 # Change Log
 
-## 3.2.0
-
-### Minor Changes
-
-- [#513](https://github.com/OpenAgenda/oa/pull/513) [`c4972f8`](https://github.com/OpenAgenda/oa/commit/c4972f872f890720be964965056d6f333d40ae87) Thanks [@kaore](https://github.com/kaore)! - `Modal` is now an accessible modal dialog (RGAA 7.1, 7.3, 12.8, 8.7).
-
-  - It is exposed as one: `role="dialog"`, `aria-modal="true"`, named by its
-    title, or by the new `ariaLabel` prop when it has none.
-  - Focus moves into it on open, unless a child already took it (an `autoFocus`
-    field), and goes back to where it was on close.
-  - Tab and Shift+Tab stay inside it. Focus sitting outside it, in a dropdown a
-    child renders in a portal for instance, is left alone.
-  - Escape closes it, as a click outside already did; a modal without
-    `onClose` ignores it. A child that handles Escape itself keeps the key,
-    whether it calls `preventDefault` (a focused react-select, a dnd-kit
-    keyboard drag) or stops the event (a floating-ui tooltip), and when a modal
-    opens another one, only the top one answers.
-  - The close button is named in the page language when an `IntlProvider` is
-    present (`ReactShared.Modal.close`), in English otherwise, or by the new
-    `closeLabel` prop.
-
 ## 3.1.0
 
 ### Minor Changes

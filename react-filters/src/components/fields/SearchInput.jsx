@@ -8,7 +8,6 @@ import React, {
 import { useForm } from 'react-final-form';
 import { useDebouncedCallback } from 'use-debounce';
 import { defineMessages, useIntl } from 'react-intl';
-import { useUID } from 'react-uid';
 import FiltersAndWidgetsContext from '../../contexts/FiltersAndWidgetsContext.js';
 
 const messages = defineMessages({
@@ -25,22 +24,19 @@ const messages = defineMessages({
 function Input({
   input,
   placeholder,
-  label,
   ariaLabel,
   onButtonClick,
   isResetButton = false,
 }) {
   const intl = useIntl();
-  const inputId = `oa-filters-search-${useUID()}`;
 
-  const group = (
+  return (
     <div className="input-group mb-3">
       <input
-        id={label ? inputId : undefined}
         className="form-control"
         autoComplete="off"
         placeholder={placeholder}
-        aria-label={label ? undefined : ariaLabel}
+        aria-label={ariaLabel}
         title={ariaLabel}
         {...input}
       />
@@ -63,19 +59,6 @@ function Input({
         </button>
       </div>
     </div>
-  );
-
-  if (!label) {
-    return group;
-  }
-
-  return (
-    <>
-      <label htmlFor={inputId} className="oa-filters-search-label">
-        {label}
-      </label>
-      {group}
-    </>
   );
 }
 

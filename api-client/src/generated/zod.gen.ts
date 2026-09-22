@@ -2,68 +2,14 @@
 
 import { z } from 'zod';
 
-/**
- * A refused request, carrying nothing but the reason.
- */
 export const zError = z.object({
     error: z.object({
-        code: z.enum([
-            'bad_request',
-            'unauthorized',
-            'read_only_credential',
-            'insufficient_scope',
-            'forbidden',
-            'not_found',
-            'service_unavailable'
-        ]),
-        message: z.string()
-    })
-});
-
-/**
- * One problem found in a request. A validator describes the values it refuses as precisely as it can, so an item carries the keys below plus whatever else that validator knows, such as the bounds the value had to satisfy.
- */
-export const zValidationIssue = z.object({
-    field: z.string().optional(),
-    lang: z.string().optional(),
-    index: z.number().int().optional(),
-    code: z.string().optional(),
-    message: z.string(),
-    input: z.unknown().optional()
-});
-
-/**
- * A request refused because of the values it carries.
- */
-export const zValidationError = z.object({
-    error: z.object({
-        code: z.enum(['validation_error', 'bad_request']),
+        code: z.string(),
         message: z.string(),
-        errors: z.array(zValidationIssue).min(1)
+        details: z.record(z.unknown()).optional()
     })
 });
 
-/**
- * The verdict of a dry run, reached when validation found nothing to refuse.
- */
-export const zValidationVerdict = z.object({
-    valid: z.literal(true)
-});
-
-/**
- * An error response for a location that was merged into another one.
- */
-export const zMergedLocationError = z.object({
-    error: z.object({
-        code: z.enum(['merged']),
-        message: z.string(),
-        mergedIn: z.number().int()
-    })
-});
-
-/**
- * Where a page of results stops, and how to ask for the next one.
- */
 export const zPagination = z.object({
     after: z.string().nullable(),
     limit: z.number().int(),
@@ -199,26 +145,11 @@ export const zLocationList = z.object({
 });
 
 /**
- * A level of access to an agenda's data, as the field rules of its event form name them.
- *
- */
-export const zAccessLevel = z.enum([
-    'public',
-    'reader',
-    'contributor',
-    'moderator',
-    'administrator',
-    'internal',
-    'system'
-]);
-
-/**
- * A form field descriptor. Two kinds share the array: **data field descriptors** (carrying `field` and the `path` of its value) and **section separators** (`type: 'section'`, no `field` - structure the form into titled groups). Descriptors may carry keys beyond those listed below.
+ * A form field descriptor. Two kinds share the array: **data field descriptors** (carrying `field`, the key the value lives under on events) and **section separators** (`type: 'section'`, no `field` - structure the form into titled groups). Descriptors may carry keys beyond those listed below.
  *
  */
 export const zFormSchemaField = z.object({
     field: z.string().optional(),
-    path: z.string().optional(),
     fieldType: z.string().optional(),
     type: z.string().optional(),
     slug: z.string().optional(),
@@ -231,8 +162,6 @@ export const zFormSchemaField = z.object({
     enable: z.boolean().optional(),
     enableWith: z.unknown().optional(),
     optionalWith: z.unknown().optional(),
-    read: z.array(zAccessLevel).nullish(),
-    write: z.array(zAccessLevel).nullish(),
     origin: z.enum([
         'tags',
         'categories',
@@ -254,9 +183,6 @@ export const zFormSchemaField = z.object({
     ]).nullish()
 });
 
-/**
- * The event form an agenda declares.
- */
 export const zEventFormSchema = z.object({
     fields: z.array(zFormSchemaField)
 });
@@ -284,13 +210,40 @@ export const zMeAgendaItem = z.object({
 });
 
 /**
- * One occurrence of an event.
+ * What one ticketing provider says about one occurrence. `status` is the provider's word as of `syncedAt`; the sale window is what lets a reader tell `notYetOnSale` and `salesClosed` from a stock answer, and `offersAggregate` recomputes that half at read time.
+ *
  */
+export const zTimingAvailability = z.object({
+    provider: z.enum([
+        'billetweb',
+        'eventbrite',
+        'helloasso',
+        'mapado',
+        'weezevent',
+        'passculture',
+        'manual'
+    ]),
+    status: z.enum([
+        'available',
+        'limited',
+        'soldOut',
+        'notYetOnSale',
+        'salesClosed',
+        'unknown'
+    ]),
+    syncedAt: z.string().datetime(),
+    sourceRef: z.string().min(1).max(255).optional(),
+    onSaleFrom: z.string().datetime().optional(),
+    onSaleThrough: z.string().datetime().optional(),
+    closedBySource: z.boolean().optional()
+});
+
 export const zTiming = z.object({
     begin: z.string().datetime(),
     end: z.string().datetime(),
     id: z.string().regex(/^[0-9ABCDEFGHJKMNPQRSTVWXYZ]{6}$/).optional(),
-    sourceRef: z.string().max(255).optional()
+    sourceRef: z.string().max(255).optional(),
+    availability: z.array(zTimingAvailability).max(7).optional()
 });
 
 /**
@@ -316,9 +269,6 @@ export const zOffersAggregate = z.object({
     ]).nullish()
 }).nullable();
 
-/**
- * The audience age an event addresses.
- */
 export const zAgeRange = z.object({
     min: z.number().int().nullish(),
     max: z.number().int().nullish()
@@ -660,9 +610,9 @@ export const zEventLocationRef = z.object({
 });
 
 /**
- * Request body for creating or replacing an event: the fields a client may set. Agenda-specific fields go under `additionalFields`, never at the top level; any other top-level key (a read-only field such as `uid` or `slug`, an unknown name) is rejected with `400`, as is an `additionalFields` name that collides with a native field. Field values are validated by the server (a `422` with per-field `error.errors[]` on failure).
+ * Request body for creating or replacing an event: the fields a client may set. Agenda-specific fields go under `additionalFields`, never at the top level; any other top-level key (a read-only field such as `uid` or `slug`, an unknown name) is rejected with `400`, as is an `additionalFields` name that collides with a native field. Field values are validated by the server (a `422` with per-field `error.details.errors[]` on failure).
  *
- * Required fields depend on the target agenda: an event needs at least `title`, `description` and `timings`, plus a `location` unless it is online-only, plus whatever the agenda marks required; a missing one answers `422` with the per-field set under `error.errors[]`.
+ * Required fields depend on the target agenda: an event needs at least `title`, `description` and `timings`, plus a `location` unless it is online-only, plus whatever the agenda marks required; a missing one answers `422` with the per-field set under `error.details.errors[]`.
  *
  * The `image` is set either by reference - stage the bytes via `POST /agendas/{uid}/uploads` and pass the returned `ref` here - or by a public `url` the server fetches (or `null` to clear it). An event's privacy is derived from its agenda.
  *
@@ -866,17 +816,11 @@ export const zFacetReportRequest = z.object({
     facets: z.array(z.union([zFacetName, zFacetSpec])).min(1)
 });
 
-/**
- * One value of a facet, with the number of events that carry it.
- */
 export const zFacetBucket = z.object({
     value: z.string(),
     count: z.number().int()
 });
 
-/**
- * One option of an agenda's own field, with the number of events that carry it.
- */
 export const zAdditionalFieldBucket = z.object({
     value: z.string(),
     label: zLocalizedString.nullable(),
@@ -940,9 +884,6 @@ export const zLocationFacetBucket = z.object({
     count: z.number().int()
 });
 
-/**
- * A geographic point, in decimal degrees.
- */
 export const zGeoPoint = z.object({
     latitude: z.number(),
     longitude: z.number()
@@ -1093,9 +1034,6 @@ export const zFacetReport = z.object({
     facets: z.record(zFacetReportEntry)
 });
 
-/**
- * The buckets computed for each facet the request asked for.
- */
 export const zFacetResults = z.object({
     facets: z.object({
         cities: z.array(zFacetBucket).optional(),
@@ -1319,7 +1257,7 @@ export const zLimit = z.number().int().gte(1).lte(100).default(20);
 export const zDetailed = z.boolean().default(false);
 
 /**
- * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` does not apply (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. `uid` is always returned. Each resource takes the names its own `data` item declares, and a dotted path descends one segment per level: on an event, `location.name` or `timings.begin`. An unknown top-level field is rejected with `400`, and so is an unknown sub-field under a closed object (`location.zzz`); under an open container - an `additionalFields` custom-field bag, on the resources that carry one, or a localized text map - any sub-key is accepted and yields nothing when absent (`additionalFields.myField`). Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
+ * Comma-separated list of fields to keep on each `data` item, to shrink the payload of large pages. When set, it selects the response shape directly over the resource's full field set, so `detailed` does not apply (it only governs the default shape when `fields` is omitted) and `fields` wins if both are given. `uid` is always returned. Dotted paths descend into nested objects and arrays (`location.name`, `timings.begin`, `additionalFields.myField`). An unknown top-level field is rejected with `400`, and so is an unknown sub-field under a closed object (e.g. `location.zzz`); under an open container - the `additionalFields` custom-field bag or a localized text map - any sub-key is accepted and yields nothing when absent. Response schemas stay complete, so a generated client still types the omitted fields as present — read them as optional on this path.
  *
  */
 export const zFields = z.array(z.string());
@@ -1345,18 +1283,6 @@ export const zAgendaFilterUid = z.array(z.coerce.bigint().min(BigInt('-922337203
  * Restrict to these agenda slugs. Repeat the parameter for multiple values.
  */
 export const zAgendaFilterSlug = z.array(z.string());
-
-/**
- * Restrict to the agendas carrying these slugs. A slug matching none of your memberships yields an empty page. Repeat the parameter for multiple values.
- *
- */
-export const zMeAgendaFilterSlug = z.array(z.string());
-
-/**
- * Restrict to the memberships holding one of these roles. Repeat the parameter for multiple values.
- *
- */
-export const zMeAgendaFilterRole = z.array(zMemberRole);
 
 /**
  * Restrict to official agendas (`true`) or to non-official agendas (`false`). Omit to return both.
@@ -1862,7 +1788,9 @@ export const zAgendasEventsValidatePath = z.object({
 /**
  * The body is valid.
  */
-export const zAgendasEventsValidateResponse = zValidationVerdict;
+export const zAgendasEventsValidateResponse = z.object({
+    valid: z.literal(true)
+});
 
 export const zAgendasEventsDeletePath = z.object({
     agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
@@ -2100,9 +2028,7 @@ export const zMeAgendasListQuery = z.object({
     after: z.string().optional(),
     limit: z.number().int().gte(1).lte(100).optional().default(20),
     detailed: z.boolean().optional().default(false),
-    fields: z.array(z.string()).optional(),
-    slug: z.array(z.string()).optional(),
-    role: z.array(zMemberRole).optional()
+    fields: z.array(z.string()).optional()
 });
 
 /**

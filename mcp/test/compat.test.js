@@ -87,11 +87,7 @@ describe('the contract stays inside what search_docs can render', () => {
       '/components/parameters/*/schema/properties/*/maximum',
       '/components/parameters/*/schema/properties/*/minimum',
       '/components/parameters/*/style',
-      // The prose of a shared response, and the `WWW-Authenticate` challenge on
-      // `Forbidden`: the card names the SHAPE each status answers with, which is
-      // what a caller branches on. A header it never sets is not its business.
-      '/components/responses/*/description',
-      '/components/responses/*/headers',
+      '/components/responses',
       '/components/schemas/*/additionalProperties',
       '/components/schemas/*/additionalProperties/x-additionalPropertiesName',
       '/components/schemas/*/example',
@@ -104,11 +100,6 @@ describe('the contract stays inside what search_docs can render', () => {
       // nowhere to land. The item type is what a reader follows, and it is
       // named right there.
       '/components/schemas/*/properties/*/description',
-      // `ValidationIssue` names a few `field` and `code` values to make the
-      // shape concrete. The card already drops property examples one level
-      // down, so it drops these too; the prose on each property carries the
-      // meaning, and the examples only illustrate it.
-      '/components/schemas/*/properties/*/examples',
       '/components/schemas/*/properties/*/format:date-time',
       '/components/schemas/*/properties/*/format:double',
       '/components/schemas/*/properties/*/format:int64',
@@ -119,10 +110,8 @@ describe('the contract stays inside what search_docs can render', () => {
       '/components/schemas/*/properties/*/minItems',
       '/components/schemas/*/properties/*/minimum',
       '/components/schemas/*/properties/*/properties/*/additionalProperties/x-additionalPropertiesName',
+      '/components/schemas/*/properties/*/properties/*/examples',
       '/components/schemas/*/properties/*/properties/*/format:int64',
-      // `ValidationError.error.errors` is never empty. Same construct the card
-      // already drops a level up, and a reader who gets the list reads it.
-      '/components/schemas/*/properties/*/properties/*/minItems',
       '/components/schemas/*/properties/*/readOnly',
       '/components/securitySchemes/*/description',
       '/components/securitySchemes/*/flows',
@@ -130,14 +119,11 @@ describe('the contract stays inside what search_docs can render', () => {
       '/components/securitySchemes/*/name',
       '/info',
       '/openapi',
+      '/paths/*/delete/responses/*',
       '/paths/*/delete/responses/*/description',
       '/paths/*/delete/tags',
       '/paths/*/delete/x-codeSamples/*/label',
-      // Curated bodies for the two location 404s. Everything contractual in them
-      // is already rendered - the `merged` enum, `mergedIn`, the envelope - and
-      // what is left is an illustrative uid and a human sentence, which is not
-      // what a caller branches on.
-      '/paths/*/get/responses/*/content/*/examples',
+      '/paths/*/get/responses/*',
       '/paths/*/get/responses/*/description',
       '/paths/*/get/tags',
       '/paths/*/get/x-codeSamples/*',
@@ -146,6 +132,7 @@ describe('the contract stays inside what search_docs can render', () => {
       '/paths/*/patch/responses/*/description',
       '/paths/*/patch/tags',
       '/paths/*/patch/x-codeSamples/*/label',
+      '/paths/*/post/responses/*',
       '/paths/*/post/responses/*/content/*/example',
       '/paths/*/post/responses/*/description',
       '/paths/*/post/responses/*/headers',

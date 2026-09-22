@@ -52,7 +52,7 @@ export class Events extends HeyApiClient {
      *
      * Returns a cursor-paginated list of events for the given agenda. Pass the `after` cursor returned in `pagination.after` to fetch the next page, with the same filters.
      *
-     * Only published events are listed. Unknown or malformed filter values answer `400`, with per-field context under `error.errors`. An unrecognized top-level query parameter is ignored.
+     * Only published events are listed. Unknown or malformed filter values answer `400`, with per-field context under `error.details.errors`.
      *
      */
     public list<ThrowOnError extends boolean = false>(options: Options<AgendasEventsListData, ThrowOnError>) {
@@ -71,7 +71,7 @@ export class Events extends HeyApiClient {
     /**
      * Create an event
      *
-     * Creates an event in the given agenda and returns the created `Event`, with a `Location` header pointing at its canonical by-uid URL.
+     * Creates an event in the given agenda and returns the created `Event`, with a `Location` header pointing at its canonical by- uid URL.
      *
      * Native writable fields sit at the top level; agenda-specific fields go under `additionalFields`; any other top-level key is rejected with `400`. The moderation `state` of the created event is arbitrated by the caller's role and the agenda's contribution settings - a contributor's event may be created pending moderation rather than published.
      *
@@ -93,7 +93,7 @@ export class Events extends HeyApiClient {
     /**
      * Validate an event without creating it
      *
-     * Validates the body exactly as create does, without persisting anything. A well-formed, valid body answers `200 { "valid": true }`; invalid field values answer `422` with per-field problems under `error.errors[]`. Structural body problems (an unknown top-level key, an `additionalFields` name colliding with a native field) answer `400`.
+     * Validates the body exactly as create does, without persisting anything. A well-formed, valid body answers `200 { "valid": true }`; invalid field values answer `422` with per-field problems under `error.details.errors[]`. Structural body problems (an unknown top-level key, an `additionalFields` name colliding with a native field) answer `400`.
      *
      * A native `image: { url }` is checked for URL syntax only (an `http(s)` URL without embedded credentials): the URL is not fetched, so a URL that create rejects with `422` at fetch time (unreachable host, private address, over 20 MiB, not an image) passes validate. The image counts as present, so an agenda whose schema requires one validates as it would create.
      *
@@ -113,7 +113,7 @@ export class Events extends HeyApiClient {
     /**
      * Delete an event
      *
-     * Removes the event from this agenda. When the agenda is the event's origin this deletes the event; otherwise it de-references it from this agenda (the origin keeps it). Answers `200` with a `DeletionResult` carrying the removed event's uid.
+     * Removes the event from this agenda. When the agenda is the event's origin this deletes the event; otherwise it de- references it from this agenda (the origin keeps it). Answers `200` with a `DeletionResult` carrying the removed event's uid.
      *
      * The acting member must be allowed to remove the event, otherwise `403`. An unknown event uid answers `404`.
      *
@@ -316,7 +316,7 @@ export class Events extends HeyApiClient {
      *
      * Returns the agenda's **merged event form schema** — the dynamic contract the events of this agenda follow. It merges the platform's native event fields with the network's and the agenda's own declarations: an agenda can add its own additional fields and override natives (make one required, restrict its options, relabel it). This is the same schema the OpenAgenda UI uses to build the event form: use it to know which fields exist, which are required and what their options are - e.g. to build payloads for the event write operations, to interpret `additionalFields` on events, or to discover the agenda-specific facets of the facets endpoint.
      *
-     * Descriptors are scoped to your read access: a field whose `read` access levels exclude the caller (e.g. a moderator-only field) is omitted from `fields`, so a public caller sees only the public fields. Native fields the write operations do not take (the event's `uid`, `slug`, timestamps...) are omitted too, and `status` is listed only on an agenda that accepts it.
+     * Descriptors are scoped to your read access: a field whose `read` access levels exclude the caller (e.g. a moderator-only field) is omitted from `fields`, so a public caller sees only the public fields.
      *
      */
     public schema<ThrowOnError extends boolean = false>(options: Options<AgendasEventsSchemaData, ThrowOnError>) {
@@ -357,7 +357,7 @@ export class Uploads extends HeyApiClient {
     /**
      * Authorize an out-of-band image upload
      *
-     * Authorizes an OUT-OF-BAND upload of a LOCAL image file, made from outside this API client (e.g. with curl), so its bytes never pass through the caller's prompt. Returns a self-contained descriptor: an `uploadUrl`, a short-lived single-use `ticket`, and the `header`/`field` to use.
+     * Authorizes an OUT-OF-BAND upload of a LOCAL image file, made from outside this API client (e.g. with curl), so its bytes never pass through the caller's prompt. Returns a self- contained descriptor: an `uploadUrl`, a short-lived single-use `ticket`, and the `header`/`field` to use.
      *
      * Upload the file with a plain HTTPS `POST` to `uploadUrl`: send the `ticket` in the `X-Upload-Ticket` header and the file as multipart field `file`. That call returns a staging `ref`, which you then attach with `image: { ref }` on an event write.
      *
@@ -383,7 +383,7 @@ export class Locations extends HeyApiClient {
      *
      * When the agenda shares its locations through a location set, the whole set is listed - including locations contributed by the other agendas of the set (their `setUid` carries the set's uid).
      *
-     * Unknown or malformed filter values answer `400`, with per-field context under `error.errors`. An unrecognized top-level query parameter is ignored.
+     * Unknown or malformed filter values answer `400`, with per-field context under `error.details.errors`.
      *
      */
     public list<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsListData, ThrowOnError>) {
@@ -404,6 +404,8 @@ export class Locations extends HeyApiClient {
      *
      * Returns a single location by its external identifier within the given agenda - the `(key, value)` pair an `ExtId` mapping carries in the location's `extIds`. Use this when you sync from your own system and hold its id rather than the OpenAgenda uid. Resolves to the same `Location` as the by-uid get.
      *
+     * A location that was merged into another one answers `404` with the machine-readable code `merged` and the surviving location's uid in `error.details.mergedIn` — use it to repair stale references. Any other deleted or unknown pair is a plain `404` with code `not_found`.
+     *
      */
     public getByExtId<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsGetByExtIdData, ThrowOnError>) {
         return (options.client ?? this.client).get<AgendasLocationsGetByExtIdResponses, AgendasLocationsGetByExtIdErrors, ThrowOnError>({
@@ -421,6 +423,8 @@ export class Locations extends HeyApiClient {
      * Get a location
      *
      * Returns a single location of the agenda (or of its shared location set) in the full `Location` shape.
+     *
+     * A location that was merged into another one answers `404` with the machine-readable code `merged` and the surviving location's uid in `error.details.mergedIn` — use it to repair stale references. Any other deleted or unknown uid is a plain `404` with code `not_found`.
      *
      */
     public get<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsGetData, ThrowOnError>) {
@@ -440,9 +444,9 @@ export class Agendas extends HeyApiClient {
     /**
      * List agendas
      *
-     * Returns a cursor-paginated list of agendas. Pass the `after` cursor returned in `pagination.after` to fetch the next page, with the same filters. Private agendas and agendas not indexed in public search are absent from this list.
+     * Returns a cursor-paginated list of agendas. Pass the `after` cursor returned in `pagination.after` to fetch the next page, with the same filters.
      *
-     * Unknown or malformed filter values answer `400`, with per-field context under `error.errors`. An unrecognized top-level query parameter is ignored.
+     * Unknown or malformed filter values answer `400`, with per-field context under `error.details.errors`.
      *
      */
     public list<ThrowOnError extends boolean = false>(options?: Options<AgendasListData, ThrowOnError>) {
@@ -516,7 +520,7 @@ export class Agendas2 extends HeyApiClient {
     /**
      * List the agendas you are a member of
      *
-     * Returns a cursor-paginated list of the agendas the authenticated user is a member of, with their role on each. Private agendas the user belongs to ARE included (each item carries a `private` flag), and so are agendas not indexed in public search.
+     * Returns a cursor-paginated list of the agendas the authenticated user is a member of, with their role on each. Private agendas the user belongs to ARE included (each item carries a `private` flag).
      *
      */
     public list<ThrowOnError extends boolean = false>(options?: Options<MeAgendasListData, ThrowOnError>) {

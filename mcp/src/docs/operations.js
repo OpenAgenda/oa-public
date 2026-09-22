@@ -408,74 +408,6 @@ export function successBody(op) {
   return undefined;
 }
 
-// What an operation answers with when it FAILS, as `{ status, schema }`. The
-// card never showed any of it: `successBody` filters to 2xx by design, and the
-// component collector below read only the success body, the request and the
-// parameters — so `Error` and its two richer forms were defined nowhere, on any
-// card, and an agent learned the envelope by hitting it.
-//
-// Derefed like the success body: every 4xx here is a `$ref` into
-// `#/components/responses/*`, and reading `.content` off an unresolved ref
-// would drop the shape silently.
-function errorBodies(op) {
-  return Object.keys(op.responses || {})
-    .filter((code) => /^[45](\d\d|XX)$/i.test(code))
-    .sort()
-    .map((code) => {
-      const declared = op.responses[code];
-      const content = deref(declared)?.content ?? {};
-      const type = Object.keys(content).find((t) => JSON_MEDIA.test(t));
-      const schema = type && content[type]?.schema;
-      if (!schema) return null;
-      // Only an INLINE response carries a note here. The shared responses are
-      // skipped for room, not because they say nothing: `Forbidden` also
-      // explains blacklisted accounts, conditional API-key scopes and the
-      // `WWW-Authenticate` challenge the server really sends, and none of that
-      // is in `Error`. Rendering all of them would put four or five paragraphs
-      // on every card and bury the two inline ones. They stay a known gap, in
-      // the omissions list, and closing it needs its own shape - not this
-      // line.
-      const note = declared?.$ref
-        ? null
-        : oneLine(deref(declared)?.description);
-      return { status: code, schema, note: note || null };
-    })
-    .filter(Boolean);
-}
-
-// The error shapes an operation answers with, by the statuses that answer them.
-// `Error` is named like the rest rather than left implicit: a card that defines
-// a type must lead to it, and an agent reading one call has no other way to
-// learn that a failure is `{ error: { code, message } }` — no card renders a
-// response description, and the contract's own error prose lives under
-// `components/responses`, which no card renders either.
-/**
- * @param {any} op
- * @returns {{statuses: string[], names: string[], note: string|null}[]}
- */
-export function deriveErrors(op) {
-  // Status first, and consecutive statuses that answer the same shapes merged:
-  // a caller branches on the status, and the generated type is keyed by it
-  // (`{ 400: Error | ValidationError; 401: Error; … }`). Grouped the other way,
-  // reading what a `400` can be means crossing every clause.
-  const groups = [];
-  for (const { status, schema, note } of errorBodies(op)) {
-    const names = (schema.oneOf ?? [schema])
-      .map((branch) => (branch.$ref ? refName(branch.$ref) : null))
-      .filter(Boolean);
-    if (!names.length) continue;
-    const last = groups[groups.length - 1];
-    // Merge on the note too: two statuses that answer the same shapes for
-    // different reasons are not one clause.
-    if (last && String(last.names) === String(names) && last.note === note) {
-      last.statuses.push(status);
-    } else {
-      groups.push({ statuses: [status], names, note });
-    }
-  }
-  return groups;
-}
-
 // Pick the ONE media type the card documents: JSON when the route offers it,
 // or an exact match would fall through to whatever key came first — documenting
 // a binary body for a JSON endpoint. `componentRefsFor` resolves through here
@@ -515,9 +447,6 @@ function componentRefsFor(op) {
   const seen = new Set();
   const params = (op.parameters ?? []).map(deref);
   collectComponentRefs(successBody(op), names, seen);
-  for (const { schema } of errorBodies(op)) {
-    collectComponentRefs(schema, names, seen);
-  }
   collectComponentRefs(requestContent(op)?.schema, names, seen);
   for (const p of params) collectComponentRefs(p.schema, names, seen);
   return names;
@@ -900,7 +829,6 @@ function deriveOperations() {
         request,
         sdkCallable,
         response: deriveResponse(op),
-        errors: deriveErrors(op),
         componentRefs: componentRefsFor(op),
         example,
         exampleLang,
@@ -1257,37 +1185,13 @@ function renderRich(op) {
   if (plain.length) {
     lines.push(
       '',
-      // With its type: a bare name does not say that `region` takes a LIST,
-      // and the generated client types it as one. The server's query gate
-      // wraps a scalar (`asList`), so writing one is not punished - the caller
-      // simply has no way to know the shape the SDK expects.
-      `Other optional parameters: ${plain
-        .map((p) => `${p.name} (${p.type})`)
-        .join(', ')}.`,
+      `Other optional parameters: ${plain.map((p) => p.name).join(', ')}.`,
     );
   }
   const request = renderRequest(op.request);
   if (request) lines.push('', request);
   const response = renderResponse(op.response);
   if (response) lines.push('', response);
-  if (op.errors?.length) {
-    lines.push(
-      '',
-      `Errors: ${op.errors
-        .map(
-          (e) =>
-            `${e.statuses.join(', ')} → ${e.names
-              .map((n) => `\`${named(n)}\``)
-              .join(' | ')}`,
-        )
-        .join('; ')}.`,
-      // A note goes on its own line rather than inside the mapping: the
-      // mapping is scanned, the note is read.
-      ...op.errors
-        .filter((e) => e.note)
-        .map((e) => `${e.statuses.join(', ')}: ${e.note}`),
-    );
-  }
   lines.push('', 'Example:', `\`\`\`${op.exampleLang}`, op.example, '```');
   return lines.join('\n');
 }
@@ -1433,19 +1337,6 @@ const SDK_LEAD = [
     + 'needs one) — `secretKey` a secret key (`oa_sk_…`, server-only) carrying the '
     + 'identity writes and `/me` need, and `oauth2` an access token granted the scopes '
     + 'in brackets. The `schemas` zod validators are exported from the package too.',
-  // The one thing the cards cannot say: the `error` the SDK hands back IS the
-  // body, so the machine-readable reason sits one level in. A card names the
-  // body's schema and the Components section defines it, but nothing on a card
-  // says how the caller reaches it, and `error.code` reads like the obvious
-  // guess - a model given only the cards took that guess, got `undefined` and
-  // then answered that the code lives at `error.code`. That the call resolves
-  // rather than throws needs no sentence: every call line above destructures
-  // the result, and no model tried to catch.
-  'Handling errors: a failed call resolves `{ error, response }`. When the API answered, `error` '
-    + "IS the body whose schema the card's `Errors:` line names for `response.status`, so the "
-    + 'reason is at `error.error.code`, not `error.code`, and the list of refused values a schema '
-    + 'carries is at `error.error.errors`. A request that never got an answer resolves without a '
-    + '`response`, and `error` is then not that body.',
 ].join('\n');
 
 // A tail entry carries its id, its summary and a call line - nothing of what a

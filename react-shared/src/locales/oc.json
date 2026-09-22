@@ -37,6 +37,5 @@
   "ReactShared.ImageInput.tooManyFiles": "Tròp de fichièrs, se'n accepta pas qu'un",
   "ReactShared.ImageInput.update": "Metre l'imatge a jorn",
   "ReactShared.ImageInput.upload": "Cargar un imatge",
-  "ReactShared.LeaveWarningPrompt.areYouSure": "Sètz segur·a que volètz partir d'aquesta pagina ? Totas las donadas pas enregistradas seràn perdudas.",
-  "ReactShared.Modal.close": "Tampar"
+  "ReactShared.LeaveWarningPrompt.areYouSure": "Sètz segur·a que volètz partir d'aquesta pagina ? Totas las donadas pas enregistradas seràn perdudas."
 }

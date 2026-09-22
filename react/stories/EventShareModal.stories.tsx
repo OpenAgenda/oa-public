@@ -49,26 +49,3 @@ export const Default: Story = {
     },
   },
 };
-
-export const WordOpen: Story = {
-  render: function Render(): React.JSX.Element {
-    const { open, onOpen, onClose } = useDisclosure({ defaultOpen: true });
-
-    return (
-      <>
-        <Button onClick={onOpen}>Open modal</Button>
-
-        <EventShareModal
-          isOpen={open}
-          onClose={onClose}
-          agenda={agendaFixtures as Agenda}
-          event={eventFixtures as Event}
-          contentLocale="fr"
-          onEmailSent={() => {}}
-          defaultValue="docx"
-        />
-      </>
-    );
-  },
-  parameters: Default.parameters,
-};
