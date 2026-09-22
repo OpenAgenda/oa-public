@@ -3782,12 +3782,13 @@ components:
             the same event sharing a `sourceRef` are both treated as new.
         availability:
           type: array
-          maxItems: 50
+          maxItems: 7
           description: >
             The inventory of this occurrence, ONE ROW PER TICKETING PROVIDER —
             the same occurrence can be sold out on pass Culture and open to the
             general public. Absent, not empty, on an occurrence that never
-            received any.
+            received any. At most one row per provider, so never more rows than
+            the `provider` enum has values.
 
             Written by connectors through the availability route, or inline
             with the timings on an ordinary write; carried across ordinary
