@@ -31,7 +31,15 @@ export const colors = defineTokens.colors({
     200: { value: '#ffffff' },
     500: { value: '#ffffff' },
   },
+  // La rampe ambre s'arrêtait à 100 côté clair et à `#a76906` côté sombre, soit
+  // L=68 % et L=34 % : trop claire aux deux bouts pour composer une pastille
+  // lisible (texte ambre sur fond ambre, 1,39:1 mesuré). Le 50 est nouveau ; le
+  // 900 est APPROFONDI (L=34 % → 22 %), ce qui aligne enfin la rampe sur ses
+  // sœurs — primary 11 %, oaGray 20 %, danger 24 % — au lieu de s'arrêter en
+  // demi-teinte. Son seul lecteur, `Announcement` (texte sur blanc), y gagne :
+  // 4,50 → 7,79.
   warning: {
+    50: { value: '#fef6e7' },
     100: { value: '#f8c663' },
     200: { value: '#f7bf50' },
     300: { value: '#f6b83c' },
@@ -40,7 +48,7 @@ export const colors = defineTokens.colors({
     600: { value: '#eaa00b' },
     700: { value: '#d6920a' },
     800: { value: '#c38509' },
-    900: { value: '#a76906' },
+    900: { value: '#704b00' },
   },
   danger: {
     50: { value: '#fff5f5' },
