@@ -49,7 +49,7 @@ describe('sendMail', () => {
           username: 'bertho',
         },
         to: [
-          'kevin.bertho@gmail.com, kevin.berthommier@openagenda.com',
+          'contact.6862@example.org, kevin.berthommier@openagenda.com',
           {
             address: '"Kaoré" <kaore@openagenda.com>',
             data: { username: 'kaore' },
@@ -103,7 +103,7 @@ describe('sendMail', () => {
           username: 'bertho',
         },
         to: {
-          address: 'kevin.bertho@gmail.com',
+          address: 'contact.6862@example.org',
           data: {
             domain: 'https://bertho.io',
           },
@@ -120,7 +120,7 @@ describe('sendMail', () => {
       expect(
         mails.send({
           template: 'unknow',
-          to: 'kevin.bertho@gmail.com',
+          to: 'contact.6862@example.org',
           queue: false,
         }),
       ).rejects.toThrow("Email template 'unknow' does not exist"));
@@ -173,7 +173,7 @@ describe('sendMail', () => {
           username: 'Bertho',
         },
         to: [
-          '"Kévin Berthommier" <kevin.bertho@gmail.com>, kevin.berthommier@openagenda.com',
+          '"Kévin Berthommier" <contact.6862@example.org>, kevin.berthommier@openagenda.com',
           { address: 'kaore@openagenda.com', data: { username: 'Kaore' } },
         ],
         queue: false,
@@ -200,7 +200,7 @@ describe('sendMail', () => {
         from,
         to: [
           {
-            address: 'kevin.bertho@gmail.com',
+            address: 'contact.6862@example.org',
             name: 'Kévin Berthommier',
             data: { username: 'Bertho' },
           },
@@ -296,7 +296,7 @@ describe('sendMail', () => {
       const { results, errors } = await mails.send({
         template: 'helloWorld-i18n',
         to: {
-          address: 'kevin.bertho@gmail.com',
+          address: 'contact.6862@example.org',
           data: { username: 'bertho' },
         },
         queue: false,
@@ -330,7 +330,7 @@ describe('sendMail', () => {
       const { results, errors } = await mails.send({
         template: 'helloWorld-i18n',
         to: {
-          address: 'kevin.bertho@gmail.com',
+          address: 'contact.6862@example.org',
           data: { username: 'bertho' },
           lang: 'fr',
         },

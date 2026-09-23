@@ -4,7 +4,7 @@ exports[`sendMail Euthreal transport override default "from" value 1`] = `
 [
   {
     "accepted": [
-      "kevin.bertho@gmail.com",
+      "contact.6862@example.org",
     ],
     "ehlo": [
       "PIPELINING",
@@ -15,10 +15,10 @@ exports[`sendMail Euthreal transport override default "from" value 1`] = `
     "envelope": {
       "from": "admin@openagenda.com",
       "to": [
-        "kevin.bertho@gmail.com",
+        "contact.6862@example.org",
       ],
     },
-    "messageSize": 6141,
+    "messageSize": 6143,
     "rejected": [],
   },
 ]
@@ -28,7 +28,7 @@ exports[`sendMail Euthreal transport send email directly (without queue) - hello
 [
   {
     "accepted": [
-      "kevin.bertho@gmail.com",
+      "contact.6862@example.org",
     ],
     "ehlo": [
       "PIPELINING",
@@ -39,10 +39,10 @@ exports[`sendMail Euthreal transport send email directly (without queue) - hello
     "envelope": {
       "from": "no-reply@openagenda.com",
       "to": [
-        "kevin.bertho@gmail.com",
+        "contact.6862@example.org",
       ],
     },
-    "messageSize": 6181,
+    "messageSize": 6183,
     "rejected": [],
   },
   {
@@ -269,7 +269,7 @@ Go to https://openagenda.com
 ",
     "to": [
       {
-        "address": "kevin.bertho@gmail.com",
+        "address": "contact.6862@example.org",
         "name": "",
       },
     ],
@@ -634,7 +634,7 @@ exports[`sendMail translations choose a lang per recipient 1`] = `
     "envelope": {
       "from": false,
       "to": [
-        "kevin.bertho@gmail.com",
+        "contact.6862@example.org",
       ],
     },
     "message": {
@@ -808,7 +808,7 @@ Aller sur OpenAgenda: https://openagenda.com
 ",
       "to": [
         {
-          "address": "kevin.bertho@gmail.com",
+          "address": "contact.6862@example.org",
           "data": {
             "username": "bertho",
           },
@@ -827,7 +827,7 @@ exports[`sendMail translations take a default lang 1`] = `
     "envelope": {
       "from": false,
       "to": [
-        "kevin.bertho@gmail.com",
+        "contact.6862@example.org",
       ],
     },
     "message": {
@@ -1001,7 +1001,7 @@ Go to OpenAgenda: https://openagenda.com
 ",
       "to": [
         {
-          "address": "kevin.bertho@gmail.com",
+          "address": "contact.6862@example.org",
           "data": {
             "username": "bertho",
           },
