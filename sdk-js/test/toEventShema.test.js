@@ -130,7 +130,7 @@ describe('toEventSchema', () => {
           registration: [
             {
               type: 'phone',
-              value: '05 49 23 70 00',
+              value: '05 36 49 77 14',
             },
             {
               type: 'email',
