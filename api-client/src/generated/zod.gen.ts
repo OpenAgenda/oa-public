@@ -188,8 +188,8 @@ export const zLocation = z.object({
     additionalFields: zLocationAdditionalFields,
     siret: z.string().nullable(),
     verified: z.boolean(),
-    createdAt: z.string().datetime().readonly(),
-    updatedAt: z.string().datetime().readonly()
+    createdAt: z.string().datetime({ offset: true }).readonly(),
+    updatedAt: z.string().datetime({ offset: true }).readonly()
 });
 
 export const zLocationList = z.object({
@@ -287,10 +287,10 @@ export const zTimingAvailability = z.object({
         'salesClosed',
         'unknown'
     ]),
-    syncedAt: z.string().datetime(),
+    syncedAt: z.string().datetime({ offset: true }),
     sourceRef: z.string().min(1).max(255).optional(),
-    onSaleFrom: z.string().datetime().optional(),
-    onSaleThrough: z.string().datetime().optional(),
+    onSaleFrom: z.string().datetime({ offset: true }).optional(),
+    onSaleThrough: z.string().datetime({ offset: true }).optional(),
     closedBySource: z.boolean().optional()
 });
 
@@ -298,8 +298,8 @@ export const zTimingAvailability = z.object({
  * One occurrence of an event.
  */
 export const zTiming = z.object({
-    begin: z.string().datetime(),
-    end: z.string().datetime(),
+    begin: z.string().datetime({ offset: true }),
+    end: z.string().datetime({ offset: true }),
     id: z.string().regex(/^[0-9ABCDEFGHJKMNPQRSTVWXYZ]{6}$/).optional(),
     sourceRef: z.string().max(255).optional(),
     availability: z.array(zTimingAvailability).max(7).optional()
@@ -441,7 +441,7 @@ export const zMeAgendaItemDetailed = z.object({
     official: z.boolean(),
     private: z.boolean(),
     role: zMemberRole,
-    createdAt: z.string().datetime().nullable(),
+    createdAt: z.string().datetime({ offset: true }).nullable(),
     network: zAgendaNetworkRef,
     locationSet: zAgendaLocationSetRef
 });
@@ -475,7 +475,7 @@ export const zAgendaDetailed = z.object({
     description: z.string().nullable(),
     image: zImage.nullable(),
     official: z.boolean(),
-    createdAt: z.string().datetime(),
+    createdAt: z.string().datetime({ offset: true }),
     network: zAgendaNetworkRef,
     locationSet: zAgendaLocationSetRef
 });
@@ -492,9 +492,9 @@ export const zAgenda = z.object({
     image: zImage.nullable(),
     official: z.boolean(),
     url: z.string().url().nullable(),
-    createdAt: z.string().datetime(),
-    updatedAt: z.string().datetime(),
-    officializedAt: z.string().datetime().nullable(),
+    createdAt: z.string().datetime({ offset: true }),
+    updatedAt: z.string().datetime({ offset: true }),
+    officializedAt: z.string().datetime({ offset: true }).nullable(),
     private: z.boolean(),
     indexed: z.boolean(),
     network: zAgendaNetworkRef,
@@ -614,8 +614,8 @@ export const zEvent = z.object({
     country: zLocalizedString.nullable(),
     registration: z.array(zRegistration),
     offersAggregate: zOffersAggregate.readonly().optional(),
-    createdAt: z.string().datetime().readonly(),
-    updatedAt: z.string().datetime().readonly(),
+    createdAt: z.string().datetime({ offset: true }).readonly(),
+    updatedAt: z.string().datetime({ offset: true }).readonly(),
     accessibility: zAccessibility,
     age: zAgeRange,
     state: zModerationState.readonly(),
@@ -630,7 +630,7 @@ export const zEvent = z.object({
  */
 export const zUploadTicket = z.object({
     ref: z.string(),
-    expiresAt: z.string().datetime()
+    expiresAt: z.string().datetime({ offset: true })
 });
 
 /**
@@ -644,7 +644,7 @@ export const zUploadDescriptor = z.object({
     field: z.string(),
     ticket: z.string(),
     maxBytes: z.number().int(),
-    expiresAt: z.string().datetime()
+    expiresAt: z.string().datetime({ offset: true })
 });
 
 /**
@@ -1038,8 +1038,8 @@ export const zAgendaOverview = z.object({
  *
  */
 export const zTimespan = z.object({
-    first: z.string().datetime(),
-    last: z.string().datetime()
+    first: z.string().datetime({ offset: true }),
+    last: z.string().datetime({ offset: true })
 });
 
 /**
@@ -1228,7 +1228,7 @@ export const zMeAgendaItemDetailedWritable = z.object({
     official: z.boolean(),
     private: z.boolean(),
     role: zMemberRole,
-    createdAt: z.string().datetime().nullable(),
+    createdAt: z.string().datetime({ offset: true }).nullable(),
     network: zAgendaNetworkRef,
     locationSet: zAgendaLocationSetRef
 });
@@ -1670,8 +1670,8 @@ export const zFilterRelative = z.array(z.enum([
  *
  */
 export const zFilterTimings = z.object({
-    gte: z.string().datetime().optional(),
-    lte: z.string().datetime().optional()
+    gte: z.string().datetime({ offset: true }).optional(),
+    lte: z.string().datetime({ offset: true }).optional()
 });
 
 /**
@@ -1688,8 +1688,8 @@ export const zFilterLocalTime = z.object({
  *
  */
 export const zFilterCreatedAt = z.object({
-    gte: z.string().datetime().optional(),
-    lte: z.string().datetime().optional()
+    gte: z.string().datetime({ offset: true }).optional(),
+    lte: z.string().datetime({ offset: true }).optional()
 });
 
 /**
@@ -1697,8 +1697,8 @@ export const zFilterCreatedAt = z.object({
  *
  */
 export const zFilterUpdatedAt = z.object({
-    gte: z.string().datetime().optional(),
-    lte: z.string().datetime().optional()
+    gte: z.string().datetime({ offset: true }).optional(),
+    lte: z.string().datetime({ offset: true }).optional()
 });
 
 /**
@@ -1815,20 +1815,20 @@ export const zAgendasEventsListQuery = z.object({
         'current'
     ])).optional(),
     timings: z.object({
-        gte: z.string().datetime().optional(),
-        lte: z.string().datetime().optional()
+        gte: z.string().datetime({ offset: true }).optional(),
+        lte: z.string().datetime({ offset: true }).optional()
     }).optional(),
     localTime: z.object({
         gte: z.number().int().gte(0).lte(1440).optional(),
         lte: z.number().int().gte(0).lte(1440).optional()
     }).optional(),
     createdAt: z.object({
-        gte: z.string().datetime().optional(),
-        lte: z.string().datetime().optional()
+        gte: z.string().datetime({ offset: true }).optional(),
+        lte: z.string().datetime({ offset: true }).optional()
     }).optional(),
     updatedAt: z.object({
-        gte: z.string().datetime().optional(),
-        lte: z.string().datetime().optional()
+        gte: z.string().datetime({ offset: true }).optional(),
+        lte: z.string().datetime({ offset: true }).optional()
     }).optional(),
     age: z.object({
         gte: z.number().int().gte(0).optional(),
@@ -2049,20 +2049,20 @@ export const zAgendasEventsFacetsQuery = z.object({
         'current'
     ])).optional(),
     timings: z.object({
-        gte: z.string().datetime().optional(),
-        lte: z.string().datetime().optional()
+        gte: z.string().datetime({ offset: true }).optional(),
+        lte: z.string().datetime({ offset: true }).optional()
     }).optional(),
     localTime: z.object({
         gte: z.number().int().gte(0).lte(1440).optional(),
         lte: z.number().int().gte(0).lte(1440).optional()
     }).optional(),
     createdAt: z.object({
-        gte: z.string().datetime().optional(),
-        lte: z.string().datetime().optional()
+        gte: z.string().datetime({ offset: true }).optional(),
+        lte: z.string().datetime({ offset: true }).optional()
     }).optional(),
     updatedAt: z.object({
-        gte: z.string().datetime().optional(),
-        lte: z.string().datetime().optional()
+        gte: z.string().datetime({ offset: true }).optional(),
+        lte: z.string().datetime({ offset: true }).optional()
     }).optional(),
     age: z.object({
         gte: z.number().int().gte(0).optional(),
@@ -2156,12 +2156,12 @@ export const zAgendasLocationsListQuery = z.object({
     }).optional(),
     bbox: z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$/).optional(),
     createdAt: z.object({
-        gte: z.string().datetime().optional(),
-        lte: z.string().datetime().optional()
+        gte: z.string().datetime({ offset: true }).optional(),
+        lte: z.string().datetime({ offset: true }).optional()
     }).optional(),
     updatedAt: z.object({
-        gte: z.string().datetime().optional(),
-        lte: z.string().datetime().optional()
+        gte: z.string().datetime({ offset: true }).optional(),
+        lte: z.string().datetime({ offset: true }).optional()
     }).optional()
 });
 
