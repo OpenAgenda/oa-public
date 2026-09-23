@@ -12,132 +12,13 @@ export type Error = {
         /**
          * Stable, machine-readable error code.
          */
-        code: 'bad_request' | 'unauthorized' | 'read_only_credential' | 'insufficient_scope' | 'agenda_not_granted' | 'forbidden' | 'not_found' | 'too_many_requests' | 'service_unavailable';
+        code: 'bad_request' | 'unauthorized' | 'read_only_credential' | 'insufficient_scope' | 'forbidden' | 'not_found' | 'service_unavailable';
         /**
          * Human-readable explanation.
          */
         message: string;
     };
 };
-
-export type GeocodingResult = {
-    data: GeocodedPlace | null;
-};
-
-/**
- * A place, as a location created there gets it.
- */
-export type GeocodedPlace = {
-    address: string;
-    /**
-     * Largest administrative division of the country. In France, the region.
-     */
-    adminLevel1: string | null;
-    /**
-     * Administrative division below `adminLevel1`. In France, the department.
-     */
-    adminLevel2: string | null;
-    /**
-     * Administrative division below `adminLevel2`. In France, the intercommunality.
-     */
-    adminLevel3: string | null;
-    /**
-     * Municipality.
-     */
-    adminLevel4: string | null;
-    /**
-     * Subdivision of the municipality. In France, the arrondissement of Paris, Lyon and Marseille.
-     */
-    adminLevel5: string | null;
-    /**
-     * Subdivision of the municipality, below `adminLevel5`. In France, the neighbourhood.
-     */
-    adminLevel6: string | null;
-    postalCode: string | null;
-    /**
-     * INSEE code of the French municipality, when known.
-     */
-    insee: string | null;
-    /**
-     * ISO 3166-1 alpha-2 country code.
-     */
-    countryCode: string;
-    latitude: number;
-    longitude: number;
-    /**
-     * IANA time zone of the place.
-     */
-    timezone: string | null;
-};
-
-/**
- * The outcome of checking an API key.
- */
-export type KeyVerification = ValidKey | InvalidKey;
-
-/**
- * A key that authenticates.
- */
-export type ValidKey = {
-    valid: true;
-    key: VerifiedKey;
-};
-
-/**
- * A key that does not authenticate, and why.
- */
-export type InvalidKey = {
-    valid: false;
-    error: {
-        /**
-         * Stable, machine-readable reason.
-         */
-        code: 'invalid_key' | 'key_disabled' | 'key_expired' | 'key_exhausted' | 'key_unreadable' | 'owner_blacklisted';
-        /**
-         * Human-readable explanation.
-         */
-        message: string;
-    };
-};
-
-/**
- * What a working key is and what it may do.
- */
-export type VerifiedKey = {
-    /**
-     * `public` reads what is public and carries no user identity, `secret` acts as the user who owns it, `agenda` belongs to an agenda rather than to a user.
-     *
-     */
-    type: 'public' | 'secret' | 'agenda';
-    owner: KeyOwner;
-    /**
-     * The scopes the key is restricted to. `null` when the key declares no scopes of its own, so that its `type` alone bounds what it can do.
-     *
-     */
-    scopes: Array<string> | null;
-    /**
-     * The uids of the agendas the key is limited to and can read. `null` when the key is not limited to a list of agendas.
-     *
-     */
-    agendas: Array<number> | null;
-    /**
-     * The instant the key stops authenticating, or `null` when it does not expire.
-     *
-     */
-    expiresAt: string | null;
-};
-
-/**
- * Who the key belongs to; `null` for a public key.
- *
- */
-export type KeyOwner = {
-    type: 'user' | 'agenda';
-    /**
-     * The uid of that user or agenda.
-     */
-    uid: number;
-} | null;
 
 /**
  * A request refused because of the values it carries.
@@ -160,11 +41,11 @@ export type ValidationError = {
 };
 
 /**
- * One problem found in a request. A validator describes the values it refuses as precisely as it can, so an item carries the keys below plus whatever else that validator knows, such as the bounds the value had to satisfy.
+ * One problem found in a request. A validator describes the values it refuses as precisely as it can, so an item carries the keys below plus whatever else that validator knows, such as the rejected value or the bounds it had to satisfy.
  */
 export type ValidationIssue = {
     /**
-     * Where the offending value is in the request, as a dotted path. It is absent when the problem belongs to no single value.
+     * Name of the offending value in the request. It is absent when the problem belongs to no single value.
      */
     field?: string;
     /**
@@ -183,30 +64,6 @@ export type ValidationIssue = {
      * Human-readable explanation, in English.
      */
     message: string;
-    /**
-     * The value the validator refused, as the request carried it. A validator that reports a problem without recording the value omits this key.
-     */
-    input?: unknown;
-};
-
-export type LocationSettings = {
-    /**
-     * Whether the agenda allows each location write.
-     */
-    access: {
-        /**
-         * Creating a location, by external id too.
-         */
-        create: boolean;
-        /**
-         * Replacing or patching a location, by external id too.
-         */
-        update: boolean;
-        /**
-         * Deleting a location, by external id too.
-         */
-        delete: boolean;
-    };
 };
 
 /**
@@ -306,44 +163,18 @@ export type Image = {
         width?: number;
         url?: string;
     }>;
-    /**
-     * Reference of the stored image.
-     *
-     */
-    ref: string | null;
 };
 
 /**
- * The location snapshot an event carries.
+ * The location snapshot an event carries - a nullable subset of the `Location` record. The canonical, full record is the `Location` resource (`GET /agendas/{agendaUid}/locations/{locationUid}`, same `uid`).
+ *
  */
 export type EventLocation = {
     readonly uid?: number;
     name?: string | null;
     address?: string | null;
-    /**
-     * Largest administrative division of the country. In France, the region.
-     */
-    adminLevel1?: string | null;
-    /**
-     * Administrative division below `adminLevel1`. In France, the department.
-     */
-    adminLevel2?: string | null;
-    /**
-     * Administrative division below `adminLevel2`. In France, the intercommunality.
-     */
-    adminLevel3?: string | null;
-    /**
-     * Municipality.
-     */
-    adminLevel4?: string | null;
-    /**
-     * Subdivision of the municipality. In France, the arrondissement of Paris, Lyon and Marseille.
-     */
-    adminLevel5?: string | null;
-    /**
-     * Subdivision of the municipality, below `adminLevel5`. In France, the neighbourhood.
-     */
-    adminLevel6?: string | null;
+    city?: string | null;
+    region?: string | null;
     postalCode?: string | null;
     /**
      * ISO 3166-1 alpha-2 country code.
@@ -351,14 +182,18 @@ export type EventLocation = {
     countryCode?: string | null;
     latitude?: number | null;
     longitude?: number | null;
+    district?: string | null;
+    department?: string | null;
+    adminLevel3?: string | null;
+    adminLevel5?: string | null;
+    /**
+     * Localized country label.
+     */
+    country?: LocalizedString | null;
     /**
      * IANA time zone of the location.
      */
     timezone?: string | null;
-    /**
-     * Whether the location has been deleted.
-     */
-    readonly deleted: boolean;
 };
 
 /**
@@ -378,7 +213,7 @@ export type LocationSummary = {
 };
 
 /**
- * Full location representation returned by the single-get endpoint and by the list when `detailed=true`.
+ * Full location representation returned by the single-get endpoint and by the list when `detailed=true` — the canonical record (the events' embedded `EventLocation` is a nullable snapshot of it).
  *
  */
 export type Location = {
@@ -391,30 +226,12 @@ export type Location = {
     readonly setUid: number | null;
     name: string;
     address: string | null;
-    /**
-     * Largest administrative division of the country. In France, the region.
-     */
-    adminLevel1: string | null;
-    /**
-     * Administrative division below `adminLevel1`. In France, the department.
-     */
-    adminLevel2: string | null;
-    /**
-     * Administrative division below `adminLevel2`. In France, the intercommunality.
-     */
+    city: string | null;
+    district: string | null;
+    region: string | null;
+    department: string | null;
     adminLevel3: string | null;
-    /**
-     * Municipality.
-     */
-    adminLevel4: string | null;
-    /**
-     * Subdivision of the municipality. In France, the arrondissement of Paris, Lyon and Marseille.
-     */
     adminLevel5: string | null;
-    /**
-     * Subdivision of the municipality, below `adminLevel5`. In France, the neighbourhood.
-     */
-    adminLevel6: string | null;
     postalCode: string | null;
     /**
      * INSEE code of the French municipality, when known.
@@ -437,16 +254,7 @@ export type Location = {
      */
     access: LocalizedString;
     image: Image | null;
-    /**
-     * Credits for the location `image`; `null` when the location has no image.
-     *
-     */
     imageCredits: string | null;
-    /**
-     * Whether the rights to use the location `image` are held; `null` when the location has no image or the rights are not stated.
-     *
-     */
-    imageRightsAreHeld: boolean | null;
     website: string | null;
     email: string | null;
     phone: string | null;
@@ -466,7 +274,7 @@ export type Location = {
 };
 
 /**
- * An external identifier mapping this location to a third-party system. A mapping whose key or value contains `->` is refused with `422`.
+ * An external identifier mapping this location to a third-party system.
  *
  */
 export type LocationExtId = {
@@ -490,166 +298,6 @@ export type LocationAdditionalFields = {
     [key: string]: unknown;
 };
 
-/**
- * Request body for creating or replacing a location: the fields a client may set. Any other key - a read-only field such as `uid` or `slug`, an unknown name - is refused with `422`, as is a field value the server rejects, with per-field `error.errors[]`. A place the geocoder cannot find is refused with `422`, on the address, the country code or the coordinates the body changes.
- *
- */
-export type LocationInput = {
-    name: string;
-    address: string;
-    /**
-     * Largest administrative division of the country. In France, the region, written under its official label: the one the INSEE code names when they disagree.
-     *
-     */
-    adminLevel1?: string | null;
-    /**
-     * Administrative division below `adminLevel1`. In France, the department, written under its official label: the one the INSEE code names when they disagree.
-     *
-     */
-    adminLevel2?: string | null;
-    /**
-     * Administrative division below `adminLevel2`. In France, the intercommunality.
-     */
-    adminLevel3?: string | null;
-    /**
-     * Municipality.
-     */
-    adminLevel4?: string | null;
-    /**
-     * Subdivision of the municipality. In France, the arrondissement of Paris, Lyon and Marseille.
-     */
-    adminLevel5?: string | null;
-    /**
-     * Subdivision of the municipality, below `adminLevel5`. In France, the neighbourhood.
-     */
-    adminLevel6?: string | null;
-    postalCode?: string | null;
-    /**
-     * INSEE code of the French municipality.
-     */
-    insee?: string | null;
-    /**
-     * ISO 3166-1 alpha-2 country code.
-     */
-    countryCode: string;
-    latitude?: number;
-    longitude?: number;
-    /**
-     * IANA time zone of the location.
-     */
-    timezone?: string | null;
-    description?: LocalizedString;
-    /**
-     * Localized practical information on how to reach the location.
-     *
-     */
-    access?: LocalizedString;
-    image?: ImageInput;
-    /**
-     * Credits for the location `image`. Ignored when the location has no image. They go with the image: removed with it, and cleared by a write that gives a new image without them; `null` clears them.
-     *
-     */
-    imageCredits?: string | null;
-    /**
-     * Whether the rights to use the location `image` are held. Ignored when the location has no image. It goes with the image: removed with it, and cleared by a write that gives a new image without it; `null` clears it.
-     *
-     */
-    imageRightsAreHeld?: boolean | null;
-    website?: string | null;
-    email?: string | null;
-    phone?: string | null;
-    links?: Array<string>;
-    extIds?: Array<LocationExtId>;
-    /**
-     * SIRET number (French establishment id) of the location's operator.
-     */
-    siret?: string | null;
-    /**
-     * Whether the location is verified.
-     */
-    verified?: boolean;
-};
-
-/**
- * Partial update body. A new address, country code or coordinates are geocoded, at the point when the body changes a coordinate, at the address otherwise: the coordinates, the administrative levels, the postal code, the time zone, the INSEE code and the country code the body leaves out or sends back unchanged follow the place found. A location whose `adminLevel1`, `adminLevel2` or `adminLevel4` is missing is looked up again at its point. A place the geocoder cannot find is refused with `422` on the address, country code or coordinates the body changes.
- *
- */
-export type LocationPatch = {
-    name?: string;
-    address?: string;
-    /**
-     * Largest administrative division of the country. In France, the region, written under its official label: the one the INSEE code names when they disagree.
-     *
-     */
-    adminLevel1?: string | null;
-    /**
-     * Administrative division below `adminLevel1`. In France, the department, written under its official label: the one the INSEE code names when they disagree.
-     *
-     */
-    adminLevel2?: string | null;
-    /**
-     * Administrative division below `adminLevel2`. In France, the intercommunality.
-     */
-    adminLevel3?: string | null;
-    /**
-     * Municipality.
-     */
-    adminLevel4?: string | null;
-    /**
-     * Subdivision of the municipality. In France, the arrondissement of Paris, Lyon and Marseille.
-     */
-    adminLevel5?: string | null;
-    /**
-     * Subdivision of the municipality, below `adminLevel5`. In France, the neighbourhood.
-     */
-    adminLevel6?: string | null;
-    postalCode?: string | null;
-    /**
-     * INSEE code of the French municipality.
-     */
-    insee?: string | null;
-    /**
-     * ISO 3166-1 alpha-2 country code.
-     */
-    countryCode?: string;
-    latitude?: number;
-    longitude?: number;
-    /**
-     * IANA time zone of the location.
-     */
-    timezone?: string | null;
-    description?: LocalizedString;
-    /**
-     * Localized practical information on how to reach the location.
-     *
-     */
-    access?: LocalizedString;
-    image?: ImageInput;
-    /**
-     * Credits for the location `image`. Ignored when the location has no image. They go with the image: removed with it, and cleared by a write that gives a new image without them; `null` clears them.
-     *
-     */
-    imageCredits?: string | null;
-    /**
-     * Whether the rights to use the location `image` are held. Ignored when the location has no image. It goes with the image: removed with it, and cleared by a write that gives a new image without it; `null` clears it.
-     *
-     */
-    imageRightsAreHeld?: boolean | null;
-    website?: string | null;
-    email?: string | null;
-    phone?: string | null;
-    links?: Array<string>;
-    extIds?: Array<LocationExtId>;
-    /**
-     * SIRET number (French establishment id) of the location's operator.
-     */
-    siret?: string | null;
-    /**
-     * Whether the location is verified.
-     */
-    verified?: boolean;
-};
-
 export type LocationList = {
     /**
      * `LocationSummary` items by default, or full `Location` items when `detailed=true`.
@@ -664,7 +312,7 @@ export type LocationList = {
  */
 export type EventFormSchema = {
     /**
-     * The fields of the merged schema readable at the caller's access level - native event fields (with any per-agenda overrides applied) and the agenda's/network's additional fields (`path` under `additionalFields`). A field whose `read` access levels exclude the caller is omitted, and so is a native field the write operations do not take.
+     * The fields of the merged schema readable at the caller's access level - native event fields (with any per-agenda overrides applied) and the agenda's/network's additional fields (`schemaId` non-null). A field whose `read` access levels exclude the caller is omitted.
      *
      */
     fields: Array<FormSchemaField>;
@@ -672,20 +320,15 @@ export type EventFormSchema = {
 };
 
 /**
- * A form field descriptor. Two kinds share the array: **data field descriptors** (carrying `field` and the `path` of its value) and **section separators** (`type: 'section'`, no `field` - structure the form into titled groups). Descriptors may carry keys beyond those listed below.
+ * A form field descriptor. Two kinds share the array: **data field descriptors** (carrying `field`, the key the value lives under on events) and **section separators** (`type: 'section'`, no `field` - structure the form into titled groups). Descriptors may carry keys beyond those listed below.
  *
  */
 export type FormSchemaField = {
     /**
-     * Field name. Absent on section separators.
+     * Field name — the key the value is carried under on events. Absent on section separators.
      *
      */
     field?: string;
-    /**
-     * Where the field's value lives on an event, as a dotted path: `additionalFields.<field>` for an additional field, the field name itself for a native one. Absent on section separators.
-     *
-     */
-    path?: string;
     /**
      * Field kind, which sets the shape of the value (e.g. `text`, `radio`, `number`, `image`).
      *
@@ -718,7 +361,7 @@ export type FormSchemaField = {
      */
     enable?: boolean;
     /**
-     * The field is only active when another field has a value: either that field's name, or `{ field, value }` to require specific values (e.g. `onlineAccessLink` enabled when `attendanceMode` is online or mixed). While inactive, the field is not required, whatever `optional` says, and holds no value: one sent is not kept, and a stored one is cleared.
+     * The field is only active when another field has a value: either that field's name, or `{ field, value }` to require specific values (e.g. `onlineAccessLink` enabled when `attendanceMode` is online or mixed).
      *
      */
     enableWith?: unknown;
@@ -728,16 +371,6 @@ export type FormSchemaField = {
      */
     optionalWith?: unknown;
     /**
-     * Access levels allowed to read the field's value. `null` or empty means every caller.
-     *
-     */
-    read?: Array<AccessLevel> | null;
-    /**
-     * Access levels allowed to write the field's value. `null` or empty means every caller allowed to write events on the agenda; otherwise your access level must be listed, and a value you send for the field answers `422` with an `unauthorized` issue on it.
-     *
-     */
-    write?: Array<AccessLevel> | null;
-    /**
      * Set on a field converted from an earlier agenda setting: what it was converted from.
      *
      */
@@ -746,32 +379,23 @@ export type FormSchemaField = {
      * Allowed choices for choice-like field kinds.
      */
     options?: Array<{
-        /**
-         * What an additional field carries for this option. A value that is no option's `id`, the option's `value` included, answers `422` on a write.
-         */
         id?: number;
         value?: string;
         label?: LocalizedString | string;
         [key: string]: unknown;
     }>;
     /**
-     * Identifier of the agenda or network schema that declared or overrode the field; `null` on a native field as the platform declares it.
+     * Identifier of the declaring agenda/network schema. Non-null marks an **additional field**; `null`/absent marks a native one.
      *
      */
     schemaId?: number | null;
     /**
-     * Which level declared or overrode the field: `agenda` or `network`, or `event` for a native field as the platform declares it.
+     * Which level declared the field: `agenda`/`network` for additional fields, `event` for the platform's native event fields.
      *
      */
     schemaType?: 'agenda' | 'network' | 'event' | null;
     [key: string]: unknown;
 };
-
-/**
- * A level of access to an agenda's data, as the field rules of its event form name them.
- *
- */
-export type AccessLevel = 'public' | 'reader' | 'contributor' | 'moderator' | 'administrator' | 'internal' | 'system';
 
 export type MemberRole = 'administrator' | 'moderator' | 'contributor' | 'reader';
 
@@ -808,19 +432,6 @@ export type MeAgendaItemDetailed = {
     locationSet: AgendaLocationSetRef;
 };
 
-/**
- * A group of agendas.
- */
-export type Network = {
-    uid: number;
-    title: string | null;
-};
-
-export type NetworkList = {
-    data: Array<Network>;
-    pagination: Pagination;
-};
-
 export type MeAgendaList = {
     /**
      * `MeAgendaItem` items by default, or `MeAgendaItemDetailed` items when `detailed=true`.
@@ -837,7 +448,7 @@ export type Timing = {
     begin: string;
     end: string;
     /**
-     * Stable identifier of this occurrence, kept across writes so a link to a single date keeps working when the event is edited. Absent (rather than `null`) when none has been assigned. The server never moves a stored `id` to another occurrence; an occurrence it cannot match to a stored one receives a fresh `id`. Supplied on write, it is stored as sent and names that occurrence; a value repeated within the submitted timings is kept on the earliest of those occurrences by date, and the others receive a fresh `id`. A supplied `id` that does not match the pattern answers `422`.
+     * Stable identifier of this occurrence, kept across writes so a link to a single date keeps working when the event is edited. Absent (rather than `null`) when none has been assigned. The server never moves a stored `id` to another occurrence; an occurrence it cannot match to a stored one receives a fresh `id`. Supplied on write, it is stored as sent and names that occurrence; a value repeated within the submitted timings is kept on the first occurrence only. A supplied `id` that does not match the pattern answers `422`.
      *
      */
     id?: string;
@@ -846,170 +457,10 @@ export type Timing = {
      *
      */
     sourceRef?: string;
-    /**
-     * The inventory of this occurrence, ONE ROW PER TICKETING PROVIDER — the same occurrence can be sold out on pass Culture and open to the general public. At most one row per provider, so never more rows than the `provider` enum has values. Absent on an occurrence that never received any; `[]` is a value the field can hold, since an empty array sent with an occurrence the event does not have yet is stored and served as such.
-     * WRITTEN BY THE AVAILABILITY ENDPOINT. An ordinary event write can only SEED it, on an occurrence the event does not have yet — see below — and never change, remove or clear a row of one it already has.
-     * That endpoint is NOT part of this contract: it is `PATCH /v2/agendas/{agendaUid}/events/{eventUid}/availability`, on the v2 API, and this document declares no path for it, so a client generated from this spec cannot reach it and has to call it directly.
-     * Its body is keyed by OCCURRENCE first and by provider second — `{ "<timing id>": { "<provider>": { … } } }` — and `null` in place of a row removes that provider from that occurrence. A body keyed by provider alone names no occurrence.
-     * It requires `Content-Type: application/json`, since a body it cannot read is refused rather than taken for an empty one; the `events:write` scope; the right to edit THAT event, which is what decides — being a member of the agenda is neither sufficient nor always necessary; and ticketing enabled on the agenda, failing which it answers `422` `offers.disabled`. Its access token must travel in a header (`Authorization: Bearer …` or `access-token`) and NOT in the body: the endpoint reads its body only once it knows who is calling, so a token placed inside the body is never seen, where an ordinary v2 write would have taken it.
-     * ⚠️ READ ITS BODY, NOT ONLY ITS STATUS. It answers `200` with `{ success, applied, written, errors }`, and a batch whose occurrences it cannot resolve — an unknown or misspelled timing id — is a `200` carrying `success: false` and the faults in `errors`, having written nothing. A connector that checks the status alone reads a batch it never wrote as a success.
-     * AN ORDINARY EVENT WRITE CARRIES THIS INVENTORY. Unless it declares `availabilityAuthority`, whatever it sends for an occurrence the event already has — an occurrence it sends WITH that occurrence's stored `id` — is dropped before validation, so a read-modify-write round trip can neither change a row, nor add one, nor clear one with an explicit `[]` — and it is not critiqued field by field for rows that were never going to be written either. The drop applies to the rows carried, not to the shape of the field: an `availability` of another type than this one is rejected with `422` rather than dropped. `null` is an exception this schema does not declare: sent, it says nothing about the field and is ignored, exactly like an occurrence that omits the key — which is the spelling to send.
-     *
-     * TWO OCCURRENCES OF THE SAME WRITE SENT WITH THE SAME STORED `id` are both occurrences the event already has, so the rows both carry are dropped; the one that receives a fresh `id` is stored with no inventory, and the call answers `200`. An occurrence another write removes between this write's reads reaches the same outcome: its rows are dropped as carried, and nothing is seeded under its fresh `id`. Declaring `availabilityAuthority` is what makes either one write the rows it sends.
-     *
-     * DECLARING `availabilityAuthority` IS THE WAY OUT, and the only one on these routes: it names the providers the write owns, and for those the payload is law. Everything that follows describes a write that does NOT declare one.
-     * The reason is that such a write cannot be told apart from the inventory it merely transports: a connector writes between the moment a client reads an event and the moment its save arrives, so a row absent from that save may be one the client never saw rather than one it means to drop. The endpoint writes under a compare-and-swap and has no such ambiguity.
-     * A CLIENT SHOULD THEREFORE OMIT THE FIELD when saving an event it has just read: an occurrence whose entry does not mention `availability` keeps its stored rows. Omitting the FIELD is safe; omitting the OCCURRENCE is not — a timings write is a full replacement, and an occurrence no incoming entry claims is deleted along with its inventory. Sending the rows back is not merely useless, it is what pushes a read-modify-write past the 100 kB body limit of the ordinary event routes: measured, a payload crosses it at about 500 occurrences carrying one row each, or 300 carrying two.
-     * AN OCCURRENCE THE EVENT DOES NOT HAVE YET is the exception, and the only way an ordinary write stores inventory: it has no stored rows to protect, so the rows sent with it are kept — provided ticketing is enabled on the agenda, which is checked for exactly this case and answers `422` `offers.disabled` otherwise. An event can thus be created with its inventory in a single call.
-     * SERVED IN `timings[]` ONLY, and an earlier wording of this paragraph promised more: `firstTiming` / `lastTiming` / `nextTiming` copy the occurrence, and that copy used to carry the rows. It carried them AS SYNCED — nothing resolves a compact copy, and a compact listing does not even load the catalogue a sale window would be read from. Serving them there contradicted the rule stated above, that a row is served resolved or not at all, so the copies no longer carry the field. Read `timings[]` for inventory.
-     *
-     */
-    availability?: Array<TimingAvailability>;
 };
 
 /**
- * A ticketing source OpenAgenda knows. `passculture` is the published spelling here; the `registration` service of the same name is spelled `passCulture` — two fields, two namespaces.
- *
- */
-export type TicketingProvider = 'billetweb' | 'eventbrite' | 'helloasso' | 'mapado' | 'weezevent' | 'passculture' | 'manual';
-
-/**
- * What one ticketing provider says about one occurrence. THIS SCHEMA IS READ AND WRITTEN, and `status` does not mean the same thing in the two directions.
- *
- * WHAT YOU SEND is the provider's RAW word as of `syncedAt`. Do not apply the sale window to it yourself: send `available` with its bounds and let every read derive the window half from them. A connector that pre-resolves its own window stores a value that is already stale the moment the window moves, and the server re-derives on top of it.
- *
- * WHAT YOU RECEIVE is that word RESOLVED, as of the moment of the read: the provider's word of `syncedAt`, with the sale window already applied to it and the event's own `status` already answered over it. Take it as final. `onSaleFrom` and `onSaleThrough` say what produced it, and re-applying them to the value you received contradicts it - a full event's row is served `soldOut` even when its window only opens next week, because there is nothing left to wait for.
- *
- * The event's own `status` answers over the provider's word, and it answers alone. A cancelled event serves every row `salesClosed`, whatever the window says, and with `closedBySource: true`, since the window is not what closed it - and it serves no sale window at all: `onSaleFrom` and `onSaleThrough` are absent from the rows of a cancelled event, because a sale that opens next month on an event that will not happen is not a fact about anything. The stored values are untouched, and an event that leaves the cancelled status serves them again. A per-source lead time (`onSaleFromBeforeBegin`) is still served with the catalogue, and deriving a window from it on a cancelled event is the same mistake in another shape.
- *
- * A full event serves every row `soldOut`, with no exception: a row whose sale has not opened yet, one whose window has elapsed, and one whose provider shut its own channel are all served `soldOut`. The status is set on the whole event while stock is managed per provider, so it decides; for a visitor looking to book, the answer is the same in all three cases. Nothing is overwritten - the column keeps what the provider synced, and the next read of an event no longer full serves it again.
- *
- * WHAT TELLS YOU A ROW WAS DICTATED is the event's own `status`, in this same document: a decision taken on the whole event is served on the global field rather than copied onto every row. `onSaleFrom` and `onSaleThrough` are not that mark - they are a fact about the provider's channel, and under a dictating status they no longer explain the value you received. ASK FOR `status` IN YOUR FIELD SELECTION if you need the mark: a selection that leaves it out - `?if[]=uid,timings` - is served the dictated rows with nothing in the response saying so.
- *
- */
-export type TimingAvailability = {
-    /**
-     * Which ticketing source this row belongs to.
-     */
-    provider: TicketingProvider;
-    /**
-     * `mixed` never appears here — it only exists on the aggregate, where occurrences may disagree.
-     *
-     */
-    status: 'available' | 'limited' | 'soldOut' | 'notYetOnSale' | 'salesClosed' | 'unknown';
-    /**
-     * When the connector READ this at the provider, with an explicit offset. A fact about the data, not about the feed: the event's `availabilityUpdatedAt` is set by the write, not by this stamp. Must not be in the future.
-     *
-     */
-    syncedAt: string;
-    /**
-     * The provider's own key for this occurrence (a session, a stock, a series child). Opaque to OpenAgenda.
-     *
-     */
-    sourceRef?: string;
-    onSaleFrom?: string;
-    /**
-     * Must be at or after `onSaleFrom` when both are set.
-     */
-    onSaleThrough?: string;
-    /**
-     * Provenance of a `salesClosed`: `true` when something other than the window shut the sale - the provider shutting its own channel, or the event's own `status` being `cancelled` - `false` or absent when only the sale window elapsed. Decides whether a later read may reopen the row on the window alone.
-     * SERVED WITH A `salesClosed` AND WITH NOTHING ELSE, whatever was stored. A row served `soldOut` - including a full event's rows, where the provider had shut its own channel - `limited`, or `available` because its window reopened, carries no such flag: it would be the provenance of a closure the row does not serve. What was stored is kept in the column, it is what decides a later reopening, and a read that does serve `salesClosed` shows it again.
-     *
-     */
-    closedBySource?: boolean;
-};
-
-/**
- * One ticketing source of an event, as this API publishes it: what it sells the event at, and where.
- * `tiers` is absent when the source pushed none - a first sync that declares its pricing before its catalogue - and an empty array means a catalogue deliberately cleared. `pricing` answers either way, which is why it is required and the tiers are not.
- *
- */
-export type OffersSource = {
-    provider: 'billetweb' | 'eventbrite' | 'helloasso' | 'mapado' | 'weezevent' | 'passculture' | 'manual';
-    /**
-     * An ISO 4217 code. It describes the SOURCE, not its amounts: a free catalogue carries one too, and gaining a paid tier later does not change denomination.
-     *
-     */
-    currency: string;
-    /**
-     * The category this source declared. `offersAggregate.pricing` rolls every source up, and a single source can disagree with it.
-     *
-     */
-    pricing: 'free' | 'paid' | 'donation' | 'mixed' | 'unknown';
-    /**
-     * How to find this event on the provider's side.
-     *
-     */
-    source?: {
-        /**
-         * The provider's own id for the catalogue object. Opaque, and the key a connector writes against.
-         *
-         */
-        ref?: string;
-        /**
-         * The booking page. The same URL reaches `offersAggregate.links` attributed to this provider, and `registration` stripped of its source.
-         *
-         */
-        url?: string;
-    };
-    /**
-     * When the connector last pushed this source. It says how fresh the price list is, nothing more - inventory has its own stamp, on each availability row.
-     *
-     */
-    syncedAt?: string;
-    /**
-     * An ISO 8601 duration: sales open that long before each occurrence starts. Resolved for you - a row whose window has not opened is served `notYetOnSale` - so read this as the rule, not as something to compute with.
-     *
-     */
-    onSaleFromBeforeBegin?: string;
-    /**
-     * An ISO 8601 duration: sales shut that long before each occurrence starts. Being a lead time, it is never greater than `onSaleFromBeforeBegin`, which would shut sales before they open.
-     *
-     */
-    onSaleThroughBeforeBegin?: string;
-    tiers?: Array<OffersTier>;
-};
-
-/**
- * One line of a source's price list.
- * Amounts are in the smallest unit of the source's `currency` (`1800` is EUR 18.00), and an amount can be absent: a membership at no stated price is a real tier, which is also why `offersAggregate.price` is `null` rather than computed over part of a list.
- *
- */
-export type OffersTier = {
-    /**
-     * The provider's own id for this tier. Opaque, and what a per-date override names to say which tiers it replaces.
-     *
-     */
-    sourceRef: string;
-    /**
-     * A localized map, even for a monolingual source - at least one language is filled.
-     * ABSENT UNLESS THE EVENT WAS READ ON ITS OWN, and this is the one place where this contract trades completeness for weight. Labels are localized maps over eight locales and, at the published caps (10 sources x 50 tiers), 81.5% of a catalogue's bytes - 110.5 KiB against 20.4 KiB per event. A listing that carries grids at all would pay that per event, on the same paths as the JSON and JSON-LD feeds, which is a memory incident this API has already had. So the labels travel for a single-event read, and a listing's grid carries the prices, the sale windows and the types without them.
-     * Read a grid you mean to display from the event's own endpoint. A listing is better served by `offersAggregate`, which is what it is for.
-     *
-     */
-    label?: LocalizedString;
-    /**
-     * `donation` carries `minAmountCents` and never `priceCents` - a floor plus a fixed amount is just a fixed amount. Absent reads as `standard`.
-     *
-     */
-    offerType?: 'standard' | 'donation' | 'membership';
-    priceCents?: number;
-    /**
-     * The floor of a free-price tier, when it declares one.
-     *
-     */
-    minAmountCents?: number;
-    /**
-     * When this tier goes on sale, for display - "on sale until 12 November". Unlike the source's relative window, this pair is not an input of `availability`.
-     *
-     */
-    saleStart?: string;
-    saleEnd?: string;
-};
-
-/**
- * What the ticketing sources of this event add up to, computed on each read. `availability` is `null` when nothing can be said - every occurrence past, or no source carrying a usable status - and reflects the current time, except `soldOut` and `limited`, which reflect the last sync with the provider, and the answers the event's own `status` dictates whatever the clock says: `salesClosed` when it is `cancelled`, and `soldOut` when it is `full`, with no exception - sources that disagree, windows that have elapsed and sales that have not opened all included, since the status is global where the stock is not. `mixed` and `unknown` therefore never answer for a full event. `pricing` is a category rolled up from the sources' price lists and declared pricing.
+ * What the ticketing sources of this event add up to, computed on each read. `availability` is `null` when nothing can be said - every occurrence past, or no source carrying a usable status - and reflects the current time, except `soldOut` and `limited`, which reflect the last sync with the provider. `pricing` is a category rolled up from the sources' price lists and declared pricing.
  *
  */
 export type OffersAggregate = {
@@ -1019,57 +470,10 @@ export type OffersAggregate = {
      */
     availability?: 'available' | 'limited' | 'notYetOnSale' | 'soldOut' | 'salesClosed' | 'unknown' | 'mixed' | null;
     /**
-     * A category, never an amount — the amounts are in `price`. `mixed` means the sources or the occurrences disagree (one date free, another paid); `unknown` means no source carries a usable pricing.
+     * A category, never an amount. `mixed` means the sources or the occurrences disagree (one date free, another paid); `unknown` means no source carries a usable pricing.
      *
      */
     pricing?: 'free' | 'paid' | 'donation' | 'mixed' | 'unknown' | null;
-    /**
-     * The event's price bounds, over the same resolved tier sets as `pricing` — so the two can never disagree, and a `free` event cannot carry a non-zero minimum.
-     *
-     */
-    price?: OffersPrice;
-    /**
-     * Where to book, one entry per ticketing source that carries a usable URL, in catalogue order. `null` when none does, and on a cancelled event, whose sale no longer exists - the same read also adds no booking link to `registration`, though whatever the organiser stored there is left untouched.
-     * The same URLs reach `registration` as `{type: link}` entries, but stripped of their source: that field lists ways to sign up, not a map of ticketing providers. A reader showing one line PER SOURCE — a per-date detail panel, say — could attach no URL to any line. This is that attribution, and nothing more.
-     * EVENT-LEVEL, and that is a property of THIS field — not a limit of what OpenAgenda can hold, which is what an earlier wording of this paragraph claimed. A per-(date, provider) booking URL is part of the model and a connector can write one, through the **v2** event API. This API neither returns nor accepts it: the value is internal, `Timing` is `additionalProperties: false` here, and a body carrying one is refused. WHICH refusal depends on the agenda: ticketing is gated per agenda and that gate speaks first, so an agenda without it answers `422` `offers.disabled` for the whole write, and only one that has it reaches the strict schema check and its `422` `schema.unknown`. Same split as the availability endpoint, for which this document likewise declares no path.
-     * An availability row does not carry one HERE either, and that is now a limit of THIS API rather than of the model: the **v2** read joins the override onto the row of the same (occurrence, provider) pair and serves it as `bookingUrl`. This API strips it instead of serving it undeclared, because `TimingAvailability` is `additionalProperties: false` and a consumer validating against this document would reject the row.
-     * Declaring it needs the read/write split this document applies everywhere else and not here: `Timing` and `TimingAvailability` are reached by both the request bodies and the responses — the schema says so itself — so a `readOnly` field on either offers a field the API refuses. Splitting them is a contract change of its own, and until it lands, read `links` as "where this source sells this event", never "where this source sells this date".
-     *
-     */
-    links?: Array<OffersLink> | null;
-} | null;
-
-export type OffersLink = {
-    provider: 'billetweb' | 'eventbrite' | 'helloasso' | 'mapado' | 'weezevent' | 'passculture' | 'manual';
-    /**
-     * The booking page this provider published for the event, cleaned by the same rule that decides what reaches `registration` — so the two never disagree on whether a source is linkable.
-     *
-     */
-    url: string;
-};
-
-/**
- * What the event's ticketing costs, in the smallest unit of its currency.
- * ALL OR NOTHING. `null` whenever a single tier cannot be read as an amount - a membership at no stated price, a source that declared its pricing before pushing a catalogue - or when the contributing sources do not share one currency. A bound computed over part of a price list is wrong in both directions: the unreadable tier could sit below the minimum as easily as above the maximum. "Unknown" is an answer; "from EUR 18" when a EUR 9 tier exists is not.
- * These bounds are what T16 removed `priceRanges` in favour of: "the tiers carry every price, and a consumer wanting 'from X' computes min(tiers[].priceCents)". For a while that reasoning stood on nothing - the tiers reached no public response - and this was the only figure a public reader got. `offers` now publishes the grid on a detailed read, so the computation is available again; these bounds remain the answer for a listing, which carries no grid, and the only one that accounts for a per-date override.
- *
- */
-export type OffersPrice = {
-    /**
-     * The cheapest way in. Zero on a free event, and on a pay-what-you-want tier that declares no floor.
-     *
-     */
-    minCents: number;
-    /**
-     * `null` means OPEN-ENDED, not "unknown": a pay-what-you-want tier has a floor and no ceiling, and publishing its floor as a ceiling would misstate what a visitor may give.
-     *
-     */
-    maxCents: number | null;
-    /**
-     * ISO 4217, upper-case. A source carries one currency; bounds are only served when every contributing source agrees on it.
-     *
-     */
-    currency: string;
 } | null;
 
 /**
@@ -1143,52 +547,6 @@ export type ImageRef = {
 };
 
 /**
- * A licence, identified by its SPDX identifier.
- */
-export type License = {
-    /**
-     * SPDX identifier.
-     */
-    id: string;
-    name: string;
-    url: string;
-};
-
-/**
- * An organisation to credit: the one named in its agenda's settings, else the agenda's title and website, else the agenda's page on OpenAgenda. Never empty.
- *
- */
-export type RightsParty = {
-    name: string;
-    url: string;
-    /**
-     * The agenda this organisation administers.
-     */
-    agendaUid: number;
-};
-
-/**
- * Attribution of an event. `licensor.agendaUid` equals `originAgenda.uid`; `publisher.agendaUid` is the agenda read. The two are equal when the event is read from its origin agenda.
- *
- */
-export type EventRights = {
-    license: License;
-    licensor: RightsParty;
-    publisher: RightsParty;
-};
-
-/**
- * Attribution of an agenda.
- */
-export type AgendaRights = {
-    license: License;
-    publisher: {
-        name: string;
-        url: string;
-    };
-};
-
-/**
  * A compact reference to an agenda.
  */
 export type AgendaRef = {
@@ -1219,7 +577,7 @@ export type ExtId = {
 };
 
 /**
- * Agenda-specific additional fields. The available keys and the shape of each value are defined by the agenda's event form schema (`GET /agendas/{agendaUid}/events/schema`): each value follows its field's `fieldType`. On a write, a key the schema does not declare answers `422`.
+ * Agenda-specific additional fields. The available keys and the shape of each value are defined by the agenda's event form schema (`GET /agendas/{agendaUid}/events/schema`): each value follows its field's `fieldType`.
  *
  * A `file`/`image` field is set by reference, like the native image: stage the bytes via `POST /agendas/{uid}/uploads`, then send `{ ref, name? }` here (`name` is the original filename, used for the download; optional), or `null` to clear it. On read the same field returns the stored descriptor `{ originalName, extension, filename }`, where `filename` is the stored object's key; the API does not return its absolute URL.
  *
@@ -1304,7 +662,7 @@ export type Agenda = {
      */
     officializedAt: string | null;
     /**
-     * Whether the agenda is private.
+     * Whether the agenda is private (not publicly listed).
      */
     private: boolean;
     /**
@@ -1313,11 +671,6 @@ export type Agenda = {
     indexed: boolean;
     network: AgendaNetworkRef;
     locationSet: AgendaLocationSetRef;
-    /**
-     * The licence the agenda's events are published under, and the organisation to credit for the agenda's selection and additional fields. `null` on a private agenda, whose events are not open data.
-     *
-     */
-    readonly rights: AgendaRights | null;
 };
 
 export type AgendaList = {
@@ -1541,16 +894,6 @@ export type EventSummary = {
      * The agenda the event was originally created in.
      */
     readonly originAgenda: AgendaRef | null;
-    /**
-     * Who to credit when reusing the event under its licence: the licensor (the organisation of the origin agenda, whichever agenda the event is read through) and the publisher (the organisation of the agenda read, which licenses its selection and its additional fields). Indexed with the event and reindexed when either organisation changes. `null` on an event indexed before attribution was introduced, until it is reindexed, on an event whose origin agenda no longer exists, on an event of a private agenda, and on a write response whose re-read failed.
-     *
-     */
-    readonly rights: EventRights | null;
-    /**
-     * The address to link to when crediting the event: the page its licensor declared for it, else its page on its origin agenda. The same whichever agenda the event is read through. `null` on an event indexed before this field was introduced, until it is reindexed, and on an event whose origin agenda no longer exists.
-     *
-     */
-    canonicalUrl: string | null;
     location: EventLocation | null;
     /**
      * IANA time zone the timings are expressed in (null when unset).
@@ -1594,16 +937,6 @@ export type Event = {
      * The agenda the event was originally created in.
      */
     readonly originAgenda: AgendaRef | null;
-    /**
-     * Who to credit when reusing the event under its licence: the licensor (the organisation of the origin agenda, whichever agenda the event is read through) and the publisher (the organisation of the agenda read, which licenses its selection and its additional fields). Indexed with the event and reindexed when either organisation changes. `null` on an event indexed before attribution was introduced, until it is reindexed, on an event whose origin agenda no longer exists, on an event of a private agenda, and on a write response whose re-read failed.
-     *
-     */
-    readonly rights: EventRights | null;
-    /**
-     * The address to link to when crediting the event: the page its licensor declared for it, else its page on its origin agenda. The same whichever agenda the event is read through. `null` on an event indexed before this field was introduced, until it is reindexed, and on an event whose origin agenda no longer exists.
-     *
-     */
-    canonicalUrl: string | null;
     timings: Array<Timing>;
     location: EventLocation | null;
     /**
@@ -1622,15 +955,11 @@ export type Event = {
     additionalFields: AdditionalFields;
     longDescription: LocalizedString;
     conditions: LocalizedString;
-    registration: Array<Registration>;
     /**
-     * The ticketing catalogue of this event, one entry per source: the price list a reader can display as a grid, with the booking page it is sold on.
-     * DETAILED READS ONLY. A compact listing speaks prices through `offersAggregate` instead, which is what it is for: a card says "from EUR 15", a detail page unfolds the four tiers. And on a detailed listing the grid comes without its tier labels - see `OffersTier.label`, where the measurement behind that is set out.
-     * Present only on an event that carries a catalogue, and absent - not `null` - otherwise, like `offersAggregate` beside it.
-     * A VIEW, NOT THE STORED COLUMN. What a connector pushes is kept as sent, and the keys below are what this API publishes of it; a key outside them is stored and not served. The grid is also the EVENT's: an occurrence may override it, which `offersAggregate` accounts for, so an event with an overridden date can carry bounds that no tier of this grid names.
-     *
+     * Localized country label of the event location.
      */
-    readonly offers?: Array<OffersSource>;
+    readonly country: LocalizedString | null;
+    registration: Array<Registration>;
     /**
      * Present only on an event with a ticketing catalogue.
      *
@@ -1638,17 +967,6 @@ export type Event = {
     readonly offersAggregate?: OffersAggregate;
     readonly createdAt: string;
     readonly updatedAt: string;
-    /**
-     * A SECOND CURSOR, for inventory rather than catalogue.
-     * An availability write does not move `updatedAt`: an inventory tick is not a content change, and a catalogue consumer paging on `updatedAt.asc` must not see an event resurface every time a seat is sold. This stamp moves instead, so availability stays followable on its own — `?sort=availabilityUpdatedAt.asc&availabilityUpdatedAt[gte]=<watermark>`.
-     * Its value is the instant OpenAgenda last WROTE an availability row of this event — the write clock. It is not the rows' own `syncedAt`, which says when each provider was read and may sit behind another provider's row, so a max-of-`syncedAt` would not move forward at all for such a provider.
-     * IT ALSO MOVES WHEN THE EVENT'S OWN `status` CHANGES WHAT ITS ROWS SERVE, with no row written: entering `full` or `cancelled`, leaving either, and moving from one to the other. The three answers are three different things to an inventory consumer — a full event serves `soldOut` and keeps its booking links, a cancelled one serves `salesClosed` with `closedBySource: true` and no link at all — so each transition between them is news. An event carrying no availability row is never stamped by a status change: the field stays absent, as it is for the overwhelming majority.
-     * THE STAMP IS TAKEN AT THE WRITE, THE DOCUMENT IS INDEXED AFTER, and the two orders can differ: an event stamped at t1 may be indexed after one stamped at t2 > t1, and a consumer that has already moved its watermark to t2 would never see it. Re-indexing is also best-effort — a failed resync is retried later, not at the instant of the write. So overlap rather than trust exhaustiveness: page with a watermark set a little behind the newest value you saw (a few minutes covers the ordinary case), and make your ingestion idempotent. Rows carry `syncedAt`, so re-reading one costs nothing.
-     * ABSENT from an event that has never received availability, which is the overwhelming majority. A `[gte]` filter therefore excludes them naturally, which is the intent: following inventory should not mean paging through the whole corpus.
-     * IT DOES NOT MOVE WHEN AN EVENT LEAVES. Deleting an event, or unpublishing it, is a catalogue change: it stamps `updatedAt` and leaves this one where it was. A consumer that follows inventory ALONE therefore keeps selling dates for an event that is gone — follow `updatedAt` as well, or re-read the events you hold, to see departures.
-     *
-     */
-    readonly availabilityUpdatedAt?: string;
     accessibility: Accessibility;
     age: AgeRange;
     readonly state: ModerationState;
@@ -1661,12 +979,12 @@ export type Event = {
 };
 
 /**
- * A staged upload. Attach `ref` on a write (`image`, or a custom file/image field of an event under `additionalFields`) before it expires.
+ * A staged upload. Attach `ref` on an event write (`image`, or a custom file/image field under `additionalFields`) before it expires.
  *
  */
 export type UploadTicket = {
     /**
-     * The staging reference to attach on a write.
+     * The staging reference to attach on an event write.
      */
     ref: string;
     /**
@@ -1713,16 +1031,16 @@ export type UploadDescriptor = {
 };
 
 /**
- * Write shape for an image (the read `Image` carries the rendition URLs). Attach the image one of two ways - a freshly-staged upload by its `ref` (the value returned by `POST /agendas/{uid}/uploads`), or a publicly reachable `url` the server fetches - or send `null` to remove the current image. The image is stored as part of the same write as the rest of the edit; renditions are derived from it on demand.
+ * Write shape for an event image (the read `Image` carries the rendition URLs). Attach the image one of two ways - a freshly-staged upload by its `ref` (the value returned by `POST /agendas/{uid}/uploads`), or a publicly reachable `url` the server fetches - or send `null` to remove the current image. The image is stored as part of the same write as the rest of the edit; renditions are derived from it on demand.
  *
  * The `url` must be a publicly reachable `http(s)` image, without credentials in the URL. A URL that is malformed, not `http(s)`, carries credentials, is not publicly reachable, cannot be retrieved, is not a valid image, or is larger than 20 MiB is rejected with `422`.
  *
- * An object carrying both `ref` and `url`, or any other key, is rejected with `422`.
+ * An object carrying both `ref` and `url`, or any other key, is rejected with `400`.
  *
  */
 export type ImageInput = {
     /**
-     * A staging reference returned by the upload endpoint (of the form `staging/{agendaUid}/…`), or the `ref` of the read `Image` the resource carries, which keeps that image as it is. A staging reference must belong to this agenda - a reference for another agenda answers `422` - and be attached before the upload's `expiresAt`; attaching it later may answer `422`. Any other reference answers `422`, as does the `ref` of a stored image on a create.
+     * A staging reference returned by the upload endpoint (of the form `staging/{agendaUid}/…`). It must belong to this agenda - a reference for another agenda answers `422` - and be attached before the upload's `expiresAt`; attaching it later may answer `422`.
      *
      */
     ref: string;
@@ -1735,11 +1053,11 @@ export type ImageInput = {
 } | null;
 
 /**
- * Request body for creating or replacing an event: the fields a client may set. Agenda-specific fields go under `additionalFields`, never at the top level; any other top-level key (a read-only field such as `uid` or `slug`, an unknown name) is rejected with `422`, as is an `additionalFields` name that collides with a native field and a field value the server rejects, each named under `error.errors[]`.
+ * Request body for creating or replacing an event: the fields a client may set. Agenda-specific fields go under `additionalFields`, never at the top level; any other top-level key (a read-only field such as `uid` or `slug`, an unknown name) is rejected with `400`, as is an `additionalFields` name that collides with a native field. Field values are validated by the server (a `422` with per-field `error.errors[]` on failure).
  *
  * Required fields depend on the target agenda: an event needs at least `title`, `description` and `timings`, plus a `location` unless it is online-only, plus whatever the agenda marks required; a missing one answers `422` with the per-field set under `error.errors[]`.
  *
- * A body that replaces an event and leaves `image` out removes the image and its credits. An event's privacy is derived from its agenda.
+ * The `image` is set either by reference - stage the bytes via `POST /agendas/{uid}/uploads` and pass the returned `ref` here - or by a public `url` the server fetches (or `null` to clear it). An event's privacy is derived from its agenda.
  *
  */
 export type EventInput = {
@@ -1757,27 +1075,6 @@ export type EventInput = {
      *
      */
     timings?: Array<Timing>;
-    /**
-     * The ticketing sources THIS WRITE is authoritative for — the one way an ordinary event write may change, add or clear the inventory of an occurrence the event already has.
-     *
-     * For a provider named here the payload is law on every occurrence that NAMES `availability`: a row present in that array is written, a row absent from it is a removal, and an explicit `[]` removes every provider the write claims. For a provider NOT named here, nothing the write sends is applied to an occurrence the event ALREADY HAS: its stored rows are kept, so a connector cannot wipe the source a peer has just pushed and that it does not know about. For an occurrence sent WITH its stored `id` those rows are dropped before the body is judged, so they are not critiqued field by field either and a connector may send a peer's row back exactly as it read it. That stored `id` is what makes an occurrence one the event already has: sent without it, every row it carries is validated, and a row the rules reject answers `422`.
-     *
-     * On an occurrence the event does not have yet there are no stored rows to protect, and the seeding rules above apply unchanged — every row sent with it is kept, claimed or not. An occurrence another write removes while this one is in flight is one exception, and it bites only what this write does not claim: the call still answers `200`, and the rows it sends for that occurrence under a provider it does not name are not stored.
-     *
-     * AN OCCURRENCE WHOSE ENTRY DOES NOT MENTION `availability` says nothing and keeps its stored rows, declaration or not. This is what makes the field usable at all: a timings write is a full replacement, so correcting one date means sending the others back, and their silence must not delete anything.
-     *
-     * Declared PER EVENT, not per occurrence: it scopes which sources the write owns, never which dates.
-     *
-     * Requires ticketing enabled on the agenda, failing which a non-empty value answers `422` `offers.disabled` — declaring a scope is writing ticketing. AN ENTRY that is not one of these names answers `422` `offers.provider.invalid`, whatever its type; the same name twice, `422` `offers.duplicate`; more entries than there are providers, one `422` `availability.authority.tooMany` for the array and no per-entry refusal; and a value that is not an array at all, `422` `availability.authority.invalid`. An empty array claims nothing and behaves exactly like omitting the field, and so does `null`.
-     *
-     * IT GOVERNS ONLY THE `timings` THIS BODY SENDS. A body that does not carry a `timings` array declares a scope over nothing and changes no inventory — it is still validated, and still answers `422` `offers.disabled` on an agenda without ticketing, but it has no other effect. The reason is that on a partial update the server refills the occurrences it was not sent from the stored event, and those rows are a read taken when the request arrived: honouring them would let a write replay a stale snapshot over what the availability endpoint published in the meantime.
-     *
-     * WRITE-ONLY, and never stored: it is an instruction about this request, so no read returns it. It has no effect on creation either — a new event has no stored inventory to arbitrate, and the rows sent with it are kept whether or not it is present.
-     *
-     * It settles the contract question, not the one of scale: large or frequent inventory syncs still belong on the availability endpoint (see `Timing.availability`), since the ordinary event routes cap the body at 100 kB and validate the whole compiled event.
-     *
-     */
-    availabilityAuthority?: Array<TicketingProvider> | null;
     /**
      * The event's location, referenced by its uid; a uid that matches no location answers `422`.
      *
@@ -1817,11 +1114,6 @@ export type EventInput = {
      *
      */
     imageCredits?: string | null;
-    /**
-     * The event's own page on its publisher's website, declared by the licensor. Reads fall back on the event's page on its origin agenda; writing that page back declares nothing and is stored as `null`, as is `null` itself.
-     *
-     */
-    canonicalUrl?: string | null;
     additionalFields?: AdditionalFields;
 };
 
@@ -1830,33 +1122,16 @@ export type EventInput = {
  *
  */
 export type EventPatch = {
+    /**
+     * When the event is created, its `slug` is derived from this title, preferring the language that comes first in the request body. Put the event's original language first.
+     *
+     */
     title?: LocalizedString;
     description?: LocalizedString;
     longDescription?: LocalizedString;
     conditions?: LocalizedString;
     keywords?: LocalizedStringArray;
     timings?: Array<Timing>;
-    /**
-     * The ticketing sources THIS WRITE is authoritative for — the one way an ordinary event write may change, add or clear the inventory of an occurrence the event already has.
-     *
-     * For a provider named here the payload is law on every occurrence that NAMES `availability`: a row present in that array is written, a row absent from it is a removal, and an explicit `[]` removes every provider the write claims. For a provider NOT named here, nothing the write sends is applied to an occurrence the event ALREADY HAS: its stored rows are kept, so a connector cannot wipe the source a peer has just pushed and that it does not know about. For an occurrence sent WITH its stored `id` those rows are dropped before the body is judged, so they are not critiqued field by field either and a connector may send a peer's row back exactly as it read it. That stored `id` is what makes an occurrence one the event already has: sent without it, every row it carries is validated, and a row the rules reject answers `422`.
-     *
-     * On an occurrence the event does not have yet there are no stored rows to protect, and the seeding rules above apply unchanged — every row sent with it is kept, claimed or not. An occurrence another write removes while this one is in flight is one exception, and it bites only what this write does not claim: the call still answers `200`, and the rows it sends for that occurrence under a provider it does not name are not stored.
-     *
-     * AN OCCURRENCE WHOSE ENTRY DOES NOT MENTION `availability` says nothing and keeps its stored rows, declaration or not. This is what makes the field usable at all: a timings write is a full replacement, so correcting one date means sending the others back, and their silence must not delete anything.
-     *
-     * Declared PER EVENT, not per occurrence: it scopes which sources the write owns, never which dates.
-     *
-     * Requires ticketing enabled on the agenda, failing which a non-empty value answers `422` `offers.disabled` — declaring a scope is writing ticketing. AN ENTRY that is not one of these names answers `422` `offers.provider.invalid`, whatever its type; the same name twice, `422` `offers.duplicate`; more entries than there are providers, one `422` `availability.authority.tooMany` for the array and no per-entry refusal; and a value that is not an array at all, `422` `availability.authority.invalid`. An empty array claims nothing and behaves exactly like omitting the field, and so does `null`.
-     *
-     * IT GOVERNS ONLY THE `timings` THIS BODY SENDS. A body that does not carry a `timings` array declares a scope over nothing and changes no inventory — it is still validated, and still answers `422` `offers.disabled` on an agenda without ticketing, but it has no other effect. The reason is that on a partial update the server refills the occurrences it was not sent from the stored event, and those rows are a read taken when the request arrived: honouring them would let a write replay a stale snapshot over what the availability endpoint published in the meantime.
-     *
-     * WRITE-ONLY, and never stored: it is an instruction about this request, so no read returns it. It has no effect on creation either — a new event has no stored inventory to arbitrate, and the rows sent with it are kept whether or not it is present.
-     *
-     * It settles the contract question, not the one of scale: large or frequent inventory syncs still belong on the availability endpoint (see `Timing.availability`), since the ordinary event routes cap the body at 100 kB and validate the whole compiled event.
-     *
-     */
-    availabilityAuthority?: Array<TicketingProvider> | null;
     location?: EventLocationRef | null;
     attendanceMode?: AttendanceMode;
     onlineAccessLink?: string | null;
@@ -1880,17 +1155,11 @@ export type EventPatch = {
      *
      */
     imageCredits?: string | null;
-    /**
-     * The event's own page on its publisher's website, declared by the licensor. Reads fall back on the event's page on its origin agenda; writing that page back declares nothing and is stored as `null`, as is `null` itself.
-     *
-     */
-    canonicalUrl?: string | null;
     additionalFields?: AdditionalFields;
 };
 
 /**
- * A reference to a location by its OpenAgenda uid. A merged location stands for the location that replaced it. A location that does not exist, or has been deleted, is refused with a 422 on `location.uid`; a deleted one is accepted when it is the one the event already has.
- *
+ * A reference to an existing location by its OpenAgenda uid.
  */
 export type EventLocationRef = {
     uid: number;
@@ -1917,7 +1186,7 @@ export type EventList = {
 /**
  * A facet type name (shared by the GET `facets` list and the POST report).
  */
-export type FacetName = 'additionalFields' | 'additionalFieldMetrics' | 'adminLevel1' | 'adminLevel2' | 'adminLevel3' | 'adminLevel4' | 'adminLevel5' | 'adminLevel6' | 'countryCodes' | 'keywords' | 'languages' | 'accessibilities' | 'status' | 'attendanceModes' | 'originAgendas' | 'sourceAgendas' | 'locations' | 'geohash' | 'viewport' | 'timespan' | 'timings' | 'dateRanges';
+export type FacetName = 'additionalFields' | 'additionalFieldMetrics' | 'cities' | 'regions' | 'departments' | 'districts' | 'countryCodes' | 'keywords' | 'languages' | 'accessibilities' | 'status' | 'attendanceModes' | 'originAgendas' | 'sourceAgendas' | 'locations' | 'geohash' | 'viewport' | 'timespan' | 'timings' | 'dateRanges';
 
 /**
  * A single named aggregation in a facet report. `name` (the output key) defaults to `type`; reuse a `type` under distinct `name`s to aggregate the same field several ways in one request. Options not relevant to the `type` are ignored.
@@ -2005,12 +1274,12 @@ export type EventFilters = {
         key?: string;
         value?: string;
     };
-    adminLevel1?: Array<string>;
-    adminLevel2?: Array<string>;
+    region?: Array<string>;
+    department?: Array<string>;
+    city?: Array<string>;
+    district?: Array<string>;
     adminLevel3?: Array<string>;
-    adminLevel4?: Array<string>;
     adminLevel5?: Array<string>;
-    adminLevel6?: Array<string>;
     countryCode?: Array<string>;
     /**
      * "west,south,east,north" in decimal degrees.
@@ -2031,7 +1300,6 @@ export type EventFilters = {
     timings?: DateRangeFilter;
     createdAt?: DateRangeFilter;
     updatedAt?: DateRangeFilter;
-    availabilityUpdatedAt?: DateRangeFilter;
     localTime?: {
         gte?: number;
         lte?: number;
@@ -2074,7 +1342,7 @@ export type FacetReport = {
  *
  */
 export type FacetReportEntry = {
-    type: 'adminLevel1' | 'adminLevel2' | 'adminLevel3' | 'adminLevel4' | 'adminLevel5' | 'adminLevel6' | 'countryCodes' | 'keywords' | 'languages' | 'accessibilities' | 'status' | 'attendanceModes' | 'timings' | 'dateRanges';
+    type: 'cities' | 'regions' | 'departments' | 'districts' | 'countryCodes' | 'keywords' | 'languages' | 'accessibilities' | 'status' | 'attendanceModes' | 'timings' | 'dateRanges';
     result: Array<FacetBucket>;
 } | {
     type: 'originAgendas';
@@ -2111,7 +1379,7 @@ export type FacetReportEntry = {
  */
 export type FacetBucket = {
     /**
-     * The facet value - e.g. a municipality, a keyword, a language code, a status. Always a string (numeric-keyed facets are stringified).
+     * The facet value — e.g. a city name, a keyword, a language code, a status. Always a string (numeric-keyed facets are stringified).
      *
      */
     value: string;
@@ -2131,29 +1399,21 @@ export type FacetResults = {
      */
     facets: {
         /**
-         * Top `adminLevel1` values by event count.
+         * Top cities by event count.
          */
-        adminLevel1?: Array<FacetBucket>;
+        cities?: Array<FacetBucket>;
         /**
-         * Top `adminLevel2` values by event count.
+         * Top regions by event count.
          */
-        adminLevel2?: Array<FacetBucket>;
+        regions?: Array<FacetBucket>;
         /**
-         * Top `adminLevel3` values by event count.
+         * Top departments by event count.
          */
-        adminLevel3?: Array<FacetBucket>;
+        departments?: Array<FacetBucket>;
         /**
-         * Top `adminLevel4` values by event count.
+         * Top districts by event count.
          */
-        adminLevel4?: Array<FacetBucket>;
-        /**
-         * Top `adminLevel5` values by event count.
-         */
-        adminLevel5?: Array<FacetBucket>;
-        /**
-         * Top `adminLevel6` values by event count.
-         */
-        adminLevel6?: Array<FacetBucket>;
+        districts?: Array<FacetBucket>;
         /**
          * Top countries (ISO 3166-1 alpha-2) by event count.
          */
@@ -2355,35 +1615,14 @@ export type Timespan = {
 };
 
 /**
- * The location snapshot an event carries.
+ * The location snapshot an event carries - a nullable subset of the `Location` record. The canonical, full record is the `Location` resource (`GET /agendas/{agendaUid}/locations/{locationUid}`, same `uid`).
+ *
  */
 export type EventLocationWritable = {
     name?: string | null;
     address?: string | null;
-    /**
-     * Largest administrative division of the country. In France, the region.
-     */
-    adminLevel1?: string | null;
-    /**
-     * Administrative division below `adminLevel1`. In France, the department.
-     */
-    adminLevel2?: string | null;
-    /**
-     * Administrative division below `adminLevel2`. In France, the intercommunality.
-     */
-    adminLevel3?: string | null;
-    /**
-     * Municipality.
-     */
-    adminLevel4?: string | null;
-    /**
-     * Subdivision of the municipality. In France, the arrondissement of Paris, Lyon and Marseille.
-     */
-    adminLevel5?: string | null;
-    /**
-     * Subdivision of the municipality, below `adminLevel5`. In France, the neighbourhood.
-     */
-    adminLevel6?: string | null;
+    city?: string | null;
+    region?: string | null;
     postalCode?: string | null;
     /**
      * ISO 3166-1 alpha-2 country code.
@@ -2391,6 +1630,14 @@ export type EventLocationWritable = {
     countryCode?: string | null;
     latitude?: number | null;
     longitude?: number | null;
+    district?: string | null;
+    department?: string | null;
+    adminLevel3?: string | null;
+    adminLevel5?: string | null;
+    /**
+     * Localized country label.
+     */
+    country?: LocalizedString | null;
     /**
      * IANA time zone of the location.
      */
@@ -2413,36 +1660,18 @@ export type LocationSummaryWritable = {
 };
 
 /**
- * Full location representation returned by the single-get endpoint and by the list when `detailed=true`.
+ * Full location representation returned by the single-get endpoint and by the list when `detailed=true` — the canonical record (the events' embedded `EventLocation` is a nullable snapshot of it).
  *
  */
 export type LocationWritable = {
     name: string;
     address: string | null;
-    /**
-     * Largest administrative division of the country. In France, the region.
-     */
-    adminLevel1: string | null;
-    /**
-     * Administrative division below `adminLevel1`. In France, the department.
-     */
-    adminLevel2: string | null;
-    /**
-     * Administrative division below `adminLevel2`. In France, the intercommunality.
-     */
+    city: string | null;
+    district: string | null;
+    region: string | null;
+    department: string | null;
     adminLevel3: string | null;
-    /**
-     * Municipality.
-     */
-    adminLevel4: string | null;
-    /**
-     * Subdivision of the municipality. In France, the arrondissement of Paris, Lyon and Marseille.
-     */
     adminLevel5: string | null;
-    /**
-     * Subdivision of the municipality, below `adminLevel5`. In France, the neighbourhood.
-     */
-    adminLevel6: string | null;
     postalCode: string | null;
     /**
      * INSEE code of the French municipality, when known.
@@ -2465,16 +1694,7 @@ export type LocationWritable = {
      */
     access: LocalizedString;
     image: Image | null;
-    /**
-     * Credits for the location `image`; `null` when the location has no image.
-     *
-     */
     imageCredits: string | null;
-    /**
-     * Whether the rights to use the location `image` are held; `null` when the location has no image or the rights are not stated.
-     *
-     */
-    imageRightsAreHeld: boolean | null;
     website: string | null;
     email: string | null;
     phone: string | null;
@@ -2539,42 +1759,6 @@ export type MeAgendaListWritable = {
 };
 
 /**
- * Full agenda representation returned by the single-agenda get.
- *
- */
-export type AgendaWritable = {
-    uid: number;
-    slug: string;
-    title: string;
-    description: string | null;
-    image: Image | null;
-    /**
-     * Whether the agenda is an official one.
-     */
-    official: boolean;
-    /**
-     * Public website URL of the agenda, or `null`.
-     */
-    url: string | null;
-    createdAt: string;
-    updatedAt: string;
-    /**
-     * When the agenda was officialized, or `null` if it is not official.
-     */
-    officializedAt: string | null;
-    /**
-     * Whether the agenda is private.
-     */
-    private: boolean;
-    /**
-     * Whether the agenda is indexed in public search.
-     */
-    indexed: boolean;
-    network: AgendaNetworkRef;
-    locationSet: AgendaLocationSetRef;
-};
-
-/**
  * Compact event representation returned by the list endpoint (`detailed: false`); the single-event get and `detailed=true` return the full `Event`. The compact view exposes the occurrence span through `firstTiming`/`lastTiming`/`nextTiming`, interpreted in `timezone`; fetch a single event for the full list of occurrences.
  *
  */
@@ -2585,11 +1769,6 @@ export type EventSummaryWritable = {
     image: Image | null;
     imageCredits: string | null;
     keywords: LocalizedStringArray;
-    /**
-     * The address to link to when crediting the event: the page its licensor declared for it, else its page on its origin agenda. The same whichever agenda the event is read through. `null` on an event indexed before this field was introduced, until it is reindexed, and on an event whose origin agenda no longer exists.
-     *
-     */
-    canonicalUrl: string | null;
     location: EventLocationWritable | null;
     attendanceMode: AttendanceMode;
     onlineAccessLink: string | null;
@@ -2607,11 +1786,6 @@ export type EventWritable = {
     image: Image | null;
     imageCredits: string | null;
     keywords: LocalizedStringArray;
-    /**
-     * The address to link to when crediting the event: the page its licensor declared for it, else its page on its origin agenda. The same whichever agenda the event is read through. `null` on an event indexed before this field was introduced, until it is reindexed, and on an event whose origin agenda no longer exists.
-     *
-     */
-    canonicalUrl: string | null;
     timings: Array<Timing>;
     location: EventLocationWritable | null;
     attendanceMode: AttendanceMode;
@@ -2635,8 +1809,7 @@ export type EventListWritable = {
 };
 
 /**
- * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
- *
+ * Numeric uid of the agenda.
  */
 export type AgendaUid = number;
 
@@ -2646,7 +1819,7 @@ export type AgendaUid = number;
 export type EventUid = number;
 
 /**
- * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
+ * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
  *
  */
 export type ExtKey = string;
@@ -2658,15 +1831,10 @@ export type ExtKey = string;
 export type ExtIdValue = string;
 
 /**
- * Whether the body's `extIds` are merged by key with the stored ones (`true`, the default) or replace them (`false`). With `true`, an empty array adds nothing; with `false`, it removes every mapping. A body without `extIds` keeps them either way.
+ * On the by-uid `PUT`, whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`). A `PATCH` merges a non-empty `extIds` whatever this parameter says; an empty array clears the stored mappings.
  *
  */
 export type MergeExtIds = boolean;
-
-/**
- * Postal code of the place.
- */
-export type GeocodingPostalCode = string;
 
 /**
  * Opaque pagination cursor returned in `pagination.after` of the previous page. Omit it to fetch the first page.
@@ -2715,38 +1883,10 @@ export type AgendaFilterUid = Array<number>;
 export type AgendaFilterSlug = Array<string>;
 
 /**
- * Restrict to the agendas carrying these slugs. A slug matching none of your memberships yields an empty page. Repeat the parameter for multiple values.
- *
- */
-export type MeAgendaFilterSlug = Array<string>;
-
-/**
- * Restrict to the memberships holding one of these roles. Repeat the parameter for multiple values.
- *
- */
-export type MeAgendaFilterRole = Array<MemberRole>;
-
-/**
  * Restrict to official agendas (`true`) or to non-official agendas (`false`). Omit to return both.
  *
  */
 export type AgendaFilterOfficial = boolean;
-
-/**
- * Restrict to the agendas of these networks. Repeat the parameter for multiple values.
- */
-export type AgendaFilterNetworkUid = Array<number>;
-
-/**
- * Free-text search over the network title: every word of the text, in any order, even within a longer word. When no title holds them all, a word of three or four letters may be one letter off, a longer one two; numbers match as written. Case and accents are ignored and punctuation separates words; short words such as `de` or `la` count only when the text holds nothing else.
- *
- */
-export type NetworkSearch = string;
-
-/**
- * Restrict to these network uids. Repeat the parameter for multiple values.
- */
-export type NetworkFilterUid = Array<number>;
 
 /**
  * Numeric uid of the location.
@@ -2754,7 +1894,7 @@ export type NetworkFilterUid = Array<number>;
 export type LocationUid = number;
 
 /**
- * Free-text search over the locations' name, address, `adminLevel1`, `adminLevel2` and `adminLevel4`.
+ * Free-text search over the locations' name, address, city, region and department.
  *
  */
 export type LocationSearch = string;
@@ -2781,15 +1921,10 @@ export type LocationFilterExtId = {
 export type LocationBoundingBox = string;
 
 /**
- * Restrict to verified (`true`) or unverified (`false`) locations.
- */
-export type LocationFilterVerified = boolean;
-
-/**
  * Comma-separated list of facets to compute over the filtered events. Unknown facet names return `400`. Each facet's result shape is defined by `FacetResults`. Bucket-list facets (the term, provenance and `locations` families) return the top buckets by event count, capped by `facetSize` (overridable per facet with `facetSizes[<facet>]`) and reordered by `facetSort`; past the cap, narrow the filter. `additionalFields` and `additionalFieldMetrics` cover the agenda's own fields as its event form schema declares them (`GET /agendas/{agendaUid}/events/schema`), named by `additionalFieldsKeys`/`additionalFieldMetricsKeys` or all readable fields when omitted; `additionalFields` returns one bucket per option. `timings` bucket width is set by `timingsInterval`, the `dateRanges` month by `month`, `geohash` granularity by `geohashZoom`.
  *
  */
-export type Facets = Array<'additionalFields' | 'additionalFieldMetrics' | 'adminLevel1' | 'adminLevel2' | 'adminLevel3' | 'adminLevel4' | 'adminLevel5' | 'adminLevel6' | 'countryCodes' | 'keywords' | 'languages' | 'accessibilities' | 'status' | 'attendanceModes' | 'originAgendas' | 'sourceAgendas' | 'locations' | 'geohash' | 'viewport' | 'timespan' | 'timings' | 'dateRanges'>;
+export type Facets = Array<'additionalFields' | 'additionalFieldMetrics' | 'cities' | 'regions' | 'departments' | 'districts' | 'countryCodes' | 'keywords' | 'languages' | 'accessibilities' | 'status' | 'attendanceModes' | 'originAgendas' | 'sourceAgendas' | 'locations' | 'geohash' | 'viewport' | 'timespan' | 'timings' | 'dateRanges'>;
 
 /**
  * Default maximum number of buckets for the bucket-list facets (the term, provenance and `locations` families), ordered by event count. Override a single facet with `facetSizes[<facet>]`. Out-of-range values are clamped; other facets ignore it.
@@ -2798,7 +1933,7 @@ export type Facets = Array<'additionalFields' | 'additionalFieldMetrics' | 'admi
 export type FacetSize = number;
 
 /**
- * Per-facet override of `facetSize`, keyed by facet name (`facetSizes[adminLevel4]=50`). Precedence: per-facet override > `facetSize` > default (10). Only applies to bucket-list facets; values are clamped to [1, 250].
+ * Per-facet override of `facetSize`, keyed by facet name (`facetSizes[cities]=50`). Precedence: per-facet override > `facetSize` > default (10). Only applies to bucket-list facets; values are clamped to [1, 250].
  *
  */
 export type FacetSizes = {
@@ -2806,13 +1941,13 @@ export type FacetSizes = {
 };
 
 /**
- * Default ordering of the bucket-list facets. `count` (default) returns the most frequent buckets first; `alpha` returns the same top-`facetSize` buckets but ordered alphabetically by their display value (administrative area, keyword, location name, agenda title) for readable scanning. Override a single facet with `facetSorts[<facet>]`.
+ * Default ordering of the bucket-list facets. `count` (default) returns the most frequent buckets first; `alpha` returns the same top-`facetSize` buckets but ordered alphabetically by their display value (city/keyword name, location name, agenda title) for readable scanning. Override a single facet with `facetSorts[<facet>]`.
  *
  */
 export type FacetSort = 'count' | 'alpha';
 
 /**
- * Per-facet override of `facetSort`, keyed by facet name (`facetSorts[adminLevel4]=alpha`). Precedence: per-facet override > `facetSort` > default (`count`).
+ * Per-facet override of `facetSort`, keyed by facet name (`facetSorts[cities]=alpha`). Precedence: per-facet override > `facetSort` > default (`count`).
  *
  */
 export type FacetSorts = {
@@ -2820,7 +1955,7 @@ export type FacetSorts = {
 };
 
 /**
- * Per-facet label for a synthetic bucket counting the filtered events that have **no value** for the facet's field (`facetMissing[adminLevel6]=Unknown` adds an `{ value: "Unknown", count }` bucket). Honoured by the term facets (those whose buckets are keyed by the displayed value) except `accessibilities`; ignored by the provenance, `locations` and remaining families. The bucket appears only when such events exist.
+ * Per-facet label for a synthetic bucket counting the filtered events that have **no value** for the facet's field (`facetMissing[district]=Unknown` adds an `{ value: "Unknown", count }` bucket). Honoured by the term facets (those whose buckets are keyed by the displayed value) except `accessibilities`; ignored by the provenance, `locations` and remaining families. The bucket appears only when such events exist.
  *
  */
 export type FacetMissing = {
@@ -2861,7 +1996,7 @@ export type AdditionalFieldMetricsKeys = Array<string>;
  * Ordering of the results. Defaults to `timingsWithFeatured.asc`, or to `score` (relevance) when `search` is set and no `sort` is given.
  *
  */
-export type Sort = 'timings.asc' | 'timingsWithFeatured.asc' | 'lastTiming.asc' | 'lastTimingWithFeatured.asc' | 'updatedAt.asc' | 'updatedAt.desc' | 'availabilityUpdatedAt.asc' | 'availabilityUpdatedAt.desc' | 'location.name.asc' | 'location.name.desc' | 'location.adminLevel4.asc' | 'location.adminLevel4.desc' | 'score';
+export type Sort = 'timings.asc' | 'timingsWithFeatured.asc' | 'lastTiming.asc' | 'lastTimingWithFeatured.asc' | 'updatedAt.asc' | 'updatedAt.desc' | 'location.name.asc' | 'location.name.desc' | 'location.city.asc' | 'location.city.desc' | 'score';
 
 /**
  * Full-text search across title, description, keywords and address. Wrap the value in double quotes for an exact phrase match.
@@ -2940,40 +2075,34 @@ export type FilterLocationExtId = {
 };
 
 /**
- * Restrict to events whose `adminLevel1` (in France, the region) is one of these values.
- *
+ * Restrict to events located in these regions.
  */
-export type FilterAdminLevel1 = Array<string>;
+export type FilterRegion = Array<string>;
 
 /**
- * Restrict to events whose `adminLevel2` (in France, the department) is one of these values.
- *
+ * Restrict to events located in these departments.
  */
-export type FilterAdminLevel2 = Array<string>;
+export type FilterDepartment = Array<string>;
 
 /**
- * Restrict to events whose `adminLevel3` (in France, the intercommunality) is one of these values.
- *
+ * Restrict to events located in these cities.
+ */
+export type FilterCity = Array<string>;
+
+/**
+ * Restrict to events located in these districts.
+ */
+export type FilterDistrict = Array<string>;
+
+/**
+ * Restrict to events located in these level-3 administrative areas.
  */
 export type FilterAdminLevel3 = Array<string>;
 
 /**
- * Restrict to events whose `adminLevel4` (the municipality) is one of these values.
- *
- */
-export type FilterAdminLevel4 = Array<string>;
-
-/**
- * Restrict to events whose `adminLevel5` (in France, the arrondissement of Paris, Lyon and Marseille) is one of these values.
- *
+ * Restrict to events located in these level-5 administrative areas.
  */
 export type FilterAdminLevel5 = Array<string>;
-
-/**
- * Restrict to events whose `adminLevel6` (in France, the neighbourhood) is one of these values.
- *
- */
-export type FilterAdminLevel6 = Array<string>;
 
 /**
  * Restrict to events located in these countries (ISO 3166-1 alpha-2).
@@ -3056,15 +2185,6 @@ export type FilterUpdatedAt = {
 };
 
 /**
- * Restrict by the date OpenAgenda last WROTE inventory on the event — the write clock carried by `availabilityUpdatedAt`, not the rows' own `syncedAt`. As RFC 3339 date-times: `availabilityUpdatedAt[gte]=…&availabilityUpdatedAt[lte]=…`. The inventory counterpart of `updatedAt`, for a consumer following availability: pair it with `sort=availabilityUpdatedAt.asc` and a watermark. Events that never received availability carry no stamp and never match — following inventory does not mean paging through the whole corpus. Same date-time rules as `updatedAt`.
- *
- */
-export type FilterAvailabilityUpdatedAt = {
-    gte?: string;
-    lte?: string;
-};
-
-/**
  * Restrict to events whose intended audience age range overlaps the given bounds, in years: `age[gte]=7&age[lte]=12`.
  *
  */
@@ -3128,10 +2248,6 @@ export type AgendasListData = {
          *
          */
         official?: boolean;
-        /**
-         * Restrict to the agendas of these networks. Repeat the parameter for multiple values.
-         */
-        networkUid?: Array<number>;
     };
     url: '/agendas';
 };
@@ -3167,8 +2283,7 @@ export type AgendasGetData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
+         * Numeric uid of the agenda.
          */
         agendaUid: number;
     };
@@ -3206,8 +2321,7 @@ export type AgendasOverviewData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
+         * Numeric uid of the agenda.
          */
         agendaUid: number;
     };
@@ -3245,8 +2359,7 @@ export type AgendasEventsListData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
+         * Numeric uid of the agenda.
          */
         agendaUid: number;
     };
@@ -3275,7 +2388,7 @@ export type AgendasEventsListData = {
          * Ordering of the results. Defaults to `timingsWithFeatured.asc`, or to `score` (relevance) when `search` is set and no `sort` is given.
          *
          */
-        sort?: 'timings.asc' | 'timingsWithFeatured.asc' | 'lastTiming.asc' | 'lastTimingWithFeatured.asc' | 'updatedAt.asc' | 'updatedAt.desc' | 'availabilityUpdatedAt.asc' | 'availabilityUpdatedAt.desc' | 'location.name.asc' | 'location.name.desc' | 'location.adminLevel4.asc' | 'location.adminLevel4.desc' | 'score';
+        sort?: 'timings.asc' | 'timingsWithFeatured.asc' | 'lastTiming.asc' | 'lastTimingWithFeatured.asc' | 'updatedAt.asc' | 'updatedAt.desc' | 'location.name.asc' | 'location.name.desc' | 'location.city.asc' | 'location.city.desc' | 'score';
         /**
          * Full-text search across title, description, keywords and address. Wrap the value in double quotes for an exact phrase match.
          *
@@ -3340,35 +2453,29 @@ export type AgendasEventsListData = {
             value: string;
         };
         /**
-         * Restrict to events whose `adminLevel1` (in France, the region) is one of these values.
-         *
+         * Restrict to events located in these regions.
          */
-        adminLevel1?: Array<string>;
+        region?: Array<string>;
         /**
-         * Restrict to events whose `adminLevel2` (in France, the department) is one of these values.
-         *
+         * Restrict to events located in these departments.
          */
-        adminLevel2?: Array<string>;
+        department?: Array<string>;
         /**
-         * Restrict to events whose `adminLevel3` (in France, the intercommunality) is one of these values.
-         *
+         * Restrict to events located in these cities.
+         */
+        city?: Array<string>;
+        /**
+         * Restrict to events located in these districts.
+         */
+        district?: Array<string>;
+        /**
+         * Restrict to events located in these level-3 administrative areas.
          */
         adminLevel3?: Array<string>;
         /**
-         * Restrict to events whose `adminLevel4` (the municipality) is one of these values.
-         *
-         */
-        adminLevel4?: Array<string>;
-        /**
-         * Restrict to events whose `adminLevel5` (in France, the arrondissement of Paris, Lyon and Marseille) is one of these values.
-         *
+         * Restrict to events located in these level-5 administrative areas.
          */
         adminLevel5?: Array<string>;
-        /**
-         * Restrict to events whose `adminLevel6` (in France, the neighbourhood) is one of these values.
-         *
-         */
-        adminLevel6?: Array<string>;
         /**
          * Restrict to events located in these countries (ISO 3166-1 alpha-2).
          */
@@ -3438,14 +2545,6 @@ export type AgendasEventsListData = {
             lte?: string;
         };
         /**
-         * Restrict by the date OpenAgenda last WROTE inventory on the event — the write clock carried by `availabilityUpdatedAt`, not the rows' own `syncedAt`. As RFC 3339 date-times: `availabilityUpdatedAt[gte]=…&availabilityUpdatedAt[lte]=…`. The inventory counterpart of `updatedAt`, for a consumer following availability: pair it with `sort=availabilityUpdatedAt.asc` and a watermark. Events that never received availability carry no stamp and never match — following inventory does not mean paging through the whole corpus. Same date-time rules as `updatedAt`.
-         *
-         */
-        availabilityUpdatedAt?: {
-            gte?: string;
-            lte?: string;
-        };
-        /**
          * Restrict to events whose intended audience age range overlaps the given bounds, in years: `age[gte]=7&age[lte]=12`.
          *
          */
@@ -3499,8 +2598,7 @@ export type AgendasEventsCreateData = {
     body: EventInput;
     path: {
         /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
+         * Numeric uid of the agenda.
          */
         agendaUid: number;
     };
@@ -3530,10 +2628,6 @@ export type AgendasEventsCreateErrors = {
      * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
      */
     422: ValidationError;
-    /**
-     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 3000 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
-     */
-    429: Error;
 };
 
 export type AgendasEventsCreateError = AgendasEventsCreateErrors[keyof AgendasEventsCreateErrors];
@@ -3551,8 +2645,7 @@ export type AgendasEventsValidateData = {
     body: EventInput;
     path: {
         /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
+         * Numeric uid of the agenda.
          */
         agendaUid: number;
     };
@@ -3599,8 +2692,7 @@ export type AgendasEventsDeleteData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
+         * Numeric uid of the agenda.
          */
         agendaUid: number;
         /**
@@ -3625,10 +2717,6 @@ export type AgendasEventsDeleteErrors = {
      * No resource answers this identifier.
      */
     404: Error;
-    /**
-     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 3000 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
-     */
-    429: Error;
 };
 
 export type AgendasEventsDeleteError = AgendasEventsDeleteErrors[keyof AgendasEventsDeleteErrors];
@@ -3646,8 +2734,7 @@ export type AgendasEventsGetData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
+         * Numeric uid of the agenda.
          */
         agendaUid: number;
         /**
@@ -3689,8 +2776,7 @@ export type AgendasEventsPatchData = {
     body: EventPatch;
     path: {
         /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
+         * Numeric uid of the agenda.
          */
         agendaUid: number;
         /**
@@ -3700,7 +2786,7 @@ export type AgendasEventsPatchData = {
     };
     query?: {
         /**
-         * Whether the body's `extIds` are merged by key with the stored ones (`true`, the default) or replace them (`false`). With `true`, an empty array adds nothing; with `false`, it removes every mapping. A body without `extIds` keeps them either way.
+         * On the by-uid `PUT`, whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`). A `PATCH` merges a non-empty `extIds` whatever this parameter says; an empty array clears the stored mappings.
          *
          */
         mergeExtIds?: boolean;
@@ -3730,10 +2816,6 @@ export type AgendasEventsPatchErrors = {
      * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
      */
     422: ValidationError;
-    /**
-     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 3000 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
-     */
-    429: Error;
 };
 
 export type AgendasEventsPatchError = AgendasEventsPatchErrors[keyof AgendasEventsPatchErrors];
@@ -3751,8 +2833,7 @@ export type AgendasEventsUpdateData = {
     body: EventInput;
     path: {
         /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
+         * Numeric uid of the agenda.
          */
         agendaUid: number;
         /**
@@ -3762,7 +2843,7 @@ export type AgendasEventsUpdateData = {
     };
     query?: {
         /**
-         * Whether the body's `extIds` are merged by key with the stored ones (`true`, the default) or replace them (`false`). With `true`, an empty array adds nothing; with `false`, it removes every mapping. A body without `extIds` keeps them either way.
+         * On the by-uid `PUT`, whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`). A `PATCH` merges a non-empty `extIds` whatever this parameter says; an empty array clears the stored mappings.
          *
          */
         mergeExtIds?: boolean;
@@ -3792,10 +2873,6 @@ export type AgendasEventsUpdateErrors = {
      * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
      */
     422: ValidationError;
-    /**
-     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 3000 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
-     */
-    429: Error;
 };
 
 export type AgendasEventsUpdateError = AgendasEventsUpdateErrors[keyof AgendasEventsUpdateErrors];
@@ -3813,12 +2890,11 @@ export type AgendasEventsDeleteByExtIdData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
+         * Numeric uid of the agenda.
          */
         agendaUid: number;
         /**
-         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
+         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
          *
          */
         extKey: string;
@@ -3845,10 +2921,6 @@ export type AgendasEventsDeleteByExtIdErrors = {
      * No resource answers this identifier.
      */
     404: Error;
-    /**
-     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 3000 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
-     */
-    429: Error;
 };
 
 export type AgendasEventsDeleteByExtIdError = AgendasEventsDeleteByExtIdErrors[keyof AgendasEventsDeleteByExtIdErrors];
@@ -3866,12 +2938,11 @@ export type AgendasEventsGetByExtIdData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
+         * Numeric uid of the agenda.
          */
         agendaUid: number;
         /**
-         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
+         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
          *
          */
         extKey: string;
@@ -3915,12 +2986,11 @@ export type AgendasEventsPatchByExtIdData = {
     body: EventPatch;
     path: {
         /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
+         * Numeric uid of the agenda.
          */
         agendaUid: number;
         /**
-         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
+         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
          *
          */
         extKey: string;
@@ -3956,19 +3026,19 @@ export type AgendasEventsPatchByExtIdErrors = {
      * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
      */
     422: ValidationError;
-    /**
-     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 3000 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
-     */
-    429: Error;
 };
 
 export type AgendasEventsPatchByExtIdError = AgendasEventsPatchByExtIdErrors[keyof AgendasEventsPatchByExtIdErrors];
 
 export type AgendasEventsPatchByExtIdResponses = {
     /**
-     * The updated event.
+     * The existing event was updated.
      */
     200: Event;
+    /**
+     * A new event was created.
+     */
+    201: Event;
 };
 
 export type AgendasEventsPatchByExtIdResponse = AgendasEventsPatchByExtIdResponses[keyof AgendasEventsPatchByExtIdResponses];
@@ -3977,12 +3047,11 @@ export type AgendasEventsSetByExtIdData = {
     body: EventInput;
     path: {
         /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
+         * Numeric uid of the agenda.
          */
         agendaUid: number;
         /**
-         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
+         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
          *
          */
         extKey: string;
@@ -4018,10 +3087,6 @@ export type AgendasEventsSetByExtIdErrors = {
      * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
      */
     422: ValidationError;
-    /**
-     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 3000 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
-     */
-    429: Error;
 };
 
 export type AgendasEventsSetByExtIdError = AgendasEventsSetByExtIdErrors[keyof AgendasEventsSetByExtIdErrors];
@@ -4043,8 +3108,7 @@ export type AgendasEventsFacetsData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
+         * Numeric uid of the agenda.
          */
         agendaUid: number;
     };
@@ -4053,33 +3117,33 @@ export type AgendasEventsFacetsData = {
          * Comma-separated list of facets to compute over the filtered events. Unknown facet names return `400`. Each facet's result shape is defined by `FacetResults`. Bucket-list facets (the term, provenance and `locations` families) return the top buckets by event count, capped by `facetSize` (overridable per facet with `facetSizes[<facet>]`) and reordered by `facetSort`; past the cap, narrow the filter. `additionalFields` and `additionalFieldMetrics` cover the agenda's own fields as its event form schema declares them (`GET /agendas/{agendaUid}/events/schema`), named by `additionalFieldsKeys`/`additionalFieldMetricsKeys` or all readable fields when omitted; `additionalFields` returns one bucket per option. `timings` bucket width is set by `timingsInterval`, the `dateRanges` month by `month`, `geohash` granularity by `geohashZoom`.
          *
          */
-        facets: Array<'additionalFields' | 'additionalFieldMetrics' | 'adminLevel1' | 'adminLevel2' | 'adminLevel3' | 'adminLevel4' | 'adminLevel5' | 'adminLevel6' | 'countryCodes' | 'keywords' | 'languages' | 'accessibilities' | 'status' | 'attendanceModes' | 'originAgendas' | 'sourceAgendas' | 'locations' | 'geohash' | 'viewport' | 'timespan' | 'timings' | 'dateRanges'>;
+        facets: Array<'additionalFields' | 'additionalFieldMetrics' | 'cities' | 'regions' | 'departments' | 'districts' | 'countryCodes' | 'keywords' | 'languages' | 'accessibilities' | 'status' | 'attendanceModes' | 'originAgendas' | 'sourceAgendas' | 'locations' | 'geohash' | 'viewport' | 'timespan' | 'timings' | 'dateRanges'>;
         /**
          * Default maximum number of buckets for the bucket-list facets (the term, provenance and `locations` families), ordered by event count. Override a single facet with `facetSizes[<facet>]`. Out-of-range values are clamped; other facets ignore it.
          *
          */
         facetSize?: number;
         /**
-         * Per-facet override of `facetSize`, keyed by facet name (`facetSizes[adminLevel4]=50`). Precedence: per-facet override > `facetSize` > default (10). Only applies to bucket-list facets; values are clamped to [1, 250].
+         * Per-facet override of `facetSize`, keyed by facet name (`facetSizes[cities]=50`). Precedence: per-facet override > `facetSize` > default (10). Only applies to bucket-list facets; values are clamped to [1, 250].
          *
          */
         facetSizes?: {
             [key: string]: number;
         };
         /**
-         * Default ordering of the bucket-list facets. `count` (default) returns the most frequent buckets first; `alpha` returns the same top-`facetSize` buckets but ordered alphabetically by their display value (administrative area, keyword, location name, agenda title) for readable scanning. Override a single facet with `facetSorts[<facet>]`.
+         * Default ordering of the bucket-list facets. `count` (default) returns the most frequent buckets first; `alpha` returns the same top-`facetSize` buckets but ordered alphabetically by their display value (city/keyword name, location name, agenda title) for readable scanning. Override a single facet with `facetSorts[<facet>]`.
          *
          */
         facetSort?: 'count' | 'alpha';
         /**
-         * Per-facet override of `facetSort`, keyed by facet name (`facetSorts[adminLevel4]=alpha`). Precedence: per-facet override > `facetSort` > default (`count`).
+         * Per-facet override of `facetSort`, keyed by facet name (`facetSorts[cities]=alpha`). Precedence: per-facet override > `facetSort` > default (`count`).
          *
          */
         facetSorts?: {
             [key: string]: 'count' | 'alpha';
         };
         /**
-         * Per-facet label for a synthetic bucket counting the filtered events that have **no value** for the facet's field (`facetMissing[adminLevel6]=Unknown` adds an `{ value: "Unknown", count }` bucket). Honoured by the term facets (those whose buckets are keyed by the displayed value) except `accessibilities`; ignored by the provenance, `locations` and remaining families. The bucket appears only when such events exist.
+         * Per-facet label for a synthetic bucket counting the filtered events that have **no value** for the facet's field (`facetMissing[district]=Unknown` adds an `{ value: "Unknown", count }` bucket). Honoured by the term facets (those whose buckets are keyed by the displayed value) except `accessibilities`; ignored by the provenance, `locations` and remaining families. The bucket appears only when such events exist.
          *
          */
         facetMissing?: {
@@ -4174,35 +3238,29 @@ export type AgendasEventsFacetsData = {
             value: string;
         };
         /**
-         * Restrict to events whose `adminLevel1` (in France, the region) is one of these values.
-         *
+         * Restrict to events located in these regions.
          */
-        adminLevel1?: Array<string>;
+        region?: Array<string>;
         /**
-         * Restrict to events whose `adminLevel2` (in France, the department) is one of these values.
-         *
+         * Restrict to events located in these departments.
          */
-        adminLevel2?: Array<string>;
+        department?: Array<string>;
         /**
-         * Restrict to events whose `adminLevel3` (in France, the intercommunality) is one of these values.
-         *
+         * Restrict to events located in these cities.
+         */
+        city?: Array<string>;
+        /**
+         * Restrict to events located in these districts.
+         */
+        district?: Array<string>;
+        /**
+         * Restrict to events located in these level-3 administrative areas.
          */
         adminLevel3?: Array<string>;
         /**
-         * Restrict to events whose `adminLevel4` (the municipality) is one of these values.
-         *
-         */
-        adminLevel4?: Array<string>;
-        /**
-         * Restrict to events whose `adminLevel5` (in France, the arrondissement of Paris, Lyon and Marseille) is one of these values.
-         *
+         * Restrict to events located in these level-5 administrative areas.
          */
         adminLevel5?: Array<string>;
-        /**
-         * Restrict to events whose `adminLevel6` (in France, the neighbourhood) is one of these values.
-         *
-         */
-        adminLevel6?: Array<string>;
         /**
          * Restrict to events located in these countries (ISO 3166-1 alpha-2).
          */
@@ -4272,14 +3330,6 @@ export type AgendasEventsFacetsData = {
             lte?: string;
         };
         /**
-         * Restrict by the date OpenAgenda last WROTE inventory on the event — the write clock carried by `availabilityUpdatedAt`, not the rows' own `syncedAt`. As RFC 3339 date-times: `availabilityUpdatedAt[gte]=…&availabilityUpdatedAt[lte]=…`. The inventory counterpart of `updatedAt`, for a consumer following availability: pair it with `sort=availabilityUpdatedAt.asc` and a watermark. Events that never received availability carry no stamp and never match — following inventory does not mean paging through the whole corpus. Same date-time rules as `updatedAt`.
-         *
-         */
-        availabilityUpdatedAt?: {
-            gte?: string;
-            lte?: string;
-        };
-        /**
          * Restrict to events whose intended audience age range overlaps the given bounds, in years: `age[gte]=7&age[lte]=12`.
          *
          */
@@ -4333,8 +3383,7 @@ export type AgendasEventsFacetsReportData = {
     body: FacetReportRequest;
     path: {
         /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
+         * Numeric uid of the agenda.
          */
         agendaUid: number;
     };
@@ -4377,8 +3426,7 @@ export type AgendasEventsSchemaData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
+         * Numeric uid of the agenda.
          */
         agendaUid: number;
     };
@@ -4412,60 +3460,6 @@ export type AgendasEventsSchemaResponses = {
 
 export type AgendasEventsSchemaResponse = AgendasEventsSchemaResponses[keyof AgendasEventsSchemaResponses];
 
-export type NetworksListData = {
-    body?: never;
-    path?: never;
-    query?: {
-        /**
-         * Opaque pagination cursor returned in `pagination.after` of the previous page. Omit it to fetch the first page.
-         *
-         */
-        after?: string;
-        /**
-         * Maximum number of items to return per page. An out-of-range or non-integer value is rejected with `400`, never clamped; use the `after` cursor to page further.
-         *
-         */
-        limit?: number;
-        /**
-         * Free-text search over the network title: every word of the text, in any order, even within a longer word. When no title holds them all, a word of three or four letters may be one letter off, a longer one two; numbers match as written. Case and accents are ignored and punctuation separates words; short words such as `de` or `la` count only when the text holds nothing else.
-         *
-         */
-        search?: string;
-        /**
-         * Restrict to these network uids. Repeat the parameter for multiple values.
-         */
-        uid?: Array<number>;
-    };
-    url: '/networks';
-};
-
-export type NetworksListErrors = {
-    /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
-     *
-     */
-    400: Error | ValidationError;
-    /**
-     * The request carries no credential this operation accepts.
-     */
-    401: Error;
-    /**
-     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
-     */
-    403: Error;
-};
-
-export type NetworksListError = NetworksListErrors[keyof NetworksListErrors];
-
-export type NetworksListResponses = {
-    /**
-     * A page of networks.
-     */
-    200: NetworkList;
-};
-
-export type NetworksListResponse = NetworksListResponses[keyof NetworksListResponses];
-
 export type MeAgendasListData = {
     body?: never;
     path?: never;
@@ -4490,16 +3484,6 @@ export type MeAgendasListData = {
          *
          */
         fields?: Array<string>;
-        /**
-         * Restrict to the agendas carrying these slugs. A slug matching none of your memberships yields an empty page. Repeat the parameter for multiple values.
-         *
-         */
-        slug?: Array<string>;
-        /**
-         * Restrict to the memberships holding one of these roles. Repeat the parameter for multiple values.
-         *
-         */
-        role?: Array<MemberRole>;
     };
     url: '/me/agendas';
 };
@@ -4541,8 +3525,7 @@ export type AgendasUploadsCreateData = {
     };
     path: {
         /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
+         * Numeric uid of the agenda.
          */
         agendaUid: number;
     };
@@ -4572,17 +3555,13 @@ export type AgendasUploadsCreateErrors = {
      * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
      */
     422: ValidationError;
-    /**
-     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 3000 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
-     */
-    429: Error;
 };
 
 export type AgendasUploadsCreateError = AgendasUploadsCreateErrors[keyof AgendasUploadsCreateErrors];
 
 export type AgendasUploadsCreateResponses = {
     /**
-     * The staging reference to attach on a write.
+     * The staging reference to attach on an event write.
      */
     200: UploadTicket;
 };
@@ -4593,8 +3572,7 @@ export type AgendasUploadsCreateTicketData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
+         * Numeric uid of the agenda.
          */
         agendaUid: number;
     };
@@ -4615,10 +3593,6 @@ export type AgendasUploadsCreateTicketErrors = {
      * No resource answers this identifier.
      */
     404: Error;
-    /**
-     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 3000 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
-     */
-    429: Error;
     /**
      * The request was not processed and can be retried after a short delay.
      */
@@ -4673,7 +3647,7 @@ export type UploadsStagedError = UploadsStagedErrors[keyof UploadsStagedErrors];
 
 export type UploadsStagedResponses = {
     /**
-     * The staging reference to attach on a write.
+     * The staging reference to attach on an event write.
      */
     200: UploadTicket;
 };
@@ -4684,8 +3658,7 @@ export type AgendasLocationsListData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
+         * Numeric uid of the agenda.
          */
         agendaUid: number;
     };
@@ -4711,7 +3684,7 @@ export type AgendasLocationsListData = {
          */
         fields?: Array<string>;
         /**
-         * Free-text search over the locations' name, address, `adminLevel1`, `adminLevel2` and `adminLevel4`.
+         * Free-text search over the locations' name, address, city, region and department.
          *
          */
         search?: string;
@@ -4733,20 +3706,6 @@ export type AgendasLocationsListData = {
          *
          */
         bbox?: string;
-        /**
-         * Center of a proximity search, given as `latitude,longitude` in decimal degrees. Must be combined with `radius`.
-         *
-         */
-        near?: string;
-        /**
-         * Proximity radius in metres around `near`. Requires `near` to be set.
-         *
-         */
-        radius?: number;
-        /**
-         * Restrict to verified (`true`) or unverified (`false`) locations.
-         */
-        verified?: boolean;
         /**
          * Restrict by creation date, as RFC 3339 date-times: `createdAt[gte]=…&createdAt[lte]=…`. Date-times must carry an explicit offset (e.g. `Z`); a bare date (`YYYY-MM-DD`) is read as UTC midnight.
          *
@@ -4798,214 +3757,15 @@ export type AgendasLocationsListResponses = {
 
 export type AgendasLocationsListResponse = AgendasLocationsListResponses[keyof AgendasLocationsListResponses];
 
-export type AgendasLocationsCreateData = {
-    body: LocationInput;
-    path: {
-        /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
-         */
-        agendaUid: number;
-    };
-    query?: never;
-    url: '/agendas/{agendaUid}/locations';
-};
-
-export type AgendasLocationsCreateErrors = {
-    /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
-     *
-     */
-    400: Error | ValidationError;
-    /**
-     * The request carries no credential this operation accepts.
-     */
-    401: Error;
-    /**
-     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
-     */
-    403: Error;
-    /**
-     * No resource answers this identifier.
-     */
-    404: Error;
-    /**
-     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
-     */
-    422: ValidationError;
-    /**
-     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 3000 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
-     */
-    429: Error;
-};
-
-export type AgendasLocationsCreateError = AgendasLocationsCreateErrors[keyof AgendasLocationsCreateErrors];
-
-export type AgendasLocationsCreateResponses = {
-    /**
-     * The created location.
-     */
-    201: Location;
-};
-
-export type AgendasLocationsCreateResponse = AgendasLocationsCreateResponses[keyof AgendasLocationsCreateResponses];
-
-export type AgendasLocationsValidateData = {
-    body: LocationInput;
-    path: {
-        /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
-         */
-        agendaUid: number;
-    };
-    query?: never;
-    url: '/agendas/{agendaUid}/locations/validate';
-};
-
-export type AgendasLocationsValidateErrors = {
-    /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
-     *
-     */
-    400: Error | ValidationError;
-    /**
-     * The request carries no credential this operation accepts.
-     */
-    401: Error;
-    /**
-     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
-     */
-    403: Error;
-    /**
-     * No resource answers this identifier.
-     */
-    404: Error;
-    /**
-     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
-     */
-    422: ValidationError;
-};
-
-export type AgendasLocationsValidateError = AgendasLocationsValidateErrors[keyof AgendasLocationsValidateErrors];
-
-export type AgendasLocationsValidateResponses = {
-    /**
-     * The body is valid.
-     */
-    200: ValidationVerdict;
-};
-
-export type AgendasLocationsValidateResponse = AgendasLocationsValidateResponses[keyof AgendasLocationsValidateResponses];
-
-export type AgendasLocationsSettingsData = {
-    body?: never;
-    path: {
-        /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
-         */
-        agendaUid: number;
-    };
-    query?: never;
-    url: '/agendas/{agendaUid}/locations/settings';
-};
-
-export type AgendasLocationsSettingsErrors = {
-    /**
-     * The request carries no credential this operation accepts.
-     */
-    401: Error;
-    /**
-     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
-     */
-    403: Error;
-    /**
-     * No resource answers this identifier.
-     */
-    404: Error;
-};
-
-export type AgendasLocationsSettingsError = AgendasLocationsSettingsErrors[keyof AgendasLocationsSettingsErrors];
-
-export type AgendasLocationsSettingsResponses = {
-    /**
-     * The agenda's location settings.
-     */
-    200: LocationSettings;
-};
-
-export type AgendasLocationsSettingsResponse = AgendasLocationsSettingsResponses[keyof AgendasLocationsSettingsResponses];
-
-export type AgendasLocationsDeleteByExtIdData = {
-    body?: never;
-    path: {
-        /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
-         */
-        agendaUid: number;
-        /**
-         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
-         *
-         */
-        extKey: string;
-        /**
-         * The resource's identifier within that external system (the `value` of an `ExtId` mapping carried in the resource's `extIds`). Percent-encode reserved characters.
-         *
-         */
-        extId: string;
-    };
-    query?: never;
-    url: '/agendas/{agendaUid}/locations/ext/{extKey}/{extId}';
-};
-
-export type AgendasLocationsDeleteByExtIdErrors = {
-    /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
-     *
-     */
-    400: Error | ValidationError;
-    /**
-     * The request carries no credential this operation accepts.
-     */
-    401: Error;
-    /**
-     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
-     */
-    403: Error;
-    /**
-     * Agenda or location not found. A location merged into another one answers here too, and identifies the surviving one so a stale reference can be repaired.
-     *
-     */
-    404: Error | MergedLocationError;
-    /**
-     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 3000 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
-     */
-    429: Error;
-};
-
-export type AgendasLocationsDeleteByExtIdError = AgendasLocationsDeleteByExtIdErrors[keyof AgendasLocationsDeleteByExtIdErrors];
-
-export type AgendasLocationsDeleteByExtIdResponses = {
-    /**
-     * The location was deleted.
-     */
-    200: DeletionResult;
-};
-
-export type AgendasLocationsDeleteByExtIdResponse = AgendasLocationsDeleteByExtIdResponses[keyof AgendasLocationsDeleteByExtIdResponses];
-
 export type AgendasLocationsGetByExtIdData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
+         * Numeric uid of the agenda.
          */
         agendaUid: number;
         /**
-         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
+         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
          *
          */
         extKey: string;
@@ -5020,11 +3780,6 @@ export type AgendasLocationsGetByExtIdData = {
 };
 
 export type AgendasLocationsGetByExtIdErrors = {
-    /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
-     *
-     */
-    400: Error | ValidationError;
     /**
      * The request carries no credential this operation accepts.
      */
@@ -5051,195 +3806,11 @@ export type AgendasLocationsGetByExtIdResponses = {
 
 export type AgendasLocationsGetByExtIdResponse = AgendasLocationsGetByExtIdResponses[keyof AgendasLocationsGetByExtIdResponses];
 
-export type AgendasLocationsPatchByExtIdData = {
-    body: LocationPatch;
-    path: {
-        /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
-         */
-        agendaUid: number;
-        /**
-         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
-         *
-         */
-        extKey: string;
-        /**
-         * The resource's identifier within that external system (the `value` of an `ExtId` mapping carried in the resource's `extIds`). Percent-encode reserved characters.
-         *
-         */
-        extId: string;
-    };
-    query?: never;
-    url: '/agendas/{agendaUid}/locations/ext/{extKey}/{extId}';
-};
-
-export type AgendasLocationsPatchByExtIdErrors = {
-    /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
-     *
-     */
-    400: Error | ValidationError;
-    /**
-     * The request carries no credential this operation accepts.
-     */
-    401: Error;
-    /**
-     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
-     */
-    403: Error;
-    /**
-     * Agenda or location not found. A location merged into another one answers here too, and identifies the surviving one so a stale reference can be repaired.
-     *
-     */
-    404: Error | MergedLocationError;
-    /**
-     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
-     */
-    422: ValidationError;
-    /**
-     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 3000 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
-     */
-    429: Error;
-};
-
-export type AgendasLocationsPatchByExtIdError = AgendasLocationsPatchByExtIdErrors[keyof AgendasLocationsPatchByExtIdErrors];
-
-export type AgendasLocationsPatchByExtIdResponses = {
-    /**
-     * The updated location.
-     */
-    200: Location;
-};
-
-export type AgendasLocationsPatchByExtIdResponse = AgendasLocationsPatchByExtIdResponses[keyof AgendasLocationsPatchByExtIdResponses];
-
-export type AgendasLocationsSetByExtIdData = {
-    body: LocationInput;
-    path: {
-        /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
-         */
-        agendaUid: number;
-        /**
-         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
-         *
-         */
-        extKey: string;
-        /**
-         * The resource's identifier within that external system (the `value` of an `ExtId` mapping carried in the resource's `extIds`). Percent-encode reserved characters.
-         *
-         */
-        extId: string;
-    };
-    query?: never;
-    url: '/agendas/{agendaUid}/locations/ext/{extKey}/{extId}';
-};
-
-export type AgendasLocationsSetByExtIdErrors = {
-    /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
-     *
-     */
-    400: Error | ValidationError;
-    /**
-     * The request carries no credential this operation accepts.
-     */
-    401: Error;
-    /**
-     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
-     */
-    403: Error;
-    /**
-     * Agenda not found, or a location merged into another one carries the pair: the answer identifies the surviving one, so a stale reference can be repaired. Nothing is created.
-     *
-     */
-    404: Error | MergedLocationError;
-    /**
-     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
-     */
-    422: ValidationError;
-    /**
-     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 3000 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
-     */
-    429: Error;
-};
-
-export type AgendasLocationsSetByExtIdError = AgendasLocationsSetByExtIdErrors[keyof AgendasLocationsSetByExtIdErrors];
-
-export type AgendasLocationsSetByExtIdResponses = {
-    /**
-     * The replaced location.
-     */
-    200: Location;
-    /**
-     * The created location.
-     */
-    201: Location;
-};
-
-export type AgendasLocationsSetByExtIdResponse = AgendasLocationsSetByExtIdResponses[keyof AgendasLocationsSetByExtIdResponses];
-
-export type AgendasLocationsDeleteData = {
-    body?: never;
-    path: {
-        /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
-         */
-        agendaUid: number;
-        /**
-         * Numeric uid of the location.
-         */
-        locationUid: number;
-    };
-    query?: never;
-    url: '/agendas/{agendaUid}/locations/{locationUid}';
-};
-
-export type AgendasLocationsDeleteErrors = {
-    /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
-     *
-     */
-    400: Error | ValidationError;
-    /**
-     * The request carries no credential this operation accepts.
-     */
-    401: Error;
-    /**
-     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
-     */
-    403: Error;
-    /**
-     * Agenda or location not found. A location merged into another one answers here too, and identifies the surviving one so a stale reference can be repaired.
-     *
-     */
-    404: Error | MergedLocationError;
-    /**
-     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 3000 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
-     */
-    429: Error;
-};
-
-export type AgendasLocationsDeleteError = AgendasLocationsDeleteErrors[keyof AgendasLocationsDeleteErrors];
-
-export type AgendasLocationsDeleteResponses = {
-    /**
-     * The location was deleted.
-     */
-    200: DeletionResult;
-};
-
-export type AgendasLocationsDeleteResponse = AgendasLocationsDeleteResponses[keyof AgendasLocationsDeleteResponses];
-
 export type AgendasLocationsGetData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
+         * Numeric uid of the agenda.
          */
         agendaUid: number;
         /**
@@ -5282,267 +3853,3 @@ export type AgendasLocationsGetResponses = {
 };
 
 export type AgendasLocationsGetResponse = AgendasLocationsGetResponses[keyof AgendasLocationsGetResponses];
-
-export type AgendasLocationsPatchData = {
-    body: LocationPatch;
-    path: {
-        /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
-         */
-        agendaUid: number;
-        /**
-         * Numeric uid of the location.
-         */
-        locationUid: number;
-    };
-    query?: {
-        /**
-         * Whether the body's `extIds` are merged by key with the stored ones (`true`, the default) or replace them (`false`). With `true`, an empty array adds nothing; with `false`, it removes every mapping. A body without `extIds` keeps them either way.
-         *
-         */
-        mergeExtIds?: boolean;
-    };
-    url: '/agendas/{agendaUid}/locations/{locationUid}';
-};
-
-export type AgendasLocationsPatchErrors = {
-    /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
-     *
-     */
-    400: Error | ValidationError;
-    /**
-     * The request carries no credential this operation accepts.
-     */
-    401: Error;
-    /**
-     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
-     */
-    403: Error;
-    /**
-     * Agenda or location not found. A location merged into another one answers here too, and identifies the surviving one so a stale reference can be repaired.
-     *
-     */
-    404: Error | MergedLocationError;
-    /**
-     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
-     */
-    422: ValidationError;
-    /**
-     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 3000 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
-     */
-    429: Error;
-};
-
-export type AgendasLocationsPatchError = AgendasLocationsPatchErrors[keyof AgendasLocationsPatchErrors];
-
-export type AgendasLocationsPatchResponses = {
-    /**
-     * The updated location.
-     */
-    200: Location;
-};
-
-export type AgendasLocationsPatchResponse = AgendasLocationsPatchResponses[keyof AgendasLocationsPatchResponses];
-
-export type AgendasLocationsUpdateData = {
-    body: LocationInput;
-    path: {
-        /**
-         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
-         *
-         */
-        agendaUid: number;
-        /**
-         * Numeric uid of the location.
-         */
-        locationUid: number;
-    };
-    query?: {
-        /**
-         * Whether the body's `extIds` are merged by key with the stored ones (`true`, the default) or replace them (`false`). With `true`, an empty array adds nothing; with `false`, it removes every mapping. A body without `extIds` keeps them either way.
-         *
-         */
-        mergeExtIds?: boolean;
-    };
-    url: '/agendas/{agendaUid}/locations/{locationUid}';
-};
-
-export type AgendasLocationsUpdateErrors = {
-    /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
-     *
-     */
-    400: Error | ValidationError;
-    /**
-     * The request carries no credential this operation accepts.
-     */
-    401: Error;
-    /**
-     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
-     */
-    403: Error;
-    /**
-     * Agenda or location not found. A location merged into another one answers here too, and identifies the surviving one so a stale reference can be repaired.
-     *
-     */
-    404: Error | MergedLocationError;
-    /**
-     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
-     */
-    422: ValidationError;
-    /**
-     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 3000 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
-     */
-    429: Error;
-};
-
-export type AgendasLocationsUpdateError = AgendasLocationsUpdateErrors[keyof AgendasLocationsUpdateErrors];
-
-export type AgendasLocationsUpdateResponses = {
-    /**
-     * The updated location.
-     */
-    200: Location;
-};
-
-export type AgendasLocationsUpdateResponse = AgendasLocationsUpdateResponses[keyof AgendasLocationsUpdateResponses];
-
-export type KeysVerifyData = {
-    body: {
-        /**
-         * The API key to check, as it was issued. An OAuth access token answers `invalid_key`.
-         *
-         */
-        key: string;
-    };
-    path?: never;
-    query?: never;
-    url: '/keys/verify';
-};
-
-export type KeysVerifyErrors = {
-    /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
-     *
-     */
-    400: Error | ValidationError;
-};
-
-export type KeysVerifyError = KeysVerifyErrors[keyof KeysVerifyErrors];
-
-export type KeysVerifyResponses = {
-    /**
-     * Whether the key authenticates, and what it is.
-     */
-    200: KeyVerification;
-};
-
-export type KeysVerifyResponse = KeysVerifyResponses[keyof KeysVerifyResponses];
-
-export type GeocodingSearchData = {
-    body?: never;
-    path?: never;
-    query: {
-        /**
-         * Address of the place.
-         */
-        address: string;
-        /**
-         * ISO 3166-1 alpha-2 code of the country the address is in.
-         */
-        countryCode: string;
-        /**
-         * Postal code of the place.
-         */
-        postalCode?: string;
-        /**
-         * INSEE code of the French municipality the address is in.
-         */
-        insee?: string;
-    };
-    url: '/geocoding/search';
-};
-
-export type GeocodingSearchErrors = {
-    /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
-     *
-     */
-    400: Error | ValidationError;
-    /**
-     * The request carries no credential this operation accepts.
-     */
-    401: Error;
-    /**
-     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
-     */
-    403: Error;
-    /**
-     * The request was not processed and can be retried after a short delay.
-     */
-    503: Error;
-};
-
-export type GeocodingSearchError = GeocodingSearchErrors[keyof GeocodingSearchErrors];
-
-export type GeocodingSearchResponses = {
-    /**
-     * The place, or `null` when none matches the address.
-     */
-    200: GeocodingResult;
-};
-
-export type GeocodingSearchResponse = GeocodingSearchResponses[keyof GeocodingSearchResponses];
-
-export type GeocodingReverseData = {
-    body?: never;
-    path?: never;
-    query: {
-        /**
-         * Latitude of the point.
-         */
-        latitude: number;
-        /**
-         * Longitude of the point.
-         */
-        longitude: number;
-        /**
-         * Postal code of the place.
-         */
-        postalCode?: string;
-    };
-    url: '/geocoding/reverse';
-};
-
-export type GeocodingReverseErrors = {
-    /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
-     *
-     */
-    400: Error | ValidationError;
-    /**
-     * The request carries no credential this operation accepts.
-     */
-    401: Error;
-    /**
-     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
-     */
-    403: Error;
-    /**
-     * The request was not processed and can be retried after a short delay.
-     */
-    503: Error;
-};
-
-export type GeocodingReverseError = GeocodingReverseErrors[keyof GeocodingReverseErrors];
-
-export type GeocodingReverseResponses = {
-    /**
-     * The place, or `null` when none is found at the point.
-     */
-    200: GeocodingResult;
-};
-
-export type GeocodingReverseResponse = GeocodingReverseResponses[keyof GeocodingReverseResponses];

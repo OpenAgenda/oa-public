@@ -1,19 +1,6 @@
 import { defineSemanticTokens } from '@chakra-ui/react';
 
 export const semanticColors = defineSemanticTokens.colors({
-  // Chakra's error and warning text (red.500, orange.600) stays under 4.5:1 on
-  // white (3.76 and 3.56): an error or a warning is body text, it must be
-  // readable (RGAA 3.2). One step darker: red.700 6.47:1, orange.700 5.18:1 on
-  // white, and still above 4.5 on their pale backgrounds (bg.error,
-  // bg.warning).
-  fg: {
-    error: {
-      value: { _light: '{colors.red.700}', _dark: '{colors.red.300}' },
-    },
-    warning: {
-      value: { _light: '{colors.orange.700}', _dark: '{colors.orange.300}' },
-    },
-  },
   primary: {
     contrast: {
       value: { _light: 'white', _dark: 'white' },
@@ -35,29 +22,6 @@ export const semanticColors = defineSemanticTokens.colors({
     },
     focusRing: {
       value: { _light: '{colors.primary.600}', _dark: '{colors.primary.600}' },
-    },
-  },
-  sand: {
-    contrast: {
-      value: { _light: 'white', _dark: 'white' },
-    },
-    fg: {
-      value: { _light: '{colors.sand.800}', _dark: '{colors.sand.200}' },
-    },
-    subtle: {
-      value: { _light: '{colors.sand.100}', _dark: '{colors.sand.900}' },
-    },
-    muted: {
-      value: { _light: '{colors.sand.200}', _dark: '{colors.sand.800}' },
-    },
-    emphasized: {
-      value: { _light: '{colors.sand.300}', _dark: '{colors.sand.700}' },
-    },
-    solid: {
-      value: { _light: '{colors.sand.600}', _dark: '{colors.sand.600}' },
-    },
-    focusRing: {
-      value: { _light: '{colors.sand.600}', _dark: '{colors.sand.600}' },
     },
   },
   oaGray: {
@@ -2202,53 +2166,6 @@ export const semanticColors = defineSemanticTokens.colors({
           _light: '{colors.strapi.discreetAliceBlue.600}',
           _dark: '{colors.strapi.discreetAliceBlue.600}',
         },
-      },
-    },
-  },
-  // Texte d'un statut de billetterie : les valeurs brutes de
-  // `tokens/colors.ts` en clair, le pas 300 de la rampe sœur en sombre. Les
-  // statuts sans couleur propre (vente close, inconnu) restent sur le gris.
-  availability: {
-    available: {
-      fg: {
-        value: {
-          _light: '{colors.availability.available}',
-          _dark: '{colors.green.300}',
-        },
-      },
-    },
-    limited: {
-      fg: {
-        value: {
-          _light: '{colors.availability.limited}',
-          _dark: '{colors.warning.300}',
-        },
-      },
-    },
-    soldOut: {
-      fg: {
-        value: {
-          _light: '{colors.availability.soldOut}',
-          _dark: '{colors.danger.300}',
-        },
-      },
-    },
-    notYetOnSale: {
-      fg: {
-        value: {
-          _light: '{colors.availability.notYetOnSale}',
-          _dark: '{colors.primary.300}',
-        },
-      },
-    },
-    salesClosed: {
-      fg: {
-        value: { _light: '{colors.oaGray.700}', _dark: '{colors.oaGray.300}' },
-      },
-    },
-    unknown: {
-      fg: {
-        value: { _light: '{colors.oaGray.700}', _dark: '{colors.oaGray.300}' },
       },
     },
   },

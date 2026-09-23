@@ -262,14 +262,7 @@ const FiltersManager = React.forwardRef(function FiltersManager(
         return (
           <Portal key={widgetSeed(widget)} selector={widget.destSelector}>
             <span>
-              <Sort
-                options={widget.options}
-                defaultValue={widget.defaultValue}
-                labels={widget.labels}
-                shortLabels={widget.shortLabels}
-                descriptions={widget.descriptions}
-                label={widget.label}
-              />
+              <Sort {...widget} />
             </span>
           </Portal>
         );

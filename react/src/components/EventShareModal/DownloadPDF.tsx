@@ -1,0 +1,88 @@
+import { useMemo } from 'react';
+import { useIntl } from 'react-intl';
+import { Button, Link, Flex, Text } from '@openagenda/uikit';
+import { Tag } from '@openagenda/uikit/snippets';
+import { FontAwesomeIcon as FaIcon } from '@fortawesome/react-fontawesome';
+import { faFilePdf } from '@fortawesome/free-regular-svg-icons';
+import AccordionItem from '../AccordionItem';
+import type { Agenda, Event } from '../../types';
+import messages from './messages';
+
+export default function DownloadPDF({
+  rootUrl,
+  agenda,
+  event,
+  contentLocale,
+}: {
+  rootUrl: string;
+  agenda: Agenda;
+  event: Event;
+  contentLocale: string;
+}): React.JSX.Element {
+  const intl = useIntl();
+
+  // `?lang` is what the renderer picks its content and its labels with. Without
+  // it the web `/api` mount falls back to the reader's own culture (or `fr`), so
+  // a PDF asked for from an event displayed in one language came out in another.
+  const pdfUrl = useMemo(() => {
+    const url = new URL(
+      `/api/agendas/${agenda.uid}/events/${event.uid}.pdf`,
+      rootUrl,
+    );
+    if (contentLocale) {
+      url.searchParams.set('lang', contentLocale);
+    }
+    return url.toString();
+  }, [rootUrl, agenda.uid, event.uid, contentLocale]);
+
+  const eventUrl = `https://openagenda.com/agendas/${agenda.uid}/events/${event.uid}`;
+  const mailtoHref = `mailto:support@openagenda.com?subject=${encodeURIComponent(
+    intl.formatMessage(messages.feedbackEmailSubject),
+  )}&body=${encodeURIComponent(
+    intl.formatMessage(messages.feedbackEmailBody, { eventUrl }),
+  )}`;
+
+  return (
+    <AccordionItem
+      value="pdf"
+      title={(
+        <>
+          {intl.formatMessage(messages.downloadPDF)}
+          <Tag
+            bgColor="transparent"
+            border="1px solid"
+            borderColor="primary.500"
+            color="primary.500"
+            variant="solid"
+            borderRadius="full"
+            fontWeight="bold"
+            marginLeft={2}
+          >
+            {intl.formatMessage(messages.new)}
+          </Tag>
+        </>
+      )}
+    >
+      <Flex direction="column" align="center" gap={4}>
+        <Button asChild>
+          <Link
+            unstyled
+            href={pdfUrl}
+            download
+            target="_blank"
+            rel="noopener nofollow"
+          >
+            <FaIcon icon={faFilePdf} />
+            {intl.formatMessage(messages.download)}
+          </Link>
+        </Button>
+        <Flex gap={2}>
+          <Text>{intl.formatMessage(messages.feedbackQuestion)}</Text>
+          <Link href={mailtoHref} color="primary.500">
+            {intl.formatMessage(messages.feedbackLink)}
+          </Link>
+        </Flex>
+      </Flex>
+    </AccordionItem>
+  );
+}

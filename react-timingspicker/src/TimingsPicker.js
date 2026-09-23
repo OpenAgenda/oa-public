@@ -126,9 +126,7 @@ export default class TimingsPicker extends Component {
     }
 
     if (props.value !== state.value) {
-      // Whatever else a timing carries — its id — goes through untouched.
       derivedState.value = (props.value || state.value || []).map((v) => ({
-        ...v,
         begin:
           typeof v.begin === 'string' ? dateFns.parseISO(v.begin) : v.begin,
         end: typeof v.end === 'string' ? dateFns.parseISO(v.end) : v.end,

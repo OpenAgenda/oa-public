@@ -17,8 +17,7 @@ function withProvider(req, res, children) {
       intl,
       filters: res.locals.filters,
       widgets: res.locals.widgets,
-      // the sort too: the client keeps it, so the server render must agree
-      initialValues: req.query,
+      initialValues: _.omit(req.query, 'sort'),
       onSubmit: () => {},
     },
     children,

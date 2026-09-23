@@ -36,11 +36,6 @@ export type AgendaSettings = {
   contribution?: AgendaSettingsContribution;
 };
 
-export type AgendaRights = {
-  license: { id: string; name: string; url: string };
-  publisher: { name: string; url: string };
-};
-
 export type Agenda = {
   slug: string;
   uid: number;
@@ -57,8 +52,6 @@ export type Agenda = {
   private: 0 | 1;
   updatedAt: string;
   locationSetUid?: number;
-  // Licence and publisher of the agenda's selection, on the single agenda read.
-  rights?: AgendaRights | null;
 };
 
 export type EventTiming = {
@@ -90,8 +83,6 @@ export type EventQuery = {
   timings?: unknown;
   passed?: string | number;
   relative?: string[];
-  // The corpus: '1' for the agenda's archives.
-  archived?: string;
 };
 
 export type ExportField = {
@@ -111,5 +102,4 @@ export type ExportSettings = {
   spreadsheetColumns?: ExportField[];
   choiceFields?: ChoiceField[];
   pdfImageLimit?: number;
-  wordImageLimit?: number;
 };

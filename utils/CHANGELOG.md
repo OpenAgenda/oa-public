@@ -1,29 +1,5 @@
 # Change Log
 
-## 2.4.0
-
-### Minor Changes
-
-- [#672](https://github.com/OpenAgenda/oa/pull/672) [`d83554c`](https://github.com/OpenAgenda/oa/commit/d83554c725356354a516a66cdc9931f2d2dd3428) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `tokenizeSearch` splits a free-text search into the words to match. `deburr` folds case and accents; `foldText` also folds compatibility forms and turns punctuation into word breaks. `relevanceBucket` and `fuzzyScore` rank a search against a text, a typo included.
-
-## 2.3.0
-
-### Minor Changes
-
-- [#586](https://github.com/OpenAgenda/oa/pull/586) [`c692191`](https://github.com/OpenAgenda/oa/commit/c692191fc8b981d76f2b30bf9ac42e83b685a3a0) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `storedImageRef` names a stored image by the last segment of the name its image field holds, without the query, from an event descriptor or an agenda or location string, prefixed or not.
-
-## 2.2.0
-
-### Minor Changes
-
-- [#464](https://github.com/OpenAgenda/oa/pull/464) [`4ded780`](https://github.com/OpenAgenda/oa/commit/4ded78019ec4a45bd891884d16a48270124b2d62) Thanks [@clement180](https://github.com/clement180)! - `isoDatetime` now exports `normalize`, so a consumer that has to STORE a datetime can write the one spelling this module's own tolerance (`OFFSET_ISO`) and Elasticsearch's `strict_date_optional_time` both accept, instead of restating the rule. Fractional seconds are truncated to nine digits: `OFFSET_ISO` accepted any length, the index accepts nine, and a single over-long row kept a whole document out of it.
-
-## 2.1.0
-
-### Minor Changes
-
-- [#453](https://github.com/OpenAgenda/oa/pull/453) [`568c2d4`](https://github.com/OpenAgenda/oa/commit/568c2d4030d3e530cb6677a2c94dad6113ed27d8) Thanks [@bertho-zero](https://github.com/bertho-zero)! - The responsive `Image` built by `responsiveImage`, `responsiveImageFromServed` and `injectResponsiveImage` no longer carries `credits`. Image credits belong to the owning resource's `imageCredits`.
-
 ## 2.0.0
 
 ### Major Changes

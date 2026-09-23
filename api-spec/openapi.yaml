@@ -11,8 +11,8 @@ info:
     ## Authentication
 
     Every request is authenticated with `Authorization: Bearer <token>`, using
-    one of two credentials, unless its operation declares another credential or
-    none in its own security requirements:
+    one of two credentials (the only exception is `POST /uploads/staged`, which
+    is authorized by an upload ticket in the `X-Upload-Ticket` header):
 
     - **API key** — a read-only public key (`oa_pk_…`), which carries no
       user identity and reads what is public, or a secret key (`oa_sk_…`) for
@@ -50,12 +50,6 @@ info:
   license:
     name: Proprietary — © OpenAgenda
     identifier: LicenseRef-OpenAgenda-Proprietary
-  # Named links shown next to the contact and the license in the reference.
-  x-scalar-links:
-    - name: Help centre
-      url: https://doc.openagenda.com
-    - name: Privacy policy
-      url: https://doc.openagenda.com/confidentialite/
   # SDK-first story: the code samples on each operation use @openagenda/api-client
   # (generated from this very contract). Surface its install up front.
   x-scalar-sdk-installation:
@@ -87,22 +81,12 @@ tags:
     description: >
       Where events happen. Each agenda has its own pool of locations —
       or shares one with other agendas through a location set.
-  - name: Geocoding
-    description: >
-      The place an address designates, or the place at a point, as a location
-      created there gets it.
-  - name: Networks
-    description: >
-      Groups of agendas. Find a network by its title, then list its agendas.
   - name: Me
     description: >
       The authenticated caller: the agendas they are a member of and their
       role on each. Requires a user identity — a secret key or an OAuth
       token; a public (`oa_pk_…`) key carries no identity and answers
       `401`.
-  - name: Keys
-    description: >
-      The API keys you hold, and what each one can do.
   - name: Uploads
     description: >
       Stage a media file (the native event image, or a custom file/image
@@ -118,10 +102,7 @@ x-tagGroups:
       - Agendas
       - Events
       - Locations
-      - Networks
-      - Geocoding
       - Me
-      - Keys
       - Uploads
 
 # Authenticate every request with either an API key or an OAuth2 token,
@@ -151,9 +132,7 @@ paths:
       description: >
         Returns a cursor-paginated list of agendas. Pass the `after`
         cursor returned in `pagination.after` to fetch the next page,
-        with the same filters. Private agendas and agendas not indexed in
-        public search are absent from this list. With an API key limited to
-        a list of agendas, only those agendas appear, whatever the filters.
+        with the same filters.
 
 
         Unknown or malformed filter values answer `400`, with per-field
@@ -174,7 +153,6 @@ paths:
         - $ref: '#/components/parameters/AgendaFilterUid'
         - $ref: '#/components/parameters/AgendaFilterSlug'
         - $ref: '#/components/parameters/AgendaFilterOfficial'
-        - $ref: '#/components/parameters/AgendaFilterNetworkUid'
       responses:
         '200':
           description: A page of agendas.
@@ -260,7 +238,7 @@ paths:
         - publicKey: []
         - secretKey: []
         - oauth2:
-            - events:read
+            - agendas:read
       parameters:
         - $ref: '#/components/parameters/AgendaUid'
       responses:
@@ -283,18 +261,7 @@ paths:
       tags: [Events]
       summary: List events of an agenda
       x-synonyms:
-        [
-          find,
-          browse,
-          filter,
-          paginate,
-          cursor,
-          upcoming,
-          when,
-          where,
-          date,
-          relevance,
-        ]
+        [find, browse, filter, paginate, cursor, upcoming, when, where, date]
       x-codeSamples:
         - lang: TypeScript
           label: All upcoming events in Paris (paging every result)
@@ -304,7 +271,7 @@ paths:
             do {
               const { data, error } = await oa.agendas.events.list({
                 path: { agendaUid: 12345 },
-                query: { adminLevel4: ['Paris'], relative: ['upcoming'], limit: 100, after },
+                query: { city: ['Paris'], relative: ['upcoming'], limit: 100, after },
               });
               if (error) throw error;
               events.push(...data.data);
@@ -320,11 +287,6 @@ paths:
         Only published events are listed. Unknown or malformed filter values answer `400`, with per-field
         context under `error.errors`. An unrecognized top-level query parameter
         is ignored.
-
-
-        A location's administrative levels go from `adminLevel1`, the largest
-        division of its country, to `adminLevel6`, the smallest; what each one
-        is depends on the country, and `adminLevel4` is the municipality.
       security:
         - publicKey: []
         - secretKey: []
@@ -353,12 +315,12 @@ paths:
         # place
         - $ref: '#/components/parameters/FilterLocationUid'
         - $ref: '#/components/parameters/FilterLocationExtId'
-        - $ref: '#/components/parameters/FilterAdminLevel1'
-        - $ref: '#/components/parameters/FilterAdminLevel2'
+        - $ref: '#/components/parameters/FilterRegion'
+        - $ref: '#/components/parameters/FilterDepartment'
+        - $ref: '#/components/parameters/FilterCity'
+        - $ref: '#/components/parameters/FilterDistrict'
         - $ref: '#/components/parameters/FilterAdminLevel3'
-        - $ref: '#/components/parameters/FilterAdminLevel4'
         - $ref: '#/components/parameters/FilterAdminLevel5'
-        - $ref: '#/components/parameters/FilterAdminLevel6'
         - $ref: '#/components/parameters/FilterCountryCode'
         - $ref: '#/components/parameters/FilterBoundingBox'
         - $ref: '#/components/parameters/FilterNear'
@@ -373,7 +335,6 @@ paths:
         - $ref: '#/components/parameters/FilterLocalTime'
         - $ref: '#/components/parameters/FilterCreatedAt'
         - $ref: '#/components/parameters/FilterUpdatedAt'
-        - $ref: '#/components/parameters/FilterAvailabilityUpdatedAt'
         # audience & additional fields
         - $ref: '#/components/parameters/FilterAge'
         - $ref: '#/components/parameters/FilterAdditionalFields'
@@ -421,10 +382,12 @@ paths:
         by-uid URL.
 
 
-        The moderation `state` of the created event is arbitrated by the
-        caller's role and the agenda's contribution settings - a
-        contributor's event may be created pending moderation rather than
-        published.
+        Native writable fields sit at the top level; agenda-specific
+        fields go under `additionalFields`; any other top-level key is
+        rejected with `400`. The moderation `state` of the created
+        event is arbitrated by the caller's role and the agenda's
+        contribution settings - a contributor's event may be created
+        pending moderation rather than published.
 
 
         The acting member must be allowed to create events in this
@@ -465,8 +428,6 @@ paths:
           $ref: '#/components/responses/NotFound'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
 
   /agendas/{agendaUid}/events/validate:
     post:
@@ -489,20 +450,23 @@ paths:
                 location: { uid: 55512 },
               },
             });
-            if (error) throw error; // 422 with error.error.errors when invalid
+            if (error) throw error; // 422 with error.errors when invalid
             return data.valid; // true
       description: >
-        Checks the body as creating the event in this agenda would, without
-        creating anything. A valid body answers `200 { "valid": true }`; an
-        invalid one answers `422` with per-field problems under
-        `error.errors[]`, and a caller who may not create gets `403`.
+        Validates the body exactly as create does, without persisting
+        anything. A well-formed, valid body answers `200 { "valid":
+        true }`; invalid field values answer `422` with per-field
+        problems under `error.errors[]`. Structural body
+        problems (an unknown top-level key, an `additionalFields` name
+        colliding with a native field) answer `400`.
 
 
         A native `image: { url }` is checked for URL syntax only (an
         `http(s)` URL without embedded credentials): the URL is not
-        fetched, so a URL that create refuses with `422` once it fetches it
-        passes validate. The image counts as present, so an agenda whose
-        schema requires one validates as it would create.
+        fetched, so a URL that create rejects with `422` at fetch time
+        (unreachable host, private address, over 20 MiB, not an image)
+        passes validate. The image counts as present, so an agenda
+        whose schema requires one validates as it would create.
       security:
         - secretKey: []
         - oauth2:
@@ -603,6 +567,11 @@ paths:
         fields.
 
 
+        External id mappings (`extIds`) in the body are merged by key
+        with the stored ones; pass `?mergeExtIds=false` to replace them
+        wholesale.
+
+
         The acting member must be allowed to edit this event's
         content, otherwise `403`. An unknown event uid answers `404`.
       security:
@@ -636,8 +605,6 @@ paths:
           $ref: '#/components/responses/NotFound'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
     patch:
       operationId: agendas.events.patch
       tags: [Events]
@@ -655,7 +622,9 @@ paths:
             return data;
       description: >
         Updates only the fields present in the body (an `EventPatch`)
-        and returns the updated `Event`. Fields left out are unchanged.
+        and returns the updated `Event`. Fields left out are unchanged;
+        `extIds` present in the body are merged by key with the stored
+        ones.
 
 
         The acting member must be allowed to edit this event's
@@ -692,8 +661,6 @@ paths:
           $ref: '#/components/responses/NotFound'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
     delete:
       operationId: agendas.events.delete
       tags: [Events]
@@ -737,8 +704,6 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
 
   /agendas/{agendaUid}/events/ext/{extKey}/{extId}:
     get:
@@ -806,13 +771,16 @@ paths:
             if (error) throw error;
             return data;
       description: >
-        Replaces the event that carries the `(extKey, extId)` pair with
-        the body and answers `200`, or creates an event carrying it and
-        answers `201`, with a `Location` header giving its by-uid URL.
-        The pair joins the body's `extIds`, which are merged by key with
-        the stored ones; a mapping under the key `extKey` with a value
-        other than `extId` is refused with `422`. Repeated after a lost
-        response, the request replaces the event the first request created.
+        Upserts the event carrying the `(extKey, extId)` pair: its
+        content is REPLACED if it already exists (`200`), or the event
+        is CREATED if not (`201` + a `Location` header pointing at its
+        canonical by-uid URL). The path pair is authoritative - it is
+        added to the event's `extIds`, keeping the mappings from other
+        systems, so the event always carries its own external identity;
+        any `extIds` in the body are ignored. This is the recommended
+        write path for syncing from your own system: it is idempotent
+        by external identity, so a lost response can be retried without
+        creating a duplicate.
 
 
         The acting member must be allowed to create or edit the event,
@@ -861,16 +829,14 @@ paths:
           $ref: '#/components/responses/NotFound'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
     patch:
       operationId: agendas.events.patchByExtId
       tags: [Events]
-      summary: Partially update an event by external id
-      x-synonyms: [patch, partial update, edit, modify, change, by ext]
+      summary: Upsert an event by external id (partial)
+      x-synonyms: [upsert, sync, patch, partial, merge, by ext]
       x-codeSamples:
         - lang: TypeScript
-          label: Change the title of an event of your own system
+          label: Partially upsert an event addressed by its sync id
           source: |
             const { data, error } = await oa.agendas.events.patchByExtId({
               path: { agendaUid: 12345, extKey: 'my-system', extId: 'abc-123' },
@@ -879,17 +845,20 @@ paths:
             if (error) throw error;
             return data;
       description: >
-        Changes the fields the body carries (an `EventPatch`) on the
-        event that carries the `(extKey, extId)` pair. When no event
-        carries it, the request answers `404`. `extIds` in the body are
-        merged by key with the stored ones; an empty array leaves them as
-        they are, and a mapping under the key `extKey` with a value other
-        than `extId` is refused with `422`.
+        Upserts the event carrying the `(extKey, extId)` pair. When it
+        already exists, only the fields present in the body (an
+        `EventPatch`) are changed - the rest is left untouched (`200`).
+        If no event carries the pair it is created (`201` + a
+        `Location` header pointing at its canonical by-uid URL), in
+        which case the full server-side requirements apply, so the body
+        must be complete enough to create a valid event (else `422`).
+        The path pair is added to the event's `extIds`, keeping the
+        mappings from other systems; any `extIds` in the body are
+        ignored.
 
 
-        The acting member must be allowed to edit the event, otherwise
-        `403`. A caller who may not write events on the agenda gets `403`
-        also when no event carries the pair.
+        The acting member must be allowed to create or edit the event,
+        otherwise `403`.
       security:
         - secretKey: []
         - oauth2:
@@ -906,7 +875,20 @@ paths:
               $ref: '#/components/schemas/EventPatch'
       responses:
         '200':
-          description: The updated event.
+          description: The existing event was updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '201':
+          description: A new event was created.
+          headers:
+            Location:
+              description: Canonical by-uid URL of the created event.
+              required: true
+              schema:
+                type: string
+              example: /agendas/12345/events/9876543
           content:
             application/json:
               schema:
@@ -921,8 +903,6 @@ paths:
           $ref: '#/components/responses/NotFound'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
     delete:
       operationId: agendas.events.deleteByExtId
       tags: [Events]
@@ -968,8 +948,6 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
 
   /agendas/{agendaUid}/events/facets:
     get:
@@ -998,7 +976,7 @@ paths:
             const { data, error } = await oa.agendas.events.facets({
               path: { agendaUid: 12345 },
               query: {
-                facets: ['adminLevel4', 'keywords', 'timespan', 'additionalFields', 'additionalFieldMetrics'],
+                facets: ['cities', 'keywords', 'timespan', 'additionalFields', 'additionalFieldMetrics'],
               },
             });
             if (error) throw error;
@@ -1008,15 +986,15 @@ paths:
           source: |
             const { data, error } = await oa.agendas.events.facets({
               path: { agendaUid: 12345 },
-              query: { facets: ['adminLevel4'], keyword: ['concert'] },
+              query: { facets: ['cities'], keyword: ['concert'] },
             });
             if (error) throw error;
-            return data.facets.adminLevel4;
+            return data.facets.cities;
       description: >
         Returns event counts grouped by the requested facets, computed over the
         **same filtered set** as `agendas.events.list`. Pass the same filter
         parameters to scope the counts (e.g. `?keyword=concert` then facet on
-        `adminLevel4`). The response carries only the requested facets, in the
+        `cities`). The response carries only the requested facets, in the
         shapes `FacetResults` defines.
 
 
@@ -1030,11 +1008,6 @@ paths:
         Only published events are counted. `facets` selects which facets to
         compute; an unknown facet name returns `400`. Facets cover the whole
         filtered set in one response.
-
-
-        A location's administrative levels go from `adminLevel1`, the largest
-        division of its country, to `adminLevel6`, the smallest; what each one
-        is depends on the country, and `adminLevel4` is the municipality.
       security:
         - publicKey: []
         - secretKey: []
@@ -1067,12 +1040,12 @@ paths:
         - $ref: '#/components/parameters/FilterFeatured'
         - $ref: '#/components/parameters/FilterLocationUid'
         - $ref: '#/components/parameters/FilterLocationExtId'
-        - $ref: '#/components/parameters/FilterAdminLevel1'
-        - $ref: '#/components/parameters/FilterAdminLevel2'
+        - $ref: '#/components/parameters/FilterRegion'
+        - $ref: '#/components/parameters/FilterDepartment'
+        - $ref: '#/components/parameters/FilterCity'
+        - $ref: '#/components/parameters/FilterDistrict'
         - $ref: '#/components/parameters/FilterAdminLevel3'
-        - $ref: '#/components/parameters/FilterAdminLevel4'
         - $ref: '#/components/parameters/FilterAdminLevel5'
-        - $ref: '#/components/parameters/FilterAdminLevel6'
         - $ref: '#/components/parameters/FilterCountryCode'
         - $ref: '#/components/parameters/FilterBoundingBox'
         - $ref: '#/components/parameters/FilterNear'
@@ -1085,7 +1058,6 @@ paths:
         - $ref: '#/components/parameters/FilterLocalTime'
         - $ref: '#/components/parameters/FilterCreatedAt'
         - $ref: '#/components/parameters/FilterUpdatedAt'
-        - $ref: '#/components/parameters/FilterAvailabilityUpdatedAt'
         - $ref: '#/components/parameters/FilterAge'
         - $ref: '#/components/parameters/FilterAdditionalFields'
       responses:
@@ -1170,56 +1142,6 @@ paths:
         ]
       x-codeSamples:
         - lang: TypeScript
-          label: Find the required fields, build a body, then dry-run it
-          source: |
-            const agendaUid = 12345;
-            const { data: schema, error } = await oa.agendas.events.schema({
-              path: { agendaUid },
-            });
-            if (error) throw error;
-
-            // What the agenda requires, and where each value goes: `when`
-            // (enableWith) must hold for the requirement to apply, `unless`
-            // (optionalWith) lifts it.
-            const required = schema.fields
-              .filter(
-                (f) =>
-                  f.path
-                  && (f.optional === false
-                    || (f.optional === undefined && f.optionalWith)),
-              )
-              .map((f) => ({
-                path: f.path,
-                when: f.enableWith ?? null,
-                unless: f.optionalWith ?? null,
-              }));
-
-            const body = {
-              title: { fr: 'Concert en ligne' },
-              description: { fr: 'Une soirée jazz diffusée en direct.' },
-              timings: [
-                { begin: '2030-06-20T18:00:00+02:00', end: '2030-06-20T22:00:00+02:00' },
-              ],
-              attendanceMode: 2, // online: activates onlineAccessLink
-              onlineAccessLink: 'https://example.com/live',
-            };
-            const set = (path, value) => {
-              const [key, sub] = path.split('.');
-              body[key] = sub ? { ...body[key], [sub]: value } : value;
-            };
-
-            // A radio field takes the id of the option that fits the event.
-            const theme = schema.fields.find((f) => f.field === 'thematique');
-            const concert = theme?.options.find((o) => o.value === 'concert');
-            if (concert) set(theme.path, concert.id);
-
-            const check = await oa.agendas.events.validate({
-              path: { agendaUid },
-              body,
-            });
-            // A 422 lists under `errors` each field to fix.
-            return { required, verdict: check.error ? check.error.error : check.data };
-        - lang: TypeScript
           label: List the agenda's additional event fields
           source: |
             const { data, error } = await oa.agendas.events.schema({
@@ -1227,7 +1149,7 @@ paths:
             });
             if (error) throw error;
             return data.fields
-              .filter((f) => f.path?.startsWith('additionalFields.'))
+              .filter((f) => f.schemaId != null)
               .map((f) => ({ name: f.field, type: f.fieldType }));
       description: >
         Returns the agenda's **merged event form schema** — the dynamic
@@ -1244,15 +1166,12 @@ paths:
 
         Descriptors are scoped to your read access: a field whose `read` access
         levels exclude the caller (e.g. a moderator-only field) is omitted from
-        `fields`, so a public caller sees only the public fields. Native
-        fields the write operations do not take (the event's `uid`, `slug`,
-        timestamps...) are omitted too, and `status` is listed only on an
-        agenda that accepts it.
+        `fields`, so a public caller sees only the public fields.
       security:
         - publicKey: []
         - secretKey: []
         - oauth2:
-            - agendas:read
+            - events:read
       parameters:
         - $ref: '#/components/parameters/AgendaUid'
       responses:
@@ -1269,68 +1188,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 
-  /networks:
-    get:
-      operationId: networks.list
-      tags: [Networks]
-      summary: List networks
-      x-synonyms: [groups, federation, umbrella, name]
-      x-codeSamples:
-        - lang: TypeScript
-          label: Find a network by its title, then list its public agendas
-          source: |
-            const { data: networks, error } = await oa.networks.list({
-              query: { search: 'metropole europeenne de lille', limit: 1 },
-            });
-            if (error) throw error;
-            const [network] = networks.data;
-            if (!network) return null;
-            const agendas = [];
-            let after;
-            do {
-              const { data, error: agendasError } = await oa.agendas.list({
-                query: { networkUid: [network.uid], limit: 100, after },
-              });
-              if (agendasError) throw agendasError;
-              agendas.push(...data.data);
-              after = data.pagination.after;
-            } while (after);
-            return { network, agendas };
-      description: >
-        Returns a cursor-paginated list of networks, the most recently added
-        first, or with `search` the closest titles first. Pass the `after`
-        cursor returned in `pagination.after` to fetch the next page, with the
-        same filters. A network's `uid`, passed as `networkUid` to
-        `agendas.list`, lists those of its agendas that are public and indexed
-        in public search.
-
-
-        Malformed filter values answer `400`, with per-field context under
-        `error.errors`. An unrecognized top-level query parameter is ignored.
-      security:
-        - publicKey: []
-        - secretKey: []
-        - oauth2:
-            - agendas:read
-      parameters:
-        - $ref: '#/components/parameters/AfterCursor'
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/NetworkSearch'
-        - $ref: '#/components/parameters/NetworkFilterUid'
-      responses:
-        '200':
-          description: A page of networks.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NetworkList'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-
   /me/agendas:
     get:
       operationId: me.agendas.list
@@ -1345,37 +1202,21 @@ paths:
           which agendas,
           can I,
           permissions,
-          by slug,
-          my agenda,
         ]
       x-codeSamples:
         - lang: TypeScript
-          label: Find one of my agendas by its slug
-          source: |
-            const { data, error } = await oa.me.agendas.list({
-              query: { slug: ['festival-des-lumieres'] },
-            });
-            if (error) throw error;
-            return data.data[0] ?? null; // null: not a member, or unknown slug
-        - lang: TypeScript
           label: Which agendas can I write to?
           source: |
-            const { data, error } = await oa.me.agendas.list({
-              query: {
-                role: ['administrator', 'moderator', 'contributor'],
-                fields: ['title', 'role'],
-                limit: 100,
-              },
-            });
+            const { data, error } = await oa.me.agendas.list({});
             if (error) throw error;
-            return data.data;
+            return data.data
+              .filter((a) => a.role !== 'reader')
+              .map((a) => ({ uid: a.uid, title: a.title, role: a.role }));
       description: >
         Returns a cursor-paginated list of the agendas the
         authenticated user is a member of, with their role on each.
         Private agendas the user belongs to ARE included (each item
-        carries a `private` flag), and so are agendas not indexed in
-        public search. With an API key limited to a list of agendas, the
-        list holds only the memberships in those agendas.
+        carries a `private` flag).
       security:
         - secretKey: []
         - oauth2:
@@ -1385,8 +1226,6 @@ paths:
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/Detailed'
         - $ref: '#/components/parameters/Fields'
-        - $ref: '#/components/parameters/MeAgendaFilterSlug'
-        - $ref: '#/components/parameters/MeAgendaFilterRole'
       responses:
         '200':
           description: A page of the caller's agenda memberships.
@@ -1432,35 +1271,27 @@ paths:
             if (created.error) throw created.error;
             return created.data;
       description: >
-        Stages a media file - for an `image` field, or for a custom
-        `file`/`image` form-schema field of an event. Send the file as
+        Stages a media file - the native event `image`, or a custom
+        `file`/`image` form-schema field. Send the file as
         `multipart/form-data` (field `file`); the API validates its
         real type and size, stores it, and returns a short-lived `ref`.
-        Then attach `ref` on a write - `image: { ref }`, or a custom
-        field under `additionalFields` as `{ ref, name? }` (`name`
-        being the download filename) - so the media lands in the same
-        write as the rest of the edit.
+        Then attach `ref` on an event write - `image: { ref }` or a
+        custom field under `additionalFields` as `{ ref, name? }`
+        (`name` being the download filename) - so the media lands in
+        the same write as the rest of the edit.
 
 
         The type is detected from the file content, or from the
         filename extension for signature-less formats such as CSV; a
         type outside the platform's allowed set (images, PDF and common
-        office documents) answers `422` with the code
-        `file.invalidType`. The file is capped at 20 MiB (`422` with the
-        code `file.tooBig` past it). This is a coarse gate: the precise
-        types a given field accepts are enforced on the write that
-        attaches the file.
-
-
-        A request without a file answers `422` with the code `required`
-        on `file`; a file sent in another part, or a second file,
-        answers `422` with the code `file.unexpected` on that part. A
-        multipart body that cannot be read (cut short, without a
-        boundary, a text part over 1 MiB) answers `400`.
+        office documents) answers `422`. The file is capped at 20 MiB
+        (`422` past it). This is a coarse gate: the precise types a
+        given field accepts are enforced on the event write, against
+        the agenda's form schema.
       security:
         - secretKey: []
         - oauth2:
-            - media:write
+            - events:write
       parameters:
         - $ref: '#/components/parameters/AgendaUid'
       requestBody:
@@ -1479,7 +1310,7 @@ paths:
                     platform-supported document.
       responses:
         '200':
-          description: The staging reference to attach on a write.
+          description: The staging reference to attach on an event write.
           content:
             application/json:
               schema:
@@ -1494,8 +1325,6 @@ paths:
           $ref: '#/components/responses/NotFound'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
 
   /agendas/{agendaUid}/uploads/ticket:
     post:
@@ -1556,7 +1385,7 @@ paths:
         Upload the file with a plain HTTPS `POST` to `uploadUrl`: send
         the `ticket` in the `X-Upload-Ticket` header and the file as
         multipart field `file`. That call returns a staging `ref`,
-        which you then attach with `image: { ref }` on a write.
+        which you then attach with `image: { ref }` on an event write.
 
 
         An image already reachable at a public `http(s)` URL is
@@ -1564,12 +1393,12 @@ paths:
         ticket.
 
 
-        The ticket expires after 15 minutes (`expiresAt`) and is
+        The ticket expires after 5 minutes (`expiresAt`) and is
         consumed by a successful upload.
       security:
         - secretKey: []
         - oauth2:
-            - media:write
+            - events:write
       parameters:
         - $ref: '#/components/parameters/AgendaUid'
       responses:
@@ -1585,8 +1414,6 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
 
@@ -1611,9 +1438,9 @@ paths:
       description: >
         Receives the bytes of an OUT-OF-BAND upload authorized by
         `agendas.uploads.createTicket`, and returns the staging `ref`
-        to attach on a write (`image: { ref }`, or a custom
-        `additionalFields` field of an event). This is the endpoint the
-        ticket descriptor's `uploadUrl` points at.
+        to attach on an event write (`image: { ref }` or a custom
+        `additionalFields` field). This is the endpoint the ticket
+        descriptor's `uploadUrl` points at.
 
 
         Call it with a plain HTTPS `POST` from outside the typed API
@@ -1627,22 +1454,13 @@ paths:
         The type is detected from the file content, or from the
         filename extension for signature-less formats such as CSV; a
         type outside the platform's allowed set (images, PDF and common
-        office documents) answers `422` with the code
-        `file.invalidType`. The file is capped at 20 MiB (`422` with the
-        code `file.tooBig` past it).
+        office documents) answers `422`. The file is capped at 20 MiB
+        (`422` past it).
 
 
-        A request without a file answers `422` with the code `required`
-        on `file`; a file sent in another part, or a second file,
-        answers `422` with the code `file.unexpected` on that part. A
-        multipart body that cannot be read (cut short, without a
-        boundary, a text part over 1 MiB) answers `400`.
-
-
-        A successful upload consumes the ticket. A consumed or expired
-        ticket answers `401`, and uploading again takes a new ticket. A
-        request rejected before staging (`400`, `422`) leaves the ticket
-        usable until it expires.
+        A successful upload consumes the ticket: reusing it answers
+        `401`. A request rejected before staging (`400`, `422`) leaves
+        the ticket usable until it expires.
       security:
         - uploadTicketAuth: []
       requestBody:
@@ -1661,7 +1479,7 @@ paths:
                     platform-supported document.
       responses:
         '200':
-          description: The staging reference to attach on a write.
+          description: The staging reference to attach on an event write.
           content:
             application/json:
               schema:
@@ -1680,65 +1498,17 @@ paths:
       operationId: agendas.locations.list
       tags: [Locations]
       summary: List an agenda's locations
-      x-synonyms:
-        [
-          venues,
-          places,
-          addresses,
-          map,
-          where,
-          browse,
-          all,
-          find,
-          search,
-          name,
-          uid,
-          near,
-          nearby,
-          radius,
-          distance,
-          proximity,
-          match,
-          duplicate,
-          verified,
-        ]
+      x-synonyms: [venues, places, addresses, map, where, browse, all]
       x-codeSamples:
         - lang: TypeScript
-          label: Find the existing locations around an address
-          source: |
-            const { data: place, error: geocodingError } = await oa.geocoding.search({
-              query: { address: '1 place Maurice Marchais, Vannes', countryCode: 'FR' },
-            });
-            if (geocodingError) throw geocodingError;
-            if (!place.data) return [];
-
-            const { data, error } = await oa.agendas.locations.list({
-              path: { agendaUid: 12345 },
-              query: {
-                near: `${place.data.latitude},${place.data.longitude}`,
-                radius: 200,
-              },
-            });
-            if (error) throw error;
-            return data.data.map((l) => ({
-              uid: l.uid,
-              name: l.name,
-              address: l.address,
-              verified: l.verified,
-            }));
-        - lang: TypeScript
-          label: Find a location by name
+          label: List the most recent locations
           source: |
             const { data, error } = await oa.agendas.locations.list({
               path: { agendaUid: 12345 },
-              query: { search: 'Gare Meuse TGV', limit: 20 },
+              query: { limit: 20 },
             });
             if (error) throw error;
-            return data.data.map((l) => ({
-              uid: l.uid,
-              name: l.name,
-              address: l.address,
-            }));
+            return data.data.map((l) => ({ uid: l.uid, name: l.name }));
       description: >
         Returns a cursor-paginated list of the agenda's locations,
         newest first (insertion order, which can differ from
@@ -1771,9 +1541,6 @@ paths:
         - $ref: '#/components/parameters/LocationFilterUid'
         - $ref: '#/components/parameters/LocationFilterExtId'
         - $ref: '#/components/parameters/LocationBoundingBox'
-        - $ref: '#/components/parameters/FilterNear'
-        - $ref: '#/components/parameters/FilterRadius'
-        - $ref: '#/components/parameters/LocationFilterVerified'
         - $ref: '#/components/parameters/FilterCreatedAt'
         - $ref: '#/components/parameters/FilterUpdatedAt'
       responses:
@@ -1792,187 +1559,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 
-    post:
-      operationId: agendas.locations.create
-      tags: [Locations]
-      summary: Create a location
-      x-synonyms: [add, new, create, insert, venue, place, address]
-      x-codeSamples:
-        - lang: TypeScript
-          label: Create a location from its address
-          source: |
-            const { data, error } = await oa.agendas.locations.create({
-              path: { agendaUid: 12345 },
-              body: {
-                name: 'Château des Lèbres',
-                address: 'Naves, 07140 Les Vans',
-                countryCode: 'FR',
-              },
-            });
-            if (error) throw error;
-            return data;
-      description: >
-        Creates a location in the agenda, or in its shared location set
-        when the agenda has one. `verified` is set by an administrator or a
-        moderator of the agenda: from anyone else, a body carrying it is
-        refused with `422`.
-
-
-        The position is geocoded: the coordinates, the administrative
-        levels, the postal code, the time zone and the INSEE code the body
-        leaves out are filled in from the coordinates when the body carries
-        them, from the address otherwise; the ones it gives are kept.
-
-
-        The acting member must be a contributor of the agenda or above. On
-        an agenda open to contributions that asks no member information, a
-        user who is not a member becomes its contributor by creating a
-        location. Anyone else is refused with `403`, as is every caller when
-        the agenda's settings do not allow creating locations.
-      security:
-        - secretKey: []
-        - oauth2:
-            - locations:write
-      parameters:
-        - $ref: '#/components/parameters/AgendaUid'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/LocationInput'
-      responses:
-        '201':
-          description: The created location.
-          headers:
-            Location:
-              description: Canonical by-uid URL of the created location.
-              required: true
-              schema:
-                type: string
-              example: /agendas/12345/locations/67890
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Location'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '422':
-          $ref: '#/components/responses/UnprocessableEntity'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-
-  /agendas/{agendaUid}/locations/validate:
-    post:
-      operationId: agendas.locations.validate
-      tags: [Locations]
-      summary: Validate a location without creating it
-      x-synonyms: [dry run, check, validate, preview, lint, venue, place]
-      x-codeSamples:
-        - lang: TypeScript
-          label: Dry-run validate a location body before creating it
-          source: |
-            const { data, error } = await oa.agendas.locations.validate({
-              path: { agendaUid: 12345 },
-              body: {
-                name: 'Château des Lèbres',
-                address: 'Naves, 07140 Les Vans',
-                countryCode: 'FR',
-              },
-            });
-            if (error) throw error; // 422 with error.error.errors when invalid
-            return data.valid; // true
-      description: >
-        Checks the body as creating the location in this agenda would, the
-        geocoding of its position included, without creating anything. A
-        valid body answers `200 { "valid": true }`; an invalid one answers `422`
-        with per-field problems under `error.errors[]`, and a caller who may
-        not create gets `403`.
-
-
-        The `image` file is not read. An `image: { url }` is checked for URL
-        syntax only (an `http(s)` URL without embedded credentials); an
-        `image: { ref }` is checked to name an image uploaded to this agenda,
-        not an SVG, that is still there. A file that create refuses once it
-        reads it passes validate.
-      security:
-        - secretKey: []
-        - oauth2:
-            - locations:write
-      parameters:
-        - $ref: '#/components/parameters/AgendaUid'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/LocationInput'
-      responses:
-        '200':
-          description: The body is valid.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ValidationVerdict'
-              example:
-                valid: true
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '422':
-          $ref: '#/components/responses/UnprocessableEntity'
-
-  /agendas/{agendaUid}/locations/settings:
-    get:
-      operationId: agendas.locations.settings
-      tags: [Locations]
-      summary: Get the location writes an agenda allows
-      x-synonyms: [permissions, rights, allowed, locked, read-only, policy]
-      x-codeSamples:
-        - lang: TypeScript
-          label: Check whether the agenda allows creating locations
-          source: |
-            const { data, error } = await oa.agendas.locations.settings({
-              path: { agendaUid: 12345 },
-            });
-            if (error) throw error;
-            return data.access.create;
-      description: >
-        Returns which location writes the agenda allows. A write it does not
-        allow is refused with `403` to every caller, whatever their role. An
-        agenda that shares a location set has the settings the set gives it.
-      security:
-        - publicKey: []
-        - secretKey: []
-        - oauth2:
-            - locations:read
-      parameters:
-        - $ref: '#/components/parameters/AgendaUid'
-      responses:
-        '200':
-          description: The agenda's location settings.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LocationSettings'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          $ref: '#/components/responses/NotFound'
-
   /agendas/{agendaUid}/locations/ext/{extKey}/{extId}:
     get:
       operationId: agendas.locations.getByExtId
@@ -1983,11 +1569,10 @@ paths:
           ext,
           external id,
           by ext,
+          sync,
           source id,
           lookup,
           resolve,
-          retrieve,
-          fetch,
           venue,
           place,
         ]
@@ -2022,8 +1607,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Location'
-        '400':
-          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
@@ -2053,286 +1636,6 @@ paths:
                     error:
                       code: not_found
                       message: location not found
-
-    put:
-      operationId: agendas.locations.setByExtId
-      tags: [Locations]
-      summary: Upsert a location by external id
-      x-synonyms:
-        [create, update, sync, import, set, put, replace, by ext, venue, place]
-      x-codeSamples:
-        - lang: TypeScript
-          label: Sync a venue from your own system
-          source: |
-            const { data, error } = await oa.agendas.locations.setByExtId({
-              path: { agendaUid: 12345, extKey: 'my-system', extId: 'abc-123' },
-              body: {
-                name: 'Château des Lèbres',
-                address: 'Naves, 07140 Les Vans',
-                countryCode: 'FR',
-              },
-            });
-            if (error) throw error;
-            return data;
-      description: >
-        Replaces the location that carries the `(extKey, extId)` pair
-        with the body and answers `200`, or creates a location carrying
-        it and answers `201`. The pair is looked up among the locations
-        of the agenda, or of its shared location set when it has one. A
-        pair only deleted locations carry gets a new location; when one
-        of them is merged into another one, the request answers `404`
-        instead. The pair joins the body's `extIds`, which are merged by
-        key with the stored ones; a mapping under the key `extKey` with
-        a value other than `extId` is refused with `422`.
-
-
-        On a replace, a `LocationInput` field the body leaves out is
-        emptied, except `extIds`, `verified` and what the geocoding fills
-        in from the position: the coordinates, the administrative levels,
-        the postal code, the time zone and the INSEE code. These are looked
-        up again when the address, the country code or the coordinates
-        change - the values the body sends back unchanged, the country code
-        included, then follow the new place - and at the point when
-        `adminLevel1`, `adminLevel2` or `adminLevel4` is missing. On a
-        create, the coordinates, the administrative levels, the postal code,
-        the time zone and the INSEE code the body leaves out are filled in
-        from the coordinates when the body carries them, from the address
-        otherwise; the ones it gives are kept.
-
-
-        Replacing, or writing a pair a merged location carries, takes an
-        administrator or a moderator of the agenda. Creating takes a
-        contributor or above; on an agenda open to contributions that
-        asks no member information, a user who is not a member becomes
-        its contributor by creating a location. Anyone else is refused
-        with `403`, as is every caller when the agenda's settings do not
-        allow the write. `verified` is set by an administrator or a
-        moderator: from anyone else, a body carrying it is refused with
-        `422`.
-      security:
-        - secretKey: []
-        - oauth2:
-            - locations:write
-      parameters:
-        - $ref: '#/components/parameters/AgendaUid'
-        - $ref: '#/components/parameters/ExtKey'
-        - $ref: '#/components/parameters/ExtIdValue'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/LocationInput'
-      responses:
-        '200':
-          description: The replaced location.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Location'
-        '201':
-          description: The created location.
-          headers:
-            Location:
-              description: Canonical by-uid URL of the created location.
-              required: true
-              schema:
-                type: string
-              example: /agendas/12345/locations/67890
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Location'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          description: >
-            Agenda not found, or a location merged into another one carries
-            the pair: the answer identifies the surviving one, so a stale
-            reference can be repaired. Nothing is created.
-          content:
-            application/json:
-              schema:
-                oneOf:
-                  - $ref: '#/components/schemas/Error'
-                  - $ref: '#/components/schemas/MergedLocationError'
-              examples:
-                merged:
-                  summary: Location merged into another one
-                  value:
-                    error:
-                      code: merged
-                      message: location merged into another location
-                      mergedIn: 11111111
-                notFound:
-                  summary: Unknown agenda
-                  value:
-                    error:
-                      code: not_found
-                      message: agenda not found
-        '422':
-          $ref: '#/components/responses/UnprocessableEntity'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-    patch:
-      operationId: agendas.locations.patchByExtId
-      tags: [Locations]
-      summary: Partially update a location by external id
-      x-synonyms:
-        [patch, partial update, edit, modify, change, by ext, venue, place]
-      x-codeSamples:
-        - lang: TypeScript
-          label: Change the phone number of a venue of your own system
-          source: |
-            const { data, error } = await oa.agendas.locations.patchByExtId({
-              path: { agendaUid: 12345, extKey: 'my-system', extId: 'abc-123' },
-              body: { phone: '0475363414' },
-            });
-            if (error) throw error;
-            return data;
-      description: >
-        Changes the fields the body carries on the location that carries
-        the `(extKey, extId)` pair, among the locations of the agenda,
-        or of its shared location set when it has one. `extIds` in the
-        body are merged by key with the stored ones; an empty array
-        leaves them as they are, and a mapping under the key `extKey`
-        with a value other than `extId` is refused with `422`.
-
-
-        The acting member must be an administrator or a moderator of the
-        agenda. Anyone else is refused with `403`, as is every caller when
-        the agenda's settings do not allow editing locations.
-      security:
-        - secretKey: []
-        - oauth2:
-            - locations:write
-      parameters:
-        - $ref: '#/components/parameters/AgendaUid'
-        - $ref: '#/components/parameters/ExtKey'
-        - $ref: '#/components/parameters/ExtIdValue'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/LocationPatch'
-      responses:
-        '200':
-          description: The updated location.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Location'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          description: >
-            Agenda or location not found. A location merged into another one
-            answers here too, and identifies the surviving one so a stale
-            reference can be repaired.
-          content:
-            application/json:
-              schema:
-                oneOf:
-                  - $ref: '#/components/schemas/Error'
-                  - $ref: '#/components/schemas/MergedLocationError'
-              examples:
-                merged:
-                  summary: Location merged into another one
-                  value:
-                    error:
-                      code: merged
-                      message: location merged into another location
-                      mergedIn: 11111111
-                notFound:
-                  summary: Unknown location
-                  value:
-                    error:
-                      code: not_found
-                      message: location not found
-        '422':
-          $ref: '#/components/responses/UnprocessableEntity'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-    delete:
-      operationId: agendas.locations.deleteByExtId
-      tags: [Locations]
-      summary: Delete a location by external id
-      x-synonyms: [delete, remove, destroy, drop, by ext, venue, place]
-      x-codeSamples:
-        - lang: TypeScript
-          label: Delete a venue your own system no longer lists
-          source: |
-            const { data, error } = await oa.agendas.locations.deleteByExtId({
-              path: { agendaUid: 12345, extKey: 'my-system', extId: 'abc-123' },
-            });
-            if (error) throw error;
-            return data.deleted; // true
-      description: >
-        Deletes the location that carries the `(extKey, extId)` pair, among
-        the locations of the agenda, or of its shared location set when it
-        has one. The events located there keep it.
-
-
-        The acting member must be an administrator or a moderator of the
-        agenda. Anyone else is refused with `403`, as is every caller when
-        the agenda's settings do not allow deleting locations.
-      security:
-        - secretKey: []
-        - oauth2:
-            - locations:write
-      parameters:
-        - $ref: '#/components/parameters/AgendaUid'
-        - $ref: '#/components/parameters/ExtKey'
-        - $ref: '#/components/parameters/ExtIdValue'
-      responses:
-        '200':
-          description: The location was deleted.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeletionResult'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          description: >
-            Agenda or location not found. A location merged into another one
-            answers here too, and identifies the surviving one so a stale
-            reference can be repaired.
-          content:
-            application/json:
-              schema:
-                oneOf:
-                  - $ref: '#/components/schemas/Error'
-                  - $ref: '#/components/schemas/MergedLocationError'
-              examples:
-                merged:
-                  summary: Location merged into another one
-                  value:
-                    error:
-                      code: merged
-                      message: location merged into another location
-                      mergedIn: 11111111
-                notFound:
-                  summary: Unknown location
-                  value:
-                    error:
-                      code: not_found
-                      message: location not found
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
 
   /agendas/{agendaUid}/locations/{locationUid}:
     get:
@@ -2399,443 +1702,6 @@ paths:
                       code: not_found
                       message: location not found
 
-    put:
-      operationId: agendas.locations.update
-      tags: [Locations]
-      summary: Replace a location
-      x-synonyms: [update, replace, edit, put, overwrite, modify, venue, place]
-      x-codeSamples:
-        - lang: TypeScript
-          label: Replace a location with the record of your own system
-          source: |
-            const { data, error } = await oa.agendas.locations.update({
-              path: { agendaUid: 12345, locationUid: 67890 },
-              body: {
-                name: 'Château des Lèbres',
-                address: 'Naves, 07140 Les Vans',
-                countryCode: 'FR',
-                phone: '0475363414',
-                extIds: [{ key: 'my-system', value: 'abc-123' }],
-              },
-            });
-            if (error) throw error;
-            return data;
-      description: >
-        Replaces the location with the body. A `LocationInput` field the
-        body leaves out is emptied, except `extIds`, `verified` and what the
-        geocoding fills in from the position: the coordinates, the
-        administrative levels, the postal code, the time zone and the INSEE
-        code. These are looked up again when the address, the country code
-        or the coordinates change - the values the body sends back
-        unchanged, the country code included, then follow the new place -
-        and at the point when `adminLevel1`, `adminLevel2` or `adminLevel4`
-        is missing.
-
-
-        The acting member must be an administrator or a moderator of the
-        agenda. Anyone else is refused with `403`, as is every caller when
-        the agenda's settings do not allow editing locations.
-      security:
-        - secretKey: []
-        - oauth2:
-            - locations:write
-      parameters:
-        - $ref: '#/components/parameters/AgendaUid'
-        - $ref: '#/components/parameters/LocationUid'
-        - $ref: '#/components/parameters/MergeExtIds'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/LocationInput'
-      responses:
-        '200':
-          description: The updated location.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Location'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          description: >
-            Agenda or location not found. A location merged into another one
-            answers here too, and identifies the surviving one so a stale
-            reference can be repaired.
-          content:
-            application/json:
-              schema:
-                oneOf:
-                  - $ref: '#/components/schemas/Error'
-                  - $ref: '#/components/schemas/MergedLocationError'
-              examples:
-                merged:
-                  summary: Location merged into another one
-                  value:
-                    error:
-                      code: merged
-                      message: location merged into another location
-                      mergedIn: 11111111
-                notFound:
-                  summary: Unknown location
-                  value:
-                    error:
-                      code: not_found
-                      message: location not found
-        '422':
-          $ref: '#/components/responses/UnprocessableEntity'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-    patch:
-      operationId: agendas.locations.patch
-      tags: [Locations]
-      summary: Partially update a location
-      x-synonyms: [patch, partial update, edit, modify, change, venue, place]
-      x-codeSamples:
-        - lang: TypeScript
-          label: Change just a location's phone number
-          source: |
-            const { data, error } = await oa.agendas.locations.patch({
-              path: { agendaUid: 12345, locationUid: 67890 },
-              body: { phone: '0475363414' },
-            });
-            if (error) throw error;
-            return data;
-      description: >
-        Changes the fields the body carries.
-
-
-        The acting member must be an administrator or a moderator of the
-        agenda. Anyone else is refused with `403`, as is every caller when
-        the agenda's settings do not allow editing locations.
-      security:
-        - secretKey: []
-        - oauth2:
-            - locations:write
-      parameters:
-        - $ref: '#/components/parameters/AgendaUid'
-        - $ref: '#/components/parameters/LocationUid'
-        - $ref: '#/components/parameters/MergeExtIds'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/LocationPatch'
-      responses:
-        '200':
-          description: The updated location.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Location'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          description: >
-            Agenda or location not found. A location merged into another one
-            answers here too, and identifies the surviving one so a stale
-            reference can be repaired.
-          content:
-            application/json:
-              schema:
-                oneOf:
-                  - $ref: '#/components/schemas/Error'
-                  - $ref: '#/components/schemas/MergedLocationError'
-              examples:
-                merged:
-                  summary: Location merged into another one
-                  value:
-                    error:
-                      code: merged
-                      message: location merged into another location
-                      mergedIn: 11111111
-                notFound:
-                  summary: Unknown location
-                  value:
-                    error:
-                      code: not_found
-                      message: location not found
-        '422':
-          $ref: '#/components/responses/UnprocessableEntity'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-    delete:
-      operationId: agendas.locations.delete
-      tags: [Locations]
-      summary: Delete a location
-      x-synonyms: [delete, remove, destroy, drop, venue, place]
-      x-codeSamples:
-        - lang: TypeScript
-          label: Delete a location
-          source: |
-            const { data, error } = await oa.agendas.locations.delete({
-              path: { agendaUid: 12345, locationUid: 67890 },
-            });
-            if (error) throw error;
-            return data.deleted; // true
-      description: >
-        Deletes the location. The events located there keep it.
-
-
-        The acting member must be an administrator or a moderator of the
-        agenda. Anyone else is refused with `403`, as is every caller when
-        the agenda's settings do not allow deleting locations.
-      security:
-        - secretKey: []
-        - oauth2:
-            - locations:write
-      parameters:
-        - $ref: '#/components/parameters/AgendaUid'
-        - $ref: '#/components/parameters/LocationUid'
-      responses:
-        '200':
-          description: The location was deleted.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeletionResult'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          description: >
-            Agenda or location not found. A location merged into another one
-            answers here too, and identifies the surviving one so a stale
-            reference can be repaired.
-          content:
-            application/json:
-              schema:
-                oneOf:
-                  - $ref: '#/components/schemas/Error'
-                  - $ref: '#/components/schemas/MergedLocationError'
-              examples:
-                merged:
-                  summary: Location merged into another one
-                  value:
-                    error:
-                      code: merged
-                      message: location merged into another location
-                      mergedIn: 11111111
-                notFound:
-                  summary: Unknown location
-                  value:
-                    error:
-                      code: not_found
-                      message: location not found
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-
-  /keys/verify:
-    post:
-      operationId: keys.verify
-      tags: [Keys]
-      summary: Check an API key
-      x-synonyms:
-        [
-          verify key,
-          validate key,
-          test key,
-          key expired,
-          key disabled,
-          key scopes,
-          key agendas,
-          introspect,
-        ]
-      x-codeSamples:
-        - lang: TypeScript
-          label: Check a key before using it
-          source: |
-            const { data, error } = await oa.keys.verify({
-              body: { key: 'oa_sk_…' },
-            });
-            if (error) throw error;
-            return data.valid ? data.key : data.error.code;
-      description: >
-        Checks the API key sent in the request body. A key that does not
-        authenticate answers `200` with `valid: false` and an `error.code`
-        naming the reason. A check leaves the key's last use, as its owner
-        sees it, unchanged.
-      security: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: false
-              required: [key]
-              properties:
-                key:
-                  type: string
-                  description: >
-                    The API key to check, as it was issued. An OAuth access
-                    token answers `invalid_key`.
-      responses:
-        '200':
-          description: Whether the key authenticates, and what it is.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/KeyVerification'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-
-  /geocoding/search:
-    get:
-      operationId: geocoding.search
-      tags: [Geocoding]
-      summary: Geocode an address
-      x-synonyms:
-        [
-          geocode,
-          address lookup,
-          verify address,
-          check address,
-          coordinates,
-          locate,
-        ]
-      x-codeSamples:
-        - lang: TypeScript
-          label: Geocode an address
-          source: |
-            const { data, error } = await oa.geocoding.search({
-              query: {
-                address: '1 place Maurice Marchais, Vannes',
-                countryCode: 'FR',
-              },
-            });
-            if (error) throw error;
-            return data.data;
-      description: >
-        Returns the place a location created with this address gets: what a
-        location create fills in from the address and its country, under the
-        labels it stores. The values the parameters give are kept in it, and a
-        location created with the result's values keeps those that are not
-        `null`. `data` is `null` when no place matches the address.
-      security:
-        - publicKey: []
-        - secretKey: []
-        - oauth2:
-            - geocoding:use
-      parameters:
-        - name: address
-          in: query
-          required: true
-          description: Address of the place.
-          schema:
-            type: string
-        - name: countryCode
-          in: query
-          required: true
-          description: ISO 3166-1 alpha-2 code of the country the address is in.
-          schema:
-            type: string
-            pattern: '^[A-Za-z]{2}$'
-        - $ref: '#/components/parameters/GeocodingPostalCode'
-        - name: insee
-          in: query
-          required: false
-          description: INSEE code of the French municipality the address is in.
-          schema:
-            type: string
-      responses:
-        '200':
-          description: The place, or `null` when none matches the address.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GeocodingResult'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
-
-  /geocoding/reverse:
-    get:
-      operationId: geocoding.reverse
-      tags: [Geocoding]
-      summary: Name the place at a point
-      x-synonyms:
-        [
-          reverse geocode,
-          address at coordinates,
-          address of a point,
-          what is at,
-          latitude,
-          longitude,
-          gps,
-        ]
-      x-codeSamples:
-        - lang: TypeScript
-          label: Name the place at a point
-          source: |
-            const { data, error } = await oa.geocoding.reverse({
-              query: { latitude: 47.658236, longitude: -2.760847 },
-            });
-            if (error) throw error;
-            return data.data;
-      description: >
-        Returns the place a location created at this point gets: what a
-        location create fills in from the point, its address included, under
-        the labels it stores. The values the parameters give are kept in it,
-        and a location created with the result's values keeps those that are
-        not `null`. `data` is `null` when no place is found at the point.
-      security:
-        - publicKey: []
-        - secretKey: []
-        - oauth2:
-            - geocoding:use
-      parameters:
-        - name: latitude
-          in: query
-          required: true
-          description: Latitude of the point.
-          schema:
-            type: number
-            minimum: -90
-            maximum: 90
-        - name: longitude
-          in: query
-          required: true
-          description: Longitude of the point.
-          schema:
-            type: number
-            minimum: -180
-            maximum: 180
-        - $ref: '#/components/parameters/GeocodingPostalCode'
-      responses:
-        '200':
-          description: The place, or `null` when none is found at the point.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GeocodingResult'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
-
 components:
   securitySchemes:
     oauth2:
@@ -2853,21 +1719,16 @@ components:
           tokenUrl: https://openagenda.com/api/auth/oauth2/token
           refreshUrl: https://openagenda.com/api/auth/oauth2/token
           scopes:
-            me:read: Read your profile, agendas and roles
+            me:read: >-
+              List the caller's agenda memberships and their role on each.
             agendas:read: Read agendas
-            agendas:write: Create, configure and delete agendas
+            agendas:write: Create and modify agendas
             events:read: Read events
-            events:write: Create, edit and delete events
-            drafts:read: Read your event drafts
-            events:transverse: Search events across all agendas
+            events:write: Create and modify events
             locations:read: Read locations
-            locations:write: Create, edit and delete locations
-            geocoding:use: Turn addresses into coordinates, and back
+            locations:write: Create and modify locations
             members:read: Read members
-            members:write: Invite, manage and contact members
-            media:write: Upload files
-            bookings:read: Read bookings
-            conversations:write: Write in OpenAgenda messaging
+            members:write: Manage members
     secretKey:
       type: http
       scheme: bearer
@@ -2883,8 +1744,7 @@ components:
         writes answers `403` (`read_only_credential`) and one that needs an
         identity answers `401` - or `403` (`insufficient_scope`) when the key
         carries its own scopes and they exclude the operation. A per-agenda key
-        reads the same way, and reads its own agenda as its administrators do,
-        private or not.
+        reads the same way.
     uploadTicketAuth:
       type: apiKey
       in: header
@@ -2900,10 +1760,7 @@ components:
       name: agendaUid
       in: path
       required: true
-      description: >
-        Numeric uid of the agenda. A private agenda answers a caller identified
-        as one of its members, whatever their role, and its own per-agenda key;
-        to any other caller it answers `404`, as an unknown uid does.
+      description: Numeric uid of the agenda.
       schema:
         type: integer
         format: int64
@@ -2921,7 +1778,7 @@ components:
       required: true
       description: >
         Name of the external system/source the identifier belongs to (the `key`
-        of an `ExtId` mapping carried on an event or a location).
+        of an `ExtId` mapping carried on the resource — an event or a location).
       schema:
         type: string
     ExtIdValue:
@@ -2939,20 +1796,13 @@ components:
       in: query
       required: false
       description: >
-        Whether the body's `extIds` are merged by key with the stored ones
-        (`true`, the default) or replace them (`false`). With `true`, an
-        empty array adds nothing; with `false`, it removes every mapping. A
-        body without `extIds` keeps them either way.
+        On the by-uid `PUT`, whether the body's `extIds` are merged by key with
+        the ones already stored (`true`, the default) or replace them wholesale
+        (`false`). A `PATCH` merges a non-empty `extIds` whatever this
+        parameter says; an empty array clears the stored mappings.
       schema:
         type: boolean
         default: true
-    GeocodingPostalCode:
-      name: postalCode
-      in: query
-      required: false
-      description: Postal code of the place.
-      schema:
-        type: string
     AfterCursor:
       name: after
       in: query
@@ -3050,8 +1900,6 @@ components:
         items:
           type: integer
           format: int64
-          minimum: 1
-          maximum: 2147483647
 
     AgendaFilterSlug:
       name: slug
@@ -3063,31 +1911,6 @@ components:
         items:
           type: string
 
-    MeAgendaFilterSlug:
-      name: slug
-      in: query
-      required: false
-      description: >
-        Restrict to the agendas carrying these slugs. A slug matching none of
-        your memberships yields an empty page. Repeat the parameter for
-        multiple values.
-      schema:
-        type: array
-        items:
-          type: string
-
-    MeAgendaFilterRole:
-      name: role
-      in: query
-      required: false
-      description: >
-        Restrict to the memberships holding one of these roles. Repeat the
-        parameter for multiple values.
-      schema:
-        type: array
-        items:
-          $ref: '#/components/schemas/MemberRole'
-
     AgendaFilterOfficial:
       name: official
       in: query
@@ -3098,47 +1921,6 @@ components:
       schema:
         type: boolean
 
-    AgendaFilterNetworkUid:
-      name: networkUid
-      in: query
-      required: false
-      description: Restrict to the agendas of these networks. Repeat the parameter for multiple values.
-      schema:
-        type: array
-        items:
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 2147483647
-
-    NetworkSearch:
-      name: search
-      in: query
-      required: false
-      description: >
-        Free-text search over the network title: every word of the text, in
-        any order, even within a longer word. When no title holds them all, a
-        word of three or four letters may be one letter off, a longer one two;
-        numbers match as written. Case and accents are ignored and punctuation
-        separates words; short words such as `de` or `la` count only when the
-        text holds nothing else.
-      schema:
-        type: string
-        maxLength: 255
-
-    NetworkFilterUid:
-      name: uid
-      in: query
-      required: false
-      description: Restrict to these network uids. Repeat the parameter for multiple values.
-      schema:
-        type: array
-        items:
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 2147483647
-
     LocationUid:
       name: locationUid
       in: path
@@ -3147,16 +1929,16 @@ components:
       schema:
         type: integer
         format: int64
+
     LocationSearch:
       name: search
       in: query
       required: false
       description: >
-        Free-text search over the locations' name, address, `adminLevel1`,
-        `adminLevel2` and `adminLevel4`.
+        Free-text search over the locations' name, address, city, region and
+        department.
       schema:
         type: string
-        maxLength: 255
 
     LocationFilterUid:
       name: uid
@@ -3172,8 +1954,6 @@ components:
         items:
           type: integer
           format: int64
-          minimum: 1
-          maximum: 2147483647
 
     LocationFilterExtId:
       name: extId
@@ -3206,14 +1986,6 @@ components:
         type: string
         pattern: '^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$'
 
-    LocationFilterVerified:
-      name: verified
-      in: query
-      required: false
-      description: Restrict to verified (`true`) or unverified (`false`) locations.
-      schema:
-        type: boolean
-
     Facets:
       name: facets
       in: query
@@ -3242,12 +2014,10 @@ components:
           enum:
             - additionalFields
             - additionalFieldMetrics
-            - adminLevel1
-            - adminLevel2
-            - adminLevel3
-            - adminLevel4
-            - adminLevel5
-            - adminLevel6
+            - cities
+            - regions
+            - departments
+            - districts
             - countryCodes
             - keywords
             - languages
@@ -3262,13 +2032,6 @@ components:
             - timespan
             - timings
             - dateRanges
-          x-enum-descriptions:
-            adminLevel1: Largest administrative division of the country (in France, the region)
-            adminLevel2: Division below adminLevel1 (in France, the department)
-            adminLevel3: Division below adminLevel2 (in France, the intercommunality)
-            adminLevel4: Municipality
-            adminLevel5: Subdivision of the municipality (in France, the arrondissement of Paris, Lyon and Marseille)
-            adminLevel6: Subdivision of the municipality, below adminLevel5 (in France, the neighbourhood)
 
     FacetSize:
       name: facetSize
@@ -3291,7 +2054,7 @@ components:
       required: false
       description: >
         Per-facet override of `facetSize`, keyed by facet name
-        (`facetSizes[adminLevel4]=50`). Precedence: per-facet override > `facetSize`
+        (`facetSizes[cities]=50`). Precedence: per-facet override > `facetSize`
         > default (10). Only applies to bucket-list facets; values are clamped
         to [1, 250].
       style: deepObject
@@ -3310,8 +2073,8 @@ components:
       description: >
         Default ordering of the bucket-list facets. `count` (default) returns
         the most frequent buckets first; `alpha` returns the same top-`facetSize`
-        buckets but ordered alphabetically by their display value (administrative
-        area, keyword, location name, agenda title) for readable scanning. Override a
+        buckets but ordered alphabetically by their display value (city/keyword
+        name, location name, agenda title) for readable scanning. Override a
         single facet with `facetSorts[<facet>]`.
       schema:
         type: string
@@ -3326,7 +2089,7 @@ components:
       required: false
       description: >
         Per-facet override of `facetSort`, keyed by facet name
-        (`facetSorts[adminLevel4]=alpha`). Precedence: per-facet override >
+        (`facetSorts[cities]=alpha`). Precedence: per-facet override >
         `facetSort` > default (`count`).
       style: deepObject
       explode: true
@@ -3345,7 +2108,7 @@ components:
       description: >
         Per-facet label for a synthetic bucket counting the filtered events that
         have **no value** for the facet's field
-        (`facetMissing[adminLevel6]=Unknown` adds an `{ value: "Unknown", count }`
+        (`facetMissing[district]=Unknown` adds an `{ value: "Unknown", count }`
         bucket). Honoured by the term facets (those whose buckets are keyed by
         the displayed value) except `accessibilities`; ignored by the
         provenance, `locations` and remaining families. The bucket appears only
@@ -3452,12 +2215,10 @@ components:
           - lastTimingWithFeatured.asc
           - updatedAt.asc
           - updatedAt.desc
-          - availabilityUpdatedAt.asc
-          - availabilityUpdatedAt.desc
           - location.name.asc
           - location.name.desc
-          - location.adminLevel4.asc
-          - location.adminLevel4.desc
+          - location.city.asc
+          - location.city.desc
           - score
         x-enum-descriptions:
           timings.asc: By event date, earliest first
@@ -3466,12 +2227,10 @@ components:
           lastTimingWithFeatured.asc: By last occurrence, featured events first
           updatedAt.asc: Least recently updated first
           updatedAt.desc: Most recently updated first
-          availabilityUpdatedAt.asc: Oldest inventory write first; events with no inventory last
-          availabilityUpdatedAt.desc: Newest inventory write first; events with no inventory last
           location.name.asc: By location name, A→Z
           location.name.desc: By location name, Z→A
-          location.adminLevel4.asc: By municipality (`adminLevel4`), A→Z
-          location.adminLevel4.desc: By municipality (`adminLevel4`), Z→A
+          location.city.asc: By city, A→Z
+          location.city.desc: By city, Z→A
           score: By search relevance (only meaningful with `search`)
 
     Search:
@@ -3522,8 +2281,6 @@ components:
         items:
           type: integer
           format: int64
-          minimum: 1
-          maximum: 2147483647
 
     FilterSlug:
       name: slug
@@ -3624,8 +2381,6 @@ components:
         items:
           type: integer
           format: int64
-          minimum: 1
-          maximum: 2147483647
 
     FilterLocationExtId:
       name: locationExtId
@@ -3646,25 +2401,41 @@ components:
           value:
             type: string
 
-    FilterAdminLevel1:
-      name: adminLevel1
+    FilterRegion:
+      name: region
       in: query
       required: false
-      description: >
-        Restrict to events whose `adminLevel1` (in France, the region) is one of
-        these values.
+      description: Restrict to events located in these regions.
       schema:
         type: array
         items:
           type: string
 
-    FilterAdminLevel2:
-      name: adminLevel2
+    FilterDepartment:
+      name: department
       in: query
       required: false
-      description: >
-        Restrict to events whose `adminLevel2` (in France, the department) is
-        one of these values.
+      description: Restrict to events located in these departments.
+      schema:
+        type: array
+        items:
+          type: string
+
+    FilterCity:
+      name: city
+      in: query
+      required: false
+      description: Restrict to events located in these cities.
+      schema:
+        type: array
+        items:
+          type: string
+
+    FilterDistrict:
+      name: district
+      in: query
+      required: false
+      description: Restrict to events located in these districts.
       schema:
         type: array
         items:
@@ -3674,21 +2445,7 @@ components:
       name: adminLevel3
       in: query
       required: false
-      description: >
-        Restrict to events whose `adminLevel3` (in France, the intercommunality)
-        is one of these values.
-      schema:
-        type: array
-        items:
-          type: string
-
-    FilterAdminLevel4:
-      name: adminLevel4
-      in: query
-      required: false
-      description: >
-        Restrict to events whose `adminLevel4` (the municipality) is one of
-        these values.
+      description: Restrict to events located in these level-3 administrative areas.
       schema:
         type: array
         items:
@@ -3698,21 +2455,7 @@ components:
       name: adminLevel5
       in: query
       required: false
-      description: >
-        Restrict to events whose `adminLevel5` (in France, the arrondissement of
-        Paris, Lyon and Marseille) is one of these values.
-      schema:
-        type: array
-        items:
-          type: string
-
-    FilterAdminLevel6:
-      name: adminLevel6
-      in: query
-      required: false
-      description: >
-        Restrict to events whose `adminLevel6` (in France, the neighbourhood) is
-        one of these values.
+      description: Restrict to events located in these level-5 administrative areas.
       schema:
         type: array
         items:
@@ -3772,8 +2515,6 @@ components:
         items:
           type: integer
           format: int64
-          minimum: 1
-          maximum: 2147483647
 
     FilterOriginAgendaOfficial:
       name: originAgendaOfficial
@@ -3793,8 +2534,6 @@ components:
         items:
           type: integer
           format: int64
-          minimum: 1
-          maximum: 2147483647
 
     FilterRelative:
       name: relative
@@ -3898,33 +2637,6 @@ components:
             type: string
             format: date-time
 
-    FilterAvailabilityUpdatedAt:
-      name: availabilityUpdatedAt
-      in: query
-      required: false
-      style: deepObject
-      explode: true
-      description: >
-        Restrict by the date OpenAgenda last WROTE inventory on the event — the
-        write clock carried by `availabilityUpdatedAt`, not the rows' own
-        `syncedAt`. As RFC 3339 date-times:
-        `availabilityUpdatedAt[gte]=…&availabilityUpdatedAt[lte]=…`. The
-        inventory counterpart of `updatedAt`, for a consumer following
-        availability: pair it with `sort=availabilityUpdatedAt.asc` and a
-        watermark. Events that never received availability carry no stamp and
-        never match — following inventory does not mean paging through the
-        whole corpus. Same date-time rules as `updatedAt`.
-      schema:
-        type: object
-        additionalProperties: false
-        properties:
-          gte:
-            type: string
-            format: date-time
-          lte:
-            type: string
-            format: date-time
-
     FilterAge:
       name: age
       in: query
@@ -3941,11 +2653,9 @@ components:
           gte:
             type: integer
             minimum: 0
-            maximum: 2147483647
           lte:
             type: integer
             minimum: 0
-            maximum: 2147483647
 
     FilterAdditionalFields:
       name: additionalFields
@@ -4022,24 +2732,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ValidationError'
-    TooManyRequests:
-      description: >-
-        The account has written more than its limit allows, counted across
-        every key, token and session it writes with, and the request was not
-        processed.
-        An account writes at most 3000 times a minute; one OpenAgenda has not
-        validated, at most 10 times a minute and 100 times an hour - contact
-        support@openagenda.com to have it validated.
-      headers:
-        Retry-After:
-          description: Seconds until the limit lets the account write again.
-          required: true
-          schema:
-            type: integer
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     ServiceUnavailable:
       description: >-
         The request was not processed and can be retried after a short
@@ -4070,10 +2762,8 @@ components:
                   unauthorized,
                   read_only_credential,
                   insufficient_scope,
-                  agenda_not_granted,
                   forbidden,
                   not_found,
-                  too_many_requests,
                   service_unavailable,
                 ]
               x-enum-descriptions:
@@ -4081,208 +2771,10 @@ components:
                   403 - the credential may only read, and this operation writes
                 insufficient_scope: >-
                   403 - the credential lacks the scope this operation declares
-                agenda_not_granted: >-
-                  403 - the API key is limited to a list of agendas, and this
-                  operation reaches outside it
                 forbidden: 403 - any other refusal of an authenticated caller
-                too_many_requests: >-
-                  429 - the account writes faster than its limit allows
             message:
               type: string
               description: Human-readable explanation.
-
-    GeocodingResult:
-      type: object
-      required: [data]
-      additionalProperties: false
-      properties:
-        data:
-          oneOf:
-            - $ref: '#/components/schemas/GeocodedPlace'
-            - type: 'null'
-
-    GeocodedPlace:
-      type: object
-      description: A place, as a location created there gets it.
-      additionalProperties: false
-      example:
-        address: 1 place Maurice Marchais, Vannes
-        adminLevel1: Bretagne
-        adminLevel2: Morbihan
-        adminLevel3: Golfe du Morbihan - Vannes Agglomération
-        adminLevel4: Vannes
-        adminLevel5: null
-        adminLevel6: null
-        postalCode: '56000'
-        insee: '56260'
-        countryCode: FR
-        latitude: 47.658236
-        longitude: -2.760847
-        timezone: Europe/Paris
-      required:
-        - address
-        - adminLevel1
-        - adminLevel2
-        - adminLevel3
-        - adminLevel4
-        - adminLevel5
-        - adminLevel6
-        - postalCode
-        - insee
-        - countryCode
-        - latitude
-        - longitude
-        - timezone
-      properties:
-        address:
-          type: string
-        adminLevel1:
-          type: [string, 'null']
-          description: Largest administrative division of the country. In France, the region.
-        adminLevel2:
-          type: [string, 'null']
-          description: Administrative division below `adminLevel1`. In France, the department.
-        adminLevel3:
-          type: [string, 'null']
-          description: Administrative division below `adminLevel2`. In France, the intercommunality.
-        adminLevel4:
-          type: [string, 'null']
-          description: Municipality.
-        adminLevel5:
-          type: [string, 'null']
-          description: Subdivision of the municipality. In France, the arrondissement of Paris, Lyon and Marseille.
-        adminLevel6:
-          type: [string, 'null']
-          description: Subdivision of the municipality, below `adminLevel5`. In France, the neighbourhood.
-        postalCode:
-          type: [string, 'null']
-        insee:
-          type: [string, 'null']
-          description: INSEE code of the French municipality, when known.
-        countryCode:
-          type: string
-          description: ISO 3166-1 alpha-2 country code.
-        latitude:
-          type: number
-          format: double
-        longitude:
-          type: number
-          format: double
-        timezone:
-          type: [string, 'null']
-          description: IANA time zone of the place.
-
-    KeyVerification:
-      description: The outcome of checking an API key.
-      oneOf:
-        - $ref: '#/components/schemas/ValidKey'
-        - $ref: '#/components/schemas/InvalidKey'
-
-    ValidKey:
-      type: object
-      description: A key that authenticates.
-      required: [valid, key]
-      additionalProperties: false
-      properties:
-        valid:
-          type: boolean
-          enum: [true]
-        key:
-          $ref: '#/components/schemas/VerifiedKey'
-
-    InvalidKey:
-      type: object
-      description: A key that does not authenticate, and why.
-      required: [valid, error]
-      additionalProperties: false
-      properties:
-        valid:
-          type: boolean
-          enum: [false]
-        error:
-          type: object
-          required: [code, message]
-          additionalProperties: false
-          properties:
-            code:
-              type: string
-              description: Stable, machine-readable reason.
-              enum:
-                [
-                  invalid_key,
-                  key_disabled,
-                  key_expired,
-                  key_exhausted,
-                  key_unreadable,
-                  owner_blacklisted,
-                ]
-              x-enum-descriptions:
-                invalid_key: >-
-                  the key is unknown or revoked, or the account that owns it is
-                  gone
-                key_disabled: its owner switched the key off and can switch it back on
-                key_expired: the key has passed its expiry date
-                key_exhausted: the key has used up its request allowance
-                key_unreadable: >-
-                  the key is stored in a state that cannot be read; contact
-                  support
-                owner_blacklisted: the account that owns the key is blacklisted
-            message:
-              type: string
-              description: Human-readable explanation.
-
-    VerifiedKey:
-      type: object
-      description: What a working key is and what it may do.
-      required: [type, owner, scopes, agendas, expiresAt]
-      additionalProperties: false
-      properties:
-        type:
-          type: string
-          enum: [public, secret, agenda]
-          description: >
-            `public` reads what is public and carries no user identity, `secret`
-            acts as the user who owns it, `agenda` belongs to an agenda rather
-            than to a user.
-        owner:
-          $ref: '#/components/schemas/KeyOwner'
-        scopes:
-          type: [array, 'null']
-          items:
-            type: string
-          description: >
-            The scopes the key is restricted to. `null` when the key declares
-            no scopes of its own, so that its `type` alone bounds what it can
-            do.
-        agendas:
-          type: [array, 'null']
-          items:
-            type: integer
-            format: int64
-          description: >
-            The uids of the agendas the key is limited to and can read. `null`
-            when the key is not limited to a list of agendas.
-        expiresAt:
-          type: [string, 'null']
-          format: date-time
-          description: >
-            The instant the key stops authenticating, or `null` when it does not
-            expire.
-
-    KeyOwner:
-      type: [object, 'null']
-      description: >
-        Who the key belongs to; `null` for a public key.
-      required: [type, uid]
-      additionalProperties: false
-      properties:
-        type:
-          type: string
-          enum: [user, agenda]
-        uid:
-          type: integer
-          format: int64
-          description: The uid of that user or agenda.
 
     ValidationError:
       type: object
@@ -4314,23 +2806,16 @@ components:
       description: >-
         One problem found in a request. A validator describes the values it
         refuses as precisely as it can, so an item carries the keys below plus
-        whatever else that validator knows, such as the bounds the value had to
-        satisfy.
+        whatever else that validator knows, such as the rejected value or the
+        bounds it had to satisfy.
       required: [message]
       properties:
         field:
           type: string
           description: >-
-            Where the offending value is in the request, as a dotted path. It
-            is absent when the problem belongs to no single value.
-          examples:
-            [
-              'title',
-              'timings',
-              'timings.end',
-              'additionalFields.thematique',
-              'image.url',
-            ]
+            Name of the offending value in the request. It is absent when the
+            problem belongs to no single value.
+          examples: ['title', 'description', 'timings', 'image.url']
         lang:
           type: string
           description: Language key of the offending value, on a localized field.
@@ -4344,37 +2829,6 @@ components:
         message:
           type: string
           description: Human-readable explanation, in English.
-        input:
-          description: >-
-            The value the validator refused, as the request carried it. A
-            validator that reports a problem without recording the value omits
-            this key.
-
-    LocationSettings:
-      type: object
-      required: [access]
-      additionalProperties: false
-      example:
-        access:
-          create: true
-          update: true
-          delete: false
-      properties:
-        access:
-          type: object
-          description: Whether the agenda allows each location write.
-          required: [create, update, delete]
-          additionalProperties: false
-          properties:
-            create:
-              type: boolean
-              description: Creating a location, by external id too.
-            update:
-              type: boolean
-              description: Replacing or patching a location, by external id too.
-            delete:
-              type: boolean
-              description: Deleting a location, by external id too.
 
     ValidationVerdict:
       type: object
@@ -4475,7 +2929,7 @@ components:
         ready-made width from `srcset`. `width`/`height` are the source
         dimensions, which cap every rendition.
       additionalProperties: false
-      required: [width, height, src, srcTemplate, srcset, ref]
+      required: [width, height, src, srcTemplate, srcset]
       properties:
         width:
           type: [integer, 'null']
@@ -4510,16 +2964,15 @@ components:
               url:
                 type: string
                 format: uri
-        ref:
-          type: [string, 'null']
-          description: >
-            Reference of the stored image.
 
     EventLocation:
       type: object
-      description: The location snapshot an event carries.
+      description: >
+        The location snapshot an event carries - a nullable subset of the
+        `Location` record. The canonical, full record is the `Location`
+        resource (`GET /agendas/{agendaUid}/locations/{locationUid}`, same
+        `uid`).
       additionalProperties: false
-      required: [deleted]
       properties:
         uid:
           type: integer
@@ -4529,24 +2982,10 @@ components:
           type: [string, 'null']
         address:
           type: [string, 'null']
-        adminLevel1:
+        city:
           type: [string, 'null']
-          description: Largest administrative division of the country. In France, the region.
-        adminLevel2:
+        region:
           type: [string, 'null']
-          description: Administrative division below `adminLevel1`. In France, the department.
-        adminLevel3:
-          type: [string, 'null']
-          description: Administrative division below `adminLevel2`. In France, the intercommunality.
-        adminLevel4:
-          type: [string, 'null']
-          description: Municipality.
-        adminLevel5:
-          type: [string, 'null']
-          description: Subdivision of the municipality. In France, the arrondissement of Paris, Lyon and Marseille.
-        adminLevel6:
-          type: [string, 'null']
-          description: Subdivision of the municipality, below `adminLevel5`. In France, the neighbourhood.
         postalCode:
           type: [string, 'null']
         countryCode:
@@ -4558,13 +2997,22 @@ components:
         longitude:
           type: [number, 'null']
           format: double
+        district:
+          type: [string, 'null']
+        department:
+          type: [string, 'null']
+        adminLevel3:
+          type: [string, 'null']
+        adminLevel5:
+          type: [string, 'null']
+        country:
+          oneOf:
+            - $ref: '#/components/schemas/LocalizedString'
+            - type: 'null'
+          description: Localized country label.
         timezone:
           type: [string, 'null']
           description: IANA time zone of the location.
-        deleted:
-          type: boolean
-          readOnly: true
-          description: Whether the location has been deleted.
 
     LocationSummary:
       type: object
@@ -4611,7 +3059,8 @@ components:
       type: object
       description: >
         Full location representation returned by the single-get endpoint and
-        by the list when `detailed=true`.
+        by the list when `detailed=true` — the canonical record (the events'
+        embedded `EventLocation` is a nullable snapshot of it).
       additionalProperties: false
       example:
         uid: 67890
@@ -4619,12 +3068,12 @@ components:
         setUid: null
         name: Château des Lèbres
         address: Naves, 07140 Les Vans
-        adminLevel1: Auvergne-Rhône-Alpes
-        adminLevel2: Ardèche
+        city: Les Vans
+        district: null
+        region: Auvergne-Rhône-Alpes
+        department: Ardèche
         adminLevel3: null
-        adminLevel4: Les Vans
         adminLevel5: null
-        adminLevel6: null
         postalCode: '07140'
         insee: '07334'
         countryCode: FR
@@ -4644,9 +3093,7 @@ components:
               url: https://img.openagenda.com/u/640x0/main/67890.full.image.jpg
             - width: 1080
               url: https://img.openagenda.com/u/1080x0/main/67890.full.image.jpg
-          ref: 67890.full.image.jpg
         imageCredits: null
-        imageRightsAreHeld: null
         website: http://www.domainedeslebres.com/
         email: null
         phone: '0475363414'
@@ -4669,12 +3116,12 @@ components:
         - setUid
         - name
         - address
-        - adminLevel1
-        - adminLevel2
+        - city
+        - district
+        - region
+        - department
         - adminLevel3
-        - adminLevel4
         - adminLevel5
-        - adminLevel6
         - postalCode
         - insee
         - countryCode
@@ -4685,7 +3132,6 @@ components:
         - access
         - image
         - imageCredits
-        - imageRightsAreHeld
         - website
         - email
         - phone
@@ -4715,24 +3161,18 @@ components:
           type: string
         address:
           type: [string, 'null']
-        adminLevel1:
+        city:
           type: [string, 'null']
-          description: Largest administrative division of the country. In France, the region.
-        adminLevel2:
+        district:
           type: [string, 'null']
-          description: Administrative division below `adminLevel1`. In France, the department.
+        region:
+          type: [string, 'null']
+        department:
+          type: [string, 'null']
         adminLevel3:
           type: [string, 'null']
-          description: Administrative division below `adminLevel2`. In France, the intercommunality.
-        adminLevel4:
-          type: [string, 'null']
-          description: Municipality.
         adminLevel5:
           type: [string, 'null']
-          description: Subdivision of the municipality. In France, the arrondissement of Paris, Lyon and Marseille.
-        adminLevel6:
-          type: [string, 'null']
-          description: Subdivision of the municipality, below `adminLevel5`. In France, the neighbourhood.
         postalCode:
           type: [string, 'null']
         insee:
@@ -4763,14 +3203,6 @@ components:
             - type: 'null'
         imageCredits:
           type: [string, 'null']
-          description: >
-            Credits for the location `image`; `null` when the location has no
-            image.
-        imageRightsAreHeld:
-          type: [boolean, 'null']
-          description: >
-            Whether the rights to use the location `image` are held; `null`
-            when the location has no image or the rights are not stated.
         website:
           type: [string, 'null']
         email:
@@ -4808,7 +3240,6 @@ components:
       type: object
       description: >
         An external identifier mapping this location to a third-party system.
-        A mapping whose key or value contains `->` is refused with `422`.
       additionalProperties: false
       properties:
         key:
@@ -4841,214 +3272,6 @@ components:
       additionalProperties:
         x-additionalPropertiesName: fieldName
 
-    LocationInput:
-      type: object
-      description: >
-        Request body for creating or replacing a location: the fields a
-        client may set. Any other key - a read-only field such as `uid` or
-        `slug`, an unknown name - is refused with `422`, as is a field value
-        the server rejects, with per-field `error.errors[]`. A place the
-        geocoder cannot find is refused with `422`, on the address, the
-        country code or the coordinates the body changes.
-      additionalProperties: false
-      required: [name, address, countryCode]
-      properties:
-        name:
-          type: string
-        address:
-          type: string
-        adminLevel1:
-          type: [string, 'null']
-          description: >
-            Largest administrative division of the country. In France, the
-            region, written under its official label: the one the INSEE code
-            names when they disagree.
-        adminLevel2:
-          type: [string, 'null']
-          description: >
-            Administrative division below `adminLevel1`. In France, the
-            department, written under its official label: the one the INSEE
-            code names when they disagree.
-        adminLevel3:
-          type: [string, 'null']
-          description: Administrative division below `adminLevel2`. In France, the intercommunality.
-        adminLevel4:
-          type: [string, 'null']
-          description: Municipality.
-        adminLevel5:
-          type: [string, 'null']
-          description: Subdivision of the municipality. In France, the arrondissement of Paris, Lyon and Marseille.
-        adminLevel6:
-          type: [string, 'null']
-          description: Subdivision of the municipality, below `adminLevel5`. In France, the neighbourhood.
-        postalCode:
-          type: [string, 'null']
-        insee:
-          type: [string, 'null']
-          description: INSEE code of the French municipality.
-        countryCode:
-          type: string
-          description: ISO 3166-1 alpha-2 country code.
-        latitude:
-          type: number
-          format: double
-        longitude:
-          type: number
-          format: double
-        timezone:
-          type: [string, 'null']
-          description: IANA time zone of the location.
-        description:
-          $ref: '#/components/schemas/LocalizedString'
-        access:
-          allOf:
-            - $ref: '#/components/schemas/LocalizedString'
-          description: >
-            Localized practical information on how to reach the location.
-        image:
-          $ref: '#/components/schemas/ImageInput'
-        imageCredits:
-          type: [string, 'null']
-          description: >
-            Credits for the location `image`. Ignored when the location has
-            no image. They go with the image: removed with it, and cleared
-            by a write that gives a new image without them; `null` clears
-            them.
-        imageRightsAreHeld:
-          type: [boolean, 'null']
-          description: >
-            Whether the rights to use the location `image` are held. Ignored
-            when the location has no image. It goes with the image: removed
-            with it, and cleared by a write that gives a new image without
-            it; `null` clears it.
-        website:
-          type: [string, 'null']
-        email:
-          type: [string, 'null']
-        phone:
-          type: [string, 'null']
-        links:
-          type: array
-          items:
-            type: string
-        extIds:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocationExtId'
-        siret:
-          type: [string, 'null']
-          description: >-
-            SIRET number (French establishment id) of the location's
-            operator.
-        verified:
-          type: boolean
-          description: Whether the location is verified.
-
-    LocationPatch:
-      type: object
-      description: >
-        Partial update body. A new address, country code or coordinates are
-        geocoded, at the point when the body changes a coordinate, at the
-        address otherwise: the coordinates, the administrative levels, the
-        postal code, the time zone, the INSEE code and the country code
-        the body leaves out or sends back unchanged follow the place found.
-        A location whose `adminLevel1`, `adminLevel2` or `adminLevel4` is
-        missing is looked up again at its point. A place the geocoder cannot
-        find is refused with
-        `422` on the address, country code or coordinates the body changes.
-      additionalProperties: false
-      properties:
-        name:
-          type: string
-        address:
-          type: string
-        adminLevel1:
-          type: [string, 'null']
-          description: >
-            Largest administrative division of the country. In France, the
-            region, written under its official label: the one the INSEE code
-            names when they disagree.
-        adminLevel2:
-          type: [string, 'null']
-          description: >
-            Administrative division below `adminLevel1`. In France, the
-            department, written under its official label: the one the INSEE
-            code names when they disagree.
-        adminLevel3:
-          type: [string, 'null']
-          description: Administrative division below `adminLevel2`. In France, the intercommunality.
-        adminLevel4:
-          type: [string, 'null']
-          description: Municipality.
-        adminLevel5:
-          type: [string, 'null']
-          description: Subdivision of the municipality. In France, the arrondissement of Paris, Lyon and Marseille.
-        adminLevel6:
-          type: [string, 'null']
-          description: Subdivision of the municipality, below `adminLevel5`. In France, the neighbourhood.
-        postalCode:
-          type: [string, 'null']
-        insee:
-          type: [string, 'null']
-          description: INSEE code of the French municipality.
-        countryCode:
-          type: string
-          description: ISO 3166-1 alpha-2 country code.
-        latitude:
-          type: number
-          format: double
-        longitude:
-          type: number
-          format: double
-        timezone:
-          type: [string, 'null']
-          description: IANA time zone of the location.
-        description:
-          $ref: '#/components/schemas/LocalizedString'
-        access:
-          allOf:
-            - $ref: '#/components/schemas/LocalizedString'
-          description: >
-            Localized practical information on how to reach the location.
-        image:
-          $ref: '#/components/schemas/ImageInput'
-        imageCredits:
-          type: [string, 'null']
-          description: >
-            Credits for the location `image`. Ignored when the location has
-            no image. They go with the image: removed with it, and cleared
-            by a write that gives a new image without them; `null` clears
-            them.
-        imageRightsAreHeld:
-          type: [boolean, 'null']
-          description: >
-            Whether the rights to use the location `image` are held. Ignored
-            when the location has no image. It goes with the image: removed
-            with it, and cleared by a write that gives a new image without
-            it; `null` clears it.
-        website:
-          type: [string, 'null']
-        email:
-          type: [string, 'null']
-        phone:
-          type: [string, 'null']
-        links:
-          type: array
-          items:
-            type: string
-        extIds:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocationExtId'
-        siret:
-          type: [string, 'null']
-          description: >-
-            SIRET number (French establishment id) of the location's
-            operator.
-        verified:
-          type: boolean
-          description: Whether the location is verified.
-
     LocationList:
       type: object
       required: [data, pagination]
@@ -5075,9 +3298,8 @@ components:
       type: object
       description: The event form an agenda declares.
       required: [fields]
-      # Served from the form engine, its descriptors filtered by access and
-      # their `read`/`write` levels normalized to lists: top-level keys beyond
-      # `fields` may appear (engine vocabulary); only `fields` is contractual.
+      # Served raw from the form engine: top-level keys beyond `fields` may
+      # appear (engine vocabulary); only `fields` is contractual.
       additionalProperties: true
       properties:
         fields:
@@ -5085,10 +3307,8 @@ components:
           description: >
             The fields of the merged schema readable at the caller's access
             level - native event fields (with any per-agenda overrides applied)
-            and the agenda's/network's additional fields (`path` under
-            `additionalFields`).
-            A field whose `read` access levels exclude the caller is omitted, and
-            so is a native field the write operations do not take.
+            and the agenda's/network's additional fields (`schemaId` non-null).
+            A field whose `read` access levels exclude the caller is omitted.
           items:
             $ref: '#/components/schemas/FormSchemaField'
 
@@ -5096,14 +3316,13 @@ components:
       type: object
       description: >
         A form field descriptor. Two kinds share the array: **data field
-        descriptors** (carrying `field` and the `path` of its value) and
-        **section separators** (`type: 'section'`, no `field` -
+        descriptors** (carrying `field`, the key the value lives under on
+        events) and **section separators** (`type: 'section'`, no `field` -
         structure the form into titled groups). Descriptors may carry keys
         beyond those listed below.
       additionalProperties: true
       example:
         field: thematique
-        path: additionalFields.thematique
         fieldType: radio
         label: { fr: 'Thématique', en: 'Theme' }
         schemaId: 10522
@@ -5116,13 +3335,8 @@ components:
         field:
           type: string
           description: >
-            Field name. Absent on section separators.
-        path:
-          type: string
-          description: >
-            Where the field's value lives on an event, as a dotted path:
-            `additionalFields.<field>` for an additional field, the field name
-            itself for a native one. Absent on section separators.
+            Field name — the key the value is carried under on events. Absent
+            on section separators.
         fieldType:
           type: string
           description: >
@@ -5156,30 +3370,12 @@ components:
             The field is only active when another field has a value: either
             that field's name, or `{ field, value }` to require specific
             values (e.g. `onlineAccessLink` enabled when `attendanceMode` is
-            online or mixed). While inactive, the field is not required,
-            whatever `optional` says, and holds no value: one sent is not kept,
-            and a stored one is cleared.
+            online or mixed).
         optionalWith:
           description: >
             The field is optional when another field has a value (either that
             field's name, or `{ field, value }` to require specific values) and
             required otherwise; an explicit `optional` takes precedence.
-        read:
-          type: [array, 'null']
-          items:
-            $ref: '#/components/schemas/AccessLevel'
-          description: >
-            Access levels allowed to read the field's value. `null` or empty
-            means every caller.
-        write:
-          type: [array, 'null']
-          items:
-            $ref: '#/components/schemas/AccessLevel'
-          description: >
-            Access levels allowed to write the field's value. `null` or empty
-            means every caller allowed to write events on the agenda; otherwise
-            your access level must be listed, and a value you send for the field
-            answers `422` with an `unauthorized` issue on it.
         origin:
           type: [string, 'null']
           enum: [tags, categories, custom, null]
@@ -5195,10 +3391,6 @@ components:
             properties:
               id:
                 type: integer
-                description: >-
-                  What an additional field carries for this option. A value that
-                  is no option's `id`, the option's `value` included, answers
-                  `422` on a write.
               value:
                 type: string
               label:
@@ -5208,39 +3400,14 @@ components:
         schemaId:
           type: [integer, 'null']
           description: >
-            Identifier of the agenda or network schema that declared or
-            overrode the field; `null` on a native field as the platform
-            declares it.
+            Identifier of the declaring agenda/network schema. Non-null marks
+            an **additional field**; `null`/absent marks a native one.
         schemaType:
           type: [string, 'null']
           enum: [agenda, network, event, null]
           description: >
-            Which level declared or overrode the field: `agenda` or `network`,
-            or `event` for a native field as the platform declares it.
-
-    AccessLevel:
-      type: string
-      description: >
-        A level of access to an agenda's data, as the field rules of its event
-        form name them.
-      enum:
-        [
-          public,
-          reader,
-          contributor,
-          moderator,
-          administrator,
-          internal,
-          system,
-        ]
-      x-enum-descriptions:
-        public: A caller without a membership on the agenda
-        reader: A member with the reader role
-        contributor: A member with the contributor role
-        moderator: A member with the moderator role
-        administrator: A member with the administrator role
-        internal: The platform's own processes, never an API caller
-        system: The platform's own processes, never an API caller
+            Which level declared the field: `agenda`/`network` for additional
+            fields, `event` for the platform's native event fields.
 
     MemberRole:
       type: string
@@ -5273,7 +3440,6 @@ components:
               url: https://img.openagenda.com/u/640x0/main/12345.full.image.jpg
             - width: 1080
               url: https://img.openagenda.com/u/1080x0/main/12345.full.image.jpg
-          ref: 12345.full.image.jpg
         official: false
         private: false
         role: administrator
@@ -5357,30 +3523,6 @@ components:
         locationSet:
           $ref: '#/components/schemas/AgendaLocationSetRef'
 
-    Network:
-      type: object
-      description: A group of agendas.
-      additionalProperties: false
-      required: [uid, title]
-      properties:
-        uid:
-          type: integer
-          format: int64
-        title:
-          type: [string, 'null']
-
-    NetworkList:
-      type: object
-      required: [data, pagination]
-      additionalProperties: false
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Network'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-
     MeAgendaList:
       type: object
       required: [data, pagination]
@@ -5421,9 +3563,8 @@ components:
             moves a stored `id` to another occurrence; an occurrence it cannot
             match to a stored one receives a fresh `id`. Supplied on write, it
             is stored as sent and names that occurrence; a value repeated within
-            the submitted timings is kept on the earliest of those occurrences by
-            date, and the others receive a fresh `id`. A supplied `id` that does
-            not match the pattern answers `422`.
+            the submitted timings is kept on the first occurrence only. A
+            supplied `id` that does not match the pattern answers `422`.
         sourceRef:
           type: string
           maxLength: 255
@@ -5433,382 +3574,6 @@ components:
             its `id` even when its dates moved, which is how a connector holds
             on to an occurrence it has already published. Two occurrences of
             the same event sharing a `sourceRef` are both treated as new.
-        availability:
-          type: array
-          maxItems: 7
-          description: >
-            The inventory of this occurrence, ONE ROW PER TICKETING PROVIDER —
-            the same occurrence can be sold out on pass Culture and open to the
-            general public. At most one row per provider, so never more rows than
-            the `provider` enum has values. Absent on an occurrence that never
-            received any; `[]` is a value the field can hold, since an empty array
-            sent with an occurrence the event does not have yet is stored and
-            served as such.
-
-            WRITTEN BY THE AVAILABILITY ENDPOINT. An ordinary event write can only
-            SEED it, on an occurrence the event does not have yet — see below —
-            and never change, remove or clear a row of one it already has.
-
-            That endpoint is NOT part of this contract: it is
-            `PATCH /v2/agendas/{agendaUid}/events/{eventUid}/availability`, on the
-            v2 API, and this document declares no path for it, so a client
-            generated from this spec cannot reach it and has to call it directly.
-
-            Its body is keyed by OCCURRENCE first and by provider second —
-            `{ "<timing id>": { "<provider>": { … } } }` — and `null` in place of a
-            row removes that provider from that occurrence. A body keyed by
-            provider alone names no occurrence.
-
-            It requires `Content-Type: application/json`, since a body it cannot
-            read is refused rather than taken for an empty one; the `events:write`
-            scope; the right to edit THAT event, which is what decides — being a
-            member of the agenda is neither sufficient nor always necessary; and
-            ticketing enabled on the agenda, failing which it answers `422`
-            `offers.disabled`. Its access token must travel in a header
-            (`Authorization: Bearer …` or `access-token`) and NOT in the body: the
-            endpoint reads its body only once it knows who is calling, so a token
-            placed inside the body is never seen, where an ordinary v2 write would
-            have taken it.
-
-            ⚠️ READ ITS BODY, NOT ONLY ITS STATUS. It answers `200` with
-            `{ success, applied, written, errors }`, and a batch whose occurrences
-            it cannot resolve — an unknown or misspelled timing id — is a `200`
-            carrying `success: false` and the faults in `errors`, having written
-            nothing. A connector that checks the status alone reads a batch it
-            never wrote as a success.
-
-            AN ORDINARY EVENT WRITE CARRIES THIS INVENTORY. Unless it declares
-            `availabilityAuthority`, whatever it sends for an occurrence the event
-            already has — an occurrence it sends WITH that occurrence's stored
-            `id` — is dropped before validation, so a read-modify-write round trip
-            can neither change a row, nor add one, nor clear one with an explicit
-            `[]` — and it is not critiqued field by field for rows that were never
-            going to be written either. The drop applies to the rows carried, not
-            to the shape of the field: an `availability` of another type than this
-            one is rejected with `422` rather than dropped. `null` is an exception
-            this schema does not declare: sent, it says nothing about the field and
-            is ignored, exactly like an occurrence that omits the key — which is
-            the spelling to send.
-
-
-            TWO OCCURRENCES OF THE SAME WRITE SENT WITH THE SAME STORED `id` are
-            both occurrences the event already has, so the rows both carry are
-            dropped; the one that receives a fresh `id` is stored with no
-            inventory, and the call answers `200`. An occurrence another write
-            removes between this write's reads reaches the same outcome: its rows
-            are dropped as carried, and nothing is seeded under its fresh `id`.
-            Declaring `availabilityAuthority` is what makes either one write the
-            rows it sends.
-
-
-            DECLARING `availabilityAuthority` IS THE WAY OUT, and the only one on
-            these routes: it names the providers the write owns, and for those the
-            payload is law. Everything that follows describes a write that does
-            NOT declare one.
-
-            The reason is that such a write cannot be told apart from the inventory
-            it merely transports: a connector writes between the moment a client
-            reads an event and the moment its save arrives, so a row absent from
-            that save may be one the client never saw rather than one it means to
-            drop. The endpoint writes under a compare-and-swap and has no such
-            ambiguity.
-
-            A CLIENT SHOULD THEREFORE OMIT THE FIELD when saving an event it has
-            just read: an occurrence whose entry does not mention `availability`
-            keeps its stored rows. Omitting the FIELD is safe; omitting the
-            OCCURRENCE is not — a timings write is a full replacement, and an
-            occurrence no incoming entry claims is deleted along with its
-            inventory. Sending the rows back is not merely useless, it is what
-            pushes a read-modify-write past the 100 kB body limit of the ordinary
-            event routes: measured, a payload crosses it at about 500 occurrences
-            carrying one row each, or 300 carrying two.
-
-            AN OCCURRENCE THE EVENT DOES NOT HAVE YET is the exception, and the
-            only way an ordinary write stores inventory: it has no stored rows to
-            protect, so the rows sent with it are kept — provided ticketing is
-            enabled on the agenda, which is checked for exactly this case and
-            answers `422` `offers.disabled` otherwise. An event can thus be created
-            with its inventory in a single call.
-
-            SERVED IN `timings[]` ONLY, and an earlier wording of this
-            paragraph promised more: `firstTiming` / `lastTiming` /
-            `nextTiming` copy the occurrence, and that copy used to carry the
-            rows. It carried them AS SYNCED — nothing resolves a compact copy,
-            and a compact listing does not even load the catalogue a sale
-            window would be read from. Serving them there contradicted the
-            rule stated above, that a row is served resolved or not at all, so
-            the copies no longer carry the field. Read `timings[]` for
-            inventory.
-          items:
-            $ref: '#/components/schemas/TimingAvailability'
-
-    TicketingProvider:
-      type: string
-      enum:
-        [
-          billetweb,
-          eventbrite,
-          helloasso,
-          mapado,
-          weezevent,
-          passculture,
-          manual,
-        ]
-      description: >
-        A ticketing source OpenAgenda knows. `passculture` is the published
-        spelling here; the `registration` service of the same name is spelled
-        `passCulture` — two fields, two namespaces.
-
-    TimingAvailability:
-      type: object
-      required: [provider, status, syncedAt]
-      additionalProperties: false
-      description: >
-        What one ticketing provider says about one occurrence. THIS SCHEMA IS
-        READ AND WRITTEN, and `status` does not mean the same thing in the two
-        directions.
-
-
-        WHAT YOU SEND is the provider's RAW word as of `syncedAt`. Do not apply
-        the sale window to it yourself: send `available` with its bounds and let
-        every read derive the window half from them. A connector that
-        pre-resolves its own window stores a value that is already stale the
-        moment the window moves, and the server re-derives on top of it.
-
-
-        WHAT YOU RECEIVE is that word RESOLVED, as of the moment of the read:
-        the provider's word of `syncedAt`, with the sale window already applied
-        to it and the event's own `status` already answered over it. Take it as
-        final. `onSaleFrom` and `onSaleThrough` say what produced it, and
-        re-applying them to the value you received contradicts it - a full
-        event's row is served `soldOut` even when its window only opens next
-        week, because there is nothing left to wait for.
-
-
-        The event's own `status` answers over the provider's word, and it
-        answers alone. A cancelled event serves every row `salesClosed`,
-        whatever the window says, and with `closedBySource: true`, since the
-        window is not what closed it - and it serves no sale window at all:
-        `onSaleFrom` and `onSaleThrough` are absent from the rows of a
-        cancelled event, because a sale that opens next month on an event that
-        will not happen is not a fact about anything. The stored values are
-        untouched, and an event that leaves the cancelled status serves them
-        again. A per-source lead time (`onSaleFromBeforeBegin`) is still served
-        with the catalogue, and deriving a window from it on a cancelled event
-        is the same mistake in another shape.
-
-
-        A full event serves every row `soldOut`, with no exception: a row whose
-        sale has not opened yet, one whose window has elapsed, and one whose
-        provider shut its own channel are all served `soldOut`. The status is
-        set on the whole event while stock is managed per provider, so it
-        decides; for a visitor looking to book, the answer is the same in all
-        three cases. Nothing is overwritten - the column keeps
-        what the provider synced, and the next read of an event no longer full
-        serves it again.
-
-
-        WHAT TELLS YOU A ROW WAS DICTATED is the event's own `status`, in this
-        same document: a decision taken on the whole event is served on the
-        global field rather than copied onto every row. `onSaleFrom` and
-        `onSaleThrough` are not that mark - they are a fact about the provider's
-        channel, and under a dictating status they no longer explain the value
-        you received. ASK FOR `status` IN YOUR FIELD SELECTION if you need the
-        mark: a selection that leaves it out - `?if[]=uid,timings` - is served
-        the dictated rows with nothing in the response saying so.
-      properties:
-        provider:
-          allOf:
-            - $ref: '#/components/schemas/TicketingProvider'
-          description: Which ticketing source this row belongs to.
-        status:
-          type: string
-          enum:
-            [available, limited, soldOut, notYetOnSale, salesClosed, unknown]
-          description: >
-            `mixed` never appears here — it only exists on the aggregate, where
-            occurrences may disagree.
-        syncedAt:
-          type: string
-          format: date-time
-          description: >
-            When the connector READ this at the provider, with an explicit
-            offset. A fact about the data, not about the feed: the event's
-            `availabilityUpdatedAt` is set by the write, not by this stamp.
-            Must not be in the future.
-        sourceRef:
-          type: string
-          minLength: 1
-          maxLength: 255
-          description: >
-            The provider's own key for this occurrence (a session, a stock, a
-            series child). Opaque to OpenAgenda.
-        onSaleFrom:
-          type: string
-          format: date-time
-        onSaleThrough:
-          type: string
-          format: date-time
-          description: Must be at or after `onSaleFrom` when both are set.
-        closedBySource:
-          type: boolean
-          description: >
-            Provenance of a `salesClosed`: `true` when something other than the
-            window shut the sale - the provider shutting its own channel, or the
-            event's own `status` being `cancelled` - `false` or absent when only
-            the sale window elapsed. Decides whether a later read may reopen the
-            row on the window alone.
-
-            SERVED WITH A `salesClosed` AND WITH NOTHING ELSE, whatever was
-            stored. A row served `soldOut` - including a full event's rows,
-            where the provider had shut its own channel - `limited`, or
-            `available` because its window reopened, carries no such flag: it
-            would be the provenance of a closure the row does not serve. What
-            was stored is kept in the column, it is what decides a later
-            reopening, and a read that does serve `salesClosed` shows it again.
-
-    OffersSource:
-      type: object
-      additionalProperties: false
-      required: [provider, currency, pricing]
-      description: >
-        One ticketing source of an event, as this API publishes it: what it
-        sells the event at, and where.
-
-        `tiers` is absent when the source pushed none - a first sync that
-        declares its pricing before its catalogue - and an empty array means a
-        catalogue deliberately cleared. `pricing` answers either way, which is
-        why it is required and the tiers are not.
-      properties:
-        provider:
-          type: string
-          enum:
-            [
-              billetweb,
-              eventbrite,
-              helloasso,
-              mapado,
-              weezevent,
-              passculture,
-              manual,
-            ]
-        currency:
-          type: string
-          description: >
-            An ISO 4217 code. It describes the SOURCE, not its amounts: a free
-            catalogue carries one too, and gaining a paid tier later does not
-            change denomination.
-        pricing:
-          type: string
-          enum: [free, paid, donation, mixed, unknown]
-          description: >
-            The category this source declared. `offersAggregate.pricing` rolls
-            every source up, and a single source can disagree with it.
-        source:
-          type: object
-          additionalProperties: false
-          description: >
-            How to find this event on the provider's side.
-          properties:
-            ref:
-              type: string
-              description: >
-                The provider's own id for the catalogue object. Opaque, and the
-                key a connector writes against.
-            url:
-              type: string
-              format: uri
-              description: >
-                The booking page. The same URL reaches `offersAggregate.links`
-                attributed to this provider, and `registration` stripped of its
-                source.
-        syncedAt:
-          type: string
-          format: date-time
-          description: >
-            When the connector last pushed this source. It says how fresh the
-            price list is, nothing more - inventory has its own stamp, on each
-            availability row.
-        onSaleFromBeforeBegin:
-          type: string
-          description: >
-            An ISO 8601 duration: sales open that long before each occurrence
-            starts. Resolved for you - a row whose window has not opened is
-            served `notYetOnSale` - so read this as the rule, not as something
-            to compute with.
-        onSaleThroughBeforeBegin:
-          type: string
-          description: >
-            An ISO 8601 duration: sales shut that long before each occurrence
-            starts. Being a lead time, it is never greater than
-            `onSaleFromBeforeBegin`, which would shut sales before they open.
-        tiers:
-          type: array
-          items:
-            $ref: '#/components/schemas/OffersTier'
-
-    OffersTier:
-      type: object
-      additionalProperties: false
-      required: [sourceRef]
-      description: >
-        One line of a source's price list.
-
-        Amounts are in the smallest unit of the source's `currency` (`1800` is
-        EUR 18.00), and an amount can be absent: a membership at no stated
-        price is a real tier, which is also why `offersAggregate.price` is
-        `null` rather than computed over part of a list.
-      properties:
-        sourceRef:
-          type: string
-          description: >
-            The provider's own id for this tier. Opaque, and what a per-date
-            override names to say which tiers it replaces.
-        label:
-          allOf:
-            - $ref: '#/components/schemas/LocalizedString'
-          description: >
-            A localized map, even for a monolingual source - at least one
-            language is filled.
-
-            ABSENT UNLESS THE EVENT WAS READ ON ITS OWN, and this is the one
-            place where this contract trades completeness for weight. Labels
-            are localized maps over eight locales and, at the published caps
-            (10 sources x 50 tiers), 81.5% of a catalogue's bytes - 110.5 KiB
-            against 20.4 KiB per event. A listing that carries grids at all
-            would pay that per event, on the same paths as the JSON and JSON-LD
-            feeds, which is a memory incident this API has already had. So the
-            labels travel for a single-event read, and a listing's grid carries
-            the prices, the sale windows and the types without them.
-
-            Read a grid you mean to display from the event's own endpoint. A
-            listing is better served by `offersAggregate`, which is what it is
-            for.
-        offerType:
-          type: string
-          enum: [standard, donation, membership]
-          description: >
-            `donation` carries `minAmountCents` and never `priceCents` - a
-            floor plus a fixed amount is just a fixed amount. Absent reads as
-            `standard`.
-        priceCents:
-          type: integer
-          minimum: 0
-        minAmountCents:
-          type: integer
-          minimum: 0
-          description: >
-            The floor of a free-price tier, when it declares one.
-        saleStart:
-          type: string
-          format: date-time
-          description: >
-            When this tier goes on sale, for display - "on sale until 12
-            November". Unlike the source's relative window, this pair is not an
-            input of `availability`.
-        saleEnd:
-          type: string
-          format: date-time
 
     OffersAggregate:
       type: [object, 'null']
@@ -5818,13 +3583,8 @@ components:
         read. `availability` is `null` when nothing can be said - every
         occurrence past, or no source carrying a usable status - and reflects
         the current time, except `soldOut` and `limited`, which reflect the last
-        sync with the provider, and the answers the event's own `status` dictates
-        whatever the clock says: `salesClosed` when it is `cancelled`, and
-        `soldOut` when it is `full`, with no exception - sources that disagree,
-        windows that have elapsed and sales that have not opened all included,
-        since the status is global where the stock is not. `mixed` and `unknown`
-        therefore never answer for a full event. `pricing` is a category rolled
-        up from the sources' price lists and declared pricing.
+        sync with the provider. `pricing` is a category rolled up from the
+        sources' price lists and declared pricing.
       properties:
         availability:
           type: [string, 'null']
@@ -5847,129 +3607,9 @@ components:
           type: [string, 'null']
           enum: [free, paid, donation, mixed, unknown, null]
           description: >
-            A category, never an amount — the amounts are in `price`. `mixed`
-            means the sources or the occurrences disagree (one date free,
-            another paid); `unknown` means no source carries a usable pricing.
-        price:
-          allOf:
-            - $ref: '#/components/schemas/OffersPrice'
-          description: >
-            The event's price bounds, over the same resolved tier sets as
-            `pricing` — so the two can never disagree, and a `free` event
-            cannot carry a non-zero minimum.
-        links:
-          type: [array, 'null']
-          description: >
-            Where to book, one entry per ticketing source that carries a usable
-            URL, in catalogue order. `null` when none does, and on a cancelled
-            event, whose sale no longer exists - the same read also adds no
-            booking link to `registration`, though whatever the organiser stored
-            there is left untouched.
-
-            The same URLs reach `registration` as `{type: link}` entries, but
-            stripped of their source: that field lists ways to sign up, not a
-            map of ticketing providers. A reader showing one line PER SOURCE —
-            a per-date detail panel, say — could attach no URL to any line.
-            This is that attribution, and nothing more.
-
-            EVENT-LEVEL, and that is a property of THIS field — not a limit
-            of what OpenAgenda can hold, which is what an earlier wording of
-            this paragraph claimed. A per-(date, provider) booking URL is part
-            of the model and a connector can write one, through the **v2**
-            event API. This API neither returns nor accepts it: the value is
-            internal, `Timing` is `additionalProperties: false` here, and a
-            body carrying one is refused. WHICH refusal depends on the agenda:
-            ticketing is gated per agenda and that gate speaks first, so an
-            agenda without it answers `422` `offers.disabled` for the whole
-            write, and only one that has it reaches the strict schema check and
-            its `422` `schema.unknown`. Same split as the availability
-            endpoint, for which this document likewise declares no path.
-
-            An availability row does not carry one HERE either, and that is
-            now a limit of THIS API rather than of the model: the **v2** read
-            joins the override onto the row of the same (occurrence, provider)
-            pair and serves it as `bookingUrl`. This API strips it instead of
-            serving it undeclared, because `TimingAvailability` is
-            `additionalProperties: false` and a consumer validating against
-            this document would reject the row.
-
-            Declaring it needs the read/write split this document applies
-            everywhere else and not here: `Timing` and `TimingAvailability` are
-            reached by both the request bodies and the responses — the schema
-            says so itself — so a `readOnly` field on either offers a field the
-            API refuses. Splitting them is a contract change of its own, and
-            until it lands, read `links` as "where this source sells this
-            event", never "where this source sells this date".
-          items:
-            $ref: '#/components/schemas/OffersLink'
-
-    OffersLink:
-      type: object
-      additionalProperties: false
-      required: [provider, url]
-      properties:
-        provider:
-          type: string
-          enum:
-            [
-              billetweb,
-              eventbrite,
-              helloasso,
-              mapado,
-              weezevent,
-              passculture,
-              manual,
-            ]
-        url:
-          type: string
-          format: uri
-          description: >
-            The booking page this provider published for the event, cleaned by
-            the same rule that decides what reaches `registration` — so the two
-            never disagree on whether a source is linkable.
-
-    OffersPrice:
-      type: [object, 'null']
-      additionalProperties: false
-      required: [minCents, maxCents, currency]
-      description: >
-        What the event's ticketing costs, in the smallest unit of its currency.
-
-        ALL OR NOTHING. `null` whenever a single tier cannot be read as an
-        amount - a membership at no stated price, a source that declared its
-        pricing before pushing a catalogue - or when the contributing sources
-        do not share one currency. A bound computed over part of a price list
-        is wrong in both directions: the unreadable tier could sit below the
-        minimum as easily as above the maximum. "Unknown" is an answer; "from
-        EUR 18" when a EUR 9 tier exists is not.
-
-        These bounds are what T16 removed `priceRanges` in favour of: "the
-        tiers carry every price, and a consumer wanting 'from X' computes
-        min(tiers[].priceCents)". For a while that reasoning stood on nothing -
-        the tiers reached no public response - and this was the only figure a
-        public reader got. `offers` now publishes the grid on a detailed read,
-        so the computation is available again; these bounds remain the answer
-        for a listing, which carries no grid, and the only one that accounts
-        for a per-date override.
-      properties:
-        minCents:
-          type: integer
-          minimum: 0
-          description: >
-            The cheapest way in. Zero on a free event, and on a
-            pay-what-you-want tier that declares no floor.
-        maxCents:
-          type: [integer, 'null']
-          minimum: 0
-          description: >
-            `null` means OPEN-ENDED, not "unknown": a pay-what-you-want tier has
-            a floor and no ceiling, and publishing its floor as a ceiling would
-            misstate what a visitor may give.
-        currency:
-          type: string
-          description: >
-            ISO 4217, upper-case. A source carries one currency; bounds are only
-            served when every contributing source agrees on it.
+            A category, never an amount. `mixed` means the sources or the
+            occurrences disagree (one date free, another paid); `unknown` means
+            no source carries a usable pricing.
 
     AgeRange:
       type: [object, 'null']
@@ -6054,76 +3694,6 @@ components:
             image instead of cropping it. `null` when no rendition can be
             derived - use `src` as is.
 
-    License:
-      type: object
-      description: A licence, identified by its SPDX identifier.
-      additionalProperties: false
-      required: [id, name, url]
-      properties:
-        id:
-          type: string
-          description: SPDX identifier.
-          examples: [etalab-2.0]
-        name:
-          type: string
-        url:
-          type: string
-          format: uri
-
-    RightsParty:
-      type: object
-      description: >
-        An organisation to credit: the one named in its agenda's settings,
-        else the agenda's title and website, else the agenda's page on
-        OpenAgenda. Never empty.
-      additionalProperties: false
-      required: [name, url, agendaUid]
-      properties:
-        name:
-          type: string
-        url:
-          type: string
-          format: uri
-        agendaUid:
-          type: integer
-          format: int64
-          description: The agenda this organisation administers.
-
-    EventRights:
-      type: object
-      description: >
-        Attribution of an event. `licensor.agendaUid` equals
-        `originAgenda.uid`; `publisher.agendaUid` is the agenda read. The
-        two are equal when the event is read from its origin agenda.
-      additionalProperties: false
-      required: [license, licensor, publisher]
-      properties:
-        license:
-          $ref: '#/components/schemas/License'
-        licensor:
-          $ref: '#/components/schemas/RightsParty'
-        publisher:
-          $ref: '#/components/schemas/RightsParty'
-
-    AgendaRights:
-      type: object
-      description: Attribution of an agenda.
-      additionalProperties: false
-      required: [license, publisher]
-      properties:
-        license:
-          $ref: '#/components/schemas/License'
-        publisher:
-          type: object
-          additionalProperties: false
-          required: [name, url]
-          properties:
-            name:
-              type: string
-            url:
-              type: string
-              format: uri
-
     AgendaRef:
       type: object
       description: A compact reference to an agenda.
@@ -6179,8 +3749,7 @@ components:
         Agenda-specific additional fields. The available keys and the shape of
         each value are defined by the agenda's event form schema
         (`GET /agendas/{agendaUid}/events/schema`): each value follows its
-        field's `fieldType`. On a write, a key the schema does not declare
-        answers `422`.
+        field's `fieldType`.
 
 
         A `file`/`image` field is set by reference, like the native image:
@@ -6245,7 +3814,6 @@ components:
               url: https://img.openagenda.com/u/640x0/main/12345.full.image.jpg
             - width: 1080
               url: https://img.openagenda.com/u/1080x0/main/12345.full.image.jpg
-          ref: 12345.full.image.jpg
         official: true
       properties:
         uid:
@@ -6325,7 +3893,6 @@ components:
         - officializedAt
         - private
         - indexed
-        - rights
         - network
         - locationSet
       example:
@@ -6343,7 +3910,6 @@ components:
               url: https://img.openagenda.com/u/640x0/main/12345.full.image.jpg
             - width: 1080
               url: https://img.openagenda.com/u/1080x0/main/12345.full.image.jpg
-          ref: 12345.full.image.jpg
         official: true
         url: https://openagenda.com/festival-des-lumieres
         createdAt: '2024-11-04T09:12:00+01:00'
@@ -6357,14 +3923,6 @@ components:
         locationSet:
           uid: 204
           title: Lieux de Lyon
-        rights:
-          license:
-            id: etalab-2.0
-            name: Licence Ouverte 2.0
-            url: https://www.data.gouv.fr/pages/legal/licences/etalab-2.0/
-          publisher:
-            name: Ville de Lyon
-            url: https://www.lyon.fr
       properties:
         uid:
           type: integer
@@ -6398,7 +3956,7 @@ components:
           description: When the agenda was officialized, or `null` if it is not official.
         private:
           type: boolean
-          description: Whether the agenda is private.
+          description: Whether the agenda is private (not publicly listed).
         indexed:
           type: boolean
           description: Whether the agenda is indexed in public search.
@@ -6406,15 +3964,6 @@ components:
           $ref: '#/components/schemas/AgendaNetworkRef'
         locationSet:
           $ref: '#/components/schemas/AgendaLocationSetRef'
-        rights:
-          readOnly: true
-          description: >
-            The licence the agenda's events are published under, and the
-            organisation to credit for the agenda's selection and additional
-            fields. `null` on a private agenda, whose events are not open data.
-          oneOf:
-            - $ref: '#/components/schemas/AgendaRights'
-            - type: 'null'
 
     AgendaList:
       type: object
@@ -6737,8 +4286,6 @@ components:
         - imageCredits
         - keywords
         - originAgenda
-        - rights
-        - canonicalUrl
         - location
         - timezone
         - attendanceMode
@@ -6770,7 +4317,6 @@ components:
               url: https://img.openagenda.com/u/640x0/main/9876543.full.image.jpg
             - width: 1080
               url: https://img.openagenda.com/u/1080x0/main/9876543.full.image.jpg
-          ref: 9876543.base.image.jpg
         imageCredits: Ville de Lyon
         keywords:
           { fr: [jazz, concert, plein air], en: [jazz, concert, open air] }
@@ -6783,36 +4329,22 @@ components:
             srcTemplate: https://img.openagenda.com/u/{geo}/main/a1b2c3d4e5f60718293a4b5c6d7e8f90.full.image.jpg
           url: https://openagenda.com/festival-des-lumieres
           official: true
-        rights:
-          license:
-            id: etalab-2.0
-            name: Licence Ouverte 2.0
-            url: https://www.data.gouv.fr/pages/legal/licences/etalab-2.0/
-          licensor:
-            name: Ville de Lyon
-            url: https://www.lyon.fr
-            agendaUid: 12345
-          publisher:
-            name: Ville de Lyon
-            url: https://www.lyon.fr
-            agendaUid: 12345
-        canonicalUrl: https://www.lyon.fr/evenement/concert-de-jazz-au-parc
         location:
           uid: 55512
           name: Parc de la Tête d'Or
           address: Place Général Leclerc
-          adminLevel1: Auvergne-Rhône-Alpes
-          adminLevel2: Rhône
-          adminLevel3: null
-          adminLevel4: Lyon
-          adminLevel5: null
-          adminLevel6: null
+          city: Lyon
+          region: Auvergne-Rhône-Alpes
           postalCode: '69006'
           countryCode: FR
           latitude: 45.7772
           longitude: 4.8558
+          district: null
+          department: Rhône
+          adminLevel3: null
+          adminLevel5: null
+          country: { fr: France, en: France }
           timezone: Europe/Paris
-          deleted: false
         timezone: Europe/Paris
         attendanceMode: 1
         onlineAccessLink: null
@@ -6869,30 +4401,6 @@ components:
           oneOf:
             - $ref: '#/components/schemas/AgendaRef'
             - type: 'null'
-        rights:
-          readOnly: true
-          description: >
-            Who to credit when reusing the event under its licence: the
-            licensor (the organisation of the origin agenda, whichever agenda
-            the event is read through) and the publisher (the organisation of
-            the agenda read, which licenses its selection and its additional
-            fields). Indexed with the event and reindexed when either
-            organisation changes. `null` on an event indexed before
-            attribution was introduced, until it is reindexed, on an event
-            whose origin agenda no longer exists, on an event of a private
-            agenda, and on a write response whose re-read failed.
-          oneOf:
-            - $ref: '#/components/schemas/EventRights'
-            - type: 'null'
-        canonicalUrl:
-          type: [string, 'null']
-          format: uri
-          description: >
-            The address to link to when crediting the event: the page its
-            licensor declared for it, else its page on its origin agenda. The
-            same whichever agenda the event is read through. `null` on an
-            event indexed before this field was introduced, until it is
-            reindexed, and on an event whose origin agenda no longer exists.
         location:
           oneOf:
             - $ref: '#/components/schemas/EventLocation'
@@ -6947,8 +4455,6 @@ components:
         - imageCredits
         - keywords
         - originAgenda
-        - rights
-        - canonicalUrl
         - timings
         - location
         - timezone
@@ -6961,6 +4467,7 @@ components:
         # detailed-only fields
         - longDescription
         - conditions
+        - country
         - registration
         - createdAt
         - updatedAt
@@ -6993,7 +4500,6 @@ components:
               url: https://img.openagenda.com/u/640x0/main/9876543.full.image.jpg
             - width: 1080
               url: https://img.openagenda.com/u/1080x0/main/9876543.full.image.jpg
-          ref: 9876543.base.image.jpg
         imageCredits: Ville de Lyon
         keywords:
           { fr: [jazz, concert, plein air], en: [jazz, concert, open air] }
@@ -7006,20 +4512,6 @@ components:
             srcTemplate: https://img.openagenda.com/u/{geo}/main/a1b2c3d4e5f60718293a4b5c6d7e8f90.full.image.jpg
           url: https://openagenda.com/festival-des-lumieres
           official: true
-        rights:
-          license:
-            id: etalab-2.0
-            name: Licence Ouverte 2.0
-            url: https://www.data.gouv.fr/pages/legal/licences/etalab-2.0/
-          licensor:
-            name: Ville de Lyon
-            url: https://www.lyon.fr
-            agendaUid: 12345
-          publisher:
-            name: Ville de Lyon
-            url: https://www.lyon.fr
-            agendaUid: 12345
-        canonicalUrl: https://www.lyon.fr/evenement/concert-de-jazz-au-parc
         timings:
           - begin: '2025-06-20T18:00:00+02:00'
             end: '2025-06-20T22:00:00+02:00'
@@ -7027,18 +4519,18 @@ components:
           uid: 55512
           name: Parc de la Tête d'Or
           address: Place Général Leclerc
-          adminLevel1: Auvergne-Rhône-Alpes
-          adminLevel2: Rhône
-          adminLevel3: null
-          adminLevel4: Lyon
-          adminLevel5: null
-          adminLevel6: null
+          city: Lyon
+          region: Auvergne-Rhône-Alpes
           postalCode: '69006'
           countryCode: FR
           latitude: 45.7772
           longitude: 4.8558
+          district: null
+          department: Rhône
+          adminLevel3: null
+          adminLevel5: null
+          country: { fr: France, en: France }
           timezone: Europe/Paris
-          deleted: false
         timezone: Europe/Paris
         attendanceMode: 1
         onlineAccessLink: null
@@ -7064,6 +4556,7 @@ components:
             en: 'An open-air concert featuring several jazz ensembles…',
           }
         conditions: { fr: Entrée libre, en: Free entry }
+        country: { fr: France, en: France }
         registration:
           - type: link
             value: https://openagenda.com/festival-des-lumieres/events/concert-de-jazz-au-parc
@@ -7120,30 +4613,6 @@ components:
           oneOf:
             - $ref: '#/components/schemas/AgendaRef'
             - type: 'null'
-        rights:
-          readOnly: true
-          description: >
-            Who to credit when reusing the event under its licence: the
-            licensor (the organisation of the origin agenda, whichever agenda
-            the event is read through) and the publisher (the organisation of
-            the agenda read, which licenses its selection and its additional
-            fields). Indexed with the event and reindexed when either
-            organisation changes. `null` on an event indexed before
-            attribution was introduced, until it is reindexed, on an event
-            whose origin agenda no longer exists, on an event of a private
-            agenda, and on a write response whose re-read failed.
-          oneOf:
-            - $ref: '#/components/schemas/EventRights'
-            - type: 'null'
-        canonicalUrl:
-          type: [string, 'null']
-          format: uri
-          description: >
-            The address to link to when crediting the event: the page its
-            licensor declared for it, else its page on its origin agenda. The
-            same whichever agenda the event is read through. `null` on an
-            event indexed before this field was introduced, until it is
-            reindexed, and on an event whose origin agenda no longer exists.
         timings:
           type: array
           items:
@@ -7185,35 +4654,16 @@ components:
           $ref: '#/components/schemas/LocalizedString'
         conditions:
           $ref: '#/components/schemas/LocalizedString'
+        country:
+          readOnly: true
+          description: Localized country label of the event location.
+          oneOf:
+            - $ref: '#/components/schemas/LocalizedString'
+            - type: 'null'
         registration:
           type: array
           items:
             $ref: '#/components/schemas/Registration'
-        offers:
-          type: array
-          readOnly: true
-          description: >
-            The ticketing catalogue of this event, one entry per source: the
-            price list a reader can display as a grid, with the booking page it
-            is sold on.
-
-            DETAILED READS ONLY. A compact listing speaks prices through
-            `offersAggregate` instead, which is what it is for: a card says
-            "from EUR 15", a detail page unfolds the four tiers. And on a
-            detailed listing the grid comes without its tier labels - see
-            `OffersTier.label`, where the measurement behind that is set out.
-
-            Present only on an event that carries a catalogue, and absent - not
-            `null` - otherwise, like `offersAggregate` beside it.
-
-            A VIEW, NOT THE STORED COLUMN. What a connector pushes is kept as
-            sent, and the keys below are what this API publishes of it; a key
-            outside them is stored and not served. The grid is also the
-            EVENT's: an occurrence may override it, which `offersAggregate`
-            accounts for, so an event with an overridden date can carry bounds
-            that no tier of this grid names.
-          items:
-            $ref: '#/components/schemas/OffersSource'
         offersAggregate:
           allOf:
             - $ref: '#/components/schemas/OffersAggregate'
@@ -7228,56 +4678,6 @@ components:
           type: string
           format: date-time
           readOnly: true
-        availabilityUpdatedAt:
-          type: string
-          format: date-time
-          readOnly: true
-          description: >
-            A SECOND CURSOR, for inventory rather than catalogue.
-
-            An availability write does not move `updatedAt`: an inventory tick is
-            not a content change, and a catalogue consumer paging on
-            `updatedAt.asc` must not see an event resurface every time a seat is
-            sold. This stamp moves instead, so availability stays followable on
-            its own — `?sort=availabilityUpdatedAt.asc&availabilityUpdatedAt[gte]=<watermark>`.
-
-            Its value is the instant OpenAgenda last WROTE an availability row
-            of this event — the write clock. It is not the rows' own `syncedAt`,
-            which says when each provider was read and may sit behind another
-            provider's row, so a max-of-`syncedAt` would not move forward at all
-            for such a provider.
-
-            IT ALSO MOVES WHEN THE EVENT'S OWN `status` CHANGES WHAT ITS ROWS
-            SERVE, with no row written: entering `full` or `cancelled`, leaving
-            either, and moving from one to the other. The three answers are
-            three different things to an inventory consumer — a full event
-            serves `soldOut` and keeps its booking links, a cancelled one serves
-            `salesClosed` with `closedBySource: true` and no link at all — so
-            each transition between them is news. An event carrying no
-            availability row is never stamped by a status change: the field
-            stays absent, as it is for the overwhelming majority.
-
-            THE STAMP IS TAKEN AT THE WRITE, THE DOCUMENT IS INDEXED AFTER, and
-            the two orders can differ: an event stamped at t1 may be indexed
-            after one stamped at t2 > t1, and a consumer that has already moved
-            its watermark to t2 would never see it. Re-indexing is also
-            best-effort — a failed resync is retried later, not at the instant
-            of the write. So overlap rather than trust exhaustiveness: page with
-            a watermark set a little behind the newest value you saw (a few
-            minutes covers the ordinary case), and make your ingestion
-            idempotent. Rows carry `syncedAt`, so re-reading one costs nothing.
-
-            ABSENT from an event that has never received availability, which is
-            the overwhelming majority. A `[gte]` filter therefore excludes them
-            naturally, which is the intent: following inventory should not mean
-            paging through the whole corpus.
-
-            IT DOES NOT MOVE WHEN AN EVENT LEAVES. Deleting an event, or
-            unpublishing it, is a catalogue change: it stamps `updatedAt` and
-            leaves this one where it was. A consumer that follows inventory
-            ALONE therefore keeps selling dates for an event that is gone —
-            follow `updatedAt` as well, or re-read the events you hold, to see
-            departures.
         accessibility:
           $ref: '#/components/schemas/Accessibility'
         age:
@@ -7307,13 +4707,12 @@ components:
       additionalProperties: false
       required: [ref, expiresAt]
       description: >
-        A staged upload. Attach `ref` on a write (`image`, or a custom
-        file/image field of an event under `additionalFields`) before it
-        expires.
+        A staged upload. Attach `ref` on an event write (`image`, or a custom
+        file/image field under `additionalFields`) before it expires.
       properties:
         ref:
           type: string
-          description: The staging reference to attach on a write.
+          description: The staging reference to attach on an event write.
         expiresAt:
           type: string
           format: date-time
@@ -7359,12 +4758,12 @@ components:
 
     ImageInput:
       description: >
-        Write shape for an image (the read `Image` carries the rendition
+        Write shape for an event image (the read `Image` carries the rendition
         URLs). Attach the image one of two ways - a freshly-staged upload by
         its `ref` (the value returned by `POST /agendas/{uid}/uploads`), or a
         publicly reachable `url` the server fetches - or send `null` to remove
-        the current image. The image is stored as part of the same write as the
-        rest of the edit; renditions are derived from it on demand.
+        the current image. The image is stored as part of the same write as
+        the rest of the edit; renditions are derived from it on demand.
 
 
         The `url` must be a publicly reachable `http(s)` image, without
@@ -7374,7 +4773,7 @@ components:
 
 
         An object carrying both `ref` and `url`, or any other key, is rejected
-        with `422`.
+        with `400`.
       oneOf:
         - type: object
           additionalProperties: false
@@ -7384,13 +4783,10 @@ components:
               type: string
               description: >
                 A staging reference returned by the upload endpoint (of the form
-                `staging/{agendaUid}/…`), or the `ref` of the read `Image` the
-                resource carries, which keeps that image as it is. A staging
-                reference must belong to this agenda - a
+                `staging/{agendaUid}/…`). It must belong to this agenda - a
                 reference for another agenda answers `422` - and be attached
                 before the upload's `expiresAt`; attaching it later may answer
-                `422`. Any other reference answers `422`, as does the `ref` of a
-                stored image on a create.
+                `422`.
         - type: object
           additionalProperties: false
           required: [url]
@@ -7411,9 +4807,10 @@ components:
         Request body for creating or replacing an event: the fields a client
         may set. Agenda-specific fields go under `additionalFields`, never at
         the top level; any other top-level key (a read-only field such as
-        `uid` or `slug`, an unknown name) is rejected with `422`, as is an
-        `additionalFields` name that collides with a native field and a
-        field value the server rejects, each named under `error.errors[]`.
+        `uid` or `slug`, an unknown name) is rejected with `400`, as is an
+        `additionalFields` name that collides with a native field. Field
+        values are validated by the server (a `422` with per-field
+        `error.errors[]` on failure).
 
 
         Required fields depend on the target agenda: an event needs at least
@@ -7422,8 +4819,10 @@ components:
         answers `422` with the per-field set under `error.errors[]`.
 
 
-        A body that replaces an event and leaves `image` out removes the
-        image and its credits. An event's privacy is derived from its agenda.
+        The `image` is set either by reference - stage the bytes via `POST
+        /agendas/{uid}/uploads` and pass the returned `ref` here - or by a
+        public `url` the server fetches (or `null` to clear it). An event's
+        privacy is derived from its agenda.
       additionalProperties: false
       properties:
         title:
@@ -7448,86 +4847,6 @@ components:
             server enforces the exact requirement for the target agenda.
           items:
             $ref: '#/components/schemas/Timing'
-        availabilityAuthority:
-          type: [array, 'null']
-          maxItems: 7
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/TicketingProvider'
-          description: >
-            The ticketing sources THIS WRITE is authoritative for — the one way
-            an ordinary event write may change, add or clear the inventory of an
-            occurrence the event already has.
-
-
-            For a provider named here the payload is law on every occurrence
-            that NAMES `availability`: a row present in that array is written, a
-            row absent from it is a removal, and an explicit `[]` removes every
-            provider the write claims. For a provider NOT named here, nothing the
-            write sends is applied to an occurrence the event ALREADY HAS: its
-            stored rows are kept, so a connector cannot wipe the source a peer has
-            just pushed and that it does not know about. For an occurrence sent
-            WITH its stored `id` those rows are dropped before the body is judged,
-            so they are not critiqued field by field either and a connector may
-            send a peer's row back exactly as it read it. That stored `id` is what
-            makes an occurrence one the event already has: sent without it, every
-            row it carries is validated, and a row the rules reject answers
-            `422`.
-
-
-            On an occurrence the event does not have yet there are no stored rows
-            to protect, and the seeding rules above apply unchanged — every row
-            sent with it is kept, claimed or not. An occurrence another write
-            removes while this one is in flight is one exception, and it bites
-            only what this write does not claim: the call still answers `200`,
-            and the rows it sends for that occurrence under a provider it does
-            not name are not stored.
-
-
-            AN OCCURRENCE WHOSE ENTRY DOES NOT MENTION `availability` says nothing
-            and keeps its stored rows, declaration or not. This is what makes the
-            field usable at all: a timings write is a full replacement, so
-            correcting one date means sending the others back, and their silence
-            must not delete anything.
-
-
-            Declared PER EVENT, not per occurrence: it scopes which sources the
-            write owns, never which dates.
-
-
-            Requires ticketing enabled on the agenda, failing which a non-empty
-            value answers `422` `offers.disabled` — declaring a scope is writing
-            ticketing. AN ENTRY that is not one of these names answers
-            `422` `offers.provider.invalid`, whatever its type; the same name
-            twice, `422` `offers.duplicate`; more entries than there are
-            providers, one `422` `availability.authority.tooMany` for the array
-            and no per-entry refusal; and a value that is not an array at all,
-            `422` `availability.authority.invalid`. An empty array claims
-            nothing and behaves exactly like omitting the field, and so does
-            `null`.
-
-
-            IT GOVERNS ONLY THE `timings` THIS BODY SENDS. A body that does not
-            carry a `timings` array declares a scope over nothing and changes no
-            inventory — it is still validated, and still answers `422`
-            `offers.disabled` on an agenda without ticketing, but it has no other
-            effect. The reason is that on a partial update the server refills the
-            occurrences it was not sent from the stored event, and those rows are a
-            read taken when the request arrived: honouring them would let a write
-            replay a stale snapshot over what the availability endpoint published
-            in the meantime.
-
-
-            WRITE-ONLY, and never stored: it is an instruction about this
-            request, so no read returns it. It has no effect on creation either
-            — a new event has no stored inventory to arbitrate, and the rows sent
-            with it are kept whether or not it is present.
-
-
-            It settles the contract question, not the one of scale: large or
-            frequent inventory syncs still belong on the availability endpoint
-            (see `Timing.availability`), since the ordinary event routes cap the
-            body at 100 kB and validate the whole compiled event.
         location:
           description: >
             The event's location, referenced by its uid; a uid that matches no
@@ -7585,15 +4904,6 @@ components:
           description: >
             Credits for the event `image`. Ignored when the event has no image;
             `null` clears them.
-        canonicalUrl:
-          type: [string, 'null']
-          format: uri
-          maxLength: 1000
-          description: >
-            The event's own page on its publisher's website, declared by the
-            licensor. Reads fall back on the event's page on its origin
-            agenda; writing that page back declares nothing and is stored as
-            `null`, as is `null` itself.
         additionalFields:
           $ref: '#/components/schemas/AdditionalFields'
 
@@ -7605,7 +4915,12 @@ components:
       additionalProperties: false
       properties:
         title:
-          $ref: '#/components/schemas/LocalizedString'
+          allOf:
+            - $ref: '#/components/schemas/LocalizedString'
+          description: >
+            When the event is created, its `slug` is derived from this title,
+            preferring the language that comes first in the request body. Put
+            the event's original language first.
         description:
           $ref: '#/components/schemas/LocalizedString'
         longDescription:
@@ -7618,86 +4933,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Timing'
-        availabilityAuthority:
-          type: [array, 'null']
-          maxItems: 7
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/TicketingProvider'
-          description: >
-            The ticketing sources THIS WRITE is authoritative for — the one way
-            an ordinary event write may change, add or clear the inventory of an
-            occurrence the event already has.
-
-
-            For a provider named here the payload is law on every occurrence
-            that NAMES `availability`: a row present in that array is written, a
-            row absent from it is a removal, and an explicit `[]` removes every
-            provider the write claims. For a provider NOT named here, nothing the
-            write sends is applied to an occurrence the event ALREADY HAS: its
-            stored rows are kept, so a connector cannot wipe the source a peer has
-            just pushed and that it does not know about. For an occurrence sent
-            WITH its stored `id` those rows are dropped before the body is judged,
-            so they are not critiqued field by field either and a connector may
-            send a peer's row back exactly as it read it. That stored `id` is what
-            makes an occurrence one the event already has: sent without it, every
-            row it carries is validated, and a row the rules reject answers
-            `422`.
-
-
-            On an occurrence the event does not have yet there are no stored rows
-            to protect, and the seeding rules above apply unchanged — every row
-            sent with it is kept, claimed or not. An occurrence another write
-            removes while this one is in flight is one exception, and it bites
-            only what this write does not claim: the call still answers `200`,
-            and the rows it sends for that occurrence under a provider it does
-            not name are not stored.
-
-
-            AN OCCURRENCE WHOSE ENTRY DOES NOT MENTION `availability` says nothing
-            and keeps its stored rows, declaration or not. This is what makes the
-            field usable at all: a timings write is a full replacement, so
-            correcting one date means sending the others back, and their silence
-            must not delete anything.
-
-
-            Declared PER EVENT, not per occurrence: it scopes which sources the
-            write owns, never which dates.
-
-
-            Requires ticketing enabled on the agenda, failing which a non-empty
-            value answers `422` `offers.disabled` — declaring a scope is writing
-            ticketing. AN ENTRY that is not one of these names answers
-            `422` `offers.provider.invalid`, whatever its type; the same name
-            twice, `422` `offers.duplicate`; more entries than there are
-            providers, one `422` `availability.authority.tooMany` for the array
-            and no per-entry refusal; and a value that is not an array at all,
-            `422` `availability.authority.invalid`. An empty array claims
-            nothing and behaves exactly like omitting the field, and so does
-            `null`.
-
-
-            IT GOVERNS ONLY THE `timings` THIS BODY SENDS. A body that does not
-            carry a `timings` array declares a scope over nothing and changes no
-            inventory — it is still validated, and still answers `422`
-            `offers.disabled` on an agenda without ticketing, but it has no other
-            effect. The reason is that on a partial update the server refills the
-            occurrences it was not sent from the stored event, and those rows are a
-            read taken when the request arrived: honouring them would let a write
-            replay a stale snapshot over what the availability endpoint published
-            in the meantime.
-
-
-            WRITE-ONLY, and never stored: it is an instruction about this
-            request, so no read returns it. It has no effect on creation either
-            — a new event has no stored inventory to arbitrate, and the rows sent
-            with it are kept whether or not it is present.
-
-
-            It settles the contract question, not the one of scale: large or
-            frequent inventory syncs still belong on the availability endpoint
-            (see `Timing.availability`), since the ordinary event routes cap the
-            body at 100 kB and validate the whole compiled event.
         location:
           oneOf:
             - $ref: '#/components/schemas/EventLocationRef'
@@ -7742,32 +4977,18 @@ components:
           description: >
             Credits for the event `image`. Ignored when the event has no image;
             `null` clears them.
-        canonicalUrl:
-          type: [string, 'null']
-          format: uri
-          maxLength: 1000
-          description: >
-            The event's own page on its publisher's website, declared by the
-            licensor. Reads fall back on the event's page on its origin
-            agenda; writing that page back declares nothing and is stored as
-            `null`, as is `null` itself.
         additionalFields:
           $ref: '#/components/schemas/AdditionalFields'
 
     EventLocationRef:
       type: object
-      description: >
-        A reference to a location by its OpenAgenda uid. A merged location
-        stands for the location that replaced it. A location that does not
-        exist, or has been deleted, is refused with a 422 on `location.uid`;
-        a deleted one is accepted when it is the one the event already has.
+      description: A reference to an existing location by its OpenAgenda uid.
       additionalProperties: false
       required: [uid]
       properties:
         uid:
           type: integer
           format: int64
-          minimum: 1
 
     DeletionResult:
       type: object
@@ -7808,12 +5029,10 @@ components:
       enum:
         - additionalFields
         - additionalFieldMetrics
-        - adminLevel1
-        - adminLevel2
-        - adminLevel3
-        - adminLevel4
-        - adminLevel5
-        - adminLevel6
+        - cities
+        - regions
+        - departments
+        - districts
         - countryCodes
         - keywords
         - languages
@@ -7886,7 +5105,7 @@ components:
       example:
         filters: { keyword: [concert] }
         facets:
-          - adminLevel4
+          - cities
           - { name: topKeywords, type: keywords, size: 20, sort: count }
           - { name: byMonth, type: timings, interval: month }
           - { name: byYear, type: timings, interval: year }
@@ -7922,9 +5141,7 @@ components:
         native JSON types. Unknown keys are ignored.
       properties:
         search: { type: string }
-        uid:
-          type: array
-          items: { type: integer, minimum: 1, maximum: 2147483647 }
+        uid: { type: array, items: { type: integer } }
         slug: { type: array, items: { type: string } }
         extId:
           type: object
@@ -7939,18 +5156,16 @@ components:
         attendanceMode:
           { type: array, items: { type: integer, enum: [1, 2, 3] } }
         featured: { type: boolean }
-        locationUid:
-          type: array
-          items: { type: integer, minimum: 1, maximum: 2147483647 }
+        locationUid: { type: array, items: { type: integer } }
         locationExtId:
           type: object
           properties: { key: { type: string }, value: { type: string } }
-        adminLevel1: { type: array, items: { type: string } }
-        adminLevel2: { type: array, items: { type: string } }
+        region: { type: array, items: { type: string } }
+        department: { type: array, items: { type: string } }
+        city: { type: array, items: { type: string } }
+        district: { type: array, items: { type: string } }
         adminLevel3: { type: array, items: { type: string } }
-        adminLevel4: { type: array, items: { type: string } }
         adminLevel5: { type: array, items: { type: string } }
-        adminLevel6: { type: array, items: { type: string } }
         countryCode: { type: array, items: { type: string } }
         bbox:
           {
@@ -7959,34 +5174,21 @@ components:
           }
         near: { type: string, description: '"lat,lng" — requires `radius`.' }
         radius: { type: integer, description: Metres; requires `near`. }
-        originAgendaUid:
-          type: array
-          items: { type: integer, minimum: 1, maximum: 2147483647 }
+        originAgendaUid: { type: array, items: { type: integer } }
         originAgendaOfficial: { type: boolean }
-        sourceAgendaUid:
-          type: array
-          items: { type: integer, minimum: 1, maximum: 2147483647 }
+        sourceAgendaUid: { type: array, items: { type: integer } }
         relative:
           type: array
           items: { type: string, enum: [passed, upcoming, current] }
         timings: { $ref: '#/components/schemas/DateRangeFilter' }
         createdAt: { $ref: '#/components/schemas/DateRangeFilter' }
         updatedAt: { $ref: '#/components/schemas/DateRangeFilter' }
-        # Le curseur d'inventaire est accepté ici comme sur le listing : les
-        # deux routes de facettes passent par `buildEventSearchQuery`, qui le
-        # lit depuis ce lot. Déclaré dans la foulée, sinon les deux surfaces
-        # divergent — le filtre marcherait sans être écrit nulle part.
-        availabilityUpdatedAt: { $ref: '#/components/schemas/DateRangeFilter' }
         localTime:
           type: object
-          properties:
-            gte: { type: integer, minimum: 0, maximum: 1440 }
-            lte: { type: integer, minimum: 0, maximum: 1440 }
+          properties: { gte: { type: integer }, lte: { type: integer } }
         age:
           type: object
-          properties:
-            gte: { type: integer, minimum: 0, maximum: 2147483647 }
-            lte: { type: integer, minimum: 0, maximum: 2147483647 }
+          properties: { gte: { type: integer }, lte: { type: integer } }
         sort: { type: string }
         additionalFields:
           type: object
@@ -8006,8 +5208,7 @@ components:
       description: Named facet results, keyed by each facet's `name` alias.
       example:
         facets:
-          adminLevel4:
-            { type: adminLevel4, result: [{ value: Lyon, count: 42 }] }
+          cities: { type: cities, result: [{ value: Lyon, count: 42 }] }
           byMonth:
             type: timings
             result:
@@ -8033,12 +5234,10 @@ components:
               type: string
               enum:
                 [
-                  adminLevel1,
-                  adminLevel2,
-                  adminLevel3,
-                  adminLevel4,
-                  adminLevel5,
-                  adminLevel6,
+                  cities,
+                  regions,
+                  departments,
+                  districts,
                   countryCodes,
                   keywords,
                   languages,
@@ -8130,7 +5329,7 @@ components:
         value:
           type: string
           description: >
-            The facet value - e.g. a municipality, a keyword, a language code, a
+            The facet value — e.g. a city name, a keyword, a language code, a
             status. Always a string (numeric-keyed facets are stringified).
         count:
           type: integer
@@ -8143,7 +5342,7 @@ components:
       additionalProperties: false
       example:
         facets:
-          adminLevel4:
+          cities:
             - { value: Lyon, count: 42 }
             - { value: Villeurbanne, count: 11 }
           keywords:
@@ -8183,29 +5382,21 @@ components:
             object, `null`, or its own fixed structure with zero counts,
             depending on the facet. Each property below defines its shape.
           properties:
-            adminLevel1:
+            cities:
               type: array
-              description: Top `adminLevel1` values by event count.
+              description: Top cities by event count.
               items: { $ref: '#/components/schemas/FacetBucket' }
-            adminLevel2:
+            regions:
               type: array
-              description: Top `adminLevel2` values by event count.
+              description: Top regions by event count.
               items: { $ref: '#/components/schemas/FacetBucket' }
-            adminLevel3:
+            departments:
               type: array
-              description: Top `adminLevel3` values by event count.
+              description: Top departments by event count.
               items: { $ref: '#/components/schemas/FacetBucket' }
-            adminLevel4:
+            districts:
               type: array
-              description: Top `adminLevel4` values by event count.
-              items: { $ref: '#/components/schemas/FacetBucket' }
-            adminLevel5:
-              type: array
-              description: Top `adminLevel5` values by event count.
-              items: { $ref: '#/components/schemas/FacetBucket' }
-            adminLevel6:
-              type: array
-              description: Top `adminLevel6` values by event count.
+              description: Top districts by event count.
               items: { $ref: '#/components/schemas/FacetBucket' }
             countryCodes:
               type: array

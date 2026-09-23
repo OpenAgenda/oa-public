@@ -1,0 +1,8 @@
+.idea
+config.dev.js
+client/src
+
+.~lock.*#
+test/
+stories/
+.storybook/

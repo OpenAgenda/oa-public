@@ -26,6 +26,17 @@
     border-left: none;
   }
 
+  .btn-facebook {
+
+    color: $oa-white;
+    background-color: $facebook-color;
+
+    &:hover {
+      background-color: lighten( $facebook-color, 10 );
+    }
+
+  }
+
   .btn-twitter {
 
     color: $oa-white;

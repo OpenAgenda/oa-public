@@ -42,24 +42,15 @@ const messages: Record<string, MessageDescriptor> = defineMessages({
     id: 'react.components.AgendaExportModal.detailedFormat',
     defaultMessage: 'Use the detailed format',
   },
-  aboutTitle: {
-    id: 'react.components.AgendaExportModal.aboutTitle',
-    defaultMessage: 'About: licence and credits',
-  },
-  aboutLicense: {
-    id: 'react.components.AgendaExportModal.aboutLicense',
+  openDataInfo: {
+    id: 'react.components.AgendaExportModal.openData',
     defaultMessage:
-      'The events of this agenda can be reused under the <link>{license}</link>, including for commercial purposes.',
+      'The content of this agenda can be used following the <link>Open Data principle</link>',
   },
-  aboutCredit: {
-    id: 'react.components.AgendaExportModal.aboutCredit',
+  openDataInfoEmbed: {
+    id: 'react.components.AgendaExportModal.openDataInfoEmbed',
     defaultMessage:
-      'When redistributing, credit for each event its licensor (the organisation that administers its origin agenda), its canonical link and its date of last update. The exports carry them: the licensor and canonical link columns of spreadsheets, the rights field in JSON.',
-  },
-  aboutPublisher: {
-    id: 'react.components.AgendaExportModal.aboutPublisher',
-    defaultMessage:
-      'These events are published by {publisher}. <link>Learn more</link>',
+      'This content comes from the agenda {agenda} on OpenAgenda and can be used following the <linkOpendata>Open Data principle</linkOpendata>.',
   },
   embed: {
     id: 'react.components.AgendaExportModal.embed',
@@ -217,10 +208,6 @@ const messages: Record<string, MessageDescriptor> = defineMessages({
     id: 'react.components.AgendaExportModal.PDFIncludeAccessibility',
     defaultMessage: 'The accessibility icons',
   },
-  WordIncludeAccessibility: {
-    id: 'react.components.AgendaExportModal.WordIncludeAccessibility',
-    defaultMessage: 'The accessibility information',
-  },
   PDFIncludeEventLink: {
     id: 'react.components.AgendaExportModal.PDFIncludeEventLink',
     defaultMessage: 'The link to the event page on OpenAgenda',
@@ -256,10 +243,6 @@ const messages: Record<string, MessageDescriptor> = defineMessages({
   horizontalLayout: {
     id: 'react.components.AgendaExportModal.horizontalLayout',
     defaultMessage: 'Display events as horizontal cards',
-  },
-  newWindow: {
-    id: 'react.components.AgendaExportModal.newWindow',
-    defaultMessage: '(opens in a new window)',
   },
 });
 

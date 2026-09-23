@@ -34,22 +34,16 @@ Built on **Chakra UI v3** (`createSystem`), CSS var prefix `oa` — see the
 theming (consult these for the underlying primitive's props; still import from
 uikit, not `@chakra-ui/react`). Source of truth:
 
-| Concern              | Source                                                       | Notes                                                                                                                         |
-| -------------------- | ------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
-| Raw tokens           | [`src/theme/tokens/`](../src/theme/tokens/)                  | `colors`, `cursor`, `fonts`                                                                                                   |
-| Semantic tokens      | [`src/theme/semanticTokens/`](../src/theme/semanticTokens/)  | light/dark-aware `colors` (`fg`, `subtle`, `muted`, `emphasized`, `solid`, `contrast`, `focusRing`), `radii` (`l1`/`l2`/`l3`) |
-| Single-part variants | [`src/theme/recipes/`](../src/theme/recipes/)                | button, heading, link, text                                                                                                   |
-| Multi-part variants  | [`src/theme/recipes/`](../src/theme/recipes/) (slot recipes) | accordion, checkbox, menu, radioGroup, select, list, blockquote                                                               |
-| Global CSS           | [`src/theme/globalCss.ts`](../src/theme/globalCss.ts)        | base/reset styles                                                                                                             |
-| Composed system      | [`src/theme/index.ts`](../src/theme/index.ts)                | assembles all of the above into `system`                                                                                      |
-| Prebuilt components  | [`src/components/`](../src/components/)                      | OA-authored (`Heading`, `NoBreak`, `Surface`)                                                                                 |
-| Snippets             | [`src/snippets/`](../src/snippets/)                          | Chakra composition snippets (Dialog, Field, Tooltip, Tag, …)                                                                  |
-
-Palettes (values in `tokens/colors.ts`, roles in `semanticTokens/colors.ts`):
-`primary` for actions and links, `oaGray` for neutrals, `darkPurple` for the
-agenda header, `warning` and `danger` for states, and `sand`, a warm tint for
-content set apart from the live agenda — the archives bar first. Use a palette
-through `colorPalette` and its semantic roles, never its steps directly.
+| Concern              | Source                                                       | Notes                                                                                               |
+| -------------------- | ------------------------------------------------------------ | --------------------------------------------------------------------------------------------------- |
+| Raw tokens           | [`src/theme/tokens/`](../src/theme/tokens/)                  | `colors`, `cursor`, `fonts`                                                                         |
+| Semantic tokens      | [`src/theme/semanticTokens/`](../src/theme/semanticTokens/)  | light/dark-aware `colors` (`fg`, `subtle`, `muted`, `emphasized`, `solid`, `contrast`, `focusRing`) |
+| Single-part variants | [`src/theme/recipes/`](../src/theme/recipes/)                | button, heading, link, text                                                                         |
+| Multi-part variants  | [`src/theme/recipes/`](../src/theme/recipes/) (slot recipes) | accordion, checkbox, menu, radioGroup, select, list, blockquote                                     |
+| Global CSS           | [`src/theme/globalCss.ts`](../src/theme/globalCss.ts)        | base/reset styles                                                                                   |
+| Composed system      | [`src/theme/index.ts`](../src/theme/index.ts)                | assembles all of the above into `system`                                                            |
+| Prebuilt components  | [`src/components/`](../src/components/)                      | OA-authored (`Heading`, `NoBreak`, `Surface`)                                                       |
+| Snippets             | [`src/snippets/`](../src/snippets/)                          | Chakra composition snippets (Dialog, Field, Tooltip, Tag, …)                                        |
 
 ### Import surfaces
 
@@ -87,30 +81,13 @@ single, swappable entry point.
    with a background, border, radius and shadow; reach for `<Surface>` and pass only
    layout (padding, width, margins). New surface looks are variants on the `surface`
    recipe, never inline props.
-7. **Information is a note, a status is an alert.** A box that steers the reader
-   without alarming them — a hint, an alternative to the action they are about to
-   take — is `<Surface variant="note">`: neutral and bordered, matching the legacy
-   pages' `info-block`. An icon may lead it, in `fg.muted`. Links inside it take a
-   darker blue from the variant itself, since the usual one misses 4.5:1 on its grey.
-   Errors, warnings and confirmations keep `Alert` and its `status`.
-8. **Secondary text never drops below body size.** A hint, a detail line under a
-   menu option, a description under a label: next to body-size text it keeps that
-   size and is set apart with a muted color (`fg.muted`), not a smaller font.
-   Shrinking it costs readability for exactly the text that explains things, and it
-   only reads as secondary because it is harder to read. Under larger text (a
-   heading, a big figure) it may be smaller, but never smaller than body text. The
-   muted color must still pass contrast (4.5:1) on every background it sits on,
-   selected and hovered states included.
 
-> **Radius: discreet, the same at every level.** The semantic radii `l1`/`l2`/`l3`,
-> which every recipe reads, all map to one small radius in
-> `src/theme/semanticTokens/radii.ts` — the corners of the legacy pages, so a dialog or
-> a button looks the same on either stack. Use those three, never a Chakra scale step
-> (`md`, `lg`, …) or a literal; `borderRadius="base"` silently resolves to nothing.
->
-> **Not yet themed: elevation.** There are no shadow tokens, so `boxShadow` resolves to
-> Chakra's built-in scale. If a design needs consistent elevation, add tokens in
-> `tokens/` rather than reaching for a Chakra default ad hoc.
+> **Not yet themed: elevation & radius.** `tokens/` defines only `colors`, `cursor`,
+> and `fonts` — there are no shadow or radius tokens, so `boxShadow`/`borderRadius`
+> resolve to Chakra's built-in scales (and `borderRadius="base"` silently resolves to
+> nothing — it is not a token). Prefer the semantic radii (`l1`/`l2`/`l3`); if a design
+> needs consistent elevation or radius, add tokens in `tokens/` rather than reaching for
+> a Chakra default ad hoc.
 
 ---
 
