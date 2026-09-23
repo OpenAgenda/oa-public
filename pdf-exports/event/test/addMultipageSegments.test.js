@@ -135,11 +135,11 @@ const column2 = {
       value: [
         {
           type: 'phone',
-          value: '0238874307',
+          value: '0261914135',
         },
         {
           type: 'email',
-          value: 'mairie.sceaudugatinais@wanadoo.fr',
+          value: 'contact.2882@example.org',
         },
         {
           type: 'link',
