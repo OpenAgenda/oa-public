@@ -136,7 +136,8 @@ paths:
 
 
         Unknown or malformed filter values answer `400`, with per-field
-        context under `error.details.errors`.
+        context under `error.errors`. An unrecognized top-level query parameter
+        is ignored.
       security:
         - publicKey: []
         - secretKey: []
@@ -283,8 +284,9 @@ paths:
         page, with the same filters.
 
 
-        Only published events are listed. Unknown or malformed filter values
-        answer `400`, with per-field context under `error.details.errors`.
+        Only published events are listed. Unknown or malformed filter values answer `400`, with per-field
+        context under `error.errors`. An unrecognized top-level query parameter
+        is ignored.
       security:
         - publicKey: []
         - secretKey: []
@@ -376,8 +378,8 @@ paths:
             return data;
       description: >
         Creates an event in the given agenda and returns the created
-        `Event`, with a `Location` header pointing at its canonical by-
-        uid URL.
+        `Event`, with a `Location` header pointing at its canonical
+        by-uid URL.
 
 
         Native writable fields sit at the top level; agenda-specific
@@ -441,19 +443,20 @@ paths:
               path: { agendaUid: 12345 },
               body: {
                 title: { fr: 'Concert de jazz' },
+                description: { fr: 'Une soirée jazz.' },
                 timings: [
                   { begin: '2025-06-20T18:00:00+02:00', end: '2025-06-20T22:00:00+02:00' },
                 ],
                 location: { uid: 55512 },
               },
             });
-            if (error) throw error; // 422 with details.errors[] when invalid
+            if (error) throw error; // 422 with error.errors when invalid
             return data.valid; // true
       description: >
         Validates the body exactly as create does, without persisting
         anything. A well-formed, valid body answers `200 { "valid":
         true }`; invalid field values answer `422` with per-field
-        problems under `error.details.errors[]`. Structural body
+        problems under `error.errors[]`. Structural body
         problems (an unknown top-level key, an `additionalFields` name
         colliding with a native field) answer `400`.
 
@@ -482,13 +485,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                additionalProperties: false
-                required: [valid]
-                properties:
-                  valid:
-                    type: boolean
-                    enum: [true]
+                $ref: '#/components/schemas/ValidationVerdict'
               example:
                 valid: true
         '400':
@@ -680,8 +677,8 @@ paths:
             return data.deleted; // true
       description: >
         Removes the event from this agenda. When the agenda is the
-        event's origin this deletes the event; otherwise it de-
-        references it from this agenda (the origin keeps it). Answers
+        event's origin this deletes the event; otherwise it
+        de-references it from this agenda (the origin keeps it). Answers
         `200` with a `DeletionResult` carrying the removed event's uid.
 
 
@@ -1261,14 +1258,18 @@ paths:
             if (error) throw error;
 
             // 2. Attach the ref on a normal event write.
-            return await oa.agendas.events.create({
+            const created = await oa.agendas.events.create({
               path: { agendaUid: 12345 },
               body: {
                 title: { fr: 'Concert' },
+                description: { fr: 'Une soirée jazz.' },
                 timings: [{ begin: '2025-06-20T18:00:00+02:00', end: '2025-06-20T22:00:00+02:00' }],
+                location: { uid: 55512 },
                 image: { ref: staged.ref },
               },
             });
+            if (created.error) throw created.error;
+            return created.data;
       description: >
         Stages a media file - the native event `image`, or a custom
         `file`/`image` form-schema field. Send the file as
@@ -1359,21 +1360,25 @@ paths:
             //    (uploadUrl = t.uploadUrl, ticket = t.ticket)
 
             // 3. Attach the returned ref on a normal event write.
-            return await oa.agendas.events.create({
+            const created = await oa.agendas.events.create({
               path: { agendaUid: 12345 },
               body: {
                 title: { fr: 'Concert' },
+                description: { fr: 'Une soirée jazz.' },
                 timings: [
                   { begin: '2025-06-20T18:00:00+02:00', end: '2025-06-20T22:00:00+02:00' },
                 ],
+                location: { uid: 55512 },
                 image: { ref: '<the ref returned by the upload>' },
               },
             });
+            if (created.error) throw created.error;
+            return created.data;
       description: >
         Authorizes an OUT-OF-BAND upload of a LOCAL image file, made
         from outside this API client (e.g. with curl), so its bytes
-        never pass through the caller's prompt. Returns a self-
-        contained descriptor: an `uploadUrl`, a short-lived single-use
+        never pass through the caller's prompt. Returns a
+        self-contained descriptor: an `uploadUrl`, a short-lived single-use
         `ticket`, and the `header`/`field` to use.
 
 
@@ -1519,7 +1524,8 @@ paths:
 
 
         Unknown or malformed filter values answer `400`, with per-field
-        context under `error.details.errors`.
+        context under `error.errors`. An unrecognized top-level query parameter
+        is ignored.
       security:
         - publicKey: []
         - secretKey: []
@@ -1585,12 +1591,6 @@ paths:
         location's `extIds`. Use this when you sync from your own system and
         hold its id rather than the OpenAgenda uid.
         Resolves to the same `Location` as the by-uid get.
-
-
-        A location that was merged into another one answers `404` with the
-        machine-readable code `merged` and the surviving location's uid in
-        `error.details.mergedIn` — use it to repair stale references. Any other
-        deleted or unknown pair is a plain `404` with code `not_found`.
       security:
         - publicKey: []
         - secretKey: []
@@ -1613,12 +1613,15 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           description: >
-            Agenda or location not found — or location merged into another
-            one (`code: merged`, surviving uid in `details.mergedIn`).
+            Agenda or location not found. A location merged into another one
+            answers here too, and identifies the surviving one so a stale
+            reference can be repaired.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                oneOf:
+                  - $ref: '#/components/schemas/Error'
+                  - $ref: '#/components/schemas/MergedLocationError'
               examples:
                 merged:
                   summary: Location merged into another one
@@ -1626,8 +1629,7 @@ paths:
                     error:
                       code: merged
                       message: location merged into another location
-                      details:
-                        mergedIn: 11111111
+                      mergedIn: 11111111
                 notFound:
                   summary: Unknown location
                   value:
@@ -1653,12 +1655,6 @@ paths:
       description: >
         Returns a single location of the agenda (or of its shared location
         set) in the full `Location` shape.
-
-
-        A location that was merged into another one answers `404` with the
-        machine-readable code `merged` and the surviving location's uid in
-        `error.details.mergedIn` — use it to repair stale references. Any
-        other deleted or unknown uid is a plain `404` with code `not_found`.
       security:
         - publicKey: []
         - secretKey: []
@@ -1682,12 +1678,15 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           description: >
-            Agenda or location not found — or location merged into another
-            one (`code: merged`, surviving uid in `details.mergedIn`).
+            Agenda or location not found. A location merged into another one
+            answers here too, and identifies the surviving one so a stale
+            reference can be repaired.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                oneOf:
+                  - $ref: '#/components/schemas/Error'
+                  - $ref: '#/components/schemas/MergedLocationError'
               examples:
                 merged:
                   summary: Location merged into another one
@@ -1695,8 +1694,7 @@ paths:
                     error:
                       code: merged
                       message: location merged into another location
-                      details:
-                        mergedIn: 11111111
+                      mergedIn: 11111111
                 notFound:
                   summary: Unknown location
                   value:
@@ -1845,24 +1843,25 @@ components:
       in: query
       required: false
       description: >
-        Comma-separated list of fields to keep on each `data` item, to shrink the
-        payload of large pages. When set, it selects the response shape directly
-        over the resource's full field set, so `detailed` does not apply (it
-        only governs the default shape when `fields` is omitted) and `fields`
-        wins if both are given. `uid` is always returned. Dotted paths descend
-        into nested objects and arrays (`location.name`, `timings.begin`,
-        `additionalFields.myField`). An unknown top-level field is rejected with
-        `400`, and so is an unknown sub-field under a closed object (e.g.
-        `location.zzz`); under an open container - the `additionalFields`
-        custom-field bag or a localized text map - any sub-key is accepted and
-        yields nothing when absent. Response schemas stay complete, so a generated
-        client still types the omitted fields as present — read them as optional
-        on this path.
+        Comma-separated list of fields to keep on each `data` item, to shrink
+        the payload of large pages. When set, it selects the response shape
+        directly over the resource's full field set, so `detailed` does not
+        apply (it only governs the default shape when `fields` is omitted) and
+        `fields` wins if both are given. `uid` is always returned. Each resource
+        takes the names its own `data` item declares, and a dotted path descends
+        one segment per level: on an event, `location.name` or `timings.begin`.
+        An unknown top-level field is rejected with `400`, and so is an unknown
+        sub-field under a closed object (`location.zzz`); under an open
+        container - an `additionalFields` custom-field bag, on the resources
+        that carry one, or a localized text map - any sub-key is accepted and
+        yields nothing when absent (`additionalFields.myField`). Response
+        schemas stay complete, so a generated client still types the omitted
+        fields as present — read them as optional on this path.
       schema:
         type: array
         items:
           type: string
-        example: [uid, title, location]
+        example: [uid, slug]
       style: form
       explode: false
 
@@ -2679,32 +2678,31 @@ components:
   responses:
     BadRequest:
       description: >
-        Malformed request — an invalid `after` cursor, a malformed path
-        identifier, or an unknown/malformed filter value. Per-field context is
-        provided under `error.details`.
+        Malformed request: the body is not valid JSON, it carries a field the
+        operation does not accept, or a recognized parameter carries an
+        invalid value. `error.errors`, when present, names the offending
+        values.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            oneOf:
+              - $ref: '#/components/schemas/Error'
+              - $ref: '#/components/schemas/ValidationError'
     Unauthorized:
       description: >-
-        Missing or invalid credentials: no API key was supplied, the key is
-        unknown, or the access token is expired. `error.code` is `unauthorized`.
+        The request carries no credential this operation accepts.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     Forbidden:
       description: >-
-        Authenticated, but not allowed to access this resource. For a read-only
-        credential sent to an operation that writes - a public or a per-agenda
-        key - `error.code` is `read_only_credential`. For a member the agenda
-        does not allow to perform the operation, it is `forbidden`, as it is for
-        a blacklisted account. For a credential that carries scopes and lacks
-        the one this operation declares, `error.code` is `insufficient_scope`
-        and a `WWW-Authenticate: Bearer error="insufficient_scope",
-        scope="<required>"` header names the missing scope (RFC 6750 §3.1); an
-        API key carries scopes only when it declares its own permissions.
+        Authenticated, but not allowed to access this resource. A blacklisted
+        account is refused like a member the agenda does not allow to perform
+        the operation. On an `insufficient_scope` refusal a `WWW-Authenticate:
+        Bearer error="insufficient_scope", scope="<required>"` header names the
+        missing scope (RFC 6750 §3.1); an API key carries scopes only when it
+        declares its own permissions.
       headers:
         WWW-Authenticate:
           description: >-
@@ -2721,26 +2719,23 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
     NotFound:
-      description: Resource not found.
+      description: No resource answers this identifier.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     UnprocessableEntity:
       description: >-
-        The request was well-formed but its field values failed validation (e.g.
-        a missing title, an invalid timing, an unknown location uid).
-        `error.code` is `validation_error` and per-field problems are listed
-        under `error.details.errors[]`.
+        The request was well-formed but its field values failed validation
+        (e.g. a missing title, an invalid timing, an unknown location uid).
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/ValidationError'
     ServiceUnavailable:
       description: >-
-        A dependency required to serve the request is temporarily unavailable.
-        `error.code` is `service_unavailable`; the request was not processed
-        and can be retried after a short delay.
+        The request was not processed and can be retried after a short
+        delay.
       content:
         application/json:
           schema:
@@ -2749,6 +2744,7 @@ components:
   schemas:
     Error:
       type: object
+      description: A refused request, carrying nothing but the reason.
       required: [error]
       additionalProperties: false
       properties:
@@ -2760,24 +2756,119 @@ components:
             code:
               type: string
               description: Stable, machine-readable error code.
-              examples:
+              enum:
                 [
-                  'not_found',
-                  'unauthorized',
-                  'forbidden',
-                  'insufficient_scope',
-                  'validation_error',
+                  bad_request,
+                  unauthorized,
+                  read_only_credential,
+                  insufficient_scope,
+                  forbidden,
+                  not_found,
+                  service_unavailable,
                 ]
+              x-enum-descriptions:
+                read_only_credential: >-
+                  403 - the credential may only read, and this operation writes
+                insufficient_scope: >-
+                  403 - the credential lacks the scope this operation declares
+                forbidden: 403 - any other refusal of an authenticated caller
             message:
               type: string
               description: Human-readable explanation.
-            details:
-              type: object
-              description: Optional structured context (e.g. per-field validation errors).
-              additionalProperties: true
+
+    ValidationError:
+      type: object
+      description: A request refused because of the values it carries.
+      required: [error]
+      additionalProperties: false
+      properties:
+        error:
+          type: object
+          required: [code, message, errors]
+          additionalProperties: false
+          properties:
+            code:
+              type: string
+              description: Stable, machine-readable error code.
+              enum: [validation_error, bad_request]
+            message:
+              type: string
+              description: Human-readable explanation.
+            errors:
+              type: array
+              description: The problems found in the request, one per value.
+              minItems: 1
+              items:
+                $ref: '#/components/schemas/ValidationIssue'
+
+    ValidationIssue:
+      type: object
+      description: >-
+        One problem found in a request. A validator describes the values it
+        refuses as precisely as it can, so an item carries the keys below plus
+        whatever else that validator knows, such as the rejected value or the
+        bounds it had to satisfy.
+      required: [message]
+      properties:
+        field:
+          type: string
+          description: >-
+            Name of the offending value in the request. It is absent when the
+            problem belongs to no single value.
+          examples: ['title', 'description', 'timings', 'image.url']
+        lang:
+          type: string
+          description: Language key of the offending value, on a localized field.
+        index:
+          type: integer
+          description: Position of the offending value, in a list field.
+        code:
+          type: string
+          description: Stable, machine-readable reason for the refusal.
+          examples: ['required', 'string.toolong', 'email.invalid']
+        message:
+          type: string
+          description: Human-readable explanation, in English.
+
+    ValidationVerdict:
+      type: object
+      description: >-
+        The verdict of a dry run, reached when validation found nothing to
+        refuse.
+      required: [valid]
+      additionalProperties: false
+      properties:
+        valid:
+          type: boolean
+          enum: [true]
+
+    MergedLocationError:
+      type: object
+      description: >-
+        An error response for a location that was merged into another one.
+      required: [error]
+      additionalProperties: false
+      properties:
+        error:
+          type: object
+          required: [code, message, mergedIn]
+          additionalProperties: false
+          properties:
+            code:
+              type: string
+              description: Stable, machine-readable error code.
+              enum: [merged]
+            message:
+              type: string
+              description: Human-readable explanation.
+            mergedIn:
+              type: integer
+              description: Uid of the location this one was merged into.
 
     Pagination:
       type: object
+      description: >-
+        Where a page of results stops, and how to ask for the next one.
       required: [after, limit]
       additionalProperties: false
       example:
@@ -3205,6 +3296,7 @@ components:
 
     EventFormSchema:
       type: object
+      description: The event form an agenda declares.
       required: [fields]
       # Served raw from the form engine: top-level keys beyond `fields` may
       # appear (engine vocabulary); only `fields` is contractual.
@@ -3451,6 +3543,7 @@ components:
 
     Timing:
       type: object
+      description: One occurrence of an event.
       required: [begin, end]
       additionalProperties: false
       properties:
@@ -3602,6 +3695,7 @@ components:
 
     AgeRange:
       type: [object, 'null']
+      description: The audience age an event addresses.
       additionalProperties: false
       properties:
         min:
@@ -4798,13 +4892,13 @@ components:
         `uid` or `slug`, an unknown name) is rejected with `400`, as is an
         `additionalFields` name that collides with a native field. Field
         values are validated by the server (a `422` with per-field
-        `error.details.errors[]` on failure).
+        `error.errors[]` on failure).
 
 
         Required fields depend on the target agenda: an event needs at least
         `title`, `description` and `timings`, plus a `location` unless it is
         online-only, plus whatever the agenda marks required; a missing one
-        answers `422` with the per-field set under `error.details.errors[]`.
+        answers `422` with the per-field set under `error.errors[]`.
 
 
         The `image` is set either by reference - stage the bytes via `POST
@@ -5309,6 +5403,8 @@ components:
 
     FacetBucket:
       type: object
+      description: >-
+        One value of a facet, with the number of events that carry it.
       required: [value, count]
       additionalProperties: false
       properties:
@@ -5323,6 +5419,7 @@ components:
 
     FacetResults:
       type: object
+      description: The buckets computed for each facet the request asked for.
       required: [facets]
       additionalProperties: false
       example:
@@ -5478,6 +5575,9 @@ components:
 
     AdditionalFieldBucket:
       type: object
+      description: >-
+        One option of an agenda's own field, with the number of events that
+        carry it.
       required: [value, label, count]
       additionalProperties: false
       properties:
@@ -5578,6 +5678,7 @@ components:
 
     GeoPoint:
       type: object
+      description: A geographic point, in decimal degrees.
       required: [latitude, longitude]
       additionalProperties: false
       properties:

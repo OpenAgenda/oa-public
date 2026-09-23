@@ -47,6 +47,14 @@ export default defineConfig({
     // (types.gen.ts, `Blob | File`) is authoritative for the multipart body, and
     // the server validates the bytes itself (multer + content-type detection);
     // there is nothing meaningful to assert about binary content in zod anyway.
+    //
+    // KNOWN LIMITATION 2: the plugin emits plain `z.object()`, never `.strict()`,
+    // so `additionalProperties: false` is lost at runtime. It matters for the
+    // error responses, whose union is told apart by disjoint required keys
+    // rather than a discriminant field: `zError` accepts a `ValidationError` or
+    // `MergedLocationError` body and strips the extra key. Narrow such a
+    // response by the carrier it declares (`'mergedIn' in error`, `'errors' in
+    // error`) rather than by parsing it with the bare `zError`.
     'zod',
   ],
 });

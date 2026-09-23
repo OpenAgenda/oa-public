@@ -278,19 +278,19 @@ const RULES = {
   label: unread(omit(SAMPLE)),
   'responses/error': unread(
     omit(
-      'an error response - the card documents the success body; an error comes back typed as `error`',
+      'an error response - the card names the schemas it answers with; this node itself is what stays unread',
     ),
   ),
   'responses/*': unread(
     omit(
-      'a shared error response - the card documents the success body; an error comes back typed as `error`',
+      'a shared error response - the card names its schema; its own prose and headers stay unread',
     ),
   ),
   // The container itself goes unread when no success response is shared: only
   // a 2xx is followed into it.
   responses: unread(
     omit(
-      'shared error responses - the card documents the success body; an error comes back typed as `error`',
+      'shared error responses - the card names the schemas they answer with; the container itself stays unread',
     ),
   ),
   // A second success code is fine when it answers with the shape the card

@@ -21,7 +21,9 @@ La réponse event de l'API actuelle vient de l'**`_source` Elasticsearch**, post
 ## Règles de la couche de mapping (Event, lecture)
 
 - **Enveloppe** : liste → `{ data, pagination }` ; ressource seule → objet `Event` nu. (L'API actuelle renvoie `{ success, event }` et `{ events, total, after, sort, aggregations, success }` — à transformer.)
-- **Erreur** : mapper les `err.name` de `core` vers `{ error: { code, message, details? } }` ; codes HTTP corrects (401 vs 403).
+- **Erreur** : mapper les `err.name` de `core` vers `{ error: { code, message } }`, enrichi du seul porteur que le schéma
+  de la réponse déclare (`errors` pour une requête refusée sur ses valeurs,
+  `mergedIn` pour un lieu fusionné) ; codes HTTP corrects (401 vs 403).
 - **Cursor `after`** : l'interne est un **tableau** `search_after` ES (ex. `[timing, tiebreaker]`), `null` quand tout est renvoyé. Le contrat l'expose en **string opaque** → **base64-encoder/décoder** le tableau (+ le sort, et idéalement le `limit`) en une string. En entrée, décoder vers `useAfterKey` / `search_after`. **Ne jamais exposer le tableau brut.**
 - **Champs additionnels** : séparation natif/additionnel par **allowlist de champs** (implémentée tranche 2-3) — `mapEvent.js` énumère les champs natifs (`BASE_FIELDS`/`FULL_FIELDS`), droppe les clés internes (`DROP_KEYS`), et route **toute clé restante** sous `additionalFields`. Le socle reste à plat. `additionalProperties: false` sur `EventSummary`/`Event` est correct **parce que** le mapping émet exactement les champs du contrat (il ne passe pas l'`_source` brut). _(Approche plus simple que le tri par `schemaId` initialement envisagé. La clé publique, d'abord `custom`, a été renommée `additionalFields` — cf. section « Renommage » ci-dessous.)_
 - **`readOnly`** : les champs `readOnly: true` (uid, slug, state, timestamps, dateRange, first/last/nextTiming, originAgenda, sourceAgendas, featured, country, links, timezone) ne sont pas acceptés en écriture.
@@ -142,7 +144,7 @@ standalone. Réutilise les middleware v2 (`api/middleware/`) sans les dupliquer.
 - `lib/mapEvent.js` — mapper PUR `event projeté → Event v3`.
 - `lib/cursor.js` — `encodeCursor`/`decodeCursor` (base64url(JSON) du couple `{ after, sort }`).
 - `lib/envelope.js` — enveloppe liste `{ data, pagination }`.
-- `errorHandler.js` — mapping `err.name` → `{ error: { code, message, details? } }` + statut HTTP.
+- `errorHandler.js` — mapping `err.name` → `{ error: { code, message, ...porteur } }` + statut HTTP.
 
 **Montage** : `server.js` ajoute `instanciateApiV3(core)` et chaîne
 `.use('/v3', secureHeaders, logRequestMw, setAPIType('standalone'), apiV3)` sur l'`apiServer`.
@@ -242,7 +244,7 @@ intégration (6) : tous verts.
   `Image`(+`variants`), `Registration`, `EnrichedLink` passés en `additionalProperties: false`,
   ET le mapper nettoie chaque objet imbriqué par **allowlist** (`pick`, default-deny) → plus de
   fuite de champs internes (`disqualifiedDuplicates`, `tags`, `indexed`, `officializedAt`,
-  agenda `private`/`description`, `_agg`…). Restent ouverts à dessein : `Error.details`,
+  agenda `private`/`description`, `_agg`…). Restent ouverts à dessein :
   `EnrichedLink.data` (métadonnées d'enrichissement), `CustomFields`, `LocalizedString`(map).
 - ~~**Filtres de liste**~~ : **fait (tranche 4)** — surface publique curée + translator strict + `geo_distance`.
 - ~~**Tri (`?sort=`)**~~ : **fait (tranche 4)** — enum curé exposé (le cursor encode déjà le sort).
@@ -326,10 +328,10 @@ et `derelativize` (dates « today »).
 
 1. **Les validateurs `choice` droppent silencieusement les valeurs inconnues**
    (`packages/validators/src/choice.js:14-21`, `.filter(idx !== -1)`) — v2 ne 400 PAS sur `status=99`,
-   il l'ignore. v3 voulant 400 + `details`, **le translator v3 (4c) doit valider strictement
+   il l'ignore. v3 voulant 400 + `errors`, **le translator v3 (4c) doit valider strictement
    lui-même**, sans compter sur `core`. (Les validateurs `text`/`integer`/`date` throw, eux : un
    tableau `{code,message,field}` → `search.js` l'emballe en `BadRequest({ info: { errors } })`, donc
-   `errorHandler` peut mapper `err.info.errors` → `error.details`.)
+   `errorHandler` peut mapper `err.info.errors` → `error.errors`.)
 2. **Verrou de visibilité** : `state` défaut = `2` (publié), `valid`/`removed`/`draft` gardent la
    modération. Le chemin liste v3 passe déjà `removed: false` et aucun `state` → publié-only tient.
    `state`, `valid`, `removed`, `addMethod`, `memberUid`, `ownerUid`, `ownerOrMemberUid`,
