@@ -4826,6 +4826,13 @@ components:
             the overwhelming majority. A `[gte]` filter therefore excludes them
             naturally, which is the intent: following inventory should not mean
             paging through the whole corpus.
+
+            IT DOES NOT MOVE WHEN AN EVENT LEAVES. Deleting an event, or
+            unpublishing it, is a catalogue change: it stamps `updatedAt` and
+            leaves this one where it was. A consumer that follows inventory
+            ALONE therefore keeps selling dates for an event that is gone —
+            follow `updatedAt` as well, or re-read the events you hold, to see
+            departures.
         accessibility:
           $ref: '#/components/schemas/Accessibility'
         age:

@@ -1017,6 +1017,7 @@ export type Event = {
      * Its value is the instant OpenAgenda last WROTE an availability row of this event — the write clock. It is not the rows' own `syncedAt`, which says when each provider was read and may sit behind another provider's row, so a max-of-`syncedAt` would not move forward at all for such a provider.
      * THE STAMP IS TAKEN AT THE WRITE, THE DOCUMENT IS INDEXED AFTER, and the two orders can differ: an event stamped at t1 may be indexed after one stamped at t2 > t1, and a consumer that has already moved its watermark to t2 would never see it. Re-indexing is also best-effort — a failed resync is retried later, not at the instant of the write. So overlap rather than trust exhaustiveness: page with a watermark set a little behind the newest value you saw (a few minutes covers the ordinary case), and make your ingestion idempotent. Rows carry `syncedAt`, so re-reading one costs nothing.
      * ABSENT from an event that has never received availability, which is the overwhelming majority. A `[gte]` filter therefore excludes them naturally, which is the intent: following inventory should not mean paging through the whole corpus.
+     * IT DOES NOT MOVE WHEN AN EVENT LEAVES. Deleting an event, or unpublishing it, is a catalogue change: it stamps `updatedAt` and leaves this one where it was. A consumer that follows inventory ALONE therefore keeps selling dates for an event that is gone — follow `updatedAt` as well, or re-read the events you hold, to see departures.
      *
      */
     readonly availabilityUpdatedAt?: string;
