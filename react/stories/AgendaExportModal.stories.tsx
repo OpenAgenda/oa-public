@@ -79,33 +79,3 @@ export const OpenAccordion: Story = {
     },
   },
 };
-
-export const WordOpen: Story = {
-  render: function Render(): React.JSX.Element {
-    const { open, onOpen, onClose } = useDisclosure({ defaultOpen: true });
-
-    return (
-      <>
-        <Button onClick={onOpen}>Open modal</Button>
-
-        <AgendaExportModal
-          isOpen={open}
-          onClose={onClose}
-          agenda={agendaFixtures as Agenda}
-          query={{}}
-          defaultValue="docx"
-        />
-      </>
-    );
-  },
-  parameters: {
-    msw: {
-      handlers: [
-        http.get('/users/me', () => HttpResponse.json(userFixtures)),
-        http.get('/api/me', () => HttpResponse.json(me)),
-        http.get('/agendas/89904399/settings/exports', () =>
-          HttpResponse.json(columns)),
-      ],
-    },
-  },
-};

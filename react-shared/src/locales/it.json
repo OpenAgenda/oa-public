@@ -15,6 +15,5 @@
   "ReactShared.ImageInput.remove": "Rimuovi",
   "ReactShared.ImageInput.update": "Aggiornare l'immagine",
   "ReactShared.ImageInput.upload": "Caricare un'immagine",
-  "ReactShared.LeaveWarningPrompt.areYouSure": "Lei è sicura di voler lasciare questa pagina? Tutti i dati non salvati saranno persi.",
-  "ReactShared.Modal.close": "Chiudi"
+  "ReactShared.LeaveWarningPrompt.areYouSure": "Lei è sicura di voler lasciare questa pagina? Tutti i dati non salvati saranno persi."
 }

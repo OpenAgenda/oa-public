@@ -132,8 +132,7 @@ paths:
       description: >
         Returns a cursor-paginated list of agendas. Pass the `after`
         cursor returned in `pagination.after` to fetch the next page,
-        with the same filters. Private agendas and agendas not indexed in
-        public search are absent from this list.
+        with the same filters.
 
 
         Unknown or malformed filter values answer `400`, with per-field
@@ -239,7 +238,7 @@ paths:
         - publicKey: []
         - secretKey: []
         - oauth2:
-            - events:read
+            - agendas:read
       parameters:
         - $ref: '#/components/parameters/AgendaUid'
       responses:
@@ -1145,56 +1144,6 @@ paths:
         ]
       x-codeSamples:
         - lang: TypeScript
-          label: Find the required fields, build a body, then dry-run it
-          source: |
-            const agendaUid = 12345;
-            const { data: schema, error } = await oa.agendas.events.schema({
-              path: { agendaUid },
-            });
-            if (error) throw error;
-
-            // What the agenda requires, and where each value goes: `when`
-            // (enableWith) must hold for the requirement to apply, `unless`
-            // (optionalWith) lifts it.
-            const required = schema.fields
-              .filter(
-                (f) =>
-                  f.path
-                  && (f.optional === false
-                    || (f.optional === undefined && f.optionalWith)),
-              )
-              .map((f) => ({
-                path: f.path,
-                when: f.enableWith ?? null,
-                unless: f.optionalWith ?? null,
-              }));
-
-            const body = {
-              title: { fr: 'Concert en ligne' },
-              description: { fr: 'Une soirée jazz diffusée en direct.' },
-              timings: [
-                { begin: '2030-06-20T18:00:00+02:00', end: '2030-06-20T22:00:00+02:00' },
-              ],
-              attendanceMode: 2, // online: activates onlineAccessLink
-              onlineAccessLink: 'https://example.com/live',
-            };
-            const set = (path, value) => {
-              const [key, sub] = path.split('.');
-              body[key] = sub ? { ...body[key], [sub]: value } : value;
-            };
-
-            // A radio field takes the id of the option that fits the event.
-            const theme = schema.fields.find((f) => f.field === 'thematique');
-            const concert = theme?.options.find((o) => o.value === 'concert');
-            if (concert) set(theme.path, concert.id);
-
-            const check = await oa.agendas.events.validate({
-              path: { agendaUid },
-              body,
-            });
-            // A 422 lists under `errors` each field to fix.
-            return { required, verdict: check.error ? check.error.error : check.data };
-        - lang: TypeScript
           label: List the agenda's additional event fields
           source: |
             const { data, error } = await oa.agendas.events.schema({
@@ -1202,7 +1151,7 @@ paths:
             });
             if (error) throw error;
             return data.fields
-              .filter((f) => f.path?.startsWith('additionalFields.'))
+              .filter((f) => f.schemaId != null)
               .map((f) => ({ name: f.field, type: f.fieldType }));
       description: >
         Returns the agenda's **merged event form schema** — the dynamic
@@ -1219,15 +1168,12 @@ paths:
 
         Descriptors are scoped to your read access: a field whose `read` access
         levels exclude the caller (e.g. a moderator-only field) is omitted from
-        `fields`, so a public caller sees only the public fields. Native
-        fields the write operations do not take (the event's `uid`, `slug`,
-        timestamps...) are omitted too, and `status` is listed only on an
-        agenda that accepts it.
+        `fields`, so a public caller sees only the public fields.
       security:
         - publicKey: []
         - secretKey: []
         - oauth2:
-            - agendas:read
+            - events:read
       parameters:
         - $ref: '#/components/parameters/AgendaUid'
       responses:
@@ -1258,36 +1204,21 @@ paths:
           which agendas,
           can I,
           permissions,
-          by slug,
-          find my agenda,
         ]
       x-codeSamples:
         - lang: TypeScript
-          label: Find one of my agendas by its slug
-          source: |
-            const { data, error } = await oa.me.agendas.list({
-              query: { slug: ['festival-des-lumieres'] },
-            });
-            if (error) throw error;
-            return data.data[0] ?? null; // null: not a member, or unknown slug
-        - lang: TypeScript
           label: Which agendas can I write to?
           source: |
-            const { data, error } = await oa.me.agendas.list({
-              query: {
-                role: ['administrator', 'moderator', 'contributor'],
-                fields: ['title', 'role'],
-                limit: 100,
-              },
-            });
+            const { data, error } = await oa.me.agendas.list({});
             if (error) throw error;
-            return data.data;
+            return data.data
+              .filter((a) => a.role !== 'reader')
+              .map((a) => ({ uid: a.uid, title: a.title, role: a.role }));
       description: >
         Returns a cursor-paginated list of the agendas the
         authenticated user is a member of, with their role on each.
         Private agendas the user belongs to ARE included (each item
-        carries a `private` flag), and so are agendas not indexed in
-        public search.
+        carries a `private` flag).
       security:
         - secretKey: []
         - oauth2:
@@ -1297,8 +1228,6 @@ paths:
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/Detailed'
         - $ref: '#/components/parameters/Fields'
-        - $ref: '#/components/parameters/MeAgendaFilterSlug'
-        - $ref: '#/components/parameters/MeAgendaFilterRole'
       responses:
         '200':
           description: A page of the caller's agenda memberships.
@@ -1364,7 +1293,7 @@ paths:
       security:
         - secretKey: []
         - oauth2:
-            - media:write
+            - events:write
       parameters:
         - $ref: '#/components/parameters/AgendaUid'
       requestBody:
@@ -1471,7 +1400,7 @@ paths:
       security:
         - secretKey: []
         - oauth2:
-            - media:write
+            - events:write
       parameters:
         - $ref: '#/components/parameters/AgendaUid'
       responses:
@@ -1571,34 +1500,17 @@ paths:
       operationId: agendas.locations.list
       tags: [Locations]
       summary: List an agenda's locations
-      x-synonyms:
-        [
-          venues,
-          places,
-          addresses,
-          map,
-          where,
-          browse,
-          all,
-          find,
-          search,
-          name,
-          uid,
-        ]
+      x-synonyms: [venues, places, addresses, map, where, browse, all]
       x-codeSamples:
         - lang: TypeScript
-          label: Find a location by name
+          label: List the most recent locations
           source: |
             const { data, error } = await oa.agendas.locations.list({
               path: { agendaUid: 12345 },
-              query: { search: 'Gare Meuse TGV', limit: 20 },
+              query: { limit: 20 },
             });
             if (error) throw error;
-            return data.data.map((l) => ({
-              uid: l.uid,
-              name: l.name,
-              address: l.address,
-            }));
+            return data.data.map((l) => ({ uid: l.uid, name: l.name }));
       description: >
         Returns a cursor-paginated list of the agenda's locations,
         newest first (insertion order, which can differ from
@@ -1809,21 +1721,16 @@ components:
           tokenUrl: https://openagenda.com/api/auth/oauth2/token
           refreshUrl: https://openagenda.com/api/auth/oauth2/token
           scopes:
-            me:read: Read your profile, agendas and roles
+            me:read: >-
+              List the caller's agenda memberships and their role on each.
             agendas:read: Read agendas
-            agendas:write: Create, configure and delete agendas
+            agendas:write: Create and modify agendas
             events:read: Read events
-            events:write: Create, edit and delete events
-            drafts:read: Read your event drafts
-            events:transverse: Search events across all agendas
+            events:write: Create and modify events
             locations:read: Read locations
-            locations:write: Create, edit and delete locations
-            geocoding:use: Turn addresses into coordinates, and back
+            locations:write: Create and modify locations
             members:read: Read members
-            members:write: Invite, manage and contact members
-            media:write: Upload files
-            bookings:read: Read bookings
-            conversations:write: Write in OpenAgenda messaging
+            members:write: Manage members
     secretKey:
       type: http
       scheme: bearer
@@ -2005,31 +1912,6 @@ components:
         type: array
         items:
           type: string
-
-    MeAgendaFilterSlug:
-      name: slug
-      in: query
-      required: false
-      description: >
-        Restrict to the agendas carrying these slugs. A slug matching none of
-        your memberships yields an empty page. Repeat the parameter for
-        multiple values.
-      schema:
-        type: array
-        items:
-          type: string
-
-    MeAgendaFilterRole:
-      name: role
-      in: query
-      required: false
-      description: >
-        Restrict to the memberships holding one of these roles. Repeat the
-        parameter for multiple values.
-      schema:
-        type: array
-        items:
-          $ref: '#/components/schemas/MemberRole'
 
     AgendaFilterOfficial:
       name: official
@@ -2957,8 +2839,8 @@ components:
       description: >-
         One problem found in a request. A validator describes the values it
         refuses as precisely as it can, so an item carries the keys below plus
-        whatever else that validator knows, such as the bounds the value had to
-        satisfy.
+        whatever else that validator knows, such as the rejected value or the
+        bounds it had to satisfy.
       required: [message]
       properties:
         field:
@@ -2980,11 +2862,6 @@ components:
         message:
           type: string
           description: Human-readable explanation, in English.
-        input:
-          description: >-
-            The value the validator refused, as the request carried it. A
-            validator that reports a problem without recording the value omits
-            this key.
 
     ValidationVerdict:
       type: object
@@ -3454,9 +3331,8 @@ components:
       type: object
       description: The event form an agenda declares.
       required: [fields]
-      # Served from the form engine, its descriptors filtered by access and
-      # their `read`/`write` levels normalized to lists: top-level keys beyond
-      # `fields` may appear (engine vocabulary); only `fields` is contractual.
+      # Served raw from the form engine: top-level keys beyond `fields` may
+      # appear (engine vocabulary); only `fields` is contractual.
       additionalProperties: true
       properties:
         fields:
@@ -3464,10 +3340,8 @@ components:
           description: >
             The fields of the merged schema readable at the caller's access
             level - native event fields (with any per-agenda overrides applied)
-            and the agenda's/network's additional fields (`path` under
-            `additionalFields`).
-            A field whose `read` access levels exclude the caller is omitted, and
-            so is a native field the write operations do not take.
+            and the agenda's/network's additional fields (`schemaId` non-null).
+            A field whose `read` access levels exclude the caller is omitted.
           items:
             $ref: '#/components/schemas/FormSchemaField'
 
@@ -3475,14 +3349,13 @@ components:
       type: object
       description: >
         A form field descriptor. Two kinds share the array: **data field
-        descriptors** (carrying `field` and the `path` of its value) and
-        **section separators** (`type: 'section'`, no `field` -
+        descriptors** (carrying `field`, the key the value lives under on
+        events) and **section separators** (`type: 'section'`, no `field` -
         structure the form into titled groups). Descriptors may carry keys
         beyond those listed below.
       additionalProperties: true
       example:
         field: thematique
-        path: additionalFields.thematique
         fieldType: radio
         label: { fr: 'Thématique', en: 'Theme' }
         schemaId: 10522
@@ -3495,13 +3368,8 @@ components:
         field:
           type: string
           description: >
-            Field name. Absent on section separators.
-        path:
-          type: string
-          description: >
-            Where the field's value lives on an event, as a dotted path:
-            `additionalFields.<field>` for an additional field, the field name
-            itself for a native one. Absent on section separators.
+            Field name — the key the value is carried under on events. Absent
+            on section separators.
         fieldType:
           type: string
           description: >
@@ -3535,30 +3403,12 @@ components:
             The field is only active when another field has a value: either
             that field's name, or `{ field, value }` to require specific
             values (e.g. `onlineAccessLink` enabled when `attendanceMode` is
-            online or mixed). While inactive, the field is not required,
-            whatever `optional` says, and holds no value: one sent is not kept,
-            and a stored one is cleared.
+            online or mixed).
         optionalWith:
           description: >
             The field is optional when another field has a value (either that
             field's name, or `{ field, value }` to require specific values) and
             required otherwise; an explicit `optional` takes precedence.
-        read:
-          type: [array, 'null']
-          items:
-            $ref: '#/components/schemas/AccessLevel'
-          description: >
-            Access levels allowed to read the field's value. `null` or empty
-            means every caller.
-        write:
-          type: [array, 'null']
-          items:
-            $ref: '#/components/schemas/AccessLevel'
-          description: >
-            Access levels allowed to write the field's value. `null` or empty
-            means every caller allowed to write events on the agenda; otherwise
-            your access level must be listed, and a value you send for the field
-            answers `422` with an `unauthorized` issue on it.
         origin:
           type: [string, 'null']
           enum: [tags, categories, custom, null]
@@ -3583,39 +3433,14 @@ components:
         schemaId:
           type: [integer, 'null']
           description: >
-            Identifier of the agenda or network schema that declared or
-            overrode the field; `null` on a native field as the platform
-            declares it.
+            Identifier of the declaring agenda/network schema. Non-null marks
+            an **additional field**; `null`/absent marks a native one.
         schemaType:
           type: [string, 'null']
           enum: [agenda, network, event, null]
           description: >
-            Which level declared or overrode the field: `agenda` or `network`,
-            or `event` for a native field as the platform declares it.
-
-    AccessLevel:
-      type: string
-      description: >
-        A level of access to an agenda's data, as the field rules of its event
-        form name them.
-      enum:
-        [
-          public,
-          reader,
-          contributor,
-          moderator,
-          administrator,
-          internal,
-          system,
-        ]
-      x-enum-descriptions:
-        public: A caller without a membership on the agenda
-        reader: A member with the reader role
-        contributor: A member with the contributor role
-        moderator: A member with the moderator role
-        administrator: A member with the administrator role
-        internal: The platform's own processes, never an API caller
-        system: The platform's own processes, never an API caller
+            Which level declared the field: `agenda`/`network` for additional
+            fields, `event` for the platform's native event fields.
 
     MemberRole:
       type: string
@@ -3788,73 +3613,13 @@ components:
           description: >
             The inventory of this occurrence, ONE ROW PER TICKETING PROVIDER —
             the same occurrence can be sold out on pass Culture and open to the
-            general public. At most one row per provider, so never more rows than
-            the `provider` enum has values. Absent on an occurrence that never
-            received any; `[]` is a value the field can hold, since an empty array
-            sent with an occurrence the event does not have yet is stored and
-            served as such.
+            general public. Absent, not empty, on an occurrence that never
+            received any. At most one row per provider, so never more rows than
+            the `provider` enum has values.
 
-            WRITTEN BY THE AVAILABILITY ENDPOINT. An ordinary event write can only
-            SEED it, on an occurrence the event does not have yet — see below —
-            and never change, remove or clear a row of one it already has.
-
-            That endpoint is NOT part of this contract: it is
-            `PATCH /v2/agendas/{agendaUid}/events/{eventUid}/availability`, on the
-            v2 API, and this document declares no path for it, so a client
-            generated from this spec cannot reach it and has to call it directly.
-
-            Its body is keyed by OCCURRENCE first and by provider second —
-            `{ "<timing id>": { "<provider>": { … } } }` — and `null` in place of a
-            row removes that provider from that occurrence. A body keyed by
-            provider alone names no occurrence.
-
-            It requires `Content-Type: application/json`, since a body it cannot
-            read is refused rather than taken for an empty one; the `events:write`
-            scope; the right to edit THAT event, which is what decides — being a
-            member of the agenda is neither sufficient nor always necessary; and
-            ticketing enabled on the agenda, failing which it answers `422`
-            `offers.disabled`. Its access token must travel in a header
-            (`Authorization: Bearer …` or `access-token`) and NOT in the body: the
-            endpoint reads its body only once it knows who is calling, so a token
-            placed inside the body is never seen, where an ordinary v2 write would
-            have taken it.
-
-            ⚠️ READ ITS BODY, NOT ONLY ITS STATUS. It answers `200` with
-            `{ success, applied, written, errors }`, and a batch whose occurrences
-            it cannot resolve — an unknown or misspelled timing id — is a `200`
-            carrying `success: false` and the faults in `errors`, having written
-            nothing. A connector that checks the status alone reads a batch it
-            never wrote as a success.
-
-            AN ORDINARY EVENT WRITE CARRIES THIS INVENTORY. Whatever it sends for
-            an occurrence the event already has is dropped before validation, so a
-            read-modify-write round trip can neither change a row, nor add one, nor
-            clear one with an explicit `[]` — and it is not critiqued field by
-            field for rows that were never going to be written either.
-
-            The reason is that such a write cannot be told apart from the inventory
-            it merely transports: a connector writes between the moment a client
-            reads an event and the moment its save arrives, so a row absent from
-            that save may be one the client never saw rather than one it means to
-            drop. The endpoint writes under a compare-and-swap and has no such
-            ambiguity.
-
-            A CLIENT SHOULD THEREFORE OMIT THE FIELD when saving an event it has
-            just read: an occurrence whose entry does not mention `availability`
-            keeps its stored rows. Omitting the FIELD is safe; omitting the
-            OCCURRENCE is not — a timings write is a full replacement, and an
-            occurrence no incoming entry claims is deleted along with its
-            inventory. Sending the rows back is not merely useless, it is what
-            pushes a read-modify-write past the 100 kB body limit of the ordinary
-            event routes: measured, a payload crosses it at about 500 occurrences
-            carrying one row each, or 300 carrying two.
-
-            AN OCCURRENCE THE EVENT DOES NOT HAVE YET is the exception, and the
-            only way an ordinary write stores inventory: it has no stored rows to
-            protect, so the rows sent with it are kept — provided ticketing is
-            enabled on the agenda, which is checked for exactly this case and
-            answers `422` `offers.disabled` otherwise. An event can thus be created
-            with its inventory in a single call.
+            Written by connectors through the availability route, or inline
+            with the timings on an ordinary write; carried across ordinary
+            writes that do not mention it, and cleared by an explicit `[]`.
 
             Served wherever a `Timing` is: `timings[]`, and also
             `firstTiming` / `lastTiming` / `nextTiming`, which copy the

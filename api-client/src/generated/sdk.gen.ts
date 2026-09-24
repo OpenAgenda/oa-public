@@ -316,7 +316,7 @@ export class Events extends HeyApiClient {
      *
      * Returns the agenda's **merged event form schema** — the dynamic contract the events of this agenda follow. It merges the platform's native event fields with the network's and the agenda's own declarations: an agenda can add its own additional fields and override natives (make one required, restrict its options, relabel it). This is the same schema the OpenAgenda UI uses to build the event form: use it to know which fields exist, which are required and what their options are - e.g. to build payloads for the event write operations, to interpret `additionalFields` on events, or to discover the agenda-specific facets of the facets endpoint.
      *
-     * Descriptors are scoped to your read access: a field whose `read` access levels exclude the caller (e.g. a moderator-only field) is omitted from `fields`, so a public caller sees only the public fields. Native fields the write operations do not take (the event's `uid`, `slug`, timestamps...) are omitted too, and `status` is listed only on an agenda that accepts it.
+     * Descriptors are scoped to your read access: a field whose `read` access levels exclude the caller (e.g. a moderator-only field) is omitted from `fields`, so a public caller sees only the public fields.
      *
      */
     public schema<ThrowOnError extends boolean = false>(options: Options<AgendasEventsSchemaData, ThrowOnError>) {
@@ -440,7 +440,7 @@ export class Agendas extends HeyApiClient {
     /**
      * List agendas
      *
-     * Returns a cursor-paginated list of agendas. Pass the `after` cursor returned in `pagination.after` to fetch the next page, with the same filters. Private agendas and agendas not indexed in public search are absent from this list.
+     * Returns a cursor-paginated list of agendas. Pass the `after` cursor returned in `pagination.after` to fetch the next page, with the same filters.
      *
      * Unknown or malformed filter values answer `400`, with per-field context under `error.errors`. An unrecognized top-level query parameter is ignored.
      *
@@ -516,7 +516,7 @@ export class Agendas2 extends HeyApiClient {
     /**
      * List the agendas you are a member of
      *
-     * Returns a cursor-paginated list of the agendas the authenticated user is a member of, with their role on each. Private agendas the user belongs to ARE included (each item carries a `private` flag), and so are agendas not indexed in public search.
+     * Returns a cursor-paginated list of the agendas the authenticated user is a member of, with their role on each. Private agendas the user belongs to ARE included (each item carries a `private` flag).
      *
      */
     public list<ThrowOnError extends boolean = false>(options?: Options<MeAgendasListData, ThrowOnError>) {

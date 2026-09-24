@@ -5,7 +5,6 @@ export type CompleteUrlsResult = {
   export: {
     jsonV2: string;
     pdf: string;
-    docx: string;
     xlsx: string;
     ics: string;
     csv: string;
@@ -26,11 +25,7 @@ export type SpreadsheetSubmitOptions = {
   distributedFields: string[];
 };
 
-export type DocumentFormat = 'pdf' | 'docx';
-
-export type DocumentSubmitOptions = {
-  format: DocumentFormat;
-  // PDF only: the location in the page header rather than in each item.
+export type PdfSubmitOptions = {
   locationInHeader: boolean;
   sort: string[];
   // null: everything, the export's default. A list names every line to keep.
@@ -41,8 +36,8 @@ export type SpreadsheetSubmitHandler = (
   options: SpreadsheetSubmitOptions,
 ) => (e: React.SyntheticEvent) => void;
 
-export type DocumentSubmitHandler = (
-  options: DocumentSubmitOptions,
+export type PdfSubmitHandler = (
+  options: PdfSubmitOptions,
 ) => (e: React.SyntheticEvent) => void;
 
 export type IcsSubmitHandler = (e: React.SyntheticEvent) => void;

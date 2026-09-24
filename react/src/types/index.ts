@@ -102,5 +102,4 @@ export type ExportSettings = {
   spreadsheetColumns?: ExportField[];
   choiceFields?: ChoiceField[];
   pdfImageLimit?: number;
-  wordImageLimit?: number;
 };

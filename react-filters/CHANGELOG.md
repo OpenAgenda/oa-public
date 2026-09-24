@@ -1,23 +1,5 @@
 # Change Log
 
-## 3.1.0
-
-### Minor Changes
-
-- [#523](https://github.com/OpenAgenda/oa/pull/523) [`08ecc16`](https://github.com/OpenAgenda/oa/commit/08ecc168e32c1281ad2a3c4dd7e9556c2c24220a) Thanks [@kaore](https://github.com/kaore)! - Add an `onPendingChange(pending, values)` option for manual submit mode. In
-  that mode the filters can hold changes the list has not applied yet, and until
-  now nothing let the page know. The callback fires when the filters start or
-  stop differing from the applied values (the last submit, or the initial query),
-  only on those transitions, never at load and never in automatic mode. The
-  README now documents `manualSubmit` and this callback.
-
-- [#524](https://github.com/OpenAgenda/oa/pull/524) [`b8fd0cc`](https://github.com/OpenAgenda/oa/commit/b8fd0cc2bb1c30b965f910624778d8738f419181) Thanks [@kaore](https://github.com/kaore)! - The search filter accepts a `label` param, rendered as a `<label>` tied to the input (class `oa-filters-search-label`).
-
-### Patch Changes
-
-- Updated dependencies [[`c4972f8`](https://github.com/OpenAgenda/oa/commit/c4972f872f890720be964965056d6f333d40ae87)]:
-  - @openagenda/react-shared@3.2.0
-
 ## 3.0.0
 
 ### Major Changes

@@ -34,7 +34,6 @@ export default function renderFiltersAndWidgets({
   onLoad,
   filtersBase,
   manualSubmit,
-  onPendingChange,
   ...rest
 } = {}) {
   const container = createContainer();
@@ -76,7 +75,6 @@ export default function renderFiltersAndWidgets({
         filters={filters}
         widgets={widgets}
         onSubmit={wrapCallback(onFilterChange)}
-        onPendingChange={onPendingChange}
         initialValues={omit(initialValues, 'sort')}
         res={res}
         dateFnsLocale={dateFnsLocales[locale]}

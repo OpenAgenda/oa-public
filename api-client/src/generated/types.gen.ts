@@ -41,7 +41,7 @@ export type ValidationError = {
 };
 
 /**
- * One problem found in a request. A validator describes the values it refuses as precisely as it can, so an item carries the keys below plus whatever else that validator knows, such as the bounds the value had to satisfy.
+ * One problem found in a request. A validator describes the values it refuses as precisely as it can, so an item carries the keys below plus whatever else that validator knows, such as the rejected value or the bounds it had to satisfy.
  */
 export type ValidationIssue = {
     /**
@@ -64,10 +64,6 @@ export type ValidationIssue = {
      * Human-readable explanation, in English.
      */
     message: string;
-    /**
-     * The value the validator refused, as the request carried it. A validator that reports a problem without recording the value omits this key.
-     */
-    input?: unknown;
 };
 
 /**
@@ -316,7 +312,7 @@ export type LocationList = {
  */
 export type EventFormSchema = {
     /**
-     * The fields of the merged schema readable at the caller's access level - native event fields (with any per-agenda overrides applied) and the agenda's/network's additional fields (`path` under `additionalFields`). A field whose `read` access levels exclude the caller is omitted, and so is a native field the write operations do not take.
+     * The fields of the merged schema readable at the caller's access level - native event fields (with any per-agenda overrides applied) and the agenda's/network's additional fields (`schemaId` non-null). A field whose `read` access levels exclude the caller is omitted.
      *
      */
     fields: Array<FormSchemaField>;
@@ -324,20 +320,15 @@ export type EventFormSchema = {
 };
 
 /**
- * A form field descriptor. Two kinds share the array: **data field descriptors** (carrying `field` and the `path` of its value) and **section separators** (`type: 'section'`, no `field` - structure the form into titled groups). Descriptors may carry keys beyond those listed below.
+ * A form field descriptor. Two kinds share the array: **data field descriptors** (carrying `field`, the key the value lives under on events) and **section separators** (`type: 'section'`, no `field` - structure the form into titled groups). Descriptors may carry keys beyond those listed below.
  *
  */
 export type FormSchemaField = {
     /**
-     * Field name. Absent on section separators.
+     * Field name — the key the value is carried under on events. Absent on section separators.
      *
      */
     field?: string;
-    /**
-     * Where the field's value lives on an event, as a dotted path: `additionalFields.<field>` for an additional field, the field name itself for a native one. Absent on section separators.
-     *
-     */
-    path?: string;
     /**
      * Field kind, which sets the shape of the value (e.g. `text`, `radio`, `number`, `image`).
      *
@@ -370,7 +361,7 @@ export type FormSchemaField = {
      */
     enable?: boolean;
     /**
-     * The field is only active when another field has a value: either that field's name, or `{ field, value }` to require specific values (e.g. `onlineAccessLink` enabled when `attendanceMode` is online or mixed). While inactive, the field is not required, whatever `optional` says, and holds no value: one sent is not kept, and a stored one is cleared.
+     * The field is only active when another field has a value: either that field's name, or `{ field, value }` to require specific values (e.g. `onlineAccessLink` enabled when `attendanceMode` is online or mixed).
      *
      */
     enableWith?: unknown;
@@ -379,16 +370,6 @@ export type FormSchemaField = {
      *
      */
     optionalWith?: unknown;
-    /**
-     * Access levels allowed to read the field's value. `null` or empty means every caller.
-     *
-     */
-    read?: Array<AccessLevel> | null;
-    /**
-     * Access levels allowed to write the field's value. `null` or empty means every caller allowed to write events on the agenda; otherwise your access level must be listed, and a value you send for the field answers `422` with an `unauthorized` issue on it.
-     *
-     */
-    write?: Array<AccessLevel> | null;
     /**
      * Set on a field converted from an earlier agenda setting: what it was converted from.
      *
@@ -404,23 +385,17 @@ export type FormSchemaField = {
         [key: string]: unknown;
     }>;
     /**
-     * Identifier of the agenda or network schema that declared or overrode the field; `null` on a native field as the platform declares it.
+     * Identifier of the declaring agenda/network schema. Non-null marks an **additional field**; `null`/absent marks a native one.
      *
      */
     schemaId?: number | null;
     /**
-     * Which level declared or overrode the field: `agenda` or `network`, or `event` for a native field as the platform declares it.
+     * Which level declared the field: `agenda`/`network` for additional fields, `event` for the platform's native event fields.
      *
      */
     schemaType?: 'agenda' | 'network' | 'event' | null;
     [key: string]: unknown;
 };
-
-/**
- * A level of access to an agenda's data, as the field rules of its event form name them.
- *
- */
-export type AccessLevel = 'public' | 'reader' | 'contributor' | 'moderator' | 'administrator' | 'internal' | 'system';
 
 export type MemberRole = 'administrator' | 'moderator' | 'contributor' | 'reader';
 
@@ -483,16 +458,8 @@ export type Timing = {
      */
     sourceRef?: string;
     /**
-     * The inventory of this occurrence, ONE ROW PER TICKETING PROVIDER — the same occurrence can be sold out on pass Culture and open to the general public. At most one row per provider, so never more rows than the `provider` enum has values. Absent on an occurrence that never received any; `[]` is a value the field can hold, since an empty array sent with an occurrence the event does not have yet is stored and served as such.
-     * WRITTEN BY THE AVAILABILITY ENDPOINT. An ordinary event write can only SEED it, on an occurrence the event does not have yet — see below — and never change, remove or clear a row of one it already has.
-     * That endpoint is NOT part of this contract: it is `PATCH /v2/agendas/{agendaUid}/events/{eventUid}/availability`, on the v2 API, and this document declares no path for it, so a client generated from this spec cannot reach it and has to call it directly.
-     * Its body is keyed by OCCURRENCE first and by provider second — `{ "<timing id>": { "<provider>": { … } } }` — and `null` in place of a row removes that provider from that occurrence. A body keyed by provider alone names no occurrence.
-     * It requires `Content-Type: application/json`, since a body it cannot read is refused rather than taken for an empty one; the `events:write` scope; the right to edit THAT event, which is what decides — being a member of the agenda is neither sufficient nor always necessary; and ticketing enabled on the agenda, failing which it answers `422` `offers.disabled`. Its access token must travel in a header (`Authorization: Bearer …` or `access-token`) and NOT in the body: the endpoint reads its body only once it knows who is calling, so a token placed inside the body is never seen, where an ordinary v2 write would have taken it.
-     * ⚠️ READ ITS BODY, NOT ONLY ITS STATUS. It answers `200` with `{ success, applied, written, errors }`, and a batch whose occurrences it cannot resolve — an unknown or misspelled timing id — is a `200` carrying `success: false` and the faults in `errors`, having written nothing. A connector that checks the status alone reads a batch it never wrote as a success.
-     * AN ORDINARY EVENT WRITE CARRIES THIS INVENTORY. Whatever it sends for an occurrence the event already has is dropped before validation, so a read-modify-write round trip can neither change a row, nor add one, nor clear one with an explicit `[]` — and it is not critiqued field by field for rows that were never going to be written either.
-     * The reason is that such a write cannot be told apart from the inventory it merely transports: a connector writes between the moment a client reads an event and the moment its save arrives, so a row absent from that save may be one the client never saw rather than one it means to drop. The endpoint writes under a compare-and-swap and has no such ambiguity.
-     * A CLIENT SHOULD THEREFORE OMIT THE FIELD when saving an event it has just read: an occurrence whose entry does not mention `availability` keeps its stored rows. Omitting the FIELD is safe; omitting the OCCURRENCE is not — a timings write is a full replacement, and an occurrence no incoming entry claims is deleted along with its inventory. Sending the rows back is not merely useless, it is what pushes a read-modify-write past the 100 kB body limit of the ordinary event routes: measured, a payload crosses it at about 500 occurrences carrying one row each, or 300 carrying two.
-     * AN OCCURRENCE THE EVENT DOES NOT HAVE YET is the exception, and the only way an ordinary write stores inventory: it has no stored rows to protect, so the rows sent with it are kept — provided ticketing is enabled on the agenda, which is checked for exactly this case and answers `422` `offers.disabled` otherwise. An event can thus be created with its inventory in a single call.
+     * The inventory of this occurrence, ONE ROW PER TICKETING PROVIDER — the same occurrence can be sold out on pass Culture and open to the general public. Absent, not empty, on an occurrence that never received any. At most one row per provider, so never more rows than the `provider` enum has values.
+     * Written by connectors through the availability route, or inline with the timings on an ordinary write; carried across ordinary writes that do not mention it, and cleared by an explicit `[]`.
      * Served wherever a `Timing` is: `timings[]`, and also `firstTiming` / `lastTiming` / `nextTiming`, which copy the occurrence whole — so a compact listing carries the inventory of its next date.
      *
      */
@@ -1969,18 +1936,6 @@ export type AgendaFilterUid = Array<number>;
  * Restrict to these agenda slugs. Repeat the parameter for multiple values.
  */
 export type AgendaFilterSlug = Array<string>;
-
-/**
- * Restrict to the agendas carrying these slugs. A slug matching none of your memberships yields an empty page. Repeat the parameter for multiple values.
- *
- */
-export type MeAgendaFilterSlug = Array<string>;
-
-/**
- * Restrict to the memberships holding one of these roles. Repeat the parameter for multiple values.
- *
- */
-export type MeAgendaFilterRole = Array<MemberRole>;
 
 /**
  * Restrict to official agendas (`true`) or to non-official agendas (`false`). Omit to return both.
@@ -3609,16 +3564,6 @@ export type MeAgendasListData = {
          *
          */
         fields?: Array<string>;
-        /**
-         * Restrict to the agendas carrying these slugs. A slug matching none of your memberships yields an empty page. Repeat the parameter for multiple values.
-         *
-         */
-        slug?: Array<string>;
-        /**
-         * Restrict to the memberships holding one of these roles. Repeat the parameter for multiple values.
-         *
-         */
-        role?: Array<MemberRole>;
     };
     url: '/me/agendas';
 };

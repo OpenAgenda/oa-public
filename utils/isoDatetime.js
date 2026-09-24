@@ -35,22 +35,8 @@ const OFFSET_ISO = /^\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}(:\d{2}([.,]\d+)?)?(Z|z|[+-
 // engines need not. Normalising rather than trusting the engine is what keeps a
 // value accepted here on the server from being refused by a browser once the
 // form is wired up.
-// Exportée : `@openagenda/events` doit écrire dans la colonne la graphie que
-// CE module accepte, et recopier la règle chez lui faisait deux définitions de
-// « la même date ». Constat de relecture.
-//
-// Les fractions sont TRONQUÉES À NEUF CHIFFRES, ce que `OFFSET_ISO` tolérait
-// sans borne : au-delà, Elasticsearch (`strict_date_optional_time`) refuse la
-// valeur, et un document entier reste hors de l'index à cause d'une ligne.
-// Tronquer ne change pas l'instant — au-delà de la nanoseconde il n'y a plus
-// rien à représenter — là où refuser casserait des écritures qui passent
-// aujourd'hui.
 const normalize = (value) =>
-  value
-    .replace(' ', 'T')
-    .replace(',', '.')
-    .replace(/z$/, 'Z')
-    .replace(/\.(\d{9})\d+/, '.$1');
+  value.replace(' ', 'T').replace(',', '.').replace(/z$/, 'Z');
 
 // Epoch ms, or NaN when the value cannot be placed on the timeline. The single
 // parse both helpers below read: `hasExplicitOffset` used to parse a string and
@@ -82,14 +68,16 @@ const instantOf = (value) => {
   const shifted = offset === 'Z'
     ? ms
     : ms
-        + (offset[0] === '-' ? -1 : 1)
-          * (parseInt(offset.slice(1, 3), 10) * 3600000
-            + parseInt(offset.slice(-2), 10) * 60000);
+      + (offset[0] === '-' ? -1 : 1)
+        * (parseInt(offset.slice(1, 3), 10) * 3600000
+          + parseInt(offset.slice(-2), 10) * 60000);
   const asUTC = new Date(shifted);
 
-  return asUTC.getUTCFullYear() === Number(y)
+  return (
+    asUTC.getUTCFullYear() === Number(y)
     && asUTC.getUTCMonth() + 1 === Number(m)
     && asUTC.getUTCDate() === Number(d)
+  )
     ? ms
     : NaN;
 };
@@ -160,4 +148,4 @@ const parseDuration = (value) => {
 // status. Every export of a published package is a compatibility commitment, so
 // the cheap moment to not make one is before the release, not after.
 
-export { hasExplicitOffset, normalize, toInstant, parseDuration };
+export { hasExplicitOffset, toInstant, parseDuration };
