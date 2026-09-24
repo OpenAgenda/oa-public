@@ -1011,6 +1011,15 @@ export type Event = {
     readonly offersAggregate?: OffersAggregate;
     readonly createdAt: string;
     readonly updatedAt: string;
+    /**
+     * A SECOND CURSOR, for inventory rather than catalogue.
+     * An availability write does not move `updatedAt`: an inventory tick is not a content change, and a catalogue consumer paging on `updatedAt.asc` must not see an event resurface every time a seat is sold. This stamp moves instead, so availability stays followable on its own — `?sort=availabilityUpdatedAt.asc&availabilityUpdatedAt[gte]=<watermark>`.
+     * Its value is the instant OpenAgenda last WROTE an availability row of this event — the write clock. It is not the rows' own `syncedAt`, which says when each provider was read and may sit behind another provider's row, so a max-of-`syncedAt` would not move forward at all for such a provider.
+     * THE STAMP IS TAKEN AT THE WRITE, THE DOCUMENT IS INDEXED AFTER, and the two orders can differ: an event stamped at t1 may be indexed after one stamped at t2 > t1, and a consumer that has already moved its watermark to t2 would never see it. Re-indexing is also best-effort — a failed resync is retried later, not at the instant of the write. So overlap rather than trust exhaustiveness: page with a watermark set a little behind the newest value you saw (a few minutes covers the ordinary case), and make your ingestion idempotent. Rows carry `syncedAt`, so re-reading one costs nothing.
+     * ABSENT from an event that has never received availability, which is the overwhelming majority. A `[gte]` filter therefore excludes them naturally, which is the intent: following inventory should not mean paging through the whole corpus.
+     *
+     */
+    readonly availabilityUpdatedAt?: string;
     accessibility: Accessibility;
     age: AgeRange;
     readonly state: ModerationState;
@@ -1344,6 +1353,7 @@ export type EventFilters = {
     timings?: DateRangeFilter;
     createdAt?: DateRangeFilter;
     updatedAt?: DateRangeFilter;
+    availabilityUpdatedAt?: DateRangeFilter;
     localTime?: {
         gte?: number;
         lte?: number;
@@ -2040,7 +2050,7 @@ export type AdditionalFieldMetricsKeys = Array<string>;
  * Ordering of the results. Defaults to `timingsWithFeatured.asc`, or to `score` (relevance) when `search` is set and no `sort` is given.
  *
  */
-export type Sort = 'timings.asc' | 'timingsWithFeatured.asc' | 'lastTiming.asc' | 'lastTimingWithFeatured.asc' | 'updatedAt.asc' | 'updatedAt.desc' | 'location.name.asc' | 'location.name.desc' | 'location.city.asc' | 'location.city.desc' | 'score';
+export type Sort = 'timings.asc' | 'timingsWithFeatured.asc' | 'lastTiming.asc' | 'lastTimingWithFeatured.asc' | 'updatedAt.asc' | 'updatedAt.desc' | 'availabilityUpdatedAt.asc' | 'availabilityUpdatedAt.desc' | 'location.name.asc' | 'location.name.desc' | 'location.city.asc' | 'location.city.desc' | 'score';
 
 /**
  * Full-text search across title, description, keywords and address. Wrap the value in double quotes for an exact phrase match.
@@ -2224,6 +2234,15 @@ export type FilterCreatedAt = {
  *
  */
 export type FilterUpdatedAt = {
+    gte?: string;
+    lte?: string;
+};
+
+/**
+ * Restrict by the date OpenAgenda last WROTE inventory on the event — the write clock carried by `availabilityUpdatedAt`, not the rows' own `syncedAt`. As RFC 3339 date-times: `availabilityUpdatedAt[gte]=…&availabilityUpdatedAt[lte]=…`. The inventory counterpart of `updatedAt`, for a consumer following availability: pair it with `sort=availabilityUpdatedAt.asc` and a watermark. Events that never received availability carry no stamp and never match — following inventory does not mean paging through the whole corpus. Same date-time rules as `updatedAt`.
+ *
+ */
+export type FilterAvailabilityUpdatedAt = {
     gte?: string;
     lte?: string;
 };
@@ -2432,7 +2451,7 @@ export type AgendasEventsListData = {
          * Ordering of the results. Defaults to `timingsWithFeatured.asc`, or to `score` (relevance) when `search` is set and no `sort` is given.
          *
          */
-        sort?: 'timings.asc' | 'timingsWithFeatured.asc' | 'lastTiming.asc' | 'lastTimingWithFeatured.asc' | 'updatedAt.asc' | 'updatedAt.desc' | 'location.name.asc' | 'location.name.desc' | 'location.city.asc' | 'location.city.desc' | 'score';
+        sort?: 'timings.asc' | 'timingsWithFeatured.asc' | 'lastTiming.asc' | 'lastTimingWithFeatured.asc' | 'updatedAt.asc' | 'updatedAt.desc' | 'availabilityUpdatedAt.asc' | 'availabilityUpdatedAt.desc' | 'location.name.asc' | 'location.name.desc' | 'location.city.asc' | 'location.city.desc' | 'score';
         /**
          * Full-text search across title, description, keywords and address. Wrap the value in double quotes for an exact phrase match.
          *
@@ -2585,6 +2604,14 @@ export type AgendasEventsListData = {
          *
          */
         updatedAt?: {
+            gte?: string;
+            lte?: string;
+        };
+        /**
+         * Restrict by the date OpenAgenda last WROTE inventory on the event — the write clock carried by `availabilityUpdatedAt`, not the rows' own `syncedAt`. As RFC 3339 date-times: `availabilityUpdatedAt[gte]=…&availabilityUpdatedAt[lte]=…`. The inventory counterpart of `updatedAt`, for a consumer following availability: pair it with `sort=availabilityUpdatedAt.asc` and a watermark. Events that never received availability carry no stamp and never match — following inventory does not mean paging through the whole corpus. Same date-time rules as `updatedAt`.
+         *
+         */
+        availabilityUpdatedAt?: {
             gte?: string;
             lte?: string;
         };
@@ -3370,6 +3397,14 @@ export type AgendasEventsFacetsData = {
          *
          */
         updatedAt?: {
+            gte?: string;
+            lte?: string;
+        };
+        /**
+         * Restrict by the date OpenAgenda last WROTE inventory on the event — the write clock carried by `availabilityUpdatedAt`, not the rows' own `syncedAt`. As RFC 3339 date-times: `availabilityUpdatedAt[gte]=…&availabilityUpdatedAt[lte]=…`. The inventory counterpart of `updatedAt`, for a consumer following availability: pair it with `sort=availabilityUpdatedAt.asc` and a watermark. Events that never received availability carry no stamp and never match — following inventory does not mean paging through the whole corpus. Same date-time rules as `updatedAt`.
+         *
+         */
+        availabilityUpdatedAt?: {
             gte?: string;
             lte?: string;
         };

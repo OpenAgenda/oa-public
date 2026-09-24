@@ -616,6 +616,7 @@ export const zEvent = z.object({
     offersAggregate: zOffersAggregate.readonly().optional(),
     createdAt: z.string().datetime({ offset: true }).readonly(),
     updatedAt: z.string().datetime({ offset: true }).readonly(),
+    availabilityUpdatedAt: z.string().datetime({ offset: true }).readonly().optional(),
     accessibility: zAccessibility,
     age: zAgeRange,
     state: zModerationState.readonly(),
@@ -856,6 +857,7 @@ export const zEventFilters = z.object({
     timings: zDateRangeFilter.optional(),
     createdAt: zDateRangeFilter.optional(),
     updatedAt: zDateRangeFilter.optional(),
+    availabilityUpdatedAt: zDateRangeFilter.optional(),
     localTime: z.object({
         gte: z.number().int().optional(),
         lte: z.number().int().optional()
@@ -1500,6 +1502,8 @@ export const zSort = z.enum([
     'lastTimingWithFeatured.asc',
     'updatedAt.asc',
     'updatedAt.desc',
+    'availabilityUpdatedAt.asc',
+    'availabilityUpdatedAt.desc',
     'location.name.asc',
     'location.name.desc',
     'location.city.asc',
@@ -1702,6 +1706,15 @@ export const zFilterUpdatedAt = z.object({
 });
 
 /**
+ * Restrict by the date OpenAgenda last WROTE inventory on the event — the write clock carried by `availabilityUpdatedAt`, not the rows' own `syncedAt`. As RFC 3339 date-times: `availabilityUpdatedAt[gte]=…&availabilityUpdatedAt[lte]=…`. The inventory counterpart of `updatedAt`, for a consumer following availability: pair it with `sort=availabilityUpdatedAt.asc` and a watermark. Events that never received availability carry no stamp and never match — following inventory does not mean paging through the whole corpus. Same date-time rules as `updatedAt`.
+ *
+ */
+export const zFilterAvailabilityUpdatedAt = z.object({
+    gte: z.string().datetime({ offset: true }).optional(),
+    lte: z.string().datetime({ offset: true }).optional()
+});
+
+/**
  * Restrict to events whose intended audience age range overlaps the given bounds, in years: `age[gte]=7&age[lte]=12`.
  *
  */
@@ -1767,6 +1780,8 @@ export const zAgendasEventsListQuery = z.object({
         'lastTimingWithFeatured.asc',
         'updatedAt.asc',
         'updatedAt.desc',
+        'availabilityUpdatedAt.asc',
+        'availabilityUpdatedAt.desc',
         'location.name.asc',
         'location.name.desc',
         'location.city.asc',
@@ -1827,6 +1842,10 @@ export const zAgendasEventsListQuery = z.object({
         lte: z.string().datetime({ offset: true }).optional()
     }).optional(),
     updatedAt: z.object({
+        gte: z.string().datetime({ offset: true }).optional(),
+        lte: z.string().datetime({ offset: true }).optional()
+    }).optional(),
+    availabilityUpdatedAt: z.object({
         gte: z.string().datetime({ offset: true }).optional(),
         lte: z.string().datetime({ offset: true }).optional()
     }).optional(),
@@ -2061,6 +2080,10 @@ export const zAgendasEventsFacetsQuery = z.object({
         lte: z.string().datetime({ offset: true }).optional()
     }).optional(),
     updatedAt: z.object({
+        gte: z.string().datetime({ offset: true }).optional(),
+        lte: z.string().datetime({ offset: true }).optional()
+    }).optional(),
+    availabilityUpdatedAt: z.object({
         gte: z.string().datetime({ offset: true }).optional(),
         lte: z.string().datetime({ offset: true }).optional()
     }).optional(),
