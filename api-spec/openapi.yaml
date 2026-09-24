@@ -2231,8 +2231,8 @@ components:
           lastTimingWithFeatured.asc: By last occurrence, featured events first
           updatedAt.asc: Least recently updated first
           updatedAt.desc: Most recently updated first
-          availabilityUpdatedAt.asc: Least recently synced inventory first; events with no inventory last
-          availabilityUpdatedAt.desc: Most recently synced inventory first; events with no inventory last
+          availabilityUpdatedAt.asc: Oldest inventory write first; events with no inventory last
+          availabilityUpdatedAt.desc: Newest inventory write first; events with no inventory last
           location.name.asc: By location name, A→Z
           location.name.desc: By location name, Z→A
           location.city.asc: By city, A→Z
@@ -2650,7 +2650,9 @@ components:
       style: deepObject
       explode: true
       description: >
-        Restrict by inventory sync date, as RFC 3339 date-times:
+        Restrict by the date OpenAgenda last WROTE inventory on the event — the
+        write clock carried by `availabilityUpdatedAt`, not the rows' own
+        `syncedAt`. As RFC 3339 date-times:
         `availabilityUpdatedAt[gte]=…&availabilityUpdatedAt[lte]=…`. The
         inventory counterpart of `updatedAt`, for a consumer following
         availability: pair it with `sort=availabilityUpdatedAt.asc` and a
@@ -4805,10 +4807,20 @@ components:
             its own — `?sort=availabilityUpdatedAt.asc&availabilityUpdatedAt[gte]=<watermark>`.
 
             Its value is the instant OpenAgenda last WROTE an availability row
-            of this event — the write clock, so it is monotonic and a watermark
-            set on it never misses a later write. It is not the rows' own
-            `syncedAt`, which says when each provider was read and may sit
-            behind another provider's row.
+            of this event — the write clock. It is not the rows' own `syncedAt`,
+            which says when each provider was read and may sit behind another
+            provider's row, so a max-of-`syncedAt` would not move forward at all
+            for such a provider.
+
+            THE STAMP IS TAKEN AT THE WRITE, THE DOCUMENT IS INDEXED AFTER, and
+            the two orders can differ: an event stamped at t1 may be indexed
+            after one stamped at t2 > t1, and a consumer that has already moved
+            its watermark to t2 would never see it. Re-indexing is also
+            best-effort — a failed resync is retried later, not at the instant
+            of the write. So overlap rather than trust exhaustiveness: page with
+            a watermark set a little behind the newest value you saw (a few
+            minutes covers the ordinary case), and make your ingestion
+            idempotent. Rows carry `syncedAt`, so re-reading one costs nothing.
 
             ABSENT from an event that has never received availability, which is
             the overwhelming majority. A `[gte]` filter therefore excludes them
@@ -5319,6 +5331,11 @@ components:
         timings: { $ref: '#/components/schemas/DateRangeFilter' }
         createdAt: { $ref: '#/components/schemas/DateRangeFilter' }
         updatedAt: { $ref: '#/components/schemas/DateRangeFilter' }
+        # Le curseur d'inventaire est accepté ici comme sur le listing : les
+        # deux routes de facettes passent par `buildEventSearchQuery`, qui le
+        # lit depuis ce lot. Déclaré dans la foulée, sinon les deux surfaces
+        # divergent — le filtre marcherait sans être écrit nulle part.
+        availabilityUpdatedAt: { $ref: '#/components/schemas/DateRangeFilter' }
         localTime:
           type: object
           properties: { gte: { type: integer }, lte: { type: integer } }
