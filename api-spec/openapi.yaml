@@ -3957,9 +3957,57 @@ components:
           type: [string, 'null']
           enum: [free, paid, donation, mixed, unknown, null]
           description: >
-            A category, never an amount. `mixed` means the sources or the
-            occurrences disagree (one date free, another paid); `unknown` means
-            no source carries a usable pricing.
+            A category, never an amount — the amounts are in `price`. `mixed`
+            means the sources or the occurrences disagree (one date free,
+            another paid); `unknown` means no source carries a usable pricing.
+        price:
+          allOf:
+            - $ref: '#/components/schemas/OffersPrice'
+          description: >
+            The event's price bounds, over the same resolved tier sets as
+            `pricing` — so the two can never disagree, and a `free` event
+            cannot carry a non-zero minimum.
+
+    OffersPrice:
+      type: [object, 'null']
+      additionalProperties: false
+      required: [minCents, maxCents, currency]
+      description: >
+        What the event's ticketing costs, in the smallest unit of its currency.
+
+        ALL OR NOTHING. `null` whenever a single tier cannot be read as an
+        amount - a membership at no stated price, a source that declared its
+        pricing before pushing a catalogue - or when the contributing sources
+        do not share one currency. A bound computed over part of a price list
+        is wrong in both directions: the unreadable tier could sit below the
+        minimum as easily as above the maximum. "Unknown" is an answer; "from
+        EUR 18" when a EUR 9 tier exists is not.
+
+        These bounds replace what a consumer was told to compute itself. T16
+        removed `priceRanges` on the grounds that "the tiers carry every price,
+        and a consumer wanting 'from X' computes min(tiers[].priceCents)" - but
+        the tiers are `read: ['internal']` and reach no public response, so that
+        computation was never available to anyone. This is the only figure a
+        public reader gets.
+      properties:
+        minCents:
+          type: integer
+          minimum: 0
+          description: >
+            The cheapest way in. Zero on a free event, and on a
+            pay-what-you-want tier that declares no floor.
+        maxCents:
+          type: [integer, 'null']
+          minimum: 0
+          description: >
+            `null` means OPEN-ENDED, not "unknown": a pay-what-you-want tier has
+            a floor and no ceiling, and publishing its floor as a ceiling would
+            misstate what a visitor may give.
+        currency:
+          type: string
+          description: >
+            ISO 4217, upper-case. A source carries one currency; bounds are only
+            served when every contributing source agrees on it.
 
     AgeRange:
       type: [object, 'null']
