@@ -45,6 +45,12 @@ uikit, not `@chakra-ui/react`). Source of truth:
 | Prebuilt components  | [`src/components/`](../src/components/)                      | OA-authored (`Heading`, `NoBreak`, `Surface`)                                                       |
 | Snippets             | [`src/snippets/`](../src/snippets/)                          | Chakra composition snippets (Dialog, Field, Tooltip, Tag, …)                                        |
 
+Palettes (values in `tokens/colors.ts`, roles in `semanticTokens/colors.ts`):
+`primary` for actions and links, `oaGray` for neutrals, `darkPurple` for the
+agenda header, `warning` and `danger` for states, and `sand`, a warm tint for
+content set apart from the live agenda — the archives bar first. Use a palette
+through `colorPalette` and its semantic roles, never its steps directly.
+
 ### Import surfaces
 
 ```ts

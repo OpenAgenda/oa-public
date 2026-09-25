@@ -62,6 +62,20 @@ export const colors = defineTokens.colors({
     800: { value: '#822727' },
     900: { value: '#63171b' },
   },
+  // A warm, paper-like tint: content set apart from the live agenda — its
+  // archives first. Pairs with darkPurple and the page's grey ground.
+  sand: {
+    50: { value: '#fbf7ef' },
+    100: { value: '#f4ead7' },
+    200: { value: '#e8d7b5' },
+    300: { value: '#d9c191' },
+    400: { value: '#c7a76f' },
+    500: { value: '#b08d55' },
+    600: { value: '#8f7143' },
+    700: { value: '#6b5532' },
+    800: { value: '#4d3d24' },
+    900: { value: '#3b2f1c' },
+  },
   darkPurple: {
     50: { value: '#A79EA9' },
     100: { value: '#948896' },
