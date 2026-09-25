@@ -33,20 +33,20 @@
 # Build (multi-arch, push to YOUR registry — do not depend on a hub image):
 #   docker buildx build -f public/mcp/llrt.Dockerfile \
 #     --platform linux/amd64,linux/arm64 \
-#     -t <registry>/oa-mcp-llrt:v0.8.1-beta --push public/mcp
+#     -t <registry>/oa-mcp-llrt:v0.9.0-beta --push public/mcp
 # Then seed the µVM host: `msb pull <registry>/oa-mcp-llrt@sha256:…` and set
 #   OA_MICROSANDBOX_IMAGE=<registry>/oa-mcp-llrt@sha256:…  OA_SANDBOX_RUNTIME=llrt
 # (no OA_LLRT_BIN — llrt is on PATH in the image).
 
 # syntax=docker/dockerfile:1
 
-ARG LLRT_VERSION=v0.8.1-beta
+ARG LLRT_VERSION=v0.9.0-beta
 # sha256 of llrt-linux-<arch>-no-sdk.zip (refresh-llrt-image.sh keeps these current).
-ARG LLRT_SHA256_AMD64=3425ab6ae041d123ec9f89756ed8562975b4e2acd715f83900803c08f12a16b1
-ARG LLRT_SHA256_ARM64=0c68affe61db85a5e7c58d9cde6dc66774306dcc18d26ad221a524bfd6e23921
+ARG LLRT_SHA256_AMD64=08f247140363119f5dd54a9ed3d51b35d83ffe6fc4c487ed90f6f7645c5dd840
+ARG LLRT_SHA256_ARM64=ab582e0d60e570781c72f4615ba12271b14344278646edbaa2ed7c0214933a04
 # gcr.io/distroless/cc:nonroot MULTI-ARCH INDEX digest (NOT a per-platform manifest,
 # so a single FROM resolves the right child for amd64 AND arm64).
-ARG DISTROLESS_DIGEST=sha256:e1fd250ce83d94603e9887ec991156a6c26905a6b0001039b7a43699018c0733
+ARG DISTROLESS_DIGEST=sha256:54df941ed0d06a1bd95ef5e0ce391fd8d9f94b64782dc9a60062727849ee3f97
 
 # Fetch + checksum-verify the llrt binary in a throwaway stage (the final distroless
 # image has no curl/unzip). `ADD --checksum` can't switch URL+hash per arch in one
