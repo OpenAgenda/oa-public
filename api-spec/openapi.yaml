@@ -1720,14 +1720,14 @@ components:
           refreshUrl: https://openagenda.com/api/auth/oauth2/token
           scopes:
             me:read: Read your profile, agendas and roles
-            agendas:read: Read agendas and their configuration
+            agendas:read: Read agendas
             agendas:write: Create, configure and delete agendas
             events:read: Read events
             events:write: Create, edit and delete events
             drafts:read: Read your event drafts
             events:transverse: Search events across all agendas
             locations:read: Read locations
-            locations:write: Create, edit, merge, transfer and delete locations
+            locations:write: Create, edit and delete locations
             geocoding:use: Turn addresses into coordinates, and back
             members:read: Read members
             members:write: Invite, manage and contact members
