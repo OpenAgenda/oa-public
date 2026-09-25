@@ -1729,7 +1729,7 @@ components:
             locations:read: Read locations
             locations:write: Create, edit, merge, transfer and delete locations
             geocoding:use: Turn addresses into coordinates, and back
-            members:read: Read members and their personal data
+            members:read: Read members
             members:write: Invite, manage and contact members
             media:write: Upload files
             bookings:read: Read bookings
