@@ -1719,23 +1719,21 @@ components:
           tokenUrl: https://openagenda.com/api/auth/oauth2/token
           refreshUrl: https://openagenda.com/api/auth/oauth2/token
           scopes:
-            me:read: >-
-              See who you are, the agendas you take part in and your roles on
-              them.
-            agendas:read: Read the agendas you have access to
+            me:read: Read your profile, agendas and roles
+            agendas:read: Read agendas and their configuration
             agendas:write: Create, configure and delete agendas
-            events:read: Read the events you have access to
-            events:write: Create, modify and delete events
-            drafts:read: Read your unpublished event drafts
-            events:transverse: Search events across several agendas
-            locations:read: Read agenda locations
-            locations:write: Create, modify, merge and transfer locations
-            geocoding:use: Use the geocoding services
-            members:read: Read agenda members
-            members:write: Invite, manage and contact agenda members
-            media:write: Upload images and other media
-            bookings:read: Read the bookings attached to events
-            conversations:write: Send messages about events
+            events:read: Read events
+            events:write: Create, edit and delete events
+            drafts:read: Read your event drafts
+            events:transverse: Search events across all agendas
+            locations:read: Read locations
+            locations:write: Create, edit, merge, transfer and delete locations
+            geocoding:use: Turn addresses into coordinates, and back
+            members:read: Read members and their personal data
+            members:write: Invite, manage and contact members
+            media:write: Upload files
+            bookings:read: Read bookings
+            conversations:write: Write in OpenAgenda messaging
     secretKey:
       type: http
       scheme: bearer
