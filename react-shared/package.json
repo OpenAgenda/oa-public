@@ -73,7 +73,7 @@
     "@babel/preset-react": "^7.27.1",
     "@loadable/component": "^5.14.1",
     "@openagenda/babel-preset": "^2.0.1",
-    "@openagenda/bs-templates": "^2.6.2",
+    "@openagenda/bs-templates": "^2.6.3",
     "@openagenda/eslint-config": "^2.2.0",
     "@storybook/addon-webpack5-compiler-babel": "^4.0.1",
     "@storybook/preset-scss": "^1.0.3",

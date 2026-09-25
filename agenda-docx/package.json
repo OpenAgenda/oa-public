@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-docx",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "type": "module",
   "main": "server/index.js",
   "author": "Kaoré <support@openagenda.com>",
@@ -39,7 +39,7 @@
   "devDependencies": {
     "@babel/cli": "^7.28.3",
     "@openagenda/babel-preset": "^2.0.1",
-    "@openagenda/bs-templates": "^2.6.2",
+    "@openagenda/bs-templates": "^2.6.3",
     "@openagenda/eslint-config": "^2.2.0",
     "@storybook/addon-webpack5-compiler-babel": "^4.0.1",
     "@storybook/react-webpack5": "^10.5.7",

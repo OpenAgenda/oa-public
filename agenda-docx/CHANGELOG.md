@@ -1,5 +1,13 @@
 # Change Log
 
+## 2.1.1
+
+### Patch Changes
+
+- [#477](https://github.com/OpenAgenda/oa/pull/477) [`b823501`](https://github.com/OpenAgenda/oa/commit/b823501aa720ffc4b3245722336b0383152b6910) Thanks [@kaore](https://github.com/kaore)! - Name the country `FR` "France", no longer "France (Métropole)".
+
+  The ISO code covers the whole French Republic, overseas departments included, so a location in La Réunion or Guadeloupe was exported under a label that denied where it was. `RE` also reads "La Réunion" in French and "Réunion" in English.
+
 ## 2.1.0
 
 ### Minor Changes

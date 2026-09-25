@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.1.0
+
+### Minor Changes
+
+- [#453](https://github.com/OpenAgenda/oa/pull/453) [`568c2d4`](https://github.com/OpenAgenda/oa/commit/568c2d4030d3e530cb6677a2c94dad6113ed27d8) Thanks [@bertho-zero](https://github.com/bertho-zero)! - The responsive `Image` built by `responsiveImage`, `responsiveImageFromServed` and `injectResponsiveImage` no longer carries `credits`. Image credits belong to the owning resource's `imageCredits`.
+
 ## 2.0.0
 
 ### Major Changes

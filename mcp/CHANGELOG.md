@@ -1,5 +1,47 @@
 # @openagenda/mcp
 
+## 1.5.0
+
+### Minor Changes
+
+- [#454](https://github.com/OpenAgenda/oa/pull/454) [`1bf2383`](https://github.com/OpenAgenda/oa/commit/1bf2383122a3a9cfdaad373a055fa688a6211fdc) Thanks [@bertho-zero](https://github.com/bertho-zero)! - A `search_docs` card says which credentials its operation accepts.
+
+  The contract has always declared them, and the server derived them for the protected-resource metadata, but no card rendered them: an agent holding a publishable key could only learn that a write needs a secret key from the prose of each operation. Every rich card now carries a derived `Auth:` line - the alternatives as the contract states them, scopes included - and the preamble glosses the scheme names once per response.
+
+  A parameter whose description names another parameter is also rendered in full rather than compacted to its bare name: `fields` states that it overrides `detailed`, a rule the card carried nowhere else.
+
+- [#462](https://github.com/OpenAgenda/oa/pull/462) [`ed358e7`](https://github.com/OpenAgenda/oa/commit/ed358e7cc676ca43d6c49a70012096f5c3226244) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Say on each card what a failed call answers with.
+
+  A card rendered the `2xx` body and nothing else: `successBody` filters to 2xx by
+  design, and the component collector read only the success body, the request and
+  the parameters. `Error` was therefore defined on no card, ever, and an agent
+  learned the envelope by hitting it - response descriptions are not rendered
+  either, so nothing else carried it.
+
+  Each card now names the shape every declared error status answers with, and the
+  Components section defines those shapes like any other type. The bare `Error` is
+  named too rather than left implicit: it is the one type every caller needs, and
+  naming it is what makes the section define it.
+
+### Patch Changes
+
+- [#492](https://github.com/OpenAgenda/oa/pull/492) [`ff36338`](https://github.com/OpenAgenda/oa/commit/ff36338ef6f598172c8424737d6e0b261df29b00) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Pin the µVM image to llrt v0.9.0-beta. On earlier versions every SDK call carrying a body (`oa.agendas.events.create`, `patch`, `update`, uploads…) failed with `TypeError: not a function` after the request had reached the API.
+
+- [#462](https://github.com/OpenAgenda/oa/pull/462) [`0cc4bd7`](https://github.com/OpenAgenda/oa/commit/0cc4bd78c3111c57dda42a7401e8a4d0d2938543) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Say a thing once, at the level that owns it.
+
+  A `search_docs` card renders no response description, so the contract had to repeat on the operation whatever a response said. The card now renders the description of a response an operation declares itself, and gives every compacted parameter its type. The merged-location fact, written three times on each of the two location gets, is written once - on the response that answers it - and the schema keeps the shape.
+
+- [#460](https://github.com/OpenAgenda/oa/pull/460) [`1436d8d`](https://github.com/OpenAgenda/oa/commit/1436d8d321a73975f3aa8a90c9989dfbd72e6dcc) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Both READMEs call the read-only key a public key.
+
+  The contract, the reference page and the MCP cards name it `publicKey`, after the
+  product, which says "Clé publique" in every locale. The two published READMEs
+  still said "publishable", and the MCP one still vouched for the key being safe in
+  a browser - a claim the product stopped making, because a key minted before the
+  public lock still reads with its owner's rights on v2.
+
+- Updated dependencies [[`9599773`](https://github.com/OpenAgenda/oa/commit/95997737d230087fc1dc03c9e373d8fe397d32ec), [`29cfdf5`](https://github.com/OpenAgenda/oa/commit/29cfdf557557879cd4bf169d04e9b3c45a8a40e8), [`4de3439`](https://github.com/OpenAgenda/oa/commit/4de3439e9fc250f38fde4d2a5ee98e0b5233ece3), [`374f867`](https://github.com/OpenAgenda/oa/commit/374f867c6d059996f8370f2cacc8a0fb42ab5f7d), [`3bde115`](https://github.com/OpenAgenda/oa/commit/3bde115a5ab5b3f4c58c27fd2f329cd57b577e53), [`1259c8b`](https://github.com/OpenAgenda/oa/commit/1259c8ba02c7835fb654125c37f66d3fd33ab9c4), [`727fdbb`](https://github.com/OpenAgenda/oa/commit/727fdbb4b5d60a13279fa6cc2580ccfe2c12fac4), [`37b64d4`](https://github.com/OpenAgenda/oa/commit/37b64d465ba6e5bfc6e8b37d714e166de7a77d62), [`95eafc9`](https://github.com/OpenAgenda/oa/commit/95eafc96bad1be178deb1ba23587a0369d440519), [`0cc4bd7`](https://github.com/OpenAgenda/oa/commit/0cc4bd78c3111c57dda42a7401e8a4d0d2938543), [`c8a5581`](https://github.com/OpenAgenda/oa/commit/c8a558168950de863fbded1907e4003cba19cb24), [`8fec416`](https://github.com/OpenAgenda/oa/commit/8fec41695a74dc5c113c0ab89f0d64eb6a4ad879), [`a3e1e5e`](https://github.com/OpenAgenda/oa/commit/a3e1e5e1301d8e528ee363bb3f37c7a01fea2ae1), [`cd63c81`](https://github.com/OpenAgenda/oa/commit/cd63c810511edca49c9817e52d2b046c5635de47)]:
+  - @openagenda/api-spec@0.5.0
+
 ## 1.4.0
 
 ### Minor Changes
