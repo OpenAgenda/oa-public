@@ -72,5 +72,11 @@
       "type": 0,
       "value": "Hizivait an daolenn-mañ evit rollañ ar pennadoù : klik a-zehou warni, ha dibabit « Hizivaat ar maeziennoù »."
     }
+  ],
+  "word-exports.unspecified": [
+    {
+      "type": 0,
+      "value": "N'eo ket resisaet"
+    }
   ]
 }

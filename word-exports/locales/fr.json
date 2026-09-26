@@ -9,5 +9,6 @@
   "word-exports.noEvents": "Aucun événement ne correspond à cette sélection.",
   "word-exports.registration": "Inscription :",
   "word-exports.tableOfContents": "Sommaire",
-  "word-exports.tableOfContentsPlaceholder": "Mettez cette table à jour pour lister les chapitres : clic droit dessus, puis « Mettre à jour les champs »."
+  "word-exports.tableOfContentsPlaceholder": "Mettez cette table à jour pour lister les chapitres : clic droit dessus, puis « Mettre à jour les champs ».",
+  "word-exports.unspecified": "Non renseigné"
 }

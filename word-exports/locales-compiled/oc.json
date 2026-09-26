@@ -72,5 +72,11 @@
       "type": 0,
       "value": "Metètz aquesta taula a jorn per listar los capítols : clic drech dessús, puèi « Metre a jorn los camps »."
     }
+  ],
+  "word-exports.unspecified": [
+    {
+      "type": 0,
+      "value": "Pas precisat"
+    }
   ]
 }

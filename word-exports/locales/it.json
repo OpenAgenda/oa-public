@@ -9,5 +9,6 @@
   "word-exports.noEvents": "Nessun evento corrisponde a questa selezione.",
   "word-exports.registration": "Iscrizione:",
   "word-exports.tableOfContents": "Sommario",
-  "word-exports.tableOfContentsPlaceholder": "Aggiorna questa tabella per elencare i capitoli: clic destro su di essa, poi «Aggiorna campo»."
+  "word-exports.tableOfContentsPlaceholder": "Aggiorna questa tabella per elencare i capitoli: clic destro su di essa, poi «Aggiorna campo».",
+  "word-exports.unspecified": "Non specificato"
 }

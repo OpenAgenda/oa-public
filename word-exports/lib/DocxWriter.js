@@ -19,6 +19,18 @@ import styles from './styles.js';
 // so `word/document.xml` is deflated and sent while the events are still
 // arriving. Only the relationships (one line per link or picture) and the
 // pictures, queued behind the document part, are held until the end.
+export const OUTPUT_CLOSED = 'ERR_OUTPUT_CLOSED';
+
+function outputClosedError() {
+  const error = new Error(
+    'The output was closed before the document was complete',
+  );
+
+  error.code = OUTPUT_CLOSED;
+
+  return error;
+}
+
 export default class DocxWriter {
   constructor(output, { title, eventTitleLevel, updateFields }) {
     this.archive = archiver('zip', { zlib: { level: 6 } });
@@ -30,10 +42,20 @@ export default class DocxWriter {
     this.closed = false;
 
     this.done = new Promise((resolve, reject) => {
-      output.once('close', resolve);
-      output.once('finish', resolve);
-      output.once('error', reject);
-      this.archive.once('error', reject);
+      let finished = false;
+
+      output.once('finish', () => {
+        finished = true;
+        resolve();
+      });
+      // Closed before everything was written: the reader went away.
+      output.once('close', () => {
+        if (!finished) reject(outputClosedError());
+      });
+      // `on`, not `once`: an abort can make either emit more than one error,
+      // and an error with no listener brings the process down.
+      output.on('error', reject);
+      this.archive.on('error', reject);
     });
     // The caller learns of a failure through `done`, or through the writes.
     this.done.then(
@@ -70,9 +92,7 @@ export default class DocxWriter {
   async write(xml) {
     // The reader went away (a download cancelled): stop generating rather
     // than buffer a document nobody will read.
-    if (this.closed) {
-      throw new Error('The output was closed before the document was complete');
-    }
+    if (this.closed) throw outputClosedError();
 
     if (!this.body.write(xml)) {
       await Promise.race([once(this.body, 'drain'), this.done]);
@@ -125,7 +145,11 @@ export default class DocxWriter {
       name: 'word/_rels/document.xml.rels',
     });
 
-    await this.archive.finalize();
+    if (this.closed) throw outputClosedError();
+
+    // `finalize` never settles if the reader goes away while the pictures
+    // and the relationships are flushed: `done` settles either way.
+    await Promise.race([this.archive.finalize(), this.done]);
     await this.done;
   }
 

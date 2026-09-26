@@ -9,5 +9,6 @@
   "word-exports.noEvents": "Ningún evento corresponde a esta selección.",
   "word-exports.registration": "Inscripción:",
   "word-exports.tableOfContents": "Índice",
-  "word-exports.tableOfContentsPlaceholder": "Actualice esta tabla para listar los capítulos: haga clic derecho sobre ella y elija «Actualizar campos»."
+  "word-exports.tableOfContentsPlaceholder": "Actualice esta tabla para listar los capítulos: haga clic derecho sobre ella y elija «Actualizar campos».",
+  "word-exports.unspecified": "No especificado"
 }

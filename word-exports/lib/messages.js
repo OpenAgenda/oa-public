@@ -10,6 +10,10 @@ export default defineMessages({
     defaultMessage:
       'Update this table to list the chapters: right-click it, then choose "Update field".',
   },
+  unspecified: {
+    id: 'word-exports.unspecified',
+    defaultMessage: 'Unspecified',
+  },
   noEvents: {
     id: 'word-exports.noEvents',
     defaultMessage: 'No event matches this selection.',

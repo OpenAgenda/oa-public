@@ -72,5 +72,11 @@
       "type": 0,
       "value": "Mettez cette table à jour pour lister les chapitres : clic droit dessus, puis « Mettre à jour les champs »."
     }
+  ],
+  "word-exports.unspecified": [
+    {
+      "type": 0,
+      "value": "Non renseigné"
+    }
   ]
 }

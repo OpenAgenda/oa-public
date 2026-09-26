@@ -1,6 +1,6 @@
 import { getLocaleValue } from '@openagenda/intl';
 import logs from '@openagenda/logs';
-import DocxWriter from '../lib/DocxWriter.js';
+import DocxWriter, { OUTPUT_CLOSED } from '../lib/DocxWriter.js';
 import getIntl from '../lib/intl.js';
 import messages from '../lib/messages.js';
 import mapOrdered from '../lib/mapOrdered.js';
@@ -11,6 +11,7 @@ import renderEvent from './renderEvent.js';
 import renderSections, {
   LOCATION_SECTION,
   firstChangedLevel,
+  sectionIdentities,
   sectionValues,
 } from './renderSections.js';
 
@@ -53,7 +54,8 @@ function documentHeader(writer, agenda, { lang, intl, sections }) {
 // Streams a Word document listing the events of `eventStream`, in their order,
 // into `writeStream`. `sections` are the sort keys the events arrive sorted by:
 // each one is a level of chapters, with a heading wherever its value changes.
-// Resolves once the document is written.
+// Resolves once the document is written, or with `interrupted` when the
+// reader went away before the end.
 export default async function GenerateExportStream(
   config,
   eventStream,
@@ -93,7 +95,7 @@ export default async function GenerateExportStream(
   });
 
   let count = 0;
-  let previousValues = null;
+  let previousIdentities = null;
 
   try {
     await writer.write(documentHeader(writer, agenda, renderOptions));
@@ -110,7 +112,8 @@ export default async function GenerateExportStream(
     for await (const { event, image } of items) {
       if (sections) {
         const values = sectionValues(event, sections, lang);
-        const level = firstChangedLevel(values, previousValues);
+        const identities = sectionIdentities(event, sections, values);
+        const level = firstChangedLevel(identities, previousIdentities);
 
         if (level !== -1) {
           await writer.write(
@@ -118,7 +121,7 @@ export default async function GenerateExportStream(
           );
         }
 
-        previousValues = values;
+        previousIdentities = identities;
       }
 
       await writer.write(renderEvent(writer, event, image, renderOptions));
@@ -132,6 +135,21 @@ export default async function GenerateExportStream(
 
     await writer.end();
   } catch (error) {
+    // A download cancelled midway is no failure: the reader went away and the
+    // event stream was destroyed with the response.
+    if (
+      writer.closed
+      || [OUTPUT_CLOSED, 'ERR_STREAM_PREMATURE_CLOSE'].includes(error.code)
+    ) {
+      log.info('Generation interrupted', {
+        ...logBundle,
+        eventsGenerated: count,
+      });
+      writer.abort(error);
+
+      return { count, interrupted: true };
+    }
+
     log.error('Generation failed', {
       ...logBundle,
       error,

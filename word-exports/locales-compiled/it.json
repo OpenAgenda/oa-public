@@ -72,5 +72,11 @@
       "type": 0,
       "value": "Aggiorna questa tabella per elencare i capitoli: clic destro su di essa, poi «Aggiorna campo»."
     }
+  ],
+  "word-exports.unspecified": [
+    {
+      "type": 0,
+      "value": "Non specificato"
+    }
   ]
 }

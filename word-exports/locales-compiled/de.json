@@ -72,5 +72,11 @@
       "type": 0,
       "value": "Aktualisieren Sie dieses Verzeichnis, um die Kapitel aufzulisten: Rechtsklick darauf, dann „Felder aktualisieren“."
     }
+  ],
+  "word-exports.unspecified": [
+    {
+      "type": 0,
+      "value": "Nicht angegeben"
+    }
   ]
 }

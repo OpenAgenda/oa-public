@@ -8,7 +8,8 @@ const SIZE = 200;
 
 // The event's picture as a square JPEG, or null when there is none or it
 // cannot be fetched: an item then simply has no picture. Re-encoding keeps
-// the file small and turns the formats Word cannot show (WebP) into JPEG.
+// the file small and turns the formats Word cannot show (WebP) into JPEG. No
+// retry: a missing picture is fine, a stalled download is not.
 export default async function thumbnail(event, { timeout = 10000 } = {}) {
   const thumb = event.image?.variants?.find((v) => v.type === 'thumbnail');
 
@@ -18,7 +19,9 @@ export default async function thumbnail(event, { timeout = 10000 } = {}) {
   const url = `https://img.openagenda.com/u/${SIZE}x${SIZE}/${crop}cibul/${thumb.filename}`;
 
   try {
-    const source = Buffer.from(await ky.get(url, { timeout }).arrayBuffer());
+    const source = Buffer.from(
+      await ky.get(url, { timeout, retry: 0 }).arrayBuffer(),
+    );
 
     return await sharp(source)
       .resize(SIZE, SIZE, { fit: 'cover' })

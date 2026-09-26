@@ -9,5 +9,6 @@
   "word-exports.noEvents": "Keine Veranstaltung entspricht dieser Auswahl.",
   "word-exports.registration": "Anmeldung:",
   "word-exports.tableOfContents": "Inhaltsverzeichnis",
-  "word-exports.tableOfContentsPlaceholder": "Aktualisieren Sie dieses Verzeichnis, um die Kapitel aufzulisten: Rechtsklick darauf, dann „Felder aktualisieren“."
+  "word-exports.tableOfContentsPlaceholder": "Aktualisieren Sie dieses Verzeichnis, um die Kapitel aufzulisten: Rechtsklick darauf, dann „Felder aktualisieren“.",
+  "word-exports.unspecified": "Nicht angegeben"
 }

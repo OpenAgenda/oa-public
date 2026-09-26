@@ -72,5 +72,11 @@
       "type": 0,
       "value": "Update this table to list the chapters: right-click it, then choose \"Update field\"."
     }
+  ],
+  "word-exports.unspecified": [
+    {
+      "type": 0,
+      "value": "Unspecified"
+    }
   ]
 }

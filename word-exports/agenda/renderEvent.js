@@ -2,13 +2,13 @@ import { getLocaleValue } from '@openagenda/intl';
 import {
   EMU_PER_CM,
   borderlessRow,
-  hyperlink,
   inlineImage,
   paragraph,
   run,
 } from '../lib/xml.js';
 import { TEXT_WIDTH } from '../lib/parts.js';
 import messages from '../lib/messages.js';
+import linkOrText from '../lib/links.js';
 
 const accessibilityKeys = ['ii', 'hi', 'vi', 'pi', 'mi'];
 
@@ -20,12 +20,6 @@ export function googleMapsLink(location) {
   const query = [location.name, location.address].filter(Boolean).join(' ');
 
   return `https://www.google.com/maps?q=${encodeURIComponent(query)}`;
-}
-
-function linkOrText(writer, url, text = url) {
-  return /^(https?:|mailto:)/.test(url)
-    ? hyperlink(writer.link(url), text)
-    : run(text);
 }
 
 function registrationLine(writer, event, intl) {
@@ -106,13 +100,15 @@ export function eventParagraphs(writer, event, options) {
 
   if (
     includeLocation
-    && !locationInSection
+    // An event with no place name sits under « Unspecified »: its address
+    // is still worth a line.
+    && !(locationInSection && location?.name)
     && (location?.name || location?.address)
   ) {
     const label = [location.name, location.address].filter(Boolean).join(' - ');
 
     paragraphs.push(
-      paragraph(hyperlink(writer.link(googleMapsLink(location)), label), {
+      paragraph(linkOrText(writer, googleMapsLink(location), label), {
         style: 'EventDetail',
       }),
     );
@@ -136,7 +132,7 @@ export function eventParagraphs(writer, event, options) {
     const url = `https://openagenda.com/${agenda.slug}/events/${event.slug}`;
 
     paragraphs.push(
-      paragraph(hyperlink(writer.link(url), url), { style: 'EventDetail' }),
+      paragraph(linkOrText(writer, url), { style: 'EventDetail' }),
     );
   }
 

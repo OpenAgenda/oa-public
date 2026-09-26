@@ -72,5 +72,11 @@
       "type": 0,
       "value": "Werk deze tabel bij om de hoofdstukken te tonen: klik er met de rechtermuisknop op en kies „Veld bijwerken”."
     }
+  ],
+  "word-exports.unspecified": [
+    {
+      "type": 0,
+      "value": "Niet opgegeven"
+    }
   ]
 }

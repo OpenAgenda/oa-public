@@ -72,5 +72,11 @@
       "type": 0,
       "value": "Actualice esta tabla para listar los capítulos: haga clic derecho sobre ella y elija «Actualizar campos»."
     }
+  ],
+  "word-exports.unspecified": [
+    {
+      "type": 0,
+      "value": "No especificado"
+    }
   ]
 }

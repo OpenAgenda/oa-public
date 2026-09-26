@@ -9,5 +9,6 @@
   "word-exports.noEvents": "Cap d'eveniment correspond pas a aquesta seleccion.",
   "word-exports.registration": "Inscripcion :",
   "word-exports.tableOfContents": "Ensenhador",
-  "word-exports.tableOfContentsPlaceholder": "Metètz aquesta taula a jorn per listar los capítols : clic drech dessús, puèi « Metre a jorn los camps »."
+  "word-exports.tableOfContentsPlaceholder": "Metètz aquesta taula a jorn per listar los capítols : clic drech dessús, puèi « Metre a jorn los camps ».",
+  "word-exports.unspecified": "Pas precisat"
 }

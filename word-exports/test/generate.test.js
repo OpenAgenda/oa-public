@@ -123,6 +123,66 @@ describe('agenda Word export', () => {
     assert.ok(document);
   });
 
+  test('two venues sharing a name are two sections, each with its details', async () => {
+    const [a, b] = albiEvents;
+    const place = (uid, address) => ({
+      ...a.location,
+      uid,
+      name: 'Médiathèque',
+      address,
+    });
+    const events = [
+      { ...a, location: place(1, '1 rue d’Albi') },
+      { ...b, location: place(2, '2 rue de Castres') },
+    ];
+
+    const { count, document } = await generate(events, {
+      sections: ['location.name'],
+    });
+
+    assert.equal(count(/<w:pStyle w:val="Heading1"\/>/g), 2);
+    assert.match(document, /rue d’Albi/);
+    assert.match(document, /rue de Castres/);
+  });
+
+  test('events without a value get an « Unspecified » section of their own', async () => {
+    const [a, b] = albiEvents;
+    const events = [
+      a,
+      { ...b, location: { ...b.location, name: null, address: 'En ligne' } },
+    ];
+
+    const { count, document } = await generate(events, {
+      sections: ['location.name'],
+      lang: 'fr',
+    });
+
+    assert.equal(count(/<w:pStyle w:val="Heading1"\/>/g), 2);
+    assert.match(document, /Non renseigné/);
+    // Its address is not in a heading's details: the item keeps it.
+    assert.match(document, /En ligne/);
+  });
+
+  test('links Word would reject are encoded, or left as text', async () => {
+    const [event] = albiEvents;
+    const { parts, document } = await generate([
+      {
+        ...event,
+        registration: [
+          { type: 'link', value: 'https://site.fr/inscription formulaire' },
+          { type: 'email', value: 'jean dupont@x.fr' },
+          { type: 'link', value: 'not a url' },
+        ],
+      },
+    ]);
+    const rels = parts['word/_rels/document.xml.rels'];
+
+    assert.match(rels, /Target="https:\/\/site\.fr\/inscription%20formulaire"/);
+    assert.match(rels, /Target="mailto:jean%20dupont@x\.fr"/);
+    assert.doesNotMatch(rels, /Target="[^"]* [^"]*"/);
+    assert.match(document, /not a url/);
+  });
+
   test('the include options leave lines out', async () => {
     const event = albiEvents.find(
       (e) => e.description?.fr && e.registration?.length,
@@ -219,6 +279,31 @@ describe('agenda Word export', () => {
 
     assert.match(document, /A &amp; B &lt;c&gt; &quot;d&quot;/);
     assert.match(document, /one<\/w:t><w:br\/><w:t xml:space="preserve">two/);
+  });
+
+  test('a reader going away interrupts the generation, without failing it', async () => {
+    const events = Readable.from(
+      (async function* slow() {
+        for (const event of albiEvents) {
+          yield event;
+          await new Promise((r) => {
+            setTimeout(r, 1);
+          });
+        }
+      }()),
+    );
+    const output = new PassThrough();
+
+    output.once('data', () => output.destroy());
+
+    const result = await WordExports().agenda.GenerateExportStream(
+      events,
+      output,
+      { agenda },
+    );
+
+    assert.equal(result.interrupted, true);
+    assert.ok(result.count < albiEvents.length);
   });
 
   test('a failing event stream fails the generation and the output', async () => {
