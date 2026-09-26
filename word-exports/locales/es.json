@@ -1,0 +1,13 @@
+{
+  "word-exports.access": "Acceso: {access}",
+  "word-exports.accessibility": "Accesibilidad: {list}",
+  "word-exports.accessibility.hi": "discapacidad auditiva",
+  "word-exports.accessibility.ii": "discapacidad intelectual",
+  "word-exports.accessibility.mi": "discapacidad motriz",
+  "word-exports.accessibility.pi": "discapacidad psíquica",
+  "word-exports.accessibility.vi": "discapacidad visual",
+  "word-exports.noEvents": "Ningún evento corresponde a esta selección.",
+  "word-exports.registration": "Inscripción:",
+  "word-exports.tableOfContents": "Índice",
+  "word-exports.tableOfContentsPlaceholder": "Actualice esta tabla para listar los capítulos: haga clic derecho sobre ella y elija «Actualizar campos»."
+}

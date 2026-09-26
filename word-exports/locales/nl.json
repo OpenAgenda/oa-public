@@ -1,0 +1,13 @@
+{
+  "word-exports.access": "Toegang: {access}",
+  "word-exports.accessibility": "Toegankelijkheid: {list}",
+  "word-exports.accessibility.hi": "gehoorbeperking",
+  "word-exports.accessibility.ii": "verstandelijke beperking",
+  "word-exports.accessibility.mi": "motorische beperking",
+  "word-exports.accessibility.pi": "psychische beperking",
+  "word-exports.accessibility.vi": "visuele beperking",
+  "word-exports.noEvents": "Geen evenement komt overeen met deze selectie.",
+  "word-exports.registration": "Inschrijving:",
+  "word-exports.tableOfContents": "Inhoudsopgave",
+  "word-exports.tableOfContentsPlaceholder": "Werk deze tabel bij om de hoofdstukken te tonen: klik er met de rechtermuisknop op en kies „Veld bijwerken”."
+}

@@ -1,0 +1,76 @@
+{
+  "word-exports.access": [
+    {
+      "type": 0,
+      "value": "Accesso: "
+    },
+    {
+      "type": 1,
+      "value": "access"
+    }
+  ],
+  "word-exports.accessibility": [
+    {
+      "type": 0,
+      "value": "Accessibilità: "
+    },
+    {
+      "type": 1,
+      "value": "list"
+    }
+  ],
+  "word-exports.accessibility.hi": [
+    {
+      "type": 0,
+      "value": "disabilità uditiva"
+    }
+  ],
+  "word-exports.accessibility.ii": [
+    {
+      "type": 0,
+      "value": "disabilità intellettiva"
+    }
+  ],
+  "word-exports.accessibility.mi": [
+    {
+      "type": 0,
+      "value": "disabilità motoria"
+    }
+  ],
+  "word-exports.accessibility.pi": [
+    {
+      "type": 0,
+      "value": "disabilità psichica"
+    }
+  ],
+  "word-exports.accessibility.vi": [
+    {
+      "type": 0,
+      "value": "disabilità visiva"
+    }
+  ],
+  "word-exports.noEvents": [
+    {
+      "type": 0,
+      "value": "Nessun evento corrisponde a questa selezione."
+    }
+  ],
+  "word-exports.registration": [
+    {
+      "type": 0,
+      "value": "Iscrizione:"
+    }
+  ],
+  "word-exports.tableOfContents": [
+    {
+      "type": 0,
+      "value": "Sommario"
+    }
+  ],
+  "word-exports.tableOfContentsPlaceholder": [
+    {
+      "type": 0,
+      "value": "Aggiorna questa tabella per elencare i capitoli: clic destro su di essa, poi «Aggiorna campo»."
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "word-exports.access": "Accesso: {access}",
+  "word-exports.accessibility": "Accessibilità: {list}",
+  "word-exports.accessibility.hi": "disabilità uditiva",
+  "word-exports.accessibility.ii": "disabilità intellettiva",
+  "word-exports.accessibility.mi": "disabilità motoria",
+  "word-exports.accessibility.pi": "disabilità psichica",
+  "word-exports.accessibility.vi": "disabilità visiva",
+  "word-exports.noEvents": "Nessun evento corrisponde a questa selezione.",
+  "word-exports.registration": "Iscrizione:",
+  "word-exports.tableOfContents": "Sommario",
+  "word-exports.tableOfContentsPlaceholder": "Aggiorna questa tabella per elencare i capitoli: clic destro su di essa, poi «Aggiorna campo»."
+}

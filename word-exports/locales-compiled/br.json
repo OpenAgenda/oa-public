@@ -1,0 +1,76 @@
+{
+  "word-exports.access": [
+    {
+      "type": 0,
+      "value": "Moned : "
+    },
+    {
+      "type": 1,
+      "value": "access"
+    }
+  ],
+  "word-exports.accessibility": [
+    {
+      "type": 0,
+      "value": "Haezadusted : "
+    },
+    {
+      "type": 1,
+      "value": "list"
+    }
+  ],
+  "word-exports.accessibility.hi": [
+    {
+      "type": 0,
+      "value": "nammded klevet"
+    }
+  ],
+  "word-exports.accessibility.ii": [
+    {
+      "type": 0,
+      "value": "nammded skiantel"
+    }
+  ],
+  "word-exports.accessibility.mi": [
+    {
+      "type": 0,
+      "value": "nammded fiñval"
+    }
+  ],
+  "word-exports.accessibility.pi": [
+    {
+      "type": 0,
+      "value": "nammded bredel"
+    }
+  ],
+  "word-exports.accessibility.vi": [
+    {
+      "type": 0,
+      "value": "nammded gwelet"
+    }
+  ],
+  "word-exports.noEvents": [
+    {
+      "type": 0,
+      "value": "Darvoud ebet ne glot gant an dibab-mañ."
+    }
+  ],
+  "word-exports.registration": [
+    {
+      "type": 0,
+      "value": "Enskrivadur :"
+    }
+  ],
+  "word-exports.tableOfContents": [
+    {
+      "type": 0,
+      "value": "Taolenn"
+    }
+  ],
+  "word-exports.tableOfContentsPlaceholder": [
+    {
+      "type": 0,
+      "value": "Hizivait an daolenn-mañ evit rollañ ar pennadoù : klik a-zehou warni, ha dibabit « Hizivaat ar maeziennoù »."
+    }
+  ]
+}

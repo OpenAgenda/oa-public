@@ -1,0 +1,13 @@
+{
+  "word-exports.access": "Zugang: {access}",
+  "word-exports.accessibility": "Barrierefreiheit: {list}",
+  "word-exports.accessibility.hi": "Hörbehinderung",
+  "word-exports.accessibility.ii": "geistige Behinderung",
+  "word-exports.accessibility.mi": "Körperbehinderung",
+  "word-exports.accessibility.pi": "psychische Behinderung",
+  "word-exports.accessibility.vi": "Sehbehinderung",
+  "word-exports.noEvents": "Keine Veranstaltung entspricht dieser Auswahl.",
+  "word-exports.registration": "Anmeldung:",
+  "word-exports.tableOfContents": "Inhaltsverzeichnis",
+  "word-exports.tableOfContentsPlaceholder": "Aktualisieren Sie dieses Verzeichnis, um die Kapitel aufzulisten: Rechtsklick darauf, dann „Felder aktualisieren“."
+}

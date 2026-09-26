@@ -1,0 +1,13 @@
+{
+  "word-exports.access": "Accès : {access}",
+  "word-exports.accessibility": "Accessibilitat : {list}",
+  "word-exports.accessibility.hi": "handicap auditiu",
+  "word-exports.accessibility.ii": "handicap intellectual",
+  "word-exports.accessibility.mi": "handicap motor",
+  "word-exports.accessibility.pi": "handicap psiquic",
+  "word-exports.accessibility.vi": "handicap visual",
+  "word-exports.noEvents": "Cap d'eveniment correspond pas a aquesta seleccion.",
+  "word-exports.registration": "Inscripcion :",
+  "word-exports.tableOfContents": "Ensenhador",
+  "word-exports.tableOfContentsPlaceholder": "Metètz aquesta taula a jorn per listar los capítols : clic drech dessús, puèi « Metre a jorn los camps »."
+}

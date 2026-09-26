@@ -1,0 +1,76 @@
+{
+  "word-exports.access": [
+    {
+      "type": 0,
+      "value": "Accès : "
+    },
+    {
+      "type": 1,
+      "value": "access"
+    }
+  ],
+  "word-exports.accessibility": [
+    {
+      "type": 0,
+      "value": "Accessibilité : "
+    },
+    {
+      "type": 1,
+      "value": "list"
+    }
+  ],
+  "word-exports.accessibility.hi": [
+    {
+      "type": 0,
+      "value": "handicap auditif"
+    }
+  ],
+  "word-exports.accessibility.ii": [
+    {
+      "type": 0,
+      "value": "handicap intellectuel"
+    }
+  ],
+  "word-exports.accessibility.mi": [
+    {
+      "type": 0,
+      "value": "handicap moteur"
+    }
+  ],
+  "word-exports.accessibility.pi": [
+    {
+      "type": 0,
+      "value": "handicap psychique"
+    }
+  ],
+  "word-exports.accessibility.vi": [
+    {
+      "type": 0,
+      "value": "handicap visuel"
+    }
+  ],
+  "word-exports.noEvents": [
+    {
+      "type": 0,
+      "value": "Aucun événement ne correspond à cette sélection."
+    }
+  ],
+  "word-exports.registration": [
+    {
+      "type": 0,
+      "value": "Inscription :"
+    }
+  ],
+  "word-exports.tableOfContents": [
+    {
+      "type": 0,
+      "value": "Sommaire"
+    }
+  ],
+  "word-exports.tableOfContentsPlaceholder": [
+    {
+      "type": 0,
+      "value": "Mettez cette table à jour pour lister les chapitres : clic droit dessus, puis « Mettre à jour les champs »."
+    }
+  ]
+}

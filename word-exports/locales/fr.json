@@ -1,0 +1,13 @@
+{
+  "word-exports.access": "Accès : {access}",
+  "word-exports.accessibility": "Accessibilité : {list}",
+  "word-exports.accessibility.hi": "handicap auditif",
+  "word-exports.accessibility.ii": "handicap intellectuel",
+  "word-exports.accessibility.mi": "handicap moteur",
+  "word-exports.accessibility.pi": "handicap psychique",
+  "word-exports.accessibility.vi": "handicap visuel",
+  "word-exports.noEvents": "Aucun événement ne correspond à cette sélection.",
+  "word-exports.registration": "Inscription :",
+  "word-exports.tableOfContents": "Sommaire",
+  "word-exports.tableOfContentsPlaceholder": "Mettez cette table à jour pour lister les chapitres : clic droit dessus, puis « Mettre à jour les champs »."
+}

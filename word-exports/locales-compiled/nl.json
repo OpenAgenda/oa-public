@@ -1,0 +1,76 @@
+{
+  "word-exports.access": [
+    {
+      "type": 0,
+      "value": "Toegang: "
+    },
+    {
+      "type": 1,
+      "value": "access"
+    }
+  ],
+  "word-exports.accessibility": [
+    {
+      "type": 0,
+      "value": "Toegankelijkheid: "
+    },
+    {
+      "type": 1,
+      "value": "list"
+    }
+  ],
+  "word-exports.accessibility.hi": [
+    {
+      "type": 0,
+      "value": "gehoorbeperking"
+    }
+  ],
+  "word-exports.accessibility.ii": [
+    {
+      "type": 0,
+      "value": "verstandelijke beperking"
+    }
+  ],
+  "word-exports.accessibility.mi": [
+    {
+      "type": 0,
+      "value": "motorische beperking"
+    }
+  ],
+  "word-exports.accessibility.pi": [
+    {
+      "type": 0,
+      "value": "psychische beperking"
+    }
+  ],
+  "word-exports.accessibility.vi": [
+    {
+      "type": 0,
+      "value": "visuele beperking"
+    }
+  ],
+  "word-exports.noEvents": [
+    {
+      "type": 0,
+      "value": "Geen evenement komt overeen met deze selectie."
+    }
+  ],
+  "word-exports.registration": [
+    {
+      "type": 0,
+      "value": "Inschrijving:"
+    }
+  ],
+  "word-exports.tableOfContents": [
+    {
+      "type": 0,
+      "value": "Inhoudsopgave"
+    }
+  ],
+  "word-exports.tableOfContentsPlaceholder": [
+    {
+      "type": 0,
+      "value": "Werk deze tabel bij om de hoofdstukken te tonen: klik er met de rechtermuisknop op en kies „Veld bijwerken”."
+    }
+  ]
+}
