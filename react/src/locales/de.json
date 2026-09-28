@@ -9,6 +9,7 @@
   "react.components.AgendaExportModal.PDFIncludeImage": "Das Bild",
   "react.components.AgendaExportModal.PDFIncludeLocation": "Die Angaben zum Veranstaltungsort",
   "react.components.AgendaExportModal.PDFIncludeRegistration": "Die Anmeldeinformationen",
+  "react.components.AgendaExportModal.WordIncludeAccessibility": "Die Angaben zur Barrierefreiheit",
   "react.components.AgendaExportModal.chronological": "Chronologische reihenfolge",
   "react.components.AgendaExportModal.close": "Schließen",
   "react.components.AgendaExportModal.horizontalLayout": "Veranstaltungen als horizontale Karten anzeigen",

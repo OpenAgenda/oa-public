@@ -9,6 +9,7 @@
   "react.components.AgendaExportModal.PDFIncludeImage": "Ar skeudenn",
   "react.components.AgendaExportModal.PDFIncludeLocation": "Munudoù al lec'h",
   "react.components.AgendaExportModal.PDFIncludeRegistration": "Titouroù an enskrivañ",
+  "react.components.AgendaExportModal.WordIncludeAccessibility": "An titouroù haezadusted",
   "react.components.AgendaExportModal.cancel": "Nullañ",
   "react.components.AgendaExportModal.close": "Serriñ",
   "react.components.AgendaExportModal.copied": "Eilet",

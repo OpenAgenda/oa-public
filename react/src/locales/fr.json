@@ -13,6 +13,7 @@
   "react.components.AgendaExportModal.PDFIncludeRegistration": "Les informations d'inscription",
   "react.components.AgendaExportModal.PDFSelectPlaceholder": "Segments",
   "react.components.AgendaExportModal.PDFSelectSub": "Choisissez une ou plusieurs valeurs",
+  "react.components.AgendaExportModal.WordIncludeAccessibility": "Les informations d'accessibilité",
   "react.components.AgendaExportModal.allFields": "Exporter tous les champs",
   "react.components.AgendaExportModal.allLanguages": "Exporter dans toutes les langues",
   "react.components.AgendaExportModal.cancel": "Annuler",

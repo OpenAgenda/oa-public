@@ -11,6 +11,7 @@
   "react.components.AgendaExportModal.PDFIncludeLocation": "I dettagli del luogo",
   "react.components.AgendaExportModal.PDFIncludeRegistration": "Le informazioni di iscrizione",
   "react.components.AgendaExportModal.PDFSelectSub": "Selezionare uno o più valori",
+  "react.components.AgendaExportModal.WordIncludeAccessibility": "Le informazioni sull'accessibilità",
   "react.components.AgendaExportModal.allFields": "Esportare tutte le informazione",
   "react.components.AgendaExportModal.allLanguages": "Esportare tutte le lingue",
   "react.components.AgendaExportModal.cancel": "Annullare",

@@ -166,7 +166,12 @@ export default function DocumentAccordionItem({
               onCheckedChange={(e) => setIncludeAccessibility(!!e.checked)}
               w="fit-content"
             >
-              {intl.formatMessage(messages.PDFIncludeAccessibility)}
+              {/* Word writes accessibility as text, the PDF as icons. */}
+              {intl.formatMessage(
+                format === 'docx'
+                  ? messages.WordIncludeAccessibility
+                  : messages.PDFIncludeAccessibility,
+              )}
             </Checkbox>
             <Checkbox
               checked={includeLocation}
@@ -197,7 +202,10 @@ export default function DocumentAccordionItem({
           onClick={onSubmit({
             format,
             locationInHeader,
-            sort: sort.concat('lastTimingWithFeatured.asc'),
+            // A sort picked, then the sections unticked: the document has none.
+            sort: (useSections ? sort : []).concat(
+              'lastTimingWithFeatured.asc',
+            ),
             includeFields,
           })}
         >
