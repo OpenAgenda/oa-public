@@ -3,51 +3,74 @@ import { useIntl } from 'react-intl';
 import { Button, Link, Flex, Text } from '@openagenda/uikit';
 import { Tag } from '@openagenda/uikit/snippets';
 import { FontAwesomeIcon as FaIcon } from '@fortawesome/react-fontawesome';
-import { faFilePdf } from '@fortawesome/free-regular-svg-icons';
+import { faFilePdf, faFileWord } from '@fortawesome/free-regular-svg-icons';
 import AccordionItem from '../AccordionItem';
 import type { Agenda, Event } from '../../types';
 import messages from './messages';
 
-export default function DownloadPDF({
+type DocumentFormat = 'pdf' | 'docx';
+
+// What differs between the two documents: the title, the icon and the
+// feedback email, which names the export being tried.
+const formats = {
+  pdf: {
+    title: messages.downloadPDF,
+    icon: faFilePdf,
+    feedbackSubject: messages.feedbackEmailSubject,
+    feedbackBody: messages.feedbackEmailBody,
+  },
+  docx: {
+    title: messages.downloadWord,
+    icon: faFileWord,
+    feedbackSubject: messages.feedbackEmailSubjectWord,
+    feedbackBody: messages.feedbackEmailBodyWord,
+  },
+};
+
+// The event as a document to print or edit: one accordion item per format.
+export default function DownloadDocument({
+  format,
   rootUrl,
   agenda,
   event,
   contentLocale,
 }: {
+  format: DocumentFormat;
   rootUrl: string;
   agenda: Agenda;
   event: Event;
   contentLocale: string;
 }): React.JSX.Element {
   const intl = useIntl();
+  const { title, icon, feedbackSubject, feedbackBody } = formats[format];
 
   // `?lang` is what the renderer picks its content and its labels with. Without
   // it the web `/api` mount falls back to the reader's own culture (or `fr`), so
   // a PDF asked for from an event displayed in one language came out in another.
-  const pdfUrl = useMemo(() => {
+  const documentUrl = useMemo(() => {
     const url = new URL(
-      `/api/agendas/${agenda.uid}/events/${event.uid}.pdf`,
+      `/api/agendas/${agenda.uid}/events/${event.uid}.${format}`,
       rootUrl,
     );
     if (contentLocale) {
       url.searchParams.set('lang', contentLocale);
     }
     return url.toString();
-  }, [rootUrl, agenda.uid, event.uid, contentLocale]);
+  }, [format, rootUrl, agenda.uid, event.uid, contentLocale]);
 
   const eventUrl = `https://openagenda.com/agendas/${agenda.uid}/events/${event.uid}`;
   const mailtoHref = `mailto:support@openagenda.com?subject=${encodeURIComponent(
-    intl.formatMessage(messages.feedbackEmailSubject),
+    intl.formatMessage(feedbackSubject),
   )}&body=${encodeURIComponent(
-    intl.formatMessage(messages.feedbackEmailBody, { eventUrl }),
+    intl.formatMessage(feedbackBody, { eventUrl }),
   )}`;
 
   return (
     <AccordionItem
-      value="pdf"
+      value={format}
       title={(
         <>
-          {intl.formatMessage(messages.downloadPDF)}
+          {intl.formatMessage(title)}
           <Tag
             bgColor="transparent"
             border="1px solid"
@@ -67,12 +90,12 @@ export default function DownloadPDF({
         <Button asChild>
           <Link
             unstyled
-            href={pdfUrl}
+            href={documentUrl}
             download
             target="_blank"
             rel="noopener nofollow"
           >
-            <FaIcon icon={faFilePdf} />
+            <FaIcon icon={icon} />
             {intl.formatMessage(messages.download)}
           </Link>
         </Button>
