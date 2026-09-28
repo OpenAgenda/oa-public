@@ -316,7 +316,7 @@ export type LocationList = {
  */
 export type EventFormSchema = {
     /**
-     * The fields of the merged schema readable at the caller's access level - native event fields (with any per-agenda overrides applied) and the agenda's/network's additional fields (`schemaId` non-null). A field whose `read` access levels exclude the caller is omitted.
+     * The fields of the merged schema readable at the caller's access level - native event fields (with any per-agenda overrides applied) and the agenda's/network's additional fields (`schemaId` non-null). A field whose `read` access levels exclude the caller is omitted, and so is a field only the platform writes.
      *
      */
     fields: Array<FormSchemaField>;
@@ -329,10 +329,15 @@ export type EventFormSchema = {
  */
 export type FormSchemaField = {
     /**
-     * Field name — the key the value is carried under on events. Absent on section separators.
+     * Field name. Absent on section separators.
      *
      */
     field?: string;
+    /**
+     * Where the field's value lives on an event, as a dotted path: `additionalFields.<field>` for an additional field, the field name itself for a native one. Absent on section separators.
+     *
+     */
+    path?: string;
     /**
      * Field kind, which sets the shape of the value (e.g. `text`, `radio`, `number`, `image`).
      *
@@ -365,7 +370,7 @@ export type FormSchemaField = {
      */
     enable?: boolean;
     /**
-     * The field is only active when another field has a value: either that field's name, or `{ field, value }` to require specific values (e.g. `onlineAccessLink` enabled when `attendanceMode` is online or mixed).
+     * The field is only active when another field has a value: either that field's name, or `{ field, value }` to require specific values (e.g. `onlineAccessLink` enabled when `attendanceMode` is online or mixed). While inactive, the field is not required, whatever `optional` says, and a value sent for it is discarded.
      *
      */
     enableWith?: unknown;
@@ -374,6 +379,16 @@ export type FormSchemaField = {
      *
      */
     optionalWith?: unknown;
+    /**
+     * Access levels allowed to read the field's value. `null` or empty means every caller.
+     *
+     */
+    read?: Array<string> | null;
+    /**
+     * Access levels allowed to write the field's value. `null` or empty means every caller allowed to write events on the agenda; otherwise your member role must be listed, and a value you send for the field answers `422` with an `unauthorized` issue on it.
+     *
+     */
+    write?: Array<string> | null;
     /**
      * Set on a field converted from an earlier agenda setting: what it was converted from.
      *

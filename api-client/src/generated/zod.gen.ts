@@ -204,6 +204,7 @@ export const zLocationList = z.object({
  */
 export const zFormSchemaField = z.object({
     field: z.string().optional(),
+    path: z.string().optional(),
     fieldType: z.string().optional(),
     type: z.string().optional(),
     slug: z.string().optional(),
@@ -216,6 +217,8 @@ export const zFormSchemaField = z.object({
     enable: z.boolean().optional(),
     enableWith: z.unknown().optional(),
     optionalWith: z.unknown().optional(),
+    read: z.array(z.string()).nullish(),
+    write: z.array(z.string()).nullish(),
     origin: z.enum([
         'tags',
         'categories',
