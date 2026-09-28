@@ -6,9 +6,8 @@ import { FontAwesomeIcon as FaIcon } from '@fortawesome/react-fontawesome';
 import { faFilePdf, faFileWord } from '@fortawesome/free-regular-svg-icons';
 import AccordionItem from '../AccordionItem';
 import type { Agenda, Event } from '../../types';
+import type { DocumentFormat } from '../AgendaExportModal/types';
 import messages from './messages';
-
-type DocumentFormat = 'pdf' | 'docx';
 
 // What differs between the two documents: the title, the icon, the feedback
 // email, which names the export being tried, and the « new » badge, for the
