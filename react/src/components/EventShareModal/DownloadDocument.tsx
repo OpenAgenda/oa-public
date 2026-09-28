@@ -10,20 +10,23 @@ import messages from './messages';
 
 type DocumentFormat = 'pdf' | 'docx';
 
-// What differs between the two documents: the title, the icon and the
-// feedback email, which names the export being tried.
+// What differs between the two documents: the title, the icon, the feedback
+// email, which names the export being tried, and the « new » badge, for the
+// export that has just arrived.
 const formats = {
   pdf: {
     title: messages.downloadPDF,
     icon: faFilePdf,
     feedbackSubject: messages.feedbackEmailSubject,
     feedbackBody: messages.feedbackEmailBody,
+    isNew: false,
   },
   docx: {
     title: messages.downloadWord,
     icon: faFileWord,
     feedbackSubject: messages.feedbackEmailSubjectWord,
     feedbackBody: messages.feedbackEmailBodyWord,
+    isNew: true,
   },
 };
 
@@ -42,7 +45,7 @@ export default function DownloadDocument({
   contentLocale: string;
 }): React.JSX.Element {
   const intl = useIntl();
-  const { title, icon, feedbackSubject, feedbackBody } = formats[format];
+  const { title, icon, feedbackSubject, feedbackBody, isNew } = formats[format];
 
   // `?lang` is what the renderer picks its content and its labels with. Without
   // it the web `/api` mount falls back to the reader's own culture (or `fr`), so
@@ -71,18 +74,20 @@ export default function DownloadDocument({
       title={(
         <>
           {intl.formatMessage(title)}
-          <Tag
-            bgColor="transparent"
-            border="1px solid"
-            borderColor="primary.500"
-            color="primary.500"
-            variant="solid"
-            borderRadius="full"
-            fontWeight="bold"
-            marginLeft={2}
-          >
-            {intl.formatMessage(messages.new)}
-          </Tag>
+          {isNew ? (
+            <Tag
+              bgColor="transparent"
+              border="1px solid"
+              borderColor="primary.500"
+              color="primary.500"
+              variant="solid"
+              borderRadius="full"
+              fontWeight="bold"
+              marginLeft={2}
+            >
+              {intl.formatMessage(messages.new)}
+            </Tag>
+          ) : null}
         </>
       )}
     >
