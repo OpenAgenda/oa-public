@@ -1,6 +1,6 @@
 import { getLocaleValue } from '@openagenda/intl';
 import logs from '@openagenda/logs';
-import DocxWriter, { OUTPUT_CLOSED } from '../lib/DocxWriter.js';
+import DocxWriter, { isReaderGone } from '../lib/DocxWriter.js';
 import getIntl from '../lib/intl.js';
 import messages from '../lib/messages.js';
 import mapOrdered from '../lib/mapOrdered.js';
@@ -137,10 +137,7 @@ export default async function GenerateExportStream(
   } catch (error) {
     // A download cancelled midway is no failure: the reader went away and the
     // event stream was destroyed with the response.
-    if (
-      writer.closed
-      || [OUTPUT_CLOSED, 'ERR_STREAM_PREMATURE_CLOSE'].includes(error.code)
-    ) {
+    if (isReaderGone(error)) {
       log.info('Generation interrupted', {
         ...logBundle,
         eventsGenerated: count,

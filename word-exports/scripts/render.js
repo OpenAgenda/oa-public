@@ -1,13 +1,15 @@
 // Renders the fixture agenda in a few variants into `word-test/` (or
 // WORD_TEST_FOLDER), to open in Word or LibreOffice. Pictures are fetched for
 // real.
-/* eslint-disable no-console */
 import fs from 'node:fs';
 import path from 'node:path';
 import { Readable } from 'node:stream';
+import logs from '@openagenda/logs';
 import WordExports from '../index.js';
 import agenda from '../test/fixtures/albi.agenda.json' with { type: 'json' };
 import events from '../test/fixtures/albi.events.json' with { type: 'json' };
+
+const log = logs('scripts/render');
 
 const folder = path.resolve(process.env.WORD_TEST_FOLDER ?? 'word-test');
 
@@ -51,5 +53,8 @@ for (const [name, options] of Object.entries(variants)) {
     { agenda, lang: 'fr', ...options },
   );
 
-  console.log(`${file} (${Math.round(fs.statSync(file).size / 1024)} KB)`);
+  log.info('written', {
+    file,
+    kilobytes: Math.round(fs.statSync(file).size / 1024),
+  });
 }

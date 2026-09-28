@@ -33,6 +33,20 @@ export function eventImageUrl(image, imagePath) {
   return base ? `${base.replace(/\/?$/, '/')}${filename}` : null;
 }
 
+// A picture as the document embeds it: upright, at most MAX_WIDTH wide, as
+// JPEG, and its size in pixels.
+export async function toDocumentJpeg(source) {
+  const { data, info } = await sharp(source)
+    .rotate()
+    .resize({ width: MAX_WIDTH, withoutEnlargement: true })
+    // JPEG has no transparency: a transparent background would turn black.
+    .flatten({ background: '#ffffff' })
+    .jpeg({ quality: 82 })
+    .toBuffer({ resolveWithObject: true });
+
+  return { buffer: data, width: info.width, height: info.height };
+}
+
 // The event's main picture as a JPEG and its size in pixels, or null when it
 // cannot be fetched: the document then goes without.
 export async function fetchEventImage(
@@ -49,13 +63,7 @@ export async function fetchEventImage(
         .get(fromProductionBucket(url), { timeout, retry: 0 })
         .arrayBuffer(),
     );
-    const { data, info } = await sharp(source)
-      .rotate()
-      .resize({ width: MAX_WIDTH, withoutEnlargement: true })
-      .jpeg({ quality: 82 })
-      .toBuffer({ resolveWithObject: true });
-
-    return { buffer: data, width: info.width, height: info.height };
+    return await toDocumentJpeg(source);
   } catch (error) {
     log.warn('could not fetch the event picture', {
       url,
@@ -66,6 +74,8 @@ export async function fetchEventImage(
   }
 }
 
+export const QR_PIXELS = 300;
+
 export function qrCode(url) {
-  return QRCode.toBuffer(url, { type: 'png', width: 300, margin: 1 });
+  return QRCode.toBuffer(url, { type: 'png', width: QR_PIXELS, margin: 1 });
 }

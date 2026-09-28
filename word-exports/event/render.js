@@ -1,6 +1,6 @@
 import { getLocaleValue } from '@openagenda/intl';
 import logs from '@openagenda/logs';
-import DocxWriter, { OUTPUT_CLOSED } from '../lib/DocxWriter.js';
+import DocxWriter, { isReaderGone } from '../lib/DocxWriter.js';
 import getIntl from '../lib/intl.js';
 import messages from '../lib/messages.js';
 import linkOrText from '../lib/links.js';
@@ -14,7 +14,7 @@ import {
   isUnset,
   markdownParagraphs,
 } from '../lib/fieldValues.js';
-import { fetchEventImage, qrCode } from '../lib/eventImage.js';
+import { QR_PIXELS, fetchEventImage, qrCode } from '../lib/eventImage.js';
 import { accessibilityText, registrationRuns } from '../lib/eventLines.js';
 
 const log = logs('event/render');
@@ -23,6 +23,8 @@ const log = logs('event/render');
 const TEXT_WIDTH_EMU = TEXT_WIDTH * 635;
 const MAX_IMAGE_HEIGHT_EMU = 14 * EMU_PER_CM;
 const QR_SIZE_EMU = 3 * EMU_PER_CM;
+// One pixel at 150 dpi: 914400 EMU per inch.
+const EMU_PER_PRINT_PIXEL = 914400 / 150;
 const LOCATION_IMAGE_WIDTH_EMU = 8 * EMU_PER_CM;
 
 // The standard fields shown under « Practical information », in this order,
@@ -34,6 +36,11 @@ const practicalFields = [
   'conditions',
   'age',
 ];
+
+// A field's value: a sub-schema field is named `parent.child` and lives at
+// that path in the event.
+const valueAt = (event, path) =>
+  path.split('.').reduce((value, key) => value?.[key], event);
 
 function fieldLabel(field, { lang, intl }) {
   const label = getLocaleValue(field.label, lang) ?? field.field;
@@ -68,7 +75,13 @@ function picture(
   description,
 ) {
   const ratio = height / width;
-  let emuWidth = Math.min(maxWidth, TEXT_WIDTH_EMU);
+  // Never wider than the picture is at print resolution: a small one is not
+  // stretched into a blur.
+  let emuWidth = Math.min(
+    maxWidth,
+    TEXT_WIDTH_EMU,
+    width * EMU_PER_PRINT_PIXEL,
+  );
   let emuHeight = Math.round(emuWidth * ratio);
 
   if (emuHeight > MAX_IMAGE_HEIGHT_EMU) {
@@ -243,7 +256,8 @@ export default async function renderEvent(
   // Fetched before the first byte: the document then streams without pause.
   const [image, locationImage, qr] = await Promise.all([
     event.image ? fetchImage(event.image, { imagePath }) : null,
-    event.location?.image
+    // Only for a venue the document shows: one with a name or an address.
+    event.location?.image && (event.location.name || event.location.address)
       ? fetchImage(event.location.image, { imagePath })
       : null,
     qrCode(eventUrl),
@@ -307,7 +321,7 @@ export default async function renderEvent(
       ...schemaFields
         .filter(({ schemaType }) => ['network', 'agenda'].includes(schemaType))
         .map((field) =>
-          fieldParagraphs(writer, field, event[field.field], context)),
+          fieldParagraphs(writer, field, valueAt(event, field.field), context)),
     );
 
     const practical = [
@@ -319,7 +333,7 @@ export default async function renderEvent(
             && !(field.field === 'attendanceMode' && event.attendanceMode === 1),
         )
         .map((field) =>
-          fieldParagraphs(writer, field, event[field.field], context)),
+          fieldParagraphs(writer, field, valueAt(event, field.field), context)),
       accessibilityParagraph(event, context),
       registrationParagraph(
         writer,
@@ -345,7 +359,7 @@ export default async function renderEvent(
       paragraph(''),
       picture(
         writer,
-        { buffer: qr, width: 1, height: 1, extension: 'png' },
+        { buffer: qr, width: QR_PIXELS, height: QR_PIXELS, extension: 'png' },
         QR_SIZE_EMU,
         eventUrl,
       ),
@@ -364,7 +378,7 @@ export default async function renderEvent(
     await writer.end();
   } catch (error) {
     // The reader went away, while the pictures were fetched or midway.
-    if (writer.closed || error.code === OUTPUT_CLOSED) {
+    if (isReaderGone(error)) {
       log.info('Event document interrupted', {
         agendaUid: agenda.uid,
         eventUid: event.uid,

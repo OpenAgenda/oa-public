@@ -6669,10 +6669,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/word-exports@workspace:word-exports"
   dependencies:
+    "@openagenda/date-utils": "npm:^0.0.3"
     "@openagenda/eslint-config": "npm:^2.2.0"
     "@openagenda/intl": "npm:^2.1.0"
     "@openagenda/logs": "npm:^1.2.2"
     archiver: "npm:^7.0.1"
+    entities: "npm:^4.5.0"
     fast-xml-parser: "npm:^4.5.6"
     jszip: "npm:^3.9.1"
     ky: "npm:^1.14.0"

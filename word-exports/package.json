@@ -23,13 +23,16 @@
   },
   "scripts": {
     "test": "node --test 'test/*.test.js'",
-    "render": "node scripts/render.js",
-    "extract-messages": "oa-intl 'lib/**/*.js' 'agenda/**/*.js' 'event/**/*.js' --output 'locales/%lang%.json' --compiled 'locales-compiled/%lang%.json' --esm"
+    "render": "DEBUG='scripts*' node scripts/render.js",
+    "extract-messages": "oa-intl 'lib/**/*.js' 'agenda/**/*.js' 'event/**/*.js' --output 'locales/%lang%.json' --compiled 'locales-compiled/%lang%.json' --esm",
+    "render:event": "DEBUG='scripts*' node scripts/renderEvent.js"
   },
   "dependencies": {
+    "@openagenda/date-utils": "^0.0.3",
     "@openagenda/intl": "^2.1.0",
     "@openagenda/logs": "^1.2.2",
     "archiver": "^7.0.1",
+    "entities": "^4.5.0",
     "ky": "^1.14.0",
     "qrcode": "^1.5.4",
     "react-intl": "^10.1.1",

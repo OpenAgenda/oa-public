@@ -25,6 +25,8 @@ export default async function thumbnail(event, { timeout = 10000 } = {}) {
 
     return await sharp(source)
       .resize(SIZE, SIZE, { fit: 'cover' })
+      // JPEG has no transparency: a transparent background would turn black.
+      .flatten({ background: '#ffffff' })
       .jpeg({ quality: 80 })
       .toBuffer();
   } catch (error) {

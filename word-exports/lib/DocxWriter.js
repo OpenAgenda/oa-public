@@ -31,6 +31,13 @@ function outputClosedError() {
   return error;
 }
 
+// Whether `error` means the reader went away (a cancelled download), rather
+// than a failure to report: the output closed early, or the event stream was
+// destroyed along with it.
+export function isReaderGone(error) {
+  return [OUTPUT_CLOSED, 'ERR_STREAM_PREMATURE_CLOSE'].includes(error?.code);
+}
+
 export default class DocxWriter {
   constructor(output, { title, eventTitleLevel, updateFields }) {
     this.archive = archiver('zip', { zlib: { level: 6 } });
@@ -66,12 +73,15 @@ export default class DocxWriter {
       this.archive.on('error', reject);
     });
     // The caller learns of a failure through `done`, or through the writes.
+    // `failure` keeps what closed it: a reader gone (`OUTPUT_CLOSED`) is told
+    // apart from an archive or output error.
     this.done.then(
       () => {
         this.closed = true;
       },
-      () => {
+      (error) => {
         this.closed = true;
+        this.failure = error;
       },
     );
 
@@ -104,7 +114,7 @@ export default class DocxWriter {
   async write(xml) {
     // The reader went away (a download cancelled): stop generating rather
     // than buffer a document nobody will read.
-    if (this.closed) throw outputClosedError();
+    if (this.closed) throw this.failure ?? outputClosedError();
 
     if (!this.body.write(xml)) {
       await Promise.race([once(this.body, 'drain'), this.done]);
@@ -158,7 +168,7 @@ export default class DocxWriter {
       name: 'word/_rels/document.xml.rels',
     });
 
-    if (this.closed) throw outputClosedError();
+    if (this.closed) throw this.failure ?? outputClosedError();
 
     // `finalize` never settles if the reader goes away while the pictures
     // and the relationships are flushed: `done` settles either way.

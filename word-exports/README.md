@@ -37,5 +37,5 @@ await wordExports.agenda.GenerateExportStream(eventStream, res, {
   detail », « Location detail », the headings), so the whole export restyles
   from Word's style pane.
 
-`yarn render` writes a few variants of the fixture agenda to `word-test/`, with
+`yarn render` (and `yarn render:event`, for single events) writes a few variants of the fixture agenda to `word-test/`, with
 real pictures, to open in Word or LibreOffice.

@@ -359,3 +359,169 @@ describe('event Word export, the venue', () => {
     assert.match(rels, /mailto:museum-sciences@nantesmetropole\.fr/);
   });
 });
+
+describe('review fixes', () => {
+  const writer = { link: () => 'rId9' };
+  const text = (xml) =>
+    xml
+      .replace(/<w:br\/>/g, '⏎')
+      .replace(/<\/w:p>/g, '¶')
+      .replace(/<w:t[^>]*>([^<]*)<\/w:t>/g, '$1')
+      .replace(/<[^>]+>/g, '');
+
+  test('HTML in a description keeps its lines and paragraphs, entities decoded', () => {
+    assert.equal(
+      text(
+        markdownParagraphs(
+          writer,
+          '<p>Line one<br>Line two</p><p>Next&nbsp;para &eacute;t&eacute;</p>',
+        ),
+      ),
+      'Line one⏎Line two¶Next para été¶',
+    );
+    assert.equal(
+      text(markdownParagraphs(writer, 'line<br/>break')),
+      'line⏎break¶',
+    );
+  });
+
+  test('a reference link keeps its URL', () => {
+    const xml = markdownParagraphs(
+      writer,
+      'See [site][1]\n\n[1]: https://x.example',
+    );
+
+    assert.match(xml, /<w:hyperlink r:id="rId9"/);
+    assert.equal(text(xml), 'See site¶');
+  });
+
+  test('a list marker goes on the item’s first block only, whatever its kind', () => {
+    assert.equal(
+      text(
+        markdownParagraphs(
+          writer,
+          '- > quote a\n  >\n  > quote b\n- ## heading item',
+        ),
+      ),
+      '• quote a¶quote b¶• heading item¶',
+    );
+  });
+
+  test('days read weekday first, in English too', () => {
+    const [month] = groupTimings(
+      [
+        { begin: '2026-09-30T08:00:00Z', end: '2026-09-30T16:00:00Z' },
+        { begin: '2026-09-29T08:00:00Z', end: '2026-09-29T16:00:00Z' },
+      ],
+      { timezone: 'Europe/Paris', lang: 'en' },
+    );
+
+    assert.equal(month.days[0].label, 'Tuesday 29 – Wednesday 30');
+  });
+
+  test('a transparent picture gets a white background, not a black one', async () => {
+    const { toDocumentJpeg } = await import('../lib/eventImage.js');
+    const png = await sharp({
+      create: {
+        width: 20,
+        height: 20,
+        channels: 4,
+        background: { r: 0, g: 0, b: 0, alpha: 0 },
+      },
+    })
+      .png()
+      .toBuffer();
+
+    const { buffer } = await toDocumentJpeg(png);
+    const { data } = await sharp(buffer)
+      .raw()
+      .toBuffer({ resolveWithObject: true });
+
+    assert.ok(data[0] > 240 && data[1] > 240 && data[2] > 240);
+  });
+
+  test('a small picture is not stretched to the page width', async () => {
+    const small = await sharp({
+      create: { width: 150, height: 100, channels: 3, background: '#36c' },
+    })
+      .jpeg()
+      .toBuffer();
+    const { document } = await render(beglesAgenda, beglesEvent, {
+      config: {
+        fetchImage: async () => ({ buffer: small, width: 150, height: 100 }),
+      },
+    });
+    // 150 px at 150 dpi is one inch: 914400 EMU.
+    assert.match(document, /<wp:extent cx="914400" cy="609600"\/>/);
+  });
+
+  test('a field of a sub-schema is read at its path', async () => {
+    const agenda = {
+      ...beglesAgenda,
+      schema: {
+        fields: [
+          ...beglesAgenda.schema.fields,
+          {
+            field: 'infos',
+            schemaType: 'agenda',
+            schema: {
+              fields: [
+                {
+                  field: 'salle',
+                  fieldType: 'text',
+                  schemaType: 'agenda',
+                  label: { fr: 'Salle' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    };
+    const { document } = await render(agenda, {
+      ...beglesEvent,
+      infos: { salle: 'Auditorium' },
+    });
+
+    assert.match(document, /Salle :.*Auditorium/s);
+  });
+
+  test('a venue with neither name nor address: its picture is not fetched', async () => {
+    const asked = [];
+    await render(
+      beglesAgenda,
+      {
+        ...beglesEvent,
+        location: { image: 'https://cdn.example/venue.jpg' },
+      },
+      {
+        config: {
+          fetchImage: async (image) => {
+            asked.push(image);
+            return null;
+          },
+        },
+      },
+    );
+
+    assert.ok(!asked.includes('https://cdn.example/venue.jpg'));
+  });
+
+  test('only a reader gone is an interruption; other failures are failures', async () => {
+    const { isReaderGone, OUTPUT_CLOSED } = await import(
+      '../lib/DocxWriter.js'
+    );
+
+    assert.equal(
+      isReaderGone(Object.assign(new Error(), { code: OUTPUT_CLOSED })),
+      true,
+    );
+    assert.equal(
+      isReaderGone(
+        Object.assign(new Error(), { code: 'ERR_STREAM_PREMATURE_CLOSE' }),
+      ),
+      true,
+    );
+    assert.equal(isReaderGone(new Error('zlib failed')), false);
+  });
+});

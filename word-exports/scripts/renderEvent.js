@@ -1,9 +1,11 @@
 // Renders fixture events into `word-test/` (or WORD_TEST_FOLDER), to open in
 // Word or LibreOffice. Pictures are fetched for real.
-/* eslint-disable no-console */
 import fs from 'node:fs';
 import path from 'node:path';
+import logs from '@openagenda/logs';
 import WordExports from '../index.js';
+
+const log = logs('scripts/renderEvent');
 
 const folder = path.resolve(process.env.WORD_TEST_FOLDER ?? 'word-test');
 const fixture = (name) =>
@@ -34,5 +36,8 @@ for (const [name, [agendaName, eventName]] of Object.entries(cases)) {
     { lang: process.env.TEST_LANG ?? 'fr' },
   );
 
-  console.log(`${file} (${Math.round(fs.statSync(file).size / 1024)} KB)`);
+  log.info('written', {
+    file,
+    kilobytes: Math.round(fs.statSync(file).size / 1024),
+  });
 }
