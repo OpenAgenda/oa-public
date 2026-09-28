@@ -11,6 +11,9 @@ const messages = defineMessages({
   },
 });
 
+// Elements reachable with Tab. An explicit `tabindex="-1"` takes any of them
+// out of the order — a visually hidden file input, for one — so it must not
+// count as the dialog's first or last stop.
 const FOCUSABLE = [
   'a[href]',
   'area[href]',
@@ -20,8 +23,10 @@ const FOCUSABLE = [
   'textarea:not([disabled])',
   'iframe',
   '[contenteditable]:not([contenteditable="false"])',
-  '[tabindex]:not([tabindex="-1"])',
-].join(',');
+  '[tabindex]',
+]
+  .map((selector) => `${selector}:not([tabindex="-1"])`)
+  .join(',');
 
 // Open modals, most recent last. Only the top one answers Escape and keeps
 // Tab inside itself, so a modal opened from another one behaves on its own.
@@ -52,8 +57,10 @@ function getFocusables(container) {
  *
  * Tab is only turned back at the dialog's own edges: focus sitting outside it
  * — in a dropdown a child renders in a portal, say — is left alone. A child
- * that handles Escape or Tab itself and calls `preventDefault` (an open select
- * menu) keeps the key.
+ * that handles Escape or Tab itself keeps the key, whether it calls
+ * `preventDefault` (a react-select with focus, open or not; a dnd-kit keyboard
+ * drag) or stops the event before it reaches `window` (a floating-ui tooltip).
+ * A dialog without `onClose` ignores Escape.
  */
 export default class Modal extends Component {
   static contextType = IntlContext;
@@ -185,7 +192,10 @@ export default class Modal extends Component {
     this.active = true;
     openModals.push(this);
     this.previousFocus = document.activeElement;
-    document.addEventListener('keydown', this.handleKeyDown);
+    // On `window`, the last stop of the event: a layer inside the dialog that
+    // closes on Escape and stops the event on `document` — a floating-ui
+    // tooltip or popover, rendered in a portal — keeps the key.
+    window.addEventListener('keydown', this.handleKeyDown);
 
     if (!section.contains(document.activeElement)) {
       (getFocusables(section)[0] ?? section).focus();
@@ -201,7 +211,7 @@ export default class Modal extends Component {
 
     this.active = false;
     openModals.splice(openModals.indexOf(this), 1);
-    document.removeEventListener('keydown', this.handleKeyDown);
+    window.removeEventListener('keydown', this.handleKeyDown);
 
     const { activeElement } = document;
     const focusIsLost = !activeElement

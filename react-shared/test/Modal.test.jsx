@@ -2,6 +2,11 @@ import { useState } from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import Modal from '../src/components/Modal.jsx';
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from '../src/components/Tooltip.jsx';
 
 // The outside-click listener is armed with `setImmediate`, which the apps'
 // bundles provide and jsdom does not.
@@ -133,6 +138,23 @@ describe('Modal', () => {
       fireEvent.keyDown(document.activeElement, { key: 'Tab', shiftKey: true });
       expect(document.activeElement).toBe(submit);
     });
+
+    it('skips elements taken out of the tab order at the edges', () => {
+      render(
+        <Opener>
+          <button type="button">Valider</button>
+          <input type="file" tabIndex={-1} aria-label="Fichier" />
+        </Opener>,
+      );
+
+      press(screen.getByRole('button', { name: 'Ouvrir' }));
+      screen.getByRole('button', { name: 'Valider' }).focus();
+      fireEvent.keyDown(document.activeElement, { key: 'Tab' });
+
+      expect(document.activeElement).toBe(
+        screen.getByRole('button', { name: 'Close' }),
+      );
+    });
   });
 
   describe('Escape', () => {
@@ -153,6 +175,27 @@ describe('Modal', () => {
       fireEvent.keyDown(document.activeElement, { key: 'Escape' });
 
       expect(screen.getByRole('dialog')).toBeTruthy();
+    });
+
+    it('is left to a tooltip in a portal, which closes first', () => {
+      render(
+        <Opener>
+          <Tooltip initialOpen>
+            <TooltipTrigger>Aide</TooltipTrigger>
+            <TooltipContent>Explication</TooltipContent>
+          </Tooltip>
+        </Opener>,
+      );
+
+      press(screen.getByRole('button', { name: 'Ouvrir' }));
+      expect(screen.getByText('Explication')).toBeTruthy();
+
+      fireEvent.keyDown(document.activeElement, { key: 'Escape' });
+      expect(screen.queryByText('Explication')).toBeNull();
+      expect(screen.getByRole('dialog')).toBeTruthy();
+
+      fireEvent.keyDown(document.activeElement, { key: 'Escape' });
+      expect(screen.queryByRole('dialog')).toBeNull();
     });
 
     it('closes only the top dialog when one opens another', () => {
