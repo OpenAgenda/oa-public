@@ -1202,21 +1202,38 @@ paths:
           which agendas,
           can I,
           permissions,
+          slug,
+          by slug,
+          find my agenda,
         ]
       x-codeSamples:
         - lang: TypeScript
+          label: Find one of my agendas by its slug
+          source: |
+            const { data, error } = await oa.me.agendas.list({
+              query: { slug: ['festival-des-lumieres'] },
+            });
+            if (error) throw error;
+            return data.data[0] ?? null; // null: not a member, or unknown slug
+        - lang: TypeScript
           label: Which agendas can I write to?
           source: |
-            const { data, error } = await oa.me.agendas.list({});
+            const { data, error } = await oa.me.agendas.list({
+              query: {
+                role: ['administrator', 'moderator', 'contributor'],
+                fields: ['title', 'role'],
+                limit: 100,
+              },
+            });
             if (error) throw error;
-            return data.data
-              .filter((a) => a.role !== 'reader')
-              .map((a) => ({ uid: a.uid, title: a.title, role: a.role }));
+            return data.data;
       description: >
         Returns a cursor-paginated list of the agendas the
         authenticated user is a member of, with their role on each.
         Private agendas the user belongs to ARE included (each item
-        carries a `private` flag).
+        carries a `private` flag), and so are agendas left out of the
+        public directory. Filter by `slug` to resolve an agenda of yours
+        to its uid, and by `role` to keep the memberships you can act on.
       security:
         - secretKey: []
         - oauth2:
@@ -1226,6 +1243,8 @@ paths:
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/Detailed'
         - $ref: '#/components/parameters/Fields'
+        - $ref: '#/components/parameters/MeAgendaFilterSlug'
+        - $ref: '#/components/parameters/MeAgendaFilterRole'
       responses:
         '200':
           description: A page of the caller's agenda memberships.
@@ -1910,11 +1929,39 @@ components:
       name: slug
       in: query
       required: false
-      description: Restrict to these agenda slugs. Repeat the parameter for multiple values.
+      description: >
+        Restrict to these agenda slugs, among the agendas listed in the public
+        directory. Repeat the parameter for multiple values.
       schema:
         type: array
         items:
           type: string
+
+    MeAgendaFilterSlug:
+      name: slug
+      in: query
+      required: false
+      description: >
+        Restrict to your memberships on the agendas carrying these slugs,
+        private agendas and agendas left out of the public directory
+        included. A slug you are not a member of, or that no agenda carries,
+        matches nothing. Repeat the parameter for multiple values.
+      schema:
+        type: array
+        items:
+          type: string
+
+    MeAgendaFilterRole:
+      name: role
+      in: query
+      required: false
+      description: >
+        Restrict to the memberships holding one of these roles. Repeat the
+        parameter for multiple values.
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/MemberRole'
 
     AgendaFilterOfficial:
       name: official
