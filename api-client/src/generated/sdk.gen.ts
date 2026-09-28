@@ -316,7 +316,7 @@ export class Events extends HeyApiClient {
      *
      * Returns the agenda's **merged event form schema** — the dynamic contract the events of this agenda follow. It merges the platform's native event fields with the network's and the agenda's own declarations: an agenda can add its own additional fields and override natives (make one required, restrict its options, relabel it). This is the same schema the OpenAgenda UI uses to build the event form: use it to know which fields exist, which are required and what their options are - e.g. to build payloads for the event write operations, to interpret `additionalFields` on events, or to discover the agenda-specific facets of the facets endpoint.
      *
-     * Descriptors are scoped to your read access: a field whose `read` access levels exclude the caller (e.g. a moderator-only field) is omitted from `fields`, so a public caller sees only the public fields. Fields only the platform writes (the event's `uid`, `slug`, timestamps...) are omitted too.
+     * Descriptors are scoped to your read access: a field whose `read` access levels exclude the caller (e.g. a moderator-only field) is omitted from `fields`, so a public caller sees only the public fields. Native fields the write operations do not take (the event's `uid`, `slug`, timestamps...) are omitted too, and `status` is listed only on an agenda that accepts it.
      *
      */
     public schema<ThrowOnError extends boolean = false>(options: Options<AgendasEventsSchemaData, ThrowOnError>) {

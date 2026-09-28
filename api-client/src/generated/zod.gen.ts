@@ -204,6 +204,7 @@ export const zLocationList = z.object({
  */
 export const zAccessLevel = z.enum([
     'public',
+    'reader',
     'contributor',
     'moderator',
     'administrator',
@@ -212,7 +213,7 @@ export const zAccessLevel = z.enum([
 ]);
 
 /**
- * A form field descriptor. Two kinds share the array: **data field descriptors** (carrying `field`, the key the value lives under on events) and **section separators** (`type: 'section'`, no `field` - structure the form into titled groups). Descriptors may carry keys beyond those listed below.
+ * A form field descriptor. Two kinds share the array: **data field descriptors** (carrying `field` and the `path` of its value) and **section separators** (`type: 'section'`, no `field` - structure the form into titled groups). Descriptors may carry keys beyond those listed below.
  *
  */
 export const zFormSchemaField = z.object({

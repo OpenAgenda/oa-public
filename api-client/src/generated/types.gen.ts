@@ -316,7 +316,7 @@ export type LocationList = {
  */
 export type EventFormSchema = {
     /**
-     * The fields of the merged schema readable at the caller's access level - native event fields (with any per-agenda overrides applied) and the agenda's/network's additional fields (`schemaId` non-null). A field whose `read` access levels exclude the caller is omitted, and so is a field only the platform writes.
+     * The fields of the merged schema readable at the caller's access level - native event fields (with any per-agenda overrides applied) and the agenda's/network's additional fields (`path` under `additionalFields`). A field whose `read` access levels exclude the caller is omitted, and so is a native field the write operations do not take.
      *
      */
     fields: Array<FormSchemaField>;
@@ -324,7 +324,7 @@ export type EventFormSchema = {
 };
 
 /**
- * A form field descriptor. Two kinds share the array: **data field descriptors** (carrying `field`, the key the value lives under on events) and **section separators** (`type: 'section'`, no `field` - structure the form into titled groups). Descriptors may carry keys beyond those listed below.
+ * A form field descriptor. Two kinds share the array: **data field descriptors** (carrying `field` and the `path` of its value) and **section separators** (`type: 'section'`, no `field` - structure the form into titled groups). Descriptors may carry keys beyond those listed below.
  *
  */
 export type FormSchemaField = {
@@ -370,7 +370,7 @@ export type FormSchemaField = {
      */
     enable?: boolean;
     /**
-     * The field is only active when another field has a value: either that field's name, or `{ field, value }` to require specific values (e.g. `onlineAccessLink` enabled when `attendanceMode` is online or mixed). While inactive, the field is not required, whatever `optional` says, and a value sent for it is discarded.
+     * The field is only active when another field has a value: either that field's name, or `{ field, value }` to require specific values (e.g. `onlineAccessLink` enabled when `attendanceMode` is online or mixed). While inactive, the field is not required, whatever `optional` says, and holds no value: one sent is not kept, and a stored one is cleared.
      *
      */
     enableWith?: unknown;
@@ -404,12 +404,12 @@ export type FormSchemaField = {
         [key: string]: unknown;
     }>;
     /**
-     * Identifier of the declaring agenda/network schema. Non-null marks an **additional field**; `null`/absent marks a native one.
+     * Identifier of the agenda or network schema that declared or overrode the field; `null` on a native field as the platform declares it.
      *
      */
     schemaId?: number | null;
     /**
-     * Which level declared the field: `agenda`/`network` for additional fields, `event` for the platform's native event fields.
+     * Which level declared or overrode the field: `agenda` or `network`, or `event` for a native field as the platform declares it.
      *
      */
     schemaType?: 'agenda' | 'network' | 'event' | null;
@@ -420,7 +420,7 @@ export type FormSchemaField = {
  * A level of access to an agenda's data, as the field rules of its event form name them.
  *
  */
-export type AccessLevel = 'public' | 'contributor' | 'moderator' | 'administrator' | 'internal' | 'system';
+export type AccessLevel = 'public' | 'reader' | 'contributor' | 'moderator' | 'administrator' | 'internal' | 'system';
 
 export type MemberRole = 'administrator' | 'moderator' | 'contributor' | 'reader';
 
