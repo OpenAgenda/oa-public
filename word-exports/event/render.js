@@ -188,14 +188,28 @@ function locationSection(writer, location, image, context) {
     typeof location.latitude === 'number'
     && typeof location.longitude === 'number'
   ) {
+    const { latitude: lat, longitude: lng } = location;
+
+    // « See on a map: OpenStreetMap · Google Maps », the reader's choice.
     xml.push(
-      paragraph(
+      paragraph([
+        run(
+          `${intl.formatMessage(messages.fieldLabel, {
+            label: intl.formatMessage(messages.seeOnMap),
+          })} `,
+        ),
         linkOrText(
           writer,
-          `https://www.google.com/maps?q=${location.latitude},${location.longitude}`,
-          intl.formatMessage(messages.seeOnMap),
+          `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lng}#map=17/${lat}/${lng}`,
+          'OpenStreetMap',
         ),
-      ),
+        run(' · '),
+        linkOrText(
+          writer,
+          `https://www.google.com/maps?q=${lat},${lng}`,
+          'Google Maps',
+        ),
+      ]),
     );
   }
 

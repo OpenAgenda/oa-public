@@ -351,8 +351,16 @@ describe('event Word export, the venue', () => {
     assert.ok(asked.includes('https://cdn.example/location.jpg'));
     assert.ok(media.some((m) => m.endsWith('.jpeg')));
     assert.match(document, /Crédits : ©Muséum d'Histoire Naturelle/);
+    // A label, then one link per map service.
+    assert.match(
+      document,
+      /Voir sur une carte : <\/w:t><\/w:r><w:hyperlink[^>]*>.*?OpenStreetMap<\/w:t>.*?<w:hyperlink[^>]*>.*?Google Maps<\/w:t>/,
+    );
+    assert.match(
+      rels,
+      /openstreetmap\.org\/\?mlat=47\.212388&amp;mlon=-1\.56465#map=17\/47\.212388\/-1\.56465/,
+    );
     assert.match(rels, /google\.com\/maps\?q=47\.212388,-1\.56465/);
-    assert.match(document, /Voir sur une carte/);
     assert.match(
       document,
       /Étiquettes : Musée de France, Histoire, Sciences et techniques/,
