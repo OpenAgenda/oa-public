@@ -1143,6 +1143,41 @@ paths:
         ]
       x-codeSamples:
         - lang: TypeScript
+          label: Build an event body from the schema, then dry-run it
+          source: |
+            const agendaUid = 12345;
+            const { data: schema, error } = await oa.agendas.events.schema({
+              path: { agendaUid },
+            });
+            if (error) throw error;
+
+            const body = {
+              title: { fr: 'Concert en ligne' },
+              description: { fr: 'Une soirée jazz diffusée en direct.' },
+              timings: [
+                { begin: '2030-06-20T18:00:00+02:00', end: '2030-06-20T22:00:00+02:00' },
+              ],
+              attendanceMode: 2, // online: activates onlineAccessLink
+              onlineAccessLink: 'https://example.com/live',
+            };
+
+            // Each field's `path` is where its value goes in the body.
+            const set = (path, value) => {
+              const [key, sub] = path.split('.');
+              body[key] = sub ? { ...body[key], [sub]: value } : value;
+            };
+
+            // A radio field takes the id of one of its options.
+            const theme = schema.fields.find((f) => f.field === 'thematique');
+            if (theme) set(theme.path, theme.options[0].id);
+
+            const check = await oa.agendas.events.validate({
+              path: { agendaUid },
+              body,
+            });
+            // A 422 lists under `errors` each field to fix.
+            return check.error ? check.error.error : check.data;
+        - lang: TypeScript
           label: List the agenda's additional event fields
           source: |
             const { data, error } = await oa.agendas.events.schema({
@@ -1167,7 +1202,9 @@ paths:
 
         Descriptors are scoped to your read access: a field whose `read` access
         levels exclude the caller (e.g. a moderator-only field) is omitted from
-        `fields`, so a public caller sees only the public fields.
+        `fields`, so a public caller sees only the public fields. Fields only
+        the platform writes (the event's `uid`, `slug`, timestamps...) are
+        omitted too.
       security:
         - publicKey: []
         - secretKey: []
@@ -3351,8 +3388,9 @@ components:
       type: object
       description: The event form an agenda declares.
       required: [fields]
-      # Served raw from the form engine: top-level keys beyond `fields` may
-      # appear (engine vocabulary); only `fields` is contractual.
+      # Served from the form engine, its descriptors filtered by access and
+      # their `read`/`write` levels normalized to lists: top-level keys beyond
+      # `fields` may appear (engine vocabulary); only `fields` is contractual.
       additionalProperties: true
       properties:
         fields:
@@ -3361,7 +3399,8 @@ components:
             The fields of the merged schema readable at the caller's access
             level - native event fields (with any per-agenda overrides applied)
             and the agenda's/network's additional fields (`schemaId` non-null).
-            A field whose `read` access levels exclude the caller is omitted.
+            A field whose `read` access levels exclude the caller is omitted, and
+            so is a field only the platform writes.
           items:
             $ref: '#/components/schemas/FormSchemaField'
 
@@ -3376,6 +3415,7 @@ components:
       additionalProperties: true
       example:
         field: thematique
+        path: additionalFields.thematique
         fieldType: radio
         label: { fr: 'Thématique', en: 'Theme' }
         schemaId: 10522
@@ -3388,8 +3428,13 @@ components:
         field:
           type: string
           description: >
-            Field name — the key the value is carried under on events. Absent
-            on section separators.
+            Field name. Absent on section separators.
+        path:
+          type: string
+          description: >
+            Where the field's value lives on an event, as a dotted path:
+            `additionalFields.<field>` for an additional field, the field name
+            itself for a native one. Absent on section separators.
         fieldType:
           type: string
           description: >
@@ -3423,12 +3468,29 @@ components:
             The field is only active when another field has a value: either
             that field's name, or `{ field, value }` to require specific
             values (e.g. `onlineAccessLink` enabled when `attendanceMode` is
-            online or mixed).
+            online or mixed). While inactive, the field is not required,
+            whatever `optional` says, and a value sent for it is discarded.
         optionalWith:
           description: >
             The field is optional when another field has a value (either that
             field's name, or `{ field, value }` to require specific values) and
             required otherwise; an explicit `optional` takes precedence.
+        read:
+          type: [array, 'null']
+          items:
+            type: string
+          description: >
+            Access levels allowed to read the field's value. `null` or empty
+            means every caller.
+        write:
+          type: [array, 'null']
+          items:
+            type: string
+          description: >
+            Access levels allowed to write the field's value. `null` or empty
+            means every caller allowed to write events on the agenda; otherwise
+            your member role must be listed, and a value you send for the field
+            answers `422` with an `unauthorized` issue on it.
         origin:
           type: [string, 'null']
           enum: [tags, categories, custom, null]
