@@ -14,7 +14,7 @@ import isUpcomingOnlyQuery from '../../utils/isUpcomingOnlyQuery';
 import ModalLoadingBody from '../ModalLoadingBody';
 import type { Agenda, EventQuery, ExportSettings } from '../../types';
 import SpreadsheetAccordionItem from './SpreadsheetAccordionItem';
-import PdfAccordionItem from './PdfAccordionItem';
+import DocumentAccordionItem from './DocumentAccordionItem';
 import JsonAccordionItem from './JsonAccordionItem';
 import GcalAccordionItem from './GcalAccordionItem';
 import OutlookAccordionItem from './OutlookAccordionItem';
@@ -25,7 +25,7 @@ import messages from './messages';
 import type {
   CompleteUrlsResult,
   IcsSubmitHandler,
-  PdfSubmitHandler,
+  DocumentSubmitHandler,
   SpreadsheetSubmitHandler,
 } from './types';
 
@@ -66,14 +66,16 @@ function completeUrls(
 
   return {
     agendaExportSettings: `/agendas/${agendaUid}/settings/exports`,
-    // How many events the export covers: the PDF greys its image option past
-    // the server threshold. Through the UI API, not the `.v2.json` export,
-    // which `trackFormat` would log as a JSON export of the agenda.
+    // How many events the export covers: the PDF and Word exports grey their
+    // image option past the server threshold. Through the UI API, not the
+    // `.v2.json` export, which `trackFormat` would log as a JSON export of the
+    // agenda.
     count: `${rootUrl}/api/agendas/${agendaUid}/events${countQueryString}`,
     me: '/api/me',
     export: {
       jsonV2: `${apiRootUrl}/v2/agendas/${agendaUid}/events${apiQueryString}`,
       pdf: `${rootUrl}/agendas/${agendaUid}/events.v2.pdf${apiQueryString}`,
+      docx: `${rootUrl}/agendas/${agendaUid}/events.v2.docx${apiQueryString}`,
       xlsx: `${rootUrl}/agendas/${agendaUid}/events.v2.xlsx${apiQueryString}`,
       ics: `${rootUrl}/agendas/${agendaUid}/events.v2.ics${apiQueryString}`,
       csv: `${rootUrl}/agendas/${agendaUid}/events.v2.csv${apiQueryString}`,
@@ -124,6 +126,7 @@ export default function Body({
   const languages = exportSettingsData?.languages;
   const hasMultipleLocations = exportSettingsData?.hasMultipleLocations ?? true;
   const pdfImageLimit = exportSettingsData?.pdfImageLimit;
+  const wordImageLimit = exportSettingsData?.wordImageLimit;
   const fields = exportSettingsData?.spreadsheetColumns;
   const choiceFields = exportSettingsData?.choiceFields;
 
@@ -148,11 +151,11 @@ export default function Body({
     onClose();
   };
 
-  const handlePdfSubmit: PdfSubmitHandler = (options) => (e) => {
+  const handleDocumentSubmit: DocumentSubmitHandler = (options) => (e) => {
     e.preventDefault();
-    const url = new URL(res.export.pdf);
+    const url = new URL(res.export[options.format]);
     url.searchParams.append('lang', intl.locale);
-    if (options.locationInHeader) {
+    if (options.format === 'pdf' && options.locationInHeader) {
       url.searchParams.append('locationInHeader', 'true');
     }
     options.sort.forEach((s) => url.searchParams.append('sort[]', s));
@@ -235,11 +238,19 @@ export default function Body({
             languages={languages}
             fields={fields}
           />
-          <PdfAccordionItem
-            onSubmit={handlePdfSubmit}
+          <DocumentAccordionItem
+            format="pdf"
+            onSubmit={handleDocumentSubmit}
             hasMultipleLocations={hasMultipleLocations}
             total={countData?.total}
-            pdfImageLimit={pdfImageLimit}
+            imageLimit={pdfImageLimit}
+          />
+          <DocumentAccordionItem
+            format="docx"
+            onSubmit={handleDocumentSubmit}
+            hasMultipleLocations={hasMultipleLocations}
+            total={countData?.total}
+            imageLimit={wordImageLimit}
           />
           <JsonAccordionItem res={res} />
           <GcalAccordionItem res={res} />

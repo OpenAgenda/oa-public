@@ -6,28 +6,41 @@ import { Checkbox } from '@openagenda/uikit/snippets';
 import { SortableSelect } from '@openagenda/react-shared';
 import AccordionItem from '../AccordionItem';
 import messages from './messages';
-import type { PdfSubmitHandler } from './types';
+import type { DocumentFormat, DocumentSubmitHandler } from './types';
 
 // Every optional line ships by default, so a list only travels in the URL
 // when the user left something out. That list also names the lines that are
 // always there, so it reads as the whole item rather than as a delta.
 const alwaysIncludedFields = ['title', 'dateRange'];
 
-export default function PdfAccordionItem({
+const titles: Record<DocumentFormat, string> = {
+  pdf: 'PDF',
+  docx: 'Word',
+};
+
+// The agenda as a document to print or edit, PDF or Word: the same sections
+// and the same lines per event. Only the PDF can highlight the location
+// instead, for an agenda with a single one.
+export default function DocumentAccordionItem({
+  format,
   onSubmit,
   hasMultipleLocations = true,
   total,
-  pdfImageLimit,
+  imageLimit,
 }: {
-  onSubmit: PdfSubmitHandler;
+  format: DocumentFormat;
+  onSubmit: DocumentSubmitHandler;
   hasMultipleLocations?: boolean;
   total?: number;
-  pdfImageLimit?: number;
+  imageLimit?: number;
 }): React.JSX.Element {
   const intl = useIntl();
   // Names the note under the image box, so the box can point at it.
   const imagesNoteId = useId();
-  const [locationInHeader, setLocationInHeader] = useState(!hasMultipleLocations);
+  const canHighlightLocation = format === 'pdf';
+  const [locationInHeader, setLocationInHeader] = useState(
+    canHighlightLocation && !hasMultipleLocations,
+  );
   const [useSections, setUseSections] = useState(false);
   const [sort, setSort] = useState<string[]>([]);
   const [includeImage, setIncludeImage] = useState(true);
@@ -39,7 +52,7 @@ export default function PdfAccordionItem({
 
   // Past the server threshold the export drops images whatever is asked, so
   // the box shows that: unchecked and out of reach. Unknown counts keep it on.
-  const imagesAvailable = total === undefined || pdfImageLimit === undefined || total < pdfImageLimit;
+  const imagesAvailable = total === undefined || imageLimit === undefined || total < imageLimit;
 
   const optionalFields: Record<string, boolean> = {
     image: imagesAvailable && includeImage,
@@ -60,7 +73,7 @@ export default function PdfAccordionItem({
     );
 
   return (
-    <AccordionItem value="pdf" title="PDF">
+    <AccordionItem value={format} title={titles[format]}>
       <Flex gap="4" direction="column">
         {hasMultipleLocations ? (
           <>
@@ -106,14 +119,15 @@ export default function PdfAccordionItem({
               </Box>
             ) : null}
           </>
-        ) : (
+        ) : null}
+        {!hasMultipleLocations && canHighlightLocation ? (
           <Checkbox
             checked={locationInHeader}
             onCheckedChange={(e) => setLocationInHeader(!!e.checked)}
           >
             {intl.formatMessage(messages.PDFHighlightLocationName)}
           </Checkbox>
-        )}
+        ) : null}
         <Fieldset.Root>
           <Fieldset.Legend fontWeight="semibold" color="fg">
             {intl.formatMessage(messages.PDFContentTitle)}
@@ -136,7 +150,7 @@ export default function PdfAccordionItem({
             {imagesAvailable ? null : (
               <Text id={imagesNoteId} fontSize="sm" color="fg.muted" pl="6">
                 {intl.formatMessage(messages.PDFImagesUnavailable, {
-                  limit: pdfImageLimit,
+                  limit: imageLimit,
                 })}
               </Text>
             )}
@@ -181,6 +195,7 @@ export default function PdfAccordionItem({
           type="submit"
           alignSelf="center"
           onClick={onSubmit({
+            format,
             locationInHeader,
             sort: sort.concat('lastTimingWithFeatured.asc'),
             includeFields,
