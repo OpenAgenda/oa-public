@@ -17,8 +17,10 @@
   "word-exports.noEvents": "Nessun evento corrisponde a questa selezione.",
   "word-exports.practicalInformation": "Informazioni pratiche",
   "word-exports.registration": "Iscrizione:",
+  "word-exports.seeOnMap": "Vedi su una mappa",
   "word-exports.tableOfContents": "Sommario",
   "word-exports.tableOfContentsPlaceholder": "Aggiorna questa tabella per elencare i capitoli: clic destro su di essa, poi «Aggiorna campo».",
+  "word-exports.tags": "Etichette: {list}",
   "word-exports.timingDetails": "Date e orari",
   "word-exports.unspecified": "Non specificato",
   "word-exports.yes": "Sì"

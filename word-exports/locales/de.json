@@ -17,8 +17,10 @@
   "word-exports.noEvents": "Keine Veranstaltung entspricht dieser Auswahl.",
   "word-exports.practicalInformation": "Praktische Informationen",
   "word-exports.registration": "Anmeldung:",
+  "word-exports.seeOnMap": "Auf einer Karte ansehen",
   "word-exports.tableOfContents": "Inhaltsverzeichnis",
   "word-exports.tableOfContentsPlaceholder": "Aktualisieren Sie dieses Verzeichnis, um die Kapitel aufzulisten: Rechtsklick darauf, dann „Felder aktualisieren“.",
+  "word-exports.tags": "Schlagwörter: {list}",
   "word-exports.timingDetails": "Termine und Uhrzeiten",
   "word-exports.unspecified": "Nicht angegeben",
   "word-exports.yes": "Ja"

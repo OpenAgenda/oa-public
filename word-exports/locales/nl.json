@@ -17,8 +17,10 @@
   "word-exports.noEvents": "Geen evenement komt overeen met deze selectie.",
   "word-exports.practicalInformation": "Praktische informatie",
   "word-exports.registration": "Inschrijving:",
+  "word-exports.seeOnMap": "Bekijken op een kaart",
   "word-exports.tableOfContents": "Inhoudsopgave",
   "word-exports.tableOfContentsPlaceholder": "Werk deze tabel bij om de hoofdstukken te tonen: klik er met de rechtermuisknop op en kies „Veld bijwerken”.",
+  "word-exports.tags": "Labels: {list}",
   "word-exports.timingDetails": "Data en tijden",
   "word-exports.unspecified": "Niet opgegeven",
   "word-exports.yes": "Ja"

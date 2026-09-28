@@ -155,6 +155,12 @@
       "value": "Inscripción:"
     }
   ],
+  "word-exports.seeOnMap": [
+    {
+      "type": 0,
+      "value": "Ver en un mapa"
+    }
+  ],
   "word-exports.tableOfContents": [
     {
       "type": 0,
@@ -165,6 +171,16 @@
     {
       "type": 0,
       "value": "Actualice esta tabla para listar los capítulos: haga clic derecho sobre ella y elija «Actualizar campos»."
+    }
+  ],
+  "word-exports.tags": [
+    {
+      "type": 0,
+      "value": "Etiquetas: "
+    },
+    {
+      "type": 1,
+      "value": "list"
     }
   ],
   "word-exports.timingDetails": [

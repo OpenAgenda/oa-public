@@ -17,8 +17,10 @@
   "word-exports.noEvents": "No event matches this selection.",
   "word-exports.practicalInformation": "Practical information",
   "word-exports.registration": "Registration:",
+  "word-exports.seeOnMap": "See on a map",
   "word-exports.tableOfContents": "Table of contents",
   "word-exports.tableOfContentsPlaceholder": "Update this table to list the chapters: right-click it, then choose \"Update field\".",
+  "word-exports.tags": "Tags: {list}",
   "word-exports.timingDetails": "Dates and times",
   "word-exports.unspecified": "Unspecified",
   "word-exports.yes": "Yes"

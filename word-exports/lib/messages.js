@@ -58,6 +58,14 @@ export default defineMessages({
     id: 'word-exports.fieldLabel',
     defaultMessage: '{label}:',
   },
+  seeOnMap: {
+    id: 'word-exports.seeOnMap',
+    defaultMessage: 'See on a map',
+  },
+  tags: {
+    id: 'word-exports.tags',
+    defaultMessage: 'Tags: {list}',
+  },
   noEvents: {
     id: 'word-exports.noEvents',
     defaultMessage: 'No event matches this selection.',

@@ -314,3 +314,48 @@ describe('event Word export, edge cases', () => {
     assert.equal(output.destroyed, false);
   });
 });
+
+describe('event Word export, the venue', () => {
+  test('its picture and credits, map link, contact, tags and links', async () => {
+    const { default: detailedEvent } = await import(
+      './fixtures/detailedLocation.event.json',
+      { with: { type: 'json' } }
+    );
+    const asked = [];
+    const event = {
+      ...detailedEvent,
+      location: {
+        ...detailedEvent.location,
+        image: 'https://cdn.example/location.jpg',
+        links: [
+          'https://museum.example/visit',
+          { link: 'https://museum.example/tickets' },
+        ],
+      },
+    };
+
+    const { document, rels, media } = await render(beglesAgenda, event, {
+      config: {
+        fetchImage: async (image) => {
+          asked.push(image);
+          return image === 'https://cdn.example/location.jpg'
+            ? fetchImage()
+            : null;
+        },
+      },
+    });
+
+    assert.ok(asked.includes('https://cdn.example/location.jpg'));
+    assert.ok(media.some((m) => m.endsWith('.jpeg')));
+    assert.match(document, /Crédits : ©Muséum d'Histoire Naturelle/);
+    assert.match(rels, /google\.com\/maps\?q=47\.212388,-1\.56465/);
+    assert.match(document, /Voir sur une carte/);
+    assert.match(
+      document,
+      /Étiquettes : Musée de France, Histoire, Sciences et techniques/,
+    );
+    assert.match(rels, /museum\.example\/visit/);
+    assert.match(rels, /museum\.example\/tickets/);
+    assert.match(rels, /mailto:museum-sciences@nantesmetropole\.fr/);
+  });
+});

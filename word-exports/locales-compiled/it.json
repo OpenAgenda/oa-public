@@ -155,6 +155,12 @@
       "value": "Iscrizione:"
     }
   ],
+  "word-exports.seeOnMap": [
+    {
+      "type": 0,
+      "value": "Vedi su una mappa"
+    }
+  ],
   "word-exports.tableOfContents": [
     {
       "type": 0,
@@ -165,6 +171,16 @@
     {
       "type": 0,
       "value": "Aggiorna questa tabella per elencare i capitoli: clic destro su di essa, poi «Aggiorna campo»."
+    }
+  ],
+  "word-exports.tags": [
+    {
+      "type": 0,
+      "value": "Etichette: "
+    },
+    {
+      "type": 1,
+      "value": "list"
     }
   ],
   "word-exports.timingDetails": [

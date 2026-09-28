@@ -17,8 +17,10 @@
   "word-exports.noEvents": "Aucun événement ne correspond à cette sélection.",
   "word-exports.practicalInformation": "Informations pratiques",
   "word-exports.registration": "Inscription :",
+  "word-exports.seeOnMap": "Voir sur une carte",
   "word-exports.tableOfContents": "Sommaire",
   "word-exports.tableOfContentsPlaceholder": "Mettez cette table à jour pour lister les chapitres : clic droit dessus, puis « Mettre à jour les champs ».",
+  "word-exports.tags": "Étiquettes : {list}",
   "word-exports.timingDetails": "Dates et horaires",
   "word-exports.unspecified": "Non renseigné",
   "word-exports.yes": "Oui"

@@ -23,6 +23,7 @@ const log = logs('event/render');
 const TEXT_WIDTH_EMU = TEXT_WIDTH * 635;
 const MAX_IMAGE_HEIGHT_EMU = 14 * EMU_PER_CM;
 const QR_SIZE_EMU = 3 * EMU_PER_CM;
+const LOCATION_IMAGE_WIDTH_EMU = 8 * EMU_PER_CM;
 
 // The standard fields shown under « Practical information », in this order,
 // when the agenda schema has them: it gives their label and reads their value.
@@ -106,7 +107,13 @@ function accessibilityParagraph(event, context) {
   return text ? paragraph(run(text)) : '';
 }
 
-function locationSection(writer, location, context) {
+// A location link is a URL, or an object carrying one.
+const linkUrl = (link) =>
+  (typeof link === 'string' ? link : (link?.link ?? link?.url ?? null));
+
+// Everything the venue record says: its picture, name and address with a map
+// link, contact, description, access, tags and links.
+function locationSection(writer, location, image, context) {
   const { lang, intl } = context;
 
   if (!location?.name && !location?.address) return '';
@@ -117,8 +124,39 @@ function locationSection(writer, location, context) {
     }),
   ];
 
+  if (image) {
+    xml.push(
+      picture(writer, image, LOCATION_IMAGE_WIDTH_EMU, location.name ?? ''),
+    );
+
+    const credits = getLocaleValue(location.imageCredits, lang);
+
+    if (credits) {
+      xml.push(
+        paragraph(run(intl.formatMessage(messages.credits, { credits })), {
+          style: 'Caption',
+        }),
+      );
+    }
+  }
+
   if (location.name) xml.push(paragraph(run(location.name, { bold: true })));
   if (location.address) xml.push(paragraph(run(location.address)));
+
+  if (
+    typeof location.latitude === 'number'
+    && typeof location.longitude === 'number'
+  ) {
+    xml.push(
+      paragraph(
+        linkOrText(
+          writer,
+          `https://www.google.com/maps?q=${location.latitude},${location.longitude}`,
+          intl.formatMessage(messages.seeOnMap),
+        ),
+      ),
+    );
+  }
 
   const contact = [
     location.website ? linkOrText(writer, location.website) : null,
@@ -137,6 +175,25 @@ function locationSection(writer, location, context) {
   const access = getLocaleValue(location.access, lang);
 
   if (access) xml.push(paragraph(run(intl.formatMessage(messages.access, { access }))));
+
+  const tags = (location.tags ?? [])
+    .map((tag) => getLocaleValue(tag?.label, lang))
+    .filter((label) => typeof label === 'string' && label);
+
+  if (tags.length) {
+    xml.push(
+      paragraph(
+        run(intl.formatMessage(messages.tags, { list: tags.join(', ') })),
+      ),
+    );
+  }
+
+  const links = (location.links ?? []).map(linkUrl).filter(Boolean);
+
+  xml.push(
+    ...links.map((url) =>
+      paragraph(linkOrText(writer, url), { style: 'ListItem' })),
+  );
 
   return xml.join('');
 }
@@ -184,8 +241,11 @@ export default async function renderEvent(
   const title = getLocaleValue(event.title, lang);
 
   // Fetched before the first byte: the document then streams without pause.
-  const [image, qr] = await Promise.all([
+  const [image, locationImage, qr] = await Promise.all([
     event.image ? fetchImage(event.image, { imagePath }) : null,
+    event.location?.image
+      ? fetchImage(event.location.image, { imagePath })
+      : null,
     qrCode(eventUrl),
   ]);
 
@@ -278,7 +338,7 @@ export default async function renderEvent(
       );
     }
 
-    xml.push(locationSection(writer, event.location, context));
+    xml.push(locationSection(writer, event.location, locationImage, context));
     xml.push(timingsSection(event, context));
 
     xml.push(

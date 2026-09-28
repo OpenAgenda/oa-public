@@ -155,6 +155,12 @@
       "value": "Inscription :"
     }
   ],
+  "word-exports.seeOnMap": [
+    {
+      "type": 0,
+      "value": "Voir sur une carte"
+    }
+  ],
   "word-exports.tableOfContents": [
     {
       "type": 0,
@@ -165,6 +171,16 @@
     {
       "type": 0,
       "value": "Mettez cette table à jour pour lister les chapitres : clic droit dessus, puis « Mettre à jour les champs »."
+    }
+  ],
+  "word-exports.tags": [
+    {
+      "type": 0,
+      "value": "Étiquettes : "
+    },
+    {
+      "type": 1,
+      "value": "list"
     }
   ],
   "word-exports.timingDetails": [

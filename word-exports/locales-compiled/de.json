@@ -155,6 +155,12 @@
       "value": "Anmeldung:"
     }
   ],
+  "word-exports.seeOnMap": [
+    {
+      "type": 0,
+      "value": "Auf einer Karte ansehen"
+    }
+  ],
   "word-exports.tableOfContents": [
     {
       "type": 0,
@@ -165,6 +171,16 @@
     {
       "type": 0,
       "value": "Aktualisieren Sie dieses Verzeichnis, um die Kapitel aufzulisten: Rechtsklick darauf, dann „Felder aktualisieren“."
+    }
+  ],
+  "word-exports.tags": [
+    {
+      "type": 0,
+      "value": "Schlagwörter: "
+    },
+    {
+      "type": 1,
+      "value": "list"
     }
   ],
   "word-exports.timingDetails": [

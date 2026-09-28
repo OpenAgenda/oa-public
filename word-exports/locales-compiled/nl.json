@@ -155,6 +155,12 @@
       "value": "Inschrijving:"
     }
   ],
+  "word-exports.seeOnMap": [
+    {
+      "type": 0,
+      "value": "Bekijken op een kaart"
+    }
+  ],
   "word-exports.tableOfContents": [
     {
       "type": 0,
@@ -165,6 +171,16 @@
     {
       "type": 0,
       "value": "Werk deze tabel bij om de hoofdstukken te tonen: klik er met de rechtermuisknop op en kies „Veld bijwerken”."
+    }
+  ],
+  "word-exports.tags": [
+    {
+      "type": 0,
+      "value": "Labels: "
+    },
+    {
+      "type": 1,
+      "value": "list"
     }
   ],
   "word-exports.timingDetails": [

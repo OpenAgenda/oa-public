@@ -17,8 +17,10 @@
   "word-exports.noEvents": "Cap d'eveniment correspond pas a aquesta seleccion.",
   "word-exports.practicalInformation": "Informacions practicas",
   "word-exports.registration": "Inscripcion :",
+  "word-exports.seeOnMap": "Veire sus una mapa",
   "word-exports.tableOfContents": "Ensenhador",
   "word-exports.tableOfContentsPlaceholder": "Metètz aquesta taula a jorn per listar los capítols : clic drech dessús, puèi « Metre a jorn los camps ».",
+  "word-exports.tags": "Etiquetas : {list}",
   "word-exports.timingDetails": "Datas e oraris",
   "word-exports.unspecified": "Pas precisat",
   "word-exports.yes": "Òc"
