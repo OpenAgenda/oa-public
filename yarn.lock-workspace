@@ -6676,7 +6676,9 @@ __metadata:
     fast-xml-parser: "npm:^4.5.6"
     jszip: "npm:^3.9.1"
     ky: "npm:^1.14.0"
+    qrcode: "npm:^1.5.4"
     react-intl: "npm:^10.1.1"
+    remark: "npm:^15.0.1"
     sharp: "npm:^0.35.3"
   languageName: unknown
   linkType: soft

@@ -14,6 +14,50 @@ export default defineMessages({
     id: 'word-exports.unspecified',
     defaultMessage: 'Unspecified',
   },
+  locationDetails: {
+    id: 'word-exports.locationDetails',
+    defaultMessage: 'About the venue',
+  },
+  timingDetails: {
+    id: 'word-exports.timingDetails',
+    defaultMessage: 'Dates and times',
+  },
+  practicalInformation: {
+    id: 'word-exports.practicalInformation',
+    defaultMessage: 'Practical information',
+  },
+  eventPage: {
+    id: 'word-exports.eventPage',
+    defaultMessage: 'Event page:',
+  },
+  credits: {
+    id: 'word-exports.credits',
+    defaultMessage: 'Credits: {credits}',
+  },
+  yes: {
+    id: 'word-exports.yes',
+    defaultMessage: 'Yes',
+  },
+  no: {
+    id: 'word-exports.no',
+    defaultMessage: 'No',
+  },
+  ageRange: {
+    id: 'word-exports.ageRange',
+    defaultMessage: 'From {min} to {max} years old',
+  },
+  ageFrom: {
+    id: 'word-exports.ageFrom',
+    defaultMessage: 'From {min} years old',
+  },
+  ageUpTo: {
+    id: 'word-exports.ageUpTo',
+    defaultMessage: 'Up to {max} years old',
+  },
+  fieldLabel: {
+    id: 'word-exports.fieldLabel',
+    defaultMessage: '{label}:',
+  },
   noEvents: {
     id: 'word-exports.noEvents',
     defaultMessage: 'No event matches this selection.',

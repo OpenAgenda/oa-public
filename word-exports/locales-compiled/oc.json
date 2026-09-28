@@ -49,10 +49,104 @@
       "value": "handicap visual"
     }
   ],
+  "word-exports.ageFrom": [
+    {
+      "type": 0,
+      "value": "A partir de "
+    },
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " ans"
+    }
+  ],
+  "word-exports.ageRange": [
+    {
+      "type": 0,
+      "value": "De "
+    },
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " a "
+    },
+    {
+      "type": 1,
+      "value": "max"
+    },
+    {
+      "type": 0,
+      "value": " ans"
+    }
+  ],
+  "word-exports.ageUpTo": [
+    {
+      "type": 0,
+      "value": "Fins a "
+    },
+    {
+      "type": 1,
+      "value": "max"
+    },
+    {
+      "type": 0,
+      "value": " ans"
+    }
+  ],
+  "word-exports.credits": [
+    {
+      "type": 0,
+      "value": "Crèdits : "
+    },
+    {
+      "type": 1,
+      "value": "credits"
+    }
+  ],
+  "word-exports.eventPage": [
+    {
+      "type": 0,
+      "value": "Pagina de l'eveniment :"
+    }
+  ],
+  "word-exports.fieldLabel": [
+    {
+      "type": 1,
+      "value": "label"
+    },
+    {
+      "type": 0,
+      "value": " :"
+    }
+  ],
+  "word-exports.locationDetails": [
+    {
+      "type": 0,
+      "value": "A prepaus del luòc"
+    }
+  ],
+  "word-exports.no": [
+    {
+      "type": 0,
+      "value": "Non"
+    }
+  ],
   "word-exports.noEvents": [
     {
       "type": 0,
       "value": "Cap d'eveniment correspond pas a aquesta seleccion."
+    }
+  ],
+  "word-exports.practicalInformation": [
+    {
+      "type": 0,
+      "value": "Informacions practicas"
     }
   ],
   "word-exports.registration": [
@@ -73,10 +167,22 @@
       "value": "Metètz aquesta taula a jorn per listar los capítols : clic drech dessús, puèi « Metre a jorn los camps »."
     }
   ],
+  "word-exports.timingDetails": [
+    {
+      "type": 0,
+      "value": "Datas e oraris"
+    }
+  ],
   "word-exports.unspecified": [
     {
       "type": 0,
       "value": "Pas precisat"
+    }
+  ],
+  "word-exports.yes": [
+    {
+      "type": 0,
+      "value": "Òc"
     }
   ]
 }

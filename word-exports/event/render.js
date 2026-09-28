@@ -1,0 +1,331 @@
+import { getLocaleValue } from '@openagenda/intl';
+import logs from '@openagenda/logs';
+import DocxWriter from '../lib/DocxWriter.js';
+import getIntl from '../lib/intl.js';
+import messages from '../lib/messages.js';
+import linkOrText from '../lib/links.js';
+import groupTimings from '../lib/timings.js';
+import { TEXT_WIDTH } from '../lib/parts.js';
+import { EMU_PER_CM, inlineImage, paragraph, run } from '../lib/xml.js';
+import {
+  fieldValueRuns,
+  flattenSchemaFields,
+  isMarkdownField,
+  isUnset,
+  markdownParagraphs,
+} from '../lib/fieldValues.js';
+import { fetchEventImage, qrCode } from '../lib/eventImage.js';
+
+const log = logs('event/render');
+
+// Twips to EMU: 1 twip is 635 EMU.
+const TEXT_WIDTH_EMU = TEXT_WIDTH * 635;
+const MAX_IMAGE_HEIGHT_EMU = 14 * EMU_PER_CM;
+const QR_SIZE_EMU = 3 * EMU_PER_CM;
+
+const accessibilityKeys = ['ii', 'hi', 'vi', 'pi', 'mi'];
+
+// The standard fields shown under « Practical information », in this order.
+// The attendance mode only when it is not the default, on-site one.
+const practicalFields = [
+  'attendanceMode',
+  'onlineAccessLink',
+  'conditions',
+  'age',
+];
+
+function fieldLabel(field, { lang, intl }) {
+  const label = getLocaleValue(field.label, lang) ?? field.field;
+
+  return run(`${intl.formatMessage(messages.fieldLabel, { label })} `, {
+    bold: true,
+  });
+}
+
+// « Label: value » for a field of the agenda schema, or nothing when unset.
+function fieldParagraphs(writer, field, value, context) {
+  if (isUnset(value)) return '';
+
+  if (isMarkdownField(field)) {
+    const markdown = getLocaleValue(value, context.lang);
+
+    return markdown
+      ? paragraph(fieldLabel(field, context))
+          + markdownParagraphs(writer, markdown, { headingOffset: 2 })
+      : '';
+  }
+
+  const runs = fieldValueRuns(writer, field, value, context);
+
+  return runs ? paragraph([fieldLabel(field, context), runs]) : '';
+}
+
+function picture(
+  writer,
+  { buffer, width, height, extension },
+  maxWidth,
+  description,
+) {
+  const ratio = height / width;
+  let emuWidth = Math.min(maxWidth, TEXT_WIDTH_EMU);
+  let emuHeight = Math.round(emuWidth * ratio);
+
+  if (emuHeight > MAX_IMAGE_HEIGHT_EMU) {
+    emuHeight = MAX_IMAGE_HEIGHT_EMU;
+    emuWidth = Math.round(emuHeight / ratio);
+  }
+
+  const { id, drawingId } = writer.image(buffer, { extension });
+
+  return paragraph(
+    inlineImage(id, drawingId, {
+      width: emuWidth,
+      height: emuHeight,
+      description,
+    }),
+  );
+}
+
+function registrationParagraph(writer, event, schemaField, context) {
+  const items = (event.registration ?? [])
+    .filter((item) => item?.value)
+    .map((item) => {
+      if (item.type === 'email') {
+        return linkOrText(writer, `mailto:${item.value}`, item.value);
+      }
+      if (item.type === 'link') return linkOrText(writer, item.value);
+      return run(item.value);
+    });
+
+  if (!items.length) return '';
+
+  const label = schemaField
+    ? fieldLabel(schemaField, context)
+    : run(`${context.intl.formatMessage(messages.registration)} `, {
+      bold: true,
+    });
+
+  return paragraph([label, items.join(run(' · '))]);
+}
+
+function accessibilityParagraph(event, context) {
+  const keys = accessibilityKeys.filter(
+    (key) => event.accessibility?.[key] === true,
+  );
+
+  if (!keys.length) return '';
+
+  const list = keys
+    .map((key) => context.intl.formatMessage(messages[key]))
+    .join(', ');
+
+  return paragraph(
+    run(context.intl.formatMessage(messages.accessibility, { list })),
+  );
+}
+
+function locationSection(writer, location, context) {
+  const { lang, intl } = context;
+
+  if (!location?.name && !location?.address) return '';
+
+  const xml = [
+    paragraph(run(intl.formatMessage(messages.locationDetails)), {
+      style: 'Heading1',
+    }),
+  ];
+
+  if (location.name) xml.push(paragraph(run(location.name, { bold: true })));
+  if (location.address) xml.push(paragraph(run(location.address)));
+
+  const contact = [
+    location.website ? linkOrText(writer, location.website) : null,
+    location.phone ? run(location.phone) : null,
+    location.email
+      ? linkOrText(writer, `mailto:${location.email}`, location.email)
+      : null,
+  ].filter(Boolean);
+
+  if (contact.length) xml.push(paragraph(contact.join(run(' · '))));
+
+  const description = getLocaleValue(location.description, lang);
+
+  if (description) xml.push(paragraph(run(description)));
+
+  const access = getLocaleValue(location.access, lang);
+
+  if (access) xml.push(paragraph(run(intl.formatMessage(messages.access, { access }))));
+
+  return xml.join('');
+}
+
+function timingsSection(event, { lang, intl }) {
+  if ((event.timings ?? []).length < 2) return '';
+
+  const months = groupTimings(event.timings, {
+    timezone: event.timezone,
+    lang,
+  });
+
+  return [
+    paragraph(run(intl.formatMessage(messages.timingDetails)), {
+      style: 'Heading1',
+    }),
+    ...months.flatMap((month) => [
+      paragraph(run(month.label), { style: 'Heading2' }),
+      ...month.days.map((day) =>
+        paragraph(
+          [run(`${day.label} `, { bold: true }), run(day.slots.join(', '))],
+          { style: 'ListItem' },
+        )),
+    ]),
+  ].join('');
+}
+
+// Writes one event as a Word document into `writeStream`: what the event PDF
+// shows, as text a reader can edit. Resolves once the document is written.
+export default async function renderEvent(
+  config,
+  writeStream,
+  agenda,
+  event,
+  options = {},
+) {
+  const { lang = 'fr', imagePath } = options;
+  const { fetchImage = fetchEventImage } = config;
+
+  const intl = getIntl(lang);
+  const context = { lang, intl };
+  const schemaFields = flattenSchemaFields(agenda.schema);
+  const schemaField = (name) => schemaFields.find((f) => f.field === name);
+  const eventUrl = `https://openagenda.com/agendas/${agenda.uid}/events/${event.uid}`;
+  const title = getLocaleValue(event.title, lang);
+
+  // Fetched before the first byte: the document then streams without pause.
+  const [image, qr] = await Promise.all([
+    event.image ? fetchImage(event.image, { imagePath }) : null,
+    qrCode(eventUrl),
+  ]);
+
+  const writer = new DocxWriter(writeStream, { title, updateFields: false });
+
+  try {
+    const xml = [];
+
+    if (agenda.title) {
+      xml.push(paragraph(run(agenda.title), { style: 'EventDetail' }));
+    }
+
+    // Rescheduled, moved online, full, cancelled: said before anything else.
+    const statusOption = event.status !== 1
+      && schemaField('status')?.options?.find((o) => o.id === event.status);
+
+    if (statusOption) {
+      xml.push(
+        paragraph(
+          run(getLocaleValue(statusOption.label, lang), { bold: true }),
+        ),
+      );
+    }
+
+    xml.push(paragraph(run(title), { style: 'Title' }));
+
+    const dateRange = getLocaleValue(event.dateRange, lang);
+
+    if (dateRange) xml.push(paragraph(run(dateRange), { style: 'EventDetail' }));
+
+    const description = getLocaleValue(event.description, lang);
+
+    if (description) {
+      xml.push(paragraph(run(description), { style: 'EventDescription' }));
+    }
+
+    if (image) {
+      xml.push(picture(writer, image, TEXT_WIDTH_EMU, title));
+
+      const credits = getLocaleValue(event.imageCredits, lang);
+
+      if (credits) {
+        xml.push(
+          paragraph(run(intl.formatMessage(messages.credits, { credits })), {
+            style: 'Caption',
+          }),
+        );
+      }
+    }
+
+    xml.push(
+      markdownParagraphs(writer, getLocaleValue(event.longDescription, lang), {
+        headingOffset: 1,
+      }),
+    );
+
+    // The agenda's and the network's own fields, as the PDF shows them.
+    xml.push(
+      ...schemaFields
+        .filter(({ schemaType }) => ['network', 'agenda'].includes(schemaType))
+        .map((field) =>
+          fieldParagraphs(writer, field, event[field.field], context)),
+    );
+
+    const practical = [
+      ...practicalFields
+        .map((name) => schemaField(name) ?? { field: name })
+        .filter(
+          (field) =>
+            !(field.field === 'attendanceMode' && event.attendanceMode === 1),
+        )
+        .map((field) =>
+          fieldParagraphs(writer, field, event[field.field], context)),
+      accessibilityParagraph(event, context),
+      registrationParagraph(
+        writer,
+        event,
+        schemaField('registration'),
+        context,
+      ),
+    ].filter(Boolean);
+
+    if (practical.length) {
+      xml.push(
+        paragraph(run(intl.formatMessage(messages.practicalInformation)), {
+          style: 'Heading1',
+        }),
+        ...practical,
+      );
+    }
+
+    xml.push(locationSection(writer, event.location, context));
+    xml.push(timingsSection(event, context));
+
+    xml.push(
+      paragraph(''),
+      picture(
+        writer,
+        { buffer: qr, width: 1, height: 1, extension: 'png' },
+        QR_SIZE_EMU,
+        eventUrl,
+      ),
+      paragraph(
+        [
+          run(`${intl.formatMessage(messages.eventPage)} `),
+          linkOrText(writer, eventUrl),
+        ],
+        {
+          style: 'EventDetail',
+        },
+      ),
+    );
+
+    await writer.write(xml.join(''));
+    await writer.end();
+  } catch (error) {
+    log.error('Event document failed', {
+      agendaUid: agenda.uid,
+      eventUid: event.uid,
+      error,
+    });
+    writer.abort(error);
+    throw error;
+  }
+}

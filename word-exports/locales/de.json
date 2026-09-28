@@ -6,9 +6,20 @@
   "word-exports.accessibility.mi": "Körperbehinderung",
   "word-exports.accessibility.pi": "psychische Behinderung",
   "word-exports.accessibility.vi": "Sehbehinderung",
+  "word-exports.ageFrom": "Ab {min} Jahren",
+  "word-exports.ageRange": "Von {min} bis {max} Jahren",
+  "word-exports.ageUpTo": "Bis {max} Jahre",
+  "word-exports.credits": "Bildnachweis: {credits}",
+  "word-exports.eventPage": "Veranstaltungsseite:",
+  "word-exports.fieldLabel": "{label}:",
+  "word-exports.locationDetails": "Über den Veranstaltungsort",
+  "word-exports.no": "Nein",
   "word-exports.noEvents": "Keine Veranstaltung entspricht dieser Auswahl.",
+  "word-exports.practicalInformation": "Praktische Informationen",
   "word-exports.registration": "Anmeldung:",
   "word-exports.tableOfContents": "Inhaltsverzeichnis",
   "word-exports.tableOfContentsPlaceholder": "Aktualisieren Sie dieses Verzeichnis, um die Kapitel aufzulisten: Rechtsklick darauf, dann „Felder aktualisieren“.",
-  "word-exports.unspecified": "Nicht angegeben"
+  "word-exports.timingDetails": "Termine und Uhrzeiten",
+  "word-exports.unspecified": "Nicht angegeben",
+  "word-exports.yes": "Ja"
 }

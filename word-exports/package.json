@@ -17,14 +17,16 @@
   "scripts": {
     "test": "node --test 'test/*.test.js'",
     "render": "node scripts/render.js",
-    "extract-messages": "oa-intl 'lib/**/*.js' 'agenda/**/*.js' --output 'locales/%lang%.json' --compiled 'locales-compiled/%lang%.json' --esm"
+    "extract-messages": "oa-intl 'lib/**/*.js' 'agenda/**/*.js' 'event/**/*.js' --output 'locales/%lang%.json' --compiled 'locales-compiled/%lang%.json' --esm"
   },
   "dependencies": {
     "@openagenda/intl": "^2.1.0",
     "@openagenda/logs": "^1.2.2",
     "archiver": "^7.0.1",
     "ky": "^1.14.0",
+    "qrcode": "^1.5.4",
     "react-intl": "^10.1.1",
+    "remark": "^15.0.1",
     "sharp": "^0.35.3"
   },
   "devDependencies": {

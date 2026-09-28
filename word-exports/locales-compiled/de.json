@@ -49,10 +49,104 @@
       "value": "Sehbehinderung"
     }
   ],
+  "word-exports.ageFrom": [
+    {
+      "type": 0,
+      "value": "Ab "
+    },
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " Jahren"
+    }
+  ],
+  "word-exports.ageRange": [
+    {
+      "type": 0,
+      "value": "Von "
+    },
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " bis "
+    },
+    {
+      "type": 1,
+      "value": "max"
+    },
+    {
+      "type": 0,
+      "value": " Jahren"
+    }
+  ],
+  "word-exports.ageUpTo": [
+    {
+      "type": 0,
+      "value": "Bis "
+    },
+    {
+      "type": 1,
+      "value": "max"
+    },
+    {
+      "type": 0,
+      "value": " Jahre"
+    }
+  ],
+  "word-exports.credits": [
+    {
+      "type": 0,
+      "value": "Bildnachweis: "
+    },
+    {
+      "type": 1,
+      "value": "credits"
+    }
+  ],
+  "word-exports.eventPage": [
+    {
+      "type": 0,
+      "value": "Veranstaltungsseite:"
+    }
+  ],
+  "word-exports.fieldLabel": [
+    {
+      "type": 1,
+      "value": "label"
+    },
+    {
+      "type": 0,
+      "value": ":"
+    }
+  ],
+  "word-exports.locationDetails": [
+    {
+      "type": 0,
+      "value": "Über den Veranstaltungsort"
+    }
+  ],
+  "word-exports.no": [
+    {
+      "type": 0,
+      "value": "Nein"
+    }
+  ],
   "word-exports.noEvents": [
     {
       "type": 0,
       "value": "Keine Veranstaltung entspricht dieser Auswahl."
+    }
+  ],
+  "word-exports.practicalInformation": [
+    {
+      "type": 0,
+      "value": "Praktische Informationen"
     }
   ],
   "word-exports.registration": [
@@ -73,10 +167,22 @@
       "value": "Aktualisieren Sie dieses Verzeichnis, um die Kapitel aufzulisten: Rechtsklick darauf, dann „Felder aktualisieren“."
     }
   ],
+  "word-exports.timingDetails": [
+    {
+      "type": 0,
+      "value": "Termine und Uhrzeiten"
+    }
+  ],
   "word-exports.unspecified": [
     {
       "type": 0,
       "value": "Nicht angegeben"
+    }
+  ],
+  "word-exports.yes": [
+    {
+      "type": 0,
+      "value": "Ja"
     }
   ]
 }

@@ -41,8 +41,9 @@ export function run(text, options = {}) {
   return `<w:r>${runProperties(options)}${content}</w:r>`;
 }
 
-export function hyperlink(relationshipId, text) {
-  return `<w:hyperlink r:id="${relationshipId}" w:history="1">${run(text, { style: 'Hyperlink' })}</w:hyperlink>`;
+// `options` style the run like `run`'s, over the Hyperlink character style.
+export function hyperlink(relationshipId, text, options = {}) {
+  return `<w:hyperlink r:id="${relationshipId}" w:history="1">${run(text, { ...options, style: 'Hyperlink' })}</w:hyperlink>`;
 }
 
 export function paragraph(content, { style, keepNext, pageBreakBefore } = {}) {
@@ -71,20 +72,25 @@ export function field(instruction, placeholder, { dirty = false } = {}) {
 // EMU (English Metric Units) is the unit of DrawingML: 360000 per centimetre.
 export const EMU_PER_CM = 360000;
 
-export function inlineImage(relationshipId, id, { size, description = '' }) {
+// A picture in the text flow, `width` × `height` EMU (`size` for a square).
+export function inlineImage(
+  relationshipId,
+  id,
+  { size, width = size, height = size, description = '' },
+) {
   return [
     '<w:r><w:drawing>',
     '<wp:inline distT="0" distB="0" distL="0" distR="0">',
-    `<wp:extent cx="${size}" cy="${size}"/>`,
+    `<wp:extent cx="${width}" cy="${height}"/>`,
     '<wp:effectExtent l="0" t="0" r="0" b="0"/>',
     `<wp:docPr id="${id}" name="Picture ${id}" descr="${escape(description)}"/>`,
     '<wp:cNvGraphicFramePr><a:graphicFrameLocks noChangeAspect="1"/></wp:cNvGraphicFramePr>',
     '<a:graphic><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">',
     '<pic:pic>',
-    `<pic:nvPicPr><pic:cNvPr id="${id}" name="image${id}.jpeg"/><pic:cNvPicPr/></pic:nvPicPr>`,
+    `<pic:nvPicPr><pic:cNvPr id="${id}" name="image${id}"/><pic:cNvPicPr/></pic:nvPicPr>`,
     `<pic:blipFill><a:blip r:embed="${relationshipId}"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill>`,
     '<pic:spPr>',
-    `<a:xfrm><a:off x="0" y="0"/><a:ext cx="${size}" cy="${size}"/></a:xfrm>`,
+    `<a:xfrm><a:off x="0" y="0"/><a:ext cx="${width}" cy="${height}"/></a:xfrm>`,
     '<a:prstGeom prst="rect"><a:avLst/></a:prstGeom>',
     '</pic:spPr>',
     '</pic:pic>',

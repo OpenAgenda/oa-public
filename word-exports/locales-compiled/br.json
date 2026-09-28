@@ -49,10 +49,104 @@
       "value": "nammded gwelet"
     }
   ],
+  "word-exports.ageFrom": [
+    {
+      "type": 0,
+      "value": "Adalek "
+    },
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " vloaz"
+    }
+  ],
+  "word-exports.ageRange": [
+    {
+      "type": 0,
+      "value": "Eus "
+    },
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " da "
+    },
+    {
+      "type": 1,
+      "value": "max"
+    },
+    {
+      "type": 0,
+      "value": " vloaz"
+    }
+  ],
+  "word-exports.ageUpTo": [
+    {
+      "type": 0,
+      "value": "Betek "
+    },
+    {
+      "type": 1,
+      "value": "max"
+    },
+    {
+      "type": 0,
+      "value": " vloaz"
+    }
+  ],
+  "word-exports.credits": [
+    {
+      "type": 0,
+      "value": "Kredoù : "
+    },
+    {
+      "type": 1,
+      "value": "credits"
+    }
+  ],
+  "word-exports.eventPage": [
+    {
+      "type": 0,
+      "value": "Pajenn an darvoud :"
+    }
+  ],
+  "word-exports.fieldLabel": [
+    {
+      "type": 1,
+      "value": "label"
+    },
+    {
+      "type": 0,
+      "value": " :"
+    }
+  ],
+  "word-exports.locationDetails": [
+    {
+      "type": 0,
+      "value": "Diwar-benn al lec'h"
+    }
+  ],
+  "word-exports.no": [
+    {
+      "type": 0,
+      "value": "Ket"
+    }
+  ],
   "word-exports.noEvents": [
     {
       "type": 0,
       "value": "Darvoud ebet ne glot gant an dibab-mañ."
+    }
+  ],
+  "word-exports.practicalInformation": [
+    {
+      "type": 0,
+      "value": "Titouroù pleustrek"
     }
   ],
   "word-exports.registration": [
@@ -73,10 +167,22 @@
       "value": "Hizivait an daolenn-mañ evit rollañ ar pennadoù : klik a-zehou warni, ha dibabit « Hizivaat ar maeziennoù »."
     }
   ],
+  "word-exports.timingDetails": [
+    {
+      "type": 0,
+      "value": "Deiziadoù ha eurioù"
+    }
+  ],
   "word-exports.unspecified": [
     {
       "type": 0,
       "value": "N'eo ket resisaet"
+    }
+  ],
+  "word-exports.yes": [
+    {
+      "type": 0,
+      "value": "Ya"
     }
   ]
 }

@@ -1,5 +1,6 @@
 import logs from '@openagenda/logs';
 import agenda from './agenda/index.js';
+import event from './event/index.js';
 
 export default function WordExports(config = {}) {
   if (config.logger) {
@@ -8,5 +9,6 @@ export default function WordExports(config = {}) {
 
   return {
     agenda: agenda(config),
+    event: event(config),
   };
 }

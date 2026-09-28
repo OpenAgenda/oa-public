@@ -124,13 +124,14 @@ export default class DocxWriter {
     return this.links.get(url);
   }
 
-  // Adds a JPEG picture to the package; returns what the drawing refers to.
-  image(buffer) {
+  // Adds a JPEG (or PNG) picture to the package; returns what the drawing
+  // refers to.
+  image(buffer, { extension = 'jpeg' } = {}) {
     const drawingId = this.nextDrawingId;
     const id = this.relationshipId();
 
     this.nextDrawingId += 1;
-    const target = `media/image${drawingId}.jpeg`;
+    const target = `media/image${drawingId}.${extension}`;
 
     this.relationships.push({ id, type: 'image', target });
     this.archive.append(buffer, { name: `word/${target}` });

@@ -6,9 +6,20 @@
   "word-exports.accessibility.mi": "handicap motor",
   "word-exports.accessibility.pi": "handicap psiquic",
   "word-exports.accessibility.vi": "handicap visual",
+  "word-exports.ageFrom": "A partir de {min} ans",
+  "word-exports.ageRange": "De {min} a {max} ans",
+  "word-exports.ageUpTo": "Fins a {max} ans",
+  "word-exports.credits": "Crèdits : {credits}",
+  "word-exports.eventPage": "Pagina de l'eveniment :",
+  "word-exports.fieldLabel": "{label} :",
+  "word-exports.locationDetails": "A prepaus del luòc",
+  "word-exports.no": "Non",
   "word-exports.noEvents": "Cap d'eveniment correspond pas a aquesta seleccion.",
+  "word-exports.practicalInformation": "Informacions practicas",
   "word-exports.registration": "Inscripcion :",
   "word-exports.tableOfContents": "Ensenhador",
   "word-exports.tableOfContentsPlaceholder": "Metètz aquesta taula a jorn per listar los capítols : clic drech dessús, puèi « Metre a jorn los camps ».",
-  "word-exports.unspecified": "Pas precisat"
+  "word-exports.timingDetails": "Datas e oraris",
+  "word-exports.unspecified": "Pas precisat",
+  "word-exports.yes": "Òc"
 }

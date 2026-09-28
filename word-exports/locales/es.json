@@ -6,9 +6,20 @@
   "word-exports.accessibility.mi": "discapacidad motriz",
   "word-exports.accessibility.pi": "discapacidad psíquica",
   "word-exports.accessibility.vi": "discapacidad visual",
+  "word-exports.ageFrom": "A partir de {min} años",
+  "word-exports.ageRange": "De {min} a {max} años",
+  "word-exports.ageUpTo": "Hasta {max} años",
+  "word-exports.credits": "Créditos: {credits}",
+  "word-exports.eventPage": "Página del evento:",
+  "word-exports.fieldLabel": "{label}:",
+  "word-exports.locationDetails": "Sobre el lugar",
+  "word-exports.no": "No",
   "word-exports.noEvents": "Ningún evento corresponde a esta selección.",
+  "word-exports.practicalInformation": "Información práctica",
   "word-exports.registration": "Inscripción:",
   "word-exports.tableOfContents": "Índice",
   "word-exports.tableOfContentsPlaceholder": "Actualice esta tabla para listar los capítulos: haga clic derecho sobre ella y elija «Actualizar campos».",
-  "word-exports.unspecified": "No especificado"
+  "word-exports.timingDetails": "Fechas y horarios",
+  "word-exports.unspecified": "No especificado",
+  "word-exports.yes": "Sí"
 }

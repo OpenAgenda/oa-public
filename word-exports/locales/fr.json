@@ -6,9 +6,20 @@
   "word-exports.accessibility.mi": "handicap moteur",
   "word-exports.accessibility.pi": "handicap psychique",
   "word-exports.accessibility.vi": "handicap visuel",
+  "word-exports.ageFrom": "À partir de {min} ans",
+  "word-exports.ageRange": "De {min} à {max} ans",
+  "word-exports.ageUpTo": "Jusqu'à {max} ans",
+  "word-exports.credits": "Crédits : {credits}",
+  "word-exports.eventPage": "Page de l'événement :",
+  "word-exports.fieldLabel": "{label} :",
+  "word-exports.locationDetails": "À propos du lieu",
+  "word-exports.no": "Non",
   "word-exports.noEvents": "Aucun événement ne correspond à cette sélection.",
+  "word-exports.practicalInformation": "Informations pratiques",
   "word-exports.registration": "Inscription :",
   "word-exports.tableOfContents": "Sommaire",
   "word-exports.tableOfContentsPlaceholder": "Mettez cette table à jour pour lister les chapitres : clic droit dessus, puis « Mettre à jour les champs ».",
-  "word-exports.unspecified": "Non renseigné"
+  "word-exports.timingDetails": "Dates et horaires",
+  "word-exports.unspecified": "Non renseigné",
+  "word-exports.yes": "Oui"
 }

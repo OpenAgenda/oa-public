@@ -49,10 +49,104 @@
       "value": "discapacidad visual"
     }
   ],
+  "word-exports.ageFrom": [
+    {
+      "type": 0,
+      "value": "A partir de "
+    },
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " años"
+    }
+  ],
+  "word-exports.ageRange": [
+    {
+      "type": 0,
+      "value": "De "
+    },
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " a "
+    },
+    {
+      "type": 1,
+      "value": "max"
+    },
+    {
+      "type": 0,
+      "value": " años"
+    }
+  ],
+  "word-exports.ageUpTo": [
+    {
+      "type": 0,
+      "value": "Hasta "
+    },
+    {
+      "type": 1,
+      "value": "max"
+    },
+    {
+      "type": 0,
+      "value": " años"
+    }
+  ],
+  "word-exports.credits": [
+    {
+      "type": 0,
+      "value": "Créditos: "
+    },
+    {
+      "type": 1,
+      "value": "credits"
+    }
+  ],
+  "word-exports.eventPage": [
+    {
+      "type": 0,
+      "value": "Página del evento:"
+    }
+  ],
+  "word-exports.fieldLabel": [
+    {
+      "type": 1,
+      "value": "label"
+    },
+    {
+      "type": 0,
+      "value": ":"
+    }
+  ],
+  "word-exports.locationDetails": [
+    {
+      "type": 0,
+      "value": "Sobre el lugar"
+    }
+  ],
+  "word-exports.no": [
+    {
+      "type": 0,
+      "value": "No"
+    }
+  ],
   "word-exports.noEvents": [
     {
       "type": 0,
       "value": "Ningún evento corresponde a esta selección."
+    }
+  ],
+  "word-exports.practicalInformation": [
+    {
+      "type": 0,
+      "value": "Información práctica"
     }
   ],
   "word-exports.registration": [
@@ -73,10 +167,22 @@
       "value": "Actualice esta tabla para listar los capítulos: haga clic derecho sobre ella y elija «Actualizar campos»."
     }
   ],
+  "word-exports.timingDetails": [
+    {
+      "type": 0,
+      "value": "Fechas y horarios"
+    }
+  ],
   "word-exports.unspecified": [
     {
       "type": 0,
       "value": "No especificado"
+    }
+  ],
+  "word-exports.yes": [
+    {
+      "type": 0,
+      "value": "Sí"
     }
   ]
 }
