@@ -3478,18 +3478,18 @@ components:
         read:
           type: [array, 'null']
           items:
-            type: string
+            $ref: '#/components/schemas/AccessLevel'
           description: >
             Access levels allowed to read the field's value. `null` or empty
             means every caller.
         write:
           type: [array, 'null']
           items:
-            type: string
+            $ref: '#/components/schemas/AccessLevel'
           description: >
             Access levels allowed to write the field's value. `null` or empty
             means every caller allowed to write events on the agenda; otherwise
-            your member role must be listed, and a value you send for the field
+            your access level must be listed, and a value you send for the field
             answers `422` with an `unauthorized` issue on it.
         origin:
           type: [string, 'null']
@@ -3523,6 +3523,20 @@ components:
           description: >
             Which level declared the field: `agenda`/`network` for additional
             fields, `event` for the platform's native event fields.
+
+    AccessLevel:
+      type: string
+      description: >
+        A level of access to an agenda's data, as the field rules of its event
+        form name them.
+      enum: [public, contributor, moderator, administrator, internal, system]
+      x-enum-descriptions:
+        public: A caller who is not a member of the agenda
+        contributor: A member with the contributor role
+        moderator: A member with the moderator role
+        administrator: A member with the administrator role
+        internal: The platform's own processes, never an API caller
+        system: The platform's own processes, never an API caller
 
     MemberRole:
       type: string
