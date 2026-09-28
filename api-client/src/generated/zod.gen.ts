@@ -1325,13 +1325,12 @@ export const zAgendaSort = z.enum(['createdAt.desc', 'recentlyAddedEvents.desc']
 export const zAgendaFilterUid = z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }));
 
 /**
- * Restrict to these agenda slugs, among the agendas listed in the public directory. Repeat the parameter for multiple values.
- *
+ * Restrict to these agenda slugs. Repeat the parameter for multiple values.
  */
 export const zAgendaFilterSlug = z.array(z.string());
 
 /**
- * Restrict to your memberships on the agendas carrying these slugs, private agendas and agendas left out of the public directory included. A slug you are not a member of, or that no agenda carries, matches nothing. Repeat the parameter for multiple values.
+ * Restrict to the agendas carrying these slugs. A slug matching none of your memberships yields an empty page. Repeat the parameter for multiple values.
  *
  */
 export const zMeAgendaFilterSlug = z.array(z.string());

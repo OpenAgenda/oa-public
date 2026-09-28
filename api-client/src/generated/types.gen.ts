@@ -1882,13 +1882,12 @@ export type AgendaSort = 'createdAt.desc' | 'recentlyAddedEvents.desc';
 export type AgendaFilterUid = Array<number>;
 
 /**
- * Restrict to these agenda slugs, among the agendas listed in the public directory. Repeat the parameter for multiple values.
- *
+ * Restrict to these agenda slugs. Repeat the parameter for multiple values.
  */
 export type AgendaFilterSlug = Array<string>;
 
 /**
- * Restrict to your memberships on the agendas carrying these slugs, private agendas and agendas left out of the public directory included. A slug you are not a member of, or that no agenda carries, matches nothing. Repeat the parameter for multiple values.
+ * Restrict to the agendas carrying these slugs. A slug matching none of your memberships yields an empty page. Repeat the parameter for multiple values.
  *
  */
 export type MeAgendaFilterSlug = Array<string>;
@@ -2257,8 +2256,7 @@ export type AgendasListData = {
          */
         uid?: Array<number>;
         /**
-         * Restrict to these agenda slugs, among the agendas listed in the public directory. Repeat the parameter for multiple values.
-         *
+         * Restrict to these agenda slugs. Repeat the parameter for multiple values.
          */
         slug?: Array<string>;
         /**
@@ -3503,7 +3501,7 @@ export type MeAgendasListData = {
          */
         fields?: Array<string>;
         /**
-         * Restrict to your memberships on the agendas carrying these slugs, private agendas and agendas left out of the public directory included. A slug you are not a member of, or that no agenda carries, matches nothing. Repeat the parameter for multiple values.
+         * Restrict to the agendas carrying these slugs. A slug matching none of your memberships yields an empty page. Repeat the parameter for multiple values.
          *
          */
         slug?: Array<string>;

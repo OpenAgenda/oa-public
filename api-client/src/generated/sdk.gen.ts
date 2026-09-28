@@ -440,7 +440,7 @@ export class Agendas extends HeyApiClient {
     /**
      * List agendas
      *
-     * Returns a cursor-paginated list of agendas. Pass the `after` cursor returned in `pagination.after` to fetch the next page, with the same filters.
+     * Returns a cursor-paginated list of agendas. Pass the `after` cursor returned in `pagination.after` to fetch the next page, with the same filters. Private agendas and agendas not indexed in public search are absent from this list.
      *
      * Unknown or malformed filter values answer `400`, with per-field context under `error.errors`. An unrecognized top-level query parameter is ignored.
      *
@@ -516,7 +516,7 @@ export class Agendas2 extends HeyApiClient {
     /**
      * List the agendas you are a member of
      *
-     * Returns a cursor-paginated list of the agendas the authenticated user is a member of, with their role on each. Private agendas the user belongs to ARE included (each item carries a `private` flag), and so are agendas left out of the public directory. Filter by `slug` to resolve an agenda of yours to its uid, and by `role` to keep the memberships you can act on.
+     * Returns a cursor-paginated list of the agendas the authenticated user is a member of, with their role on each. Private agendas the user belongs to ARE included (each item carries a `private` flag), and so are agendas not indexed in public search.
      *
      */
     public list<ThrowOnError extends boolean = false>(options?: Options<MeAgendasListData, ThrowOnError>) {
