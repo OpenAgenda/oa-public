@@ -74,30 +74,34 @@ export default async function GenerateExportStream(
   const { thumbnail = defaultThumbnail } = config;
 
   const startTime = Date.now();
-  const intl = getIntl(lang);
 
-  const renderOptions = {
-    ...options,
-    lang,
-    intl,
-    includeEventImages,
-    sections,
-    locationInSection: !!sections?.includes(LOCATION_SECTION),
-  };
-
-  log.info('Start processing', { ...logBundle, sections });
-
-  const writer = new DocxWriter(writeStream, {
-    title: agenda.title,
-    // Right under the deepest section; top level without sections.
-    eventTitleLevel: Math.min(sections?.length ?? 0, HEADING_LEVELS),
-    updateFields: !!sections,
-  });
-
+  let writer = null;
   let count = 0;
   let previousIdentities = null;
 
+  // Everything inside: a failure anywhere, even while setting up, reaches the
+  // caller, which answers or cuts the response.
   try {
+    const intl = getIntl(lang);
+
+    const renderOptions = {
+      ...options,
+      lang,
+      intl,
+      includeEventImages,
+      sections,
+      locationInSection: !!sections?.includes(LOCATION_SECTION),
+    };
+
+    log.info('Start processing', { ...logBundle, sections });
+
+    writer = new DocxWriter(writeStream, {
+      title: agenda.title,
+      // Right under the deepest section; top level without sections.
+      eventTitleLevel: Math.min(sections?.length ?? 0, HEADING_LEVELS),
+      updateFields: !!sections,
+    });
+
     await writer.write(documentHeader(writer, agenda, renderOptions));
 
     const items = mapOrdered(
@@ -137,22 +141,18 @@ export default async function GenerateExportStream(
   } catch (error) {
     // A download cancelled midway is no failure: the reader went away and the
     // event stream was destroyed with the response.
-    if (isReaderGone(error)) {
+    if (isReaderGone(error, writeStream)) {
       log.info('Generation interrupted', {
         ...logBundle,
         eventsGenerated: count,
       });
-      writer.abort(error);
+      writer?.abort(error);
 
       return { count, interrupted: true };
     }
 
-    log.error('Generation failed', {
-      ...logBundle,
-      error,
-      eventsGenerated: count,
-    });
-    writer.abort(error);
+    // Logged by the caller, which knows what the failure cost the reader.
+    writer?.abort(error);
     throw error;
   }
 

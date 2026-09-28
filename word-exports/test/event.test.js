@@ -527,12 +527,14 @@ describe('review fixes', () => {
       isReaderGone(Object.assign(new Error(), { code: OUTPUT_CLOSED })),
       true,
     );
-    assert.equal(
-      isReaderGone(
-        Object.assign(new Error(), { code: 'ERR_STREAM_PREMATURE_CLOSE' }),
-      ),
-      true,
-    );
+    const premature = Object.assign(new Error(), {
+      code: 'ERR_STREAM_PREMATURE_CLOSE',
+    });
+
+    // The event stream closed because the response did: a cancel.
+    assert.equal(isReaderGone(premature, { destroyed: true }), true);
+    // The event stream died while the response is still open: a failure.
+    assert.equal(isReaderGone(premature, { destroyed: false }), false);
     assert.equal(isReaderGone(new Error('zlib failed')), false);
   });
 });
@@ -572,4 +574,97 @@ test('the agenda heads the document: its logo, its name and its website', async 
   assert.ok(logo !== -1 && logo < document.indexOf('Ville de Bègles'));
   assert.match(rels, /Target="https:\/\/www\.mairie-begles\.fr\/"/);
   assert.equal(media.filter((m) => m.endsWith('.jpeg')).length, 1);
+});
+
+describe('second review', () => {
+  const writer = { link: () => 'rId9' };
+  const text = (xml) =>
+    xml
+      .replace(/<w:ind w:left="(\d+)"\/>/g, '[$1]')
+      .replace(/<\/w:p>/g, '¶')
+      .replace(/<w:t[^>]*>([^<]*)<\/w:t>/g, '$1')
+      .replace(/<[^>]+>/g, '');
+
+  test('nested lists indent a step per level', () => {
+    assert.equal(
+      text(markdownParagraphs(writer, '- a\n  - b\n- c')),
+      '[360]• a¶[720]• b¶[360]• c¶',
+    );
+  });
+
+  test('an item made of a list has no second marker', () => {
+    assert.equal(
+      text(markdownParagraphs(writer, '- - x\n- y')),
+      '[720]• x¶[360]• y¶',
+    );
+  });
+
+  test('an empty item keeps its number', () => {
+    assert.equal(
+      text(markdownParagraphs(writer, '1. first\n2.\n3. third')),
+      '[360]1. first¶[360]2. ¶[360]3. third¶',
+    );
+  });
+
+  test('styles, scripts and comments are not text', () => {
+    assert.equal(
+      text(
+        markdownParagraphs(writer, '<style>p{color:red}</style><p>Hello</p>'),
+      ),
+      'Hello¶',
+    );
+    assert.equal(
+      text(markdownParagraphs(writer, 'a <!-- x > y --> b')),
+      'a  b¶',
+    );
+  });
+
+  test('a date field reads as a date on the event’s calendar; unknown types are left out', async () => {
+    const agenda = {
+      ...beglesAgenda,
+      schema: {
+        fields: [
+          ...beglesAgenda.schema.fields,
+          {
+            field: 'jour',
+            fieldType: 'date',
+            schemaType: 'agenda',
+            label: { fr: 'Jour' },
+          },
+          {
+            field: 'riche',
+            fieldType: 'slate',
+            schemaType: 'agenda',
+            label: { fr: 'Riche' },
+          },
+        ],
+      },
+    };
+    const { document } = await render(agenda, {
+      ...beglesEvent,
+      timezone: 'America/Martinique',
+      jour: '2026-05-01T02:00:00.000Z',
+      riche: 'structure interne',
+    });
+
+    // 02:00 UTC is still 30 April in Martinique.
+    assert.match(document, /Jour :.*30 avril 2026/s);
+    assert.doesNotMatch(document, /structure interne/);
+  });
+
+  test('pictures are fetched at the pixels their display width needs', async () => {
+    const asked = [];
+    await render(beglesAgenda, beglesEvent, {
+      config: {
+        fetchImage: async (image, options) => {
+          asked.push(options.maxWidth);
+          return null;
+        },
+      },
+    });
+
+    // Logo, then the event picture at the text width (9638 twips) at 150 dpi.
+    assert.equal(asked[0], 400);
+    assert.equal(asked[1], 1004);
+  });
 });

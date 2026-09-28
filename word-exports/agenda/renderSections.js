@@ -2,6 +2,7 @@ import { getLocaleValue } from '@openagenda/intl';
 import { paragraph, run } from '../lib/xml.js';
 import linkOrText from '../lib/links.js';
 import { HEADING_LEVELS } from '../lib/styles.js';
+import valueAt from '../lib/valueAt.js';
 import messages from '../lib/messages.js';
 
 export const LOCATION_SECTION = 'location.name';
@@ -10,10 +11,7 @@ export const LOCATION_SECTION = 'location.name';
 // multilingual value is compared, and shown, in that language. Empty is null.
 export function sectionValues(event, sections, lang) {
   return sections.map((key) => {
-    const value = getLocaleValue(
-      key.split('.').reduce((v, prop) => v?.[prop], event),
-      lang,
-    );
+    const value = getLocaleValue(valueAt(event, key), lang);
 
     return value === undefined || value === '' ? null : value;
   });

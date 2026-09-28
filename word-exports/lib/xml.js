@@ -51,11 +51,16 @@ export function hyperlink(relationshipId, text) {
   return hyperlinkRuns(relationshipId, run(text, { style: 'Hyperlink' }));
 }
 
-export function paragraph(content, { style, keepNext, pageBreakBefore } = {}) {
+// `indent` (twips) sets the left indent over the style's.
+export function paragraph(
+  content,
+  { style, keepNext, pageBreakBefore, indent } = {},
+) {
   const props = [
     style ? `<w:pStyle w:val="${style}"/>` : '',
     keepNext ? '<w:keepNext/>' : '',
     pageBreakBefore ? '<w:pageBreakBefore/>' : '',
+    indent ? `<w:ind w:left="${indent}"/>` : '',
   ].join('');
 
   return `<w:p>${props ? `<w:pPr>${props}</w:pPr>` : ''}${[].concat(content).join('')}</w:p>`;

@@ -32,10 +32,54 @@ export const isUnset = (value) =>
     && !Array.isArray(value)
     && !Object.keys(value).length);
 
+// A text, a number, or a list of them, multilingual or not.
+function textRun(value, lang) {
+  if (typeof value === 'string' || typeof value === 'number') {
+    return run(String(value));
+  }
+
+  if (Array.isArray(value)) {
+    const texts = value
+      .map((v) => (isMultilingual(v) ? getLocaleValue(v, lang) : v))
+      .filter((v) => typeof v === 'string' || typeof v === 'number');
+
+    return texts.length ? run(texts.join(', ')) : null;
+  }
+
+  if (isMultilingual(value)) {
+    const text = getLocaleValue(value, lang);
+
+    return typeof text === 'string' && text ? run(text) : null;
+  }
+
+  // Structures with no plain reading (nested objects) are left out: their
+  // first property is a storage key, not something to show.
+  return null;
+}
+
+// A date as the reader writes it, « 1 mai 2026 », on the event's calendar: a
+// bare `YYYY-MM-DD` is that day wherever the reader is, a full timestamp is
+// read in the event's timezone.
+function dateRun(value, { lang, timezone }) {
+  const bareDay = /^\d{4}-\d{2}-\d{2}$/.test(value);
+  const date = new Date(bareDay ? `${value}T12:00:00Z` : value);
+
+  if (Number.isNaN(date.getTime())) return null;
+
+  return run(
+    new Intl.DateTimeFormat(lang, {
+      dateStyle: 'long',
+      timeZone: bareDay ? 'UTC' : timezone || 'Europe/Paris',
+    }).format(date),
+  );
+}
+
 // A field's value as Word runs, or null when there is nothing to show. The
 // value is read through the schema: option ids become their labels, a
 // multilingual text is shown in the export language.
-export function fieldValueRuns(writer, field, value, { lang, intl }) {
+export function fieldValueRuns(writer, field, value, context) {
+  const { lang, intl } = context;
+
   if (isUnset(value)) return null;
 
   if (field.options?.length) {
@@ -55,6 +99,10 @@ export function fieldValueRuns(writer, field, value, { lang, intl }) {
       return linkOrText(writer, getLocaleValue(value, lang));
     case 'email':
       return linkOrText(writer, `mailto:${value}`, value);
+    case 'phone':
+      return run(String(value));
+    case 'date':
+      return dateRun(value, context);
     case 'age': {
       const { min, max } = value;
       const hasMin = typeof min === 'number';
@@ -72,32 +120,18 @@ export function fieldValueRuns(writer, field, value, { lang, intl }) {
           : intl.formatMessage(messages.ageUpTo, { max }),
       );
     }
+    case undefined:
+    case 'text':
+    case 'textarea':
+    case 'integer':
+    case 'number':
+    case 'keywords':
+      return textRun(value, lang);
     default:
-      break;
+      // As the PDF: a type with no reader here (files, pictures, rich-text
+      // structures) is left out rather than printed raw.
+      return null;
   }
-
-  if (typeof value === 'string' || typeof value === 'number') {
-    return run(String(value));
-  }
-
-  // A list of texts, multilingual or not.
-  if (Array.isArray(value)) {
-    const texts = value
-      .map((v) => (isMultilingual(v) ? getLocaleValue(v, lang) : v))
-      .filter((v) => typeof v === 'string' || typeof v === 'number');
-
-    return texts.length ? run(texts.join(', ')) : null;
-  }
-
-  if (isMultilingual(value)) {
-    const text = getLocaleValue(value, lang);
-
-    return typeof text === 'string' && text ? run(text) : null;
-  }
-
-  // Structures with no plain reading (files, nested objects) are left out:
-  // their first property is a storage key, not something to show.
-  return null;
 }
 
 // A markdown field is a block of paragraphs rather than runs.

@@ -12,11 +12,21 @@ import { HEADING_LEVELS } from './styles.js';
 
 const LINE_BREAK = '<w:r><w:br/></w:r>';
 
+// A list level's indent, in twips (a quarter inch).
+const LIST_INDENT = 360;
+
+// What HTML carries that is not text: comments, styles and scripts go whole,
+// before any tag is stripped (a `>` inside a comment must not end it).
+const stripNonText = (html) =>
+  html
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<(style|script)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, '');
+
 // HTML as lines of text: a `<br>` or the end of a block element is a line
 // break, a blank line or a `</p>` a new paragraph.
 export function htmlParagraphs(html) {
   return decodeHTML(
-    html
+    stripNonText(html)
       .replace(/<br\s*\/?>/gi, '\n')
       .replace(/<\/(p|div|h[1-6]|li|blockquote|tr)>/gi, '\n\n')
       .replace(/<li[^>]*>/gi, '• ')
@@ -77,7 +87,10 @@ function inline(writer, nodes, marks, context) {
           // Inline, a tag alone: a `<br>` breaks the line, the others go.
           return /^<br\s*\/?>$/i.test(node.value.trim())
             ? LINE_BREAK
-            : run(decodeHTML(node.value.replace(/<[^>]*>/g, '')), marks);
+            : run(
+              decodeHTML(stripNonText(node.value).replace(/<[^>]*>/g, '')),
+              marks,
+            );
         default:
           return node.children
             ? inline(writer, node.children, marks, context)
@@ -106,19 +119,31 @@ function blocks(writer, nodes, context) {
       case 'paragraph':
         return paragraph(inline(writer, node.children, {}, context), {
           style: context.style,
+          indent: context.indent,
         });
-      case 'list':
+      case 'list': {
+        // Each level of nesting indents a step further.
+        const depth = (context.listDepth ?? 0) + 1;
+        const style = { style: 'ListItem', indent: LIST_INDENT * depth };
+
         return node.children.map((item, index) => {
           const marker = node.ordered ? `${(node.start ?? 1) + index}. ` : '• ';
+          const [first] = item.children;
 
-          return withMarker(
-            blocks(writer, item.children, {
-              ...context,
-              style: 'ListItem',
-            }).join(''),
-            marker,
-          );
+          // An empty item keeps its number: « 2. » alone rather than a gap.
+          if (!first) return paragraph(run(marker), style);
+
+          const xml = blocks(writer, item.children, {
+            ...context,
+            ...style,
+            listDepth: depth,
+          }).join('');
+
+          // An item that starts with a list (`- - x`) is only that list: its
+          // own markers stand, a second one before them would read « • • x ».
+          return first.type === 'list' ? xml : withMarker(xml, marker);
         });
+      }
       case 'blockquote':
         return blocks(writer, node.children, { ...context, style: 'Quote' });
       case 'code':

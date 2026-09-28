@@ -6,6 +6,7 @@ import path from 'node:path';
 import { Readable } from 'node:stream';
 import logs from '@openagenda/logs';
 import WordExports from '../index.js';
+import valueAt from '../lib/valueAt.js';
 import agenda from '../test/fixtures/albi.agenda.json' with { type: 'json' };
 import events from '../test/fixtures/albi.events.json' with { type: 'json' };
 
@@ -15,8 +16,7 @@ const folder = path.resolve(process.env.WORD_TEST_FOLDER ?? 'word-test');
 
 fs.mkdirSync(folder, { recursive: true });
 
-const get = (event, key) =>
-  key.split('.').reduce((v, p) => v?.[p], event) ?? '';
+const get = (event, key) => valueAt(event, key) ?? '';
 
 const sortedBy = (sections) =>
   [...events].sort((a, b) => {

@@ -5,6 +5,7 @@ import getIntl from '../lib/intl.js';
 import messages from '../lib/messages.js';
 import linkOrText from '../lib/links.js';
 import groupTimings from '../lib/timings.js';
+import valueAt from '../lib/valueAt.js';
 import { TEXT_WIDTH } from '../lib/parts.js';
 import { EMU_PER_CM, inlineImage, paragraph, run } from '../lib/xml.js';
 import {
@@ -14,7 +15,12 @@ import {
   isUnset,
   markdownParagraphs,
 } from '../lib/fieldValues.js';
-import { QR_PIXELS, fetchEventImage, qrCode } from '../lib/eventImage.js';
+import {
+  PRINT_DPI,
+  QR_PIXELS,
+  fetchEventImage,
+  qrCode,
+} from '../lib/eventImage.js';
 import { accessibilityText, registrationRuns } from '../lib/eventLines.js';
 
 const log = logs('event/render');
@@ -24,8 +30,12 @@ const TEXT_WIDTH_EMU = TEXT_WIDTH * 635;
 const MAX_IMAGE_HEIGHT_EMU = 14 * EMU_PER_CM;
 const QR_SIZE_EMU = 3 * EMU_PER_CM;
 const AGENDA_LOGO_HEIGHT_EMU = 0.9 * EMU_PER_CM;
-// One pixel at 150 dpi: 914400 EMU per inch.
-const EMU_PER_PRINT_PIXEL = 914400 / 150;
+// One pixel at print resolution: 914400 EMU per inch.
+const EMU_PER_PRINT_PIXEL = 914400 / PRINT_DPI;
+// The pixels a picture needs to be sharp at `emu` wide.
+const pixelsFor = (emu) => Math.ceil(emu / EMU_PER_PRINT_PIXEL);
+// The logo is a line of text high: even a wide one needs few pixels.
+const AGENDA_LOGO_MAX_PIXELS = 400;
 const LOCATION_IMAGE_WIDTH_EMU = 8 * EMU_PER_CM;
 
 // The standard fields shown under « Practical information », in this order,
@@ -39,9 +49,7 @@ const practicalFields = [
 ];
 
 // A field's value: a sub-schema field is named `parent.child` and lives at
-// that path in the event.
-const valueAt = (event, path) =>
-  path.split('.').reduce((value, key) => value?.[key], event);
+// that path in the event (`valueAt`).
 
 function fieldLabel(field, { lang, intl }) {
   const label = getLocaleValue(field.label, lang) ?? field.field;
@@ -290,7 +298,7 @@ export default async function renderEvent(
   const { fetchImage = fetchEventImage } = config;
 
   const intl = getIntl(lang);
-  const context = { lang, intl };
+  const context = { lang, intl, timezone: event.timezone };
   const schemaFields = flattenSchemaFields(agenda.schema);
   const schemaField = (name) => schemaFields.find((f) => f.field === name);
   const eventUrl = `https://openagenda.com/agendas/${agenda.uid}/events/${event.uid}`;
@@ -298,11 +306,24 @@ export default async function renderEvent(
 
   // Fetched before the first byte: the document then streams without pause.
   const [agendaLogo, image, locationImage, qr] = await Promise.all([
-    agenda.image ? fetchImage(agenda.image, { imagePath }) : null,
-    event.image ? fetchImage(event.image, { imagePath }) : null,
+    agenda.image
+      ? fetchImage(agenda.image, {
+        imagePath,
+        maxWidth: AGENDA_LOGO_MAX_PIXELS,
+      })
+      : null,
+    event.image
+      ? fetchImage(event.image, {
+        imagePath,
+        maxWidth: pixelsFor(TEXT_WIDTH_EMU),
+      })
+      : null,
     // Only for a venue the document shows: one with a name or an address.
     event.location?.image && (event.location.name || event.location.address)
-      ? fetchImage(event.location.image, { imagePath })
+      ? fetchImage(event.location.image, {
+        imagePath,
+        maxWidth: pixelsFor(LOCATION_IMAGE_WIDTH_EMU),
+      })
       : null,
     qrCode(eventUrl),
   ]);
@@ -429,7 +450,7 @@ export default async function renderEvent(
     await writer.end();
   } catch (error) {
     // The reader went away, while the pictures were fetched or midway.
-    if (isReaderGone(error)) {
+    if (isReaderGone(error, writeStream)) {
       log.info('Event document interrupted', {
         agendaUid: agenda.uid,
         eventUid: event.uid,

@@ -33,9 +33,12 @@ function outputClosedError() {
 
 // Whether `error` means the reader went away (a cancelled download), rather
 // than a failure to report: the output closed early, or the event stream was
-// destroyed along with it.
-export function isReaderGone(error) {
-  return [OUTPUT_CLOSED, 'ERR_STREAM_PREMATURE_CLOSE'].includes(error?.code);
+// closed because the output was. A stream closing early while the output is
+// still open is a failure.
+export function isReaderGone(error, output) {
+  if (error?.code === OUTPUT_CLOSED) return true;
+
+  return error?.code === 'ERR_STREAM_PREMATURE_CLOSE' && !!output?.destroyed;
 }
 
 export default class DocxWriter {
