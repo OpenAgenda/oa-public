@@ -383,12 +383,12 @@ export type FormSchemaField = {
      * Access levels allowed to read the field's value. `null` or empty means every caller.
      *
      */
-    read?: Array<string> | null;
+    read?: Array<AccessLevel> | null;
     /**
-     * Access levels allowed to write the field's value. `null` or empty means every caller allowed to write events on the agenda; otherwise your member role must be listed, and a value you send for the field answers `422` with an `unauthorized` issue on it.
+     * Access levels allowed to write the field's value. `null` or empty means every caller allowed to write events on the agenda; otherwise your access level must be listed, and a value you send for the field answers `422` with an `unauthorized` issue on it.
      *
      */
-    write?: Array<string> | null;
+    write?: Array<AccessLevel> | null;
     /**
      * Set on a field converted from an earlier agenda setting: what it was converted from.
      *
@@ -415,6 +415,12 @@ export type FormSchemaField = {
     schemaType?: 'agenda' | 'network' | 'event' | null;
     [key: string]: unknown;
 };
+
+/**
+ * A level of access to an agenda's data, as the field rules of its event form name them.
+ *
+ */
+export type AccessLevel = 'public' | 'contributor' | 'moderator' | 'administrator' | 'internal' | 'system';
 
 export type MemberRole = 'administrator' | 'moderator' | 'contributor' | 'reader';
 

@@ -199,6 +199,19 @@ export const zLocationList = z.object({
 });
 
 /**
+ * A level of access to an agenda's data, as the field rules of its event form name them.
+ *
+ */
+export const zAccessLevel = z.enum([
+    'public',
+    'contributor',
+    'moderator',
+    'administrator',
+    'internal',
+    'system'
+]);
+
+/**
  * A form field descriptor. Two kinds share the array: **data field descriptors** (carrying `field`, the key the value lives under on events) and **section separators** (`type: 'section'`, no `field` - structure the form into titled groups). Descriptors may carry keys beyond those listed below.
  *
  */
@@ -217,8 +230,8 @@ export const zFormSchemaField = z.object({
     enable: z.boolean().optional(),
     enableWith: z.unknown().optional(),
     optionalWith: z.unknown().optional(),
-    read: z.array(z.string()).nullish(),
-    write: z.array(z.string()).nullish(),
+    read: z.array(zAccessLevel).nullish(),
+    write: z.array(zAccessLevel).nullish(),
     origin: z.enum([
         'tags',
         'categories',
