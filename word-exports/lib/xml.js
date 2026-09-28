@@ -41,9 +41,14 @@ export function run(text, options = {}) {
   return `<w:r>${runProperties(options)}${content}</w:r>`;
 }
 
-// `options` style the run like `run`'s, over the Hyperlink character style.
-export function hyperlink(relationshipId, text, options = {}) {
-  return `<w:hyperlink r:id="${relationshipId}" w:history="1">${run(text, { ...options, style: 'Hyperlink' })}</w:hyperlink>`;
+// A link around runs already built (formatted text), which should use the
+// Hyperlink character style.
+export function hyperlinkRuns(relationshipId, runs) {
+  return `<w:hyperlink r:id="${relationshipId}" w:history="1">${runs}</w:hyperlink>`;
+}
+
+export function hyperlink(relationshipId, text) {
+  return hyperlinkRuns(relationshipId, run(text, { style: 'Hyperlink' }));
 }
 
 export function paragraph(content, { style, keepNext, pageBreakBefore } = {}) {

@@ -12,7 +12,16 @@ const MAX_WIDTH = 1600;
 // a filename first (see pdf-exports/utils/urlToBuffer.js).
 const fromProductionBucket = (url) => url.replace('/dev/', '/main/');
 
+// The URL of the event's picture, in its largest variant. The value is an
+// image object, or a string (a URL, or a filename under `imagePath`), as the
+// PDF reads it too.
 export function eventImageUrl(image, imagePath) {
+  if (typeof image === 'string') {
+    if (/^https?:/.test(image)) return image;
+
+    return imagePath ? `${imagePath.replace(/\/?$/, '/')}${image}` : null;
+  }
+
   if (!image?.filename) return null;
 
   const full = image.variants?.find((v) => v.type === 'full');

@@ -9,8 +9,7 @@ import {
 import { TEXT_WIDTH } from '../lib/parts.js';
 import messages from '../lib/messages.js';
 import linkOrText from '../lib/links.js';
-
-const accessibilityKeys = ['ii', 'hi', 'vi', 'pi', 'mi'];
+import { accessibilityText, registrationRuns } from '../lib/eventLines.js';
 
 // The picture column: a 2.5 cm square and its gutter.
 const IMAGE_SIZE = 2.5 * EMU_PER_CM;
@@ -23,25 +22,12 @@ export function googleMapsLink(location) {
 }
 
 function registrationLine(writer, event, intl) {
-  const items = (event.registration ?? [])
-    .filter((item) => item?.value)
-    .map((item) => {
-      if (item.type === 'email') {
-        return linkOrText(writer, `mailto:${item.value}`, item.value);
-      }
-      if (item.type === 'link') {
-        return linkOrText(writer, item.value);
-      }
-      return run(item.value);
-    });
+  const items = registrationRuns(writer, event);
 
-  if (!items.length) return null;
+  if (!items) return null;
 
   return paragraph(
-    [
-      run(`${intl.formatMessage(messages.registration)} `),
-      items.join(run(' · ')),
-    ],
+    [run(`${intl.formatMessage(messages.registration)} `), items],
     { style: 'EventDetail' },
   );
 }
@@ -80,20 +66,10 @@ export function eventParagraphs(writer, event, options) {
     paragraphs.push(paragraph(run(dateRange), { style: 'EventDetail' }));
   }
 
-  const accessibilities = accessibilityKeys.filter(
-    (key) => event.accessibility?.[key] === true,
-  );
+  const accessibility = includeAccessibility && accessibilityText(event, intl);
 
-  if (includeAccessibility && accessibilities.length) {
-    const list = accessibilities
-      .map((key) => intl.formatMessage(messages[key]))
-      .join(', ');
-
-    paragraphs.push(
-      paragraph(run(intl.formatMessage(messages.accessibility, { list })), {
-        style: 'EventDetail',
-      }),
-    );
+  if (accessibility) {
+    paragraphs.push(paragraph(run(accessibility), { style: 'EventDetail' }));
   }
 
   const { location } = event;

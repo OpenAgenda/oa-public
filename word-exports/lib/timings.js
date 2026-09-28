@@ -28,10 +28,11 @@ const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 const calendarDate = (key) =>
   new Date(`${key.length === 7 ? `${key}-01` : key}T12:00:00Z`);
 
-export default function groupTimings(
-  timings,
-  { timezone = 'Europe/Paris', lang = 'fr' } = {},
-) {
+export default function groupTimings(timings, options = {}) {
+  // `||`, not a default: an event can carry a null timezone.
+  const timezone = options.timezone || 'Europe/Paris';
+  const lang = options.lang || 'fr';
+
   const monthFormat = new Intl.DateTimeFormat(lang, {
     month: 'long',
     year: 'numeric',

@@ -198,3 +198,119 @@ describe('markdown', () => {
     assert.match(xml, /<w:hyperlink r:id="rId9"/);
   });
 });
+
+describe('event Word export, edge cases', () => {
+  test('a null timezone falls back instead of failing the export', async () => {
+    const { document } = await render(beglesAgenda, {
+      ...beglesEvent,
+      timezone: null,
+    });
+
+    assert.match(document, /Dates et horaires/);
+  });
+
+  test('a link keeps its formatted text, and the formatting around it', () => {
+    const writer = { link: () => 'rId9' };
+    const xml = markdownParagraphs(
+      writer,
+      'see [**here**](https://x.org) and **[bold](https://y.org)**',
+    );
+
+    assert.match(
+      xml,
+      /<w:hyperlink r:id="rId9"[^>]*><w:r><w:rPr><w:rStyle w:val="Hyperlink"\/><w:b\/><\/w:rPr><w:t xml:space="preserve">here</,
+    );
+    assert.match(
+      xml,
+      /<w:rStyle w:val="Hyperlink"\/><w:b\/><\/w:rPr><w:t xml:space="preserve">bold</,
+    );
+    assert.doesNotMatch(xml, />https:\/\/x\.org</);
+  });
+
+  test('a list of texts shows every item; a file or a nested object shows nothing', async () => {
+    const field = (name, fieldType) => ({
+      field: name,
+      fieldType,
+      schemaType: 'agenda',
+      label: { fr: name },
+    });
+    const agenda = {
+      ...beglesAgenda,
+      schema: {
+        fields: [
+          ...beglesAgenda.schema.fields,
+          field('liste', 'text'),
+          field('document', 'file'),
+        ],
+      },
+    };
+
+    const { document } = await render(agenda, {
+      ...beglesEvent,
+      liste: ['a', 'b', 'c'],
+      document: { filename: 'x.pdf', originalName: 'doc.pdf' },
+    });
+
+    assert.match(document, /liste :.*a, b, c/s);
+    assert.doesNotMatch(document, /x\.pdf/);
+  });
+
+  test('a picture given as a URL string is fetched too', async () => {
+    let asked;
+    await render(
+      beglesAgenda,
+      { ...beglesEvent, image: 'https://cdn.example/a.jpg' },
+      {
+        config: {
+          fetchImage: async (image) => {
+            asked = image;
+            return null;
+          },
+        },
+      },
+    );
+
+    assert.equal(asked, 'https://cdn.example/a.jpg');
+    assert.equal(
+      (await import('../lib/eventImage.js')).eventImageUrl(
+        'a.jpg',
+        'https://img/main',
+      ),
+      'https://img/main/a.jpg',
+    );
+  });
+
+  test('a reader gone during the picture fetch interrupts the render, quietly', async () => {
+    const output = new PassThrough();
+
+    const result = await WordExports({
+      fetchImage: async () => {
+        output.destroy();
+        return null;
+      },
+    }).event.render(output, beglesAgenda, beglesEvent, { lang: 'fr' });
+
+    assert.equal(result.interrupted, true);
+  });
+
+  test('a render failing before any byte leaves the response to the caller', async () => {
+    const output = new PassThrough();
+
+    await assert.rejects(
+      WordExports({ fetchImage }).event.render(
+        output,
+        {
+          ...beglesAgenda,
+          schema: {
+            fields: [
+              { field: 'x', schemaType: 'agenda', options: 'not a list' },
+            ],
+          },
+        },
+        { ...beglesEvent, x: 1 },
+        { lang: 'fr' },
+      ),
+    );
+    assert.equal(output.destroyed, false);
+  });
+});

@@ -15,6 +15,14 @@ export function flattenSchemaFields(schema) {
       : [field]));
 }
 
+// A multilingual text: an object keyed by language codes only.
+export const isMultilingual = (value) =>
+  !!value
+  && typeof value === 'object'
+  && !Array.isArray(value)
+  && Object.keys(value).length > 0
+  && Object.keys(value).every((key) => /^[a-z]{2,3}(-[A-Za-z]{2,4})?$/.test(key));
+
 export const isUnset = (value) =>
   value === null
   || value === undefined
@@ -68,20 +76,27 @@ export function fieldValueRuns(writer, field, value, { lang, intl }) {
       break;
   }
 
-  const localized = getLocaleValue(value, lang);
-
-  if (typeof localized === 'string' || typeof localized === 'number') {
-    return run(String(localized));
+  if (typeof value === 'string' || typeof value === 'number') {
+    return run(String(value));
   }
 
-  if (
-    Array.isArray(localized)
-    && localized.every((v) => typeof v === 'string')
-  ) {
-    return run(localized.join(', '));
+  // A list of texts, multilingual or not.
+  if (Array.isArray(value)) {
+    const texts = value
+      .map((v) => (isMultilingual(v) ? getLocaleValue(v, lang) : v))
+      .filter((v) => typeof v === 'string' || typeof v === 'number');
+
+    return texts.length ? run(texts.join(', ')) : null;
   }
 
-  // Structures with no plain reading (files, nested objects) are left out.
+  if (isMultilingual(value)) {
+    const text = getLocaleValue(value, lang);
+
+    return typeof text === 'string' && text ? run(text) : null;
+  }
+
+  // Structures with no plain reading (files, nested objects) are left out:
+  // their first property is a storage key, not something to show.
   return null;
 }
 

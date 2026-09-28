@@ -1,6 +1,6 @@
 import { remark } from 'remark';
-import { paragraph, run } from './xml.js';
-import linkOrText from './links.js';
+import { hyperlinkRuns, paragraph, run } from './xml.js';
+import { safeUrl } from './links.js';
 import { HEADING_LEVELS } from './styles.js';
 
 // Markdown (an event's long description) as Word paragraphs: headings,
@@ -24,9 +24,18 @@ function inline(writer, nodes, marks = {}) {
         case 'break':
           return '<w:r><w:br/></w:r>';
         case 'link': {
-          const text = node.children.map((c) => c.value ?? '').join('') || node.url;
+          // The link text keeps its own formatting, and the one around it.
+          const href = safeUrl(node.url);
+          const content = node.children.length
+            ? node.children
+            : [{ type: 'text', value: node.url }];
 
-          return linkOrText(writer, node.url, text);
+          if (!href) return inline(writer, content, marks);
+
+          return hyperlinkRuns(
+            writer.link(href),
+            inline(writer, content, { ...marks, style: 'Hyperlink' }),
+          );
         }
         case 'image':
           return node.alt ? run(node.alt, marks) : '';

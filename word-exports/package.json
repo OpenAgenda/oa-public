@@ -3,6 +3,13 @@
   "version": "0.1.0",
   "type": "module",
   "main": "index.js",
+  "files": [
+    "index.js",
+    "agenda/",
+    "event/",
+    "lib/",
+    "locales-compiled/"
+  ],
   "exports": {
     "./package.json": "./package.json",
     ".": "./index.js"

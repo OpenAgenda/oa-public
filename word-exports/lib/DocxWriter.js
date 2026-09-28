@@ -41,8 +41,16 @@ export default class DocxWriter {
     this.output = output;
     this.closed = false;
 
+    this.started = false;
+
     this.done = new Promise((resolve, reject) => {
       let finished = false;
+
+      // Already gone (the reader left while the caller was fetching what the
+      // document needs): no event will come to say so.
+      if (output.destroyed || output.writableEnded) {
+        reject(outputClosedError());
+      }
 
       output.once('finish', () => {
         finished = true;
@@ -67,6 +75,10 @@ export default class DocxWriter {
       },
     );
 
+    // Once a byte has reached the output, a failure can only cut it short.
+    this.archive.once('data', () => {
+      this.started = true;
+    });
     this.archive.pipe(output);
 
     this.archive.append(contentTypes, { name: '[Content_Types].xml' });
@@ -154,9 +166,14 @@ export default class DocxWriter {
     await this.done;
   }
 
-  abort(error) {
+  // Stops the document. The output is destroyed with it, unless
+  // `onlyIfStarted` and nothing was sent yet: the caller can then still answer
+  // with an error of its own.
+  abort(error, { onlyIfStarted = false } = {}) {
+    this.archive.unpipe(this.output);
     this.body.destroy();
     this.archive.abort();
-    this.output.destroy(error);
+
+    if (!onlyIfStarted || this.started) this.output.destroy(error);
   }
 }

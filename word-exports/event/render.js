@@ -1,6 +1,6 @@
 import { getLocaleValue } from '@openagenda/intl';
 import logs from '@openagenda/logs';
-import DocxWriter from '../lib/DocxWriter.js';
+import DocxWriter, { OUTPUT_CLOSED } from '../lib/DocxWriter.js';
 import getIntl from '../lib/intl.js';
 import messages from '../lib/messages.js';
 import linkOrText from '../lib/links.js';
@@ -15,6 +15,7 @@ import {
   markdownParagraphs,
 } from '../lib/fieldValues.js';
 import { fetchEventImage, qrCode } from '../lib/eventImage.js';
+import { accessibilityText, registrationRuns } from '../lib/eventLines.js';
 
 const log = logs('event/render');
 
@@ -23,9 +24,8 @@ const TEXT_WIDTH_EMU = TEXT_WIDTH * 635;
 const MAX_IMAGE_HEIGHT_EMU = 14 * EMU_PER_CM;
 const QR_SIZE_EMU = 3 * EMU_PER_CM;
 
-const accessibilityKeys = ['ii', 'hi', 'vi', 'pi', 'mi'];
-
-// The standard fields shown under « Practical information », in this order.
+// The standard fields shown under « Practical information », in this order,
+// when the agenda schema has them: it gives their label and reads their value.
 // The attendance mode only when it is not the default, on-site one.
 const practicalFields = [
   'attendanceMode',
@@ -87,17 +87,9 @@ function picture(
 }
 
 function registrationParagraph(writer, event, schemaField, context) {
-  const items = (event.registration ?? [])
-    .filter((item) => item?.value)
-    .map((item) => {
-      if (item.type === 'email') {
-        return linkOrText(writer, `mailto:${item.value}`, item.value);
-      }
-      if (item.type === 'link') return linkOrText(writer, item.value);
-      return run(item.value);
-    });
+  const items = registrationRuns(writer, event);
 
-  if (!items.length) return '';
+  if (!items) return '';
 
   const label = schemaField
     ? fieldLabel(schemaField, context)
@@ -105,23 +97,13 @@ function registrationParagraph(writer, event, schemaField, context) {
       bold: true,
     });
 
-  return paragraph([label, items.join(run(' · '))]);
+  return paragraph([label, items]);
 }
 
 function accessibilityParagraph(event, context) {
-  const keys = accessibilityKeys.filter(
-    (key) => event.accessibility?.[key] === true,
-  );
+  const text = accessibilityText(event, context.intl);
 
-  if (!keys.length) return '';
-
-  const list = keys
-    .map((key) => context.intl.formatMessage(messages[key]))
-    .join(', ');
-
-  return paragraph(
-    run(context.intl.formatMessage(messages.accessibility, { list })),
-  );
+  return text ? paragraph(run(text)) : '';
 }
 
 function locationSection(writer, location, context) {
@@ -270,10 +252,11 @@ export default async function renderEvent(
 
     const practical = [
       ...practicalFields
-        .map((name) => schemaField(name) ?? { field: name })
+        .map(schemaField)
         .filter(
           (field) =>
-            !(field.field === 'attendanceMode' && event.attendanceMode === 1),
+            field
+            && !(field.field === 'attendanceMode' && event.attendanceMode === 1),
         )
         .map((field) =>
           fieldParagraphs(writer, field, event[field.field], context)),
@@ -320,12 +303,22 @@ export default async function renderEvent(
     await writer.write(xml.join(''));
     await writer.end();
   } catch (error) {
-    log.error('Event document failed', {
-      agendaUid: agenda.uid,
-      eventUid: event.uid,
-      error,
-    });
-    writer.abort(error);
+    // The reader went away, while the pictures were fetched or midway.
+    if (writer.closed || error.code === OUTPUT_CLOSED) {
+      log.info('Event document interrupted', {
+        agendaUid: agenda.uid,
+        eventUid: event.uid,
+      });
+      writer.abort(error);
+
+      return { interrupted: true };
+    }
+
+    // Nothing sent yet, the caller can still answer with an error: the
+    // response is only cut when the document had started.
+    writer.abort(error, { onlyIfStarted: true });
     throw error;
   }
+
+  return { interrupted: false };
 }
