@@ -1143,13 +1143,29 @@ paths:
         ]
       x-codeSamples:
         - lang: TypeScript
-          label: Build an event body from the schema, then dry-run it
+          label: Find the required fields, build a body, then dry-run it
           source: |
             const agendaUid = 12345;
             const { data: schema, error } = await oa.agendas.events.schema({
               path: { agendaUid },
             });
             if (error) throw error;
+
+            // What the agenda requires, and where each value goes: `when`
+            // (enableWith) must hold for the requirement to apply, `unless`
+            // (optionalWith) lifts it.
+            const required = schema.fields
+              .filter(
+                (f) =>
+                  f.path
+                  && (f.optional === false
+                    || (f.optional === undefined && f.optionalWith)),
+              )
+              .map((f) => ({
+                path: f.path,
+                when: f.enableWith ?? null,
+                unless: f.optionalWith ?? null,
+              }));
 
             const body = {
               title: { fr: 'Concert en ligne' },
@@ -1160,23 +1176,22 @@ paths:
               attendanceMode: 2, // online: activates onlineAccessLink
               onlineAccessLink: 'https://example.com/live',
             };
-
-            // Each field's `path` is where its value goes in the body.
             const set = (path, value) => {
               const [key, sub] = path.split('.');
               body[key] = sub ? { ...body[key], [sub]: value } : value;
             };
 
-            // A radio field takes the id of one of its options.
+            // A radio field takes the id of the option that fits the event.
             const theme = schema.fields.find((f) => f.field === 'thematique');
-            if (theme) set(theme.path, theme.options[0].id);
+            const concert = theme?.options.find((o) => o.value === 'concert');
+            if (concert) set(theme.path, concert.id);
 
             const check = await oa.agendas.events.validate({
               path: { agendaUid },
               body,
             });
             // A 422 lists under `errors` each field to fix.
-            return check.error ? check.error.error : check.data;
+            return { required, verdict: check.error ? check.error.error : check.data };
         - lang: TypeScript
           label: List the agenda's additional event fields
           source: |
@@ -1185,7 +1200,7 @@ paths:
             });
             if (error) throw error;
             return data.fields
-              .filter((f) => f.schemaId != null)
+              .filter((f) => f.path?.startsWith('additionalFields.'))
               .map((f) => ({ name: f.field, type: f.fieldType }));
       description: >
         Returns the agenda's **merged event form schema** — the dynamic
@@ -1202,9 +1217,10 @@ paths:
 
         Descriptors are scoped to your read access: a field whose `read` access
         levels exclude the caller (e.g. a moderator-only field) is omitted from
-        `fields`, so a public caller sees only the public fields. Fields only
-        the platform writes (the event's `uid`, `slug`, timestamps...) are
-        omitted too.
+        `fields`, so a public caller sees only the public fields. Native
+        fields the write operations do not take (the event's `uid`, `slug`,
+        timestamps...) are omitted too, and `status` is listed only on an
+        agenda that accepts it.
       security:
         - publicKey: []
         - secretKey: []
@@ -3398,9 +3414,10 @@ components:
           description: >
             The fields of the merged schema readable at the caller's access
             level - native event fields (with any per-agenda overrides applied)
-            and the agenda's/network's additional fields (`schemaId` non-null).
+            and the agenda's/network's additional fields (`path` under
+            `additionalFields`).
             A field whose `read` access levels exclude the caller is omitted, and
-            so is a field only the platform writes.
+            so is a native field the write operations do not take.
           items:
             $ref: '#/components/schemas/FormSchemaField'
 
@@ -3408,8 +3425,8 @@ components:
       type: object
       description: >
         A form field descriptor. Two kinds share the array: **data field
-        descriptors** (carrying `field`, the key the value lives under on
-        events) and **section separators** (`type: 'section'`, no `field` -
+        descriptors** (carrying `field` and the `path` of its value) and
+        **section separators** (`type: 'section'`, no `field` -
         structure the form into titled groups). Descriptors may carry keys
         beyond those listed below.
       additionalProperties: true
@@ -3469,7 +3486,8 @@ components:
             that field's name, or `{ field, value }` to require specific
             values (e.g. `onlineAccessLink` enabled when `attendanceMode` is
             online or mixed). While inactive, the field is not required,
-            whatever `optional` says, and a value sent for it is discarded.
+            whatever `optional` says, and holds no value: one sent is not kept,
+            and a stored one is cleared.
         optionalWith:
           description: >
             The field is optional when another field has a value (either that
@@ -3515,23 +3533,34 @@ components:
         schemaId:
           type: [integer, 'null']
           description: >
-            Identifier of the declaring agenda/network schema. Non-null marks
-            an **additional field**; `null`/absent marks a native one.
+            Identifier of the agenda or network schema that declared or
+            overrode the field; `null` on a native field as the platform
+            declares it.
         schemaType:
           type: [string, 'null']
           enum: [agenda, network, event, null]
           description: >
-            Which level declared the field: `agenda`/`network` for additional
-            fields, `event` for the platform's native event fields.
+            Which level declared or overrode the field: `agenda` or `network`,
+            or `event` for a native field as the platform declares it.
 
     AccessLevel:
       type: string
       description: >
         A level of access to an agenda's data, as the field rules of its event
         form name them.
-      enum: [public, contributor, moderator, administrator, internal, system]
+      enum:
+        [
+          public,
+          reader,
+          contributor,
+          moderator,
+          administrator,
+          internal,
+          system,
+        ]
       x-enum-descriptions:
-        public: A caller who is not a member of the agenda
+        public: A caller without a membership on the agenda
+        reader: A member with the reader role
         contributor: A member with the contributor role
         moderator: A member with the moderator role
         administrator: A member with the administrator role
