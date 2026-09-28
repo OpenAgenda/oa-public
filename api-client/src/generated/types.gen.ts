@@ -1882,9 +1882,22 @@ export type AgendaSort = 'createdAt.desc' | 'recentlyAddedEvents.desc';
 export type AgendaFilterUid = Array<number>;
 
 /**
- * Restrict to these agenda slugs. Repeat the parameter for multiple values.
+ * Restrict to these agenda slugs, among the agendas listed in the public directory. Repeat the parameter for multiple values.
+ *
  */
 export type AgendaFilterSlug = Array<string>;
+
+/**
+ * Restrict to your memberships on the agendas carrying these slugs, private agendas and agendas left out of the public directory included. A slug you are not a member of, or that no agenda carries, matches nothing. Repeat the parameter for multiple values.
+ *
+ */
+export type MeAgendaFilterSlug = Array<string>;
+
+/**
+ * Restrict to the memberships holding one of these roles. Repeat the parameter for multiple values.
+ *
+ */
+export type MeAgendaFilterRole = Array<MemberRole>;
 
 /**
  * Restrict to official agendas (`true`) or to non-official agendas (`false`). Omit to return both.
@@ -2244,7 +2257,8 @@ export type AgendasListData = {
          */
         uid?: Array<number>;
         /**
-         * Restrict to these agenda slugs. Repeat the parameter for multiple values.
+         * Restrict to these agenda slugs, among the agendas listed in the public directory. Repeat the parameter for multiple values.
+         *
          */
         slug?: Array<string>;
         /**
@@ -3488,6 +3502,16 @@ export type MeAgendasListData = {
          *
          */
         fields?: Array<string>;
+        /**
+         * Restrict to your memberships on the agendas carrying these slugs, private agendas and agendas left out of the public directory included. A slug you are not a member of, or that no agenda carries, matches nothing. Repeat the parameter for multiple values.
+         *
+         */
+        slug?: Array<string>;
+        /**
+         * Restrict to the memberships holding one of these roles. Repeat the parameter for multiple values.
+         *
+         */
+        role?: Array<MemberRole>;
     };
     url: '/me/agendas';
 };

@@ -1325,9 +1325,22 @@ export const zAgendaSort = z.enum(['createdAt.desc', 'recentlyAddedEvents.desc']
 export const zAgendaFilterUid = z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }));
 
 /**
- * Restrict to these agenda slugs. Repeat the parameter for multiple values.
+ * Restrict to these agenda slugs, among the agendas listed in the public directory. Repeat the parameter for multiple values.
+ *
  */
 export const zAgendaFilterSlug = z.array(z.string());
+
+/**
+ * Restrict to your memberships on the agendas carrying these slugs, private agendas and agendas left out of the public directory included. A slug you are not a member of, or that no agenda carries, matches nothing. Repeat the parameter for multiple values.
+ *
+ */
+export const zMeAgendaFilterSlug = z.array(z.string());
+
+/**
+ * Restrict to the memberships holding one of these roles. Repeat the parameter for multiple values.
+ *
+ */
+export const zMeAgendaFilterRole = z.array(zMemberRole);
 
 /**
  * Restrict to official agendas (`true`) or to non-official agendas (`false`). Omit to return both.
@@ -2071,7 +2084,9 @@ export const zMeAgendasListQuery = z.object({
     after: z.string().optional(),
     limit: z.number().int().gte(1).lte(100).optional().default(20),
     detailed: z.boolean().optional().default(false),
-    fields: z.array(z.string()).optional()
+    fields: z.array(z.string()).optional(),
+    slug: z.array(z.string()).optional(),
+    role: z.array(zMemberRole).optional()
 });
 
 /**
