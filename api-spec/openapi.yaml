@@ -132,7 +132,8 @@ paths:
       description: >
         Returns a cursor-paginated list of agendas. Pass the `after`
         cursor returned in `pagination.after` to fetch the next page,
-        with the same filters.
+        with the same filters. Private agendas and agendas not indexed in
+        public search are absent from this list.
 
 
         Unknown or malformed filter values answer `400`, with per-field
@@ -1202,7 +1203,6 @@ paths:
           which agendas,
           can I,
           permissions,
-          slug,
           by slug,
           find my agenda,
         ]
@@ -1231,9 +1231,8 @@ paths:
         Returns a cursor-paginated list of the agendas the
         authenticated user is a member of, with their role on each.
         Private agendas the user belongs to ARE included (each item
-        carries a `private` flag), and so are agendas left out of the
-        public directory. Filter by `slug` to resolve an agenda of yours
-        to its uid, and by `role` to keep the memberships you can act on.
+        carries a `private` flag), and so are agendas not indexed in
+        public search.
       security:
         - secretKey: []
         - oauth2:
@@ -1929,9 +1928,7 @@ components:
       name: slug
       in: query
       required: false
-      description: >
-        Restrict to these agenda slugs, among the agendas listed in the public
-        directory. Repeat the parameter for multiple values.
+      description: Restrict to these agenda slugs. Repeat the parameter for multiple values.
       schema:
         type: array
         items:
@@ -1942,10 +1939,9 @@ components:
       in: query
       required: false
       description: >
-        Restrict to your memberships on the agendas carrying these slugs,
-        private agendas and agendas left out of the public directory
-        included. A slug you are not a member of, or that no agenda carries,
-        matches nothing. Repeat the parameter for multiple values.
+        Restrict to the agendas carrying these slugs. A slug matching none of
+        your memberships yields an empty page. Repeat the parameter for
+        multiple values.
       schema:
         type: array
         items:
