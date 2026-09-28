@@ -22,6 +22,10 @@ export default defineMessages({
     id: 'word-exports.timingDetails',
     defaultMessage: 'Dates and times',
   },
+  additionalValues: {
+    id: 'word-exports.additionalValues',
+    defaultMessage: 'Additional values',
+  },
   practicalInformation: {
     id: 'word-exports.practicalInformation',
     defaultMessage: 'Practical information',

@@ -6,6 +6,7 @@
   "word-exports.accessibility.mi": "motor impairment",
   "word-exports.accessibility.pi": "psychic impairment",
   "word-exports.accessibility.vi": "visual impairment",
+  "word-exports.additionalValues": "Additional values",
   "word-exports.ageFrom": "From {min} years old",
   "word-exports.ageRange": "From {min} to {max} years old",
   "word-exports.ageUpTo": "Up to {max} years old",

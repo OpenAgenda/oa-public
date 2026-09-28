@@ -49,6 +49,12 @@
       "value": "visual impairment"
     }
   ],
+  "word-exports.additionalValues": [
+    {
+      "type": 0,
+      "value": "Additional values"
+    }
+  ],
   "word-exports.ageFrom": [
     {
       "type": 0,

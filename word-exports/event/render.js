@@ -23,6 +23,7 @@ const log = logs('event/render');
 const TEXT_WIDTH_EMU = TEXT_WIDTH * 635;
 const MAX_IMAGE_HEIGHT_EMU = 14 * EMU_PER_CM;
 const QR_SIZE_EMU = 3 * EMU_PER_CM;
+const AGENDA_LOGO_HEIGHT_EMU = 0.9 * EMU_PER_CM;
 // One pixel at 150 dpi: 914400 EMU per inch.
 const EMU_PER_PRINT_PIXEL = 914400 / 150;
 const LOCATION_IMAGE_WIDTH_EMU = 8 * EMU_PER_CM;
@@ -98,6 +99,33 @@ function picture(
       description,
     }),
   );
+}
+
+// The agenda above the event: its logo at the height of a line or two of
+// text, its name, and its website when it has one.
+function agendaHeader(writer, agenda, logo) {
+  const content = [];
+
+  if (logo) {
+    const { id, drawingId } = writer.image(logo.buffer);
+
+    content.push(
+      inlineImage(id, drawingId, {
+        width: Math.round((AGENDA_LOGO_HEIGHT_EMU * logo.width) / logo.height),
+        height: AGENDA_LOGO_HEIGHT_EMU,
+        description: agenda.title ?? '',
+      }),
+      run(' '),
+    );
+  }
+
+  if (agenda.title) content.push(run(agenda.title, { bold: true }));
+
+  if (agenda.url) {
+    content.push(run(' · '), linkOrText(writer, agenda.url));
+  }
+
+  return content.length ? paragraph(content, { style: 'EventDetail' }) : '';
 }
 
 function registrationParagraph(writer, event, schemaField, context) {
@@ -254,7 +282,8 @@ export default async function renderEvent(
   const title = getLocaleValue(event.title, lang);
 
   // Fetched before the first byte: the document then streams without pause.
-  const [image, locationImage, qr] = await Promise.all([
+  const [agendaLogo, image, locationImage, qr] = await Promise.all([
+    agenda.image ? fetchImage(agenda.image, { imagePath }) : null,
     event.image ? fetchImage(event.image, { imagePath }) : null,
     // Only for a venue the document shows: one with a name or an address.
     event.location?.image && (event.location.name || event.location.address)
@@ -268,9 +297,7 @@ export default async function renderEvent(
   try {
     const xml = [];
 
-    if (agenda.title) {
-      xml.push(paragraph(run(agenda.title), { style: 'EventDetail' }));
-    }
+    xml.push(agendaHeader(writer, agenda, agendaLogo));
 
     // Rescheduled, moved online, full, cancelled: said before anything else.
     const statusOption = event.status !== 1
@@ -316,13 +343,22 @@ export default async function renderEvent(
       }),
     );
 
-    // The agenda's and the network's own fields, as the PDF shows them.
-    xml.push(
-      ...schemaFields
-        .filter(({ schemaType }) => ['network', 'agenda'].includes(schemaType))
-        .map((field) =>
-          fieldParagraphs(writer, field, valueAt(event, field.field), context)),
-    );
+    // The agenda's and the network's own fields, in a section of their own
+    // like the practical information and the venue, when any is set.
+    const additional = schemaFields
+      .filter(({ schemaType }) => ['network', 'agenda'].includes(schemaType))
+      .map((field) =>
+        fieldParagraphs(writer, field, valueAt(event, field.field), context))
+      .filter(Boolean);
+
+    if (additional.length) {
+      xml.push(
+        paragraph(run(intl.formatMessage(messages.additionalValues)), {
+          style: 'Heading1',
+        }),
+        ...additional,
+      );
+    }
 
     const practical = [
       ...practicalFields

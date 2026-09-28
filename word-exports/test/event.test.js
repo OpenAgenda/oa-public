@@ -64,7 +64,9 @@ describe('event Word export', () => {
       /<w:pStyle w:val="Title"\/>.*Permanences Addictions/,
     );
     assert.match(document, /Ville de Bègles/);
+    // The agenda logo, the event picture and the QR code.
     assert.deepEqual(media.map((m) => m.split('.').pop()).sort(), [
+      'jpeg',
       'jpeg',
       'png',
     ]);
@@ -86,6 +88,7 @@ describe('event Word export', () => {
     const { document } = await render(beglesAgenda, beglesEvent);
 
     for (const heading of [
+      'Valeurs additionnelles',
       'Informations pratiques',
       'À propos du lieu',
       'Dates et horaires',
@@ -524,4 +527,41 @@ describe('review fixes', () => {
     );
     assert.equal(isReaderGone(new Error('zlib failed')), false);
   });
+});
+
+test('without any agenda field set, no « Valeurs additionnelles » section', async () => {
+  const agenda = {
+    ...beglesAgenda,
+    schema: {
+      fields: beglesAgenda.schema.fields.filter(
+        ({ schemaType }) => !['network', 'agenda'].includes(schemaType),
+      ),
+    },
+  };
+  const { document } = await render(agenda, beglesEvent);
+
+  assert.doesNotMatch(document, /Valeurs additionnelles/);
+});
+
+test('the agenda heads the document: its logo, its name and its website', async () => {
+  const asked = [];
+  const { document, rels, media } = await render(
+    beglesAgenda,
+    { ...beglesEvent, image: null },
+    {
+      config: {
+        fetchImage: async (image) => {
+          asked.push(image);
+          return image === beglesAgenda.image ? fetchImage() : null;
+        },
+      },
+    },
+  );
+
+  assert.ok(asked.includes(beglesAgenda.image));
+  // The logo comes first, then the name, then the website.
+  const logo = document.indexOf('<w:drawing>');
+  assert.ok(logo !== -1 && logo < document.indexOf('Ville de Bègles'));
+  assert.match(rels, /Target="https:\/\/www\.mairie-begles\.fr\/"/);
+  assert.equal(media.filter((m) => m.endsWith('.jpeg')).length, 1);
 });

@@ -6,6 +6,7 @@
   "word-exports.accessibility.mi": "handicap moteur",
   "word-exports.accessibility.pi": "handicap psychique",
   "word-exports.accessibility.vi": "handicap visuel",
+  "word-exports.additionalValues": "Valeurs additionnelles",
   "word-exports.ageFrom": "À partir de {min} ans",
   "word-exports.ageRange": "De {min} à {max} ans",
   "word-exports.ageUpTo": "Jusqu'à {max} ans",

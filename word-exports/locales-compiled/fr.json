@@ -49,6 +49,12 @@
       "value": "handicap visuel"
     }
   ],
+  "word-exports.additionalValues": [
+    {
+      "type": 0,
+      "value": "Valeurs additionnelles"
+    }
+  ],
   "word-exports.ageFrom": [
     {
       "type": 0,

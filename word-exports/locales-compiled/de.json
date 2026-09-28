@@ -49,6 +49,12 @@
       "value": "Sehbehinderung"
     }
   ],
+  "word-exports.additionalValues": [
+    {
+      "type": 0,
+      "value": "Zusätzliche Angaben"
+    }
+  ],
   "word-exports.ageFrom": [
     {
       "type": 0,

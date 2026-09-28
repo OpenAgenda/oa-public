@@ -49,6 +49,12 @@
       "value": "visuele beperking"
     }
   ],
+  "word-exports.additionalValues": [
+    {
+      "type": 0,
+      "value": "Aanvullende waarden"
+    }
+  ],
   "word-exports.ageFrom": [
     {
       "type": 0,
