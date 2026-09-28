@@ -267,11 +267,12 @@ function timingsSection(event, { lang, intl }) {
     }),
     ...months.flatMap((month) => [
       paragraph(run(month.label), { style: 'Heading2' }),
+      // Not indented: the month headings already group them.
       ...month.days.map((day) =>
-        paragraph(
-          [run(`${day.label} `, { bold: true }), run(day.slots.join(', '))],
-          { style: 'ListItem' },
-        )),
+        paragraph([
+          run(`${day.label} `, { bold: true }),
+          run(day.slots.join(', ')),
+        ])),
     ]),
   ].join('');
 }
