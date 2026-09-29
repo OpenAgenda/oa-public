@@ -450,7 +450,7 @@ export const zExtId = z.object({
 });
 
 /**
- * Agenda-specific additional fields. The available keys and the shape of each value are defined by the agenda's event form schema (`GET /agendas/{agendaUid}/events/schema`): each value follows its field's `fieldType`.
+ * Agenda-specific additional fields. The available keys and the shape of each value are defined by the agenda's event form schema (`GET /agendas/{agendaUid}/events/schema`): each value follows its field's `fieldType`. On a write, a key the schema does not declare answers `422`.
  *
  * A `file`/`image` field is set by reference, like the native image: stage the bytes via `POST /agendas/{uid}/uploads`, then send `{ ref, name? }` here (`name` is the original filename, used for the download; optional), or `null` to clear it. On read the same field returns the stored descriptor `{ originalName, extension, filename }`, where `filename` is the stored object's key; the API does not return its absolute URL.
  *

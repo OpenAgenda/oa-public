@@ -45,7 +45,7 @@ export type ValidationError = {
  */
 export type ValidationIssue = {
     /**
-     * Name of the offending value in the request. It is absent when the problem belongs to no single value.
+     * Where the offending value is in the request, as a dotted path. It is absent when the problem belongs to no single value.
      */
     field?: string;
     /**
@@ -398,6 +398,9 @@ export type FormSchemaField = {
      * Allowed choices for choice-like field kinds.
      */
     options?: Array<{
+        /**
+         * What an additional field carries for this option. A value that is no option's `id`, the option's `value` included, answers `422` on a write.
+         */
         id?: number;
         value?: string;
         label?: LocalizedString | string;
@@ -699,7 +702,7 @@ export type ExtId = {
 };
 
 /**
- * Agenda-specific additional fields. The available keys and the shape of each value are defined by the agenda's event form schema (`GET /agendas/{agendaUid}/events/schema`): each value follows its field's `fieldType`.
+ * Agenda-specific additional fields. The available keys and the shape of each value are defined by the agenda's event form schema (`GET /agendas/{agendaUid}/events/schema`): each value follows its field's `fieldType`. On a write, a key the schema does not declare answers `422`.
  *
  * A `file`/`image` field is set by reference, like the native image: stage the bytes via `POST /agendas/{uid}/uploads`, then send `{ ref, name? }` here (`name` is the original filename, used for the download; optional), or `null` to clear it. On read the same field returns the stored descriptor `{ originalName, extension, filename }`, where `filename` is the stored object's key; the API does not return its absolute URL.
  *
