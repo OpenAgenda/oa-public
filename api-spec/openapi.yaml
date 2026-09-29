@@ -3732,6 +3732,48 @@ components:
             The event's price bounds, over the same resolved tier sets as
             `pricing` — so the two can never disagree, and a `free` event
             cannot carry a non-zero minimum.
+        links:
+          type: [array, 'null']
+          description: >
+            Where to book, one entry per ticketing source that carries a usable
+            URL, in catalogue order. `null` when none does.
+
+            The same URLs reach `registration` as `{type: link}` entries, but
+            stripped of their source: that field lists ways to sign up, not a
+            map of ticketing providers. A reader showing one line PER SOURCE —
+            a per-date detail panel, say — could attach no URL to any line.
+            This is that attribution, and nothing more.
+
+            EVENT-LEVEL, NEVER PER DATE. Of the six providers, only Eventbrite
+            publishes a per-occurrence URL, and an availability row cannot
+            carry it: `TimingAvailability` is `additionalProperties: false`.
+          items:
+            $ref: '#/components/schemas/OffersLink'
+
+    OffersLink:
+      type: object
+      additionalProperties: false
+      required: [provider, url]
+      properties:
+        provider:
+          type: string
+          enum:
+            [
+              billetweb,
+              eventbrite,
+              helloasso,
+              mapado,
+              weezevent,
+              passculture,
+              manual,
+            ]
+        url:
+          type: string
+          format: uri
+          description: >
+            The booking page this provider published for the event, cleaned by
+            the same rule that decides what reaches `registration` — so the two
+            never disagree on whether a source is linkable.
 
     OffersPrice:
       type: [object, 'null']
