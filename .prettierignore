@@ -15,7 +15,6 @@ md/test/fixtures/
 bs-templates
 polyfills
 
-agenda-docx/client/build
 agenda-portal/assets
 api-client/src/generated
 api-docs/dist

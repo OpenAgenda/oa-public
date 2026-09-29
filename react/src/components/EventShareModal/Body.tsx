@@ -8,7 +8,7 @@ import ShareOnSocialNetworks from './ShareOnSocialNetworks';
 import ShareByEmail from './ShareByEmail';
 import ShareCalendar from './ShareCalendar';
 import ShareLink from './ShareLink';
-import DownloadPDF from './DownloadPDF';
+import DownloadDocument from './DownloadDocument';
 
 function toDefaultValueArray(value: string | string[] | null): string[] {
   if (value == null) return [];
@@ -86,7 +86,15 @@ export default function Body({
             eventUrl={eventUrl}
             contentLocale={contentLocale}
           />
-          <DownloadPDF
+          <DownloadDocument
+            format="pdf"
+            rootUrl={rootUrl}
+            agenda={agenda}
+            event={event}
+            contentLocale={contentLocale}
+          />
+          <DownloadDocument
+            format="docx"
             rootUrl={rootUrl}
             agenda={agenda}
             event={event}

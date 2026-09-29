@@ -208,6 +208,10 @@ const messages: Record<string, MessageDescriptor> = defineMessages({
     id: 'react.components.AgendaExportModal.PDFIncludeAccessibility',
     defaultMessage: 'The accessibility icons',
   },
+  WordIncludeAccessibility: {
+    id: 'react.components.AgendaExportModal.WordIncludeAccessibility',
+    defaultMessage: 'The accessibility information',
+  },
   PDFIncludeEventLink: {
     id: 'react.components.AgendaExportModal.PDFIncludeEventLink',
     defaultMessage: 'The link to the event page on OpenAgenda',
