@@ -2965,9 +2965,16 @@ components:
         field:
           type: string
           description: >-
-            Name of the offending value in the request. It is absent when the
-            problem belongs to no single value.
-          examples: ['title', 'description', 'timings', 'image.url']
+            Where the offending value is in the request, as a dotted path. It
+            is absent when the problem belongs to no single value.
+          examples:
+            [
+              'title',
+              'timings',
+              'timings.end',
+              'additionalFields.thematique',
+              'image.url',
+            ]
         lang:
           type: string
           description: Language key of the offending value, on a localized field.
@@ -3575,6 +3582,10 @@ components:
             properties:
               id:
                 type: integer
+                description: >-
+                  What an additional field carries for this option. A value that
+                  is no option's `id`, the option's `value` included, answers
+                  `422` on a write.
               value:
                 type: string
               label:
@@ -4196,7 +4207,8 @@ components:
         Agenda-specific additional fields. The available keys and the shape of
         each value are defined by the agenda's event form schema
         (`GET /agendas/{agendaUid}/events/schema`): each value follows its
-        field's `fieldType`.
+        field's `fieldType`. On a write, a key the schema does not declare
+        answers `422`.
 
 
         A `file`/`image` field is set by reference, like the native image:
