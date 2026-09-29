@@ -21,14 +21,15 @@ export const zError = z.object({
 });
 
 /**
- * One problem found in a request. A validator describes the values it refuses as precisely as it can, so an item carries the keys below plus whatever else that validator knows, such as the rejected value or the bounds it had to satisfy.
+ * One problem found in a request. A validator describes the values it refuses as precisely as it can, so an item carries the keys below plus whatever else that validator knows, such as the bounds the value had to satisfy.
  */
 export const zValidationIssue = z.object({
     field: z.string().optional(),
     lang: z.string().optional(),
     index: z.number().int().optional(),
     code: z.string().optional(),
-    message: z.string()
+    message: z.string(),
+    input: z.unknown().optional()
 });
 
 /**
@@ -198,11 +199,26 @@ export const zLocationList = z.object({
 });
 
 /**
- * A form field descriptor. Two kinds share the array: **data field descriptors** (carrying `field`, the key the value lives under on events) and **section separators** (`type: 'section'`, no `field` - structure the form into titled groups). Descriptors may carry keys beyond those listed below.
+ * A level of access to an agenda's data, as the field rules of its event form name them.
+ *
+ */
+export const zAccessLevel = z.enum([
+    'public',
+    'reader',
+    'contributor',
+    'moderator',
+    'administrator',
+    'internal',
+    'system'
+]);
+
+/**
+ * A form field descriptor. Two kinds share the array: **data field descriptors** (carrying `field` and the `path` of its value) and **section separators** (`type: 'section'`, no `field` - structure the form into titled groups). Descriptors may carry keys beyond those listed below.
  *
  */
 export const zFormSchemaField = z.object({
     field: z.string().optional(),
+    path: z.string().optional(),
     fieldType: z.string().optional(),
     type: z.string().optional(),
     slug: z.string().optional(),
@@ -215,6 +231,8 @@ export const zFormSchemaField = z.object({
     enable: z.boolean().optional(),
     enableWith: z.unknown().optional(),
     optionalWith: z.unknown().optional(),
+    read: z.array(zAccessLevel).nullish(),
+    write: z.array(zAccessLevel).nullish(),
     origin: z.enum([
         'tags',
         'categories',
@@ -1361,6 +1379,18 @@ export const zAgendaFilterUid = z.array(z.coerce.bigint().min(BigInt('-922337203
 export const zAgendaFilterSlug = z.array(z.string());
 
 /**
+ * Restrict to the agendas carrying these slugs. A slug matching none of your memberships yields an empty page. Repeat the parameter for multiple values.
+ *
+ */
+export const zMeAgendaFilterSlug = z.array(z.string());
+
+/**
+ * Restrict to the memberships holding one of these roles. Repeat the parameter for multiple values.
+ *
+ */
+export const zMeAgendaFilterRole = z.array(zMemberRole);
+
+/**
  * Restrict to official agendas (`true`) or to non-official agendas (`false`). Omit to return both.
  *
  */
@@ -2123,7 +2153,9 @@ export const zMeAgendasListQuery = z.object({
     after: z.string().optional(),
     limit: z.number().int().gte(1).lte(100).optional().default(20),
     detailed: z.boolean().optional().default(false),
-    fields: z.array(z.string()).optional()
+    fields: z.array(z.string()).optional(),
+    slug: z.array(z.string()).optional(),
+    role: z.array(zMemberRole).optional()
 });
 
 /**

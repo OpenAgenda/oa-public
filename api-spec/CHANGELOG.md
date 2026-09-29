@@ -1,5 +1,122 @@
 # @openagenda/api-spec
 
+## 0.5.0
+
+### Minor Changes
+
+- [#393](https://github.com/OpenAgenda/oa/pull/393) [`1259c8b`](https://github.com/OpenAgenda/oa/commit/1259c8ba02c7835fb654125c37f66d3fd33ab9c4) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Publish the complete OAuth scope vocabulary, and correct three operations that named the wrong one.
+
+  `securitySchemes.oauth2` advertised 9 scopes where the authorization server accepts 15. `drafts:read`, `events:transverse`, `geocoding:use`, `media:write`, `bookings:read` and `conversations:write` are now declared, and every description says what the scope actually covers — the write scopes cover **deletion**, which "Create and modify" did not say.
+
+  Three operations moved to the scope that matches what they do:
+
+  | Operation                      | Was            | Now            |
+  | ------------------------------ | -------------- | -------------- |
+  | `agendas.events.schema`        | `events:read`  | `agendas:read` |
+  | `agendas.uploads.create`       | `events:write` | `media:write`  |
+  | `agendas.uploads.createTicket` | `events:write` | `media:write`  |
+
+  An event schema describes the agenda's configuration, not its events; staging a media file is not writing an event, and a client that only uploads images should not be able to delete them.
+
+  **Deployment order matters for the MCP.** `@openagenda/mcp` _derives_ the scopes it advertises (protected-resource metadata, dynamic client registration) from the contract it bundles, so bumping this dependency is what publishes `media:write` to clients. Deploy an authorization server that accepts the new vocabulary **before** that bump — otherwise a DCR client requests a scope the AS rejects as out-of-scope.
+
+  **The uploads change is breaking for existing OAuth grants, in either order.** From the API deploy on, `agendas.uploads.create` and `agendas.uploads.createTicket` require `media:write`, and an access token's scopes are fixed when the user consents. A client that uploads today holds `events:write`, not `media:write`, so it gets `403 insufficient_scope` on uploads until it re-authorizes asking for `media:write` — and it can only ask for it once the MCP it talks to advertises it. Bump the MCP right after the API deploy, and expect OAuth clients that upload to re-authorize once. API keys are unaffected: none carries scopes today.
+
+- [#461](https://github.com/OpenAgenda/oa/pull/461) [`727fdbb`](https://github.com/OpenAgenda/oa/commit/727fdbb4b5d60a13279fa6cc2580ccfe2c12fac4) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Give a refused request and a merged location each their own error schema.
+
+  `error.details` was one open object, so the only part of a 4xx a client can act
+  on was the part the contract said nothing about, and the two things ever found
+  there — the problems of a refused request, and the location a requested one was
+  merged into — sat side by side as if they appeared together, which they never do.
+
+  Each now has its schema, and says what it carries on `error` itself:
+  `ValidationError` carries `errors`, a list of `ValidationIssue`, and answers
+  `422` and the `400` of a request refused for its values; `MergedLocationError`
+  carries `mergedIn` and answers `404` on the two location reads. `Error` is the
+  envelope for everything else.
+
+  There is no discriminant field: a client tells the three apart by the carrier
+  they declare, `'errors' in error` and `'mergedIn' in error`. The generated zod
+  validators do not enforce `additionalProperties: false`, so `zError` alone does
+  not reject the richer bodies.
+
+  A `ValidationIssue` pins `message` plus the `field`, `lang`, `index` and `code`
+  that locate the value, and stays open: a validator that knows more about what it
+  refused — the bounds, the rejected value — says it.
+
+  One visible change for a client that reads `error.message`: a write that is
+  refused for its field values now answers the same sentence every time, `The
+request contains invalid field values.`, where the producers worded it three
+  ways (`data is invalid`, `invalid data`, `invalid request body`) and a refused
+  upload put its own verdict there. What each value was refused for is in
+  `errors[]`, read per field rather than guessed from one string.
+
+- [#453](https://github.com/OpenAgenda/oa/pull/453) [`c8a5581`](https://github.com/OpenAgenda/oa/commit/c8a558168950de863fbded1907e4003cba19cb24) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Event image credits are writable, through `imageCredits`.
+
+  `EventInput` and `EventPatch` accept `imageCredits` (string or `null`, 255 characters at most), the same top-level field `Event` already returns. Until now a client had no way to set credits, and one that sent `image.credits` got a success response while the value was dropped.
+
+  `ImageInput` now states what the server enforces: exactly one of `ref` or `url`, any other key rejected with `400`.
+
+  `Image.credits` is removed. It was always `null`: credits live on the owning resource, as `imageCredits` on `Event` and `Location`.
+
+- [#455](https://github.com/OpenAgenda/oa/pull/455) [`8fec416`](https://github.com/OpenAgenda/oa/commit/8fec41695a74dc5c113c0ab89f0d64eb6a4ad879) Thanks [@bertho-zero](https://github.com/bertho-zero)! - An operation now declares which API key it accepts.
+
+  One `bearerAuth` scheme stood for both API keys, so the contract could not say that a public key is refused on a write - only the prose could. It is replaced by `publicKey` (`oa_pk_…`, read-only, no identity) and `secretKey` (`oa_sk_…`): reads accept either, writes and `/me` accept the secret key, and each stays paired with its OAuth alternative.
+
+  The generated client is unchanged beyond one more entry in the per-operation security metadata; every requirement is still an `Authorization: Bearer` header.
+
+  The reference page offers OAuth first: a reader without an API key signs in with
+  the account they already have instead of going to fetch a key from their
+  settings.
+
+### Patch Changes
+
+- [#462](https://github.com/OpenAgenda/oa/pull/462) [`9599773`](https://github.com/OpenAgenda/oa/commit/95997737d230087fc1dc03c9e373d8fe397d32ec) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Carry the error codes as contract data.
+
+  `Error.code` and `ValidationError.code` carried their values as `examples`, which no reader of the contract shows. They are now an `enum` with an `x-enum-descriptions` gloss on the three codes a `403` can carry, which is the only place a name does not already say the status, so the vocabulary reaches the generated SDK, the reference site and the MCP cards instead of living only in prose the card never renders.
+
+- [#462](https://github.com/OpenAgenda/oa/pull/462) [`29cfdf5`](https://github.com/OpenAgenda/oa/commit/29cfdf557557879cd4bf169d04e9b3c45a8a40e8) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Close three text gaps in the contract.
+
+  A folded line broken after a hyphen resolved to `self- contained`, `by- uid` and `de- references` in the descriptions a reader sees; `yarn validate` now fails on the pattern so it cannot come back. The dry-run verdict of `agendas.events.validate` was an anonymous inline schema, rendered as a type named `Object` that nothing defines; it is now `ValidationVerdict`. And eleven schemas carried no description at all, `Error` among them.
+
+- [#498](https://github.com/OpenAgenda/oa/pull/498) [`4de3439`](https://github.com/OpenAgenda/oa/commit/4de3439e9fc250f38fde4d2a5ee98e0b5233ece3) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `members:read` reads "Read members", like every other read scope. The contract, the consent screen and the key pickers carry the same label.
+
+- [#393](https://github.com/OpenAgenda/oa/pull/393) [`374f867`](https://github.com/OpenAgenda/oa/commit/374f867c6d059996f8370f2cacc8a0fb42ab5f7d) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `agendas.overview` requires `events:read`, not `agendas:read`.
+
+  Nothing in that response is an agenda. `AgendaOverview` is `{ events: { published, all }, recentlyAdded }` — event volume, distributions, viewport, keywords — and the gated `events.all` scope carries `byState`, which counts the events under moderation and refused. `agendas:read` reads "Read the agendas you have access to"; handing it moderation counts is a promise the label does not make. The agenda schemas themselves (`AgendaSummary`, `Agenda`, `AgendaDetailed`) carry no statistics, so `agendas:read` stays identity and configuration.
+
+  The v2 twin (`GET /agendas/{uid}/summary`, absent from this contract) moves the same way in the same release.
+
+- [#501](https://github.com/OpenAgenda/oa/pull/501) [`3bde115`](https://github.com/OpenAgenda/oa/commit/3bde115a5ab5b3f4c58c27fd2f329cd57b577e53) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Two scope labels lose a clause: `agendas:read` reads "Read agendas" and `locations:write` reads "Create, edit and delete locations", like the other read and write scopes. The contract, the consent screen and the key pickers carry the same labels.
+
+- [#465](https://github.com/OpenAgenda/oa/pull/465) [`37b64d4`](https://github.com/OpenAgenda/oa/commit/37b64d465ba6e5bfc6e8b37d714e166de7a77d62) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Fix the examples a caller gets an error from.
+
+  The three code samples that write an event carried `title` and `timings` only; a default agenda also requires `description` and `location`, so following any of them answers `422`. Two of them handed back the write's `{ data, error }` without looking at `error`.
+
+  The `fields` parameter is shared by four list operations, and its description named event-only paths while its example was `[uid, title, location]`. Those names answer `400 unknown field(s)` on the agenda, own-agenda and location lists. The names were unattributed rather than wrong, so the description keeps them and says which resource they belong to, and states that each resource takes the names its own `data` item declares. The example becomes `[uid, slug]`, which every one of the four accepts.
+
+- [#452](https://github.com/OpenAgenda/oa/pull/452) [`95eafc9`](https://github.com/OpenAgenda/oa/commit/95eafc96bad1be178deb1ba23587a0369d440519) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Document where an event's `slug` comes from.
+
+  `Event.slug` states that the slug is unique across all events, set by the server from the title when the event is created, and never changed afterwards, even if the title changes.
+
+  `EventInput.title` and `EventPatch.title` state that the slug is derived from the title, preferring the language that comes first in the request body, so the event's original language goes first. `EventPatch` carries the sentence too because `patchByExtId` creates the event when no event carries the external id.
+
+- [#462](https://github.com/OpenAgenda/oa/pull/462) [`0cc4bd7`](https://github.com/OpenAgenda/oa/commit/0cc4bd78c3111c57dda42a7401e8a4d0d2938543) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Say a thing once, at the level that owns it.
+
+  A `search_docs` card renders no response description, so the contract had to repeat on the operation whatever a response said. The card now renders the description of a response an operation declares itself, and gives every compacted parameter its type. The merged-location fact, written three times on each of the two location gets, is written once - on the response that answers it - and the schema keeps the shape.
+
+- [#454](https://github.com/OpenAgenda/oa/pull/454) [`a3e1e5e`](https://github.com/OpenAgenda/oa/commit/a3e1e5e1301d8e528ee363bb3f37c7a01fea2ae1) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Descriptions state what the API does, on their own.
+
+  Several said the opposite of the server: `optionalWith` makes a field optional when its condition holds; `mergeExtIds=false` applies to `PUT` only, a `PATCH` always merges; an upload ticket rejected before staging stays usable; `nextTiming` includes an occurrence in progress; form schema descriptors are filtered by read access; `offersAggregate.pricing` is `unknown` when no source carries a usable price; `EventStatus` is a lifecycle status; deleting removes the event from the agenda.
+
+  Descriptions no longer point to another operation or field, mention future work that has shipped, or describe internals. `AgendaDetailed` names the fields only the single-agenda get returns, and the API overview states that a required response field is always present (`[]`, `{}` or `null` when empty).
+
+- [#454](https://github.com/OpenAgenda/oa/pull/454) [`cd63c81`](https://github.com/OpenAgenda/oa/commit/cd63c810511edca49c9817e52d2b046c5635de47) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Five statements a review found wrong or unusable.
+
+  `X-Upload-Ticket` was broken across two lines and rendered as `X-Upload- Ticket`, so the header name could not be copied. A `PATCH` was said to always merge `extIds`, while an empty array clears the stored mappings. The refusal to edit an event was stated unconditionally, though the server pairs it with a change to the event's own content. A public key limited to its own scopes meets `403` (`insufficient_scope`) before the `401` the scheme described. And a custom `file`/`image` field now says that `filename` is the stored object's key, the API returning no absolute URL for it.
+
+  An operation also stops spelling out the credential its `security` declares. Every published reader carries it per operation - the reference page lists the accepted schemes and the scope behind the operation's badge, an MCP card renders them on its `Auth:` line - so the sentence repeated on ten operations said nothing new. The consequence moves to the level that owns it: the shared `403` names `read_only_credential` beside the other codes it returns. What no structured field carries stays, namely the per-agenda right to create, edit or remove an event.
+
 ## 0.4.0
 
 ### Minor Changes

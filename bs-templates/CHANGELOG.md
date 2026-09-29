@@ -1,5 +1,17 @@
 # Change Log
 
+## 2.6.3
+
+### Patch Changes
+
+- [#432](https://github.com/OpenAgenda/oa/pull/432) [`a9ecbfb`](https://github.com/OpenAgenda/oa/commit/a9ecbfb8b4586a6649f2141cb6c3d53c28b7758f) Thanks [@kaore](https://github.com/kaore)! - Write down the info-text convention these styles expect.
+
+  Secondary text — the explanation under a label, a radio option or a section
+  header — is a `.text-muted` element at the inherited size, never wrapped in
+  `<small>`: everything in these interfaces sits at one size, and `<small>` is a
+  relative 85% of whatever it lands in, so a hint dressed that way reads in a
+  different register from every other hint on the same screen.
+
 ## 2.6.2
 
 ### Patch Changes

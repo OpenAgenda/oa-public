@@ -252,15 +252,18 @@ docker buildx create --name oabuilder --driver docker-container --bootstrap --us
 # 2. (optional) bump the pinned llrt version / checksums / base digest
 bash public/mcp/scripts/refresh-llrt-image.sh         # latest release; or pass a tag
 git diff public/mcp/llrt.Dockerfile                    # review the new pins
+# run the SDK against the new llrt (skipped without a binary): unzip the pinned
+# llrt-linux-x64-no-sdk.zip, then
+OA_LLRT_BIN=/path/to/llrt yarn workspace @openagenda/mcp test test/llrtRuntime.test.js
 
 # 3. Build + push multi-arch (a single tag serves amd64 AND arm64)
 docker buildx build -f public/mcp/llrt.Dockerfile \
   --platform linux/amd64,linux/arm64 \
-  -t openagenda/mcp-llrt:v0.8.1-beta -t openagenda/mcp-llrt:latest \
+  -t openagenda/mcp-llrt:v0.9.0-beta -t openagenda/mcp-llrt:latest \
   --push public/mcp
 
 # 4. Resolve the index digest to pin (the top-level "Digest:" line)
-docker buildx imagetools inspect openagenda/mcp-llrt:v0.8.1-beta
+docker buildx imagetools inspect openagenda/mcp-llrt:v0.9.0-beta
 
 # 5. On the µVM host: seed the cache, then point the server at the pinned image
 msb pull openagenda/mcp-llrt@sha256:<digest>

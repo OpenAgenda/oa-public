@@ -132,7 +132,8 @@ paths:
       description: >
         Returns a cursor-paginated list of agendas. Pass the `after`
         cursor returned in `pagination.after` to fetch the next page,
-        with the same filters.
+        with the same filters. Private agendas and agendas not indexed in
+        public search are absent from this list.
 
 
         Unknown or malformed filter values answer `400`, with per-field
@@ -238,7 +239,7 @@ paths:
         - publicKey: []
         - secretKey: []
         - oauth2:
-            - agendas:read
+            - events:read
       parameters:
         - $ref: '#/components/parameters/AgendaUid'
       responses:
@@ -1144,6 +1145,56 @@ paths:
         ]
       x-codeSamples:
         - lang: TypeScript
+          label: Find the required fields, build a body, then dry-run it
+          source: |
+            const agendaUid = 12345;
+            const { data: schema, error } = await oa.agendas.events.schema({
+              path: { agendaUid },
+            });
+            if (error) throw error;
+
+            // What the agenda requires, and where each value goes: `when`
+            // (enableWith) must hold for the requirement to apply, `unless`
+            // (optionalWith) lifts it.
+            const required = schema.fields
+              .filter(
+                (f) =>
+                  f.path
+                  && (f.optional === false
+                    || (f.optional === undefined && f.optionalWith)),
+              )
+              .map((f) => ({
+                path: f.path,
+                when: f.enableWith ?? null,
+                unless: f.optionalWith ?? null,
+              }));
+
+            const body = {
+              title: { fr: 'Concert en ligne' },
+              description: { fr: 'Une soirée jazz diffusée en direct.' },
+              timings: [
+                { begin: '2030-06-20T18:00:00+02:00', end: '2030-06-20T22:00:00+02:00' },
+              ],
+              attendanceMode: 2, // online: activates onlineAccessLink
+              onlineAccessLink: 'https://example.com/live',
+            };
+            const set = (path, value) => {
+              const [key, sub] = path.split('.');
+              body[key] = sub ? { ...body[key], [sub]: value } : value;
+            };
+
+            // A radio field takes the id of the option that fits the event.
+            const theme = schema.fields.find((f) => f.field === 'thematique');
+            const concert = theme?.options.find((o) => o.value === 'concert');
+            if (concert) set(theme.path, concert.id);
+
+            const check = await oa.agendas.events.validate({
+              path: { agendaUid },
+              body,
+            });
+            // A 422 lists under `errors` each field to fix.
+            return { required, verdict: check.error ? check.error.error : check.data };
+        - lang: TypeScript
           label: List the agenda's additional event fields
           source: |
             const { data, error } = await oa.agendas.events.schema({
@@ -1151,7 +1202,7 @@ paths:
             });
             if (error) throw error;
             return data.fields
-              .filter((f) => f.schemaId != null)
+              .filter((f) => f.path?.startsWith('additionalFields.'))
               .map((f) => ({ name: f.field, type: f.fieldType }));
       description: >
         Returns the agenda's **merged event form schema** — the dynamic
@@ -1168,12 +1219,15 @@ paths:
 
         Descriptors are scoped to your read access: a field whose `read` access
         levels exclude the caller (e.g. a moderator-only field) is omitted from
-        `fields`, so a public caller sees only the public fields.
+        `fields`, so a public caller sees only the public fields. Native
+        fields the write operations do not take (the event's `uid`, `slug`,
+        timestamps...) are omitted too, and `status` is listed only on an
+        agenda that accepts it.
       security:
         - publicKey: []
         - secretKey: []
         - oauth2:
-            - events:read
+            - agendas:read
       parameters:
         - $ref: '#/components/parameters/AgendaUid'
       responses:
@@ -1204,21 +1258,36 @@ paths:
           which agendas,
           can I,
           permissions,
+          by slug,
+          find my agenda,
         ]
       x-codeSamples:
         - lang: TypeScript
+          label: Find one of my agendas by its slug
+          source: |
+            const { data, error } = await oa.me.agendas.list({
+              query: { slug: ['festival-des-lumieres'] },
+            });
+            if (error) throw error;
+            return data.data[0] ?? null; // null: not a member, or unknown slug
+        - lang: TypeScript
           label: Which agendas can I write to?
           source: |
-            const { data, error } = await oa.me.agendas.list({});
+            const { data, error } = await oa.me.agendas.list({
+              query: {
+                role: ['administrator', 'moderator', 'contributor'],
+                fields: ['title', 'role'],
+                limit: 100,
+              },
+            });
             if (error) throw error;
-            return data.data
-              .filter((a) => a.role !== 'reader')
-              .map((a) => ({ uid: a.uid, title: a.title, role: a.role }));
+            return data.data;
       description: >
         Returns a cursor-paginated list of the agendas the
         authenticated user is a member of, with their role on each.
         Private agendas the user belongs to ARE included (each item
-        carries a `private` flag).
+        carries a `private` flag), and so are agendas not indexed in
+        public search.
       security:
         - secretKey: []
         - oauth2:
@@ -1228,6 +1297,8 @@ paths:
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/Detailed'
         - $ref: '#/components/parameters/Fields'
+        - $ref: '#/components/parameters/MeAgendaFilterSlug'
+        - $ref: '#/components/parameters/MeAgendaFilterRole'
       responses:
         '200':
           description: A page of the caller's agenda memberships.
@@ -1293,7 +1364,7 @@ paths:
       security:
         - secretKey: []
         - oauth2:
-            - events:write
+            - media:write
       parameters:
         - $ref: '#/components/parameters/AgendaUid'
       requestBody:
@@ -1400,7 +1471,7 @@ paths:
       security:
         - secretKey: []
         - oauth2:
-            - events:write
+            - media:write
       parameters:
         - $ref: '#/components/parameters/AgendaUid'
       responses:
@@ -1721,16 +1792,21 @@ components:
           tokenUrl: https://openagenda.com/api/auth/oauth2/token
           refreshUrl: https://openagenda.com/api/auth/oauth2/token
           scopes:
-            me:read: >-
-              List the caller's agenda memberships and their role on each.
+            me:read: Read your profile, agendas and roles
             agendas:read: Read agendas
-            agendas:write: Create and modify agendas
+            agendas:write: Create, configure and delete agendas
             events:read: Read events
-            events:write: Create and modify events
+            events:write: Create, edit and delete events
+            drafts:read: Read your event drafts
+            events:transverse: Search events across all agendas
             locations:read: Read locations
-            locations:write: Create and modify locations
+            locations:write: Create, edit and delete locations
+            geocoding:use: Turn addresses into coordinates, and back
             members:read: Read members
-            members:write: Manage members
+            members:write: Invite, manage and contact members
+            media:write: Upload files
+            bookings:read: Read bookings
+            conversations:write: Write in OpenAgenda messaging
     secretKey:
       type: http
       scheme: bearer
@@ -1912,6 +1988,31 @@ components:
         type: array
         items:
           type: string
+
+    MeAgendaFilterSlug:
+      name: slug
+      in: query
+      required: false
+      description: >
+        Restrict to the agendas carrying these slugs. A slug matching none of
+        your memberships yields an empty page. Repeat the parameter for
+        multiple values.
+      schema:
+        type: array
+        items:
+          type: string
+
+    MeAgendaFilterRole:
+      name: role
+      in: query
+      required: false
+      description: >
+        Restrict to the memberships holding one of these roles. Repeat the
+        parameter for multiple values.
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/MemberRole'
 
     AgendaFilterOfficial:
       name: official
@@ -2839,8 +2940,8 @@ components:
       description: >-
         One problem found in a request. A validator describes the values it
         refuses as precisely as it can, so an item carries the keys below plus
-        whatever else that validator knows, such as the rejected value or the
-        bounds it had to satisfy.
+        whatever else that validator knows, such as the bounds the value had to
+        satisfy.
       required: [message]
       properties:
         field:
@@ -2862,6 +2963,11 @@ components:
         message:
           type: string
           description: Human-readable explanation, in English.
+        input:
+          description: >-
+            The value the validator refused, as the request carried it. A
+            validator that reports a problem without recording the value omits
+            this key.
 
     ValidationVerdict:
       type: object
@@ -3331,8 +3437,9 @@ components:
       type: object
       description: The event form an agenda declares.
       required: [fields]
-      # Served raw from the form engine: top-level keys beyond `fields` may
-      # appear (engine vocabulary); only `fields` is contractual.
+      # Served from the form engine, its descriptors filtered by access and
+      # their `read`/`write` levels normalized to lists: top-level keys beyond
+      # `fields` may appear (engine vocabulary); only `fields` is contractual.
       additionalProperties: true
       properties:
         fields:
@@ -3340,8 +3447,10 @@ components:
           description: >
             The fields of the merged schema readable at the caller's access
             level - native event fields (with any per-agenda overrides applied)
-            and the agenda's/network's additional fields (`schemaId` non-null).
-            A field whose `read` access levels exclude the caller is omitted.
+            and the agenda's/network's additional fields (`path` under
+            `additionalFields`).
+            A field whose `read` access levels exclude the caller is omitted, and
+            so is a native field the write operations do not take.
           items:
             $ref: '#/components/schemas/FormSchemaField'
 
@@ -3349,13 +3458,14 @@ components:
       type: object
       description: >
         A form field descriptor. Two kinds share the array: **data field
-        descriptors** (carrying `field`, the key the value lives under on
-        events) and **section separators** (`type: 'section'`, no `field` -
+        descriptors** (carrying `field` and the `path` of its value) and
+        **section separators** (`type: 'section'`, no `field` -
         structure the form into titled groups). Descriptors may carry keys
         beyond those listed below.
       additionalProperties: true
       example:
         field: thematique
+        path: additionalFields.thematique
         fieldType: radio
         label: { fr: 'Thématique', en: 'Theme' }
         schemaId: 10522
@@ -3368,8 +3478,13 @@ components:
         field:
           type: string
           description: >
-            Field name — the key the value is carried under on events. Absent
-            on section separators.
+            Field name. Absent on section separators.
+        path:
+          type: string
+          description: >
+            Where the field's value lives on an event, as a dotted path:
+            `additionalFields.<field>` for an additional field, the field name
+            itself for a native one. Absent on section separators.
         fieldType:
           type: string
           description: >
@@ -3403,12 +3518,30 @@ components:
             The field is only active when another field has a value: either
             that field's name, or `{ field, value }` to require specific
             values (e.g. `onlineAccessLink` enabled when `attendanceMode` is
-            online or mixed).
+            online or mixed). While inactive, the field is not required,
+            whatever `optional` says, and holds no value: one sent is not kept,
+            and a stored one is cleared.
         optionalWith:
           description: >
             The field is optional when another field has a value (either that
             field's name, or `{ field, value }` to require specific values) and
             required otherwise; an explicit `optional` takes precedence.
+        read:
+          type: [array, 'null']
+          items:
+            $ref: '#/components/schemas/AccessLevel'
+          description: >
+            Access levels allowed to read the field's value. `null` or empty
+            means every caller.
+        write:
+          type: [array, 'null']
+          items:
+            $ref: '#/components/schemas/AccessLevel'
+          description: >
+            Access levels allowed to write the field's value. `null` or empty
+            means every caller allowed to write events on the agenda; otherwise
+            your access level must be listed, and a value you send for the field
+            answers `422` with an `unauthorized` issue on it.
         origin:
           type: [string, 'null']
           enum: [tags, categories, custom, null]
@@ -3433,14 +3566,39 @@ components:
         schemaId:
           type: [integer, 'null']
           description: >
-            Identifier of the declaring agenda/network schema. Non-null marks
-            an **additional field**; `null`/absent marks a native one.
+            Identifier of the agenda or network schema that declared or
+            overrode the field; `null` on a native field as the platform
+            declares it.
         schemaType:
           type: [string, 'null']
           enum: [agenda, network, event, null]
           description: >
-            Which level declared the field: `agenda`/`network` for additional
-            fields, `event` for the platform's native event fields.
+            Which level declared or overrode the field: `agenda` or `network`,
+            or `event` for a native field as the platform declares it.
+
+    AccessLevel:
+      type: string
+      description: >
+        A level of access to an agenda's data, as the field rules of its event
+        form name them.
+      enum:
+        [
+          public,
+          reader,
+          contributor,
+          moderator,
+          administrator,
+          internal,
+          system,
+        ]
+      x-enum-descriptions:
+        public: A caller without a membership on the agenda
+        reader: A member with the reader role
+        contributor: A member with the contributor role
+        moderator: A member with the moderator role
+        administrator: A member with the administrator role
+        internal: The platform's own processes, never an API caller
+        system: The platform's own processes, never an API caller
 
     MemberRole:
       type: string
