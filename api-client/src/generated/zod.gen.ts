@@ -305,6 +305,31 @@ export const zTiming = z.object({
     availability: z.array(zTimingAvailability).max(7).optional()
 });
 
+export const zOffersLink = z.object({
+    provider: z.enum([
+        'billetweb',
+        'eventbrite',
+        'helloasso',
+        'mapado',
+        'weezevent',
+        'passculture',
+        'manual'
+    ]),
+    url: z.string().url()
+});
+
+/**
+ * What the event's ticketing costs, in the smallest unit of its currency.
+ * ALL OR NOTHING. `null` whenever a single tier cannot be read as an amount - a membership at no stated price, a source that declared its pricing before pushing a catalogue - or when the contributing sources do not share one currency. A bound computed over part of a price list is wrong in both directions: the unreadable tier could sit below the minimum as easily as above the maximum. "Unknown" is an answer; "from EUR 18" when a EUR 9 tier exists is not.
+ * These bounds replace what a consumer was told to compute itself. T16 removed `priceRanges` on the grounds that "the tiers carry every price, and a consumer wanting 'from X' computes min(tiers[].priceCents)" - but the tiers are `read: ['internal']` and reach no public response, so that computation was never available to anyone. This is the only figure a public reader gets.
+ *
+ */
+export const zOffersPrice = z.object({
+    minCents: z.number().int().gte(0),
+    maxCents: z.number().int().gte(0).nullable(),
+    currency: z.string()
+}).nullable();
+
 /**
  * What the ticketing sources of this event add up to, computed on each read. `availability` is `null` when nothing can be said - every occurrence past, or no source carrying a usable status - and reflects the current time, except `soldOut` and `limited`, which reflect the last sync with the provider. `pricing` is a category rolled up from the sources' price lists and declared pricing.
  *
@@ -325,7 +350,9 @@ export const zOffersAggregate = z.object({
         'donation',
         'mixed',
         'unknown'
-    ]).nullish()
+    ]).nullish(),
+    price: zOffersPrice.optional(),
+    links: z.array(zOffersLink).nullish()
 }).nullable();
 
 /**

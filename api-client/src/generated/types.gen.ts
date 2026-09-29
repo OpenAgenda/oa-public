@@ -514,10 +514,55 @@ export type OffersAggregate = {
      */
     availability?: 'available' | 'limited' | 'notYetOnSale' | 'soldOut' | 'salesClosed' | 'unknown' | 'mixed' | null;
     /**
-     * A category, never an amount. `mixed` means the sources or the occurrences disagree (one date free, another paid); `unknown` means no source carries a usable pricing.
+     * A category, never an amount — the amounts are in `price`. `mixed` means the sources or the occurrences disagree (one date free, another paid); `unknown` means no source carries a usable pricing.
      *
      */
     pricing?: 'free' | 'paid' | 'donation' | 'mixed' | 'unknown' | null;
+    /**
+     * The event's price bounds, over the same resolved tier sets as `pricing` — so the two can never disagree, and a `free` event cannot carry a non-zero minimum.
+     *
+     */
+    price?: OffersPrice;
+    /**
+     * Where to book, one entry per ticketing source that carries a usable URL, in catalogue order. `null` when none does.
+     * The same URLs reach `registration` as `{type: link}` entries, but stripped of their source: that field lists ways to sign up, not a map of ticketing providers. A reader showing one line PER SOURCE — a per-date detail panel, say — could attach no URL to any line. This is that attribution, and nothing more.
+     * EVENT-LEVEL, NEVER PER DATE. Of the six providers, only Eventbrite publishes a per-occurrence URL, and an availability row cannot carry it: `TimingAvailability` is `additionalProperties: false`.
+     *
+     */
+    links?: Array<OffersLink> | null;
+} | null;
+
+export type OffersLink = {
+    provider: 'billetweb' | 'eventbrite' | 'helloasso' | 'mapado' | 'weezevent' | 'passculture' | 'manual';
+    /**
+     * The booking page this provider published for the event, cleaned by the same rule that decides what reaches `registration` — so the two never disagree on whether a source is linkable.
+     *
+     */
+    url: string;
+};
+
+/**
+ * What the event's ticketing costs, in the smallest unit of its currency.
+ * ALL OR NOTHING. `null` whenever a single tier cannot be read as an amount - a membership at no stated price, a source that declared its pricing before pushing a catalogue - or when the contributing sources do not share one currency. A bound computed over part of a price list is wrong in both directions: the unreadable tier could sit below the minimum as easily as above the maximum. "Unknown" is an answer; "from EUR 18" when a EUR 9 tier exists is not.
+ * These bounds replace what a consumer was told to compute itself. T16 removed `priceRanges` on the grounds that "the tiers carry every price, and a consumer wanting 'from X' computes min(tiers[].priceCents)" - but the tiers are `read: ['internal']` and reach no public response, so that computation was never available to anyone. This is the only figure a public reader gets.
+ *
+ */
+export type OffersPrice = {
+    /**
+     * The cheapest way in. Zero on a free event, and on a pay-what-you-want tier that declares no floor.
+     *
+     */
+    minCents: number;
+    /**
+     * `null` means OPEN-ENDED, not "unknown": a pay-what-you-want tier has a floor and no ceiling, and publishing its floor as a ceiling would misstate what a visitor may give.
+     *
+     */
+    maxCents: number | null;
+    /**
+     * ISO 4217, upper-case. A source carries one currency; bounds are only served when every contributing source agrees on it.
+     *
+     */
+    currency: string;
 } | null;
 
 /**
