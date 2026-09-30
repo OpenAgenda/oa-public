@@ -551,7 +551,7 @@ export type OffersAggregate = {
     /**
      * Where to book, one entry per ticketing source that carries a usable URL, in catalogue order. `null` when none does.
      * The same URLs reach `registration` as `{type: link}` entries, but stripped of their source: that field lists ways to sign up, not a map of ticketing providers. A reader showing one line PER SOURCE — a per-date detail panel, say — could attach no URL to any line. This is that attribution, and nothing more.
-     * EVENT-LEVEL, NEVER PER DATE. Of the six providers, only Eventbrite publishes a per-occurrence URL, and an availability row cannot carry it: `TimingAvailability` is `additionalProperties: false`.
+     * EVENT-LEVEL, NEVER PER DATE — a limit of what OpenAgenda stores and serves, not a claim about what ticketing services can do. An availability row cannot carry a URL (`TimingAvailability` is `additionalProperties: false`), and the only URL held for a source is the event-level one its connector wrote. A per-date link is constructible for at least some services — Mapado's booking site takes an `eventDate` parameter whose id is what a row's `sourceRef` is meant to carry — but building one per service belongs with the connectors, not here.
      *
      */
     links?: Array<OffersLink> | null;
