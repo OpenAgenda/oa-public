@@ -5010,6 +5010,7 @@ components:
         - keywords
         - originAgenda
         - rights
+        - canonicalUrl
         - location
         - timezone
         - attendanceMode
@@ -5066,6 +5067,7 @@ components:
             name: Ville de Lyon
             url: https://www.lyon.fr
             agendaUid: 12345
+        canonicalUrl: https://www.lyon.fr/evenement/concert-de-jazz-au-parc
         location:
           uid: 55512
           name: Parc de la Tête d'Or
@@ -5152,6 +5154,16 @@ components:
           oneOf:
             - $ref: '#/components/schemas/EventRights'
             - type: 'null'
+        canonicalUrl:
+          type: [string, 'null']
+          format: uri
+          readOnly: true
+          description: >
+            The address to link to when crediting the event: the page its
+            licensor declared for it, else its page on its origin agenda. The
+            same whichever agenda the event is read through. `null` only on
+            an event indexed before this field was introduced, until it is
+            reindexed.
         location:
           oneOf:
             - $ref: '#/components/schemas/EventLocation'
@@ -5207,6 +5219,7 @@ components:
         - keywords
         - originAgenda
         - rights
+        - canonicalUrl
         - timings
         - location
         - timezone
@@ -5277,6 +5290,7 @@ components:
             name: Ville de Lyon
             url: https://www.lyon.fr
             agendaUid: 12345
+        canonicalUrl: https://www.lyon.fr/evenement/concert-de-jazz-au-parc
         timings:
           - begin: '2025-06-20T18:00:00+02:00'
             end: '2025-06-20T22:00:00+02:00'
@@ -5392,6 +5406,16 @@ components:
           oneOf:
             - $ref: '#/components/schemas/EventRights'
             - type: 'null'
+        canonicalUrl:
+          type: [string, 'null']
+          format: uri
+          readOnly: true
+          description: >
+            The address to link to when crediting the event: the page its
+            licensor declared for it, else its page on its origin agenda. The
+            same whichever agenda the event is read through. `null` only on
+            an event indexed before this field was introduced, until it is
+            reindexed.
         timings:
           type: array
           items:
