@@ -40,6 +40,5 @@
   "ReactShared.ImageInput.tooManyFiles": "Demasiados archivos, solo acepta un único archivo",
   "ReactShared.ImageInput.update": "Cambiar imagen",
   "ReactShared.ImageInput.upload": "Cargar imagen",
-  "ReactShared.LeaveWarningPrompt.areYouSure": "¿Está seguro de que desea salir de esta página? Se perderán todos los datos no guardados.",
-  "ReactShared.Modal.close": "Cerrar"
+  "ReactShared.LeaveWarningPrompt.areYouSure": "¿Está seguro de que desea salir de esta página? Se perderán todos los datos no guardados."
 }
