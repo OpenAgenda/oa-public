@@ -40,5 +40,6 @@
   "ReactShared.ImageInput.tooManyFiles": "Too many files, only accepts a single file",
   "ReactShared.ImageInput.update": "Update the image",
   "ReactShared.ImageInput.upload": "Upload an image",
-  "ReactShared.LeaveWarningPrompt.areYouSure": "Are you sure you want to leave this page? All unsaved data will be lost."
+  "ReactShared.LeaveWarningPrompt.areYouSure": "Are you sure you want to leave this page? All unsaved data will be lost.",
+  "ReactShared.Modal.close": "Close"
 }
