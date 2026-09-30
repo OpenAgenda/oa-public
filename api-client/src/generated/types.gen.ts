@@ -1139,6 +1139,11 @@ export type EventSummary = {
      *
      */
     readonly rights: EventRights | null;
+    /**
+     * The address to link to when crediting the event: the page its licensor declared for it, else its page on its origin agenda. The same whichever agenda the event is read through. `null` only on an event indexed before this field was introduced, until it is reindexed.
+     *
+     */
+    readonly canonicalUrl: string | null;
     location: EventLocation | null;
     /**
      * IANA time zone the timings are expressed in (null when unset).
@@ -1187,6 +1192,11 @@ export type Event = {
      *
      */
     readonly rights: EventRights | null;
+    /**
+     * The address to link to when crediting the event: the page its licensor declared for it, else its page on its origin agenda. The same whichever agenda the event is read through. `null` only on an event indexed before this field was introduced, until it is reindexed.
+     *
+     */
+    readonly canonicalUrl: string | null;
     timings: Array<Timing>;
     location: EventLocation | null;
     /**
