@@ -91,7 +91,7 @@ When your application already has a sass entry point, importing it there is usua
 
 **Load it after the framework stylesheet the filters sit on** (bootstrap, in every integration we know of). Rules such as the value badge padding or the choice search width are written with a single class, so they overrule `.btn`, `.badge` and `.form-control` by source order rather than by specificity — loading them before bootstrap gives those defaults back.
 
-The class names the components carry are part of the public API and are meant to be targeted from your own stylesheet: `oa-filters-value-badge`, `oa-filters-choice-search`, `oa-filters-map`, `oa-filters-map-container`, `oa-filters-search-here` and `oa-filters-search-here-button`. Any rule of yours placed after the stylesheet overrides ours.
+The class names the components carry are part of the public API and are meant to be targeted from your own stylesheet: `oa-filters-value-badge`, `oa-filters-choice-search`, `oa-filters-map`, `oa-filters-map-container`, `oa-filters-search-here`, `oa-filters-search-here-button` and `oa-filters-search-label`. Any rule of yours placed after the stylesheet overrides ours.
 
 Note that the map filter also needs [leaflet's own stylesheet](https://leafletjs.com/examples/quick-start/), which this library does not bundle.
 
@@ -136,6 +136,8 @@ A text input for open-text search. Parameters are:
 
 - **name**: 'search'.
 - **manualSearch**: Boolean, false by default. When true, search is only triggered when the user submits the value.
+- **label**: Text of a `<label>` rendered above the input and associated with it. It carries the class `oa-filters-search-label`. Without it, the input is only named by its `aria-label`.
+- **placeholder**: Placeholder of the input. Defaults to "Search", translated.
 
 ### Map
 

@@ -23,6 +23,7 @@ function Preview({
   filter,
   component = FilterPreviewer,
   disabled,
+  label: _label, // the input label, not the value shown in the preview
   ...rest
 }) {
   const { input } = useField(name, { subscription });
