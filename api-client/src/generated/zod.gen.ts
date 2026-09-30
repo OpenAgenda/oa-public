@@ -477,6 +477,46 @@ export const zImageRef = z.object({
 });
 
 /**
+ * A licence, identified by its SPDX identifier.
+ */
+export const zLicense = z.object({
+    id: z.string(),
+    name: z.string(),
+    url: z.string().url()
+});
+
+/**
+ * An organisation to credit: the one named in its agenda's settings, else the agenda's title and website, else the agenda's page on OpenAgenda. Never empty.
+ *
+ */
+export const zRightsParty = z.object({
+    name: z.string(),
+    url: z.string().url(),
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
+});
+
+/**
+ * Attribution of an event. `licensor.agendaUid` equals `originAgenda.uid`; `publisher.agendaUid` is the agenda read. The two are equal when the event is read from its origin agenda.
+ *
+ */
+export const zEventRights = z.object({
+    license: zLicense,
+    licensor: zRightsParty,
+    publisher: zRightsParty
+});
+
+/**
+ * Attribution of an agenda.
+ */
+export const zAgendaRights = z.object({
+    license: zLicense,
+    publisher: z.object({
+        name: z.string(),
+        url: z.string().url()
+    })
+});
+
+/**
  * A compact reference to an agenda.
  */
 export const zAgendaRef = z.object({
@@ -600,7 +640,8 @@ export const zAgenda = z.object({
     private: z.boolean(),
     indexed: z.boolean(),
     network: zAgendaNetworkRef,
-    locationSet: zAgendaLocationSetRef
+    locationSet: zAgendaLocationSetRef,
+    rights: zAgendaRights.readonly()
 });
 
 export const zAgendaList = z.object({
@@ -676,6 +717,7 @@ export const zEventSummary = z.object({
     imageCredits: z.string().max(255).nullable(),
     keywords: zLocalizedStringArray,
     originAgenda: zAgendaRef.nullable(),
+    rights: zEventRights.nullable(),
     location: zEventLocation.nullable(),
     timezone: z.string().readonly().nullable(),
     attendanceMode: zAttendanceMode,
@@ -702,6 +744,7 @@ export const zEvent = z.object({
     imageCredits: z.string().max(255).nullable(),
     keywords: zLocalizedStringArray,
     originAgenda: zAgendaRef.nullable(),
+    rights: zEventRights.nullable(),
     timings: z.array(zTiming),
     location: zEventLocation.nullable(),
     timezone: z.string().readonly().nullable(),
@@ -1340,6 +1383,27 @@ export const zMeAgendaItemDetailedWritable = z.object({
 export const zMeAgendaListWritable = z.object({
     data: z.array(z.union([zMeAgendaItemDetailedWritable, zMeAgendaItemWritable])),
     pagination: zPagination
+});
+
+/**
+ * Full agenda representation returned by the single-agenda get.
+ *
+ */
+export const zAgendaWritable = z.object({
+    uid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
+    slug: z.string(),
+    title: z.string(),
+    description: z.string().nullable(),
+    image: zImage.nullable(),
+    official: z.boolean(),
+    url: z.string().url().nullable(),
+    createdAt: z.string().datetime({ offset: true }),
+    updatedAt: z.string().datetime({ offset: true }),
+    officializedAt: z.string().datetime({ offset: true }).nullable(),
+    private: z.boolean(),
+    indexed: z.boolean(),
+    network: zAgendaNetworkRef,
+    locationSet: zAgendaLocationSetRef
 });
 
 /**

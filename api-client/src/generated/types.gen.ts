@@ -736,6 +736,52 @@ export type ImageRef = {
 };
 
 /**
+ * A licence, identified by its SPDX identifier.
+ */
+export type License = {
+    /**
+     * SPDX identifier.
+     */
+    id: string;
+    name: string;
+    url: string;
+};
+
+/**
+ * An organisation to credit: the one named in its agenda's settings, else the agenda's title and website, else the agenda's page on OpenAgenda. Never empty.
+ *
+ */
+export type RightsParty = {
+    name: string;
+    url: string;
+    /**
+     * The agenda this organisation administers.
+     */
+    agendaUid: number;
+};
+
+/**
+ * Attribution of an event. `licensor.agendaUid` equals `originAgenda.uid`; `publisher.agendaUid` is the agenda read. The two are equal when the event is read from its origin agenda.
+ *
+ */
+export type EventRights = {
+    license: License;
+    licensor: RightsParty;
+    publisher: RightsParty;
+};
+
+/**
+ * Attribution of an agenda.
+ */
+export type AgendaRights = {
+    license: License;
+    publisher: {
+        name: string;
+        url: string;
+    };
+};
+
+/**
  * A compact reference to an agenda.
  */
 export type AgendaRef = {
@@ -860,6 +906,11 @@ export type Agenda = {
     indexed: boolean;
     network: AgendaNetworkRef;
     locationSet: AgendaLocationSetRef;
+    /**
+     * The licence the agenda's events are published under, and the organisation to credit for the agenda's selection and additional fields.
+     *
+     */
+    readonly rights: AgendaRights;
 };
 
 export type AgendaList = {
@@ -1083,6 +1134,11 @@ export type EventSummary = {
      * The agenda the event was originally created in.
      */
     readonly originAgenda: AgendaRef | null;
+    /**
+     * Who to credit when reusing the event under its licence: the licensor (the organisation of the origin agenda, whichever agenda the event is read through) and the publisher (the organisation of the agenda read, which licenses its selection and its additional fields). Indexed with the event and reindexed when either organisation changes. `null` on an event indexed before attribution was introduced, until it is reindexed, and on a write response whose re-read failed.
+     *
+     */
+    readonly rights: EventRights | null;
     location: EventLocation | null;
     /**
      * IANA time zone the timings are expressed in (null when unset).
@@ -1126,6 +1182,11 @@ export type Event = {
      * The agenda the event was originally created in.
      */
     readonly originAgenda: AgendaRef | null;
+    /**
+     * Who to credit when reusing the event under its licence: the licensor (the organisation of the origin agenda, whichever agenda the event is read through) and the publisher (the organisation of the agenda read, which licenses its selection and its additional fields). Indexed with the event and reindexed when either organisation changes. `null` on an event indexed before attribution was introduced, until it is reindexed, and on a write response whose re-read failed.
+     *
+     */
+    readonly rights: EventRights | null;
     timings: Array<Timing>;
     location: EventLocation | null;
     /**
@@ -1956,6 +2017,42 @@ export type MeAgendaListWritable = {
      */
     data: Array<MeAgendaItemDetailedWritable | MeAgendaItemWritable>;
     pagination: Pagination;
+};
+
+/**
+ * Full agenda representation returned by the single-agenda get.
+ *
+ */
+export type AgendaWritable = {
+    uid: number;
+    slug: string;
+    title: string;
+    description: string | null;
+    image: Image | null;
+    /**
+     * Whether the agenda is an official one.
+     */
+    official: boolean;
+    /**
+     * Public website URL of the agenda, or `null`.
+     */
+    url: string | null;
+    createdAt: string;
+    updatedAt: string;
+    /**
+     * When the agenda was officialized, or `null` if it is not official.
+     */
+    officializedAt: string | null;
+    /**
+     * Whether the agenda is private (not publicly listed).
+     */
+    private: boolean;
+    /**
+     * Whether the agenda is indexed in public search.
+     */
+    indexed: boolean;
+    network: AgendaNetworkRef;
+    locationSet: AgendaLocationSetRef;
 };
 
 /**
