@@ -82,6 +82,23 @@ describe('onPendingChange', () => {
     ]);
   });
 
+  test('turns back off when an option is unticked and ticked again', () => {
+    const onPendingChange = jest.fn();
+    const { change } = renderProvider({
+      manualSubmit: true,
+      initialValues: { city: ['Paris', 'Lyon'] },
+      onPendingChange,
+    });
+
+    change('city', ['Lyon']);
+    change('city', ['Lyon', 'Paris']);
+
+    expect(onPendingChange.mock.calls).toEqual([
+      [true, { city: ['Lyon'] }],
+      [false, { city: ['Lyon', 'Paris'] }],
+    ]);
+  });
+
   test('turns off on submit, and later changes compare with the submitted values', () => {
     const onPendingChange = jest.fn();
     const { change, submit } = renderProvider({

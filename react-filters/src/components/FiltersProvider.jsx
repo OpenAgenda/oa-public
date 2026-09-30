@@ -6,7 +6,7 @@ import React, {
   useState,
   useRef,
 } from 'react';
-import isEqual from 'lodash/isEqual.js';
+import isEqualWith from 'lodash/isEqualWith.js';
 import { Form, FormSpy } from 'react-final-form';
 import useConstant from '@openagenda/react-shared/hooks/useConstant';
 import { createForm } from 'final-form';
@@ -16,6 +16,29 @@ import FiltersAndWidgetsContext from '../contexts/FiltersAndWidgetsContext.js';
 import { withDefaultFilterConfig } from '../utils/index.js';
 
 const defaultSubscription = {};
+
+const byJSON = (a, b) => {
+  const [ja, jb] = [JSON.stringify(a), JSON.stringify(b)];
+  if (ja === jb) {
+    return 0;
+  }
+  return ja < jb ? -1 : 1;
+};
+
+// A multiple choice keeps its values in click order: unticking an option and
+// ticking it again moves it to the end, the selection stays the same.
+function sameValues(a, b) {
+  return isEqualWith(a, b, (x, y) => {
+    if (!Array.isArray(x) || !Array.isArray(y)) {
+      return undefined;
+    }
+    if (x.length !== y.length) {
+      return false;
+    }
+    const sortedY = [...y].sort(byJSON);
+    return [...x].sort(byJSON).every((v, i) => sameValues(v, sortedY[i]));
+  });
+}
 const spySubscription = { dirty: true, values: true };
 
 const FiltersForm = React.forwardRef(
@@ -73,7 +96,7 @@ const FiltersForm = React.forwardRef(
         if (manualSubmit) {
           const applied = submittedValuesRef.current ?? form.getState().initialValues ?? {};
 
-          setPending(!isEqual(values, applied), values);
+          setPending(!sameValues(values, applied), values);
           return;
         }
         if (dirty) {
