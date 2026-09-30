@@ -4330,6 +4330,76 @@ components:
             image instead of cropping it. `null` when no rendition can be
             derived - use `src` as is.
 
+    License:
+      type: object
+      description: A licence, identified by its SPDX identifier.
+      additionalProperties: false
+      required: [id, name, url]
+      properties:
+        id:
+          type: string
+          description: SPDX identifier.
+          examples: [etalab-2.0]
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+
+    RightsParty:
+      type: object
+      description: >
+        An organisation to credit: the one named in its agenda's settings,
+        else the agenda's title and website, else the agenda's page on
+        OpenAgenda. Never empty.
+      additionalProperties: false
+      required: [name, url, agendaUid]
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        agendaUid:
+          type: integer
+          format: int64
+          description: The agenda this organisation administers.
+
+    EventRights:
+      type: object
+      description: >
+        Attribution of an event. `licensor.agendaUid` equals
+        `originAgenda.uid`; `publisher.agendaUid` is the agenda read. The
+        two are equal when the event is read from its origin agenda.
+      additionalProperties: false
+      required: [license, licensor, publisher]
+      properties:
+        license:
+          $ref: '#/components/schemas/License'
+        licensor:
+          $ref: '#/components/schemas/RightsParty'
+        publisher:
+          $ref: '#/components/schemas/RightsParty'
+
+    AgendaRights:
+      type: object
+      description: Attribution of an agenda.
+      additionalProperties: false
+      required: [license, publisher]
+      properties:
+        license:
+          $ref: '#/components/schemas/License'
+        publisher:
+          type: object
+          additionalProperties: false
+          required: [name, url]
+          properties:
+            name:
+              type: string
+            url:
+              type: string
+              format: uri
+
     AgendaRef:
       type: object
       description: A compact reference to an agenda.
@@ -4530,6 +4600,7 @@ components:
         - officializedAt
         - private
         - indexed
+        - rights
         - network
         - locationSet
       example:
@@ -4560,6 +4631,14 @@ components:
         locationSet:
           uid: 204
           title: Lieux de Lyon
+        rights:
+          license:
+            id: etalab-2.0
+            name: Licence Ouverte 2.0
+            url: https://www.data.gouv.fr/pages/legal/licences/etalab-2.0/
+          publisher:
+            name: Ville de Lyon
+            url: https://www.lyon.fr
       properties:
         uid:
           type: integer
@@ -4601,6 +4680,13 @@ components:
           $ref: '#/components/schemas/AgendaNetworkRef'
         locationSet:
           $ref: '#/components/schemas/AgendaLocationSetRef'
+        rights:
+          readOnly: true
+          description: >
+            The licence the agenda's events are published under, and the
+            organisation to credit for the agenda's selection and additional
+            fields.
+          $ref: '#/components/schemas/AgendaRights'
 
     AgendaList:
       type: object
@@ -4923,6 +5009,7 @@ components:
         - imageCredits
         - keywords
         - originAgenda
+        - rights
         - location
         - timezone
         - attendanceMode
@@ -4966,6 +5053,19 @@ components:
             srcTemplate: https://img.openagenda.com/u/{geo}/main/a1b2c3d4e5f60718293a4b5c6d7e8f90.full.image.jpg
           url: https://openagenda.com/festival-des-lumieres
           official: true
+        rights:
+          license:
+            id: etalab-2.0
+            name: Licence Ouverte 2.0
+            url: https://www.data.gouv.fr/pages/legal/licences/etalab-2.0/
+          licensor:
+            name: Ville de Lyon
+            url: https://www.lyon.fr
+            agendaUid: 12345
+          publisher:
+            name: Ville de Lyon
+            url: https://www.lyon.fr
+            agendaUid: 12345
         location:
           uid: 55512
           name: Parc de la Tête d'Or
@@ -5038,6 +5138,20 @@ components:
           oneOf:
             - $ref: '#/components/schemas/AgendaRef'
             - type: 'null'
+        rights:
+          readOnly: true
+          description: >
+            Who to credit when reusing the event under its licence: the
+            licensor (the organisation of the origin agenda, whichever agenda
+            the event is read through) and the publisher (the organisation of
+            the agenda read, which licenses its selection and its additional
+            fields). Indexed with the event and reindexed when either
+            organisation changes. `null` on an event indexed before
+            attribution was introduced, until it is reindexed, and on a
+            write response whose re-read failed.
+          oneOf:
+            - $ref: '#/components/schemas/EventRights'
+            - type: 'null'
         location:
           oneOf:
             - $ref: '#/components/schemas/EventLocation'
@@ -5092,6 +5206,7 @@ components:
         - imageCredits
         - keywords
         - originAgenda
+        - rights
         - timings
         - location
         - timezone
@@ -5149,6 +5264,19 @@ components:
             srcTemplate: https://img.openagenda.com/u/{geo}/main/a1b2c3d4e5f60718293a4b5c6d7e8f90.full.image.jpg
           url: https://openagenda.com/festival-des-lumieres
           official: true
+        rights:
+          license:
+            id: etalab-2.0
+            name: Licence Ouverte 2.0
+            url: https://www.data.gouv.fr/pages/legal/licences/etalab-2.0/
+          licensor:
+            name: Ville de Lyon
+            url: https://www.lyon.fr
+            agendaUid: 12345
+          publisher:
+            name: Ville de Lyon
+            url: https://www.lyon.fr
+            agendaUid: 12345
         timings:
           - begin: '2025-06-20T18:00:00+02:00'
             end: '2025-06-20T22:00:00+02:00'
@@ -5249,6 +5377,20 @@ components:
           description: The agenda the event was originally created in.
           oneOf:
             - $ref: '#/components/schemas/AgendaRef'
+            - type: 'null'
+        rights:
+          readOnly: true
+          description: >
+            Who to credit when reusing the event under its licence: the
+            licensor (the organisation of the origin agenda, whichever agenda
+            the event is read through) and the publisher (the organisation of
+            the agenda read, which licenses its selection and its additional
+            fields). Indexed with the event and reindexed when either
+            organisation changes. `null` on an event indexed before
+            attribution was introduced, until it is reindexed, and on a
+            write response whose re-read failed.
+          oneOf:
+            - $ref: '#/components/schemas/EventRights'
             - type: 'null'
         timings:
           type: array
