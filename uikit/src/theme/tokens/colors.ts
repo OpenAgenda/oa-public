@@ -74,6 +74,17 @@ export const colors = defineTokens.colors({
     800: { value: '#201D20' },
     900: { value: '#151316' },
   },
+  // Statut de billetterie d'une date, lu en TEXTE sur fond clair (ligne
+  // d'horaire, modale de détail). Chaque teinte est la plus saturée que l'écran
+  // sache afficher à contraste ≥ 4,5:1 sur blanc ET sur `oaGray.100` (le fond de
+  // page sur ordinateur) : 5,3:1 et 4,6:1. Aucune rampe n'avait ces pas — le 600
+  // du vert et tout le haut de l'ambre échouent, et les 700 lisaient terne.
+  availability: {
+    available: { value: '#027d30' },
+    limited: { value: '#975f00' },
+    soldOut: { value: '#d90318' },
+    notYetOnSale: { value: '#036ace' },
+  },
   states: {
     refused: { value: '#da4453' },
     toControl: { value: '#ffffff' },

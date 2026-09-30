@@ -2169,6 +2169,53 @@ export const semanticColors = defineSemanticTokens.colors({
       },
     },
   },
+  // Texte d'un statut de billetterie : les valeurs brutes de
+  // `tokens/colors.ts` en clair, le pas 300 de la rampe sœur en sombre. Les
+  // statuts sans couleur propre (vente close, inconnu) restent sur le gris.
+  availability: {
+    available: {
+      fg: {
+        value: {
+          _light: '{colors.availability.available}',
+          _dark: '{colors.green.300}',
+        },
+      },
+    },
+    limited: {
+      fg: {
+        value: {
+          _light: '{colors.availability.limited}',
+          _dark: '{colors.warning.300}',
+        },
+      },
+    },
+    soldOut: {
+      fg: {
+        value: {
+          _light: '{colors.availability.soldOut}',
+          _dark: '{colors.danger.300}',
+        },
+      },
+    },
+    notYetOnSale: {
+      fg: {
+        value: {
+          _light: '{colors.availability.notYetOnSale}',
+          _dark: '{colors.primary.300}',
+        },
+      },
+    },
+    salesClosed: {
+      fg: {
+        value: { _light: '{colors.oaGray.700}', _dark: '{colors.oaGray.300}' },
+      },
+    },
+    unknown: {
+      fg: {
+        value: { _light: '{colors.oaGray.700}', _dark: '{colors.oaGray.300}' },
+      },
+    },
+  },
   states: {
     refused: {
       contrast: {
