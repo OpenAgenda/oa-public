@@ -6335,8 +6335,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/react-filters@workspace:react-filters"
   dependencies:
+    "@babel/preset-react": "npm:^7.27.1"
     "@babel/runtime-corejs3": "npm:^7.28.4"
     "@formatjs/cli": "npm:^2.11.3"
+    "@jest/globals": "npm:^30.4.1"
     "@openagenda/eslint-config": "npm:^2.2.0"
     "@openagenda/intl": "npm:^2.1.0"
     "@openagenda/leaflet-gesture-handling": "npm:^1.5.0"
@@ -6346,6 +6348,8 @@ __metadata:
     "@openagenda/verror": "npm:^3.2.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.1"
     "@storybook/react-webpack5": "npm:^10.5.7"
+    "@testing-library/dom": "npm:^10.4.1"
+    "@testing-library/react": "npm:^16.3.2"
     babel-loader: "npm:^10.1.1"
     body-parser: "npm:^1.20.3"
     bootstrap: "npm:4.3.1"
@@ -6361,6 +6365,7 @@ __metadata:
     final-form: "npm:^4.20.2"
     fuse.js: "npm:^7.1.0"
     jest: "npm:^30.4.2"
+    jest-environment-jsdom: "npm:^30.4.1"
     ky: "npm:^1.14.0"
     leaflet: "npm:^1.9.4"
     lodash: "npm:^4.17.20"

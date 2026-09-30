@@ -19,6 +19,8 @@ module.exports = {
           `${__dirname}/example/**/*.{js,jsx}`,
           `${__dirname}/webpack.config.cjs`,
           `${__dirname}/tsdown.config.ts`,
+          `${__dirname}/jest.config.js`,
+          `${__dirname}/test/**/*.{js,jsx}`,
         ],
       },
     ],
