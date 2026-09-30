@@ -714,7 +714,7 @@ export const zImageInput = z.union([
  * A reference to an existing location by its OpenAgenda uid.
  */
 export const zEventLocationRef = z.object({
-    uid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
+    uid: z.coerce.bigint().gte(BigInt(1)).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
 });
 
 /**
