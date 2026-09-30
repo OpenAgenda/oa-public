@@ -1571,17 +1571,34 @@ paths:
       operationId: agendas.locations.list
       tags: [Locations]
       summary: List an agenda's locations
-      x-synonyms: [venues, places, addresses, map, where, browse, all]
+      x-synonyms:
+        [
+          venues,
+          places,
+          addresses,
+          map,
+          where,
+          browse,
+          all,
+          find,
+          search,
+          name,
+          uid,
+        ]
       x-codeSamples:
         - lang: TypeScript
-          label: List the most recent locations
+          label: Find a location by name
           source: |
             const { data, error } = await oa.agendas.locations.list({
               path: { agendaUid: 12345 },
-              query: { limit: 20 },
+              query: { search: 'Gare Meuse TGV', limit: 20 },
             });
             if (error) throw error;
-            return data.data.map((l) => ({ uid: l.uid, name: l.name }));
+            return data.data.map((l) => ({
+              uid: l.uid,
+              name: l.name,
+              address: l.address,
+            }));
       description: >
         Returns a cursor-paginated list of the agenda's locations,
         newest first (insertion order, which can differ from
