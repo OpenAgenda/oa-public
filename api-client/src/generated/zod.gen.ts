@@ -718,7 +718,7 @@ export const zEventSummary = z.object({
     keywords: zLocalizedStringArray,
     originAgenda: zAgendaRef.nullable(),
     rights: zEventRights.nullable(),
-    canonicalUrl: z.string().url().readonly().nullable(),
+    canonicalUrl: z.string().url().nullable(),
     location: zEventLocation.nullable(),
     timezone: z.string().readonly().nullable(),
     attendanceMode: zAttendanceMode,
@@ -746,7 +746,7 @@ export const zEvent = z.object({
     keywords: zLocalizedStringArray,
     originAgenda: zAgendaRef.nullable(),
     rights: zEventRights.nullable(),
-    canonicalUrl: z.string().url().readonly().nullable(),
+    canonicalUrl: z.string().url().nullable(),
     timings: z.array(zTiming),
     location: zEventLocation.nullable(),
     timezone: z.string().readonly().nullable(),
@@ -845,6 +845,7 @@ export const zEventInput = z.object({
     status: zEventStatus.optional(),
     image: zImageInput.optional(),
     imageCredits: z.string().max(255).nullish(),
+    canonicalUrl: z.string().url().max(1000).nullish(),
     additionalFields: zAdditionalFields.optional()
 });
 
@@ -870,6 +871,7 @@ export const zEventPatch = z.object({
     status: zEventStatus.optional(),
     image: zImageInput.optional(),
     imageCredits: z.string().max(255).nullish(),
+    canonicalUrl: z.string().url().max(1000).nullish(),
     additionalFields: zAdditionalFields.optional()
 });
 
@@ -1419,6 +1421,7 @@ export const zEventSummaryWritable = z.object({
     image: zImage.nullable(),
     imageCredits: z.string().max(255).nullable(),
     keywords: zLocalizedStringArray,
+    canonicalUrl: z.string().url().nullable(),
     location: zEventLocationWritable.nullable(),
     attendanceMode: zAttendanceMode,
     onlineAccessLink: z.string().url().nullable(),
@@ -1436,6 +1439,7 @@ export const zEventWritable = z.object({
     image: zImage.nullable(),
     imageCredits: z.string().max(255).nullable(),
     keywords: zLocalizedStringArray,
+    canonicalUrl: z.string().url().nullable(),
     timings: z.array(zTiming),
     location: zEventLocationWritable.nullable(),
     attendanceMode: zAttendanceMode,

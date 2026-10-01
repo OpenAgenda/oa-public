@@ -1143,7 +1143,7 @@ export type EventSummary = {
      * The address to link to when crediting the event: the page its licensor declared for it, else its page on its origin agenda. The same whichever agenda the event is read through. `null` only on an event indexed before this field was introduced, until it is reindexed.
      *
      */
-    readonly canonicalUrl: string | null;
+    canonicalUrl: string | null;
     location: EventLocation | null;
     /**
      * IANA time zone the timings are expressed in (null when unset).
@@ -1196,7 +1196,7 @@ export type Event = {
      * The address to link to when crediting the event: the page its licensor declared for it, else its page on its origin agenda. The same whichever agenda the event is read through. `null` only on an event indexed before this field was introduced, until it is reindexed.
      *
      */
-    readonly canonicalUrl: string | null;
+    canonicalUrl: string | null;
     timings: Array<Timing>;
     location: EventLocation | null;
     /**
@@ -1384,6 +1384,11 @@ export type EventInput = {
      *
      */
     imageCredits?: string | null;
+    /**
+     * The event's own page on its publisher's website, declared by the licensor. Reads fall back on the event's page on its origin agenda; writing that page back declares nothing and is stored as `null`, as is `null` itself.
+     *
+     */
+    canonicalUrl?: string | null;
     additionalFields?: AdditionalFields;
 };
 
@@ -1425,6 +1430,11 @@ export type EventPatch = {
      *
      */
     imageCredits?: string | null;
+    /**
+     * The event's own page on its publisher's website, declared by the licensor. Reads fall back on the event's page on its origin agenda; writing that page back declares nothing and is stored as `null`, as is `null` itself.
+     *
+     */
+    canonicalUrl?: string | null;
     additionalFields?: AdditionalFields;
 };
 
@@ -2076,6 +2086,11 @@ export type EventSummaryWritable = {
     image: Image | null;
     imageCredits: string | null;
     keywords: LocalizedStringArray;
+    /**
+     * The address to link to when crediting the event: the page its licensor declared for it, else its page on its origin agenda. The same whichever agenda the event is read through. `null` only on an event indexed before this field was introduced, until it is reindexed.
+     *
+     */
+    canonicalUrl: string | null;
     location: EventLocationWritable | null;
     attendanceMode: AttendanceMode;
     onlineAccessLink: string | null;
@@ -2093,6 +2108,11 @@ export type EventWritable = {
     image: Image | null;
     imageCredits: string | null;
     keywords: LocalizedStringArray;
+    /**
+     * The address to link to when crediting the event: the page its licensor declared for it, else its page on its origin agenda. The same whichever agenda the event is read through. `null` only on an event indexed before this field was introduced, until it is reindexed.
+     *
+     */
+    canonicalUrl: string | null;
     timings: Array<Timing>;
     location: EventLocationWritable | null;
     attendanceMode: AttendanceMode;
