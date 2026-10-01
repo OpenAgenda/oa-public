@@ -75,6 +75,23 @@ for (const value of registrationValues) {
   );
 }
 
+// An event carrying its canonical address is linked there instead.
+{
+  const canonicalUrl = 'https://www.example.org/expo-nature';
+  written.length = 0;
+  const { height } = await addEventItem(
+    agenda,
+    { ...expoNature, canonicalUrl },
+    doc,
+    cursor,
+    options,
+  );
+  cursor.y += height + 20;
+  const text = written.join('\n');
+  assert.ok(text.includes(canonicalUrl), 'links the canonical address');
+  assert.ok(!text.includes(eventLink), 'instead of the agenda page');
+}
+
 // The icons share the dates line, so their absence shows in the width the
 // positioning reports, not in the height.
 assert.ok(
