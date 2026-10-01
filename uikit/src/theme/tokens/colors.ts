@@ -104,6 +104,9 @@ export const colors = defineTokens.colors({
     toControl: { value: '#ffffff' },
     controlled: { value: '#f6bb42' },
     published: { value: '#5cb85c' },
+    // Not a state: the archives corpus, beside the states it is counted
+    // with. Between the sand palette's 400 and 500.
+    archived: { value: '#bb9a62' },
   },
   strapi: {
     frenchBlue: {
