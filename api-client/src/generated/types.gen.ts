@@ -21,6 +21,70 @@ export type Error = {
 };
 
 /**
+ * The outcome of checking an API key.
+ */
+export type KeyVerification = ValidKey | InvalidKey;
+
+/**
+ * A key that authenticates.
+ */
+export type ValidKey = {
+    valid: true;
+    key: VerifiedKey;
+};
+
+/**
+ * A key that does not authenticate, and why.
+ */
+export type InvalidKey = {
+    valid: false;
+    error: {
+        /**
+         * Stable, machine-readable reason.
+         */
+        code: 'invalid_key' | 'key_disabled' | 'key_expired' | 'key_exhausted' | 'key_unreadable' | 'owner_blacklisted';
+        /**
+         * Human-readable explanation.
+         */
+        message: string;
+    };
+};
+
+/**
+ * What a working key is and what it may do.
+ */
+export type VerifiedKey = {
+    /**
+     * `public` reads what is public and carries no user identity, `secret` acts as the user who owns it, `agenda` belongs to an agenda rather than to a user.
+     *
+     */
+    type: 'public' | 'secret' | 'agenda';
+    owner: KeyOwner;
+    /**
+     * The scopes the key is restricted to. `null` when the key declares no scopes of its own, so that its `type` alone bounds what it can do.
+     *
+     */
+    scopes: Array<string> | null;
+    /**
+     * The instant the key stops authenticating, or `null` when it does not expire.
+     *
+     */
+    expiresAt: string | null;
+};
+
+/**
+ * Who the key belongs to; `null` for a public key.
+ *
+ */
+export type KeyOwner = {
+    type: 'user' | 'agenda';
+    /**
+     * The uid of that user or agenda.
+     */
+    uid: number;
+} | null;
+
+/**
  * A request refused because of the values it carries.
  */
 export type ValidationError = {
@@ -4036,3 +4100,35 @@ export type AgendasLocationsGetResponses = {
 };
 
 export type AgendasLocationsGetResponse = AgendasLocationsGetResponses[keyof AgendasLocationsGetResponses];
+
+export type KeysVerifyData = {
+    body: {
+        /**
+         * The API key to check, as it was issued. An OAuth access token answers `invalid_key`.
+         *
+         */
+        key: string;
+    };
+    path?: never;
+    query?: never;
+    url: '/keys/verify';
+};
+
+export type KeysVerifyErrors = {
+    /**
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
+     *
+     */
+    400: Error | ValidationError;
+};
+
+export type KeysVerifyError = KeysVerifyErrors[keyof KeysVerifyErrors];
+
+export type KeysVerifyResponses = {
+    /**
+     * Whether the key authenticates, and what it is.
+     */
+    200: KeyVerification;
+};
+
+export type KeysVerifyResponse = KeysVerifyResponses[keyof KeysVerifyResponses];

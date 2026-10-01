@@ -21,6 +21,63 @@ export const zError = z.object({
 });
 
 /**
+ * A key that does not authenticate, and why.
+ */
+export const zInvalidKey = z.object({
+    valid: z.literal(false),
+    error: z.object({
+        code: z.enum([
+            'invalid_key',
+            'key_disabled',
+            'key_expired',
+            'key_exhausted',
+            'key_unreadable',
+            'owner_blacklisted'
+        ]),
+        message: z.string()
+    })
+});
+
+/**
+ * Who the key belongs to; `null` for a public key.
+ *
+ */
+export const zKeyOwner = z.object({
+    type: z.enum(['user', 'agenda']),
+    uid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
+}).nullable();
+
+/**
+ * What a working key is and what it may do.
+ */
+export const zVerifiedKey = z.object({
+    type: z.enum([
+        'public',
+        'secret',
+        'agenda'
+    ]),
+    owner: zKeyOwner,
+    scopes: z.array(z.string()).nullable(),
+    expiresAt: z.string().datetime({ offset: true }).nullable()
+});
+
+/**
+ * A key that authenticates.
+ */
+export const zValidKey = z.object({
+    valid: z.literal(true),
+    key: zVerifiedKey
+});
+
+/**
+ * The outcome of checking an API key.
+ */
+export const zKeyVerification = z.union([
+    zValidKey,
+    zInvalidKey
+]);
+
+/**
  * One problem found in a request. A validator describes the values it refuses as precisely as it can, so an item carries the keys below plus whatever else that validator knows, such as the bounds the value had to satisfy.
  */
 export const zValidationIssue = z.object({
@@ -2272,3 +2329,12 @@ export const zAgendasLocationsGetPath = z.object({
  * The location.
  */
 export const zAgendasLocationsGetResponse = zLocation;
+
+export const zKeysVerifyBody = z.object({
+    key: z.string()
+});
+
+/**
+ * Whether the key authenticates, and what it is.
+ */
+export const zKeysVerifyResponse = zKeyVerification;
