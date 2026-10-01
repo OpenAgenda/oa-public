@@ -3808,7 +3808,19 @@ components:
             cannot read is refused rather than taken for an empty one; the
             `events:write` scope with membership of the agenda; and ticketing
             enabled on that agenda, failing which it answers `422`
-            `offers.disabled`.
+            `offers.disabled`. Its access token must travel in a header
+            (`Authorization: Bearer …` or `access-token`) and NOT in the body:
+            that endpoint reads its body only once it knows who is calling, so a
+            token placed inside the body is never seen, where an ordinary v2
+            write would have accepted it.
+
+            BECAUSE THIS FIELD IS CARRIED, A CLIENT SHOULD OMIT IT when saving an
+            event it has just read, and nothing is lost by doing so: an occurrence
+            the payload says nothing about keeps its stored rows. Sending them back
+            is not merely useless, it is what pushes a read-modify-write past the
+            100 kB body limit of the ordinary event routes — measured, a payload
+            crosses it at about 500 occurrences carrying one row each, or 300
+            carrying two.
 
             An ordinary event write CARRIES this inventory: whatever it sends for
             an occurrence the event already has is ignored, so a
