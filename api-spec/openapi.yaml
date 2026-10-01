@@ -3816,7 +3816,10 @@ components:
 
             BECAUSE THIS FIELD IS CARRIED, A CLIENT SHOULD OMIT IT when saving an
             event it has just read, and nothing is lost by doing so: an occurrence
-            the payload says nothing about keeps its stored rows. Sending them back
+            whose entry does not mention `availability` keeps its stored rows.
+            Omitting the FIELD is safe; omitting the OCCURRENCE is not — a timings
+            write is a full replacement, and an occurrence no incoming entry claims
+            is deleted along with its inventory. Sending the rows back
             is not merely useless, it is what pushes a read-modify-write past the
             100 kB body limit of the ordinary event routes — measured, a payload
             crosses it at about 500 occurrences carrying one row each, or 300
