@@ -3798,11 +3798,23 @@ components:
             the v2 API, and this document declares no path for it — so a client
             generated from this spec cannot reach it and has to call it directly.
 
+            Its body is keyed by OCCURRENCE first and by provider second —
+            `{ "<timing id>": { "<provider>": { … } } }` — and `null` in place of
+            a row removes that provider from that occurrence. A body keyed by
+            provider alone names no occurrence: it answers `200` carrying an
+            `availability.timing.unknown` fault and writes nothing.
+
+            It also requires `Content-Type: application/json`, since a body it
+            cannot read is refused rather than taken for an empty one; the
+            `events:write` scope with membership of the agenda; and ticketing
+            enabled on that agenda, failing which it answers `422`
+            `offers.disabled`.
+
             An ordinary event write CARRIES this inventory: whatever it sends for
             an occurrence the event already has is ignored, so a
             read-modify-write round-trip can neither change a row, nor add one,
             nor clear one with an explicit `[]`. Removal goes through that
-            endpoint, which takes `{ "<provider>": null }`.
+            endpoint, in the shape given above.
 
             The reason is that an ordinary write cannot be told apart from the
             inventory it merely transports: a connector writes between the
