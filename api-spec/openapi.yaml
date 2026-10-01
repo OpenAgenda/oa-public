@@ -3792,9 +3792,23 @@ components:
             received any. At most one row per provider, so never more rows than
             the `provider` enum has values.
 
-            Written by connectors through the availability route, or inline
-            with the timings on an ordinary write; carried across ordinary
-            writes that do not mention it, and cleared by an explicit `[]`.
+            Written by connectors through the availability route, and by it
+            alone. An ordinary event write CARRIES this inventory: whatever it
+            sends for an occurrence the event already has is ignored, so a
+            read-modify-write round-trip can neither change a row, nor add one,
+            nor clear one with an explicit `[]`. Removal goes through the route,
+            which takes `{ "<provider>": null }`.
+
+            The reason is that an ordinary write cannot be told apart from the
+            inventory it merely transports: a connector writes between the
+            moment a client reads an event and the moment its save arrives, so a
+            row absent from that save may be one the client never saw rather
+            than one it means to drop. The route writes under a
+            compare-and-swap, which has no such ambiguity.
+
+            An occurrence the event does not have yet is the one exception: it
+            carries no stored inventory, so rows sent with it are kept and an
+            event can be created with its inventory in a single call.
 
             Served wherever a `Timing` is: `timings[]`, and also
             `firstTiming` / `lastTiming` / `nextTiming`, which copy the
