@@ -11,8 +11,8 @@ info:
     ## Authentication
 
     Every request is authenticated with `Authorization: Bearer <token>`, using
-    one of two credentials (the only exception is `POST /uploads/staged`, which
-    is authorized by an upload ticket in the `X-Upload-Ticket` header):
+    one of two credentials, unless its operation declares another credential or
+    none in its own security requirements:
 
     - **API key** — a read-only public key (`oa_pk_…`), which carries no
       user identity and reads what is public, or a secret key (`oa_sk_…`) for
@@ -87,6 +87,9 @@ tags:
       role on each. Requires a user identity — a secret key or an OAuth
       token; a public (`oa_pk_…`) key carries no identity and answers
       `401`.
+  - name: Keys
+    description: >
+      The API keys you hold, and what each one can do.
   - name: Uploads
     description: >
       Stage a media file (the native event image, or a custom file/image
@@ -103,6 +106,7 @@ x-tagGroups:
       - Events
       - Locations
       - Me
+      - Keys
       - Uploads
 
 # Authenticate every request with either an API key or an OAuth2 token,
@@ -1809,6 +1813,60 @@ paths:
                       code: not_found
                       message: location not found
 
+  /keys/verify:
+    post:
+      operationId: keys.verify
+      tags: [Keys]
+      summary: Check an API key
+      x-synonyms:
+        [
+          verify key,
+          validate key,
+          test key,
+          key expired,
+          key disabled,
+          key scopes,
+          introspect,
+        ]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Check a key before using it
+          source: |
+            const { data, error } = await oa.keys.verify({
+              body: { key: 'oa_sk_…' },
+            });
+            if (error) throw error;
+            return data.valid ? data.key : data.error.code;
+      description: >
+        Checks the API key sent in the request body. A key that does not
+        authenticate answers `200` with `valid: false` and an `error.code`
+        naming the reason. A check leaves the key's last use, as its owner
+        sees it, unchanged.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [key]
+              properties:
+                key:
+                  type: string
+                  description: >
+                    The API key to check, as it was issued. An OAuth access
+                    token answers `invalid_key`.
+      responses:
+        '200':
+          description: Whether the key authenticates, and what it is.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KeyVerification'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
 components:
   securitySchemes:
     oauth2:
@@ -2943,6 +3001,110 @@ components:
             message:
               type: string
               description: Human-readable explanation.
+
+    KeyVerification:
+      description: The outcome of checking an API key.
+      oneOf:
+        - $ref: '#/components/schemas/ValidKey'
+        - $ref: '#/components/schemas/InvalidKey'
+
+    ValidKey:
+      type: object
+      description: A key that authenticates.
+      required: [valid, key]
+      additionalProperties: false
+      properties:
+        valid:
+          type: boolean
+          enum: [true]
+        key:
+          $ref: '#/components/schemas/VerifiedKey'
+
+    InvalidKey:
+      type: object
+      description: A key that does not authenticate, and why.
+      required: [valid, error]
+      additionalProperties: false
+      properties:
+        valid:
+          type: boolean
+          enum: [false]
+        error:
+          type: object
+          required: [code, message]
+          additionalProperties: false
+          properties:
+            code:
+              type: string
+              description: Stable, machine-readable reason.
+              enum:
+                [
+                  invalid_key,
+                  key_disabled,
+                  key_expired,
+                  key_exhausted,
+                  key_unreadable,
+                  owner_blacklisted,
+                ]
+              x-enum-descriptions:
+                invalid_key: >-
+                  the key is unknown or revoked, or the account that owns it is
+                  gone
+                key_disabled: its owner switched the key off and can switch it back on
+                key_expired: the key has passed its expiry date
+                key_exhausted: the key has used up its request allowance
+                key_unreadable: >-
+                  the key is stored in a state that cannot be read; contact
+                  support
+                owner_blacklisted: the account that owns the key is blacklisted
+            message:
+              type: string
+              description: Human-readable explanation.
+
+    VerifiedKey:
+      type: object
+      description: What a working key is and what it may do.
+      required: [type, owner, scopes, expiresAt]
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          enum: [public, secret, agenda]
+          description: >
+            `public` reads what is public and carries no user identity, `secret`
+            acts as the user who owns it, `agenda` belongs to an agenda rather
+            than to a user.
+        owner:
+          $ref: '#/components/schemas/KeyOwner'
+        scopes:
+          type: [array, 'null']
+          items:
+            type: string
+          description: >
+            The scopes the key is restricted to. `null` when the key declares
+            no scopes of its own, so that its `type` alone bounds what it can
+            do.
+        expiresAt:
+          type: [string, 'null']
+          format: date-time
+          description: >
+            The instant the key stops authenticating, or `null` when it does not
+            expire.
+
+    KeyOwner:
+      type: [object, 'null']
+      description: >
+        Who the key belongs to; `null` for a public key.
+      required: [type, uid]
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          enum: [user, agenda]
+        uid:
+          type: integer
+          format: int64
+          description: The uid of that user or agenda.
 
     ValidationError:
       type: object
