@@ -3792,12 +3792,17 @@ components:
             received any. At most one row per provider, so never more rows than
             the `provider` enum has values.
 
-            Written by connectors through the availability route, and by it
-            alone. An ordinary event write CARRIES this inventory: whatever it
-            sends for an occurrence the event already has is ignored, so a
+            Written by connectors through the availability endpoint, and by it
+            alone. That endpoint is NOT part of this contract: it is
+            `PATCH /v2/agendas/{agendaUid}/events/{eventUid}/availability`, on
+            the v2 API, and this document declares no path for it — so a client
+            generated from this spec cannot reach it and has to call it directly.
+
+            An ordinary event write CARRIES this inventory: whatever it sends for
+            an occurrence the event already has is ignored, so a
             read-modify-write round-trip can neither change a row, nor add one,
-            nor clear one with an explicit `[]`. Removal goes through the route,
-            which takes `{ "<provider>": null }`.
+            nor clear one with an explicit `[]`. Removal goes through that
+            endpoint, which takes `{ "<provider>": null }`.
 
             The reason is that an ordinary write cannot be told apart from the
             inventory it merely transports: a connector writes between the
