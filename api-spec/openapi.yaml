@@ -5157,7 +5157,6 @@ components:
         canonicalUrl:
           type: [string, 'null']
           format: uri
-          readOnly: true
           description: >
             The address to link to when crediting the event: the page its
             licensor declared for it, else its page on its origin agenda. The
@@ -5409,7 +5408,6 @@ components:
         canonicalUrl:
           type: [string, 'null']
           format: uri
-          readOnly: true
           description: >
             The address to link to when crediting the event: the page its
             licensor declared for it, else its page on its origin agenda. The
@@ -5747,6 +5745,15 @@ components:
           description: >
             Credits for the event `image`. Ignored when the event has no image;
             `null` clears them.
+        canonicalUrl:
+          type: [string, 'null']
+          format: uri
+          maxLength: 1000
+          description: >
+            The event's own page on its publisher's website, declared by the
+            licensor. Reads fall back on the event's page on its origin
+            agenda; writing that page back declares nothing and is stored as
+            `null`, as is `null` itself.
         additionalFields:
           $ref: '#/components/schemas/AdditionalFields'
 
@@ -5820,6 +5827,15 @@ components:
           description: >
             Credits for the event `image`. Ignored when the event has no image;
             `null` clears them.
+        canonicalUrl:
+          type: [string, 'null']
+          format: uri
+          maxLength: 1000
+          description: >
+            The event's own page on its publisher's website, declared by the
+            licensor. Reads fall back on the event's page on its origin
+            agenda; writing that page back declares nothing and is stored as
+            `null`, as is `null` itself.
         additionalFields:
           $ref: '#/components/schemas/AdditionalFields'
 
