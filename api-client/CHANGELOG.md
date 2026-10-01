@@ -1,5 +1,68 @@
 # @openagenda/api-client
 
+## 0.6.0
+
+### Minor Changes
+
+- [#508](https://github.com/OpenAgenda/oa/pull/508) [`244bfb5`](https://github.com/OpenAgenda/oa/commit/244bfb5552c001da628724c19c2735bd651c0716) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `agendas.events.schema` describes the fields in the vocabulary of the event body.
+
+  The schema also served native descriptors the v3 write operations refuse
+  (`uid`, `slug`, `createdAt`, `draft`, `locationUid`, `fileKey`...), several of
+  them under a name the v3 event never uses. A client reading it to build a
+  payload had no way to tell them from the fields it fills. They are omitted:
+  every native field listed is now a property of the event body, under the same
+  name, and `status` is listed only on an agenda that accepts it.
+
+  Each data descriptor carries a `path`, where its value lives on the event:
+  `additionalFields.<field>` for an additional field, the field name for a native
+  one. `schemaId` and `schemaType` no longer claim to tell an additional field
+  from a native one: a native an agenda overrides carries the agenda's. A code
+  sample lists the required fields with their condition, builds an event body
+  from the schema and dry-runs it with `agendas.events.validate`.
+
+  `FormSchemaField` documents `read` and `write`, served as lists of
+  `AccessLevel` (`public`, the four member roles, and the platform's own
+  `internal`/`system`) or `null` when open: `write` names the levels allowed to
+  set the field, and a value sent without your access level among them answers
+  `422` with an `unauthorized` issue on the field. `enableWith` states that an
+  inactive field is not required, whatever `optional` says, and holds no value:
+  one sent is not kept, and a stored one is cleared.
+
+- [#507](https://github.com/OpenAgenda/oa/pull/507) [`610604d`](https://github.com/OpenAgenda/oa/commit/610604dd9dff0102cfda2f2eb71fb17a61b2d4dc) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Filter `me.agendas.list` by `slug` and by `role`.
+
+  Resolving one of your agendas from its slug meant paging through every
+  membership client side: `agendas.list` does filter by `slug`, but private
+  agendas and agendas not indexed in public search are absent from it. `slug` on
+  `me.agendas.list` resolves against every agenda you are a member of, those
+  included; a slug matching none of your memberships yields an empty page.
+
+  `role` keeps the memberships holding one of the given roles, so "which agendas
+  can I write to" is one filtered call instead of a full listing narrowed client
+  side. An unknown role answers `400`.
+
+  The description of `agendas.list` now states that private and unindexed agendas
+  are absent from it.
+
+- [#474](https://github.com/OpenAgenda/oa/pull/474) [`b738e6e`](https://github.com/OpenAgenda/oa/commit/b738e6e428bda1ac9a4284728afabc4c4513d7cf) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Name the refused value `input` on a validation issue.
+
+  An item in `error.errors` has always carried the value it refused, but under
+  the name our validators use internally, `origin`, and the contract never
+  declared it. Two consequences: the key shipped in every `422` without being
+  documented anywhere, and the zod validators generated from this contract
+  dropped it on `parse()`, since they are emitted in strip mode.
+
+  `input` is the name zod itself gives the refused value on an issue - where
+  `origin` is the origin type. The same word already means something else in
+  this contract too: `FormSchemaField.origin` is what a field was converted
+  from.
+
+  v3 answers `input` and declares it. The rename happens on the v3 boundary
+  only: v2 keeps publishing `origin`, and a validator still writes whatever it
+  knows without anything changing for it.
+
+  `input` is declared and not required - a validator that reports a problem
+  without recording the value omits it.
+
 ## 0.5.0
 
 ### Minor Changes

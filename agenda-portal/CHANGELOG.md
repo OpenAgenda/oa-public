@@ -1,5 +1,13 @@
 # Change Log
 
+## 7.0.1
+
+### Patch Changes
+
+- Updated dependencies [[`08ecc16`](https://github.com/OpenAgenda/oa/commit/08ecc168e32c1281ad2a3c4dd7e9556c2c24220a), [`c4972f8`](https://github.com/OpenAgenda/oa/commit/c4972f872f890720be964965056d6f333d40ae87), [`b8fd0cc`](https://github.com/OpenAgenda/oa/commit/b8fd0cc2bb1c30b965f910624778d8738f419181)]:
+  - @openagenda/react-filters@3.1.0
+  - @openagenda/react-shared@3.2.0
+
 ## 7.0.0
 
 ### Major Changes

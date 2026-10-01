@@ -5,5 +5,6 @@
   "ReactShared.ImageInput.acceptedFiles": "Restroù degemeret",
   "ReactShared.ImageInput.remove": "Lemel",
   "ReactShared.ImageInput.update": "Cheñch ar skeudenn",
-  "ReactShared.ImageInput.upload": "Kargañ ur skeudenn"
+  "ReactShared.ImageInput.upload": "Kargañ ur skeudenn",
+  "ReactShared.Modal.close": "Serriñ"
 }

@@ -6,6 +6,7 @@ import React, {
   useState,
   useRef,
 } from 'react';
+import isEqualWith from 'lodash/isEqualWith.js';
 import { Form, FormSpy } from 'react-final-form';
 import useConstant from '@openagenda/react-shared/hooks/useConstant';
 import { createForm } from 'final-form';
@@ -15,23 +16,71 @@ import FiltersAndWidgetsContext from '../contexts/FiltersAndWidgetsContext.js';
 import { withDefaultFilterConfig } from '../utils/index.js';
 
 const defaultSubscription = {};
+
+const byJSON = (a, b) => {
+  const [ja, jb] = [JSON.stringify(a), JSON.stringify(b)];
+  if (ja === jb) {
+    return 0;
+  }
+  return ja < jb ? -1 : 1;
+};
+
+// A multiple choice keeps its values in click order: unticking an option and
+// ticking it again moves it to the end, the selection stays the same.
+function sameValues(a, b) {
+  return isEqualWith(a, b, (x, y) => {
+    if (!Array.isArray(x) || !Array.isArray(y)) {
+      return undefined;
+    }
+    if (x.length !== y.length) {
+      return false;
+    }
+    const sortedY = [...y].sort(byJSON);
+    return [...x].sort(byJSON).every((v, i) => sameValues(v, sortedY[i]));
+  });
+}
 const spySubscription = { dirty: true, values: true };
 
 const FiltersForm = React.forwardRef(
-  ({ onSubmit, initialValues, manualSubmit, subscription, children }, ref) => {
+  (
+    {
+      onSubmit,
+      onPendingChange,
+      initialValues,
+      manualSubmit,
+      subscription,
+      children,
+    },
+    ref,
+  ) => {
     const { filters } = useContext(FiltersAndWidgetsContext);
 
     const submittedValuesRef = useRef();
+
+    // Pending: the form holds values that have not been submitted yet. Only
+    // manual submit can get there, automatic mode submits every change.
+    const pendingRef = useRef(false);
+    const onPendingChangeRef = useRef(onPendingChange);
+    onPendingChangeRef.current = onPendingChange;
+
+    const setPending = useConstant(() => (pending, values) => {
+      if (pending === pendingRef.current) {
+        return;
+      }
+      pendingRef.current = pending;
+      onPendingChangeRef.current?.(pending, values);
+    });
 
     const handleSubmit = useCallback(
       (values, form) => {
         const aggregations = filtersToAggregations(filters);
 
         submittedValuesRef.current = values;
+        setPending(false, values);
 
         return onSubmit(values, aggregations, form);
       },
-      [filters, onSubmit],
+      [filters, onSubmit, setPending],
     );
 
     const form = useConstant(() => {
@@ -45,6 +94,9 @@ const FiltersForm = React.forwardRef(
     const onValueChange = useCallback(
       ({ dirty, values }) => {
         if (manualSubmit) {
+          const applied = submittedValuesRef.current ?? form.getState().initialValues ?? {};
+
+          setPending(!sameValues(values, applied), values);
           return;
         }
         if (dirty) {
@@ -52,7 +104,7 @@ const FiltersForm = React.forwardRef(
           form.reset(values);
         }
       },
-      [form, manualSubmit],
+      [form, manualSubmit, setPending],
     );
 
     return (
@@ -79,6 +131,7 @@ const IntlProvided = React.forwardRef(
       dateFnsLocale,
       initialValues,
       onSubmit,
+      onPendingChange,
       subscription,
       searchMethod,
       manualSubmit,
@@ -131,6 +184,7 @@ const IntlProvided = React.forwardRef(
         <FiltersForm
           ref={ref}
           onSubmit={onSubmit}
+          onPendingChange={onPendingChange}
           initialValues={initialValues}
           subscription={subscription}
           searchMethod={searchMethod}
@@ -155,6 +209,7 @@ function FiltersProvider(
     dateFnsLocale = undefined,
     // form config
     onSubmit = null,
+    onPendingChange = null,
     initialValues = null,
     subscription = defaultSubscription,
     searchMethod = 'get',
@@ -173,6 +228,7 @@ function FiltersProvider(
       mapTiles={mapTiles}
       dateFnsLocale={dateFnsLocale}
       onSubmit={onSubmit}
+      onPendingChange={onPendingChange}
       initialValues={initialValues}
       subscription={subscription}
       searchMethod={searchMethod}
