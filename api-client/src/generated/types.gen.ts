@@ -484,7 +484,10 @@ export type Timing = {
     sourceRef?: string;
     /**
      * The inventory of this occurrence, ONE ROW PER TICKETING PROVIDER — the same occurrence can be sold out on pass Culture and open to the general public. Absent, not empty, on an occurrence that never received any. At most one row per provider, so never more rows than the `provider` enum has values.
-     * Written by connectors through the availability route, or inline with the timings on an ordinary write; carried across ordinary writes that do not mention it, and cleared by an explicit `[]`.
+     * Written by connectors through the availability endpoint, and by it alone. That endpoint is NOT part of this contract: it is `PATCH /v2/agendas/{agendaUid}/events/{eventUid}/availability`, on the v2 API, and this document declares no path for it — so a client generated from this spec cannot reach it and has to call it directly.
+     * An ordinary event write CARRIES this inventory: whatever it sends for an occurrence the event already has is ignored, so a read-modify-write round-trip can neither change a row, nor add one, nor clear one with an explicit `[]`. Removal goes through that endpoint, which takes `{ "<provider>": null }`.
+     * The reason is that an ordinary write cannot be told apart from the inventory it merely transports: a connector writes between the moment a client reads an event and the moment its save arrives, so a row absent from that save may be one the client never saw rather than one it means to drop. The route writes under a compare-and-swap, which has no such ambiguity.
+     * An occurrence the event does not have yet is the one exception: it carries no stored inventory, so rows sent with it are kept and an event can be created with its inventory in a single call.
      * Served wherever a `Timing` is: `timings[]`, and also `firstTiming` / `lastTiming` / `nextTiming`, which copy the occurrence whole — so a compact listing carries the inventory of its next date.
      *
      */
