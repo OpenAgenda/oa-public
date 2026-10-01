@@ -83,6 +83,8 @@ export type EventQuery = {
   timings?: unknown;
   passed?: string | number;
   relative?: string[];
+  // The corpus: '1' for the agenda's archives.
+  archived?: string;
 };
 
 export type ExportField = {

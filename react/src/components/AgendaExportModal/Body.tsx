@@ -112,7 +112,14 @@ export default function Body({
 
   const [mode, setMode] = useState<'all' | 'selection'>('selection');
   const res = useMemo(() => {
-    const usedQuery: EventQuery = mode === 'all' ? { relative: ['passed', 'current', 'upcoming'] } : query;
+    // "All" is every event of the corpus on screen: from the archives view,
+    // every archived event.
+    const usedQuery: EventQuery = mode === 'all'
+      ? {
+        relative: ['passed', 'current', 'upcoming'],
+        ...query.archived ? { archived: query.archived } : {},
+      }
+      : query;
     return completeUrls(agenda.uid, usedQuery, rootUrl, apiRootUrl);
   }, [mode, agenda.uid, query, rootUrl, apiRootUrl]);
 
