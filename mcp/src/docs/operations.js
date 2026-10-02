@@ -1403,9 +1403,19 @@ export function renderEverything(contract) {
   }
 }
 
-const SCHEMAS_FOOTER = 'Validators: a `schemas` namespace of zod validators is available in `execute` '
-  + 'to parse payloads (e.g. `schemas.zEvent.parse(data)`). Available: '
-  + `${SCHEMA_VALIDATORS.join(', ')}.`;
+// The validators of the types a payload renders, and only those: a validator
+// parses a shape, and the reader knows only the shapes it was shown. `types` is
+// what `named` recorded while the payload was written. The whole list ran to
+// 80 names, longer than many a card.
+function renderValidatorsFooter(types, hits) {
+  const available = SCHEMA_VALIDATORS.filter((v) => types.has(v.slice(1)));
+  if (!available.length) return '';
+  const root = hits[0].response?.root;
+  const sample = root && types.has(root) ? `z${root}` : available[0];
+  return 'Validators: a `schemas` namespace of zod validators is available in `execute` '
+    + `to parse payloads (e.g. \`schemas.${sample}.parse(data)\`). For the types above: `
+    + `${available.join(', ')}.`;
+}
 
 // The SDK frame, rendered FIRST so it sets the lens for everything below: the
 // `oa.*` calls in this payload ARE the public surface of @openagenda/api-client
@@ -1533,14 +1543,23 @@ export function renderSearch(hits) {
   if (!hits.length) {
     return [warning, renderCatalogue()].filter(Boolean).join('\n\n---\n\n');
   }
-  const body = hits.map((op, i) => renderOperation(op, i)).join('\n\n---\n\n');
+  const types = new Set();
+  let body;
+  let components;
+  typeSink = types;
+  try {
+    body = hits.map((op, i) => renderOperation(op, i)).join('\n\n---\n\n');
+    components = renderComponentsSection(hits);
+  } finally {
+    typeSink = null;
+  }
   return [
     warning,
     SDK_LEAD,
     body,
     renderCompactNote(hits),
-    renderComponentsSection(hits),
-    SCHEMAS_FOOTER,
+    components,
+    renderValidatorsFooter(types, hits),
   ]
     .filter(Boolean)
     .join('\n\n---\n\n');

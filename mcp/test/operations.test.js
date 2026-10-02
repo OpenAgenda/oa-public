@@ -1442,10 +1442,19 @@ describe('summary/detailed variant resolution', () => {
 });
 
 describe('renderSearch', () => {
-  it('appends the validators footer with the contract-derived list', () => {
-    const text = renderSearch(searchOperations('events'));
-    expect(text).toContain('schemas');
-    expect(text).toContain('zEvent');
+  it('lists the validators of the types the payload shows, and only those', () => {
+    expect(renderSearch(searchOperations('agendas.events.delete'))).toContain(
+      'Validators: a `schemas` namespace of zod validators is available in `execute` '
+        + 'to parse payloads (e.g. `schemas.zDeletionResult.parse(data)`). '
+        + 'For the types above: zDeletionResult, zError.',
+    );
+    for (const query of ['events', 'create an event', 'upload an image']) {
+      const text = renderSearch(searchOperations(query));
+      const [, listed] = text.match(/For the types above: (.*)\.$/);
+      expect(listed.split(', ').map((v) => v.slice(1))).toEqual(
+        [...typeReferences(text)].sort(),
+      );
+    }
   });
 
   // The SDK handoff: every search_docs response LEADS with the frame that the
