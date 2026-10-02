@@ -59,6 +59,8 @@ This are loaded through the `window.oa` object.
 - **query**: Optional. Filter value to be loaded at initialization.
 - **onFilterChange**: The function to be called each time a filter value changes. This function should be in charge of loading the matching events in the list and updating the URL.
 - **onLoad**: This function is called when the controller has been loaded.
+- **manualSubmit**: Optional, `false` by default. When `true`, filter changes are no longer applied as they happen: they are held in the form until it is submitted, and only then is `onFilterChange` called. The page provides the submit control. See [Manual submit](#manual-submit).
+- **onPendingChange**: Optional. Called as `onPendingChange(pending, values)` when the filters start or stop holding changes that have not been applied, in manual submit mode. See [Manual submit](#manual-submit).
 - **apiClient**: An optional axios instance. Useful for tests.
 - **ref**: A React ref. Useful if the controller is to be used with the `FilterManager` component (not documented). See `React.createRef()` or `React.useRef()`
 
@@ -89,7 +91,7 @@ When your application already has a sass entry point, importing it there is usua
 
 **Load it after the framework stylesheet the filters sit on** (bootstrap, in every integration we know of). Rules such as the value badge padding or the choice search width are written with a single class, so they overrule `.btn`, `.badge` and `.form-control` by source order rather than by specificity — loading them before bootstrap gives those defaults back.
 
-The class names the components carry are part of the public API and are meant to be targeted from your own stylesheet: `oa-filters-value-badge`, `oa-filters-choice-search`, `oa-filters-map`, `oa-filters-map-container`, `oa-filters-search-here` and `oa-filters-search-here-button`. Any rule of yours placed after the stylesheet overrides ours.
+The class names the components carry are part of the public API and are meant to be targeted from your own stylesheet: `oa-filters-value-badge`, `oa-filters-choice-search`, `oa-filters-map`, `oa-filters-map-container`, `oa-filters-search-here`, `oa-filters-search-here-button` and `oa-filters-search-label`. Any rule of yours placed after the stylesheet overrides ours.
 
 Note that the map filter also needs [leaflet's own stylesheet](https://leafletjs.com/examples/quick-start/), which this library does not bundle.
 
@@ -134,6 +136,8 @@ A text input for open-text search. Parameters are:
 
 - **name**: 'search'.
 - **manualSearch**: Boolean, false by default. When true, search is only triggered when the user submits the value.
+- **label**: Text of a `<label>` rendered above the input and associated with it. It carries the class `oa-filters-search-label`. Without it, the input is only named by its `aria-label`.
+- **placeholder**: Placeholder of the input. Defaults to "Search", translated.
 
 ### Map
 
@@ -200,6 +204,39 @@ Add `role="status"` on the container `div` of the `total` widget so that screen 
 ```
 
 This makes the element a live region (`aria-live="polite"` is implicit), so assistive technologies will announce the new total without interrupting the user.
+
+### Manual submit
+
+With `manualSubmit`, a visitor can change the filters without the list following, so that nothing reloads until they ask for it. Between a change and the next submit, the filters show one selection while the list, the total and the URL still show the one last applied: the filters are **pending**.
+
+`onPendingChange(pending, values)` reports that state so the page can say so:
+
+- `pending` is `true` when the filter values differ from the applied ones, `false` when they match again, whether the visitor submitted or undid their changes. The applied values are those of the last submit, or the initial `query` before any submit.
+- It is called on transitions only, never twice in a row with the same `pending`, so it does not follow every keystroke in the search field. It is not called at load, where the filters are not pending.
+- `values` are the filter values at the time of the transition.
+- In automatic mode (no `manualSubmit`) every change is applied at once and the callback is never called.
+
+react-filters does not render the list, the total or the submit button, so the page renders the cue. For instance, fill a live region placed in the page at load, and emphasise the submit button:
+
+```html
+<div role="status" id="filters-pending"></div>
+<button type="submit" aria-describedby="filters-pending">Search</button>
+
+<script>
+  window.oa = {
+    // ...
+    manualSubmit: true,
+    onPendingChange: (pending) => {
+      document.getElementById('filters-pending').textContent = pending
+        ? 'The results do not match the selected filters yet.'
+        : '';
+      document
+        .querySelector('button[type=submit]')
+        .classList.toggle('btn-primary', pending);
+    },
+  };
+</script>
+```
 
 ### Timings: `simpleDateRange` type
 

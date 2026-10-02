@@ -1571,17 +1571,34 @@ paths:
       operationId: agendas.locations.list
       tags: [Locations]
       summary: List an agenda's locations
-      x-synonyms: [venues, places, addresses, map, where, browse, all]
+      x-synonyms:
+        [
+          venues,
+          places,
+          addresses,
+          map,
+          where,
+          browse,
+          all,
+          find,
+          search,
+          name,
+          uid,
+        ]
       x-codeSamples:
         - lang: TypeScript
-          label: List the most recent locations
+          label: Find a location by name
           source: |
             const { data, error } = await oa.agendas.locations.list({
               path: { agendaUid: 12345 },
-              query: { limit: 20 },
+              query: { search: 'Gare Meuse TGV', limit: 20 },
             });
             if (error) throw error;
-            return data.data.map((l) => ({ uid: l.uid, name: l.name }));
+            return data.data.map((l) => ({
+              uid: l.uid,
+              name: l.name,
+              address: l.address,
+            }));
       description: >
         Returns a cursor-paginated list of the agenda's locations,
         newest first (insertion order, which can differ from
@@ -3775,9 +3792,55 @@ components:
             received any. At most one row per provider, so never more rows than
             the `provider` enum has values.
 
-            Written by connectors through the availability route, or inline
-            with the timings on an ordinary write; carried across ordinary
-            writes that do not mention it, and cleared by an explicit `[]`.
+            Written by connectors through the availability endpoint, and by it
+            alone. That endpoint is NOT part of this contract: it is
+            `PATCH /v2/agendas/{agendaUid}/events/{eventUid}/availability`, on
+            the v2 API, and this document declares no path for it — so a client
+            generated from this spec cannot reach it and has to call it directly.
+
+            Its body is keyed by OCCURRENCE first and by provider second —
+            `{ "<timing id>": { "<provider>": { … } } }` — and `null` in place of
+            a row removes that provider from that occurrence. A body keyed by
+            provider alone names no occurrence: it answers `200` carrying an
+            `availability.timing.unknown` fault and writes nothing.
+
+            It also requires `Content-Type: application/json`, since a body it
+            cannot read is refused rather than taken for an empty one; the
+            `events:write` scope with membership of the agenda; and ticketing
+            enabled on that agenda, failing which it answers `422`
+            `offers.disabled`. Its access token must travel in a header
+            (`Authorization: Bearer …` or `access-token`) and NOT in the body:
+            that endpoint reads its body only once it knows who is calling, so a
+            token placed inside the body is never seen, where an ordinary v2
+            write would have accepted it.
+
+            BECAUSE THIS FIELD IS CARRIED, A CLIENT SHOULD OMIT IT when saving an
+            event it has just read, and nothing is lost by doing so: an occurrence
+            whose entry does not mention `availability` keeps its stored rows.
+            Omitting the FIELD is safe; omitting the OCCURRENCE is not — a timings
+            write is a full replacement, and an occurrence no incoming entry claims
+            is deleted along with its inventory. Sending the rows back
+            is not merely useless, it is what pushes a read-modify-write past the
+            100 kB body limit of the ordinary event routes — measured, a payload
+            crosses it at about 500 occurrences carrying one row each, or 300
+            carrying two.
+
+            An ordinary event write CARRIES this inventory: whatever it sends for
+            an occurrence the event already has is ignored, so a
+            read-modify-write round-trip can neither change a row, nor add one,
+            nor clear one with an explicit `[]`. Removal goes through that
+            endpoint, in the shape given above.
+
+            The reason is that an ordinary write cannot be told apart from the
+            inventory it merely transports: a connector writes between the
+            moment a client reads an event and the moment its save arrives, so a
+            row absent from that save may be one the client never saw rather
+            than one it means to drop. The route writes under a
+            compare-and-swap, which has no such ambiguity.
+
+            An occurrence the event does not have yet is the one exception: it
+            carries no stored inventory, so rows sent with it are kept and an
+            event can be created with its inventory in a single call.
 
             Served wherever a `Timing` is: `timings[]`, and also
             `firstTiming` / `lastTiming` / `nextTiming`, which copy the
