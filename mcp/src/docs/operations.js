@@ -1478,11 +1478,11 @@ const SDK_LEAD = [
 
 // A tail entry carries its id, its summary and a call line - nothing of what a
 // card adds, and nothing else in the payload says it can be opened. Searching an
-// id ranks it first (`id` is x3-boosted; a test pins it for every operation):
-// this line points at that way out, naming an entry actually in this tail. Say
-// what searching BUYS rather than what the entry lacks, and keep it conditional:
-// an unconditional "search again" would cost a 30 kB payload for nothing. Reads
-// no contract, so `renderEverything` has nothing to dry-run here.
+// id returns that card alone (`searchOperations`; a test pins it for every
+// operation): this line points at that way out, naming an entry actually in this
+// tail. Say what searching BUYS rather than what the entry lacks, and keep it
+// conditional: an unconditional "search again" would cost a card for nothing.
+// Reads no contract, so `renderEverything` has nothing to dry-run here.
 function renderCompactNote(hits) {
   const tail = hits.slice(RICH_RANK_CUTOFF);
   if (!tail.length) return '';

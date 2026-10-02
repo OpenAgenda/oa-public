@@ -1496,10 +1496,10 @@ describe('renderSearch', () => {
 
   // A tail entry carries an id, a summary and a call line - none of what a card
   // adds. An LLM that treats it as documented could call the operation without
-  // ever seeing its parameters. Searching the id ranks it first, so the way out
-  // exists — but nothing said so. Pin the pointer, that it names an entry in the
-  // tail, and that it stays conditional (an unconditional "search again" would
-  // buy a 30 kB payload for nothing).
+  // ever seeing its parameters. Searching the id returns that card alone, so the
+  // way out exists — but nothing said so. Pin the pointer, that it names an entry
+  // in the tail, and that it stays conditional (an unconditional "search again"
+  // would buy a card for nothing).
   it('tells the reader the compact tail entries open, and how', () => {
     const hits = searchOperations('create an event with an image');
     const text = renderSearch(hits);
