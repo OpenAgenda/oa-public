@@ -1466,7 +1466,7 @@ paths:
         ticket.
 
 
-        The ticket expires after 5 minutes (`expiresAt`) and is
+        The ticket expires after 15 minutes (`expiresAt`) and is
         consumed by a successful upload.
       security:
         - secretKey: []
@@ -1531,9 +1531,10 @@ paths:
         (`422` past it).
 
 
-        A successful upload consumes the ticket: reusing it answers
-        `401`. A request rejected before staging (`400`, `422`) leaves
-        the ticket usable until it expires.
+        A successful upload consumes the ticket. A consumed or expired
+        ticket answers `401`, and uploading again takes a new ticket. A
+        request rejected before staging (`400`, `422`) leaves the ticket
+        usable until it expires.
       security:
         - uploadTicketAuth: []
       requestBody:
