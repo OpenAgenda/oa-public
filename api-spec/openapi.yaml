@@ -1259,7 +1259,7 @@ paths:
           can I,
           permissions,
           by slug,
-          find my agenda,
+          my agenda,
         ]
       x-codeSamples:
         - lang: TypeScript
