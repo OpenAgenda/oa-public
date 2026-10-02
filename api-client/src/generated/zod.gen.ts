@@ -641,7 +641,7 @@ export const zAgenda = z.object({
     indexed: z.boolean(),
     network: zAgendaNetworkRef,
     locationSet: zAgendaLocationSetRef,
-    rights: zAgendaRights.readonly()
+    rights: zAgendaRights.nullable()
 });
 
 export const zAgendaList = z.object({

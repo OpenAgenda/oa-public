@@ -907,10 +907,10 @@ export type Agenda = {
     network: AgendaNetworkRef;
     locationSet: AgendaLocationSetRef;
     /**
-     * The licence the agenda's events are published under, and the organisation to credit for the agenda's selection and additional fields.
+     * The licence the agenda's events are published under, and the organisation to credit for the agenda's selection and additional fields. `null` on a private agenda, whose events are not open data.
      *
      */
-    readonly rights: AgendaRights;
+    readonly rights: AgendaRights | null;
 };
 
 export type AgendaList = {
@@ -1135,7 +1135,7 @@ export type EventSummary = {
      */
     readonly originAgenda: AgendaRef | null;
     /**
-     * Who to credit when reusing the event under its licence: the licensor (the organisation of the origin agenda, whichever agenda the event is read through) and the publisher (the organisation of the agenda read, which licenses its selection and its additional fields). Indexed with the event and reindexed when either organisation changes. `null` on an event indexed before attribution was introduced, until it is reindexed, on an event whose origin agenda no longer exists, and on a write response whose re-read failed.
+     * Who to credit when reusing the event under its licence: the licensor (the organisation of the origin agenda, whichever agenda the event is read through) and the publisher (the organisation of the agenda read, which licenses its selection and its additional fields). Indexed with the event and reindexed when either organisation changes. `null` on an event indexed before attribution was introduced, until it is reindexed, on an event whose origin agenda no longer exists, on an event of a private agenda, and on a write response whose re-read failed.
      *
      */
     readonly rights: EventRights | null;
@@ -1188,7 +1188,7 @@ export type Event = {
      */
     readonly originAgenda: AgendaRef | null;
     /**
-     * Who to credit when reusing the event under its licence: the licensor (the organisation of the origin agenda, whichever agenda the event is read through) and the publisher (the organisation of the agenda read, which licenses its selection and its additional fields). Indexed with the event and reindexed when either organisation changes. `null` on an event indexed before attribution was introduced, until it is reindexed, on an event whose origin agenda no longer exists, and on a write response whose re-read failed.
+     * Who to credit when reusing the event under its licence: the licensor (the organisation of the origin agenda, whichever agenda the event is read through) and the publisher (the organisation of the agenda read, which licenses its selection and its additional fields). Indexed with the event and reindexed when either organisation changes. `null` on an event indexed before attribution was introduced, until it is reindexed, on an event whose origin agenda no longer exists, on an event of a private agenda, and on a write response whose re-read failed.
      *
      */
     readonly rights: EventRights | null;
