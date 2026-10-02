@@ -979,17 +979,28 @@ const miniSearch = new MiniSearch({
     combineWith: 'OR',
   },
 });
+// An enum label is indexed to name an opaque value (`6` = "Cancelled",
+// `hi` = "Hearing impairment"). An enum whose values are all words - longer
+// than the glue this index damps - names them itself; its labels can only
+// describe them, and descriptions are not indexed.
+const namesItsValues = (param) =>
+  (param.enum ?? []).every(
+    (value) =>
+      /^[a-z]+$/i.test(String(value))
+      && String(value).length > GLUE_TERM_MAX_LENGTH,
+  );
+
 miniSearch.addAll(
   OPERATIONS.map((op) => ({
     id: op.id,
     summary: op.summary,
     params: op.params.map((p) => p.name).join(' '),
-    // Index the enum values AND their labels, so a query like "cancelled" or
-    // "relevance" matches the operation carrying that enum.
+    // Index the enum values AND, for an enum of codes, their labels, so a
+    // query like "cancelled" or "relevance" matches the operation carrying it.
     enums: op.params
       .flatMap((p) => [
         ...p.enum || [],
-        ...p.enumDescriptions ? Object.values(p.enumDescriptions) : [],
+        ...(namesItsValues(p) ? [] : Object.values(p.enumDescriptions ?? {})),
       ])
       .join(' '),
     keywords: op.keywords.join(' '),

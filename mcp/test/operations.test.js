@@ -224,6 +224,9 @@ describe('searchOperations', () => {
   // carried the singleton "the"/"you" — two different high-IDF collisions, so
   // an earlier fix that only damped 1–2 character tokens left the "the"/"you"
   // half of this list red. Sweep the phrasings, not one specimen.
+  // "can you show me events" holds on `meaningful` - "me" is its prefix - from
+  // the `score` sort label ("only meaningful with `search`"), and "show" matches
+  // nothing: rewording that label can flip it.
   it.each([
     'show me events',
     'show me the events',
@@ -252,7 +255,8 @@ describe('searchOperations', () => {
   // flips as many phrasings the wrong way as it rescues ("show me the events of
   // my agenda" → me.agendas.list, "find concerts in lyon" → agendas.list). So
   // pin what holds: these phrasings, several of which rank a sibling first,
-  // keep the operation they mean on a full card.
+  // keep the operation they mean on a full card. "get me all the events" holds
+  // its third place on the same `meaningful` as the padded listing queries.
   it.each([
     ['what events do we have', 'agendas.events.list'],
     ['events we like', 'agendas.events.list'],
@@ -262,6 +266,7 @@ describe('searchOperations', () => {
     ['find concerts in lyon', 'agendas.events.list'],
     ['show me the events of my agenda', 'agendas.events.list'],
     ['which agendas am i a member of', 'me.agendas.list'],
+    ['find my agenda', 'me.agendas.list'],
     ['find an agenda', 'agendas.list'],
     ['add a new event', 'agendas.events.create'],
     ['remove an event', 'agendas.events.delete'],
@@ -295,6 +300,23 @@ describe('searchOperations', () => {
 
   it('routes a "browse" query to the listing op via x-synonyms', () => {
     expect(searchOperations('browse agendas')[0].id).toBe('agendas.list');
+  });
+
+  // A label names an opaque value; the glosses of an enum of plain words only
+  // describe theirs, and "Moderates contributed events" made "events" a match
+  // for `me.agendas.list`. The values stay searchable, the codes keep their
+  // names.
+  it('indexes the labels of an enum of codes, not the glosses of an enum of words', () => {
+    expect(searchOperations('moderator agendas')[0].id).toBe('me.agendas.list');
+    expect(searchOperations('hearing impaired events')[0].id).toBe(
+      'agendas.events.list',
+    );
+    expect(searchOperations('cancelled events')[0].id).toBe(
+      'agendas.events.list',
+    );
+    expect(searchOperations('sort by relevance')[0].id).toBe(
+      'agendas.events.list',
+    );
   });
 
   it("carries the contract x-synonyms into an operation's keywords", () => {
