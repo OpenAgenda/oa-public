@@ -42,15 +42,24 @@ const messages: Record<string, MessageDescriptor> = defineMessages({
     id: 'react.components.AgendaExportModal.detailedFormat',
     defaultMessage: 'Use the detailed format',
   },
-  openDataInfo: {
-    id: 'react.components.AgendaExportModal.openData',
-    defaultMessage:
-      'The content of this agenda can be used following the <link>Open Data principle</link>',
+  aboutTitle: {
+    id: 'react.components.AgendaExportModal.aboutTitle',
+    defaultMessage: 'About: licence and credits',
   },
-  openDataInfoEmbed: {
-    id: 'react.components.AgendaExportModal.openDataInfoEmbed',
+  aboutLicense: {
+    id: 'react.components.AgendaExportModal.aboutLicense',
     defaultMessage:
-      'This content comes from the agenda {agenda} on OpenAgenda and can be used following the <linkOpendata>Open Data principle</linkOpendata>.',
+      'The events of this agenda can be reused under the <link>{license}</link>, including for commercial purposes.',
+  },
+  aboutCredit: {
+    id: 'react.components.AgendaExportModal.aboutCredit',
+    defaultMessage:
+      'For each event, credit its source, its canonical link and its date of last update. The exports carry them: the licensor and canonical link columns of spreadsheets, the rights field in JSON.',
+  },
+  aboutPublisher: {
+    id: 'react.components.AgendaExportModal.aboutPublisher',
+    defaultMessage:
+      'This selection is published by {publisher}: credit it as well for the information it adds. <link>Learn more</link>',
   },
   embed: {
     id: 'react.components.AgendaExportModal.embed',

@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 import useSWR from 'swr';
 import ky from 'ky';
 import qs from 'qs';
-import { Box, Bleed, Link, VStack } from '@openagenda/uikit';
+import { Bleed, VStack } from '@openagenda/uikit';
 import {
   AccordionRoot,
   DialogBody,
@@ -20,6 +20,7 @@ import GcalAccordionItem from './GcalAccordionItem';
 import OutlookAccordionItem from './OutlookAccordionItem';
 import IcsAccordionItem from './IcsAccordionItem';
 import RssAccordionItem from './RssAccordionItem';
+import AboutAccordionItem from './AboutAccordionItem';
 import EmbedAccordionItem from './EmbedAccordionItem';
 import messages from './messages';
 import type {
@@ -185,40 +186,6 @@ export default function Body({
 
   return (
     <DialogBody>
-      <Box alignItems="start" mb="4">
-        {renderHost === 'parent'
-          ? intl.formatMessage(messages.openDataInfoEmbed, {
-            agenda: (
-              <Link
-                href={`https://openagenda.com/${agenda.slug}`}
-                target="_blank"
-                rel="noopener"
-              >
-                {agenda.title}
-              </Link>
-            ),
-            linkOpendata: (chunks) => (
-              <Link
-                href="https://doc.openagenda.com/des-agendas-en-donnees-ouvertes-opendata"
-                target="_blank"
-                rel="noopener"
-              >
-                {chunks}
-              </Link>
-            ),
-          })
-          : intl.formatMessage(messages.openDataInfo, {
-            link: (chunks) => (
-              <Link
-                href="https://doc.openagenda.com/des-agendas-en-donnees-ouvertes-opendata"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {chunks}
-              </Link>
-            ),
-          })}
-      </Box>
       <RadioGroup
         value={mode}
         onValueChange={(e) => setMode(e.value as 'all' | 'selection')}
@@ -269,6 +236,11 @@ export default function Body({
             choiceFields={choiceFields}
           />
           <EmbedAccordionItem dialogRef={dialogRef} res={res} agenda={agenda} />
+          <AboutAccordionItem
+            agenda={agenda}
+            rootUrl={rootUrl}
+            renderHost={renderHost}
+          />
         </AccordionRoot>
       </Bleed>
     </DialogBody>
