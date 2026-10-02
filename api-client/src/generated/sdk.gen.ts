@@ -363,7 +363,7 @@ export class Uploads extends HeyApiClient {
      *
      * An image already reachable at a public `http(s)` URL is attached directly with `image: { url }` on the write, with no ticket.
      *
-     * The ticket expires after 5 minutes (`expiresAt`) and is consumed by a successful upload.
+     * The ticket expires after 15 minutes (`expiresAt`) and is consumed by a successful upload.
      *
      */
     public createTicket<ThrowOnError extends boolean = false>(options: Options<AgendasUploadsCreateTicketData, ThrowOnError>) {
@@ -546,7 +546,7 @@ export class Uploads2 extends HeyApiClient {
      *
      * The type is detected from the file content, or from the filename extension for signature-less formats such as CSV; a type outside the platform's allowed set (images, PDF and common office documents) answers `422`. The file is capped at 20 MiB (`422` past it).
      *
-     * A successful upload consumes the ticket: reusing it answers `401`. A request rejected before staging (`400`, `422`) leaves the ticket usable until it expires.
+     * A successful upload consumes the ticket. A consumed or expired ticket answers `401`, and uploading again takes a new ticket. A request rejected before staging (`400`, `422`) leaves the ticket usable until it expires.
      *
      */
     public staged<ThrowOnError extends boolean = false>(options: Options<UploadsStagedData, ThrowOnError>) {
