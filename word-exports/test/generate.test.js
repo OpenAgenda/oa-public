@@ -211,6 +211,15 @@ describe('agenda Word export', () => {
     assert.match(fullParts['word/_rels/document.xml.rels'], /\/events\//);
   });
 
+  test('an event carrying its canonical address is linked there', async () => {
+    const canonicalUrl = 'https://www.example.org/la-mouette';
+    const { parts } = await generate([{ ...albiEvents[0], canonicalUrl }]);
+    const rels = parts['word/_rels/document.xml.rels'];
+
+    assert.match(rels, /Target="https:\/\/www\.example\.org\/la-mouette"/);
+    assert.doesNotMatch(rels, /openagenda\.com\/[^"]*\/events\//);
+  });
+
   test('pictures are embedded beside their event', async () => {
     const jpeg = await sharp({
       create: { width: 200, height: 200, channels: 3, background: '#c33' },

@@ -301,7 +301,10 @@ export default async function renderEvent(
   const context = { lang, intl, timezone: event.timezone };
   const schemaFields = flattenSchemaFields(agenda.schema);
   const schemaField = (name) => schemaFields.find((f) => f.field === name);
-  const eventUrl = `https://openagenda.com/agendas/${agenda.uid}/events/${event.uid}`;
+  // The event's canonical address when it carries one, for the link and the
+  // QR code alike.
+  const eventUrl = event.canonicalUrl
+    || `https://openagenda.com/agendas/${agenda.uid}/events/${event.uid}`;
   const title = getLocaleValue(event.title, lang);
 
   // Fetched before the first byte: the document then streams without pause.

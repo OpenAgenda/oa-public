@@ -105,7 +105,10 @@ export function eventParagraphs(writer, event, options) {
   }
 
   if (includeEventLink) {
-    const url = `https://openagenda.com/${agenda.slug}/events/${event.slug}`;
+    // The event's canonical address when it carries one: the page its
+    // licensor declared, else its page on its origin agenda.
+    const url = event.canonicalUrl
+      || `https://openagenda.com/${agenda.slug}/events/${event.slug}`;
 
     paragraphs.push(
       paragraph(linkOrText(writer, url), { style: 'EventDetail' }),
