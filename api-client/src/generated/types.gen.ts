@@ -1135,12 +1135,12 @@ export type EventSummary = {
      */
     readonly originAgenda: AgendaRef | null;
     /**
-     * Who to credit when reusing the event under its licence: the licensor (the organisation of the origin agenda, whichever agenda the event is read through) and the publisher (the organisation of the agenda read, which licenses its selection and its additional fields). Indexed with the event and reindexed when either organisation changes. `null` on an event indexed before attribution was introduced, until it is reindexed, and on a write response whose re-read failed.
+     * Who to credit when reusing the event under its licence: the licensor (the organisation of the origin agenda, whichever agenda the event is read through) and the publisher (the organisation of the agenda read, which licenses its selection and its additional fields). Indexed with the event and reindexed when either organisation changes. `null` on an event indexed before attribution was introduced, until it is reindexed, on an event whose origin agenda no longer exists, and on a write response whose re-read failed.
      *
      */
     readonly rights: EventRights | null;
     /**
-     * The address to link to when crediting the event: the page its licensor declared for it, else its page on its origin agenda. The same whichever agenda the event is read through. `null` only on an event indexed before this field was introduced, until it is reindexed.
+     * The address to link to when crediting the event: the page its licensor declared for it, else its page on its origin agenda. The same whichever agenda the event is read through. `null` on an event indexed before this field was introduced, until it is reindexed, and on an event whose origin agenda no longer exists.
      *
      */
     canonicalUrl: string | null;
@@ -1188,12 +1188,12 @@ export type Event = {
      */
     readonly originAgenda: AgendaRef | null;
     /**
-     * Who to credit when reusing the event under its licence: the licensor (the organisation of the origin agenda, whichever agenda the event is read through) and the publisher (the organisation of the agenda read, which licenses its selection and its additional fields). Indexed with the event and reindexed when either organisation changes. `null` on an event indexed before attribution was introduced, until it is reindexed, and on a write response whose re-read failed.
+     * Who to credit when reusing the event under its licence: the licensor (the organisation of the origin agenda, whichever agenda the event is read through) and the publisher (the organisation of the agenda read, which licenses its selection and its additional fields). Indexed with the event and reindexed when either organisation changes. `null` on an event indexed before attribution was introduced, until it is reindexed, on an event whose origin agenda no longer exists, and on a write response whose re-read failed.
      *
      */
     readonly rights: EventRights | null;
     /**
-     * The address to link to when crediting the event: the page its licensor declared for it, else its page on its origin agenda. The same whichever agenda the event is read through. `null` only on an event indexed before this field was introduced, until it is reindexed.
+     * The address to link to when crediting the event: the page its licensor declared for it, else its page on its origin agenda. The same whichever agenda the event is read through. `null` on an event indexed before this field was introduced, until it is reindexed, and on an event whose origin agenda no longer exists.
      *
      */
     canonicalUrl: string | null;
@@ -2087,7 +2087,7 @@ export type EventSummaryWritable = {
     imageCredits: string | null;
     keywords: LocalizedStringArray;
     /**
-     * The address to link to when crediting the event: the page its licensor declared for it, else its page on its origin agenda. The same whichever agenda the event is read through. `null` only on an event indexed before this field was introduced, until it is reindexed.
+     * The address to link to when crediting the event: the page its licensor declared for it, else its page on its origin agenda. The same whichever agenda the event is read through. `null` on an event indexed before this field was introduced, until it is reindexed, and on an event whose origin agenda no longer exists.
      *
      */
     canonicalUrl: string | null;
@@ -2109,7 +2109,7 @@ export type EventWritable = {
     imageCredits: string | null;
     keywords: LocalizedStringArray;
     /**
-     * The address to link to when crediting the event: the page its licensor declared for it, else its page on its origin agenda. The same whichever agenda the event is read through. `null` only on an event indexed before this field was introduced, until it is reindexed.
+     * The address to link to when crediting the event: the page its licensor declared for it, else its page on its origin agenda. The same whichever agenda the event is read through. `null` on an event indexed before this field was introduced, until it is reindexed, and on an event whose origin agenda no longer exists.
      *
      */
     canonicalUrl: string | null;
