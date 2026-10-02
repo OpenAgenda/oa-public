@@ -979,10 +979,11 @@ const miniSearch = new MiniSearch({
     combineWith: 'OR',
   },
 });
-// An enum label is indexed to name an opaque value (`6` = "Cancelled",
-// `hi` = "Hearing impairment"). An enum whose values are all words - longer
-// than the glue this index damps - names them itself; its labels can only
-// describe them, and descriptions are not indexed.
+// Enum labels are indexed to name opaque values (`6` = "Cancelled", `hi` =
+// "Hearing impairment"). The rule holds per enum: one whose values are all
+// words - longer than the glue this index damps - names them itself, so its
+// labels can only describe them, and descriptions are not indexed. Any other
+// enum keeps all its labels, a word value's included (`score` in `sort`).
 const namesItsValues = (param) =>
   (param.enum ?? []).every(
     (value) =>

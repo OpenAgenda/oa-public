@@ -224,9 +224,10 @@ describe('searchOperations', () => {
   // carried the singleton "the"/"you" — two different high-IDF collisions, so
   // an earlier fix that only damped 1–2 character tokens left the "the"/"you"
   // half of this list red. Sweep the phrasings, not one specimen.
-  // "can you show me events" holds on `meaningful` - "me" is its prefix - from
-  // the `score` sort label ("only meaningful with `search`"), and "show" matches
-  // nothing: rewording that label can flip it.
+  // "can you show me events" holds on two label words its glue prefixes:
+  // `meaningful` ("me") from the `score` sort label ("only meaningful with
+  // `search`") and `cancelled` ("can") from the `status` label. "show" matches
+  // nothing, so rewording either label can flip it.
   it.each([
     'show me events',
     'show me the events',
@@ -302,10 +303,10 @@ describe('searchOperations', () => {
     expect(searchOperations('browse agendas')[0].id).toBe('agendas.list');
   });
 
-  // A label names an opaque value; the glosses of an enum of plain words only
-  // describe theirs, and "Moderates contributed events" made "events" a match
-  // for `me.agendas.list`. The values stay searchable, the codes keep their
-  // names.
+  // The other side of dropping the glosses of an enum of words: the rule must
+  // not reach further. The roles stay searchable by their values, and the
+  // labels of codes and identifiers keep naming them. The padded listing
+  // queries above are what fail if the glosses come back.
   it('indexes the labels of an enum of codes, not the glosses of an enum of words', () => {
     expect(searchOperations('moderator agendas')[0].id).toBe('me.agendas.list');
     expect(searchOperations('hearing impaired events')[0].id).toBe(
