@@ -75,7 +75,10 @@ export default async function renderEvent(
       {
         field: 'uid',
         fieldType: 'qr',
-        value: `https://openagenda.com/agendas/${agenda.uid}/events/${event.uid}`,
+        // The event's canonical address when it carries one.
+        value:
+          event.canonicalUrl
+          || `https://openagenda.com/agendas/${agenda.uid}/events/${event.uid}`,
         size: 80,
       },
     ]
