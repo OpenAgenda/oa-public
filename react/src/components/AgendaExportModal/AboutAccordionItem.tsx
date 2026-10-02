@@ -11,12 +11,6 @@ import messages from './messages';
 // The help page the agenda settings link to as well.
 const HELP_URL = 'https://doc.openagenda.com/fr/article/des-agendas-en-donnees-ouvertes-opendata-1kv0rno';
 
-// Agendas read before rights reached the API: the licence is the same for all.
-const DEFAULT_LICENSE = {
-  name: 'Licence Ouverte 2.0',
-  url: 'https://www.data.gouv.fr/pages/legal/licences/etalab-2.0/',
-};
-
 function ExternalLink({
   href,
   children,
@@ -35,7 +29,7 @@ function InfoIcon() {
   return (
     <chakra.svg
       viewBox="0 0 24 24"
-      boxSize="18px"
+      boxSize="4.5"
       flexShrink="0"
       fill="none"
       stroke="currentColor"
@@ -60,11 +54,14 @@ export default function AboutAccordionItem({
   agenda: Agenda;
   rootUrl: string;
   renderHost: 'local' | 'parent';
-}): React.JSX.Element {
+}): React.JSX.Element | null {
   const intl = useIntl();
 
-  const license = agenda.rights?.license ?? DEFAULT_LICENSE;
-  const publisherName = agenda.rights?.publisher.name ?? agenda.title;
+  // No rights, no licence to state: a private agenda is not open data.
+  if (agenda.private || !agenda.rights) return null;
+
+  const { license } = agenda.rights;
+  const publisherName = agenda.rights.publisher.name;
   // Shown on another site, the dialog says where the agenda lives.
   const publisher = renderHost === 'parent' ? (
     <ExternalLink href={`${rootUrl}/${agenda.slug}`}>
@@ -74,9 +71,9 @@ export default function AboutAccordionItem({
     : publisherName;
   return (
     <AccordionItem value="about">
-      <AccordionItemTrigger px="6" color="primary.700">
+      <AccordionItemTrigger px="6" color="primary.fg">
         <chakra.span display="flex" alignItems="center" gap="2.5">
-          <chakra.span color="primary.600" display="inline-flex">
+          <chakra.span color="primary.fg" display="inline-flex">
             <InfoIcon />
           </chakra.span>
           {intl.formatMessage(messages.aboutTitle)}
