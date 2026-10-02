@@ -485,7 +485,10 @@ the sandbox boundary.
   `search_docs` returns the signature, typed params, response shape and a runnable
   example in one shot, with detail **modulated by rank** (top hits render in full,
   the long tail compactly), so the payload stays bounded as the catalogue grows to
-  dozens of operations. This mirrors the Stainless "SDK Code Mode" shape.
+  dozens of operations. A query that is exactly an operation id returns that card
+  alone, which is how a tail entry is opened; an empty query, or one that matches
+  nothing, returns the catalogue, every operation compact. This mirrors the Stainless "SDK Code
+  Mode" shape.
 - **`search_docs` ranks with MiniSearch (lexical BM25), not embeddings.** For a
   tiny (dozens-of-ops), keyword-heavy catalogue queried in natural language,
   lexical search is the right tool and the industry default (Anthropic ships

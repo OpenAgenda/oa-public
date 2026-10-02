@@ -997,16 +997,23 @@ miniSearch.addAll(
 );
 
 /**
- * Rank operations for a query. Empty query or no match → ALL operations (in
- * spec order) so search_docs is never empty — the LLM always sees the surface.
+ * Rank operations for a query. A query that is exactly an operation id → that
+ * operation alone. Empty query or no match → no hit, and `renderSearch` serves
+ * the catalogue instead.
  * @param {string} query
  * @returns {Operation[]}
  */
 export function searchOperations(query) {
   const q = String(query ?? '').trim();
-  if (!q) return OPERATIONS;
+  if (!q) return [];
+  // Searching an id is how a tail entry opens (`renderCompactNote`). The caller
+  // already holds the ranking that named it, so the answer is that one card and
+  // the components it uses - not two neighbouring cards, their components and
+  // the tail again.
+  const named = OPERATIONS.find((op) => op.id === q);
+  if (named) return [named];
   const results = miniSearch.search(q);
-  if (!results.length) return OPERATIONS;
+  if (!results.length) return [];
   const byId = new Map(OPERATIONS.map((op) => [op.id, op]));
   return /** @type {Operation[]} */ (
     results.map((r) => byId.get(r.id)).filter(Boolean)
@@ -1461,6 +1468,15 @@ function renderCompactNote(hits) {
   return `The last ${tail.length} entries above show an id, a summary and a call line only. If you need one's parameters, request body, response shape or example, search its id (e.g. \`${tail[0].id}\`).`;
 }
 
+// Every operation as a tail entry, headed by the way out the tail note gives:
+// here the line says what the list is before it is read, not after.
+function renderCatalogue() {
+  return [
+    `All ${OPERATIONS.length} operations, each as an id, a summary and a call line. If you need one's parameters, request body, response shape or example, search its id (e.g. \`${OPERATIONS[0].id}\`).`,
+    ...OPERATIONS.map(renderCompact),
+  ].join('\n\n---\n\n');
+}
+
 /**
  * Render a full search_docs response: each hit by rank, the component
  * definitions the rich hits reference, plus the validators footer. Single
@@ -1509,10 +1525,13 @@ const unrenderableFindings = () => {
 // the compat check measures is what that dry run reads.
 export function renderSearch(hits) {
   const warning = contractWarning(unrenderableFindings());
+  // No hit - an empty query, or one that matched nothing - leaves no ranking
+  // to pick full cards by, so the answer is the catalogue, every entry compact.
+  // It is read to choose an operation, not to write a call: the SDK frame and
+  // the validators come with the card that searching its id returns, and the
+  // catalogue names no type a validator would parse.
   if (!hits.length) {
-    return [warning, SDK_LEAD, SCHEMAS_FOOTER]
-      .filter(Boolean)
-      .join('\n\n---\n\n');
+    return [warning, renderCatalogue()].filter(Boolean).join('\n\n---\n\n');
   }
   const body = hits.map((op, i) => renderOperation(op, i)).join('\n\n---\n\n');
   return [
