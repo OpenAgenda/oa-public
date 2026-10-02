@@ -41,7 +41,7 @@
   "tools": [
     {
       "name": "search_docs",
-      "description": "Find the OpenAgenda v3 operations relevant to a question — returns signatures, parameters and examples to call from execute."
+      "description": "Search the OpenAgenda v3 operations and show how to call them from `execute`. An empty query lists them all."
     },
     {
       "name": "execute",
