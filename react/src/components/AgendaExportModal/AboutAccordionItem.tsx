@@ -50,8 +50,8 @@ function InfoIcon() {
   );
 }
 
-// Licence and credits, set apart from the formats: it is something to read,
-// not something to download.
+// Licence and credits, set apart from the formats by its icon and colour: it
+// is something to read, not something to download.
 export default function AboutAccordionItem({
   agenda,
   rootUrl,
@@ -73,12 +73,7 @@ export default function AboutAccordionItem({
   )
     : publisherName;
   return (
-    <AccordionItem
-      value="about"
-      bg="primary.50"
-      borderTopWidth="1px"
-      borderColor="primary.200"
-    >
+    <AccordionItem value="about">
       <AccordionItemTrigger px="6" color="primary.700">
         <chakra.span display="flex" alignItems="center" gap="2.5">
           <chakra.span color="primary.600" display="inline-flex">
