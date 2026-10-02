@@ -4685,8 +4685,10 @@ components:
           description: >
             The licence the agenda's events are published under, and the
             organisation to credit for the agenda's selection and additional
-            fields.
-          $ref: '#/components/schemas/AgendaRights'
+            fields. `null` on a private agenda, whose events are not open data.
+          oneOf:
+            - $ref: '#/components/schemas/AgendaRights'
+            - type: 'null'
 
     AgendaList:
       type: object
@@ -5150,8 +5152,8 @@ components:
             fields). Indexed with the event and reindexed when either
             organisation changes. `null` on an event indexed before
             attribution was introduced, until it is reindexed, on an event
-            whose origin agenda no longer exists, and on a write response
-            whose re-read failed.
+            whose origin agenda no longer exists, on an event of a private
+            agenda, and on a write response whose re-read failed.
           oneOf:
             - $ref: '#/components/schemas/EventRights'
             - type: 'null'
@@ -5402,8 +5404,8 @@ components:
             fields). Indexed with the event and reindexed when either
             organisation changes. `null` on an event indexed before
             attribution was introduced, until it is reindexed, on an event
-            whose origin agenda no longer exists, and on a write response
-            whose re-read failed.
+            whose origin agenda no longer exists, on an event of a private
+            agenda, and on a write response whose re-read failed.
           oneOf:
             - $ref: '#/components/schemas/EventRights'
             - type: 'null'
