@@ -1648,9 +1648,10 @@ describe('renderSearch', () => {
       // additional fields, but that semantics lived only in the component and
       // never reached the search_docs payload.
       const schemaText = renderSearch(searchOperations('event form schema'));
+      const { description } = spec.components.schemas.FormSchemaField.properties.schemaId;
       expect(schemaText).toContain('`FormSchemaField`');
-      expect(schemaText).toMatch(
-        /schemaId \(integer \| null\) — .*Non-null marks an/,
+      expect(schemaText).toContain(
+        `schemaId (integer | null) — ${description.trim().split(/\s+/).join(' ')}`,
       );
     });
 

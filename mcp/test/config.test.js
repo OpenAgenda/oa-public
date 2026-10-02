@@ -513,7 +513,7 @@ describe('loadConfig', () => {
       // today) is deliberately NOT advertised; a scope shipping with a new
       // endpoint appears here without a code change — this assertion is the
       // canary that the list moved (events:write arrived with the v3 event
-      // writes and uploads).
+      // writes, media:write with the uploads).
       expect(cfg.oauth.scopesSupported).toEqual([
         'openid',
         'offline_access',
@@ -522,6 +522,7 @@ describe('loadConfig', () => {
         'events:write',
         'locations:read',
         'me:read',
+        'media:write',
       ]);
     });
 

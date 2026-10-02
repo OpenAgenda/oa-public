@@ -114,9 +114,11 @@ describe('the contract stays inside what search_docs can render', () => {
       '/components/schemas/*/properties/*/format:int64',
       '/components/schemas/*/properties/*/format:uri',
       '/components/schemas/*/properties/*/items/properties/*/format:uri',
+      '/components/schemas/*/properties/*/maxItems',
       '/components/schemas/*/properties/*/maxLength',
       '/components/schemas/*/properties/*/maximum',
       '/components/schemas/*/properties/*/minItems',
+      '/components/schemas/*/properties/*/minLength',
       '/components/schemas/*/properties/*/minimum',
       '/components/schemas/*/properties/*/properties/*/additionalProperties/x-additionalPropertiesName',
       '/components/schemas/*/properties/*/properties/*/format:int64',
@@ -828,7 +830,8 @@ describe('what "rendered" means, on the contract itself', () => {
 describe('a contract newer than the server rendering it', () => {
   it('says nothing when there is nothing to say', () => {
     expect(contractWarning([])).toBe('');
-    expect(renderSearch(searchOperations('list events'))).not.toContain('⚠');
+    // The warning leads the payload; a description may carry the glyph too.
+    expect(renderSearch(searchOperations('list events'))).not.toMatch(/^⚠/);
   });
 
   it('leads the payload with what to distrust, and how many', () => {
