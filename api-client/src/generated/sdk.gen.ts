@@ -338,7 +338,9 @@ export class Uploads extends HeyApiClient {
      *
      * Stages a media file - the native event `image`, or a custom `file`/`image` form-schema field. Send the file as `multipart/form-data` (field `file`); the API validates its real type and size, stores it, and returns a short-lived `ref`. Then attach `ref` on an event write - `image: { ref }` or a custom field under `additionalFields` as `{ ref, name? }` (`name` being the download filename) - so the media lands in the same write as the rest of the edit.
      *
-     * The type is detected from the file content, or from the filename extension for signature-less formats such as CSV; a type outside the platform's allowed set (images, PDF and common office documents) answers `422`. The file is capped at 20 MiB (`422` past it). This is a coarse gate: the precise types a given field accepts are enforced on the event write, against the agenda's form schema.
+     * The type is detected from the file content, or from the filename extension for signature-less formats such as CSV; a type outside the platform's allowed set (images, PDF and common office documents) answers `422` with the code `file.invalidType`. The file is capped at 20 MiB (`422` with the code `file.tooBig` past it). This is a coarse gate: the precise types a given field accepts are enforced on the event write, against the agenda's form schema.
+     *
+     * A request without a file answers `422` with the code `required` on `file`; a file sent in another part, or a second file, answers `422` with the code `file.unexpected` on that part. A multipart body that cannot be read (cut short, without a boundary, a text part over 1 MiB) answers `400`.
      *
      */
     public create<ThrowOnError extends boolean = false>(options: Options<AgendasUploadsCreateData, ThrowOnError>) {
@@ -544,7 +546,9 @@ export class Uploads2 extends HeyApiClient {
      *
      * Call it with a plain HTTPS `POST` from outside the typed API client, so the file never transits the client (or an LLM's token stream). Authorize with the ticket in the `X-Upload-Ticket` header (no API key or access token) and send the file as `multipart/form-data` field `file`. The target agenda is taken from the signed ticket.
      *
-     * The type is detected from the file content, or from the filename extension for signature-less formats such as CSV; a type outside the platform's allowed set (images, PDF and common office documents) answers `422`. The file is capped at 20 MiB (`422` past it).
+     * The type is detected from the file content, or from the filename extension for signature-less formats such as CSV; a type outside the platform's allowed set (images, PDF and common office documents) answers `422` with the code `file.invalidType`. The file is capped at 20 MiB (`422` with the code `file.tooBig` past it).
+     *
+     * A request without a file answers `422` with the code `required` on `file`; a file sent in another part, or a second file, answers `422` with the code `file.unexpected` on that part. A multipart body that cannot be read (cut short, without a boundary, a text part over 1 MiB) answers `400`.
      *
      * A successful upload consumes the ticket. A consumed or expired ticket answers `401`, and uploading again takes a new ticket. A request rejected before staging (`400`, `422`) leaves the ticket usable until it expires.
      *
