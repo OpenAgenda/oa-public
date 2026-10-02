@@ -5149,8 +5149,9 @@ components:
             the agenda read, which licenses its selection and its additional
             fields). Indexed with the event and reindexed when either
             organisation changes. `null` on an event indexed before
-            attribution was introduced, until it is reindexed, and on a
-            write response whose re-read failed.
+            attribution was introduced, until it is reindexed, on an event
+            whose origin agenda no longer exists, and on a write response
+            whose re-read failed.
           oneOf:
             - $ref: '#/components/schemas/EventRights'
             - type: 'null'
@@ -5160,9 +5161,9 @@ components:
           description: >
             The address to link to when crediting the event: the page its
             licensor declared for it, else its page on its origin agenda. The
-            same whichever agenda the event is read through. `null` only on
-            an event indexed before this field was introduced, until it is
-            reindexed.
+            same whichever agenda the event is read through. `null` on an
+            event indexed before this field was introduced, until it is
+            reindexed, and on an event whose origin agenda no longer exists.
         location:
           oneOf:
             - $ref: '#/components/schemas/EventLocation'
@@ -5400,8 +5401,9 @@ components:
             the agenda read, which licenses its selection and its additional
             fields). Indexed with the event and reindexed when either
             organisation changes. `null` on an event indexed before
-            attribution was introduced, until it is reindexed, and on a
-            write response whose re-read failed.
+            attribution was introduced, until it is reindexed, on an event
+            whose origin agenda no longer exists, and on a write response
+            whose re-read failed.
           oneOf:
             - $ref: '#/components/schemas/EventRights'
             - type: 'null'
@@ -5411,9 +5413,9 @@ components:
           description: >
             The address to link to when crediting the event: the page its
             licensor declared for it, else its page on its origin agenda. The
-            same whichever agenda the event is read through. `null` only on
-            an event indexed before this field was introduced, until it is
-            reindexed.
+            same whichever agenda the event is read through. `null` on an
+            event indexed before this field was introduced, until it is
+            reindexed, and on an event whose origin agenda no longer exists.
         timings:
           type: array
           items:
