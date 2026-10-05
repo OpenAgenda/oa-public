@@ -928,16 +928,20 @@ export const SCHEMA_VALIDATORS = Object.keys(spec.components?.schemas || {})
 // Deliberately NOT indexing the prose `description`: descriptions cross-
 // reference OTHER operationIds (e.g. the facets description mentions
 // `agendas.events.list`), which would leak relevance credit between operations
-// and distort ranking. The id/summary/params/enums/keywords surface is what a
-// query should match.
+// and distort ranking. Nor the enum labels (`x-enum-descriptions`): they are
+// written for the reader, often as prose - `moderator` is "Moderates
+// contributed events and manages content", which credited `me.agendas.list`
+// for any query about events. A word a search should find goes in the
+// operation's `x-synonyms`. The id/summary/params/enums/keywords surface is
+// what a query should match.
 //
 // `fuzzy` is gated to LONG terms only: a blanket fuzzy distance turns short
 // words into false hits (`show`→`how`, `events`→`event`), surfacing the wrong
 // operation for plain-language queries. Prefix matching covers partial words;
 // fuzzy is reserved for typos in longer tokens where an edit is unambiguous.
 //
-// Plain-language queries are addressed to an assistant ("show me the events",
-// "give me the list of events"), so they arrive padded with filler. BM25 ranks
+// Models send keyword queries ("list events of an agenda"), but a query
+// written as speech arrives padded with filler ("show me the events"). BM25 ranks
 // by RARITY, which makes filler dangerous the moment it collides with a term
 // this catalogue happens to hold exactly once — a singleton's IDF, times a
 // field boost, buries the word the user actually meant. Two independent
@@ -979,26 +983,14 @@ const miniSearch = new MiniSearch({
     combineWith: 'OR',
   },
 });
-// An enum of words (`administrator`, `moderator`…) is searched by its values;
-// its labels describe them, and descriptions are not indexed. Any other enum -
-// numbers, two-letter codes like `hi`, identifiers like `timings.asc` - keeps
-// all its labels, which name values that do not read on their own.
-const namesItsValues = (param) =>
-  (param.enum ?? []).every((value) => /^[a-z]{3,}$/i.test(String(value)));
-
 miniSearch.addAll(
   OPERATIONS.map((op) => ({
     id: op.id,
     summary: op.summary,
     params: op.params.map((p) => p.name).join(' '),
-    // Index the enum values AND, for an enum of codes, their labels, so a
-    // query like "cancelled" or "relevance" matches the operation carrying it.
-    enums: op.params
-      .flatMap((p) => [
-        ...p.enum || [],
-        ...(namesItsValues(p) ? [] : Object.values(p.enumDescriptions ?? {})),
-      ])
-      .join(' '),
+    // The enum values, so a query naming one ("upcoming", "moderator")
+    // matches the operation carrying it.
+    enums: op.params.flatMap((p) => p.enum ?? []).join(' '),
     keywords: op.keywords.join(' '),
   })),
 );

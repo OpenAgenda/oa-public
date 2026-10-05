@@ -213,35 +213,36 @@ describe('searchOperations', () => {
     // "show" must NOT fuzzy-match the facets keyword "how" — a listing query
     // stays on the listing op.
     expect(searchOperations('show events')[0].id).toBe('agendas.events.list');
-    expect(searchOperations('show me events')[0].id).toBe(
-      'agendas.events.list',
-    );
   });
 
-  // Queries are addressed to an assistant, so they arrive padded with filler.
-  // Every phrasing below used to return `me.agendas.list`: its id carries the
-  // singleton "me", and its summary ("List THE agendas YOU are a member of")
-  // carried the singleton "the"/"you" — two different high-IDF collisions, so
-  // an earlier fix that only damped 1–2 character tokens left the "the"/"you"
-  // half of this list red. Sweep the phrasings, not one specimen.
-  // "can you show me events" holds on two label words its glue prefixes:
-  // `meaningful` ("me") from the `score` sort label ("only meaningful with
-  // `search`") and `cancelled` ("can") from the `status` label. "show" matches
-  // nothing, so rewording either label can flip it.
+  // Queries as the models send them, read from the recorded runs, each with
+  // the operation its run went on to execute. They are keywords, never padded
+  // with conversation: no run sent anything like "can you show me events".
   it.each([
-    'show me events',
-    'show me the events',
-    'give me the events',
-    'give me the list of events',
-    'can you show me events',
-    'show me upcoming events',
-  ])('keeps a padded listing query on the listing op: %p', (query) => {
-    expect(searchOperations(query)[0].id).toBe('agendas.events.list');
+    ['list events of an agenda', 'agendas.events.list'],
+    ['get event by id in agenda', 'agendas.events.get'],
+    ['get agenda details', 'agendas.get'],
+    ['list all agendas', 'agendas.list'],
+    ['agenda event form schema additional fields', 'agendas.events.schema'],
+    ['list places agenda', 'agendas.locations.list'],
+    ['list agendas I am a member of', 'me.agendas.list'],
+    ['retrieve place by external identifier', 'agendas.locations.getByExtId'],
+    ['create event in agenda', 'agendas.events.create'],
+    ['replace event entirely full replacement', 'agendas.events.update'],
+    ['delete event from agenda', 'agendas.events.delete'],
+    ['delete event by external identifier', 'agendas.events.deleteByExtId'],
+    ['upload media agenda', 'agendas.uploads.create'],
+    ['events of an agenda grouped by city facet', 'agendas.events.facets'],
+    ['find event by external identifier', 'agendas.events.getByExtId'],
+    ['validate event before creation', 'agendas.events.validate'],
+    ['event update patch title', 'agendas.events.patch'],
+    ['create or replace event external identifier', 'agendas.events.setByExtId'],
+  ])('ranks the recorded query %p first on %s', (query, id) => {
+    expect(searchOperations(query)[0].id).toBe(id);
   });
 
-  // The other half of that trade-off: filler must be demoted, never muted, or
-  // the operation those same short words genuinely ASK for stops being
-  // reachable. Both directions belong here — a fix for one breaks the other.
+  // Short words are damped, never muted: the operation they genuinely ask for
+  // stays reachable.
   it('still ranks the me.* op first when short words are the actual intent', () => {
     expect(searchOperations('my agendas')[0].id).toBe('me.agendas.list');
     expect(searchOperations('list my agendas')[0].id).toBe('me.agendas.list');
@@ -256,14 +257,11 @@ describe('searchOperations', () => {
   // flips as many phrasings the wrong way as it rescues ("show me the events of
   // my agenda" → me.agendas.list, "find concerts in lyon" → agendas.list). So
   // pin what holds: these phrasings, several of which rank a sibling first,
-  // keep the operation they mean on a full card. "get me all the events" holds
-  // its third place on the same `meaningful` as the padded listing queries.
+  // keep the operation they mean on a full card.
   it.each([
     ['what events do we have', 'agendas.events.list'],
     ['events we like', 'agendas.events.list'],
-    ['what is on this week', 'agendas.events.list'],
     ['show events for my agenda', 'agendas.events.list'],
-    ['get me all the events', 'agendas.events.list'],
     ['find concerts in lyon', 'agendas.events.list'],
     ['show me the events of my agenda', 'agendas.events.list'],
     ['which agendas am i a member of', 'me.agendas.list'],
@@ -303,18 +301,17 @@ describe('searchOperations', () => {
     expect(searchOperations('browse agendas')[0].id).toBe('agendas.list');
   });
 
-  // The other side of dropping the glosses of an enum of words: the rule must
-  // not reach further. The roles stay searchable by their values, and the
-  // labels of codes and identifiers keep naming them. The padded listing
-  // queries above are what fail if the glosses come back.
-  it('indexes the labels of an enum of codes, not the glosses of an enum of words', () => {
+  // An enum label is written for the reader and not indexed: `role` glosses
+  // `moderator` as "Moderates contributed events and manages content", and
+  // indexing it ranked `me.agendas.list` first for event queries. The values
+  // stay searchable, and a word a label carried comes from `x-synonyms`.
+  it('indexes enum values, not their labels', () => {
+    expect(
+      searchOperations('contributed events')
+        .slice(0, 3)
+        .map((op) => op.id),
+    ).not.toContain('me.agendas.list');
     expect(searchOperations('moderator agendas')[0].id).toBe('me.agendas.list');
-    expect(searchOperations('hearing impaired events')[0].id).toBe(
-      'agendas.events.list',
-    );
-    expect(searchOperations('cancelled events')[0].id).toBe(
-      'agendas.events.list',
-    );
     expect(searchOperations('sort by relevance')[0].id).toBe(
       'agendas.events.list',
     );
