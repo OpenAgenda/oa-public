@@ -262,7 +262,7 @@ paths:
       tags: [Events]
       summary: List events of an agenda
       x-synonyms:
-        [find, browse, filter, paginate, cursor, upcoming, when, where, date]
+        [find, browse, filter, paginate, cursor, upcoming, when, where, date, relevance]
       x-codeSamples:
         - lang: TypeScript
           label: All upcoming events in Paris (paging every result)
