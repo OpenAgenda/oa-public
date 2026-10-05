@@ -1361,7 +1361,7 @@ export type EventInput = {
      *
      * Declared PER EVENT, not per occurrence: it scopes which sources the write owns, never which dates.
      *
-     * Requires ticketing enabled on the agenda, failing which a non-empty value answers `422` `offers.disabled` — declaring a scope is writing ticketing. A name outside the enum answers `422` `offers.provider.invalid`; a value that is not an array of names, `422` `availability.authority.invalid`. An empty array claims nothing and behaves exactly like omitting the field.
+     * Requires ticketing enabled on the agenda, failing which a non-empty value answers `422` `offers.disabled` — declaring a scope is writing ticketing. A name outside the enum answers `422` `offers.provider.invalid`; the same name twice, `422` `offers.duplicate`; a value that is not an array of names, `422` `availability.authority.invalid`. An empty array claims nothing and behaves exactly like omitting the field.
      *
      * WRITE-ONLY, and never stored: it is an instruction about this request, so no read returns it. It has no effect on creation either — a new event has no stored inventory to arbitrate, and the rows sent with it are kept whether or not it is present.
      *
@@ -1440,7 +1440,7 @@ export type EventPatch = {
      *
      * Declared PER EVENT, not per occurrence: it scopes which sources the write owns, never which dates.
      *
-     * Requires ticketing enabled on the agenda, failing which a non-empty value answers `422` `offers.disabled` — declaring a scope is writing ticketing. A name outside the enum answers `422` `offers.provider.invalid`; a value that is not an array of names, `422` `availability.authority.invalid`. An empty array claims nothing and behaves exactly like omitting the field.
+     * Requires ticketing enabled on the agenda, failing which a non-empty value answers `422` `offers.disabled` — declaring a scope is writing ticketing. A name outside the enum answers `422` `offers.provider.invalid`; the same name twice, `422` `offers.duplicate`; a value that is not an array of names, `422` `availability.authority.invalid`. An empty array claims nothing and behaves exactly like omitting the field.
      *
      * WRITE-ONLY, and never stored: it is an instruction about this request, so no read returns it. It has no effect on creation either — a new event has no stored inventory to arbitrate, and the rows sent with it are kept whether or not it is present.
      *
