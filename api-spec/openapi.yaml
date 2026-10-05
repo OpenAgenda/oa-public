@@ -5723,11 +5723,20 @@ components:
             occurrence the event already has.
 
 
-            For a provider named here the payload is law: a row present on an
-            occurrence is written, and a row absent from an occurrence is a
-            removal. For a provider NOT named here nothing changes — its stored
-            rows are kept, so a connector cannot wipe the source a peer has just
-            pushed and that it does not know about.
+            For a provider named here the payload is law on every occurrence
+            that NAMES `availability`: a row present in that array is written, a
+            row absent from it is a removal, and an explicit `[]` removes every
+            provider the write claims. For a provider NOT named here nothing
+            changes — its stored rows are kept, so a connector cannot wipe the
+            source a peer has just pushed and that it does not know about.
+
+
+            AN OCCURRENCE WHOSE ENTRY DOES NOT MENTION `availability` says nothing
+            and keeps its stored rows, declaration or not. This is what makes the
+            field usable at all: a timings write is a full replacement, so
+            correcting one date means sending the others back, and their silence
+            must not delete anything. The scope is declared per event; the
+            payload's authority applies per occurrence.
 
 
             Declared PER EVENT, not per occurrence: it scopes which sources the
@@ -5858,11 +5867,20 @@ components:
             occurrence the event already has.
 
 
-            For a provider named here the payload is law: a row present on an
-            occurrence is written, and a row absent from an occurrence is a
-            removal. For a provider NOT named here nothing changes — its stored
-            rows are kept, so a connector cannot wipe the source a peer has just
-            pushed and that it does not know about.
+            For a provider named here the payload is law on every occurrence
+            that NAMES `availability`: a row present in that array is written, a
+            row absent from it is a removal, and an explicit `[]` removes every
+            provider the write claims. For a provider NOT named here nothing
+            changes — its stored rows are kept, so a connector cannot wipe the
+            source a peer has just pushed and that it does not know about.
+
+
+            AN OCCURRENCE WHOSE ENTRY DOES NOT MENTION `availability` says nothing
+            and keeps its stored rows, declaration or not. This is what makes the
+            field usable at all: a timings write is a full replacement, so
+            correcting one date means sending the others back, and their silence
+            must not delete anything. The scope is declared per event; the
+            payload's authority applies per occurrence.
 
 
             Declared PER EVENT, not per occurrence: it scopes which sources the
