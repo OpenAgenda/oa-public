@@ -1365,6 +1365,8 @@ export type EventInput = {
      *
      * Requires ticketing enabled on the agenda, failing which a non-empty value answers `422` `offers.disabled` — declaring a scope is writing ticketing. A name outside the enum answers `422` `offers.provider.invalid`; the same name twice, `422` `offers.duplicate`; a value that is not an array of names, `422` `availability.authority.invalid`. An empty array claims nothing and behaves exactly like omitting the field.
      *
+     * IT GOVERNS ONLY THE `timings` THIS BODY SENDS. A body that does not carry a `timings` array declares a scope over nothing and changes no inventory — it is still validated, and still answers `422` `offers.disabled` on an agenda without ticketing, but it has no other effect. The reason is that on a partial update the server refills the occurrences it was not sent from the stored event, and those rows are a read taken when the request arrived: honouring them would let a write replay a stale snapshot over what the availability endpoint published in the meantime.
+     *
      * WRITE-ONLY, and never stored: it is an instruction about this request, so no read returns it. It has no effect on creation either — a new event has no stored inventory to arbitrate, and the rows sent with it are kept whether or not it is present.
      *
      * It settles the contract question, not the one of scale: large or frequent inventory syncs still belong on the availability endpoint (see `Timing.availability`), since the ordinary event routes cap the body at 100 kB and validate the whole compiled event.
@@ -1445,6 +1447,8 @@ export type EventPatch = {
      * Declared PER EVENT, not per occurrence: it scopes which sources the write owns, never which dates.
      *
      * Requires ticketing enabled on the agenda, failing which a non-empty value answers `422` `offers.disabled` — declaring a scope is writing ticketing. A name outside the enum answers `422` `offers.provider.invalid`; the same name twice, `422` `offers.duplicate`; a value that is not an array of names, `422` `availability.authority.invalid`. An empty array claims nothing and behaves exactly like omitting the field.
+     *
+     * IT GOVERNS ONLY THE `timings` THIS BODY SENDS. A body that does not carry a `timings` array declares a scope over nothing and changes no inventory — it is still validated, and still answers `422` `offers.disabled` on an agenda without ticketing, but it has no other effect. The reason is that on a partial update the server refills the occurrences it was not sent from the stored event, and those rows are a read taken when the request arrived: honouring them would let a write replay a stale snapshot over what the availability endpoint published in the meantime.
      *
      * WRITE-ONLY, and never stored: it is an instruction about this request, so no read returns it. It has no effect on creation either — a new event has no stored inventory to arbitrate, and the rows sent with it are kept whether or not it is present.
      *
