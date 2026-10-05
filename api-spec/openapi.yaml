@@ -5746,9 +5746,10 @@ components:
             Requires ticketing enabled on the agenda, failing which a non-empty
             value answers `422` `offers.disabled` — declaring a scope is writing
             ticketing. A name outside the enum answers `422`
-            `offers.provider.invalid`; a value that is not an array of names,
-            `422` `availability.authority.invalid`. An empty array claims
-            nothing and behaves exactly like omitting the field.
+            `offers.provider.invalid`; the same name twice, `422`
+            `offers.duplicate`; a value that is not an array of names, `422`
+            `availability.authority.invalid`. An empty array claims nothing and
+            behaves exactly like omitting the field.
 
 
             WRITE-ONLY, and never stored: it is an instruction about this
@@ -5890,9 +5891,10 @@ components:
             Requires ticketing enabled on the agenda, failing which a non-empty
             value answers `422` `offers.disabled` — declaring a scope is writing
             ticketing. A name outside the enum answers `422`
-            `offers.provider.invalid`; a value that is not an array of names,
-            `422` `availability.authority.invalid`. An empty array claims
-            nothing and behaves exactly like omitting the field.
+            `offers.provider.invalid`; the same name twice, `422`
+            `offers.duplicate`; a value that is not an array of names, `422`
+            `availability.authority.invalid`. An empty array claims nothing and
+            behaves exactly like omitting the field.
 
 
             WRITE-ONLY, and never stored: it is an instruction about this
