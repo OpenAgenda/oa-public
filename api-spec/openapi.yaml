@@ -5758,6 +5758,17 @@ components:
             behaves exactly like omitting the field.
 
 
+            IT GOVERNS ONLY THE `timings` THIS BODY SENDS. A body that does not
+            carry a `timings` array declares a scope over nothing and changes no
+            inventory — it is still validated, and still answers `422`
+            `offers.disabled` on an agenda without ticketing, but it has no other
+            effect. The reason is that on a partial update the server refills the
+            occurrences it was not sent from the stored event, and those rows are a
+            read taken when the request arrived: honouring them would let a write
+            replay a stale snapshot over what the availability endpoint published
+            in the meantime.
+
+
             WRITE-ONLY, and never stored: it is an instruction about this
             request, so no read returns it. It has no effect on creation either
             — a new event has no stored inventory to arbitrate, and the rows sent
@@ -5907,6 +5918,17 @@ components:
             `offers.duplicate`; a value that is not an array of names, `422`
             `availability.authority.invalid`. An empty array claims nothing and
             behaves exactly like omitting the field.
+
+
+            IT GOVERNS ONLY THE `timings` THIS BODY SENDS. A body that does not
+            carry a `timings` array declares a scope over nothing and changes no
+            inventory — it is still validated, and still answers `422`
+            `offers.disabled` on an agenda without ticketing, but it has no other
+            effect. The reason is that on a partial update the server refills the
+            occurrences it was not sent from the stored event, and those rows are a
+            read taken when the request arrived: honouring them would let a write
+            replay a stale snapshot over what the availability endpoint published
+            in the meantime.
 
 
             WRITE-ONLY, and never stored: it is an instruction about this
