@@ -1004,16 +1004,23 @@ miniSearch.addAll(
 );
 
 /**
- * Rank operations for a query. Empty query or no match → ALL operations (in
- * spec order) so search_docs is never empty — the LLM always sees the surface.
+ * Rank operations for a query. A query that is exactly an operation id → that
+ * operation alone. Empty query or no match → no hit, and `renderSearch` serves
+ * the catalogue instead.
  * @param {string} query
  * @returns {Operation[]}
  */
 export function searchOperations(query) {
   const q = String(query ?? '').trim();
-  if (!q) return OPERATIONS;
+  if (!q) return [];
+  // Searching an id is how a tail entry opens (`renderCompactNote`). The caller
+  // already holds the ranking that named it, so the answer is that one card and
+  // the components it uses - not two neighbouring cards, their components and
+  // the tail again.
+  const named = OPERATIONS.find((op) => op.id === q);
+  if (named) return [named];
   const results = miniSearch.search(q);
-  if (!results.length) return OPERATIONS;
+  if (!results.length) return [];
   const byId = new Map(OPERATIONS.map((op) => [op.id, op]));
   return /** @type {Operation[]} */ (
     results.map((r) => byId.get(r.id)).filter(Boolean)
@@ -1403,9 +1410,19 @@ export function renderEverything(contract) {
   }
 }
 
-const SCHEMAS_FOOTER = 'Validators: a `schemas` namespace of zod validators is available in `execute` '
-  + 'to parse payloads (e.g. `schemas.zEvent.parse(data)`). Available: '
-  + `${SCHEMA_VALIDATORS.join(', ')}.`;
+// The validators of the types a payload renders, and only those: a validator
+// parses a shape, and the reader knows only the shapes it was shown. `types` is
+// what `named` recorded while the payload was written. The whole list ran to
+// 80 names, longer than many a card.
+function renderValidatorsFooter(types, hits) {
+  const available = SCHEMA_VALIDATORS.filter((v) => types.has(v.slice(1)));
+  if (!available.length) return '';
+  const root = hits[0].response?.root;
+  const sample = root && types.has(root) ? `z${root}` : available[0];
+  return 'Validators: a `schemas` namespace of zod validators is available in `execute` '
+    + `to parse payloads (e.g. \`schemas.${sample}.parse(data)\`). For the types above: `
+    + `${available.join(', ')}.`;
+}
 
 // The SDK frame, rendered FIRST so it sets the lens for everything below: the
 // `oa.*` calls in this payload ARE the public surface of @openagenda/api-client
@@ -1457,15 +1474,24 @@ const SDK_LEAD = [
 
 // A tail entry carries its id, its summary and a call line - nothing of what a
 // card adds, and nothing else in the payload says it can be opened. Searching an
-// id ranks it first (`id` is x3-boosted; a test pins it for every operation):
-// this line points at that way out, naming an entry actually in this tail. Say
-// what searching BUYS rather than what the entry lacks, and keep it conditional:
-// an unconditional "search again" would cost a 30 kB payload for nothing. Reads
-// no contract, so `renderEverything` has nothing to dry-run here.
+// id returns that card alone (`searchOperations`; a test pins it for every
+// operation): this line points at that way out, naming an entry actually in this
+// tail. Say what searching BUYS rather than what the entry lacks, and keep it
+// conditional: an unconditional "search again" would cost a card for nothing.
+// Reads no contract, so `renderEverything` has nothing to dry-run here.
 function renderCompactNote(hits) {
   const tail = hits.slice(RICH_RANK_CUTOFF);
   if (!tail.length) return '';
   return `The last ${tail.length} entries above show an id, a summary and a call line only. If you need one's parameters, request body, response shape or example, search its id (e.g. \`${tail[0].id}\`).`;
+}
+
+// Every operation as a tail entry, headed by the way out the tail note gives:
+// here the line says what the list is before it is read, not after.
+function renderCatalogue() {
+  return [
+    `All ${OPERATIONS.length} operations, each as an id, a summary and a call line. If you need one's parameters, request body, response shape or example, search its id (e.g. \`${OPERATIONS[0].id}\`).`,
+    ...OPERATIONS.map(renderCompact),
+  ].join('\n\n---\n\n');
 }
 
 /**
@@ -1516,19 +1542,31 @@ const unrenderableFindings = () => {
 // the compat check measures is what that dry run reads.
 export function renderSearch(hits) {
   const warning = contractWarning(unrenderableFindings());
+  // No hit - an empty query, or one that matched nothing - leaves no ranking
+  // to pick full cards by, so the answer is the catalogue, every entry compact.
+  // It is read to choose an operation, not to write a call: the SDK frame and
+  // the validators come with the card that searching its id returns, and the
+  // catalogue names no type a validator would parse.
   if (!hits.length) {
-    return [warning, SDK_LEAD, SCHEMAS_FOOTER]
-      .filter(Boolean)
-      .join('\n\n---\n\n');
+    return [warning, renderCatalogue()].filter(Boolean).join('\n\n---\n\n');
   }
-  const body = hits.map((op, i) => renderOperation(op, i)).join('\n\n---\n\n');
+  const types = new Set();
+  let body;
+  let components;
+  typeSink = types;
+  try {
+    body = hits.map((op, i) => renderOperation(op, i)).join('\n\n---\n\n');
+    components = renderComponentsSection(hits);
+  } finally {
+    typeSink = null;
+  }
   return [
     warning,
     SDK_LEAD,
     body,
     renderCompactNote(hits),
-    renderComponentsSection(hits),
-    SCHEMAS_FOOTER,
+    components,
+    renderValidatorsFooter(types, hits),
   ]
     .filter(Boolean)
     .join('\n\n---\n\n');
