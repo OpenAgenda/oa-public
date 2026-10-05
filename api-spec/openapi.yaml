@@ -4062,6 +4062,23 @@ components:
           items:
             $ref: '#/components/schemas/TimingAvailability'
 
+    TicketingProvider:
+      type: string
+      enum:
+        [
+          billetweb,
+          eventbrite,
+          helloasso,
+          mapado,
+          weezevent,
+          passculture,
+          manual,
+        ]
+      description: >
+        A ticketing source OpenAgenda knows. `passculture` is the published
+        spelling here; the `registration` service of the same name is spelled
+        `passCulture` — two fields, two namespaces.
+
     TimingAvailability:
       type: object
       required: [provider, status, syncedAt]
@@ -4073,21 +4090,9 @@ components:
         `offersAggregate` recomputes that half at read time.
       properties:
         provider:
-          type: string
-          enum:
-            [
-              billetweb,
-              eventbrite,
-              helloasso,
-              mapado,
-              weezevent,
-              passculture,
-              manual,
-            ]
-          description: >
-            Which ticketing source this row belongs to. `passculture` is the
-            published spelling here; the `registration` service of the same
-            name is spelled `passCulture` — two fields, two namespaces.
+          allOf:
+            - $ref: '#/components/schemas/TicketingProvider'
+          description: Which ticketing source this row belongs to.
         status:
           type: string
           enum:
