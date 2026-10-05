@@ -4025,11 +4025,18 @@ components:
             nothing. A connector that checks the status alone reads a batch it
             never wrote as a success.
 
-            AN ORDINARY EVENT WRITE CARRIES THIS INVENTORY. Whatever it sends for
-            an occurrence the event already has is dropped before validation, so a
-            read-modify-write round trip can neither change a row, nor add one, nor
-            clear one with an explicit `[]` — and it is not critiqued field by
-            field for rows that were never going to be written either.
+            AN ORDINARY EVENT WRITE CARRIES THIS INVENTORY. Unless it declares
+            `availabilityAuthority`, whatever it sends for an occurrence the event
+            already has is dropped before validation, so a read-modify-write round
+            trip can neither change a row, nor add one, nor clear one with an
+            explicit `[]` — and it is not critiqued field by field for rows that
+            were never going to be written either.
+
+
+            DECLARING `availabilityAuthority` IS THE WAY OUT, and the only one on
+            these routes: it names the providers the write owns, and for those the
+            payload is law. Everything that follows describes a write that does
+            NOT declare one.
 
             The reason is that such a write cannot be told apart from the inventory
             it merely transports: a connector writes between the moment a client
@@ -5705,6 +5712,46 @@ components:
             server enforces the exact requirement for the target agenda.
           items:
             $ref: '#/components/schemas/Timing'
+        availabilityAuthority:
+          type: array
+          maxItems: 7
+          items:
+            $ref: '#/components/schemas/TicketingProvider'
+          description: >
+            The ticketing sources THIS WRITE is authoritative for — the one way
+            an ordinary event write may change, add or clear the inventory of an
+            occurrence the event already has.
+
+
+            For a provider named here the payload is law: a row present on an
+            occurrence is written, and a row absent from an occurrence is a
+            removal. For a provider NOT named here nothing changes — its stored
+            rows are kept, so a connector cannot wipe the source a peer has just
+            pushed and that it does not know about.
+
+
+            Declared PER EVENT, not per occurrence: it scopes which sources the
+            write owns, never which dates.
+
+
+            Requires ticketing enabled on the agenda, failing which a non-empty
+            value answers `422` `offers.disabled` — declaring a scope is writing
+            ticketing. A name outside the enum answers `422`
+            `offers.provider.invalid`; a value that is not an array of names,
+            `422` `availability.authority.invalid`. An empty array claims
+            nothing and behaves exactly like omitting the field.
+
+
+            WRITE-ONLY, and never stored: it is an instruction about this
+            request, so no read returns it. It has no effect on creation either
+            — a new event has no stored inventory to arbitrate, and the rows sent
+            with it are kept whether or not it is present.
+
+
+            It settles the contract question, not the one of scale: large or
+            frequent inventory syncs still belong on the availability endpoint
+            (see `Timing.availability`), since the ordinary event routes cap the
+            body at 100 kB and validate the whole compiled event.
         location:
           description: >
             The event's location, referenced by its uid; a uid that matches no
@@ -5800,6 +5847,46 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Timing'
+        availabilityAuthority:
+          type: array
+          maxItems: 7
+          items:
+            $ref: '#/components/schemas/TicketingProvider'
+          description: >
+            The ticketing sources THIS WRITE is authoritative for — the one way
+            an ordinary event write may change, add or clear the inventory of an
+            occurrence the event already has.
+
+
+            For a provider named here the payload is law: a row present on an
+            occurrence is written, and a row absent from an occurrence is a
+            removal. For a provider NOT named here nothing changes — its stored
+            rows are kept, so a connector cannot wipe the source a peer has just
+            pushed and that it does not know about.
+
+
+            Declared PER EVENT, not per occurrence: it scopes which sources the
+            write owns, never which dates.
+
+
+            Requires ticketing enabled on the agenda, failing which a non-empty
+            value answers `422` `offers.disabled` — declaring a scope is writing
+            ticketing. A name outside the enum answers `422`
+            `offers.provider.invalid`; a value that is not an array of names,
+            `422` `availability.authority.invalid`. An empty array claims
+            nothing and behaves exactly like omitting the field.
+
+
+            WRITE-ONLY, and never stored: it is an instruction about this
+            request, so no read returns it. It has no effect on creation either
+            — a new event has no stored inventory to arbitrate, and the rows sent
+            with it are kept whether or not it is present.
+
+
+            It settles the contract question, not the one of scale: large or
+            frequent inventory syncs still belong on the availability endpoint
+            (see `Timing.availability`), since the ordinary event routes cap the
+            body at 100 kB and validate the whole compiled event.
         location:
           oneOf:
             - $ref: '#/components/schemas/EventLocationRef'
