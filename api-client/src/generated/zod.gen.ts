@@ -341,19 +341,25 @@ export const zMeAgendaItem = z.object({
 });
 
 /**
+ * A ticketing source OpenAgenda knows. `passculture` is the published spelling here; the `registration` service of the same name is spelled `passCulture` — two fields, two namespaces.
+ *
+ */
+export const zTicketingProvider = z.enum([
+    'billetweb',
+    'eventbrite',
+    'helloasso',
+    'mapado',
+    'weezevent',
+    'passculture',
+    'manual'
+]);
+
+/**
  * What one ticketing provider says about one occurrence. `status` is the provider's word as of `syncedAt`; the sale window is what lets a reader tell `notYetOnSale` and `salesClosed` from a stock answer, and `offersAggregate` recomputes that half at read time.
  *
  */
 export const zTimingAvailability = z.object({
-    provider: z.enum([
-        'billetweb',
-        'eventbrite',
-        'helloasso',
-        'mapado',
-        'weezevent',
-        'passculture',
-        'manual'
-    ]),
+    provider: zTicketingProvider,
     status: z.enum([
         'available',
         'limited',
@@ -834,6 +840,7 @@ export const zEventInput = z.object({
     conditions: zLocalizedString.optional(),
     keywords: zLocalizedStringArray.optional(),
     timings: z.array(zTiming).optional(),
+    availabilityAuthority: z.array(zTicketingProvider).max(7).optional(),
     location: zEventLocationRef.nullish(),
     attendanceMode: zAttendanceMode.optional(),
     onlineAccessLink: z.string().url().nullish(),
@@ -860,6 +867,7 @@ export const zEventPatch = z.object({
     conditions: zLocalizedString.optional(),
     keywords: zLocalizedStringArray.optional(),
     timings: z.array(zTiming).optional(),
+    availabilityAuthority: z.array(zTicketingProvider).max(7).optional(),
     location: zEventLocationRef.nullish(),
     attendanceMode: zAttendanceMode.optional(),
     onlineAccessLink: z.string().url().nullish(),

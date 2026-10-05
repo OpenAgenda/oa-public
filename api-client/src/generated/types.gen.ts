@@ -556,7 +556,9 @@ export type Timing = {
      * Its body is keyed by OCCURRENCE first and by provider second — `{ "<timing id>": { "<provider>": { … } } }` — and `null` in place of a row removes that provider from that occurrence. A body keyed by provider alone names no occurrence.
      * It requires `Content-Type: application/json`, since a body it cannot read is refused rather than taken for an empty one; the `events:write` scope; the right to edit THAT event, which is what decides — being a member of the agenda is neither sufficient nor always necessary; and ticketing enabled on the agenda, failing which it answers `422` `offers.disabled`. Its access token must travel in a header (`Authorization: Bearer …` or `access-token`) and NOT in the body: the endpoint reads its body only once it knows who is calling, so a token placed inside the body is never seen, where an ordinary v2 write would have taken it.
      * ⚠️ READ ITS BODY, NOT ONLY ITS STATUS. It answers `200` with `{ success, applied, written, errors }`, and a batch whose occurrences it cannot resolve — an unknown or misspelled timing id — is a `200` carrying `success: false` and the faults in `errors`, having written nothing. A connector that checks the status alone reads a batch it never wrote as a success.
-     * AN ORDINARY EVENT WRITE CARRIES THIS INVENTORY. Whatever it sends for an occurrence the event already has is dropped before validation, so a read-modify-write round trip can neither change a row, nor add one, nor clear one with an explicit `[]` — and it is not critiqued field by field for rows that were never going to be written either.
+     * AN ORDINARY EVENT WRITE CARRIES THIS INVENTORY. Unless it declares `availabilityAuthority`, whatever it sends for an occurrence the event already has is dropped before validation, so a read-modify-write round trip can neither change a row, nor add one, nor clear one with an explicit `[]` — and it is not critiqued field by field for rows that were never going to be written either.
+     *
+     * DECLARING `availabilityAuthority` IS THE WAY OUT, and the only one on these routes: it names the providers the write owns, and for those the payload is law. Everything that follows describes a write that does NOT declare one.
      * The reason is that such a write cannot be told apart from the inventory it merely transports: a connector writes between the moment a client reads an event and the moment its save arrives, so a row absent from that save may be one the client never saw rather than one it means to drop. The endpoint writes under a compare-and-swap and has no such ambiguity.
      * A CLIENT SHOULD THEREFORE OMIT THE FIELD when saving an event it has just read: an occurrence whose entry does not mention `availability` keeps its stored rows. Omitting the FIELD is safe; omitting the OCCURRENCE is not — a timings write is a full replacement, and an occurrence no incoming entry claims is deleted along with its inventory. Sending the rows back is not merely useless, it is what pushes a read-modify-write past the 100 kB body limit of the ordinary event routes: measured, a payload crosses it at about 500 occurrences carrying one row each, or 300 carrying two.
      * AN OCCURRENCE THE EVENT DOES NOT HAVE YET is the exception, and the only way an ordinary write stores inventory: it has no stored rows to protect, so the rows sent with it are kept — provided ticketing is enabled on the agenda, which is checked for exactly this case and answers `422` `offers.disabled` otherwise. An event can thus be created with its inventory in a single call.
@@ -567,15 +569,20 @@ export type Timing = {
 };
 
 /**
+ * A ticketing source OpenAgenda knows. `passculture` is the published spelling here; the `registration` service of the same name is spelled `passCulture` — two fields, two namespaces.
+ *
+ */
+export type TicketingProvider = 'billetweb' | 'eventbrite' | 'helloasso' | 'mapado' | 'weezevent' | 'passculture' | 'manual';
+
+/**
  * What one ticketing provider says about one occurrence. `status` is the provider's word as of `syncedAt`; the sale window is what lets a reader tell `notYetOnSale` and `salesClosed` from a stock answer, and `offersAggregate` recomputes that half at read time.
  *
  */
 export type TimingAvailability = {
     /**
-     * Which ticketing source this row belongs to. `passculture` is the published spelling here; the `registration` service of the same name is spelled `passCulture` — two fields, two namespaces.
-     *
+     * Which ticketing source this row belongs to.
      */
-    provider: 'billetweb' | 'eventbrite' | 'helloasso' | 'mapado' | 'weezevent' | 'passculture' | 'manual';
+    provider: TicketingProvider;
     /**
      * `mixed` never appears here — it only exists on the aggregate, where occurrences may disagree.
      *
@@ -1346,6 +1353,23 @@ export type EventInput = {
      */
     timings?: Array<Timing>;
     /**
+     * The ticketing sources THIS WRITE is authoritative for — the one way an ordinary event write may change, add or clear the inventory of an occurrence the event already has.
+     *
+     * For a provider named here the payload is law on every occurrence that NAMES `availability`: a row present in that array is written, a row absent from it is a removal, and an explicit `[]` removes every provider the write claims. For a provider NOT named here nothing changes — its stored rows are kept, so a connector cannot wipe the source a peer has just pushed and that it does not know about.
+     *
+     * AN OCCURRENCE WHOSE ENTRY DOES NOT MENTION `availability` says nothing and keeps its stored rows, declaration or not. This is what makes the field usable at all: a timings write is a full replacement, so correcting one date means sending the others back, and their silence must not delete anything. The scope is declared per event; the payload's authority applies per occurrence.
+     *
+     * Declared PER EVENT, not per occurrence: it scopes which sources the write owns, never which dates.
+     *
+     * Requires ticketing enabled on the agenda, failing which a non-empty value answers `422` `offers.disabled` — declaring a scope is writing ticketing. A name outside the enum answers `422` `offers.provider.invalid`; a value that is not an array of names, `422` `availability.authority.invalid`. An empty array claims nothing and behaves exactly like omitting the field.
+     *
+     * WRITE-ONLY, and never stored: it is an instruction about this request, so no read returns it. It has no effect on creation either — a new event has no stored inventory to arbitrate, and the rows sent with it are kept whether or not it is present.
+     *
+     * It settles the contract question, not the one of scale: large or frequent inventory syncs still belong on the availability endpoint (see `Timing.availability`), since the ordinary event routes cap the body at 100 kB and validate the whole compiled event.
+     *
+     */
+    availabilityAuthority?: Array<TicketingProvider>;
+    /**
      * The event's location, referenced by its uid; a uid that matches no location answers `422`.
      *
      */
@@ -1407,6 +1431,23 @@ export type EventPatch = {
     conditions?: LocalizedString;
     keywords?: LocalizedStringArray;
     timings?: Array<Timing>;
+    /**
+     * The ticketing sources THIS WRITE is authoritative for — the one way an ordinary event write may change, add or clear the inventory of an occurrence the event already has.
+     *
+     * For a provider named here the payload is law on every occurrence that NAMES `availability`: a row present in that array is written, a row absent from it is a removal, and an explicit `[]` removes every provider the write claims. For a provider NOT named here nothing changes — its stored rows are kept, so a connector cannot wipe the source a peer has just pushed and that it does not know about.
+     *
+     * AN OCCURRENCE WHOSE ENTRY DOES NOT MENTION `availability` says nothing and keeps its stored rows, declaration or not. This is what makes the field usable at all: a timings write is a full replacement, so correcting one date means sending the others back, and their silence must not delete anything. The scope is declared per event; the payload's authority applies per occurrence.
+     *
+     * Declared PER EVENT, not per occurrence: it scopes which sources the write owns, never which dates.
+     *
+     * Requires ticketing enabled on the agenda, failing which a non-empty value answers `422` `offers.disabled` — declaring a scope is writing ticketing. A name outside the enum answers `422` `offers.provider.invalid`; a value that is not an array of names, `422` `availability.authority.invalid`. An empty array claims nothing and behaves exactly like omitting the field.
+     *
+     * WRITE-ONLY, and never stored: it is an instruction about this request, so no read returns it. It has no effect on creation either — a new event has no stored inventory to arbitrate, and the rows sent with it are kept whether or not it is present.
+     *
+     * It settles the contract question, not the one of scale: large or frequent inventory syncs still belong on the availability endpoint (see `Timing.availability`), since the ordinary event routes cap the body at 100 kB and validate the whole compiled event.
+     *
+     */
+    availabilityAuthority?: Array<TicketingProvider>;
     location?: EventLocationRef | null;
     attendanceMode?: AttendanceMode;
     onlineAccessLink?: string | null;
