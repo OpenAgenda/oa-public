@@ -163,3 +163,15 @@
 .oa-filters-search-here-button:active {
   background-color: #eaeaea;
 }
+
+.oa-filters-sort-option {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* same size as the label: set apart by a lighter shade of the option color,
+   which keeps it readable on the selected option */
+.oa-filters-sort-description {
+  opacity: 0.8;
+}

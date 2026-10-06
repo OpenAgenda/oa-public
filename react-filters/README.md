@@ -11,6 +11,7 @@ Table of contents:
 - [General principles](#principles)
 - [Styles](#styles)
 - [Available filters](#filters)
+- [Widgets](#widgets)
 - [Accessibility](#accessibility)
 
 ## Principles
@@ -91,7 +92,7 @@ When your application already has a sass entry point, importing it there is usua
 
 **Load it after the framework stylesheet the filters sit on** (bootstrap, in every integration we know of). Rules such as the value badge padding or the choice search width are written with a single class, so they overrule `.btn`, `.badge` and `.form-control` by source order rather than by specificity — loading them before bootstrap gives those defaults back.
 
-The class names the components carry are part of the public API and are meant to be targeted from your own stylesheet: `oa-filters-value-badge`, `oa-filters-choice-search`, `oa-filters-map`, `oa-filters-map-container`, `oa-filters-search-here`, `oa-filters-search-here-button` and `oa-filters-search-label`. Any rule of yours placed after the stylesheet overrides ours.
+The class names the components carry are part of the public API and are meant to be targeted from your own stylesheet: `oa-filters-value-badge`, `oa-filters-choice-search`, `oa-filters-map`, `oa-filters-map-container`, `oa-filters-search-here`, `oa-filters-search-here-button`, `oa-filters-search-label`, and for the sort widget menu `oa-filters-sort-option`, `oa-filters-sort-label` and `oa-filters-sort-description`. Any rule of yours placed after the stylesheet overrides ours.
 
 Note that the map filter also needs [leaflet's own stylesheet](https://leafletjs.com/examples/quick-start/), which this library does not bundle.
 
@@ -192,6 +193,49 @@ The HTML equivalent:
         data-oa-filter-params="{&quot;type&quot;:&quot;choice&quot;,&quot;name&quot;:&quot;evenement-jeune-public&quot;,&quot;options&quot;:[{&quot;label&quot;:&quot;Jeune public&quot;,&quot;value&quot;:&quot;true&quot;},{&quot;label&quot;:&quot;Vieux public&quot;,&quot;value&quot;:&quot;false&quot;}],&quot;aggregation&quot;:{&quot;type&quot;:&quot;additionalFields&quot;,&quot;field&quot;:&quot;audience-type&quot;}}"
       ></div>
 ```
+
+## Widgets
+
+A widget is placed like a filter, with `data-oa-widget` and `data-oa-widget-params` attributes, the `name` parameter telling which widget to load. Widgets act on the event list rather than narrowing it.
+
+### Sort
+
+A select that sets the order of the event list. Its value is the `sort` key of the values passed to `onFilterChange`, in the format of the [OpenAgenda API](https://developers.openagenda.com/10-lecture/) `sort` parameter.
+
+```html
+<div
+  data-oa-widget="sort"
+  data-oa-widget-params='{"name":"sort","options":["lastTimingWithFeatured.asc","updatedAt.desc"],"defaultValue":"lastTimingWithFeatured.asc"}'
+></div>
+```
+
+Parameters are:
+
+- **name**: 'sort'.
+- **options**: Optional. The orders offered, listed in the order given. Defaults to `["lastTimingWithFeatured.asc", "timingsWithFeatured.asc", "score"]`. Values outside the list below are ignored.
+- **defaultValue**: Optional. The order shown while the visitor has not picked one. Falls back to the first option when missing or not among the options.
+- **labels**: Optional. Per-value label overrides, ex `{"lastTimingWithFeatured.asc":"Upcoming"}`. The label is what the menu lists. The closed select shows it too when the page sets it, else the default short label. Without it, each order is labelled by what it does, in the controller locale.
+- **label**: Optional. Accessible name of the select, read by screen readers. Defaults to "Sort by", translated. The select shows no visible label: set this when the page around it gives the list a more specific name.
+- **shortLabels**: Optional. Per-value labels for the closed select only, ex `{"updatedAt.desc":"Latest"}`. The menu keeps the full label. Without it, the closed select shows the label given in `labels`, else the default short label below.
+- **descriptions**: Optional. Per-value detail lines, shown under each label in the open menu only. Overrides the default ones below, ex `{"lastTimingWithFeatured.asc":"Highlighted events first"}`. `false` shows labels only.
+
+The available orders:
+
+| Value                        | Default short label | Default label                             | Default description                                        |
+| ---------------------------- | ------------------- | ----------------------------------------- | ---------------------------------------------------------- |
+| `lastTimingWithFeatured.asc` | Chronological       | Featured first, chronological (last date) | Featured events first, then by the last date of each event |
+| `timingsWithFeatured.asc`    | Chronological       | Featured first, chronological             | Featured events first, then by next date                   |
+| `lastTiming.asc`             | Chronological       | Chronological (last date)                 | By the last date of each event                             |
+| `timings.asc`                | Chronological       | Chronological order                       | Next dates first                                           |
+| `updatedAt.desc`             | Recently updated    | Recently updated                          | Last modified events first                                 |
+| `updatedAt.asc`              | Oldest updates      | Least recently updated                    | Least recently modified events first                       |
+| `score`                      | Relevance           | Relevance                                 | Best matches for the search first                          |
+
+`timings` orders events by their next date, `lastTiming` by their last one. The `WithFeatured` variants list featured events first.
+
+`score` is only listed while a search is typed, since relevance ranks against it. When it is among the options, typing a search switches the order to relevance, and clearing the search brings back the order picked before.
+
+The widget starts on the `sort` of the initial `query`, so a link carrying an order shows it and keeps it through later filter changes. An order the widget does not offer is still shown, under its label. Without one, the values passed to `onFilterChange` carry no `sort` until the visitor picks an order: the page should then request the events in the order given as `defaultValue`.
 
 ## Accessibility
 
