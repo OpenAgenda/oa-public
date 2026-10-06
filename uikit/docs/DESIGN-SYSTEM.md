@@ -87,6 +87,14 @@ single, swappable entry point.
    with a background, border, radius and shadow; reach for `<Surface>` and pass only
    layout (padding, width, margins). New surface looks are variants on the `surface`
    recipe, never inline props.
+7. **Secondary text never drops below body size.** A hint, a detail line under a
+   menu option, a description under a label: next to body-size text it keeps that
+   size and is set apart with a muted color (`fg.muted`), not a smaller font.
+   Shrinking it costs readability for exactly the text that explains things, and it
+   only reads as secondary because it is harder to read. Under larger text (a
+   heading, a big figure) it may be smaller, but never smaller than body text. The
+   muted color must still pass contrast (4.5:1) on every background it sits on,
+   selected and hovered states included.
 
 > **Not yet themed: elevation & radius.** `tokens/` defines only `colors`, `cursor`,
 > and `fonts` — there are no shadow or radius tokens, so `boxShadow`/`borderRadius`
