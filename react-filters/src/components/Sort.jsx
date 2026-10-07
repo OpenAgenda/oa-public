@@ -1,6 +1,6 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
-import { Field, useForm, useFormState } from 'react-final-form';
+import { Field, useField, useForm } from 'react-final-form';
 import { OnChange } from 'react-final-form-listeners';
 import ReactSelectField from '@openagenda/react-shared/components/ReactSelectField';
 import messages from '../messages/sort.js';
@@ -59,12 +59,10 @@ const optionMessages = {
   'updatedAt.asc': messages.leastRecentlyUpdated,
 };
 
-// what a public listing wants; the agenda admin passes its own
-const defaultOptions = [
-  'lastTimingWithFeatured.asc',
-  'timingsWithFeatured.asc',
-  'score',
-];
+// what a public listing wants, with a single chronological order so the
+// closed select never shows two orders under the same short label; the agenda
+// admin passes its own
+const defaultOptions = ['lastTimingWithFeatured.asc', 'score'];
 const noLabels = {};
 
 export default function Sort({
@@ -95,10 +93,19 @@ export default function Sort({
     [styles],
   );
 
-  const [userSort, setUserSort] = useState(() => form.getState().values.sort);
+  // the sort to bring back once a search is cleared: never relevance, which
+  // only ranks against a search
+  const [userSort, setUserSort] = useState(() => {
+    const { sort } = form.getState().values;
+    return sort === 'score' ? undefined : sort;
+  });
 
-  const { values } = useFormState({ subscription: { values: true } });
-  const hasSearch = Boolean(values.search?.length);
+  // only the search matters here: subscribing to every value would re-render
+  // the select on each change of any filter
+  const {
+    input: { value: search },
+  } = useField('search', { subscription: { value: true } });
+  const hasSearch = Boolean(search?.length);
   const hasRelevance = options.includes('score');
 
   const orderOptions = useMemo(
@@ -153,6 +160,44 @@ export default function Sort({
     [descriptions, intl, labels, shortLabels],
   );
 
+  const userSortRef = useRef(userSort);
+  userSortRef.current = userSort;
+  const hasRelevanceRef = useRef(hasRelevance);
+  hasRelevanceRef.current = hasRelevance;
+
+  // Switch to relevance when the visitor types a search, and back when they
+  // clear it. A field subscriber runs before the provider's automatic submit
+  // resets the form, so `dirty` still tells a typed search from one the form
+  // was reset to (back/forward, a link), which comes with its own sort.
+  useEffect(() => {
+    let previous;
+
+    return form.registerField(
+      'search',
+      ({ value, dirty }) => {
+        const wasSet = Boolean(previous);
+        const isSet = Boolean(value);
+        previous = value;
+
+        if (!hasRelevanceRef.current || !dirty || wasSet === isSet) {
+          return;
+        }
+
+        const { sort } = form.getState().values;
+
+        if (isSet) {
+          if (sort !== 'score') {
+            setUserSort(sort);
+          }
+          form.change('sort', 'score');
+        } else if (sort === 'score') {
+          form.change('sort', userSortRef.current || undefined);
+        }
+      },
+      { value: true, dirty: true },
+    );
+  }, [form]);
+
   return (
     <>
       <ReactSelectField
@@ -173,31 +218,9 @@ export default function Sort({
       />
       <OnChange name="sort">
         {(value) => {
-          // user change
-          if (form.getState().active === 'sort') {
+          // picked by the visitor or set by the page's URL alike
+          if (value !== 'score') {
             setUserSort(value);
-          }
-        }}
-      </OnChange>
-      <OnChange name="search">
-        {(value, previousValue) => {
-          const { sort } = form.getState().values;
-
-          if (!hasRelevance) {
-            return;
-          }
-
-          // an untouched search field is undefined rather than ''
-          if (!previousValue && value) {
-            // search added
-            setUserSort(sort);
-            form.change('sort', 'score');
-          } else if (sort === 'score' && previousValue && !value) {
-            // search removed
-            form.change(
-              'sort',
-              userSort && userSort !== '' ? userSort : undefined,
-            );
           }
         }}
       </OnChange>

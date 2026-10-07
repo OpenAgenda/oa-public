@@ -61,9 +61,9 @@ describe('Sort', () => {
 
     openMenu();
 
+    // a single chronological order, so its short label is unambiguous
     expect(optionLabels(container)).toEqual([
       'Featured first, chronological (last date)',
-      'Featured first, chronological',
     ]);
   });
 
@@ -75,7 +75,6 @@ describe('Sort', () => {
 
     expect(optionLabels(container)).toEqual([
       'Featured first, chronological (last date)',
-      'Featured first, chronological',
       'Relevance',
     ]);
   });
@@ -223,6 +222,29 @@ describe('Sort', () => {
     expect(form().getState().values.sort).toBe('score');
 
     change('search', '');
+    expect(form().getState().values.sort).toBe('updatedAt.desc');
+  });
+
+  test('never brings relevance back once the search is cleared', () => {
+    // a shared link or a reload after a search carries sort=score
+    const { change, form } = renderSort(
+      { options: ['score', 'updatedAt.desc'] },
+      { search: 'jazz', sort: 'score' },
+    );
+
+    change('search', '');
+
+    expect(form().getState().values.sort).toBe(undefined);
+  });
+
+  test('keeps the sort of a URL the form is reset to', () => {
+    // going back to ?search=jazz&sort=updatedAt.desc re-initializes the form
+    const { form } = renderSort({ options: ['score', 'updatedAt.desc'] });
+
+    act(() => {
+      form().initialize({ search: 'jazz', sort: 'updatedAt.desc' });
+    });
+
     expect(form().getState().values.sort).toBe('updatedAt.desc');
   });
 

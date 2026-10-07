@@ -1,6 +1,7 @@
 {
   "ReactFilters.DateRangeFilter.startDate": "Kregiñ",
   "ReactFilters.DefinedRangeFilter.startDate": "Kregiñ",
+  "ReactFilters.Sort.chronological": "Urzh kronologel",
   "ReactFilters.Sort.chronologicalDescription": "An deiziadoù da zont da gentañ",
   "ReactFilters.Sort.chronologicalShort": "Kronologel",
   "ReactFilters.Sort.featuredThenChronological": "War-wel, kronologel",
@@ -12,7 +13,10 @@
   "ReactFilters.Sort.leastRecentlyUpdated": "Hizivaet abaoe pell zo",
   "ReactFilters.Sort.leastRecentlyUpdatedDescription": "An darvoudoù kemmet abaoe pell zo da gentañ",
   "ReactFilters.Sort.leastRecentlyUpdatedShort": "Hizivadur kozh",
+  "ReactFilters.Sort.publicView": "Gwel foran",
+  "ReactFilters.Sort.recentlyUpdated": "Hizivaet nevez zo",
   "ReactFilters.Sort.recentlyUpdatedDescription": "An darvoudoù kemmet nevez zo da gentañ",
+  "ReactFilters.Sort.relevance": "Perzhded",
   "ReactFilters.Sort.relevanceDescription": "An disoc'hoù tostañ ouzh ar c'hlask da gentañ",
   "ReactFilters.Sort.sortBy": "Rummañ dre",
   "ReactFilters.ValueBadge.removeFilter": "Lemel ar sil",
