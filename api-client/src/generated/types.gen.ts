@@ -254,10 +254,6 @@ export type EventLocation = {
     adminLevel3?: string | null;
     adminLevel5?: string | null;
     /**
-     * Localized country label.
-     */
-    country?: LocalizedString | null;
-    /**
      * IANA time zone of the location.
      */
     timezone?: string | null;
@@ -1227,10 +1223,6 @@ export type Event = {
     additionalFields: AdditionalFields;
     longDescription: LocalizedString;
     conditions: LocalizedString;
-    /**
-     * Localized country label of the event location.
-     */
-    readonly country: LocalizedString | null;
     registration: Array<Registration>;
     /**
      * Present only on an event with a ticketing catalogue.
@@ -1969,10 +1961,6 @@ export type EventLocationWritable = {
     department?: string | null;
     adminLevel3?: string | null;
     adminLevel5?: string | null;
-    /**
-     * Localized country label.
-     */
-    country?: LocalizedString | null;
     /**
      * IANA time zone of the location.
      */

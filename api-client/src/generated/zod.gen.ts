@@ -171,7 +171,6 @@ export const zEventLocation = z.object({
     department: z.string().nullish(),
     adminLevel3: z.string().nullish(),
     adminLevel5: z.string().nullish(),
-    country: zLocalizedString.nullish(),
     timezone: z.string().nullish(),
     deleted: z.boolean().readonly()
 });
@@ -764,7 +763,6 @@ export const zEvent = z.object({
     additionalFields: zAdditionalFields,
     longDescription: zLocalizedString,
     conditions: zLocalizedString,
-    country: zLocalizedString.nullable(),
     registration: z.array(zRegistration),
     offersAggregate: zOffersAggregate.readonly().optional(),
     createdAt: z.string().datetime({ offset: true }).readonly(),
@@ -1309,7 +1307,6 @@ export const zEventLocationWritable = z.object({
     department: z.string().nullish(),
     adminLevel3: z.string().nullish(),
     adminLevel5: z.string().nullish(),
-    country: zLocalizedString.nullish(),
     timezone: z.string().nullish()
 });
 
