@@ -200,22 +200,26 @@ export default function Sort({
 
   return (
     <>
-      <ReactSelectField
-        Field={Field}
-        name="sort"
-        options={orderOptions}
-        styles={mergedStyles}
-        isSearchable={false}
-        isClearable={false}
-        defaultValue={shownDefault}
-        formatOptionLabel={formatOptionLabel}
-        aria-label={
-          label === false
-            ? undefined
-            : (label ?? intl.formatMessage(messages.sortBy))
-        }
-        {...rest}
-      />
+      {/* a menu with a single choice has nothing to offer: hidden until a
+          search adds relevance */}
+      {orderOptions.length > 1 ? (
+        <ReactSelectField
+          Field={Field}
+          name="sort"
+          options={orderOptions}
+          styles={mergedStyles}
+          isSearchable={false}
+          isClearable={false}
+          defaultValue={shownDefault}
+          formatOptionLabel={formatOptionLabel}
+          aria-label={
+            label === false
+              ? undefined
+              : (label ?? intl.formatMessage(messages.sortBy))
+          }
+          {...rest}
+        />
+      ) : null}
       <OnChange name="sort">
         {(value) => {
           // picked by the visitor or set by the page's URL alike

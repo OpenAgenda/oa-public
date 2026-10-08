@@ -53,18 +53,10 @@ const optionLabels = (container) =>
   );
 
 describe('Sort', () => {
-  test('offers the public listing orders by default, without relevance until a search', () => {
-    const { container, openMenu } = renderSort();
+  test('hides a menu with a single choice, as the defaults are without a search', () => {
+    const { container } = renderSort();
 
-    // the short label in the closed select, the full one in the menu
-    expect(screen.getByText('Chronological')).toBeTruthy();
-
-    openMenu();
-
-    // a single chronological order, so its short label is unambiguous
-    expect(optionLabels(container)).toEqual([
-      'Featured first, chronological (last date)',
-    ]);
+    expect(container.querySelector('input')).toBeNull();
   });
 
   test('offers relevance only while a search is typed', () => {
@@ -101,12 +93,12 @@ describe('Sort', () => {
 
   test('shows the first option when the default is not offered', () => {
     renderSort({
-      options: ['timings.asc', 'score'],
+      options: ['timings.asc', 'updatedAt.asc', 'score'],
       defaultValue: 'updatedAt.desc',
     });
 
     expect(screen.getByText('Chronological')).toBeTruthy();
-    expect(screen.queryByText('updatedAt.desc')).toBeNull();
+    expect(screen.queryByText('Recently updated')).toBeNull();
   });
 
   test('shows the sort of the initial query', () => {
@@ -120,7 +112,7 @@ describe('Sort', () => {
 
   test('names an initial sort the select does not offer', () => {
     renderSort(
-      { options: ['lastTimingWithFeatured.asc'] },
+      { options: ['lastTimingWithFeatured.asc', 'updatedAt.desc'] },
       { sort: 'timings.asc' },
     );
 
@@ -149,7 +141,7 @@ describe('Sort', () => {
 
   test('shows labels only when descriptions are off', () => {
     const { container, openMenu } = renderSort({
-      options: ['updatedAt.desc'],
+      options: ['updatedAt.desc', 'timings.asc'],
       descriptions: false,
     });
 
@@ -160,7 +152,7 @@ describe('Sort', () => {
 
   test('shows the short label in the closed select, the label in the menu', () => {
     const { container, openMenu } = renderSort({
-      options: ['lastTimingWithFeatured.asc'],
+      options: ['lastTimingWithFeatured.asc', 'updatedAt.desc'],
       labels: { 'lastTimingWithFeatured.asc': 'Chronological by last date' },
       shortLabels: { 'lastTimingWithFeatured.asc': 'Chronological' },
     });
@@ -169,24 +161,33 @@ describe('Sort', () => {
 
     openMenu();
 
-    expect(optionLabels(container)).toEqual(['Chronological by last date']);
+    expect(optionLabels(container)).toEqual([
+      'Chronological by last date',
+      'Recently updated',
+    ]);
   });
 
   test('names the select "Sort by" by default', () => {
-    renderSort();
+    renderSort({ options: ['lastTimingWithFeatured.asc', 'updatedAt.desc'] });
 
     expect(screen.getByRole('combobox', { name: 'Sort by' })).toBeTruthy();
   });
 
   test('takes another accessible name', () => {
-    renderSort({ label: 'Order the events' });
+    renderSort({
+      options: ['lastTimingWithFeatured.asc', 'updatedAt.desc'],
+      label: 'Order the events',
+    });
     expect(
       screen.getByRole('combobox', { name: 'Order the events' }),
     ).toBeTruthy();
   });
 
   test('leaves the name to an outside <label> when label is false', () => {
-    const { container } = renderSort({ label: false });
+    const { container } = renderSort({
+      options: ['lastTimingWithFeatured.asc', 'updatedAt.desc'],
+      label: false,
+    });
 
     expect(container.querySelector('input').getAttribute('aria-label')).toBe(
       null,
@@ -195,7 +196,7 @@ describe('Sort', () => {
 
   test("prefers the integration's label over the default short one", () => {
     renderSort({
-      options: ['lastTimingWithFeatured.asc'],
+      options: ['lastTimingWithFeatured.asc', 'updatedAt.desc'],
       labels: { 'lastTimingWithFeatured.asc': 'Public view' },
     });
 
@@ -205,7 +206,7 @@ describe('Sort', () => {
 
   test('takes label overrides', () => {
     renderSort({
-      options: ['lastTimingWithFeatured.asc'],
+      options: ['lastTimingWithFeatured.asc', 'updatedAt.desc'],
       labels: { 'lastTimingWithFeatured.asc': 'Public view' },
     });
 

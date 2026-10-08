@@ -212,7 +212,7 @@ A select that sets the order of the event list. Its value is the `sort` key of t
 Parameters are:
 
 - **name**: 'sort'.
-- **options**: Optional. The orders offered, listed in the order given. Defaults to `["lastTimingWithFeatured.asc", "score"]`. Offer a single chronological order: their short labels are the same. Values outside the list below are ignored.
+- **options**: Optional. The orders offered, listed in the order given. Defaults to `["lastTimingWithFeatured.asc", "score"]`. Offer a single chronological order: their short labels are the same. The select is hidden while it has a single choice, as with the defaults until a search adds relevance. Values outside the list below are ignored.
 - **defaultValue**: Optional. The order shown while the visitor has not picked one. Falls back to the first option when missing or not among the options.
 - **labels**: Optional. Per-value label overrides, ex `{"lastTimingWithFeatured.asc":"Upcoming"}`. The label is what the menu lists. The closed select shows it too when the page sets it, else the default short label. Without it, each order is labelled by what it does, in the controller locale.
 - **label**: Optional. Accessible name of the select, read by screen readers. Defaults to "Sort by", translated. The select shows no visible label: set this when the page around it gives the list a more specific name.
