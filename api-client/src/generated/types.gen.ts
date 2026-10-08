@@ -1359,11 +1359,11 @@ export type EventInput = {
      *
      * On an occurrence the event does not have yet there are no stored rows to protect, and the seeding rules above apply unchanged — every row sent with it is kept, claimed or not.
      *
-     * AN OCCURRENCE WHOSE ENTRY DOES NOT MENTION `availability` says nothing and keeps its stored rows, declaration or not. This is what makes the field usable at all: a timings write is a full replacement, so correcting one date means sending the others back, and their silence must not delete anything. The scope is declared per event; the payload's authority applies per occurrence.
+     * AN OCCURRENCE WHOSE ENTRY DOES NOT MENTION `availability` says nothing and keeps its stored rows, declaration or not. This is what makes the field usable at all: a timings write is a full replacement, so correcting one date means sending the others back, and their silence must not delete anything.
      *
      * Declared PER EVENT, not per occurrence: it scopes which sources the write owns, never which dates.
      *
-     * Requires ticketing enabled on the agenda, failing which a non-empty value answers `422` `offers.disabled` — declaring a scope is writing ticketing. A name outside the enum answers `422` `offers.provider.invalid`; the same name twice, `422` `offers.duplicate`; a value that is not an array of names, `422` `availability.authority.invalid`. An empty array claims nothing and behaves exactly like omitting the field.
+     * Requires ticketing enabled on the agenda, failing which a non-empty value answers `422` `offers.disabled` — declaring a scope is writing ticketing. AN ENTRY that is not one of these names answers `422` `offers.provider.invalid`, whatever its type; the same name twice, `422` `offers.duplicate`; and a value that is not an array at all, `422` `availability.authority.invalid`. An empty array claims nothing and behaves exactly like omitting the field.
      *
      * IT GOVERNS ONLY THE `timings` THIS BODY SENDS. A body that does not carry a `timings` array declares a scope over nothing and changes no inventory — it is still validated, and still answers `422` `offers.disabled` on an agenda without ticketing, but it has no other effect. The reason is that on a partial update the server refills the occurrences it was not sent from the stored event, and those rows are a read taken when the request arrived: honouring them would let a write replay a stale snapshot over what the availability endpoint published in the meantime.
      *
@@ -1442,11 +1442,11 @@ export type EventPatch = {
      *
      * On an occurrence the event does not have yet there are no stored rows to protect, and the seeding rules above apply unchanged — every row sent with it is kept, claimed or not.
      *
-     * AN OCCURRENCE WHOSE ENTRY DOES NOT MENTION `availability` says nothing and keeps its stored rows, declaration or not. This is what makes the field usable at all: a timings write is a full replacement, so correcting one date means sending the others back, and their silence must not delete anything. The scope is declared per event; the payload's authority applies per occurrence.
+     * AN OCCURRENCE WHOSE ENTRY DOES NOT MENTION `availability` says nothing and keeps its stored rows, declaration or not. This is what makes the field usable at all: a timings write is a full replacement, so correcting one date means sending the others back, and their silence must not delete anything.
      *
      * Declared PER EVENT, not per occurrence: it scopes which sources the write owns, never which dates.
      *
-     * Requires ticketing enabled on the agenda, failing which a non-empty value answers `422` `offers.disabled` — declaring a scope is writing ticketing. A name outside the enum answers `422` `offers.provider.invalid`; the same name twice, `422` `offers.duplicate`; a value that is not an array of names, `422` `availability.authority.invalid`. An empty array claims nothing and behaves exactly like omitting the field.
+     * Requires ticketing enabled on the agenda, failing which a non-empty value answers `422` `offers.disabled` — declaring a scope is writing ticketing. AN ENTRY that is not one of these names answers `422` `offers.provider.invalid`, whatever its type; the same name twice, `422` `offers.duplicate`; and a value that is not an array at all, `422` `availability.authority.invalid`. An empty array claims nothing and behaves exactly like omitting the field.
      *
      * IT GOVERNS ONLY THE `timings` THIS BODY SENDS. A body that does not carry a `timings` array declares a scope over nothing and changes no inventory — it is still validated, and still answers `422` `offers.disabled` on an agenda without ticketing, but it has no other effect. The reason is that on a partial update the server refills the occurrences it was not sent from the stored event, and those rows are a read taken when the request arrived: honouring them would let a write replay a stale snapshot over what the availability endpoint published in the meantime.
      *
