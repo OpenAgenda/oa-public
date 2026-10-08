@@ -236,7 +236,10 @@ describe('searchOperations', () => {
     ['find event by external identifier', 'agendas.events.getByExtId'],
     ['validate event before creation', 'agendas.events.validate'],
     ['event update patch title', 'agendas.events.patch'],
-    ['create or replace event external identifier', 'agendas.events.setByExtId'],
+    [
+      'create or replace event external identifier',
+      'agendas.events.setByExtId',
+    ],
   ])('ranks the recorded query %p first on %s', (query, id) => {
     expect(searchOperations(query)[0].id).toBe(id);
   });
@@ -1563,10 +1566,12 @@ describe('renderSearch', () => {
     });
 
     it('defines object components with typed, described property lines', () => {
-      // EventLocation.country line: typed by component name AND described.
+      // OffersAggregate.price line: typed by component name AND described.
       expect(section).toMatch(
-        /- country \(LocalizedString \| null\) — Localized country label\./,
+        /- price \(OffersPrice\) — The event's price bounds/,
       );
+      // A nullable component reference reads as `Component | null`.
+      expect(section).toMatch(/- image \(ImageRef \| null\)/);
     });
 
     it('defines the components that field types reference (no dangling name)', () => {
