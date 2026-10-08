@@ -26,11 +26,13 @@ La réponse event de l'API actuelle vient de l'**`_source` Elasticsearch**, post
   `mergedIn` pour un lieu fusionné) ; codes HTTP corrects (401 vs 403).
 - **Cursor `after`** : l'interne est un **tableau** `search_after` ES (ex. `[timing, tiebreaker]`), `null` quand tout est renvoyé. Le contrat l'expose en **string opaque** → **base64-encoder/décoder** le tableau (+ le sort, et idéalement le `limit`) en une string. En entrée, décoder vers `useAfterKey` / `search_after`. **Ne jamais exposer le tableau brut.**
 - **Champs additionnels** : séparation natif/additionnel par **allowlist de champs** (implémentée tranche 2-3) — `mapEvent.js` énumère les champs natifs (`BASE_FIELDS`/`FULL_FIELDS`), droppe les clés internes (`DROP_KEYS`), et route **toute clé restante** sous `additionalFields`. Le socle reste à plat. `additionalProperties: false` sur `EventSummary`/`Event` est correct **parce que** le mapping émet exactement les champs du contrat (il ne passe pas l'`_source` brut). _(Approche plus simple que le tri par `schemaId` initialement envisagé. La clé publique, d'abord `custom`, a été renommée `additionalFields` — cf. section « Renommage » ci-dessous.)_
-- **`readOnly`** : les champs `readOnly: true` (uid, slug, state, timestamps, dateRange, first/last/nextTiming, originAgenda, sourceAgendas, featured, country, links, timezone) ne sont pas acceptés en écriture.
+- **`readOnly`** : les champs `readOnly: true` (uid, slug, state, timestamps, dateRange, first/last/nextTiming, originAgenda, sourceAgendas, featured, links, timezone) ne sont pas acceptés en écriture.
 
 ### Champs ES volontairement EXCLUS du contrat public
 
 Le mapping ne doit pas les émettre (modération/interne) : `addMethod`, `motive`, `member`, `html`, `creatorUid`, `ownerUid`, `private`, `draft`, `removed`. À rouvrir si un usage admin (Tier 2) le justifie.
+
+`country` (racine du document et `location.country`) : libellé du pays traduit, que l'index construit depuis `countryCode` pour la recherche. Le contrat porte `countryCode` seul, sur l'événement comme sur le lieu ; un client traduit le code.
 
 ---
 
@@ -259,7 +261,7 @@ omission, ni null uniforme) :
 
 - collections → jamais nulles, jamais omises : tableaux `[]`, maps multilingues `{}` ;
 - objets singuliers optionnels → `null` (présents) : `image`, `location`, `age`, `accessibility`,
-  `originAgenda`, `first/last/nextTiming`, `country` ;
+  `originAgenda`, `first/last/nextTiming` ;
 - scalaires nullables → `null` si absent : `imageCredits`, `onlineAccessLink`, `timezone` ;
 - scalaires requis → pass-through (toujours fournis par `core`) ;
 - **omettre pour cause de vide : interdit.**
@@ -274,7 +276,7 @@ image, imageCredits, keywords, originAgenda, location, timezone, attendanceMode,
 onlineAccessLink, first/last/nextTiming` + `custom`. Le tableau `timings` complet est **detailed-only**
   (event-search le retire de la projection légère ; la liste parle dates via `first/last/nextTiming`,
   interprétés dans `timezone`) — le forcer à `[]` en liste mentirait, justement.
-- `Event` (get, base + detailed) : EventSummary + `timings, longDescription, conditions, country, registration,
+- `Event` (get, base + detailed) : EventSummary + `timings, longDescription, conditions, registration,
 createdAt, updatedAt, accessibility, age, state, links, extIds, sourceAgendas`.
 
 `EventList.data` → `EventSummary[]` ; get → `Event`. Les deux en `additionalProperties: false`,

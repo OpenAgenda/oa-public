@@ -3353,11 +3353,6 @@ components:
           type: [string, 'null']
         adminLevel5:
           type: [string, 'null']
-        country:
-          oneOf:
-            - $ref: '#/components/schemas/LocalizedString'
-            - type: 'null'
-          description: Localized country label.
         timezone:
           type: [string, 'null']
           description: IANA time zone of the location.
@@ -5122,7 +5117,6 @@ components:
           department: Rhône
           adminLevel3: null
           adminLevel5: null
-          country: { fr: France, en: France }
           timezone: Europe/Paris
           deleted: false
         timezone: Europe/Paris
@@ -5273,7 +5267,6 @@ components:
         # detailed-only fields
         - longDescription
         - conditions
-        - country
         - registration
         - createdAt
         - updatedAt
@@ -5349,7 +5342,6 @@ components:
           department: Rhône
           adminLevel3: null
           adminLevel5: null
-          country: { fr: France, en: France }
           timezone: Europe/Paris
           deleted: false
         timezone: Europe/Paris
@@ -5377,7 +5369,6 @@ components:
             en: 'An open-air concert featuring several jazz ensembles…',
           }
         conditions: { fr: Entrée libre, en: Free entry }
-        country: { fr: France, en: France }
         registration:
           - type: link
             value: https://openagenda.com/festival-des-lumieres/events/concert-de-jazz-au-parc
@@ -5499,12 +5490,6 @@ components:
           $ref: '#/components/schemas/LocalizedString'
         conditions:
           $ref: '#/components/schemas/LocalizedString'
-        country:
-          readOnly: true
-          description: Localized country label of the event location.
-          oneOf:
-            - $ref: '#/components/schemas/LocalizedString'
-            - type: 'null'
         registration:
           type: array
           items:
