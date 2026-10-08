@@ -43,13 +43,13 @@ function fetcher<T>(url: string): Promise<T> {
 }
 
 function completeUrls(
-  agendaUid: string | number,
+  agenda: Agenda,
   query: EventQuery,
   rootUrl = 'https://openagenda.com',
   apiRootUrl = 'https://api.openagenda.com',
 ): CompleteUrlsResult {
   const apiQuery = {
-    ...isUpcomingOnlyQuery(query)
+    ...isUpcomingOnlyQuery(query, agenda)
       ? {
         relative: ['current', 'upcoming'],
       }
@@ -66,22 +66,22 @@ function completeUrls(
   );
 
   return {
-    agendaExportSettings: `/agendas/${agendaUid}/settings/exports`,
+    agendaExportSettings: `/agendas/${agenda.uid}/settings/exports`,
     // How many events the export covers: the PDF and Word exports grey their
     // image option past the server threshold. Through the UI API, not the
     // `.v2.json` export, which `trackFormat` would log as a JSON export of the
     // agenda.
-    count: `${rootUrl}/api/agendas/${agendaUid}/events${countQueryString}`,
+    count: `${rootUrl}/api/agendas/${agenda.uid}/events${countQueryString}`,
     me: '/api/me',
     export: {
-      jsonV2: `${apiRootUrl}/v2/agendas/${agendaUid}/events${apiQueryString}`,
-      pdf: `${rootUrl}/agendas/${agendaUid}/events.v2.pdf${apiQueryString}`,
-      docx: `${rootUrl}/agendas/${agendaUid}/events.v2.docx${apiQueryString}`,
-      xlsx: `${rootUrl}/agendas/${agendaUid}/events.v2.xlsx${apiQueryString}`,
-      ics: `${rootUrl}/agendas/${agendaUid}/events.v2.ics${apiQueryString}`,
-      csv: `${rootUrl}/agendas/${agendaUid}/events.v2.csv${apiQueryString}`,
-      rss: `${rootUrl}/agendas/${agendaUid}/events.v2.rss${apiQueryString}`,
-      embed: `${rootUrl}/agendas/${agendaUid}${embedQueryString}`,
+      jsonV2: `${apiRootUrl}/v2/agendas/${agenda.uid}/events${apiQueryString}`,
+      pdf: `${rootUrl}/agendas/${agenda.uid}/events.v2.pdf${apiQueryString}`,
+      docx: `${rootUrl}/agendas/${agenda.uid}/events.v2.docx${apiQueryString}`,
+      xlsx: `${rootUrl}/agendas/${agenda.uid}/events.v2.xlsx${apiQueryString}`,
+      ics: `${rootUrl}/agendas/${agenda.uid}/events.v2.ics${apiQueryString}`,
+      csv: `${rootUrl}/agendas/${agenda.uid}/events.v2.csv${apiQueryString}`,
+      rss: `${rootUrl}/agendas/${agenda.uid}/events.v2.rss${apiQueryString}`,
+      embed: `${rootUrl}/agendas/${agenda.uid}${embedQueryString}`,
     },
   };
 }
@@ -121,8 +121,8 @@ export default function Body({
         ...query.archived ? { archived: query.archived } : {},
       }
       : query;
-    return completeUrls(agenda.uid, usedQuery, rootUrl, apiRootUrl);
-  }, [mode, agenda.uid, query, rootUrl, apiRootUrl]);
+    return completeUrls(agenda, usedQuery, rootUrl, apiRootUrl);
+  }, [mode, agenda, query, rootUrl, apiRootUrl]);
 
   const { data: exportSettingsData, isLoading: exportSettingsLoading } = useSWR<ExportSettings>(res.agendaExportSettings, (url: string) =>
     (fetchAgendaExportSettings
