@@ -1363,7 +1363,7 @@ export type EventInput = {
      *
      * Declared PER EVENT, not per occurrence: it scopes which sources the write owns, never which dates.
      *
-     * Requires ticketing enabled on the agenda, failing which a non-empty value answers `422` `offers.disabled` — declaring a scope is writing ticketing. AN ENTRY that is not one of these names answers `422` `offers.provider.invalid`, whatever its type; the same name twice, `422` `offers.duplicate`; and a value that is not an array at all, `422` `availability.authority.invalid`. An empty array claims nothing and behaves exactly like omitting the field.
+     * Requires ticketing enabled on the agenda, failing which a non-empty value answers `422` `offers.disabled` — declaring a scope is writing ticketing. AN ENTRY that is not one of these names answers `422` `offers.provider.invalid`, whatever its type; the same name twice, `422` `offers.duplicate`; more entries than there are providers, one `422` `availability.authority.tooMany` for the array and no per-entry refusal; and a value that is not an array at all, `422` `availability.authority.invalid`. An empty array claims nothing and behaves exactly like omitting the field, and so does `null`.
      *
      * IT GOVERNS ONLY THE `timings` THIS BODY SENDS. A body that does not carry a `timings` array declares a scope over nothing and changes no inventory — it is still validated, and still answers `422` `offers.disabled` on an agenda without ticketing, but it has no other effect. The reason is that on a partial update the server refills the occurrences it was not sent from the stored event, and those rows are a read taken when the request arrived: honouring them would let a write replay a stale snapshot over what the availability endpoint published in the meantime.
      *
@@ -1372,7 +1372,7 @@ export type EventInput = {
      * It settles the contract question, not the one of scale: large or frequent inventory syncs still belong on the availability endpoint (see `Timing.availability`), since the ordinary event routes cap the body at 100 kB and validate the whole compiled event.
      *
      */
-    availabilityAuthority?: Array<TicketingProvider>;
+    availabilityAuthority?: Array<TicketingProvider> | null;
     /**
      * The event's location, referenced by its uid; a uid that matches no location answers `422`.
      *
@@ -1446,7 +1446,7 @@ export type EventPatch = {
      *
      * Declared PER EVENT, not per occurrence: it scopes which sources the write owns, never which dates.
      *
-     * Requires ticketing enabled on the agenda, failing which a non-empty value answers `422` `offers.disabled` — declaring a scope is writing ticketing. AN ENTRY that is not one of these names answers `422` `offers.provider.invalid`, whatever its type; the same name twice, `422` `offers.duplicate`; and a value that is not an array at all, `422` `availability.authority.invalid`. An empty array claims nothing and behaves exactly like omitting the field.
+     * Requires ticketing enabled on the agenda, failing which a non-empty value answers `422` `offers.disabled` — declaring a scope is writing ticketing. AN ENTRY that is not one of these names answers `422` `offers.provider.invalid`, whatever its type; the same name twice, `422` `offers.duplicate`; more entries than there are providers, one `422` `availability.authority.tooMany` for the array and no per-entry refusal; and a value that is not an array at all, `422` `availability.authority.invalid`. An empty array claims nothing and behaves exactly like omitting the field, and so does `null`.
      *
      * IT GOVERNS ONLY THE `timings` THIS BODY SENDS. A body that does not carry a `timings` array declares a scope over nothing and changes no inventory — it is still validated, and still answers `422` `offers.disabled` on an agenda without ticketing, but it has no other effect. The reason is that on a partial update the server refills the occurrences it was not sent from the stored event, and those rows are a read taken when the request arrived: honouring them would let a write replay a stale snapshot over what the availability endpoint published in the meantime.
      *
@@ -1455,7 +1455,7 @@ export type EventPatch = {
      * It settles the contract question, not the one of scale: large or frequent inventory syncs still belong on the availability endpoint (see `Timing.availability`), since the ordinary event routes cap the body at 100 kB and validate the whole compiled event.
      *
      */
-    availabilityAuthority?: Array<TicketingProvider>;
+    availabilityAuthority?: Array<TicketingProvider> | null;
     location?: EventLocationRef | null;
     attendanceMode?: AttendanceMode;
     onlineAccessLink?: string | null;
