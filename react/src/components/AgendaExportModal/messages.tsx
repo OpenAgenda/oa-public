@@ -54,12 +54,12 @@ const messages: Record<string, MessageDescriptor> = defineMessages({
   aboutCredit: {
     id: 'react.components.AgendaExportModal.aboutCredit',
     defaultMessage:
-      'For each event, credit its source, its canonical link and its date of last update. The exports carry them: the licensor and canonical link columns of spreadsheets, the rights field in JSON.',
+      'When redistributing, credit for each event its licensor (the organisation that administers its origin agenda), its canonical link and its date of last update. The exports carry them: the licensor and canonical link columns of spreadsheets, the rights field in JSON.',
   },
   aboutPublisher: {
     id: 'react.components.AgendaExportModal.aboutPublisher',
     defaultMessage:
-      'This selection is published by {publisher}: credit it as well for the information it adds. <link>Learn more</link>',
+      'These events are published by {publisher}. <link>Learn more</link>',
   },
   embed: {
     id: 'react.components.AgendaExportModal.embed',
