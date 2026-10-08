@@ -3318,12 +3318,9 @@ components:
 
     EventLocation:
       type: object
-      description: >
-        The location snapshot an event carries - a nullable subset of the
-        `Location` record. The canonical, full record is the `Location`
-        resource (`GET /agendas/{agendaUid}/locations/{locationUid}`, same
-        `uid`).
+      description: The location snapshot an event carries.
       additionalProperties: false
+      required: [deleted]
       properties:
         uid:
           type: integer
@@ -3364,6 +3361,10 @@ components:
         timezone:
           type: [string, 'null']
           description: IANA time zone of the location.
+        deleted:
+          type: boolean
+          readOnly: true
+          description: Whether the location has been deleted.
 
     LocationSummary:
       type: object
@@ -3410,8 +3411,7 @@ components:
       type: object
       description: >
         Full location representation returned by the single-get endpoint and
-        by the list when `detailed=true` — the canonical record (the events'
-        embedded `EventLocation` is a nullable snapshot of it).
+        by the list when `detailed=true`.
       additionalProperties: false
       example:
         uid: 67890
@@ -5124,6 +5124,7 @@ components:
           adminLevel5: null
           country: { fr: France, en: France }
           timezone: Europe/Paris
+          deleted: false
         timezone: Europe/Paris
         attendanceMode: 1
         onlineAccessLink: null
@@ -5350,6 +5351,7 @@ components:
           adminLevel5: null
           country: { fr: France, en: France }
           timezone: Europe/Paris
+          deleted: false
         timezone: Europe/Paris
         attendanceMode: 1
         onlineAccessLink: null
@@ -6042,7 +6044,11 @@ components:
 
     EventLocationRef:
       type: object
-      description: A reference to an existing location by its OpenAgenda uid.
+      description: >
+        A reference to a location by its OpenAgenda uid. A merged location
+        stands for the location that replaced it. A location that does not
+        exist, or has been deleted, is refused with a 422 on `location.uid`;
+        a deleted one is accepted when it is the one the event already has.
       additionalProperties: false
       required: [uid]
       properties:
