@@ -1,5 +1,13 @@
 # @openagenda/pdf-exports
 
+## 0.2.0
+
+### Minor Changes
+
+- [#536](https://github.com/OpenAgenda/oa/pull/536) [`f6e4136`](https://github.com/OpenAgenda/oa/commit/f6e413621e46812739e9ad03d1099685af118756) Thanks [@kaore](https://github.com/kaore)! - The event link of the agenda PDF points to the event's `canonicalUrl` when it carries one — the page its licensor declared, else its page on its origin agenda — instead of the page on the exported agenda.
+
+- [#536](https://github.com/OpenAgenda/oa/pull/536) [`45a3b25`](https://github.com/OpenAgenda/oa/commit/45a3b253adf97865de2e50361d8176579bf49b06) Thanks [@kaore](https://github.com/kaore)! - The QR code of the single-event PDF points to the event's `canonicalUrl` when it carries one.
+
 ## 0.1.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.2.0
+
+### Minor Changes
+
+- [#464](https://github.com/OpenAgenda/oa/pull/464) [`4ded780`](https://github.com/OpenAgenda/oa/commit/4ded78019ec4a45bd891884d16a48270124b2d62) Thanks [@clement180](https://github.com/clement180)! - `isoDatetime` now exports `normalize`, so a consumer that has to STORE a datetime can write the one spelling this module's own tolerance (`OFFSET_ISO`) and Elasticsearch's `strict_date_optional_time` both accept, instead of restating the rule. Fractional seconds are truncated to nine digits: `OFFSET_ISO` accepted any length, the index accepts nine, and a single over-long row kept a whole document out of it.
+
 ## 2.1.0
 
 ### Minor Changes

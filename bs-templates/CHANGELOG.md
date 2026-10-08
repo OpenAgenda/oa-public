@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.6.4
+
+### Patch Changes
+
+- [#485](https://github.com/OpenAgenda/oa/pull/485) [`021e897`](https://github.com/OpenAgenda/oa/commit/021e8972a08d7b3e87cd8e0821ca36f421b73363) Thanks [@kaore](https://github.com/kaore)! - The conventions in the README cover the sub-message of a banner, a notice or a panel too, and any way of making it smaller (`<small>`, `.small`, a set `font-size`): it stays at the inherited size.
+
 ## 2.6.3
 
 ### Patch Changes

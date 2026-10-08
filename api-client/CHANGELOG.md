@@ -1,5 +1,56 @@
 # @openagenda/api-client
 
+## 0.7.0
+
+### Minor Changes
+
+- [#464](https://github.com/OpenAgenda/oa/pull/464) [`1019eb4`](https://github.com/OpenAgenda/oa/commit/1019eb4f2cee647bf2a5b6a2d9b25e95139c767d) Thanks [@clement180](https://github.com/clement180)! - `Event` gains `availabilityUpdatedAt` (read-only), `Sort` gains `availabilityUpdatedAt.asc` / `.desc`, and `FilterAvailabilityUpdatedAt` is exported — the generated counterpart of the inventory cursor added to the contract. `EventFilters` accepts the same key for the facet routes.
+
+- [#536](https://github.com/OpenAgenda/oa/pull/536) [`6813d07`](https://github.com/OpenAgenda/oa/commit/6813d078b06042d1d8357db01d6178b17b9b0adc) Thanks [@kaore](https://github.com/kaore)! - `canonicalUrl` in the event input types.
+
+- [#536](https://github.com/OpenAgenda/oa/pull/536) [`4dc035d`](https://github.com/OpenAgenda/oa/commit/4dc035dc2b3dfef082910fa48939d95369793a16) Thanks [@kaore](https://github.com/kaore)! - Types and schemas for the new `canonicalUrl` on events.
+
+- [#536](https://github.com/OpenAgenda/oa/pull/536) [`66a6b55`](https://github.com/OpenAgenda/oa/commit/66a6b55269faa2c5bcf539e472ad5bb3d5a034b9) Thanks [@kaore](https://github.com/kaore)! - Types and schemas for the new `rights` object on events and on the single agenda. `Agenda.rights` is nullable, like the event's.
+
+- [#464](https://github.com/OpenAgenda/oa/pull/464) [`785c6bb`](https://github.com/OpenAgenda/oa/commit/785c6bb042d4fc1471aa307736c1bef2a6fc4ad3) Thanks [@clement180](https://github.com/clement180)! - `Timing` gains `availability`, the per-occurrence inventory: an optional array of `TimingAvailability` rows (`provider`, `status`, `syncedAt`, `sourceRef`, `onSaleFrom`, `onSaleThrough`, `closedBySource`), one per ticketing provider, served in `timings[]` and in `firstTiming` / `lastTiming` / `nextTiming`. `TimingAvailability` and `zTimingAvailability` are exported.
+
+- [#527](https://github.com/OpenAgenda/oa/pull/527) [`9bb2ff0`](https://github.com/OpenAgenda/oa/commit/9bb2ff0f5b6a7c4b97666609bd23a4cbd6903a16) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Add `keys.verify` (`POST /keys/verify`): check an API key without authenticating with it.
+
+  Send the key in the body and read whether it authenticates, what kind of key it
+  is (`public`, `secret` or `agenda`), who it belongs to, which scopes restrict it
+  and when it expires. A key that does not authenticate answers `200` with
+  `valid: false` and an `error.code` naming the reason: unknown or revoked (or
+  owned by an account that is gone), disabled, expired, allowance used up, stored
+  in a state that cannot be read, or owned by a blacklisted account. A public key
+  names no owner, since it carries no identity.
+
+  The request takes no credential, and the check does not count as a use of the
+  key: the "last used" its owner sees does not move.
+
+  The authentication section of the contract no longer lists its exceptions: an
+  operation that takes another credential, or none, declares it in its own
+  security requirements.
+
+### Patch Changes
+
+- [#518](https://github.com/OpenAgenda/oa/pull/518) [`59e3d28`](https://github.com/OpenAgenda/oa/commit/59e3d28691971d2f106ce155d31a882dfae88122) Thanks [@bertho-zero](https://github.com/bertho-zero)! - A write refuses, with `422`, what it used to drop or reinterpret without a word: an `additionalFields` key the agenda's event form schema does not declare, a choice value that is not an option's `id` (the option's `value` and `""` included; `null` empties a choice), an `accessibility` or an `age` that is not an object or carries a key its schema does not declare, a `location` that carries no readable `uid` wherever the location is optional or a partial update would have kept the stored one, a value that is not a boolean where a boolean is expected, and a number or a boolean where a text is expected, which was written out as a string; `null` still empties a text. `AdditionalFields` and the option `id` of `FormSchemaField` state what the schema cannot. A `location` key other than `uid` is refused as well, and so are a timing key other than `begin`, `end`, `id`, `sourceRef` and `availability`, and a `registration` item that is not an object or carries a key other than `type` and `value`. `EventLocationRef.uid` is at least 1: `0` left the event without a location.
+
+  `ValidationIssue.field` is a dotted path to the value in the request: `additionalFields.thematique` for an additional field, `timings.end`, `age.min`, `image.url` or `location.uid` inside a native one.
+
+  The v2 API's `errors[].field` follows the same paths inside a native field: `timings.begin`, `age.min` or `image.url` where it named `begin`, `min` or `url`, and `location.uid` (or `location.<key>`) where it named `location`.
+
+  On a write, `400` is kept for a request that could not be read - a body that is not valid JSON or not a JSON object, a malformed query parameter - and every refusal that names a field of the body answers `422` with `error.errors[]`. An unknown or read-only top-level key, a key an `image` does not take or both `ref` and `url` at once, an `additionalFields` name colliding with a native field, and an upload with no `file` or a file under another field name answered `400`; they answer `422`. The fields refused before validation are listed together. An upload whose multipart body cannot be read (a part past the size limit, a part without a name) answers `400`; the refusals of an upload carry a `code`: `required`, `file.tooBig`, `file.invalidType` or `file.unexpected`.
+
+- [#464](https://github.com/OpenAgenda/oa/pull/464) [`39e2b5f`](https://github.com/OpenAgenda/oa/commit/39e2b5f4ca5d0a3ab47febe6edcf3ad54ea9ba21) Thanks [@clement180](https://github.com/clement180)! - The generated zod validators accept the explicit UTC offset the API requires. `z.string().datetime()` means `{ offset: false }` in zod 3 — only `…Z` passed — so every `date-time` the API accepts (`syncedAt`, `onSaleFrom`, `onSaleThrough`, `createdAt`, `updatedAt`, the date range filters) was rejected by the client generated from the same contract.
+
+- [#488](https://github.com/OpenAgenda/oa/pull/488) [`5578bc2`](https://github.com/OpenAgenda/oa/commit/5578bc27e626c30b42558880830dd48db11fe27a) Thanks [@clement180](https://github.com/clement180)! - Regenerate for `offersAggregate.price` and `offersAggregate.links`.
+
+  The generated types had drifted from the spec since the price bounds landed —
+  `generate:check`, which is this package's whole test script, was failing on the
+  branch. One regeneration clears both additions.
+
+- [#538](https://github.com/OpenAgenda/oa/pull/538) [`fb673ab`](https://github.com/OpenAgenda/oa/commit/fb673ab31c61b1d6c0d89f99c9f41ceb4fe533bf) Thanks [@bertho-zero](https://github.com/bertho-zero)! - An upload ticket from `agendas.uploads.createTicket` now expires after 15 minutes instead of 5, the window a staged upload already gives to attach its `ref`. `uploads.staged` states that an expired ticket answers `401` and that uploading again takes a new ticket.
+
 ## 0.6.0
 
 ### Minor Changes

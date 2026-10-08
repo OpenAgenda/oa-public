@@ -1,5 +1,20 @@
 # @openagenda/react
 
+## 0.4.0
+
+### Minor Changes
+
+- [#537](https://github.com/OpenAgenda/oa/pull/537) [`0f26d7d`](https://github.com/OpenAgenda/oa/commit/0f26d7d2725d3fdc393b7f74bdc1a953aeb9a836) Thanks [@kaore](https://github.com/kaore)! - `AgendaExportModal` gains a last accordion section, "About: licence and credits", set apart by an information icon and a blue label: the licence by name, the credit a reuser owes for each event and where the exports carry it, and the agenda that publishes the selection. It replaces the sentence above the formats ("can be used following the Open Data principle"). `Agenda` gains an optional `rights` (licence and publisher), read from the single agenda API. The section is left out on a private agenda, or when the agenda carries no `rights`.
+
+### Patch Changes
+
+- [#484](https://github.com/OpenAgenda/oa/pull/484) [`5cadf92`](https://github.com/OpenAgenda/oa/commit/5cadf921ea3310c93254e3e270e0ea59ac4a706e) Thanks [@kaore](https://github.com/kaore)! - The export modal exports the archives from an agenda's archives view, instead of asking them for upcoming events and coming back empty. "Export all events" there exports every archived event.
+
+- Updated dependencies [[`c61657f`](https://github.com/OpenAgenda/oa/commit/c61657fda6a76ab18e8e13abf5c9345f889218a9), [`87aa0ec`](https://github.com/OpenAgenda/oa/commit/87aa0ecf621be0b3f0d5786a187fc1d1f19d6d2b), [`7e22504`](https://github.com/OpenAgenda/oa/commit/7e225045c2bc0fde140ac5d391ecde60ea57263e), [`01eb410`](https://github.com/OpenAgenda/oa/commit/01eb4101c3062948ab3cdb8f375e458b32d7d399), [`fada31b`](https://github.com/OpenAgenda/oa/commit/fada31bf1b0daafd53a127d9493404b0195c9f1a)]:
+  - @openagenda/react-filters@3.2.0
+  - @openagenda/uikit@0.4.0
+  - @openagenda/react-shared@3.2.1
+
 ## 0.3.0
 
 ### Minor Changes

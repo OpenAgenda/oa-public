@@ -1,5 +1,25 @@
 # Change Log
 
+## 3.2.0
+
+### Minor Changes
+
+- [#552](https://github.com/OpenAgenda/oa/pull/552) [`c61657f`](https://github.com/OpenAgenda/oa/commit/c61657fda6a76ab18e8e13abf5c9345f889218a9) Thanks [@kaore](https://github.com/kaore)! - `Sort` covers every standard event order and labels each one by what it does: `timings.asc`, `timingsWithFeatured.asc`, `lastTiming.asc`, `lastTimingWithFeatured.asc`, `updatedAt.desc`, `updatedAt.asc` and `score`, listed in the order `options` gives them.
+
+  - New props: `defaultValue`, `labels` (per-value label overrides), `shortLabels` (per-value labels for the closed select only, falling back to the label), `descriptions` (per-value detail lines shown under each label in the open menu, with defaults; `false` hides them) and `styles` (merged over the defaults). The sort widget (`data-oa-widget-params` with `"name": "sort"`) takes `options`, `defaultValue`, `labels`, `shortLabels` and `descriptions`. The menu lines carry the `oa-filters-sort-option`, `oa-filters-sort-label` and `oa-filters-sort-description` classes.
+  - Without `options`, it offers `lastTimingWithFeatured.asc` and `score` (relevance during a search). The select is hidden while it has a single choice.
+  - The shown default falls back to the first option when `defaultValue` is missing or not offered, so a value outside the choices (`updatedAt.desc` until now) no longer appears.
+  - `lastTimingWithFeatured.asc` is no longer labelled "Public view": that name only makes sense in the agenda admin, which now passes it through `labels` (the message stays in `messages/sort`).
+  - `score` is only listed while a search is typed. A search the visitor types switches the sort to relevance when `score` is offered; clearing it brings back the previous sort, never relevance. A search the form is reset to (back/forward, a link) keeps the sort that comes with it.
+  - The controller keeps the `sort` of the initial `query` (it used to drop it): the widget shows the order a link carries, and later filter changes keep it instead of silently falling back to the default. An order the widget does not offer is shown under its label rather than its raw value.
+  - The select has an accessible name: a translated "Sort by" by default, set with the `label` prop or widget parameter, or left to an outside `<label>` with `label: false`. It used to have none.
+  - Each order has a default short label for the closed select ("Chronological", "Recently updated", "Relevance"…), so the select fits its default width; the menu lists the full labels. A label set through `labels` still wins.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @openagenda/react-shared@3.2.1
+
 ## 3.1.0
 
 ### Minor Changes

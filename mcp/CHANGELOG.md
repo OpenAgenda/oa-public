@@ -1,5 +1,22 @@
 # @openagenda/mcp
 
+## 1.5.2
+
+### Patch Changes
+
+- [#540](https://github.com/OpenAgenda/oa/pull/540) [`29bb3c9`](https://github.com/OpenAgenda/oa/commit/29bb3c98cbd3c6b60f30ef7dc0f4fd7ae3ca1aab) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `search_docs` no longer ranks `me.agendas.list` first for "show me events", "give me the events" or "agendas". The `role` filter added to that operation glosses its values in prose ("Moderates contributed events and manages content"), and the index took every enum gloss as search vocabulary, so "events", "the" and "member" credited the membership list. An enum whose values are all words now keeps those words in the index and drops its glosses, as an operation's description is not indexed either; any other enum - numbers, short codes, identifiers such as `timings.asc` - keeps all its labels.
+
+- [#541](https://github.com/OpenAgenda/oa/pull/541) [`9c1be13`](https://github.com/OpenAgenda/oa/commit/9c1be13330566f0a66ed589bdfb9ac39336da329) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `search_docs` indexes enum values and no longer their labels. The labels are written for the reader, often as prose, and indexing them made words such as "events" credit an operation that only describes them; the rule that kept codes' labels while dropping words' glosses goes with them. Replayed on the queries models sent in recorded runs, the executed operation ranks first more often (67.4% to 70.1%, 59.2% to 64.1%) and sits on a full card more often (88.8% to 89.7%, 92.2% to 93.2%). The cards still show every label.
+
+- [#539](https://github.com/OpenAgenda/oa/pull/539) [`8dff13b`](https://github.com/OpenAgenda/oa/commit/8dff13b5cfed22c6b2e2978c3b890e1de5eb0611) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `search_docs` answers a query that is exactly an operation id with that operation alone. Searching an id is how a compact tail entry is opened, and it returned the same payload as a question: two neighbouring cards, their components and the tail again. On the current contract an id search drops from 12-59 kB to 3-34 kB.
+
+  An empty query, or one that matches nothing, returns the catalogue: every operation as an id, a summary and a call line. It returned the same 24 entries with the first three in full, picked by their order in the contract, at six times the size.
+
+- [#539](https://github.com/OpenAgenda/oa/pull/539) [`adb6e46`](https://github.com/OpenAgenda/oa/commit/adb6e46871317b158c274666ae9b5ca657a5c571) Thanks [@bertho-zero](https://github.com/bertho-zero)! - The `search_docs` validators footer lists the `schemas.z<Name>` of the types the response renders, instead of all 80. A validator parses a shape, and the reader only knows the shapes it was shown; the full list weighed about 1.5 kB on every response.
+
+- Updated dependencies [[`59e3d28`](https://github.com/OpenAgenda/oa/commit/59e3d28691971d2f106ce155d31a882dfae88122), [`87281d9`](https://github.com/OpenAgenda/oa/commit/87281d925abdcf9c5a9cc3fc951f7bbf684dcd38), [`1ca142d`](https://github.com/OpenAgenda/oa/commit/1ca142dab9431fd3ee1fb4e924f10c535da0a7ac), [`af38c9c`](https://github.com/OpenAgenda/oa/commit/af38c9c51888237ffc45eba1847d107cfccbf66f), [`274c4b1`](https://github.com/OpenAgenda/oa/commit/274c4b196794e95203395ab377d64c760cb2067b), [`8e8d4f0`](https://github.com/OpenAgenda/oa/commit/8e8d4f0c92b7ab28fd9df02026078174d34f82d2), [`064b1eb`](https://github.com/OpenAgenda/oa/commit/064b1eb9c2b9c6745d182aa5d75d27fb92c6cdf4), [`3815b54`](https://github.com/OpenAgenda/oa/commit/3815b54ad177370aba3c44e9fd4504ae623529e4), [`d136e2e`](https://github.com/OpenAgenda/oa/commit/d136e2ed9e1decb552cc44c8a20ac3d568013c44), [`63a36f6`](https://github.com/OpenAgenda/oa/commit/63a36f6ae38d1a69f227f087e058d6494606fd97), [`9bb2ff0`](https://github.com/OpenAgenda/oa/commit/9bb2ff0f5b6a7c4b97666609bd23a4cbd6903a16), [`fb673ab`](https://github.com/OpenAgenda/oa/commit/fb673ab31c61b1d6c0d89f99c9f41ceb4fe533bf)]:
+  - @openagenda/api-spec@0.7.0
+
 ## 1.5.1
 
 ### Patch Changes

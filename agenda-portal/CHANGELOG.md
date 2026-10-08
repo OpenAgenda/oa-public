@@ -1,5 +1,15 @@
 # Change Log
 
+## 7.0.2
+
+### Patch Changes
+
+- [#552](https://github.com/OpenAgenda/oa/pull/552) [`ac40f98`](https://github.com/OpenAgenda/oa/commit/ac40f98ed5544f2ba7c9111b3a36ebe673694100) Thanks [@kaore](https://github.com/kaore)! - The server render keeps the `sort` of the page query, as the filters controller now does in the browser, so the list no longer flashes the default order before the one in the URL.
+
+- Updated dependencies [[`c61657f`](https://github.com/OpenAgenda/oa/commit/c61657fda6a76ab18e8e13abf5c9345f889218a9)]:
+  - @openagenda/react-filters@3.2.0
+  - @openagenda/react-shared@3.2.1
+
 ## 7.0.1
 
 ### Patch Changes

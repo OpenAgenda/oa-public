@@ -1,5 +1,135 @@
 # @openagenda/api-spec
 
+## 0.7.0
+
+### Minor Changes
+
+- [#464](https://github.com/OpenAgenda/oa/pull/464) [`87281d9`](https://github.com/OpenAgenda/oa/commit/87281d925abdcf9c5a9cc3fc951f7bbf684dcd38) Thanks [@clement180](https://github.com/clement180)! - Declare the inventory cursor — the field, the two sort values and the filter.
+
+  - `Event.availabilityUpdatedAt`, additive and read-only: the instant OpenAgenda
+    last wrote an availability row of the event — the write clock, not the rows'
+    own `syncedAt`. An availability write does not move `updatedAt`, so a
+    consumer following inventory pages on this stamp instead.
+  - `Sort` gains `availabilityUpdatedAt.asc` and `availabilityUpdatedAt.desc`.
+  - `FilterAvailabilityUpdatedAt`
+    (`availabilityUpdatedAt[gte]=…&availabilityUpdatedAt[lte]=…`) on both event
+    listings, and the same key on `EventFilters`, so the two facet routes accept
+    what `buildEventSearchQuery` already reads.
+
+  Together: `?sort=availabilityUpdatedAt.asc&availabilityUpdatedAt[gte]=<watermark>`.
+  Absent from an event that has never received availability, which is the
+  overwhelming majority; a `[gte]` filter therefore excludes them by
+  construction.
+
+  The stamp is taken at the WRITE and the document is indexed after, so the two
+  orders can differ and re-indexing is best-effort: page with a watermark set a
+  little behind the newest value seen, and keep ingestion idempotent, rather
+  than treating the cursor as exhaustive.
+
+- [#536](https://github.com/OpenAgenda/oa/pull/536) [`1ca142d`](https://github.com/OpenAgenda/oa/commit/1ca142dab9431fd3ee1fb4e924f10c535da0a7ac) Thanks [@kaore](https://github.com/kaore)! - `canonicalUrl` is writable on event create, replace and patch: the event's own page on its publisher's website, as declared by its licensor. Writing back the event's page on OpenAgenda, which reads fall back on, declares nothing and is stored as `null`.
+
+- [#536](https://github.com/OpenAgenda/oa/pull/536) [`af38c9c`](https://github.com/OpenAgenda/oa/commit/af38c9c51888237ffc45eba1847d107cfccbf66f) Thanks [@kaore](https://github.com/kaore)! - Events carry `canonicalUrl`: the address to link to when crediting the event — the page its licensor declared for it, else its page on its origin agenda. The same whichever agenda the event is read through.
+
+- [#488](https://github.com/OpenAgenda/oa/pull/488) [`064b1eb`](https://github.com/OpenAgenda/oa/commit/064b1eb9c2b9c6745d182aa5d75d27fb92c6cdf4) Thanks [@clement180](https://github.com/clement180)! - Declare `offersAggregate.links`, where to book, attributed to its provider.
+
+  One entry per ticketing source carrying a usable URL, in catalogue order,
+  `null` when none does. Additive and read-only.
+
+  The same URLs already reach `registration` as `{type: link}` entries — but
+  stripped of their source, because that field lists ways to sign up rather than
+  mapping ticketing providers. A reader showing one line PER SOURCE could
+  therefore attach no URL to any line. This is that attribution, and nothing
+  more: the URLs are the ones already stored, cleaned by the same rule that
+  decides what reaches `registration`, so the two never disagree on whether a
+  source is linkable.
+
+  EVENT-LEVEL, NEVER PER DATE. Of the six providers, only Eventbrite publishes a
+  per-occurrence URL, it arrives ready-made rather than built, and an
+  availability row cannot carry it — `TimingAvailability` is
+  `additionalProperties: false`. Opening that schema for one provider in six is a
+  heavier decision, worth taking when a connector actually writes.
+
+- [#488](https://github.com/OpenAgenda/oa/pull/488) [`3815b54`](https://github.com/OpenAgenda/oa/commit/3815b54ad177370aba3c44e9fd4504ae623529e4) Thanks [@clement180](https://github.com/clement180)! - Declare `offersAggregate.price`, the event's price bounds.
+
+  Additive and read-only: `{minCents, maxCents, currency}`, computed on each read
+  over the same resolved tier sets as `pricing`, so the two cannot disagree — a
+  `free` event cannot carry a non-zero minimum.
+
+  It closes a hole T16 opened. `priceRanges` was removed on the grounds that "the
+  tiers carry every price, and a consumer wanting 'from X' computes
+  min(tiers[].priceCents)" — but `offers` carries `read: ['internal']`, absent from
+  every public response and undeclared in this document, so that computation was
+  never available to anyone. These bounds are the only figure a public reader
+  gets.
+
+  `null` whenever a single tier cannot be read as an amount, or when the
+  contributing sources do not share a currency: a bound over part of a price list
+  is wrong in both directions. `maxCents` is `null` on a pay-what-you-want tier —
+  open-ended, not unknown.
+
+  `OffersAggregate` is `additionalProperties: false`, so this declaration is what
+  keeps a v3 read of a ticketed event inside the contract.
+
+- [#536](https://github.com/OpenAgenda/oa/pull/536) [`d136e2e`](https://github.com/OpenAgenda/oa/commit/d136e2ed9e1decb552cc44c8a20ac3d568013c44) Thanks [@kaore](https://github.com/kaore)! - Events and the single agenda now carry `rights`: who to credit when reusing them under the Licence Ouverte 2.0.
+
+  On an event, `rights.licensor` is the organisation of the origin agenda, identical whichever agenda the event is read through, and `rights.publisher` the organisation of the agenda read, which licenses its selection and its additional fields. Both always resolve: the organisation named in the agenda's settings, else the agenda's title and website, else its page on OpenAgenda. `rights.license` identifies the licence by its SPDX id. The agenda carries `license` and `publisher`. Neither is set on a private agenda or its events, whose content is not open data: `rights` is `null` there.
+
+- [#464](https://github.com/OpenAgenda/oa/pull/464) [`63a36f6`](https://github.com/OpenAgenda/oa/commit/63a36f6ae38d1a69f227f087e058d6494606fd97) Thanks [@clement180](https://github.com/clement180)! - Declare `Timing.availability` and its `TimingAvailability` row schema.
+
+  Additive and optional: one row per ticketing provider on an occurrence, absent
+  on an occurrence that never received any. `Timing` is `additionalProperties:
+false` and also serves `firstTiming` / `lastTiming` / `nextTiming`, so until
+  this declaration every event carrying inventory failed the contract on all
+  three v3 reads — the same class of gap `Timing.id` closed.
+
+  The field is documented as written by the availability endpoint. An ordinary
+  event write carries the inventory it reads: whatever it sends for an occurrence
+  the event already has is dropped before validation, so it can neither change a
+  row, nor add one, nor clear one with an explicit `[]`. Such a write cannot be
+  told apart from the inventory it merely transports, a connector writing between
+  the moment a client reads an event and the moment its save arrives.
+
+  An occurrence the event does not have yet is the exception, and the only way an
+  ordinary write stores inventory: it has no stored rows to protect, so the rows
+  sent with it are kept when ticketing is enabled on the agenda and answer `422`
+  `offers.disabled` otherwise. An event can still be created with its own
+  inventory in a single call. The description also states the endpoint's URL, its
+  preconditions and its `200 { success: false }` answer, none of which this
+  contract declared.
+
+- [#527](https://github.com/OpenAgenda/oa/pull/527) [`9bb2ff0`](https://github.com/OpenAgenda/oa/commit/9bb2ff0f5b6a7c4b97666609bd23a4cbd6903a16) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Add `keys.verify` (`POST /keys/verify`): check an API key without authenticating with it.
+
+  Send the key in the body and read whether it authenticates, what kind of key it
+  is (`public`, `secret` or `agenda`), who it belongs to, which scopes restrict it
+  and when it expires. A key that does not authenticate answers `200` with
+  `valid: false` and an `error.code` naming the reason: unknown or revoked (or
+  owned by an account that is gone), disabled, expired, allowance used up, stored
+  in a state that cannot be read, or owned by a blacklisted account. A public key
+  names no owner, since it carries no identity.
+
+  The request takes no credential, and the check does not count as a use of the
+  key: the "last used" its owner sees does not move.
+
+  The authentication section of the contract no longer lists its exceptions: an
+  operation that takes another credential, or none, declares it in its own
+  security requirements.
+
+### Patch Changes
+
+- [#518](https://github.com/OpenAgenda/oa/pull/518) [`59e3d28`](https://github.com/OpenAgenda/oa/commit/59e3d28691971d2f106ce155d31a882dfae88122) Thanks [@bertho-zero](https://github.com/bertho-zero)! - A write refuses, with `422`, what it used to drop or reinterpret without a word: an `additionalFields` key the agenda's event form schema does not declare, a choice value that is not an option's `id` (the option's `value` and `""` included; `null` empties a choice), an `accessibility` or an `age` that is not an object or carries a key its schema does not declare, a `location` that carries no readable `uid` wherever the location is optional or a partial update would have kept the stored one, a value that is not a boolean where a boolean is expected, and a number or a boolean where a text is expected, which was written out as a string; `null` still empties a text. `AdditionalFields` and the option `id` of `FormSchemaField` state what the schema cannot. A `location` key other than `uid` is refused as well, and so are a timing key other than `begin`, `end`, `id`, `sourceRef` and `availability`, and a `registration` item that is not an object or carries a key other than `type` and `value`. `EventLocationRef.uid` is at least 1: `0` left the event without a location.
+
+  `ValidationIssue.field` is a dotted path to the value in the request: `additionalFields.thematique` for an additional field, `timings.end`, `age.min`, `image.url` or `location.uid` inside a native one.
+
+  The v2 API's `errors[].field` follows the same paths inside a native field: `timings.begin`, `age.min` or `image.url` where it named `begin`, `min` or `url`, and `location.uid` (or `location.<key>`) where it named `location`.
+
+  On a write, `400` is kept for a request that could not be read - a body that is not valid JSON or not a JSON object, a malformed query parameter - and every refusal that names a field of the body answers `422` with `error.errors[]`. An unknown or read-only top-level key, a key an `image` does not take or both `ref` and `url` at once, an `additionalFields` name colliding with a native field, and an upload with no `file` or a file under another field name answered `400`; they answer `422`. The fields refused before validation are listed together. An upload whose multipart body cannot be read (a part past the size limit, a part without a name) answers `400`; the refusals of an upload carry a `code`: `required`, `file.tooBig`, `file.invalidType` or `file.unexpected`.
+
+- [#541](https://github.com/OpenAgenda/oa/pull/541) [`274c4b1`](https://github.com/OpenAgenda/oa/commit/274c4b196794e95203395ab377d64c760cb2067b) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `agendas.events.list` takes the synonym "relevance", the order its `score` sort gives.
+
+- [#540](https://github.com/OpenAgenda/oa/pull/540) [`8e8d4f0`](https://github.com/OpenAgenda/oa/commit/8e8d4f0c92b7ab28fd9df02026078174d34f82d2) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `me.agendas.list` takes the synonym "my agenda" instead of "find my agenda". The verb credited the operation for any search phrased "find an agenda", which belongs to `agendas.list`.
+
+- [#538](https://github.com/OpenAgenda/oa/pull/538) [`fb673ab`](https://github.com/OpenAgenda/oa/commit/fb673ab31c61b1d6c0d89f99c9f41ceb4fe533bf) Thanks [@bertho-zero](https://github.com/bertho-zero)! - An upload ticket from `agendas.uploads.createTicket` now expires after 15 minutes instead of 5, the window a staged upload already gives to attach its `ref`. `uploads.staged` states that an expired ticket answers `401` and that uploading again takes a new ticket.
+
 ## 0.6.0
 
 ### Minor Changes
