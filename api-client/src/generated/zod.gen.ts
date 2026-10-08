@@ -155,8 +155,7 @@ export const zImage = z.object({
 });
 
 /**
- * The location snapshot an event carries - a nullable subset of the `Location` record. The canonical, full record is the `Location` resource (`GET /agendas/{agendaUid}/locations/{locationUid}`, same `uid`).
- *
+ * The location snapshot an event carries.
  */
 export const zEventLocation = z.object({
     uid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }).readonly().optional(),
@@ -173,7 +172,8 @@ export const zEventLocation = z.object({
     adminLevel3: z.string().nullish(),
     adminLevel5: z.string().nullish(),
     country: zLocalizedString.nullish(),
-    timezone: z.string().nullish()
+    timezone: z.string().nullish(),
+    deleted: z.boolean().readonly()
 });
 
 /**
@@ -213,7 +213,7 @@ export const zLocationAdditionalFields = z.object({
 });
 
 /**
- * Full location representation returned by the single-get endpoint and by the list when `detailed=true` — the canonical record (the events' embedded `EventLocation` is a nullable snapshot of it).
+ * Full location representation returned by the single-get endpoint and by the list when `detailed=true`.
  *
  */
 export const zLocation = z.object({
@@ -819,7 +819,8 @@ export const zImageInput = z.union([
 ]).nullable();
 
 /**
- * A reference to an existing location by its OpenAgenda uid.
+ * A reference to a location by its OpenAgenda uid. A merged location stands for the location that replaced it. A location that does not exist, or has been deleted, is refused with a 422 on `location.uid`; a deleted one is accepted when it is the one the event already has.
+ *
  */
 export const zEventLocationRef = z.object({
     uid: z.coerce.bigint().gte(BigInt(1)).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
@@ -1293,8 +1294,7 @@ export const zFacetResults = z.object({
 });
 
 /**
- * The location snapshot an event carries - a nullable subset of the `Location` record. The canonical, full record is the `Location` resource (`GET /agendas/{agendaUid}/locations/{locationUid}`, same `uid`).
- *
+ * The location snapshot an event carries.
  */
 export const zEventLocationWritable = z.object({
     name: z.string().nullish(),
@@ -1326,7 +1326,7 @@ export const zLocationSummaryWritable = z.object({
 });
 
 /**
- * Full location representation returned by the single-get endpoint and by the list when `detailed=true` — the canonical record (the events' embedded `EventLocation` is a nullable snapshot of it).
+ * Full location representation returned by the single-get endpoint and by the list when `detailed=true`.
  *
  */
 export const zLocationWritable = z.object({

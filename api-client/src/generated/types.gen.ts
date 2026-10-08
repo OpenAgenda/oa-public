@@ -234,8 +234,7 @@ export type Image = {
 };
 
 /**
- * The location snapshot an event carries - a nullable subset of the `Location` record. The canonical, full record is the `Location` resource (`GET /agendas/{agendaUid}/locations/{locationUid}`, same `uid`).
- *
+ * The location snapshot an event carries.
  */
 export type EventLocation = {
     readonly uid?: number;
@@ -262,6 +261,10 @@ export type EventLocation = {
      * IANA time zone of the location.
      */
     timezone?: string | null;
+    /**
+     * Whether the location has been deleted.
+     */
+    readonly deleted: boolean;
 };
 
 /**
@@ -281,7 +284,7 @@ export type LocationSummary = {
 };
 
 /**
- * Full location representation returned by the single-get endpoint and by the list when `detailed=true` — the canonical record (the events' embedded `EventLocation` is a nullable snapshot of it).
+ * Full location representation returned by the single-get endpoint and by the list when `detailed=true`.
  *
  */
 export type Location = {
@@ -1490,7 +1493,8 @@ export type EventPatch = {
 };
 
 /**
- * A reference to an existing location by its OpenAgenda uid.
+ * A reference to a location by its OpenAgenda uid. A merged location stands for the location that replaced it. A location that does not exist, or has been deleted, is refused with a 422 on `location.uid`; a deleted one is accepted when it is the one the event already has.
+ *
  */
 export type EventLocationRef = {
     uid: number;
@@ -1947,8 +1951,7 @@ export type Timespan = {
 };
 
 /**
- * The location snapshot an event carries - a nullable subset of the `Location` record. The canonical, full record is the `Location` resource (`GET /agendas/{agendaUid}/locations/{locationUid}`, same `uid`).
- *
+ * The location snapshot an event carries.
  */
 export type EventLocationWritable = {
     name?: string | null;
@@ -1992,7 +1995,7 @@ export type LocationSummaryWritable = {
 };
 
 /**
- * Full location representation returned by the single-get endpoint and by the list when `detailed=true` — the canonical record (the events' embedded `EventLocation` is a nullable snapshot of it).
+ * Full location representation returned by the single-get endpoint and by the list when `detailed=true`.
  *
  */
 export type LocationWritable = {
