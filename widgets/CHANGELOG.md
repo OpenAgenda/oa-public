@@ -1,5 +1,12 @@
 # @openagenda/widgets
 
+## 0.2.3
+
+### Patch Changes
+
+- Updated dependencies [[`700e398`](https://github.com/OpenAgenda/oa/commit/700e3986d94e2bf8db9e60c7e31c830170edd37f)]:
+  - @openagenda/react@0.4.1
+
 ## 0.2.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @openagenda/react
 
+## 0.4.1
+
+### Patch Changes
+
+- [#565](https://github.com/OpenAgenda/oa/pull/565) [`700e398`](https://github.com/OpenAgenda/oa/commit/700e3986d94e2bf8db9e60c7e31c830170edd37f) Thanks [@kaore](https://github.com/kaore)! - The "About: licence and credits" section of `AgendaExportModal` calls the party to credit for each event its licensor, as the export columns do. The agenda that publishes the events is still named, but as information only: the licence does not ask for it to be credited.
+
 ## 0.4.0
 
 ### Minor Changes
