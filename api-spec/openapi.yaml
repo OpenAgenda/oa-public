@@ -5742,8 +5742,7 @@ components:
             and keeps its stored rows, declaration or not. This is what makes the
             field usable at all: a timings write is a full replacement, so
             correcting one date means sending the others back, and their silence
-            must not delete anything. The scope is declared per event; the
-            payload's authority applies per occurrence.
+            must not delete anything.
 
 
             Declared PER EVENT, not per occurrence: it scopes which sources the
@@ -5752,11 +5751,11 @@ components:
 
             Requires ticketing enabled on the agenda, failing which a non-empty
             value answers `422` `offers.disabled` — declaring a scope is writing
-            ticketing. A name outside the enum answers `422`
-            `offers.provider.invalid`; the same name twice, `422`
-            `offers.duplicate`; a value that is not an array of names, `422`
-            `availability.authority.invalid`. An empty array claims nothing and
-            behaves exactly like omitting the field.
+            ticketing. AN ENTRY that is not one of these names answers
+            `422` `offers.provider.invalid`, whatever its type; the same name
+            twice, `422` `offers.duplicate`; and a value that is not an array
+            at all, `422` `availability.authority.invalid`. An empty array
+            claims nothing and behaves exactly like omitting the field.
 
 
             IT GOVERNS ONLY THE `timings` THIS BODY SENDS. A body that does not
@@ -5905,8 +5904,7 @@ components:
             and keeps its stored rows, declaration or not. This is what makes the
             field usable at all: a timings write is a full replacement, so
             correcting one date means sending the others back, and their silence
-            must not delete anything. The scope is declared per event; the
-            payload's authority applies per occurrence.
+            must not delete anything.
 
 
             Declared PER EVENT, not per occurrence: it scopes which sources the
@@ -5915,11 +5913,11 @@ components:
 
             Requires ticketing enabled on the agenda, failing which a non-empty
             value answers `422` `offers.disabled` — declaring a scope is writing
-            ticketing. A name outside the enum answers `422`
-            `offers.provider.invalid`; the same name twice, `422`
-            `offers.duplicate`; a value that is not an array of names, `422`
-            `availability.authority.invalid`. An empty array claims nothing and
-            behaves exactly like omitting the field.
+            ticketing. AN ENTRY that is not one of these names answers
+            `422` `offers.provider.invalid`, whatever its type; the same name
+            twice, `422` `offers.duplicate`; and a value that is not an array
+            at all, `422` `availability.authority.invalid`. An empty array
+            claims nothing and behaves exactly like omitting the field.
 
 
             IT GOVERNS ONLY THE `timings` THIS BODY SENDS. A body that does not
