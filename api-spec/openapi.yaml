@@ -5713,7 +5713,7 @@ components:
           items:
             $ref: '#/components/schemas/Timing'
         availabilityAuthority:
-          type: array
+          type: [array, 'null']
           maxItems: 7
           uniqueItems: true
           items:
@@ -5753,9 +5753,12 @@ components:
             value answers `422` `offers.disabled` — declaring a scope is writing
             ticketing. AN ENTRY that is not one of these names answers
             `422` `offers.provider.invalid`, whatever its type; the same name
-            twice, `422` `offers.duplicate`; and a value that is not an array
-            at all, `422` `availability.authority.invalid`. An empty array
-            claims nothing and behaves exactly like omitting the field.
+            twice, `422` `offers.duplicate`; more entries than there are
+            providers, one `422` `availability.authority.tooMany` for the array
+            and no per-entry refusal; and a value that is not an array at all,
+            `422` `availability.authority.invalid`. An empty array claims
+            nothing and behaves exactly like omitting the field, and so does
+            `null`.
 
 
             IT GOVERNS ONLY THE `timings` THIS BODY SENDS. A body that does not
@@ -5875,7 +5878,7 @@ components:
           items:
             $ref: '#/components/schemas/Timing'
         availabilityAuthority:
-          type: array
+          type: [array, 'null']
           maxItems: 7
           uniqueItems: true
           items:
@@ -5915,9 +5918,12 @@ components:
             value answers `422` `offers.disabled` — declaring a scope is writing
             ticketing. AN ENTRY that is not one of these names answers
             `422` `offers.provider.invalid`, whatever its type; the same name
-            twice, `422` `offers.duplicate`; and a value that is not an array
-            at all, `422` `availability.authority.invalid`. An empty array
-            claims nothing and behaves exactly like omitting the field.
+            twice, `422` `offers.duplicate`; more entries than there are
+            providers, one `422` `availability.authority.tooMany` for the array
+            and no per-entry refusal; and a value that is not an array at all,
+            `422` `availability.authority.invalid`. An empty array claims
+            nothing and behaves exactly like omitting the field, and so does
+            `null`.
 
 
             IT GOVERNS ONLY THE `timings` THIS BODY SENDS. A body that does not
