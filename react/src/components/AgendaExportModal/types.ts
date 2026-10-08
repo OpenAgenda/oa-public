@@ -7,7 +7,9 @@ export type CompleteUrlsResult = {
     pdf: string;
     docx: string;
     xlsx: string;
+    // the subscription feed (calendar apps), and the one-off file
     ics: string;
+    icsFile: string;
     csv: string;
     rss: string;
     embed: string;

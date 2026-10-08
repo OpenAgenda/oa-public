@@ -48,17 +48,26 @@ function completeUrls(
   rootUrl = 'https://openagenda.com',
   apiRootUrl = 'https://api.openagenda.com',
 ): CompleteUrlsResult {
-  const apiQuery = {
-    ...isUpcomingOnlyQuery(query, agenda)
+  const apiQueryFor = (upcomingOnly: boolean) => ({
+    ...upcomingOnly
       ? {
         relative: ['current', 'upcoming'],
       }
       : null,
     ...query,
     passed: undefined, // omit passed
-  };
+  });
+
+  // A one-off file holds what the listing shows: an agenda whose events are
+  // all past exports them. A feed — a calendar subscription, the RSS, the
+  // JSON an integrator polls — keeps the default upcoming window: its URL
+  // outlives the agenda's current state, and must bring the upcoming events
+  // back once the agenda has some again.
+  const apiQuery = apiQueryFor(isUpcomingOnlyQuery(query, agenda));
+  const feedQuery = apiQueryFor(isUpcomingOnlyQuery(query));
 
   const apiQueryString = qs.stringify(apiQuery, { addQueryPrefix: true });
+  const feedQueryString = qs.stringify(feedQuery, { addQueryPrefix: true });
   const embedQueryString = qs.stringify(query, { addQueryPrefix: true });
   const countQueryString = qs.stringify(
     { ...apiQuery, size: 0 },
@@ -74,13 +83,14 @@ function completeUrls(
     count: `${rootUrl}/api/agendas/${agenda.uid}/events${countQueryString}`,
     me: '/api/me',
     export: {
-      jsonV2: `${apiRootUrl}/v2/agendas/${agenda.uid}/events${apiQueryString}`,
+      jsonV2: `${apiRootUrl}/v2/agendas/${agenda.uid}/events${feedQueryString}`,
       pdf: `${rootUrl}/agendas/${agenda.uid}/events.v2.pdf${apiQueryString}`,
       docx: `${rootUrl}/agendas/${agenda.uid}/events.v2.docx${apiQueryString}`,
       xlsx: `${rootUrl}/agendas/${agenda.uid}/events.v2.xlsx${apiQueryString}`,
-      ics: `${rootUrl}/agendas/${agenda.uid}/events.v2.ics${apiQueryString}`,
+      ics: `${rootUrl}/agendas/${agenda.uid}/events.v2.ics${feedQueryString}`,
+      icsFile: `${rootUrl}/agendas/${agenda.uid}/events.v2.ics${apiQueryString}`,
       csv: `${rootUrl}/agendas/${agenda.uid}/events.v2.csv${apiQueryString}`,
-      rss: `${rootUrl}/agendas/${agenda.uid}/events.v2.rss${apiQueryString}`,
+      rss: `${rootUrl}/agendas/${agenda.uid}/events.v2.rss${feedQueryString}`,
       embed: `${rootUrl}/agendas/${agenda.uid}${embedQueryString}`,
     },
   };
@@ -176,7 +186,7 @@ export default function Body({
 
   const handleIcsSubmit: IcsSubmitHandler = (e) => {
     e.preventDefault();
-    window.open(new URL(res.export.ics), '_blank');
+    window.open(new URL(res.export.icsFile), '_blank');
     onClose();
   };
 
