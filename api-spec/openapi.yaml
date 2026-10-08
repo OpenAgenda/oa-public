@@ -5715,6 +5715,7 @@ components:
         availabilityAuthority:
           type: array
           maxItems: 7
+          uniqueItems: true
           items:
             $ref: '#/components/schemas/TicketingProvider'
           description: >
@@ -5877,6 +5878,7 @@ components:
         availabilityAuthority:
           type: array
           maxItems: 7
+          uniqueItems: true
           items:
             $ref: '#/components/schemas/TicketingProvider'
           description: >
