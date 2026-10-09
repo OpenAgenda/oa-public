@@ -93,7 +93,7 @@ export class Events extends HeyApiClient {
     /**
      * Validate an event without creating it
      *
-     * Validates the body without persisting anything. A valid body answers `200 { "valid": true }`; an invalid one answers `422` with per-field problems under `error.errors[]`.
+     * Checks the body as creating the event in this agenda would - the caller's right to create, the fields the agenda requires, every field value - without creating anything. A valid body answers `200 { "valid": true }`; an invalid one answers `422` with per-field problems under `error.errors[]`, and a caller who may not create gets `403`.
      *
      * A native `image: { url }` is checked for URL syntax only (an `http(s)` URL without embedded credentials): the URL is not fetched, so a URL that create rejects with `422` at fetch time (unreachable host, private address, over 20 MiB, not an image) passes validate. The image counts as present, so an agenda whose schema requires one validates as it would create.
      *
