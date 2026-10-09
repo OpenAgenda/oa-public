@@ -1534,7 +1534,7 @@ export const zAgendaUid = z.coerce.bigint().min(BigInt('-9223372036854775808'), 
 export const zEventUid = z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' });
 
 /**
- * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
+ * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
  *
  */
 export const zExtKey = z.string();

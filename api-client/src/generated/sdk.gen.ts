@@ -426,7 +426,7 @@ export class Locations extends HeyApiClient {
     /**
      * Delete a location by external id
      *
-     * Deletes the location that carries the `(extKey, extId)` pair. The events located there keep it unless `withEvents` is set.
+     * Deletes the location that carries the `(extKey, extId)` pair, among the locations of the agenda, or of its shared location set when it has one. The events located there keep it unless `withEvents` is set.
      *
      * The acting member must be an administrator or a moderator of the agenda. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow deleting locations.
      *
@@ -460,7 +460,7 @@ export class Locations extends HeyApiClient {
     /**
      * Partially update a location by external id
      *
-     * Changes the fields the body carries on the location that carries the `(extKey, extId)` pair. `extIds` in the body are merged by key with the stored ones; an empty array leaves them as they are, and a mapping under the key `extKey` with a value other than `extId` is refused with `422`.
+     * Changes the fields the body carries on the location that carries the `(extKey, extId)` pair, among the locations of the agenda, or of its shared location set when it has one. `extIds` in the body are merged by key with the stored ones; an empty array leaves them as they are, and a mapping under the key `extKey` with a value other than `extId` is refused with `422`.
      *
      * The acting member must be an administrator or a moderator of the agenda. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow editing locations.
      *
@@ -480,11 +480,11 @@ export class Locations extends HeyApiClient {
     /**
      * Upsert a location by external id
      *
-     * Replaces the location that carries the `(extKey, extId)` pair with the body and answers `200`, or creates a location carrying it and answers `201`. A pair only deleted locations carry gets a new location; when one of them is merged into another one, the request answers `404` instead. The pair joins the body's `extIds`, which are merged by key with the stored ones; a mapping under the key `extKey` with a value other than `extId` is refused with `422`.
+     * Replaces the location that carries the `(extKey, extId)` pair with the body and answers `200`, or creates a location carrying it and answers `201`. The pair is looked up among the locations of the agenda, or of its shared location set when it has one. A pair only deleted locations carry gets a new location; when one of them is merged into another one, the request answers `404` instead. The pair joins the body's `extIds`, which are merged by key with the stored ones; a mapping under the key `extKey` with a value other than `extId` is refused with `422`.
      *
-     * On a replace, a `LocationInput` field the body leaves out is emptied, except `extIds` and what the geocoding fills in from the position. That is looked up again when the address, the country code or the coordinates change, or when the location lacks its city, department or region, and kept otherwise, as it is when the geocoder fails. Coordinates the body sends back unchanged next to a new address or country code follow them. On a create, the coordinates, the administrative levels, the postal code, the time zone and the INSEE code the body leaves out are filled in from the coordinates when the body carries them, from the address otherwise.
+     * On a replace, a `LocationInput` field the body leaves out is emptied, except `extIds` and what the geocoding fills in from the position. What the geocoding fills in is looked up again when the address, the country code or the coordinates change, or when the location lacks its city, department or region, and kept otherwise, as it is when the geocoder fails. Coordinates the body sends back unchanged next to a new address or country code follow them. On a create, the coordinates, the administrative levels, the postal code, the time zone and the INSEE code the body leaves out are filled in from the coordinates when the body carries them, from the address otherwise.
      *
-     * Replacing takes an administrator or a moderator of the agenda. Creating takes a contributor or above; on an agenda open to contributions that asks no member information, a user who is not a member becomes its contributor by creating a location. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow the write. `verified` is set by an administrator or a moderator: from anyone else, a body carrying it is refused with `422`.
+     * Replacing, or writing a pair a merged location carries, takes an administrator or a moderator of the agenda. Creating takes a contributor or above; on an agenda open to contributions that asks no member information, a user who is not a member becomes its contributor by creating a location. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow the write. `verified` is set by an administrator or a moderator: from anyone else, a body carrying it is refused with `422`.
      *
      */
     public setByExtId<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsSetByExtIdData, ThrowOnError>) {
@@ -556,7 +556,7 @@ export class Locations extends HeyApiClient {
     /**
      * Replace a location
      *
-     * Replaces the location with the body. A `LocationInput` field the body leaves out is emptied, except `extIds` and `verified`, which a body without them keeps, and what the geocoding fills in from the position: the coordinates, the administrative levels, the postal code, the time zone and the INSEE code. These are looked up again when the address, the country code or the coordinates change - the values the body sends back unchanged, the country code included, then follow the new place - and at the point when the city, department or region is missing.
+     * Replaces the location with the body. A `LocationInput` field the body leaves out is emptied, except `extIds`, which a body without them keeps, and what the geocoding fills in from the position. What the geocoding fills in is looked up again when the address, the country code or the coordinates change, or when the location lacks its city, department or region, and kept otherwise, as it is when the geocoder fails. Next to a new address, country code or coordinates, what the geocoding fills in that the body sends back unchanged follows the new place.
      *
      * The acting member must be an administrator or a moderator of the agenda. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow editing locations.
      *

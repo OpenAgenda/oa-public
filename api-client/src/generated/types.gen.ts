@@ -2302,7 +2302,7 @@ export type AgendaUid = number;
 export type EventUid = number;
 
 /**
- * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
+ * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
  *
  */
 export type ExtKey = string;
@@ -3406,7 +3406,7 @@ export type AgendasEventsDeleteByExtIdData = {
          */
         agendaUid: number;
         /**
-         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
+         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
          *
          */
         extKey: string;
@@ -3454,7 +3454,7 @@ export type AgendasEventsGetByExtIdData = {
          */
         agendaUid: number;
         /**
-         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
+         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
          *
          */
         extKey: string;
@@ -3502,7 +3502,7 @@ export type AgendasEventsPatchByExtIdData = {
          */
         agendaUid: number;
         /**
-         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
+         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
          *
          */
         extKey: string;
@@ -3563,7 +3563,7 @@ export type AgendasEventsSetByExtIdData = {
          */
         agendaUid: number;
         /**
-         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
+         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
          *
          */
         extKey: string;
@@ -4342,7 +4342,7 @@ export type AgendasLocationsDeleteByExtIdData = {
          */
         agendaUid: number;
         /**
-         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
+         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
          *
          */
         extKey: string;
@@ -4396,7 +4396,7 @@ export type AgendasLocationsGetByExtIdData = {
          */
         agendaUid: number;
         /**
-         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
+         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
          *
          */
         extKey: string;
@@ -4445,7 +4445,7 @@ export type AgendasLocationsPatchByExtIdData = {
          */
         agendaUid: number;
         /**
-         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
+         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
          *
          */
         extKey: string;
@@ -4503,7 +4503,7 @@ export type AgendasLocationsSetByExtIdData = {
          */
         agendaUid: number;
         /**
-         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
+         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
          *
          */
         extKey: string;
@@ -4532,7 +4532,7 @@ export type AgendasLocationsSetByExtIdErrors = {
      */
     403: Error;
     /**
-     * Agenda not found, or the pair belongs to a location merged into another one: the answer identifies the surviving one, so a stale reference can be repaired. Nothing is created.
+     * Agenda not found, or a location merged into another one carries the pair: the answer identifies the surviving one, so a stale reference can be repaired. Nothing is created.
      *
      */
     404: Error | MergedLocationError;
