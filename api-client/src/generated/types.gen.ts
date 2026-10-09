@@ -1355,7 +1355,7 @@ export type EventInput = {
     /**
      * The ticketing sources THIS WRITE is authoritative for — the one way an ordinary event write may change, add or clear the inventory of an occurrence the event already has.
      *
-     * For a provider named here the payload is law on every occurrence that NAMES `availability`: a row present in that array is written, a row absent from it is a removal, and an explicit `[]` removes every provider the write claims. For a provider NOT named here, nothing the write sends is applied to an occurrence the event ALREADY HAS: its stored rows are kept, so a connector cannot wipe the source a peer has just pushed and that it does not know about.
+     * For a provider named here the payload is law on every occurrence that NAMES `availability`: a row present in that array is written, a row absent from it is a removal, and an explicit `[]` removes every provider the write claims. For a provider NOT named here, nothing the write sends is applied to an occurrence the event ALREADY HAS: its stored rows are kept, so a connector cannot wipe the source a peer has just pushed and that it does not know about. Those rows are dropped BEFORE the body is judged, so they are not critiqued field by field either: a connector may send a peer's row back exactly as it read it.
      *
      * On an occurrence the event does not have yet there are no stored rows to protect, and the seeding rules above apply unchanged — every row sent with it is kept, claimed or not.
      *
@@ -1438,7 +1438,7 @@ export type EventPatch = {
     /**
      * The ticketing sources THIS WRITE is authoritative for — the one way an ordinary event write may change, add or clear the inventory of an occurrence the event already has.
      *
-     * For a provider named here the payload is law on every occurrence that NAMES `availability`: a row present in that array is written, a row absent from it is a removal, and an explicit `[]` removes every provider the write claims. For a provider NOT named here, nothing the write sends is applied to an occurrence the event ALREADY HAS: its stored rows are kept, so a connector cannot wipe the source a peer has just pushed and that it does not know about.
+     * For a provider named here the payload is law on every occurrence that NAMES `availability`: a row present in that array is written, a row absent from it is a removal, and an explicit `[]` removes every provider the write claims. For a provider NOT named here, nothing the write sends is applied to an occurrence the event ALREADY HAS: its stored rows are kept, so a connector cannot wipe the source a peer has just pushed and that it does not know about. Those rows are dropped BEFORE the body is judged, so they are not critiqued field by field either: a connector may send a peer's row back exactly as it read it.
      *
      * On an occurrence the event does not have yet there are no stored rows to protect, and the seeding rules above apply unchanged — every row sent with it is kept, claimed or not.
      *
