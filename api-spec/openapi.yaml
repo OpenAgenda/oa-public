@@ -5730,7 +5730,9 @@ components:
             provider the write claims. For a provider NOT named here, nothing the
             write sends is applied to an occurrence the event ALREADY HAS: its
             stored rows are kept, so a connector cannot wipe the source a peer has
-            just pushed and that it does not know about.
+            just pushed and that it does not know about. Those rows are dropped
+            BEFORE the body is judged, so they are not critiqued field by field
+            either: a connector may send a peer's row back exactly as it read it.
 
 
             On an occurrence the event does not have yet there are no stored rows
@@ -5895,7 +5897,9 @@ components:
             provider the write claims. For a provider NOT named here, nothing the
             write sends is applied to an occurrence the event ALREADY HAS: its
             stored rows are kept, so a connector cannot wipe the source a peer has
-            just pushed and that it does not know about.
+            just pushed and that it does not know about. Those rows are dropped
+            BEFORE the body is judged, so they are not critiqued field by field
+            either: a connector may send a peer's row back exactly as it read it.
 
 
             On an occurrence the event does not have yet there are no stored rows
