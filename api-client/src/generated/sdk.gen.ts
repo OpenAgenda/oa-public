@@ -536,7 +536,7 @@ export class Locations extends HeyApiClient {
     /**
      * Partially update a location
      *
-     * Changes the fields the body carries. An empty `extIds` in the body leaves the stored ones as they are, unless `mergeExtIds` is `false`.
+     * Changes the fields the body carries. `extIds` in the body are merged by key with the stored ones, so an empty array leaves them as they are; with `mergeExtIds` set to `false`, they replace the stored ones.
      *
      * The acting member must be an administrator or a moderator of the agenda. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow editing locations.
      *
@@ -556,7 +556,9 @@ export class Locations extends HeyApiClient {
     /**
      * Replace a location
      *
-     * Replaces the location with the body. A `LocationInput` field the body leaves out is emptied, except `extIds`, which a body without them keeps, and what the geocoding fills in from the position. What the geocoding fills in is looked up again when the address, the country code or the coordinates change, or when the location lacks its city, department or region, and kept otherwise, as it is when the geocoder fails. Next to a new address, country code or coordinates, what the geocoding fills in that the body sends back unchanged follows the new place.
+     * Replaces the location with the body. A `LocationInput` field the body leaves out is emptied, except `extIds` and what the geocoding fills in from the position. What the geocoding fills in is looked up again when the address, the country code or the coordinates change, or when the location lacks its city, department or region, and kept otherwise, as it is when the geocoder fails. Next to a new address, country code or coordinates, what the geocoding fills in that the body sends back unchanged follows the new place.
+     *
+     * `extIds` in the body are merged by key with the stored ones, so an empty array leaves them as they are; with `mergeExtIds` set to `false`, they replace the stored ones. A body without `extIds` keeps them either way.
      *
      * The acting member must be an administrator or a moderator of the agenda. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow editing locations.
      *
