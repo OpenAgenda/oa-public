@@ -365,6 +365,120 @@ export type LocationAdditionalFields = {
     [key: string]: unknown;
 };
 
+/**
+ * Request body for creating or replacing a location: the fields a client may set. Any other key - a read-only field such as `uid` or `slug`, an unknown name - is refused with `422`, as is a field value the server rejects, with per-field `error.errors[]`. A place the geocoder cannot find is refused with `422`, on the address, the country code or the coordinates the body changes.
+ *
+ */
+export type LocationInput = {
+    name: string;
+    address: string;
+    city?: string | null;
+    district?: string | null;
+    /**
+     * In France, written under the official label of the region, the one the INSEE code names when they disagree.
+     *
+     */
+    region?: string | null;
+    /**
+     * In France, written under the official label of the department, the one the INSEE code names when they disagree.
+     *
+     */
+    department?: string | null;
+    adminLevel3?: string | null;
+    adminLevel5?: string | null;
+    postalCode?: string | null;
+    /**
+     * INSEE code of the French municipality.
+     */
+    insee?: string | null;
+    /**
+     * ISO 3166-1 alpha-2 country code.
+     */
+    countryCode: string;
+    latitude?: number;
+    longitude?: number;
+    /**
+     * IANA time zone of the location.
+     */
+    timezone?: string | null;
+    description?: LocalizedString;
+    /**
+     * Localized practical information on how to reach the location.
+     *
+     */
+    access?: LocalizedString;
+    website?: string | null;
+    email?: string | null;
+    phone?: string | null;
+    links?: Array<string>;
+    extIds?: Array<LocationExtId>;
+    /**
+     * SIRET number (French establishment id) of the location's operator.
+     */
+    siret?: string | null;
+    /**
+     * Whether the location is verified.
+     */
+    verified?: boolean;
+};
+
+/**
+ * Partial update body. A new address, country code or coordinates are geocoded: the coordinates, the postal code and the INSEE code the body leaves out follow the place found. A place the geocoder cannot find is refused with `422`, on the address, the country code or the coordinates the body changes.
+ *
+ */
+export type LocationPatch = {
+    name?: string;
+    address?: string;
+    city?: string | null;
+    district?: string | null;
+    /**
+     * In France, written under the official label of the region, the one the INSEE code names when they disagree.
+     *
+     */
+    region?: string | null;
+    /**
+     * In France, written under the official label of the department, the one the INSEE code names when they disagree.
+     *
+     */
+    department?: string | null;
+    adminLevel3?: string | null;
+    adminLevel5?: string | null;
+    postalCode?: string | null;
+    /**
+     * INSEE code of the French municipality.
+     */
+    insee?: string | null;
+    /**
+     * ISO 3166-1 alpha-2 country code.
+     */
+    countryCode?: string;
+    latitude?: number;
+    longitude?: number;
+    /**
+     * IANA time zone of the location.
+     */
+    timezone?: string | null;
+    description?: LocalizedString;
+    /**
+     * Localized practical information on how to reach the location.
+     *
+     */
+    access?: LocalizedString;
+    website?: string | null;
+    email?: string | null;
+    phone?: string | null;
+    links?: Array<string>;
+    extIds?: Array<LocationExtId>;
+    /**
+     * SIRET number (French establishment id) of the location's operator.
+     */
+    siret?: string | null;
+    /**
+     * Whether the location is verified.
+     */
+    verified?: boolean;
+};
+
 export type LocationList = {
     /**
      * `LocationSummary` items by default, or full `Location` items when `detailed=true`.
@@ -2200,7 +2314,7 @@ export type ExtKey = string;
 export type ExtIdValue = string;
 
 /**
- * On the by-uid `PUT`, whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`). A `PATCH` merges a non-empty `extIds` whatever this parameter says; an empty array clears the stored mappings.
+ * Whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`).
  *
  */
 export type MergeExtIds = boolean;
@@ -2273,6 +2387,12 @@ export type AgendaFilterOfficial = boolean;
  * Numeric uid of the location.
  */
 export type LocationUid = number;
+
+/**
+ * Whether the events located at the location are deleted with it, whichever agenda they belong to.
+ *
+ */
+export type WithEvents = boolean;
 
 /**
  * Free-text search over the locations' name, address, city, region and department.
@@ -3184,7 +3304,7 @@ export type AgendasEventsPatchData = {
     };
     query?: {
         /**
-         * On the by-uid `PUT`, whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`). A `PATCH` merges a non-empty `extIds` whatever this parameter says; an empty array clears the stored mappings.
+         * Whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`).
          *
          */
         mergeExtIds?: boolean;
@@ -3241,7 +3361,7 @@ export type AgendasEventsUpdateData = {
     };
     query?: {
         /**
-         * On the by-uid `PUT`, whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`). A `PATCH` merges a non-empty `extIds` whatever this parameter says; an empty array clears the stored mappings.
+         * Whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`).
          *
          */
         mergeExtIds?: boolean;
@@ -4173,6 +4293,53 @@ export type AgendasLocationsListResponses = {
 
 export type AgendasLocationsListResponse = AgendasLocationsListResponses[keyof AgendasLocationsListResponses];
 
+export type AgendasLocationsCreateData = {
+    body: LocationInput;
+    path: {
+        /**
+         * Numeric uid of the agenda.
+         */
+        agendaUid: number;
+    };
+    query?: never;
+    url: '/agendas/{agendaUid}/locations';
+};
+
+export type AgendasLocationsCreateErrors = {
+    /**
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
+     *
+     */
+    400: Error | ValidationError;
+    /**
+     * The request carries no credential this operation accepts.
+     */
+    401: Error;
+    /**
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     */
+    403: Error;
+    /**
+     * No resource answers this identifier.
+     */
+    404: Error;
+    /**
+     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
+     */
+    422: ValidationError;
+};
+
+export type AgendasLocationsCreateError = AgendasLocationsCreateErrors[keyof AgendasLocationsCreateErrors];
+
+export type AgendasLocationsCreateResponses = {
+    /**
+     * The created location.
+     */
+    201: Location;
+};
+
+export type AgendasLocationsCreateResponse = AgendasLocationsCreateResponses[keyof AgendasLocationsCreateResponses];
+
 export type AgendasLocationsGetByExtIdData = {
     body?: never;
     path: {
@@ -4222,6 +4389,60 @@ export type AgendasLocationsGetByExtIdResponses = {
 
 export type AgendasLocationsGetByExtIdResponse = AgendasLocationsGetByExtIdResponses[keyof AgendasLocationsGetByExtIdResponses];
 
+export type AgendasLocationsDeleteData = {
+    body?: never;
+    path: {
+        /**
+         * Numeric uid of the agenda.
+         */
+        agendaUid: number;
+        /**
+         * Numeric uid of the location.
+         */
+        locationUid: number;
+    };
+    query?: {
+        /**
+         * Whether the events located at the location are deleted with it, whichever agenda they belong to.
+         *
+         */
+        withEvents?: boolean;
+    };
+    url: '/agendas/{agendaUid}/locations/{locationUid}';
+};
+
+export type AgendasLocationsDeleteErrors = {
+    /**
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
+     *
+     */
+    400: Error | ValidationError;
+    /**
+     * The request carries no credential this operation accepts.
+     */
+    401: Error;
+    /**
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     */
+    403: Error;
+    /**
+     * Agenda or location not found. A location merged into another one answers here too, and identifies the surviving one so a stale reference can be repaired.
+     *
+     */
+    404: Error | MergedLocationError;
+};
+
+export type AgendasLocationsDeleteError = AgendasLocationsDeleteErrors[keyof AgendasLocationsDeleteErrors];
+
+export type AgendasLocationsDeleteResponses = {
+    /**
+     * The location was deleted.
+     */
+    200: DeletionResult;
+};
+
+export type AgendasLocationsDeleteResponse = AgendasLocationsDeleteResponses[keyof AgendasLocationsDeleteResponses];
+
 export type AgendasLocationsGetData = {
     body?: never;
     path: {
@@ -4269,6 +4490,116 @@ export type AgendasLocationsGetResponses = {
 };
 
 export type AgendasLocationsGetResponse = AgendasLocationsGetResponses[keyof AgendasLocationsGetResponses];
+
+export type AgendasLocationsPatchData = {
+    body: LocationPatch;
+    path: {
+        /**
+         * Numeric uid of the agenda.
+         */
+        agendaUid: number;
+        /**
+         * Numeric uid of the location.
+         */
+        locationUid: number;
+    };
+    query?: never;
+    url: '/agendas/{agendaUid}/locations/{locationUid}';
+};
+
+export type AgendasLocationsPatchErrors = {
+    /**
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
+     *
+     */
+    400: Error | ValidationError;
+    /**
+     * The request carries no credential this operation accepts.
+     */
+    401: Error;
+    /**
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     */
+    403: Error;
+    /**
+     * Agenda or location not found. A location merged into another one answers here too, and identifies the surviving one so a stale reference can be repaired.
+     *
+     */
+    404: Error | MergedLocationError;
+    /**
+     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
+     */
+    422: ValidationError;
+};
+
+export type AgendasLocationsPatchError = AgendasLocationsPatchErrors[keyof AgendasLocationsPatchErrors];
+
+export type AgendasLocationsPatchResponses = {
+    /**
+     * The updated location.
+     */
+    200: Location;
+};
+
+export type AgendasLocationsPatchResponse = AgendasLocationsPatchResponses[keyof AgendasLocationsPatchResponses];
+
+export type AgendasLocationsUpdateData = {
+    body: LocationInput;
+    path: {
+        /**
+         * Numeric uid of the agenda.
+         */
+        agendaUid: number;
+        /**
+         * Numeric uid of the location.
+         */
+        locationUid: number;
+    };
+    query?: {
+        /**
+         * Whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`).
+         *
+         */
+        mergeExtIds?: boolean;
+    };
+    url: '/agendas/{agendaUid}/locations/{locationUid}';
+};
+
+export type AgendasLocationsUpdateErrors = {
+    /**
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
+     *
+     */
+    400: Error | ValidationError;
+    /**
+     * The request carries no credential this operation accepts.
+     */
+    401: Error;
+    /**
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     */
+    403: Error;
+    /**
+     * Agenda or location not found. A location merged into another one answers here too, and identifies the surviving one so a stale reference can be repaired.
+     *
+     */
+    404: Error | MergedLocationError;
+    /**
+     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
+     */
+    422: ValidationError;
+};
+
+export type AgendasLocationsUpdateError = AgendasLocationsUpdateErrors[keyof AgendasLocationsUpdateErrors];
+
+export type AgendasLocationsUpdateResponses = {
+    /**
+     * The updated location.
+     */
+    200: Location;
+};
+
+export type AgendasLocationsUpdateResponse = AgendasLocationsUpdateResponses[keyof AgendasLocationsUpdateResponses];
 
 export type KeysVerifyData = {
     body: {

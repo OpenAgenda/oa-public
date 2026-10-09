@@ -249,6 +249,66 @@ export const zLocation = z.object({
     updatedAt: z.string().datetime({ offset: true }).readonly()
 });
 
+/**
+ * Request body for creating or replacing a location: the fields a client may set. Any other key - a read-only field such as `uid` or `slug`, an unknown name - is refused with `422`, as is a field value the server rejects, with per-field `error.errors[]`. A place the geocoder cannot find is refused with `422`, on the address, the country code or the coordinates the body changes.
+ *
+ */
+export const zLocationInput = z.object({
+    name: z.string(),
+    address: z.string(),
+    city: z.string().nullish(),
+    district: z.string().nullish(),
+    region: z.string().nullish(),
+    department: z.string().nullish(),
+    adminLevel3: z.string().nullish(),
+    adminLevel5: z.string().nullish(),
+    postalCode: z.string().nullish(),
+    insee: z.string().nullish(),
+    countryCode: z.string(),
+    latitude: z.number().optional(),
+    longitude: z.number().optional(),
+    timezone: z.string().nullish(),
+    description: zLocalizedString.optional(),
+    access: zLocalizedString.optional(),
+    website: z.string().nullish(),
+    email: z.string().nullish(),
+    phone: z.string().nullish(),
+    links: z.array(z.string()).optional(),
+    extIds: z.array(zLocationExtId).optional(),
+    siret: z.string().nullish(),
+    verified: z.boolean().optional()
+});
+
+/**
+ * Partial update body. A new address, country code or coordinates are geocoded: the coordinates, the postal code and the INSEE code the body leaves out follow the place found. A place the geocoder cannot find is refused with `422`, on the address, the country code or the coordinates the body changes.
+ *
+ */
+export const zLocationPatch = z.object({
+    name: z.string().optional(),
+    address: z.string().optional(),
+    city: z.string().nullish(),
+    district: z.string().nullish(),
+    region: z.string().nullish(),
+    department: z.string().nullish(),
+    adminLevel3: z.string().nullish(),
+    adminLevel5: z.string().nullish(),
+    postalCode: z.string().nullish(),
+    insee: z.string().nullish(),
+    countryCode: z.string().optional(),
+    latitude: z.number().optional(),
+    longitude: z.number().optional(),
+    timezone: z.string().nullish(),
+    description: zLocalizedString.optional(),
+    access: zLocalizedString.optional(),
+    website: z.string().nullish(),
+    email: z.string().nullish(),
+    phone: z.string().nullish(),
+    links: z.array(z.string()).optional(),
+    extIds: z.array(zLocationExtId).optional(),
+    siret: z.string().nullish(),
+    verified: z.boolean().optional()
+});
+
 export const zLocationList = z.object({
     data: z.array(z.union([zLocation, zLocationSummary])),
     pagination: zPagination
@@ -1486,7 +1546,7 @@ export const zExtKey = z.string();
 export const zExtIdValue = z.string();
 
 /**
- * On the by-uid `PUT`, whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`). A `PATCH` merges a non-empty `extIds` whatever this parameter says; an empty array clears the stored mappings.
+ * Whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`).
  *
  */
 export const zMergeExtIds = z.boolean().default(true);
@@ -1559,6 +1619,12 @@ export const zAgendaFilterOfficial = z.boolean();
  * Numeric uid of the location.
  */
 export const zLocationUid = z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' });
+
+/**
+ * Whether the events located at the location are deleted with it, whichever agenda they belong to.
+ *
+ */
+export const zWithEvents = z.boolean().default(false);
 
 /**
  * Free-text search over the locations' name, address, city, region and department.
@@ -2384,6 +2450,17 @@ export const zAgendasLocationsListQuery = z.object({
  */
 export const zAgendasLocationsListResponse = zLocationList;
 
+export const zAgendasLocationsCreateBody = zLocationInput;
+
+export const zAgendasLocationsCreatePath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
+});
+
+/**
+ * The created location.
+ */
+export const zAgendasLocationsCreateResponse = zLocation;
+
 export const zAgendasLocationsGetByExtIdPath = z.object({
     agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
     extKey: z.string(),
@@ -2395,6 +2472,20 @@ export const zAgendasLocationsGetByExtIdPath = z.object({
  */
 export const zAgendasLocationsGetByExtIdResponse = zLocation;
 
+export const zAgendasLocationsDeletePath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
+    locationUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
+});
+
+export const zAgendasLocationsDeleteQuery = z.object({
+    withEvents: z.boolean().optional().default(false)
+});
+
+/**
+ * The location was deleted.
+ */
+export const zAgendasLocationsDeleteResponse = zDeletionResult;
+
 export const zAgendasLocationsGetPath = z.object({
     agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
     locationUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
@@ -2404,6 +2495,34 @@ export const zAgendasLocationsGetPath = z.object({
  * The location.
  */
 export const zAgendasLocationsGetResponse = zLocation;
+
+export const zAgendasLocationsPatchBody = zLocationPatch;
+
+export const zAgendasLocationsPatchPath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
+    locationUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
+});
+
+/**
+ * The updated location.
+ */
+export const zAgendasLocationsPatchResponse = zLocation;
+
+export const zAgendasLocationsUpdateBody = zLocationInput;
+
+export const zAgendasLocationsUpdatePath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
+    locationUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
+});
+
+export const zAgendasLocationsUpdateQuery = z.object({
+    mergeExtIds: z.boolean().optional().default(true)
+});
+
+/**
+ * The updated location.
+ */
+export const zAgendasLocationsUpdateResponse = zLocation;
 
 export const zKeysVerifyBody = z.object({
     key: z.string()

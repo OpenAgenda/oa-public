@@ -2,7 +2,7 @@
 
 import { type Client, formDataBodySerializer, type Options as Options2, type TDataShape } from './client';
 import { client } from './client.gen';
-import type { AgendasEventsCreateData, AgendasEventsCreateErrors, AgendasEventsCreateResponses, AgendasEventsDeleteByExtIdData, AgendasEventsDeleteByExtIdErrors, AgendasEventsDeleteByExtIdResponses, AgendasEventsDeleteData, AgendasEventsDeleteErrors, AgendasEventsDeleteResponses, AgendasEventsFacetsData, AgendasEventsFacetsErrors, AgendasEventsFacetsReportData, AgendasEventsFacetsReportErrors, AgendasEventsFacetsReportResponses, AgendasEventsFacetsResponses, AgendasEventsGetByExtIdData, AgendasEventsGetByExtIdErrors, AgendasEventsGetByExtIdResponses, AgendasEventsGetData, AgendasEventsGetErrors, AgendasEventsGetResponses, AgendasEventsListData, AgendasEventsListErrors, AgendasEventsListResponses, AgendasEventsPatchByExtIdData, AgendasEventsPatchByExtIdErrors, AgendasEventsPatchByExtIdResponses, AgendasEventsPatchData, AgendasEventsPatchErrors, AgendasEventsPatchResponses, AgendasEventsSchemaData, AgendasEventsSchemaErrors, AgendasEventsSchemaResponses, AgendasEventsSetByExtIdData, AgendasEventsSetByExtIdErrors, AgendasEventsSetByExtIdResponses, AgendasEventsUpdateData, AgendasEventsUpdateErrors, AgendasEventsUpdateResponses, AgendasEventsValidateData, AgendasEventsValidateErrors, AgendasEventsValidateResponses, AgendasGetData, AgendasGetErrors, AgendasGetResponses, AgendasListData, AgendasListErrors, AgendasListResponses, AgendasLocationsGetByExtIdData, AgendasLocationsGetByExtIdErrors, AgendasLocationsGetByExtIdResponses, AgendasLocationsGetData, AgendasLocationsGetErrors, AgendasLocationsGetResponses, AgendasLocationsListData, AgendasLocationsListErrors, AgendasLocationsListResponses, AgendasOverviewData, AgendasOverviewErrors, AgendasOverviewResponses, AgendasUploadsCreateData, AgendasUploadsCreateErrors, AgendasUploadsCreateResponses, AgendasUploadsCreateTicketData, AgendasUploadsCreateTicketErrors, AgendasUploadsCreateTicketResponses, KeysVerifyData, KeysVerifyErrors, KeysVerifyResponses, MeAgendasListData, MeAgendasListErrors, MeAgendasListResponses, UploadsStagedData, UploadsStagedErrors, UploadsStagedResponses } from './types.gen';
+import type { AgendasEventsCreateData, AgendasEventsCreateErrors, AgendasEventsCreateResponses, AgendasEventsDeleteByExtIdData, AgendasEventsDeleteByExtIdErrors, AgendasEventsDeleteByExtIdResponses, AgendasEventsDeleteData, AgendasEventsDeleteErrors, AgendasEventsDeleteResponses, AgendasEventsFacetsData, AgendasEventsFacetsErrors, AgendasEventsFacetsReportData, AgendasEventsFacetsReportErrors, AgendasEventsFacetsReportResponses, AgendasEventsFacetsResponses, AgendasEventsGetByExtIdData, AgendasEventsGetByExtIdErrors, AgendasEventsGetByExtIdResponses, AgendasEventsGetData, AgendasEventsGetErrors, AgendasEventsGetResponses, AgendasEventsListData, AgendasEventsListErrors, AgendasEventsListResponses, AgendasEventsPatchByExtIdData, AgendasEventsPatchByExtIdErrors, AgendasEventsPatchByExtIdResponses, AgendasEventsPatchData, AgendasEventsPatchErrors, AgendasEventsPatchResponses, AgendasEventsSchemaData, AgendasEventsSchemaErrors, AgendasEventsSchemaResponses, AgendasEventsSetByExtIdData, AgendasEventsSetByExtIdErrors, AgendasEventsSetByExtIdResponses, AgendasEventsUpdateData, AgendasEventsUpdateErrors, AgendasEventsUpdateResponses, AgendasEventsValidateData, AgendasEventsValidateErrors, AgendasEventsValidateResponses, AgendasGetData, AgendasGetErrors, AgendasGetResponses, AgendasListData, AgendasListErrors, AgendasListResponses, AgendasLocationsCreateData, AgendasLocationsCreateErrors, AgendasLocationsCreateResponses, AgendasLocationsDeleteData, AgendasLocationsDeleteErrors, AgendasLocationsDeleteResponses, AgendasLocationsGetByExtIdData, AgendasLocationsGetByExtIdErrors, AgendasLocationsGetByExtIdResponses, AgendasLocationsGetData, AgendasLocationsGetErrors, AgendasLocationsGetResponses, AgendasLocationsListData, AgendasLocationsListErrors, AgendasLocationsListResponses, AgendasLocationsPatchData, AgendasLocationsPatchErrors, AgendasLocationsPatchResponses, AgendasLocationsUpdateData, AgendasLocationsUpdateErrors, AgendasLocationsUpdateResponses, AgendasOverviewData, AgendasOverviewErrors, AgendasOverviewResponses, AgendasUploadsCreateData, AgendasUploadsCreateErrors, AgendasUploadsCreateResponses, AgendasUploadsCreateTicketData, AgendasUploadsCreateTicketErrors, AgendasUploadsCreateTicketResponses, KeysVerifyData, KeysVerifyErrors, KeysVerifyResponses, MeAgendasListData, MeAgendasListErrors, MeAgendasListResponses, UploadsStagedData, UploadsStagedErrors, UploadsStagedResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -147,7 +147,7 @@ export class Events extends HeyApiClient {
     /**
      * Partially update an event
      *
-     * Updates only the fields present in the body (an `EventPatch`) and returns the updated `Event`. Fields left out are unchanged; `extIds` present in the body are merged by key with the stored ones.
+     * Updates only the fields present in the body (an `EventPatch`) and returns the updated `Event`. Fields left out are unchanged; a non-empty `extIds` is merged by key with the stored ones, whatever `mergeExtIds` says, and an empty array clears them.
      *
      * The acting member must be allowed to edit this event's content, otherwise `403`. An unknown event uid answers `404`, invalid field values `422`.
      *
@@ -402,6 +402,28 @@ export class Locations extends HeyApiClient {
     }
     
     /**
+     * Create a location
+     *
+     * Creates a location in the agenda, or in its shared location set when the agenda has one. `verified` is set by an administrator or a moderator of the agenda: from anyone else, a body carrying it is refused with `422`.
+     *
+     * The position is geocoded: the coordinates, the administrative levels, the postal code, the time zone and the INSEE code the body leaves out are filled in from the coordinates when the body carries them, from the address otherwise.
+     *
+     * The acting member must be a contributor of the agenda or above. On an agenda open to contributions that asks no member information, a user who is not a member becomes its contributor by creating a location. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow creating locations.
+     *
+     */
+    public create<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsCreateData, ThrowOnError>) {
+        return (options.client ?? this.client).post<AgendasLocationsCreateResponses, AgendasLocationsCreateErrors, ThrowOnError>({
+            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            url: '/agendas/{agendaUid}/locations',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+    
+    /**
      * Get a single location by external id
      *
      * Returns a single location by its external identifier within the given agenda - the `(key, value)` pair an `ExtId` mapping carries in the location's `extIds`. Use this when you sync from your own system and hold its id rather than the OpenAgenda uid. Resolves to the same `Location` as the by-uid get.
@@ -415,6 +437,22 @@ export class Locations extends HeyApiClient {
                 { scheme: 'bearer', type: 'http' }
             ],
             url: '/agendas/{agendaUid}/locations/ext/{extKey}/{extId}',
+            ...options
+        });
+    }
+    
+    /**
+     * Delete a location
+     *
+     * Deletes the location. The events located there keep it unless `withEvents` is set.
+     *
+     * The acting member must be an administrator or a moderator of the agenda. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow deleting locations.
+     *
+     */
+    public delete<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsDeleteData, ThrowOnError>) {
+        return (options.client ?? this.client).delete<AgendasLocationsDeleteResponses, AgendasLocationsDeleteErrors, ThrowOnError>({
+            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            url: '/agendas/{agendaUid}/locations/{locationUid}',
             ...options
         });
     }
@@ -434,6 +472,46 @@ export class Locations extends HeyApiClient {
             ],
             url: '/agendas/{agendaUid}/locations/{locationUid}',
             ...options
+        });
+    }
+    
+    /**
+     * Partially update a location
+     *
+     * Changes the fields the body carries. `extIds` in the body are merged by key with the stored ones; an empty array leaves them as they are.
+     *
+     * The acting member must be an administrator or a moderator of the agenda. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow editing locations.
+     *
+     */
+    public patch<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsPatchData, ThrowOnError>) {
+        return (options.client ?? this.client).patch<AgendasLocationsPatchResponses, AgendasLocationsPatchErrors, ThrowOnError>({
+            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            url: '/agendas/{agendaUid}/locations/{locationUid}',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+    
+    /**
+     * Replace a location
+     *
+     * Replaces the location with the body. A `LocationInput` field the body leaves out is emptied, except `extIds`, which a body without them keeps, and what the geocoding fills in from the position. That is looked up again when the address, the country code or the coordinates change, or when the location lacks its city, department or region, and kept otherwise, as it is when the geocoder fails. Coordinates the body sends back unchanged next to a new address or country code follow them.
+     *
+     * The acting member must be an administrator or a moderator of the agenda. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow editing locations.
+     *
+     */
+    public update<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsUpdateData, ThrowOnError>) {
+        return (options.client ?? this.client).put<AgendasLocationsUpdateResponses, AgendasLocationsUpdateErrors, ThrowOnError>({
+            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            url: '/agendas/{agendaUid}/locations/{locationUid}',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
         });
     }
 }
