@@ -266,7 +266,18 @@ paths:
       tags: [Events]
       summary: List events of an agenda
       x-synonyms:
-        [find, browse, filter, paginate, cursor, upcoming, when, where, date, relevance]
+        [
+          find,
+          browse,
+          filter,
+          paginate,
+          cursor,
+          upcoming,
+          when,
+          where,
+          date,
+          relevance,
+        ]
       x-codeSamples:
         - lang: TypeScript
           label: All upcoming events in Paris (paging every result)
@@ -388,12 +399,10 @@ paths:
         by-uid URL.
 
 
-        Native writable fields sit at the top level; agenda-specific
-        fields go under `additionalFields`; any other top-level key is
-        rejected with `400`. The moderation `state` of the created
-        event is arbitrated by the caller's role and the agenda's
-        contribution settings - a contributor's event may be created
-        pending moderation rather than published.
+        The moderation `state` of the created event is arbitrated by the
+        caller's role and the agenda's contribution settings - a
+        contributor's event may be created pending moderation rather than
+        published.
 
 
         The acting member must be allowed to create events in this
@@ -459,12 +468,9 @@ paths:
             if (error) throw error; // 422 with error.errors when invalid
             return data.valid; // true
       description: >
-        Validates the body exactly as create does, without persisting
-        anything. A well-formed, valid body answers `200 { "valid":
-        true }`; invalid field values answer `422` with per-field
-        problems under `error.errors[]`. Structural body
-        problems (an unknown top-level key, an `additionalFields` name
-        colliding with a native field) answer `400`.
+        Validates the body without persisting anything. A valid body
+        answers `200 { "valid": true }`; an invalid one answers `422` with
+        per-field problems under `error.errors[]`.
 
 
         A native `image: { url }` is checked for URL syntax only (an
@@ -5618,7 +5624,7 @@ components:
 
 
         An object carrying both `ref` and `url`, or any other key, is rejected
-        with `400`.
+        with `422`.
       oneOf:
         - type: object
           additionalProperties: false
@@ -5652,10 +5658,9 @@ components:
         Request body for creating or replacing an event: the fields a client
         may set. Agenda-specific fields go under `additionalFields`, never at
         the top level; any other top-level key (a read-only field such as
-        `uid` or `slug`, an unknown name) is rejected with `400`, as is an
-        `additionalFields` name that collides with a native field. Field
-        values are validated by the server (a `422` with per-field
-        `error.errors[]` on failure).
+        `uid` or `slug`, an unknown name) is rejected with `422`, as is an
+        `additionalFields` name that collides with a native field and a
+        field value the server rejects, each named under `error.errors[]`.
 
 
         Required fields depend on the target agenda: an event needs at least
