@@ -2,7 +2,7 @@
 
 import { type Client, formDataBodySerializer, type Options as Options2, type TDataShape } from './client';
 import { client } from './client.gen';
-import type { AgendasEventsCreateData, AgendasEventsCreateErrors, AgendasEventsCreateResponses, AgendasEventsDeleteByExtIdData, AgendasEventsDeleteByExtIdErrors, AgendasEventsDeleteByExtIdResponses, AgendasEventsDeleteData, AgendasEventsDeleteErrors, AgendasEventsDeleteResponses, AgendasEventsFacetsData, AgendasEventsFacetsErrors, AgendasEventsFacetsReportData, AgendasEventsFacetsReportErrors, AgendasEventsFacetsReportResponses, AgendasEventsFacetsResponses, AgendasEventsGetByExtIdData, AgendasEventsGetByExtIdErrors, AgendasEventsGetByExtIdResponses, AgendasEventsGetData, AgendasEventsGetErrors, AgendasEventsGetResponses, AgendasEventsListData, AgendasEventsListErrors, AgendasEventsListResponses, AgendasEventsPatchByExtIdData, AgendasEventsPatchByExtIdErrors, AgendasEventsPatchByExtIdResponses, AgendasEventsPatchData, AgendasEventsPatchErrors, AgendasEventsPatchResponses, AgendasEventsSchemaData, AgendasEventsSchemaErrors, AgendasEventsSchemaResponses, AgendasEventsSetByExtIdData, AgendasEventsSetByExtIdErrors, AgendasEventsSetByExtIdResponses, AgendasEventsUpdateData, AgendasEventsUpdateErrors, AgendasEventsUpdateResponses, AgendasEventsValidateData, AgendasEventsValidateErrors, AgendasEventsValidateResponses, AgendasGetData, AgendasGetErrors, AgendasGetResponses, AgendasListData, AgendasListErrors, AgendasListResponses, AgendasLocationsCreateData, AgendasLocationsCreateErrors, AgendasLocationsCreateResponses, AgendasLocationsDeleteData, AgendasLocationsDeleteErrors, AgendasLocationsDeleteResponses, AgendasLocationsGetByExtIdData, AgendasLocationsGetByExtIdErrors, AgendasLocationsGetByExtIdResponses, AgendasLocationsGetData, AgendasLocationsGetErrors, AgendasLocationsGetResponses, AgendasLocationsListData, AgendasLocationsListErrors, AgendasLocationsListResponses, AgendasLocationsPatchData, AgendasLocationsPatchErrors, AgendasLocationsPatchResponses, AgendasLocationsUpdateData, AgendasLocationsUpdateErrors, AgendasLocationsUpdateResponses, AgendasOverviewData, AgendasOverviewErrors, AgendasOverviewResponses, AgendasUploadsCreateData, AgendasUploadsCreateErrors, AgendasUploadsCreateResponses, AgendasUploadsCreateTicketData, AgendasUploadsCreateTicketErrors, AgendasUploadsCreateTicketResponses, KeysVerifyData, KeysVerifyErrors, KeysVerifyResponses, MeAgendasListData, MeAgendasListErrors, MeAgendasListResponses, UploadsStagedData, UploadsStagedErrors, UploadsStagedResponses } from './types.gen';
+import type { AgendasEventsCreateData, AgendasEventsCreateErrors, AgendasEventsCreateResponses, AgendasEventsDeleteByExtIdData, AgendasEventsDeleteByExtIdErrors, AgendasEventsDeleteByExtIdResponses, AgendasEventsDeleteData, AgendasEventsDeleteErrors, AgendasEventsDeleteResponses, AgendasEventsFacetsData, AgendasEventsFacetsErrors, AgendasEventsFacetsReportData, AgendasEventsFacetsReportErrors, AgendasEventsFacetsReportResponses, AgendasEventsFacetsResponses, AgendasEventsGetByExtIdData, AgendasEventsGetByExtIdErrors, AgendasEventsGetByExtIdResponses, AgendasEventsGetData, AgendasEventsGetErrors, AgendasEventsGetResponses, AgendasEventsListData, AgendasEventsListErrors, AgendasEventsListResponses, AgendasEventsPatchByExtIdData, AgendasEventsPatchByExtIdErrors, AgendasEventsPatchByExtIdResponses, AgendasEventsPatchData, AgendasEventsPatchErrors, AgendasEventsPatchResponses, AgendasEventsSchemaData, AgendasEventsSchemaErrors, AgendasEventsSchemaResponses, AgendasEventsSetByExtIdData, AgendasEventsSetByExtIdErrors, AgendasEventsSetByExtIdResponses, AgendasEventsUpdateData, AgendasEventsUpdateErrors, AgendasEventsUpdateResponses, AgendasEventsValidateData, AgendasEventsValidateErrors, AgendasEventsValidateResponses, AgendasGetData, AgendasGetErrors, AgendasGetResponses, AgendasListData, AgendasListErrors, AgendasListResponses, AgendasLocationsCreateData, AgendasLocationsCreateErrors, AgendasLocationsCreateResponses, AgendasLocationsDeleteByExtIdData, AgendasLocationsDeleteByExtIdErrors, AgendasLocationsDeleteByExtIdResponses, AgendasLocationsDeleteData, AgendasLocationsDeleteErrors, AgendasLocationsDeleteResponses, AgendasLocationsGetByExtIdData, AgendasLocationsGetByExtIdErrors, AgendasLocationsGetByExtIdResponses, AgendasLocationsGetData, AgendasLocationsGetErrors, AgendasLocationsGetResponses, AgendasLocationsListData, AgendasLocationsListErrors, AgendasLocationsListResponses, AgendasLocationsPatchByExtIdData, AgendasLocationsPatchByExtIdErrors, AgendasLocationsPatchByExtIdResponses, AgendasLocationsPatchData, AgendasLocationsPatchErrors, AgendasLocationsPatchResponses, AgendasLocationsSetByExtIdData, AgendasLocationsSetByExtIdErrors, AgendasLocationsSetByExtIdResponses, AgendasLocationsUpdateData, AgendasLocationsUpdateErrors, AgendasLocationsUpdateResponses, AgendasOverviewData, AgendasOverviewErrors, AgendasOverviewResponses, AgendasUploadsCreateData, AgendasUploadsCreateErrors, AgendasUploadsCreateResponses, AgendasUploadsCreateTicketData, AgendasUploadsCreateTicketErrors, AgendasUploadsCreateTicketResponses, KeysVerifyData, KeysVerifyErrors, KeysVerifyResponses, MeAgendasListData, MeAgendasListErrors, MeAgendasListResponses, UploadsStagedData, UploadsStagedErrors, UploadsStagedResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -424,6 +424,22 @@ export class Locations extends HeyApiClient {
     }
     
     /**
+     * Delete a location by external id
+     *
+     * Deletes the location that carries the `(extKey, extId)` pair. The events located there keep it unless `withEvents` is set.
+     *
+     * The acting member must be an administrator or a moderator of the agenda. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow deleting locations.
+     *
+     */
+    public deleteByExtId<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsDeleteByExtIdData, ThrowOnError>) {
+        return (options.client ?? this.client).delete<AgendasLocationsDeleteByExtIdResponses, AgendasLocationsDeleteByExtIdErrors, ThrowOnError>({
+            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            url: '/agendas/{agendaUid}/locations/ext/{extKey}/{extId}',
+            ...options
+        });
+    }
+    
+    /**
      * Get a single location by external id
      *
      * Returns a single location by its external identifier within the given agenda - the `(key, value)` pair an `ExtId` mapping carries in the location's `extIds`. Use this when you sync from your own system and hold its id rather than the OpenAgenda uid. Resolves to the same `Location` as the by-uid get.
@@ -438,6 +454,48 @@ export class Locations extends HeyApiClient {
             ],
             url: '/agendas/{agendaUid}/locations/ext/{extKey}/{extId}',
             ...options
+        });
+    }
+    
+    /**
+     * Partially update a location by external id
+     *
+     * Changes the fields the body carries on the location that carries the `(extKey, extId)` pair. `extIds` in the body are merged by key with the stored ones; an empty array leaves them as they are, and a mapping under the key `extKey` with a value other than `extId` is refused with `422`.
+     *
+     * The acting member must be an administrator or a moderator of the agenda. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow editing locations.
+     *
+     */
+    public patchByExtId<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsPatchByExtIdData, ThrowOnError>) {
+        return (options.client ?? this.client).patch<AgendasLocationsPatchByExtIdResponses, AgendasLocationsPatchByExtIdErrors, ThrowOnError>({
+            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            url: '/agendas/{agendaUid}/locations/ext/{extKey}/{extId}',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+    
+    /**
+     * Upsert a location by external id
+     *
+     * Replaces the location that carries the `(extKey, extId)` pair with the body and answers `200`, or creates a location carrying it and answers `201`. A pair only deleted locations carry gets a new location; when one of them is merged into another one, the request answers `404` instead. The pair joins the body's `extIds`, which are merged by key with the stored ones; a mapping under the key `extKey` with a value other than `extId` is refused with `422`.
+     *
+     * On a replace, a `LocationInput` field the body leaves out is emptied, except `extIds` and what the geocoding fills in from the position. That is looked up again when the address, the country code or the coordinates change, or when the location lacks its city, department or region, and kept otherwise, as it is when the geocoder fails. Coordinates the body sends back unchanged next to a new address or country code follow them. On a create, the coordinates, the administrative levels, the postal code, the time zone and the INSEE code the body leaves out are filled in from the coordinates when the body carries them, from the address otherwise.
+     *
+     * Replacing takes an administrator or a moderator of the agenda. Creating takes a contributor or above; on an agenda open to contributions that asks no member information, a user who is not a member becomes its contributor by creating a location. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow the write. `verified` is set by an administrator or a moderator: from anyone else, a body carrying it is refused with `422`.
+     *
+     */
+    public setByExtId<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsSetByExtIdData, ThrowOnError>) {
+        return (options.client ?? this.client).put<AgendasLocationsSetByExtIdResponses, AgendasLocationsSetByExtIdErrors, ThrowOnError>({
+            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
+            url: '/agendas/{agendaUid}/locations/ext/{extKey}/{extId}',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
         });
     }
     
