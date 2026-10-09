@@ -4031,8 +4031,9 @@ components:
             `id` — is dropped before validation, so a read-modify-write round trip
             can neither change a row, nor add one, nor clear one with an explicit
             `[]` — and it is not critiqued field by field for rows that were never
-            going to be written either. A value that is not an array is refused
-            rather than dropped: it carries nothing, so it is a malformed body.
+            going to be written either. The drop applies to the rows carried, not
+            to the shape of the field: a value this schema cannot hold is rejected
+            with `422` rather than dropped.
 
 
             DECLARING `availabilityAuthority` IS THE WAY OUT, and the only one on
@@ -5735,10 +5736,10 @@ components:
             just pushed and that it does not know about. For an occurrence sent
             WITH its stored `id` those rows are dropped before the body is judged,
             so they are not critiqued field by field either and a connector may
-            send a peer's row back exactly as it read it; an occurrence sent
-            without that `id` is not recognized as one the event already has — the
-            pairing by dates happens later — so everything it carries is judged as
-            written data.
+            send a peer's row back exactly as it read it. That stored `id` is what
+            makes an occurrence one the event already has: sent without it, every
+            row it carries is validated, and a row the rules reject answers
+            `422`.
 
 
             On an occurrence the event does not have yet there are no stored rows
@@ -5906,10 +5907,10 @@ components:
             just pushed and that it does not know about. For an occurrence sent
             WITH its stored `id` those rows are dropped before the body is judged,
             so they are not critiqued field by field either and a connector may
-            send a peer's row back exactly as it read it; an occurrence sent
-            without that `id` is not recognized as one the event already has — the
-            pairing by dates happens later — so everything it carries is judged as
-            written data.
+            send a peer's row back exactly as it read it. That stored `id` is what
+            makes an occurrence one the event already has: sent without it, every
+            row it carries is validated, and a row the rules reject answers
+            `422`.
 
 
             On an occurrence the event does not have yet there are no stored rows
