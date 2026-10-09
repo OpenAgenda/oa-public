@@ -4027,10 +4027,12 @@ components:
 
             AN ORDINARY EVENT WRITE CARRIES THIS INVENTORY. Unless it declares
             `availabilityAuthority`, whatever it sends for an occurrence the event
-            already has is dropped before validation, so a read-modify-write round
-            trip can neither change a row, nor add one, nor clear one with an
-            explicit `[]` — and it is not critiqued field by field for rows that
-            were never going to be written either.
+            already has — an occurrence it sends WITH that occurrence's stored
+            `id` — is dropped before validation, so a read-modify-write round trip
+            can neither change a row, nor add one, nor clear one with an explicit
+            `[]` — and it is not critiqued field by field for rows that were never
+            going to be written either. A value that is not an array is refused
+            rather than dropped: it carries nothing, so it is a malformed body.
 
 
             DECLARING `availabilityAuthority` IS THE WAY OUT, and the only one on
@@ -5730,9 +5732,13 @@ components:
             provider the write claims. For a provider NOT named here, nothing the
             write sends is applied to an occurrence the event ALREADY HAS: its
             stored rows are kept, so a connector cannot wipe the source a peer has
-            just pushed and that it does not know about. Those rows are dropped
-            BEFORE the body is judged, so they are not critiqued field by field
-            either: a connector may send a peer's row back exactly as it read it.
+            just pushed and that it does not know about. For an occurrence sent
+            WITH its stored `id` those rows are dropped before the body is judged,
+            so they are not critiqued field by field either and a connector may
+            send a peer's row back exactly as it read it; an occurrence sent
+            without that `id` is not recognized as one the event already has — the
+            pairing by dates happens later — so everything it carries is judged as
+            written data.
 
 
             On an occurrence the event does not have yet there are no stored rows
@@ -5897,9 +5903,13 @@ components:
             provider the write claims. For a provider NOT named here, nothing the
             write sends is applied to an occurrence the event ALREADY HAS: its
             stored rows are kept, so a connector cannot wipe the source a peer has
-            just pushed and that it does not know about. Those rows are dropped
-            BEFORE the body is judged, so they are not critiqued field by field
-            either: a connector may send a peer's row back exactly as it read it.
+            just pushed and that it does not know about. For an occurrence sent
+            WITH its stored `id` those rows are dropped before the body is judged,
+            so they are not critiqued field by field either and a connector may
+            send a peer's row back exactly as it read it; an occurrence sent
+            without that `id` is not recognized as one the event already has — the
+            pairing by dates happens later — so everything it carries is judged as
+            written data.
 
 
             On an occurrence the event does not have yet there are no stored rows
