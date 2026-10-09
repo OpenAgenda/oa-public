@@ -1763,10 +1763,11 @@ paths:
           ext,
           external id,
           by ext,
-          sync,
           source id,
           lookup,
           resolve,
+          retrieve,
+          fetch,
           venue,
           place,
         ]
@@ -1801,6 +1802,274 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Location'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          description: >
+            Agenda or location not found. A location merged into another one
+            answers here too, and identifies the surviving one so a stale
+            reference can be repaired.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/Error'
+                  - $ref: '#/components/schemas/MergedLocationError'
+              examples:
+                merged:
+                  summary: Location merged into another one
+                  value:
+                    error:
+                      code: merged
+                      message: location merged into another location
+                      mergedIn: 11111111
+                notFound:
+                  summary: Unknown location
+                  value:
+                    error:
+                      code: not_found
+                      message: location not found
+
+    put:
+      operationId: agendas.locations.setByExtId
+      tags: [Locations]
+      summary: Upsert a location by external id
+      x-synonyms:
+        [create, update, sync, import, set, put, replace, by ext, venue, place]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Sync a venue from your own system
+          source: |
+            const { data, error } = await oa.agendas.locations.setByExtId({
+              path: { agendaUid: 12345, extKey: 'my-system', extId: 'abc-123' },
+              body: {
+                name: 'Château des Lèbres',
+                address: 'Naves, 07140 Les Vans',
+                countryCode: 'FR',
+              },
+            });
+            if (error) throw error;
+            return data;
+      description: >
+        Replaces the location that carries the `(extKey, extId)` pair with
+        the body and answers `200`, or creates a location carrying it and
+        answers `201`. A pair only deleted locations carry gets a new
+        location; when one of them is merged into another one, the request
+        answers `404` instead. The pair joins the body's `extIds`, which are
+        merged by key with the stored ones; a mapping under the key `extKey`
+        with a value other than `extId` is refused with `422`.
+
+
+        On a replace, a `LocationInput` field the body leaves out is
+        emptied, except `extIds` and what the geocoding fills in from the
+        position. That is looked up again when the address, the country code
+        or the coordinates change, or when the location lacks its city,
+        department or region, and kept otherwise, as it is when the geocoder
+        fails. Coordinates the body sends back unchanged next to a new
+        address or country code follow them. On a create, the coordinates,
+        the administrative levels, the postal code, the time zone and the
+        INSEE code the body leaves out are filled in from the coordinates
+        when the body carries them, from the address otherwise.
+
+
+        Replacing takes an administrator or a moderator of the agenda.
+        Creating takes a contributor or above; on an agenda open to
+        contributions that asks no member information, a user who is not a
+        member becomes its contributor by creating a location. Anyone else is
+        refused with `403`, as is every caller when the agenda's settings do
+        not allow the write. `verified` is set by an administrator or a
+        moderator: from anyone else, a body carrying it is refused with
+        `422`.
+      security:
+        - secretKey: []
+        - oauth2:
+            - locations:write
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+        - $ref: '#/components/parameters/ExtKey'
+        - $ref: '#/components/parameters/ExtIdValue'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationInput'
+      responses:
+        '200':
+          description: The replaced location.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '201':
+          description: The created location.
+          headers:
+            Location:
+              description: Canonical by-uid URL of the created location.
+              required: true
+              schema:
+                type: string
+              example: /agendas/12345/locations/67890
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          description: >
+            Agenda not found, or the pair belongs to a location merged into
+            another one: the answer identifies the surviving one, so a stale
+            reference can be repaired. Nothing is created.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/Error'
+                  - $ref: '#/components/schemas/MergedLocationError'
+              examples:
+                merged:
+                  summary: Location merged into another one
+                  value:
+                    error:
+                      code: merged
+                      message: location merged into another location
+                      mergedIn: 11111111
+                notFound:
+                  summary: Unknown agenda
+                  value:
+                    error:
+                      code: not_found
+                      message: agenda not found
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    patch:
+      operationId: agendas.locations.patchByExtId
+      tags: [Locations]
+      summary: Partially update a location by external id
+      x-synonyms:
+        [patch, partial update, edit, modify, change, by ext, venue, place]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Change the phone number of a venue of your own system
+          source: |
+            const { data, error } = await oa.agendas.locations.patchByExtId({
+              path: { agendaUid: 12345, extKey: 'my-system', extId: 'abc-123' },
+              body: { phone: '0475363414' },
+            });
+            if (error) throw error;
+            return data;
+      description: >
+        Changes the fields the body carries on the location that carries the
+        `(extKey, extId)` pair. `extIds` in the body are merged by key with
+        the stored ones; an empty array leaves them as they are, and a
+        mapping under the key `extKey` with a value other than `extId` is
+        refused with `422`.
+
+
+        The acting member must be an administrator or a moderator of the
+        agenda. Anyone else is refused with `403`, as is every caller when
+        the agenda's settings do not allow editing locations.
+      security:
+        - secretKey: []
+        - oauth2:
+            - locations:write
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+        - $ref: '#/components/parameters/ExtKey'
+        - $ref: '#/components/parameters/ExtIdValue'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationPatch'
+      responses:
+        '200':
+          description: The updated location.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          description: >
+            Agenda or location not found. A location merged into another one
+            answers here too, and identifies the surviving one so a stale
+            reference can be repaired.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/Error'
+                  - $ref: '#/components/schemas/MergedLocationError'
+              examples:
+                merged:
+                  summary: Location merged into another one
+                  value:
+                    error:
+                      code: merged
+                      message: location merged into another location
+                      mergedIn: 11111111
+                notFound:
+                  summary: Unknown location
+                  value:
+                    error:
+                      code: not_found
+                      message: location not found
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    delete:
+      operationId: agendas.locations.deleteByExtId
+      tags: [Locations]
+      summary: Delete a location by external id
+      x-synonyms: [delete, remove, destroy, drop, by ext, venue, place]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Delete a venue your own system no longer lists
+          source: |
+            const { data, error } = await oa.agendas.locations.deleteByExtId({
+              path: { agendaUid: 12345, extKey: 'my-system', extId: 'abc-123' },
+            });
+            if (error) throw error;
+            return data.deleted; // true
+      description: >
+        Deletes the location that carries the `(extKey, extId)` pair. The
+        events located there keep it unless `withEvents` is set.
+
+
+        The acting member must be an administrator or a moderator of the
+        agenda. Anyone else is refused with `403`, as is every caller when
+        the agenda's settings do not allow deleting locations.
+      security:
+        - secretKey: []
+        - oauth2:
+            - locations:write
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+        - $ref: '#/components/parameters/ExtKey'
+        - $ref: '#/components/parameters/ExtIdValue'
+        - $ref: '#/components/parameters/WithEvents'
+      responses:
+        '200':
+          description: The location was deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeletionResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
