@@ -2194,14 +2194,19 @@ paths:
             return data;
       description: >
         Replaces the location with the body. A `LocationInput` field the
-        body leaves out is emptied, except `extIds` and `verified`, which a
-        body without them keeps, and what the geocoding fills in from the
-        position: the coordinates, the administrative levels, the postal
-        code, the time zone and the INSEE code. These are looked up again
-        when the address, the country code or the coordinates change - the
-        values the body sends back unchanged, the country code included,
-        then follow the new place - and at the point when the city,
-        department or region is missing.
+        body leaves out is emptied, except `extIds`, `verified` and what the
+        geocoding fills in from the position: the coordinates, the
+        administrative levels, the postal code, the time zone and the INSEE
+        code. These are looked up again when the address, the country code
+        or the coordinates change - the values the body sends back
+        unchanged, the country code included, then follow the new place -
+        and at the point when the city, department or region is missing.
+
+
+        `extIds` in the body are merged by key with the stored ones, so an
+        empty array leaves them as they are; with `mergeExtIds` set to
+        `false`, they replace the stored ones. A body without `extIds`
+        keeps them either way.
 
 
         The acting member must be an administrator or a moderator of the
@@ -2277,8 +2282,9 @@ paths:
             if (error) throw error;
             return data;
       description: >
-        Changes the fields the body carries. An empty `extIds` in the body
-        leaves the stored ones as they are, unless `mergeExtIds` is `false`.
+        Changes the fields the body carries. `extIds` in the body are merged
+        by key with the stored ones, so an empty array leaves them as they
+        are; with `mergeExtIds` set to `false`, they replace the stored ones.
 
 
         The acting member must be an administrator or a moderator of the
