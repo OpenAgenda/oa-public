@@ -2277,9 +2277,8 @@ paths:
             if (error) throw error;
             return data;
       description: >
-        Changes the fields the body carries. `extIds` in the body are
-        merged by key with the stored ones; an empty array leaves them as
-        they are.
+        Changes the fields the body carries. An empty `extIds` in the body
+        leaves the stored ones as they are, unless `mergeExtIds` is `false`.
 
 
         The acting member must be an administrator or a moderator of the
@@ -2292,6 +2291,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AgendaUid'
         - $ref: '#/components/parameters/LocationUid'
+        - $ref: '#/components/parameters/MergeExtIds'
       requestBody:
         required: true
         content:
