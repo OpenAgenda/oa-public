@@ -1853,33 +1853,37 @@ paths:
             if (error) throw error;
             return data;
       description: >
-        Replaces the location that carries the `(extKey, extId)` pair with
-        the body and answers `200`, or creates a location carrying it and
-        answers `201`. A pair only deleted locations carry gets a new
-        location; when one of them is merged into another one, the request
-        answers `404` instead. The pair joins the body's `extIds`, which are
-        merged by key with the stored ones; a mapping under the key `extKey`
-        with a value other than `extId` is refused with `422`.
+        Replaces the location that carries the `(extKey, extId)` pair
+        with the body and answers `200`, or creates a location carrying
+        it and answers `201`. The pair is looked up among the locations
+        of the agenda, or of its shared location set when it has one. A
+        pair only deleted locations carry gets a new location; when one
+        of them is merged into another one, the request answers `404`
+        instead. The pair joins the body's `extIds`, which are merged by
+        key with the stored ones; a mapping under the key `extKey` with
+        a value other than `extId` is refused with `422`.
 
 
         On a replace, a `LocationInput` field the body leaves out is
-        emptied, except `extIds` and what the geocoding fills in from the
-        position. That is looked up again when the address, the country code
-        or the coordinates change, or when the location lacks its city,
-        department or region, and kept otherwise, as it is when the geocoder
-        fails. Coordinates the body sends back unchanged next to a new
-        address or country code follow them. On a create, the coordinates,
-        the administrative levels, the postal code, the time zone and the
-        INSEE code the body leaves out are filled in from the coordinates
-        when the body carries them, from the address otherwise.
+        emptied, except `extIds` and what the geocoding fills in from
+        the position. What the geocoding fills in is looked up again
+        when the address, the country code or the coordinates change, or
+        when the location lacks its city, department or region, and kept
+        otherwise, as it is when the geocoder fails. Coordinates the
+        body sends back unchanged next to a new address or country code
+        follow them. On a create, the coordinates, the administrative
+        levels, the postal code, the time zone and the INSEE code the
+        body leaves out are filled in from the coordinates when the body
+        carries them, from the address otherwise.
 
 
-        Replacing takes an administrator or a moderator of the agenda.
-        Creating takes a contributor or above; on an agenda open to
-        contributions that asks no member information, a user who is not a
-        member becomes its contributor by creating a location. Anyone else is
-        refused with `403`, as is every caller when the agenda's settings do
-        not allow the write. `verified` is set by an administrator or a
+        Replacing, or writing a pair a merged location carries, takes an
+        administrator or a moderator of the agenda. Creating takes a
+        contributor or above; on an agenda open to contributions that
+        asks no member information, a user who is not a member becomes
+        its contributor by creating a location. Anyone else is refused
+        with `403`, as is every caller when the agenda's settings do not
+        allow the write. `verified` is set by an administrator or a
         moderator: from anyone else, a body carrying it is refused with
         `422`.
       security:
@@ -1924,8 +1928,8 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           description: >
-            Agenda not found, or the pair belongs to a location merged into
-            another one: the answer identifies the surviving one, so a stale
+            Agenda not found, or a location merged into another one carries
+            the pair: the answer identifies the surviving one, so a stale
             reference can be repaired. Nothing is created.
           content:
             application/json:
@@ -1966,11 +1970,12 @@ paths:
             if (error) throw error;
             return data;
       description: >
-        Changes the fields the body carries on the location that carries the
-        `(extKey, extId)` pair. `extIds` in the body are merged by key with
-        the stored ones; an empty array leaves them as they are, and a
-        mapping under the key `extKey` with a value other than `extId` is
-        refused with `422`.
+        Changes the fields the body carries on the location that carries
+        the `(extKey, extId)` pair, among the locations of the agenda,
+        or of its shared location set when it has one. `extIds` in the
+        body are merged by key with the stored ones; an empty array
+        leaves them as they are, and a mapping under the key `extKey`
+        with a value other than `extId` is refused with `422`.
 
 
         The acting member must be an administrator or a moderator of the
@@ -2045,8 +2050,9 @@ paths:
             if (error) throw error;
             return data.deleted; // true
       description: >
-        Deletes the location that carries the `(extKey, extId)` pair. The
-        events located there keep it unless `withEvents` is set.
+        Deletes the location that carries the `(extKey, extId)` pair, among
+        the locations of the agenda, or of its shared location set when it
+        has one. The events located there keep it unless `withEvents` is set.
 
 
         The acting member must be an administrator or a moderator of the
@@ -2534,7 +2540,7 @@ components:
       required: true
       description: >
         Name of the external system/source the identifier belongs to (the `key`
-        of an `ExtId` mapping carried on the resource — an event or a location).
+        of an `ExtId` mapping carried on an event or a location).
       schema:
         type: string
     ExtIdValue:
