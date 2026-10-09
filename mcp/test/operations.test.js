@@ -244,6 +244,17 @@ describe('searchOperations', () => {
     expect(searchOperations(query)[0].id).toBe(id);
   });
 
+  // The location writes share their vocabulary with the event writes and the
+  // location reads: the location noun, under its synonyms, must lead to them.
+  it.each([
+    ['create a venue', 'agendas.locations.create'],
+    ['update a place', 'agendas.locations.update'],
+    ['change location phone', 'agendas.locations.patch'],
+    ['delete a location', 'agendas.locations.delete'],
+  ])('ranks the location write %p first on %s', (query, id) => {
+    expect(searchOperations(query)[0].id).toBe(id);
+  });
+
   // Short words are damped, never muted: the operation they genuinely ask for
   // stays reachable.
   it('still ranks the me.* op first when short words are the actual intent', () => {

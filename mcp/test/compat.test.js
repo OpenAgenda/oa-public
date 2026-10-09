@@ -134,19 +134,21 @@ describe('the contract stays inside what search_docs can render', () => {
       '/components/securitySchemes/*/name',
       '/info',
       '/openapi',
+      // Curated bodies for the location 404s, on every verb below. Everything
+      // contractual in them is already rendered - the `merged` enum,
+      // `mergedIn`, the envelope - and what is left is an illustrative uid and
+      // a human sentence, which is not what a caller branches on.
+      '/paths/*/delete/responses/*/content/*/examples',
       '/paths/*/delete/responses/*/description',
       '/paths/*/delete/tags',
       '/paths/*/delete/x-codeSamples/*/label',
-      // Curated bodies for the two location 404s. Everything contractual in them
-      // is already rendered - the `merged` enum, `mergedIn`, the envelope - and
-      // what is left is an illustrative uid and a human sentence, which is not
-      // what a caller branches on.
       '/paths/*/get/responses/*/content/*/examples',
       '/paths/*/get/responses/*/description',
       '/paths/*/get/tags',
       '/paths/*/get/x-codeSamples/*',
       '/paths/*/get/x-codeSamples/*/label',
       '/paths/*/patch/responses/*',
+      '/paths/*/patch/responses/*/content/*/examples',
       '/paths/*/patch/responses/*/description',
       '/paths/*/patch/tags',
       '/paths/*/patch/x-codeSamples/*/label',
@@ -156,6 +158,7 @@ describe('the contract stays inside what search_docs can render', () => {
       '/paths/*/post/tags',
       '/paths/*/post/x-codeSamples/*/label',
       '/paths/*/put/responses/*',
+      '/paths/*/put/responses/*/content/*/examples',
       '/paths/*/put/responses/*/description',
       '/paths/*/put/tags',
       '/paths/*/put/x-codeSamples/*/label',
