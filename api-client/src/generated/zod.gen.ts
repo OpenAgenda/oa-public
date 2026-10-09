@@ -800,7 +800,7 @@ export const zUploadDescriptor = z.object({
  *
  * The `url` must be a publicly reachable `http(s)` image, without credentials in the URL. A URL that is malformed, not `http(s)`, carries credentials, is not publicly reachable, cannot be retrieved, is not a valid image, or is larger than 20 MiB is rejected with `422`.
  *
- * An object carrying both `ref` and `url`, or any other key, is rejected with `400`.
+ * An object carrying both `ref` and `url`, or any other key, is rejected with `422`.
  *
  */
 export const zImageInput = z.union([
@@ -820,7 +820,7 @@ export const zEventLocationRef = z.object({
 });
 
 /**
- * Request body for creating or replacing an event: the fields a client may set. Agenda-specific fields go under `additionalFields`, never at the top level; any other top-level key (a read-only field such as `uid` or `slug`, an unknown name) is rejected with `400`, as is an `additionalFields` name that collides with a native field. Field values are validated by the server (a `422` with per-field `error.errors[]` on failure).
+ * Request body for creating or replacing an event: the fields a client may set. Agenda-specific fields go under `additionalFields`, never at the top level; any other top-level key (a read-only field such as `uid` or `slug`, an unknown name) is rejected with `422`, as is an `additionalFields` name that collides with a native field and a field value the server rejects, each named under `error.errors[]`.
  *
  * Required fields depend on the target agenda: an event needs at least `title`, `description` and `timings`, plus a `location` unless it is online-only, plus whatever the agenda marks required; a missing one answers `422` with the per-field set under `error.errors[]`.
  *

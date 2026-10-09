@@ -73,7 +73,7 @@ export class Events extends HeyApiClient {
      *
      * Creates an event in the given agenda and returns the created `Event`, with a `Location` header pointing at its canonical by-uid URL.
      *
-     * Native writable fields sit at the top level; agenda-specific fields go under `additionalFields`; any other top-level key is rejected with `400`. The moderation `state` of the created event is arbitrated by the caller's role and the agenda's contribution settings - a contributor's event may be created pending moderation rather than published.
+     * The moderation `state` of the created event is arbitrated by the caller's role and the agenda's contribution settings - a contributor's event may be created pending moderation rather than published.
      *
      * The acting member must be allowed to create events in this agenda, otherwise `403`.
      *
@@ -93,7 +93,7 @@ export class Events extends HeyApiClient {
     /**
      * Validate an event without creating it
      *
-     * Validates the body exactly as create does, without persisting anything. A well-formed, valid body answers `200 { "valid": true }`; invalid field values answer `422` with per-field problems under `error.errors[]`. Structural body problems (an unknown top-level key, an `additionalFields` name colliding with a native field) answer `400`.
+     * Validates the body without persisting anything. A valid body answers `200 { "valid": true }`; an invalid one answers `422` with per-field problems under `error.errors[]`.
      *
      * A native `image: { url }` is checked for URL syntax only (an `http(s)` URL without embedded credentials): the URL is not fetched, so a URL that create rejects with `422` at fetch time (unreachable host, private address, over 20 MiB, not an image) passes validate. The image counts as present, so an agenda whose schema requires one validates as it would create.
      *
