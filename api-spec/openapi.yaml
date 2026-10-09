@@ -638,8 +638,8 @@ paths:
       description: >
         Updates only the fields present in the body (an `EventPatch`)
         and returns the updated `Event`. Fields left out are unchanged;
-        `extIds` present in the body are merged by key with the stored
-        ones.
+        a non-empty `extIds` is merged by key with the stored ones,
+        whatever `mergeExtIds` says, and an empty array clears them.
 
 
         The acting member must be allowed to edit this event's
@@ -1679,6 +1679,80 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 
+    post:
+      operationId: agendas.locations.create
+      tags: [Locations]
+      summary: Create a location
+      x-synonyms: [add, new, create, insert, venue, place, address]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Create a location from its address
+          source: |
+            const { data, error } = await oa.agendas.locations.create({
+              path: { agendaUid: 12345 },
+              body: {
+                name: 'Château des Lèbres',
+                address: 'Naves, 07140 Les Vans',
+                countryCode: 'FR',
+              },
+            });
+            if (error) throw error;
+            return data;
+      description: >
+        Creates a location in the agenda, or in its shared location set
+        when the agenda has one. `verified` is set by an administrator or a
+        moderator of the agenda: from anyone else, a body carrying it is
+        refused with `422`.
+
+
+        The position is geocoded: the coordinates, the administrative
+        levels, the postal code, the time zone and the INSEE code the body
+        leaves out are filled in from the coordinates when the body carries
+        them, from the address otherwise.
+
+
+        The acting member must be a contributor of the agenda or above. On
+        an agenda open to contributions that asks no member information, a
+        user who is not a member becomes its contributor by creating a
+        location. Anyone else is refused with `403`, as is every caller when
+        the agenda's settings do not allow creating locations.
+      security:
+        - secretKey: []
+        - oauth2:
+            - locations:write
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationInput'
+      responses:
+        '201':
+          description: The created location.
+          headers:
+            Location:
+              description: Canonical by-uid URL of the created location.
+              required: true
+              schema:
+                type: string
+              example: /agendas/12345/locations/67890
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+
   /agendas/{agendaUid}/locations/ext/{extKey}/{extId}:
     get:
       operationId: agendas.locations.getByExtId
@@ -1790,6 +1864,241 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Location'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          description: >
+            Agenda or location not found. A location merged into another one
+            answers here too, and identifies the surviving one so a stale
+            reference can be repaired.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/Error'
+                  - $ref: '#/components/schemas/MergedLocationError'
+              examples:
+                merged:
+                  summary: Location merged into another one
+                  value:
+                    error:
+                      code: merged
+                      message: location merged into another location
+                      mergedIn: 11111111
+                notFound:
+                  summary: Unknown location
+                  value:
+                    error:
+                      code: not_found
+                      message: location not found
+
+    put:
+      operationId: agendas.locations.update
+      tags: [Locations]
+      summary: Replace a location
+      x-synonyms: [update, replace, edit, put, overwrite, modify, venue, place]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Replace a location with the record of your own system
+          source: |
+            const { data, error } = await oa.agendas.locations.update({
+              path: { agendaUid: 12345, locationUid: 67890 },
+              body: {
+                name: 'Château des Lèbres',
+                address: 'Naves, 07140 Les Vans',
+                countryCode: 'FR',
+                phone: '0475363414',
+                extIds: [{ key: 'my-system', value: 'abc-123' }],
+              },
+            });
+            if (error) throw error;
+            return data;
+      description: >
+        Replaces the location with the body. A `LocationInput` field the
+        body leaves out is emptied, except `extIds`, which a body without
+        them keeps, and what the geocoding fills in from the position. That
+        is looked up again when the address, the country code or the
+        coordinates change, or when the location lacks its city, department
+        or region, and kept otherwise, as it is when the geocoder fails.
+        Coordinates the body sends back unchanged next to a new address or
+        country code follow them.
+
+
+        The acting member must be an administrator or a moderator of the
+        agenda. Anyone else is refused with `403`, as is every caller when
+        the agenda's settings do not allow editing locations.
+      security:
+        - secretKey: []
+        - oauth2:
+            - locations:write
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+        - $ref: '#/components/parameters/LocationUid'
+        - $ref: '#/components/parameters/MergeExtIds'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationInput'
+      responses:
+        '200':
+          description: The updated location.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          description: >
+            Agenda or location not found. A location merged into another one
+            answers here too, and identifies the surviving one so a stale
+            reference can be repaired.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/Error'
+                  - $ref: '#/components/schemas/MergedLocationError'
+              examples:
+                merged:
+                  summary: Location merged into another one
+                  value:
+                    error:
+                      code: merged
+                      message: location merged into another location
+                      mergedIn: 11111111
+                notFound:
+                  summary: Unknown location
+                  value:
+                    error:
+                      code: not_found
+                      message: location not found
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    patch:
+      operationId: agendas.locations.patch
+      tags: [Locations]
+      summary: Partially update a location
+      x-synonyms: [patch, partial update, edit, modify, change, venue, place]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Change just a location's phone number
+          source: |
+            const { data, error } = await oa.agendas.locations.patch({
+              path: { agendaUid: 12345, locationUid: 67890 },
+              body: { phone: '0475363414' },
+            });
+            if (error) throw error;
+            return data;
+      description: >
+        Changes the fields the body carries. `extIds` in the body are
+        merged by key with the stored ones; an empty array leaves them as
+        they are.
+
+
+        The acting member must be an administrator or a moderator of the
+        agenda. Anyone else is refused with `403`, as is every caller when
+        the agenda's settings do not allow editing locations.
+      security:
+        - secretKey: []
+        - oauth2:
+            - locations:write
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+        - $ref: '#/components/parameters/LocationUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationPatch'
+      responses:
+        '200':
+          description: The updated location.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          description: >
+            Agenda or location not found. A location merged into another one
+            answers here too, and identifies the surviving one so a stale
+            reference can be repaired.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/Error'
+                  - $ref: '#/components/schemas/MergedLocationError'
+              examples:
+                merged:
+                  summary: Location merged into another one
+                  value:
+                    error:
+                      code: merged
+                      message: location merged into another location
+                      mergedIn: 11111111
+                notFound:
+                  summary: Unknown location
+                  value:
+                    error:
+                      code: not_found
+                      message: location not found
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    delete:
+      operationId: agendas.locations.delete
+      tags: [Locations]
+      summary: Delete a location
+      x-synonyms: [delete, remove, destroy, drop, venue, place]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Delete a location
+          source: |
+            const { data, error } = await oa.agendas.locations.delete({
+              path: { agendaUid: 12345, locationUid: 67890 },
+            });
+            if (error) throw error;
+            return data.deleted; // true
+      description: >
+        Deletes the location. The events located there keep it unless
+        `withEvents` is set.
+
+
+        The acting member must be an administrator or a moderator of the
+        agenda. Anyone else is refused with `403`, as is every caller when
+        the agenda's settings do not allow deleting locations.
+      security:
+        - secretKey: []
+        - oauth2:
+            - locations:write
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+        - $ref: '#/components/parameters/LocationUid'
+        - $ref: '#/components/parameters/WithEvents'
+      responses:
+        '200':
+          description: The location was deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeletionResult'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -1975,10 +2284,8 @@ components:
       in: query
       required: false
       description: >
-        On the by-uid `PUT`, whether the body's `extIds` are merged by key with
-        the ones already stored (`true`, the default) or replace them wholesale
-        (`false`). A `PATCH` merges a non-empty `extIds` whatever this
-        parameter says; an empty array clears the stored mappings.
+        Whether the body's `extIds` are merged by key with the ones already
+        stored (`true`, the default) or replace them wholesale (`false`).
       schema:
         type: boolean
         default: true
@@ -2133,6 +2440,16 @@ components:
       schema:
         type: integer
         format: int64
+    WithEvents:
+      name: withEvents
+      in: query
+      required: false
+      description: >
+        Whether the events located at the location are deleted with it,
+        whichever agenda they belong to.
+      schema:
+        type: boolean
+        default: false
 
     LocationSearch:
       name: search
@@ -3617,6 +3934,166 @@ components:
                   - $ref: '#/components/schemas/LocalizedString'
       additionalProperties:
         x-additionalPropertiesName: fieldName
+
+    LocationInput:
+      type: object
+      description: >
+        Request body for creating or replacing a location: the fields a
+        client may set. Any other key - a read-only field such as `uid` or
+        `slug`, an unknown name - is refused with `422`, as is a field value
+        the server rejects, with per-field `error.errors[]`. A place the
+        geocoder cannot find is refused with `422`, on the address, the
+        country code or the coordinates the body changes.
+      additionalProperties: false
+      required: [name, address, countryCode]
+      properties:
+        name:
+          type: string
+        address:
+          type: string
+        city:
+          type: [string, 'null']
+        district:
+          type: [string, 'null']
+        region:
+          type: [string, 'null']
+          description: >
+            In France, written under the official label of the region, the
+            one the INSEE code names when they disagree.
+        department:
+          type: [string, 'null']
+          description: >
+            In France, written under the official label of the department, the
+            one the INSEE code names when they disagree.
+        adminLevel3:
+          type: [string, 'null']
+        adminLevel5:
+          type: [string, 'null']
+        postalCode:
+          type: [string, 'null']
+        insee:
+          type: [string, 'null']
+          description: INSEE code of the French municipality.
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2 country code.
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        timezone:
+          type: [string, 'null']
+          description: IANA time zone of the location.
+        description:
+          $ref: '#/components/schemas/LocalizedString'
+        access:
+          allOf:
+            - $ref: '#/components/schemas/LocalizedString'
+          description: >
+            Localized practical information on how to reach the location.
+        website:
+          type: [string, 'null']
+        email:
+          type: [string, 'null']
+        phone:
+          type: [string, 'null']
+        links:
+          type: array
+          items:
+            type: string
+        extIds:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationExtId'
+        siret:
+          type: [string, 'null']
+          description: >-
+            SIRET number (French establishment id) of the location's
+            operator.
+        verified:
+          type: boolean
+          description: Whether the location is verified.
+
+    LocationPatch:
+      type: object
+      description: >
+        Partial update body. A new address, country code or coordinates are
+        geocoded: the coordinates, the postal code and the INSEE code the
+        body leaves out follow the place found. A place the geocoder cannot
+        find is refused with `422`, on the address, the country code or the
+        coordinates the body changes.
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        address:
+          type: string
+        city:
+          type: [string, 'null']
+        district:
+          type: [string, 'null']
+        region:
+          type: [string, 'null']
+          description: >
+            In France, written under the official label of the region, the
+            one the INSEE code names when they disagree.
+        department:
+          type: [string, 'null']
+          description: >
+            In France, written under the official label of the department, the
+            one the INSEE code names when they disagree.
+        adminLevel3:
+          type: [string, 'null']
+        adminLevel5:
+          type: [string, 'null']
+        postalCode:
+          type: [string, 'null']
+        insee:
+          type: [string, 'null']
+          description: INSEE code of the French municipality.
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2 country code.
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        timezone:
+          type: [string, 'null']
+          description: IANA time zone of the location.
+        description:
+          $ref: '#/components/schemas/LocalizedString'
+        access:
+          allOf:
+            - $ref: '#/components/schemas/LocalizedString'
+          description: >
+            Localized practical information on how to reach the location.
+        website:
+          type: [string, 'null']
+        email:
+          type: [string, 'null']
+        phone:
+          type: [string, 'null']
+        links:
+          type: array
+          items:
+            type: string
+        extIds:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationExtId'
+        siret:
+          type: [string, 'null']
+          description: >-
+            SIRET number (French establishment id) of the location's
+            operator.
+        verified:
+          type: boolean
+          description: Whether the location is verified.
 
     LocationList:
       type: object
