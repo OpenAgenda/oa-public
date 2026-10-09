@@ -4665,7 +4665,13 @@ export type AgendasLocationsPatchData = {
          */
         locationUid: number;
     };
-    query?: never;
+    query?: {
+        /**
+         * Whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`).
+         *
+         */
+        mergeExtIds?: boolean;
+    };
     url: '/agendas/{agendaUid}/locations/{locationUid}';
 };
 

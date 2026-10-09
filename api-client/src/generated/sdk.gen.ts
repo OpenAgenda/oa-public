@@ -536,7 +536,7 @@ export class Locations extends HeyApiClient {
     /**
      * Partially update a location
      *
-     * Changes the fields the body carries. `extIds` in the body are merged by key with the stored ones; an empty array leaves them as they are.
+     * Changes the fields the body carries. An empty `extIds` in the body leaves the stored ones as they are, unless `mergeExtIds` is `false`.
      *
      * The acting member must be an administrator or a moderator of the agenda. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow editing locations.
      *

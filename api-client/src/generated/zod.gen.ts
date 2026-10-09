@@ -2530,6 +2530,10 @@ export const zAgendasLocationsPatchPath = z.object({
     locationUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
 });
 
+export const zAgendasLocationsPatchQuery = z.object({
+    mergeExtIds: z.boolean().optional().default(true)
+});
+
 /**
  * The updated location.
  */
