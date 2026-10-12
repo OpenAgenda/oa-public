@@ -147,7 +147,7 @@ export class Events extends HeyApiClient {
     /**
      * Partially update an event
      *
-     * Updates only the fields present in the body (an `EventPatch`) and returns the updated `Event`. Fields left out are unchanged; a non-empty `extIds` is merged by key with the stored ones, whatever `mergeExtIds` says, and an empty array clears them.
+     * Updates only the fields present in the body (an `EventPatch`) and returns the updated `Event`. Fields left out are unchanged.
      *
      * The acting member must be allowed to edit this event's content, otherwise `403`. An unknown event uid answers `404`, invalid field values `422`.
      *
@@ -168,8 +168,6 @@ export class Events extends HeyApiClient {
      * Replace an event
      *
      * Replaces the event's content with the submitted body and returns the updated `Event`. A full write: the server-side requirements of create apply. Use `PATCH` to change only a few fields.
-     *
-     * External id mappings (`extIds`) in the body are merged by key with the stored ones; pass `?mergeExtIds=false` to replace them wholesale.
      *
      * The acting member must be allowed to edit this event's content, otherwise `403`. An unknown event uid answers `404`.
      *
@@ -221,11 +219,11 @@ export class Events extends HeyApiClient {
     }
     
     /**
-     * Upsert an event by external id (partial)
+     * Partially update an event by external id
      *
-     * Upserts the event carrying the `(extKey, extId)` pair. When it already exists, only the fields present in the body (an `EventPatch`) are changed - the rest is left untouched (`200`). If no event carries the pair it is created (`201` + a `Location` header pointing at its canonical by-uid URL), in which case the full server-side requirements apply, so the body must be complete enough to create a valid event (else `422`). The path pair is added to the event's `extIds`, keeping the mappings from other systems; any `extIds` in the body are ignored.
+     * Changes the fields the body carries (an `EventPatch`) on the event that carries the `(extKey, extId)` pair. When no event carries it, the request answers `404`. `extIds` in the body are merged by key with the stored ones; an empty array leaves them as they are, and a mapping under the key `extKey` with a value other than `extId` is refused with `422`.
      *
-     * The acting member must be allowed to create or edit the event, otherwise `403`.
+     * The acting member must be allowed to edit the event, otherwise `403`. A caller who may not write events on the agenda gets `403` also when no event carries the pair.
      *
      */
     public patchByExtId<ThrowOnError extends boolean = false>(options: Options<AgendasEventsPatchByExtIdData, ThrowOnError>) {
@@ -243,7 +241,7 @@ export class Events extends HeyApiClient {
     /**
      * Upsert an event by external id (replace)
      *
-     * Upserts the event carrying the `(extKey, extId)` pair: its content is REPLACED if it already exists (`200`), or the event is CREATED if not (`201` + a `Location` header pointing at its canonical by-uid URL). The path pair is authoritative - it is added to the event's `extIds`, keeping the mappings from other systems, so the event always carries its own external identity; any `extIds` in the body are ignored. This is the recommended write path for syncing from your own system: it is idempotent by external identity, so a lost response can be retried without creating a duplicate.
+     * Replaces the event that carries the `(extKey, extId)` pair with the body and answers `200`, or creates an event carrying it and answers `201`, with a `Location` header giving its by-uid URL. The pair joins the body's `extIds`, which are merged by key with the stored ones; a mapping under the key `extKey` with a value other than `extId` is refused with `422`. Repeated after a lost response, the request replaces the event the first request created.
      *
      * The acting member must be allowed to create or edit the event, otherwise `403`.
      *
@@ -536,7 +534,7 @@ export class Locations extends HeyApiClient {
     /**
      * Partially update a location
      *
-     * Changes the fields the body carries. `extIds` in the body are merged by key with the stored ones, so an empty array leaves them as they are; with `mergeExtIds` set to `false`, they replace the stored ones.
+     * Changes the fields the body carries.
      *
      * The acting member must be an administrator or a moderator of the agenda. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow editing locations.
      *
@@ -557,8 +555,6 @@ export class Locations extends HeyApiClient {
      * Replace a location
      *
      * Replaces the location with the body. A `LocationInput` field the body leaves out is emptied, except `extIds`, `verified` and what the geocoding fills in from the position: the coordinates, the administrative levels, the postal code, the time zone and the INSEE code. These are looked up again when the address, the country code or the coordinates change - the values the body sends back unchanged, the country code included, then follow the new place - and at the point when the city, department or region is missing.
-     *
-     * `extIds` in the body are merged by key with the stored ones, so an empty array leaves them as they are; with `mergeExtIds` set to `false`, they replace the stored ones. A body without `extIds` keeps them either way.
      *
      * The acting member must be an administrator or a moderator of the agenda. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow editing locations.
      *

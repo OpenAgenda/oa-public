@@ -1546,7 +1546,7 @@ export const zExtKey = z.string();
 export const zExtIdValue = z.string();
 
 /**
- * Whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`).
+ * Whether the body's `extIds` are merged by key with the stored ones (`true`, the default) or replace them (`false`). With `true`, an empty array adds nothing; with `false`, it removes every mapping. A body without `extIds` keeps them either way.
  *
  */
 export const zMergeExtIds = z.boolean().default(true);
@@ -2215,7 +2215,7 @@ export const zAgendasEventsPatchByExtIdPath = z.object({
 });
 
 /**
- * The existing event was updated.
+ * The updated event.
  */
 export const zAgendasEventsPatchByExtIdResponse = zEvent;
 
