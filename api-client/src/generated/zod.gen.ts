@@ -249,66 +249,6 @@ export const zLocation = z.object({
     updatedAt: z.string().datetime({ offset: true }).readonly()
 });
 
-/**
- * Request body for creating or replacing a location: the fields a client may set. Any other key - a read-only field such as `uid` or `slug`, an unknown name - is refused with `422`, as is a field value the server rejects, with per-field `error.errors[]`. A place the geocoder cannot find is refused with `422`, on the address, the country code or the coordinates the body changes.
- *
- */
-export const zLocationInput = z.object({
-    name: z.string(),
-    address: z.string(),
-    city: z.string().nullish(),
-    district: z.string().nullish(),
-    region: z.string().nullish(),
-    department: z.string().nullish(),
-    adminLevel3: z.string().nullish(),
-    adminLevel5: z.string().nullish(),
-    postalCode: z.string().nullish(),
-    insee: z.string().nullish(),
-    countryCode: z.string(),
-    latitude: z.number().optional(),
-    longitude: z.number().optional(),
-    timezone: z.string().nullish(),
-    description: zLocalizedString.optional(),
-    access: zLocalizedString.optional(),
-    website: z.string().nullish(),
-    email: z.string().nullish(),
-    phone: z.string().nullish(),
-    links: z.array(z.string()).optional(),
-    extIds: z.array(zLocationExtId).optional(),
-    siret: z.string().nullish(),
-    verified: z.boolean().optional()
-});
-
-/**
- * Partial update body. A new address, country code or coordinates are geocoded, at the point when the body changes a coordinate, at the address otherwise: the coordinates, the administrative levels, the postal code, the time zone, the INSEE code and the country code the body leaves out or sends back unchanged follow the place found. A location whose city, department or region is missing is looked up again at its point. A place the geocoder cannot find is refused with `422` on the address, country code or coordinates the body changes.
- *
- */
-export const zLocationPatch = z.object({
-    name: z.string().optional(),
-    address: z.string().optional(),
-    city: z.string().nullish(),
-    district: z.string().nullish(),
-    region: z.string().nullish(),
-    department: z.string().nullish(),
-    adminLevel3: z.string().nullish(),
-    adminLevel5: z.string().nullish(),
-    postalCode: z.string().nullish(),
-    insee: z.string().nullish(),
-    countryCode: z.string().optional(),
-    latitude: z.number().optional(),
-    longitude: z.number().optional(),
-    timezone: z.string().nullish(),
-    description: zLocalizedString.optional(),
-    access: zLocalizedString.optional(),
-    website: z.string().nullish(),
-    email: z.string().nullish(),
-    phone: z.string().nullish(),
-    links: z.array(z.string()).optional(),
-    extIds: z.array(zLocationExtId).optional(),
-    siret: z.string().nullish(),
-    verified: z.boolean().optional()
-});
-
 export const zLocationList = z.object({
     data: z.array(z.union([zLocation, zLocationSummary])),
     pagination: zPagination
@@ -837,7 +777,7 @@ export const zEvent = z.object({
 });
 
 /**
- * A staged upload. Attach `ref` on an event write (`image`, or a custom file/image field under `additionalFields`) before it expires.
+ * A staged upload. Attach `ref` on a write (`image`, or a custom file/image field of an event under `additionalFields`) before it expires.
  *
  */
 export const zUploadTicket = z.object({
@@ -860,7 +800,7 @@ export const zUploadDescriptor = z.object({
 });
 
 /**
- * Write shape for an event image (the read `Image` carries the rendition URLs). Attach the image one of two ways - a freshly-staged upload by its `ref` (the value returned by `POST /agendas/{uid}/uploads`), or a publicly reachable `url` the server fetches - or send `null` to remove the current image. The image is stored as part of the same write as the rest of the edit; renditions are derived from it on demand.
+ * Write shape for an image (the read `Image` carries the rendition URLs). Attach the image one of two ways - a freshly-staged upload by its `ref` (the value returned by `POST /agendas/{uid}/uploads`), or a publicly reachable `url` the server fetches - or send `null` to remove the current image. The image is stored as part of the same write as the rest of the edit; renditions are derived from it on demand.
  *
  * The `url` must be a publicly reachable `http(s)` image, without credentials in the URL. A URL that is malformed, not `http(s)`, carries credentials, is not publicly reachable, cannot be retrieved, is not a valid image, or is larger than 20 MiB is rejected with `422`.
  *
@@ -875,6 +815,70 @@ export const zImageInput = z.union([
         url: z.string().url().max(2048)
     })
 ]).nullable();
+
+/**
+ * Request body for creating or replacing a location: the fields a client may set. Any other key - a read-only field such as `uid` or `slug`, an unknown name - is refused with `422`, as is a field value the server rejects, with per-field `error.errors[]`. A place the geocoder cannot find is refused with `422`, on the address, the country code or the coordinates the body changes.
+ *
+ */
+export const zLocationInput = z.object({
+    name: z.string(),
+    address: z.string(),
+    city: z.string().nullish(),
+    district: z.string().nullish(),
+    region: z.string().nullish(),
+    department: z.string().nullish(),
+    adminLevel3: z.string().nullish(),
+    adminLevel5: z.string().nullish(),
+    postalCode: z.string().nullish(),
+    insee: z.string().nullish(),
+    countryCode: z.string(),
+    latitude: z.number().optional(),
+    longitude: z.number().optional(),
+    timezone: z.string().nullish(),
+    description: zLocalizedString.optional(),
+    access: zLocalizedString.optional(),
+    image: zImageInput.optional(),
+    imageCredits: z.string().nullish(),
+    website: z.string().nullish(),
+    email: z.string().nullish(),
+    phone: z.string().nullish(),
+    links: z.array(z.string()).optional(),
+    extIds: z.array(zLocationExtId).optional(),
+    siret: z.string().nullish(),
+    verified: z.boolean().optional()
+});
+
+/**
+ * Partial update body. A new address, country code or coordinates are geocoded, at the point when the body changes a coordinate, at the address otherwise: the coordinates, the administrative levels, the postal code, the time zone, the INSEE code and the country code the body leaves out or sends back unchanged follow the place found. A location whose city, department or region is missing is looked up again at its point. A place the geocoder cannot find is refused with `422` on the address, country code or coordinates the body changes.
+ *
+ */
+export const zLocationPatch = z.object({
+    name: z.string().optional(),
+    address: z.string().optional(),
+    city: z.string().nullish(),
+    district: z.string().nullish(),
+    region: z.string().nullish(),
+    department: z.string().nullish(),
+    adminLevel3: z.string().nullish(),
+    adminLevel5: z.string().nullish(),
+    postalCode: z.string().nullish(),
+    insee: z.string().nullish(),
+    countryCode: z.string().optional(),
+    latitude: z.number().optional(),
+    longitude: z.number().optional(),
+    timezone: z.string().nullish(),
+    description: zLocalizedString.optional(),
+    access: zLocalizedString.optional(),
+    image: zImageInput.optional(),
+    imageCredits: z.string().nullish(),
+    website: z.string().nullish(),
+    email: z.string().nullish(),
+    phone: z.string().nullish(),
+    links: z.array(z.string()).optional(),
+    extIds: z.array(zLocationExtId).optional(),
+    siret: z.string().nullish(),
+    verified: z.boolean().optional()
+});
 
 /**
  * A reference to a location by its OpenAgenda uid. A merged location stands for the location that replaced it. A location that does not exist, or has been deleted, is refused with a 422 on `location.uid`; a deleted one is accepted when it is the one the event already has.
@@ -2391,7 +2395,7 @@ export const zAgendasUploadsCreatePath = z.object({
 });
 
 /**
- * The staging reference to attach on an event write.
+ * The staging reference to attach on a write.
  */
 export const zAgendasUploadsCreateResponse = zUploadTicket;
 
@@ -2409,7 +2413,7 @@ export const zUploadsStagedBody = z.object({
 });
 
 /**
- * The staging reference to attach on an event write.
+ * The staging reference to attach on a write.
  */
 export const zUploadsStagedResponse = zUploadTicket;
 

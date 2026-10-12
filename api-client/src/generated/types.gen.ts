@@ -407,6 +407,12 @@ export type LocationInput = {
      *
      */
     access?: LocalizedString;
+    image?: ImageInput;
+    /**
+     * Credits for the location `image`. Ignored when the location has no image, and removed with the image; `null` clears them.
+     *
+     */
+    imageCredits?: string | null;
     website?: string | null;
     email?: string | null;
     phone?: string | null;
@@ -464,6 +470,12 @@ export type LocationPatch = {
      *
      */
     access?: LocalizedString;
+    image?: ImageInput;
+    /**
+     * Credits for the location `image`. Ignored when the location has no image, and removed with the image; `null` clears them.
+     *
+     */
+    imageCredits?: string | null;
     website?: string | null;
     email?: string | null;
     phone?: string | null;
@@ -1367,12 +1379,12 @@ export type Event = {
 };
 
 /**
- * A staged upload. Attach `ref` on an event write (`image`, or a custom file/image field under `additionalFields`) before it expires.
+ * A staged upload. Attach `ref` on a write (`image`, or a custom file/image field of an event under `additionalFields`) before it expires.
  *
  */
 export type UploadTicket = {
     /**
-     * The staging reference to attach on an event write.
+     * The staging reference to attach on a write.
      */
     ref: string;
     /**
@@ -1419,7 +1431,7 @@ export type UploadDescriptor = {
 };
 
 /**
- * Write shape for an event image (the read `Image` carries the rendition URLs). Attach the image one of two ways - a freshly-staged upload by its `ref` (the value returned by `POST /agendas/{uid}/uploads`), or a publicly reachable `url` the server fetches - or send `null` to remove the current image. The image is stored as part of the same write as the rest of the edit; renditions are derived from it on demand.
+ * Write shape for an image (the read `Image` carries the rendition URLs). Attach the image one of two ways - a freshly-staged upload by its `ref` (the value returned by `POST /agendas/{uid}/uploads`), or a publicly reachable `url` the server fetches - or send `null` to remove the current image. The image is stored as part of the same write as the rest of the edit; renditions are derived from it on demand.
  *
  * The `url` must be a publicly reachable `http(s)` image, without credentials in the URL. A URL that is malformed, not `http(s)`, carries credentials, is not publicly reachable, cannot be retrieved, is not a valid image, or is larger than 20 MiB is rejected with `422`.
  *
@@ -4083,7 +4095,7 @@ export type AgendasUploadsCreateError = AgendasUploadsCreateErrors[keyof Agendas
 
 export type AgendasUploadsCreateResponses = {
     /**
-     * The staging reference to attach on an event write.
+     * The staging reference to attach on a write.
      */
     200: UploadTicket;
 };
@@ -4169,7 +4181,7 @@ export type UploadsStagedError = UploadsStagedErrors[keyof UploadsStagedErrors];
 
 export type UploadsStagedResponses = {
     /**
-     * The staging reference to attach on an event write.
+     * The staging reference to attach on a write.
      */
     200: UploadTicket;
 };

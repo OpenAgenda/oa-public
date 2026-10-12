@@ -334,9 +334,9 @@ export class Uploads extends HeyApiClient {
     /**
      * Stage a media upload
      *
-     * Stages a media file - the native event `image`, or a custom `file`/`image` form-schema field. Send the file as `multipart/form-data` (field `file`); the API validates its real type and size, stores it, and returns a short-lived `ref`. Then attach `ref` on an event write - `image: { ref }` or a custom field under `additionalFields` as `{ ref, name? }` (`name` being the download filename) - so the media lands in the same write as the rest of the edit.
+     * Stages a media file - for an `image` field, or for a custom `file`/`image` form-schema field of an event. Send the file as `multipart/form-data` (field `file`); the API validates its real type and size, stores it, and returns a short-lived `ref`. Then attach `ref` on a write - `image: { ref }`, or a custom field under `additionalFields` as `{ ref, name? }` (`name` being the download filename) - so the media lands in the same write as the rest of the edit.
      *
-     * The type is detected from the file content, or from the filename extension for signature-less formats such as CSV; a type outside the platform's allowed set (images, PDF and common office documents) answers `422` with the code `file.invalidType`. The file is capped at 20 MiB (`422` with the code `file.tooBig` past it). This is a coarse gate: the precise types a given field accepts are enforced on the event write, against the agenda's form schema.
+     * The type is detected from the file content, or from the filename extension for signature-less formats such as CSV; a type outside the platform's allowed set (images, PDF and common office documents) answers `422` with the code `file.invalidType`. The file is capped at 20 MiB (`422` with the code `file.tooBig` past it). This is a coarse gate: the precise types a given field accepts are enforced on the write that attaches the file.
      *
      * A request without a file answers `422` with the code `required` on `file`; a file sent in another part, or a second file, answers `422` with the code `file.unexpected` on that part. A multipart body that cannot be read (cut short, without a boundary, a text part over 1 MiB) answers `400`.
      *
@@ -359,7 +359,7 @@ export class Uploads extends HeyApiClient {
      *
      * Authorizes an OUT-OF-BAND upload of a LOCAL image file, made from outside this API client (e.g. with curl), so its bytes never pass through the caller's prompt. Returns a self-contained descriptor: an `uploadUrl`, a short-lived single-use `ticket`, and the `header`/`field` to use.
      *
-     * Upload the file with a plain HTTPS `POST` to `uploadUrl`: send the `ticket` in the `X-Upload-Ticket` header and the file as multipart field `file`. That call returns a staging `ref`, which you then attach with `image: { ref }` on an event write.
+     * Upload the file with a plain HTTPS `POST` to `uploadUrl`: send the `ticket` in the `X-Upload-Ticket` header and the file as multipart field `file`. That call returns a staging `ref`, which you then attach with `image: { ref }` on a write.
      *
      * An image already reachable at a public `http(s)` URL is attached directly with `image: { url }` on the write, with no ticket.
      *
@@ -480,7 +480,7 @@ export class Locations extends HeyApiClient {
      *
      * Replaces the location that carries the `(extKey, extId)` pair with the body and answers `200`, or creates a location carrying it and answers `201`. The pair is looked up among the locations of the agenda, or of its shared location set when it has one. A pair only deleted locations carry gets a new location; when one of them is merged into another one, the request answers `404` instead. The pair joins the body's `extIds`, which are merged by key with the stored ones; a mapping under the key `extKey` with a value other than `extId` is refused with `422`.
      *
-     * On a replace, a `LocationInput` field the body leaves out is emptied, except `extIds`, `verified` and what the geocoding fills in from the position: the coordinates, the administrative levels, the postal code, the time zone and the INSEE code. These are looked up again when the address, the country code or the coordinates change - the values the body sends back unchanged, the country code included, then follow the new place - and at the point when the city, department or region is missing. On a create, the coordinates, the administrative levels, the postal code, the time zone and the INSEE code the body leaves out are filled in from the coordinates when the body carries them, from the address otherwise.
+     * On a replace, a `LocationInput` field the body leaves out is emptied, except `extIds`, `verified` and what the geocoding fills in from the position: the coordinates, the administrative levels, the postal code, the time zone and the INSEE code. These are looked up again when the address, the country code or the coordinates change - the values the body sends back unchanged, the country code included, then follow the new place - and at the point when the city, department or region is missing. A body without `image` keeps the stored image and its credits. On a create, the coordinates, the administrative levels, the postal code, the time zone and the INSEE code the body leaves out are filled in from the coordinates when the body carries them, from the address otherwise.
      *
      * Replacing, or writing a pair a merged location carries, takes an administrator or a moderator of the agenda. Creating takes a contributor or above; on an agenda open to contributions that asks no member information, a user who is not a member becomes its contributor by creating a location. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow the write. `verified` is set by an administrator or a moderator: from anyone else, a body carrying it is refused with `422`.
      *
@@ -554,7 +554,7 @@ export class Locations extends HeyApiClient {
     /**
      * Replace a location
      *
-     * Replaces the location with the body. A `LocationInput` field the body leaves out is emptied, except `extIds`, `verified` and what the geocoding fills in from the position: the coordinates, the administrative levels, the postal code, the time zone and the INSEE code. These are looked up again when the address, the country code or the coordinates change - the values the body sends back unchanged, the country code included, then follow the new place - and at the point when the city, department or region is missing.
+     * Replaces the location with the body. A `LocationInput` field the body leaves out is emptied, except `extIds`, `verified` and what the geocoding fills in from the position: the coordinates, the administrative levels, the postal code, the time zone and the INSEE code. These are looked up again when the address, the country code or the coordinates change - the values the body sends back unchanged, the country code included, then follow the new place - and at the point when the city, department or region is missing. A body without `image` keeps the stored image and its credits.
      *
      * The acting member must be an administrator or a moderator of the agenda. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow editing locations.
      *
@@ -676,7 +676,7 @@ export class Uploads2 extends HeyApiClient {
     /**
      * Upload a file with an upload ticket
      *
-     * Receives the bytes of an OUT-OF-BAND upload authorized by `agendas.uploads.createTicket`, and returns the staging `ref` to attach on an event write (`image: { ref }` or a custom `additionalFields` field). This is the endpoint the ticket descriptor's `uploadUrl` points at.
+     * Receives the bytes of an OUT-OF-BAND upload authorized by `agendas.uploads.createTicket`, and returns the staging `ref` to attach on a write (`image: { ref }`, or a custom `additionalFields` field of an event). This is the endpoint the ticket descriptor's `uploadUrl` points at.
      *
      * Call it with a plain HTTPS `POST` from outside the typed API client, so the file never transits the client (or an LLM's token stream). Authorize with the ticket in the `X-Upload-Ticket` header (no API key or access token) and send the file as `multipart/form-data` field `file`. The target agenda is taken from the signed ticket.
      *
