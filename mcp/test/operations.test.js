@@ -259,6 +259,13 @@ describe('searchOperations', () => {
     expect(searchOperations(query)[0].id).toBe(id);
   });
 
+  // An image reaches a location through an upload, as it reaches an event.
+  it('ranks the upload first for an image of a location', () => {
+    expect(searchOperations('attach an image to a location')[0].id).toBe(
+      'agendas.uploads.createTicket',
+    );
+  });
+
   // Short words are damped, never muted: the operation they genuinely ask for
   // stays reachable.
   it('still ranks the me.* op first when short words are the actual intent', () => {
