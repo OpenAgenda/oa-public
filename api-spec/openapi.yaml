@@ -4033,9 +4033,10 @@ components:
             `[]` — and it is not critiqued field by field for rows that were never
             going to be written either. The drop applies to the rows carried, not
             to the shape of the field: an `availability` of another type than this
-            one is rejected with `422` rather than dropped, except `null`, which
-            says nothing about the field and is accepted and ignored like an
-            occurrence that omits it.
+            one is rejected with `422` rather than dropped. `null` is an exception
+            this schema does not declare: sent, it says nothing about the field and
+            is ignored, exactly like an occurrence that omits the key — which is
+            the spelling to send.
 
 
             DECLARING `availabilityAuthority` IS THE WAY OUT, and the only one on
@@ -5747,9 +5748,8 @@ components:
             On an occurrence the event does not have yet there are no stored rows
             to protect, and the seeding rules above apply unchanged — every row
             sent with it is kept, claimed or not. An occurrence another write
-            removes while this one is in flight is the one exception: the call
-            still answers `200`, and the rows sent with that occurrence are not
-            stored.
+            removes while this one is in flight is one exception: the call still
+            answers `200`, and the rows sent with that occurrence are not stored.
 
 
             AN OCCURRENCE WHOSE ENTRY DOES NOT MENTION `availability` says nothing
@@ -5921,9 +5921,8 @@ components:
             On an occurrence the event does not have yet there are no stored rows
             to protect, and the seeding rules above apply unchanged — every row
             sent with it is kept, claimed or not. An occurrence another write
-            removes while this one is in flight is the one exception: the call
-            still answers `200`, and the rows sent with that occurrence are not
-            stored.
+            removes while this one is in flight is one exception: the call still
+            answers `200`, and the rows sent with that occurrence are not stored.
 
 
             AN OCCURRENCE WHOSE ENTRY DOES NOT MENTION `availability` says nothing
