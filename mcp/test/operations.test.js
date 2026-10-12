@@ -240,6 +240,7 @@ describe('searchOperations', () => {
       'create or replace event external identifier',
       'agendas.events.setByExtId',
     ],
+    ['change an event by external id', 'agendas.events.patchByExtId'],
   ])('ranks the recorded query %p first on %s', (query, id) => {
     expect(searchOperations(query)[0].id).toBe(id);
   });
