@@ -1331,14 +1331,14 @@ paths:
             if (created.error) throw created.error;
             return created.data;
       description: >
-        Stages a media file - the native event `image`, or a custom
-        `file`/`image` form-schema field. Send the file as
+        Stages a media file - for an `image` field, or for a custom
+        `file`/`image` form-schema field of an event. Send the file as
         `multipart/form-data` (field `file`); the API validates its
         real type and size, stores it, and returns a short-lived `ref`.
-        Then attach `ref` on an event write - `image: { ref }` or a
-        custom field under `additionalFields` as `{ ref, name? }`
-        (`name` being the download filename) - so the media lands in
-        the same write as the rest of the edit.
+        Then attach `ref` on a write - `image: { ref }`, or a custom
+        field under `additionalFields` as `{ ref, name? }` (`name`
+        being the download filename) - so the media lands in the same
+        write as the rest of the edit.
 
 
         The type is detected from the file content, or from the
@@ -1347,8 +1347,8 @@ paths:
         office documents) answers `422` with the code
         `file.invalidType`. The file is capped at 20 MiB (`422` with the
         code `file.tooBig` past it). This is a coarse gate: the precise
-        types a given field accepts are enforced on the event write,
-        against the agenda's form schema.
+        types a given field accepts are enforced on the write that
+        attaches the file.
 
 
         A request without a file answers `422` with the code `required`
@@ -1378,7 +1378,7 @@ paths:
                     platform-supported document.
       responses:
         '200':
-          description: The staging reference to attach on an event write.
+          description: The staging reference to attach on a write.
           content:
             application/json:
               schema:
@@ -1453,7 +1453,7 @@ paths:
         Upload the file with a plain HTTPS `POST` to `uploadUrl`: send
         the `ticket` in the `X-Upload-Ticket` header and the file as
         multipart field `file`. That call returns a staging `ref`,
-        which you then attach with `image: { ref }` on an event write.
+        which you then attach with `image: { ref }` on a write.
 
 
         An image already reachable at a public `http(s)` URL is
@@ -1506,9 +1506,9 @@ paths:
       description: >
         Receives the bytes of an OUT-OF-BAND upload authorized by
         `agendas.uploads.createTicket`, and returns the staging `ref`
-        to attach on an event write (`image: { ref }` or a custom
-        `additionalFields` field). This is the endpoint the ticket
-        descriptor's `uploadUrl` points at.
+        to attach on a write (`image: { ref }`, or a custom
+        `additionalFields` field of an event). This is the endpoint the
+        ticket descriptor's `uploadUrl` points at.
 
 
         Call it with a plain HTTPS `POST` from outside the typed API
@@ -1556,7 +1556,7 @@ paths:
                     platform-supported document.
       responses:
         '200':
-          description: The staging reference to attach on an event write.
+          description: The staging reference to attach on a write.
           content:
             application/json:
               schema:
@@ -1847,10 +1847,11 @@ paths:
         up again when the address, the country code or the coordinates
         change - the values the body sends back unchanged, the country code
         included, then follow the new place - and at the point when the
-        city, department or region is missing. On a create, the
-        coordinates, the administrative levels, the postal code, the time
-        zone and the INSEE code the body leaves out are filled in from the
-        coordinates when the body carries them, from the address otherwise.
+        city, department or region is missing. A body without `image` keeps
+        the stored image and its credits. On a create, the coordinates, the
+        administrative levels, the postal code, the time zone and the INSEE
+        code the body leaves out are filled in from the coordinates when the
+        body carries them, from the address otherwise.
 
 
         Replacing, or writing a pair a merged location carries, takes an
@@ -2175,7 +2176,8 @@ paths:
         code. These are looked up again when the address, the country code
         or the coordinates change - the values the body sends back
         unchanged, the country code included, then follow the new place -
-        and at the point when the city, department or region is missing.
+        and at the point when the city, department or region is missing. A
+        body without `image` keeps the stored image and its credits.
 
 
         The acting member must be an administrator or a moderator of the
@@ -4232,6 +4234,13 @@ components:
             - $ref: '#/components/schemas/LocalizedString'
           description: >
             Localized practical information on how to reach the location.
+        image:
+          $ref: '#/components/schemas/ImageInput'
+        imageCredits:
+          type: [string, 'null']
+          description: >
+            Credits for the location `image`. Ignored when the location has
+            no image, and removed with the image; `null` clears them.
         website:
           type: [string, 'null']
         email:
@@ -4314,6 +4323,13 @@ components:
             - $ref: '#/components/schemas/LocalizedString'
           description: >
             Localized practical information on how to reach the location.
+        image:
+          $ref: '#/components/schemas/ImageInput'
+        imageCredits:
+          type: [string, 'null']
+          description: >
+            Credits for the location `image`. Ignored when the location has
+            no image, and removed with the image; `null` clears them.
         website:
           type: [string, 'null']
         email:
@@ -6296,12 +6312,13 @@ components:
       additionalProperties: false
       required: [ref, expiresAt]
       description: >
-        A staged upload. Attach `ref` on an event write (`image`, or a custom
-        file/image field under `additionalFields`) before it expires.
+        A staged upload. Attach `ref` on a write (`image`, or a custom
+        file/image field of an event under `additionalFields`) before it
+        expires.
       properties:
         ref:
           type: string
-          description: The staging reference to attach on an event write.
+          description: The staging reference to attach on a write.
         expiresAt:
           type: string
           format: date-time
@@ -6347,7 +6364,7 @@ components:
 
     ImageInput:
       description: >
-        Write shape for an event image (the read `Image` carries the rendition
+        Write shape for an image (the read `Image` carries the rendition
         URLs). Attach the image one of two ways - a freshly-staged upload by
         its `ref` (the value returned by `POST /agendas/{uid}/uploads`), or a
         publicly reachable `url` the server fetches - or send `null` to remove
