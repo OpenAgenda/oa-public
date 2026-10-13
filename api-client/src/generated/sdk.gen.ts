@@ -498,7 +498,7 @@ export class Locations extends HeyApiClient {
     /**
      * Replace a location
      *
-     * Replaces the location with the body. A `LocationInput` field the body leaves out is emptied, except `extIds`, which a body without them keeps, and what the geocoding fills in from the position. That is looked up again when the address, the country code or the coordinates change, or when the location lacks its city, department or region, and kept otherwise, as it is when the geocoder fails. Coordinates the body sends back unchanged next to a new address or country code follow them.
+     * Replaces the location with the body. A `LocationInput` field the body leaves out is emptied, except `extIds`, which a body without them keeps, and what the geocoding fills in from the position. That is looked up again when the address, the country code or the coordinates change, or when the location lacks its city, department or region, and kept otherwise, as it is when the geocoder fails. Next to a new address, country code or coordinates, what the geocoding fills in that the body sends back unchanged follows the new place.
      *
      * The acting member must be an administrator or a moderator of the agenda. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow editing locations.
      *
