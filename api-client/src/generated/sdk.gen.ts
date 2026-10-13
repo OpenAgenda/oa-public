@@ -444,7 +444,7 @@ export class Locations extends HeyApiClient {
     /**
      * Delete a location
      *
-     * Deletes the location. The events located there keep it unless `withEvents` is set.
+     * Deletes the location. The events located there keep it.
      *
      * The acting member must be an administrator or a moderator of the agenda. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow deleting locations.
      *

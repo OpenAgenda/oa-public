@@ -341,7 +341,7 @@ export type Location = {
 };
 
 /**
- * An external identifier mapping this location to a third-party system.
+ * An external identifier mapping this location to a third-party system. A write whose key or value contains `->` is refused with `422`.
  *
  */
 export type LocationExtId = {
@@ -2389,12 +2389,6 @@ export type AgendaFilterOfficial = boolean;
 export type LocationUid = number;
 
 /**
- * Whether the events located at the location are deleted with it, whichever agenda they belong to.
- *
- */
-export type WithEvents = boolean;
-
-/**
  * Free-text search over the locations' name, address, city, region and department.
  *
  */
@@ -4401,13 +4395,7 @@ export type AgendasLocationsDeleteData = {
          */
         locationUid: number;
     };
-    query?: {
-        /**
-         * Whether the events located at the location are deleted with it, whichever agenda they belong to.
-         *
-         */
-        withEvents?: boolean;
-    };
+    query?: never;
     url: '/agendas/{agendaUid}/locations/{locationUid}';
 };
 
