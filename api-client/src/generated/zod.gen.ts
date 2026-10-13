@@ -151,7 +151,8 @@ export const zImage = z.object({
     srcset: z.array(z.object({
         width: z.number().int().optional(),
         url: z.string().url().optional()
-    }))
+    })),
+    ref: z.string().nullable()
 });
 
 /**
@@ -893,7 +894,7 @@ export const zEventLocationRef = z.object({
  *
  * Required fields depend on the target agenda: an event needs at least `title`, `description` and `timings`, plus a `location` unless it is online-only, plus whatever the agenda marks required; a missing one answers `422` with the per-field set under `error.errors[]`.
  *
- * The `image` is set either by reference - stage the bytes via `POST /agendas/{uid}/uploads` and pass the returned `ref` here - or by a public `url` the server fetches (or `null` to clear it). An event's privacy is derived from its agenda.
+ * A body that replaces an event and leaves `image` out removes the image and its credits. An event's privacy is derived from its agenda.
  *
  */
 export const zEventInput = z.object({

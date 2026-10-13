@@ -231,6 +231,11 @@ export type Image = {
         width?: number;
         url?: string;
     }>;
+    /**
+     * Reference of the stored image.
+     *
+     */
+    ref: string | null;
 };
 
 /**
@@ -1440,7 +1445,7 @@ export type UploadDescriptor = {
  */
 export type ImageInput = {
     /**
-     * A staging reference returned by the upload endpoint (of the form `staging/{agendaUid}/…`). It must belong to this agenda - a reference for another agenda answers `422` - and be attached before the upload's `expiresAt`; attaching it later may answer `422`.
+     * A staging reference returned by the upload endpoint (of the form `staging/{agendaUid}/…`), or the `ref` of the read `Image` the resource carries, which keeps that image as it is. A staging reference must belong to this agenda - a reference for another agenda answers `422` - and be attached before the upload's `expiresAt`; attaching it later may answer `422`. Any other reference answers `422`, as does the `ref` of a stored image on a create.
      *
      */
     ref: string;
@@ -1457,7 +1462,7 @@ export type ImageInput = {
  *
  * Required fields depend on the target agenda: an event needs at least `title`, `description` and `timings`, plus a `location` unless it is online-only, plus whatever the agenda marks required; a missing one answers `422` with the per-field set under `error.errors[]`.
  *
- * The `image` is set either by reference - stage the bytes via `POST /agendas/{uid}/uploads` and pass the returned `ref` here - or by a public `url` the server fetches (or `null` to clear it). An event's privacy is derived from its agenda.
+ * A body that replaces an event and leaves `image` out removes the image and its credits. An event's privacy is derived from its agenda.
  *
  */
 export type EventInput = {
