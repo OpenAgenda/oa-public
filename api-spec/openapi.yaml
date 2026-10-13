@@ -1861,7 +1861,8 @@ paths:
         of them is merged into another one, the request answers `404`
         instead. The pair joins the body's `extIds`, which are merged by
         key with the stored ones; a mapping under the key `extKey` with
-        a value other than `extId` is refused with `422`.
+        a value other than `extId` is refused with `422`, as is a pair
+        whose `extKey` or `extId` contains `->`.
 
 
         On a replace, a `LocationInput` field the body leaves out is
@@ -1869,9 +1870,10 @@ paths:
         the position. What the geocoding fills in is looked up again
         when the address, the country code or the coordinates change, or
         when the location lacks its city, department or region, and kept
-        otherwise, as it is when the geocoder fails. Coordinates the
-        body sends back unchanged next to a new address or country code
-        follow them. On a create, the coordinates, the administrative
+        otherwise, as it is when the geocoder fails. Next to a new
+        address, country code or coordinates, what the geocoding fills in
+        that the body sends back unchanged follows the new place. On a
+        create, the coordinates, the administrative
         levels, the postal code, the time zone and the INSEE code the
         body leaves out are filled in from the coordinates when the body
         carries them, from the address otherwise.
@@ -2052,7 +2054,7 @@ paths:
       description: >
         Deletes the location that carries the `(extKey, extId)` pair, among
         the locations of the agenda, or of its shared location set when it
-        has one. The events located there keep it unless `withEvents` is set.
+        has one. The events located there keep it.
 
 
         The acting member must be an administrator or a moderator of the
@@ -2066,7 +2068,6 @@ paths:
         - $ref: '#/components/parameters/AgendaUid'
         - $ref: '#/components/parameters/ExtKey'
         - $ref: '#/components/parameters/ExtIdValue'
-        - $ref: '#/components/parameters/WithEvents'
       responses:
         '200':
           description: The location was deleted.
