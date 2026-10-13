@@ -1924,8 +1924,9 @@ paths:
         is looked up again when the address, the country code or the
         coordinates change, or when the location lacks its city, department
         or region, and kept otherwise, as it is when the geocoder fails.
-        Coordinates the body sends back unchanged next to a new address or
-        country code follow them.
+        Next to a new address, country code or coordinates, what the
+        geocoding fills in that the body sends back unchanged follows the
+        new place.
 
 
         The acting member must be an administrator or a moderator of the
