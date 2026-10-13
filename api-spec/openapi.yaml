@@ -4243,7 +4243,9 @@ components:
           type: [string, 'null']
           description: >
             Credits for the location `image`. Ignored when the location has
-            no image, and removed with the image; `null` clears them.
+            no image. They go with the image: removed with it, and cleared
+            by a write that gives a new image without them; `null` clears
+            them.
         website:
           type: [string, 'null']
         email:
@@ -4332,7 +4334,9 @@ components:
           type: [string, 'null']
           description: >
             Credits for the location `image`. Ignored when the location has
-            no image, and removed with the image; `null` clears them.
+            no image. They go with the image: removed with it, and cleared
+            by a write that gives a new image without them; `null` clears
+            them.
         website:
           type: [string, 'null']
         email:
