@@ -1,21 +1,27 @@
-import type { Agenda, EventQuery } from '../types';
+import type { Agenda } from '../types';
 
-type CorpusAgenda = Pick<Agenda, 'summary' | 'hasArchives'> | null | undefined;
+type CorpusAgenda = Pick<Agenda, 'summary'> | null | undefined;
 
 // An agenda whose published events have all left for its archives: nothing
-// in the active corpus, something in the archives (`hasArchives`, on the
-// listing's read). Same rule as packages/next's.
+// in the active corpus — none current, upcoming or passed — and something in
+// the archives, as its detailed read's summary counts them (`archivedEvents`,
+// absent where the deployment has no archives). One snapshot for both
+// halves, which every archiving move resets (`markSummaryForRefresh`), and
+// one that every consumer of the detailed read has.
 export function isFullyArchivedAgenda(agenda?: CorpusAgenda): boolean {
-  const counts = agenda?.summary?.publishedEvents;
+  const summary = agenda?.summary;
+  const counts = summary?.publishedEvents;
 
   return (
-    !!agenda?.hasArchives
-    && !!counts
+    !!counts
+    && (summary.archivedEvents || 0) > 0
     && (counts.current || 0) + (counts.upcoming || 0) + (counts.passed || 0) === 0
   );
 }
 
-// The spellings the API reads for either corpus; anything else names none.
+// The spellings the API reads for either corpus (`resolveArchivedOption`).
+// Anything else — empty, `null` (both corpora, which no listing offers), a
+// repeated key — names no corpus, and the default decides.
 const ARCHIVES = ['1', 'true', 'yes', 'on'];
 const ACTIVE = ['0', 'false', 'no', 'off'];
 
@@ -29,24 +35,32 @@ function askedCorpus(value: unknown): 'archives' | 'active' | undefined {
   return undefined;
 }
 
-// The corpus the listing shows: `archived: '1'` for the archives, which a
-// fully archived agenda opens on unless the query says `archived=0`; the
-// default drops an explicit `relative`, which would empty an all-past corpus.
-// For what is downloaded now, never for an address that outlives the page.
-// Same rule as packages/next's.
-export default function withDefaultCorpus(
-  query: EventQuery,
+// The corpus a listing reads, spelled as the listing reads it: `archived:
+// '1'` for the archives, no `archived` for the active events.
+//
+// A fully archived agenda (`isFullyArchivedAgenda`) opens on its archives:
+// its active listing could only say "no event". Only the default: an
+// explicit `archived=0` — the archives switch turned off — still reads the
+// active corpus. And, as the switch does on the way in, the default drops an
+// explicit `relative`: an upcoming window would empty an all-past corpus.
+//
+// Without an agenda, only the spelling is normalised: what a feed or any
+// other address that outlives the page reads, since the default must never
+// be written there — the same address has to go back to the active events
+// once the agenda has some again.
+export default function withDefaultCorpus<Q extends Record<string, any>>(
+  query: Q,
   agenda?: CorpusAgenda,
-): EventQuery {
+): Q {
   const { archived, ...rest } = query;
   const asked = askedCorpus(archived);
 
-  if (asked === 'archives') return { ...rest, archived: '1' };
+  if (asked === 'archives') return { ...rest, archived: '1' } as unknown as Q;
 
   if (asked === undefined && isFullyArchivedAgenda(agenda)) {
     const { relative: _relative, ...withoutWindow } = rest;
-    return { ...withoutWindow, archived: '1' };
+    return { ...withoutWindow, archived: '1' } as unknown as Q;
   }
 
-  return rest;
+  return rest as Q;
 }

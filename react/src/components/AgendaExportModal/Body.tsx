@@ -64,16 +64,21 @@ function completeUrls(
   // calendar subscription, the RSS, the JSON an integrator polls — and the
   // embed keep the defaults: their URL outlives the agenda's current state,
   // and must bring the upcoming events back once the agenda has some again.
+  // Both read the reader's own corpus, its spelling normalised (`?archived=
+  // true` is the archives, never their upcoming window).
   const fileQuery = withDefaultCorpus(query, agenda);
+  const readerQuery = withDefaultCorpus(query);
   const apiQuery = apiQueryFor(
     fileQuery,
     isUpcomingOnlyQuery(fileQuery, agenda),
   );
-  const feedQuery = apiQueryFor(query, isUpcomingOnlyQuery(query));
+  const feedQuery = apiQueryFor(readerQuery, isUpcomingOnlyQuery(readerQuery));
 
   const apiQueryString = qs.stringify(apiQuery, { addQueryPrefix: true });
   const feedQueryString = qs.stringify(feedQuery, { addQueryPrefix: true });
-  const embedQueryString = qs.stringify(query, { addQueryPrefix: true });
+  const embedQueryString = qs.stringify(readerQuery, {
+    addQueryPrefix: true,
+  });
   const countQueryString = qs.stringify(
     { ...apiQuery, size: 0 },
     { addQueryPrefix: true },
@@ -129,7 +134,9 @@ export default function Body({
   const [mode, setMode] = useState<'all' | 'selection'>('selection');
   const res = useMemo(() => {
     // "All" is every event of the corpus on screen: from the archives view,
-    // every archived event.
+    // every archived event. The reader's `archived` as written, `0` included:
+    // `completeUrls` reads its spelling, and derives a fully archived
+    // agenda's default for the files only.
     const usedQuery: EventQuery = mode === 'all'
       ? {
         relative: ['passed', 'current', 'upcoming'],
