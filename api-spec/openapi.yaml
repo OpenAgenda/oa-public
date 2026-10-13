@@ -3970,8 +3970,9 @@ components:
             moves a stored `id` to another occurrence; an occurrence it cannot
             match to a stored one receives a fresh `id`. Supplied on write, it
             is stored as sent and names that occurrence; a value repeated within
-            the submitted timings is kept on the first occurrence only. A
-            supplied `id` that does not match the pattern answers `422`.
+            the submitted timings is kept on the earliest of those occurrences by
+            date, and the others receive a fresh `id`. A supplied `id` that does
+            not match the pattern answers `422`.
         sourceRef:
           type: string
           maxLength: 255
@@ -4037,6 +4038,16 @@ components:
             this schema does not declare: sent, it says nothing about the field and
             is ignored, exactly like an occurrence that omits the key — which is
             the spelling to send.
+
+
+            TWO OCCURRENCES OF THE SAME WRITE SENT WITH THE SAME STORED `id` are
+            both occurrences the event already has, so the rows both carry are
+            dropped; the one that receives a fresh `id` is stored with no
+            inventory, and the call answers `200`. An occurrence another write
+            removes between this write's reads reaches the same outcome: its rows
+            are dropped as carried, and nothing is seeded under its fresh `id`.
+            Declaring `availabilityAuthority` is what makes either one write the
+            rows it sends.
 
 
             DECLARING `availabilityAuthority` IS THE WAY OUT, and the only one on
@@ -5748,8 +5759,10 @@ components:
             On an occurrence the event does not have yet there are no stored rows
             to protect, and the seeding rules above apply unchanged — every row
             sent with it is kept, claimed or not. An occurrence another write
-            removes while this one is in flight is one exception: the call still
-            answers `200`, and the rows sent with that occurrence are not stored.
+            removes while this one is in flight is one exception, and it bites
+            only what this write does not claim: the call still answers `200`,
+            and the rows it sends for that occurrence under a provider it does
+            not name are not stored.
 
 
             AN OCCURRENCE WHOSE ENTRY DOES NOT MENTION `availability` says nothing
@@ -5921,8 +5934,10 @@ components:
             On an occurrence the event does not have yet there are no stored rows
             to protect, and the seeding rules above apply unchanged — every row
             sent with it is kept, claimed or not. An occurrence another write
-            removes while this one is in flight is one exception: the call still
-            answers `200`, and the rows sent with that occurrence are not stored.
+            removes while this one is in flight is one exception, and it bites
+            only what this write does not claim: the call still answers `200`,
+            and the rows it sends for that occurrence under a provider it does
+            not name are not stored.
 
 
             AN OCCURRENCE WHOSE ENTRY DOES NOT MENTION `availability` says nothing
