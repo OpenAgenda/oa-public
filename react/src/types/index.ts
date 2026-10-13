@@ -50,6 +50,9 @@ export type Agenda = {
   memberSchema?: Record<string, any>;
   settings?: AgendaSettings;
   summary: any;
+  // On the listing's read (`includeArchives`): whether its archives hold
+  // anything a public reader would see.
+  hasArchives?: boolean;
   network: any;
   indexed: boolean | number;
   image?: string;

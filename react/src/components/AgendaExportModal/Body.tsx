@@ -11,6 +11,7 @@ import {
   Radio,
 } from '@openagenda/uikit/snippets';
 import isUpcomingOnlyQuery from '../../utils/isUpcomingOnlyQuery';
+import withDefaultCorpus from '../../utils/withDefaultCorpus';
 import ModalLoadingBody from '../ModalLoadingBody';
 import type { Agenda, EventQuery, ExportSettings } from '../../types';
 import SpreadsheetAccordionItem from './SpreadsheetAccordionItem';
@@ -48,23 +49,27 @@ function completeUrls(
   rootUrl = 'https://openagenda.com',
   apiRootUrl = 'https://api.openagenda.com',
 ): CompleteUrlsResult {
-  const apiQueryFor = (upcomingOnly: boolean) => ({
+  const apiQueryFor = (q: EventQuery, upcomingOnly: boolean) => ({
     ...upcomingOnly
       ? {
         relative: ['current', 'upcoming'],
       }
       : null,
-    ...query,
+    ...q,
     passed: undefined, // omit passed
   });
 
   // A one-off file holds what the listing shows: an agenda whose events are
-  // all past exports them. A feed — a calendar subscription, the RSS, the
-  // JSON an integrator polls — keeps the default upcoming window: its URL
-  // outlives the agenda's current state, and must bring the upcoming events
-  // back once the agenda has some again.
-  const apiQuery = apiQueryFor(isUpcomingOnlyQuery(query, agenda));
-  const feedQuery = apiQueryFor(isUpcomingOnlyQuery(query));
+  // all past exports them, a fully archived one its archives. A feed — a
+  // calendar subscription, the RSS, the JSON an integrator polls — and the
+  // embed keep the defaults: their URL outlives the agenda's current state,
+  // and must bring the upcoming events back once the agenda has some again.
+  const fileQuery = withDefaultCorpus(query, agenda);
+  const apiQuery = apiQueryFor(
+    fileQuery,
+    isUpcomingOnlyQuery(fileQuery, agenda),
+  );
+  const feedQuery = apiQueryFor(query, isUpcomingOnlyQuery(query));
 
   const apiQueryString = qs.stringify(apiQuery, { addQueryPrefix: true });
   const feedQueryString = qs.stringify(feedQuery, { addQueryPrefix: true });
