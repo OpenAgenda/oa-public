@@ -2077,8 +2077,7 @@ paths:
             if (error) throw error;
             return data.deleted; // true
       description: >
-        Deletes the location. The events located there keep it unless
-        `withEvents` is set.
+        Deletes the location. The events located there keep it.
 
 
         The acting member must be an administrator or a moderator of the
@@ -2091,7 +2090,6 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AgendaUid'
         - $ref: '#/components/parameters/LocationUid'
-        - $ref: '#/components/parameters/WithEvents'
       responses:
         '200':
           description: The location was deleted.
@@ -2440,17 +2438,6 @@ components:
       schema:
         type: integer
         format: int64
-    WithEvents:
-      name: withEvents
-      in: query
-      required: false
-      description: >
-        Whether the events located at the location are deleted with it,
-        whichever agenda they belong to.
-      schema:
-        type: boolean
-        default: false
-
     LocationSearch:
       name: search
       in: query
@@ -3903,6 +3890,7 @@ components:
       type: object
       description: >
         An external identifier mapping this location to a third-party system.
+        A write whose key or value contains `->` is refused with `422`.
       additionalProperties: false
       properties:
         key:
