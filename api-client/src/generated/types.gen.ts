@@ -414,7 +414,7 @@ export type LocationInput = {
     access?: LocalizedString;
     image?: ImageInput;
     /**
-     * Credits for the location `image`. Ignored when the location has no image, and removed with the image; `null` clears them.
+     * Credits for the location `image`. Ignored when the location has no image. They go with the image: removed with it, and cleared by a write that gives a new image without them; `null` clears them.
      *
      */
     imageCredits?: string | null;
@@ -477,7 +477,7 @@ export type LocationPatch = {
     access?: LocalizedString;
     image?: ImageInput;
     /**
-     * Credits for the location `image`. Ignored when the location has no image, and removed with the image; `null` clears them.
+     * Credits for the location `image`. Ignored when the location has no image. They go with the image: removed with it, and cleared by a write that gives a new image without them; `null` clears them.
      *
      */
     imageCredits?: string | null;
