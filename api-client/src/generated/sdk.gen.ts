@@ -694,7 +694,7 @@ export class Agendas2 extends HeyApiClient {
     /**
      * List the agendas you are a member of
      *
-     * Returns a cursor-paginated list of the agendas the authenticated user is a member of, with their role on each. Private agendas the user belongs to ARE included (each item carries a `private` flag), and so are agendas not indexed in public search.
+     * Returns a cursor-paginated list of the agendas the authenticated user is a member of, with their role on each. Private agendas the user belongs to ARE included (each item carries a `private` flag), and so are agendas not indexed in public search. With an API key limited to a list of agendas, the list holds only the memberships in those agendas.
      *
      */
     public list<ThrowOnError extends boolean = false>(options?: Options<MeAgendasListData, ThrowOnError>) {

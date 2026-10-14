@@ -12,7 +12,7 @@ export type Error = {
         /**
          * Stable, machine-readable error code.
          */
-        code: 'bad_request' | 'unauthorized' | 'read_only_credential' | 'insufficient_scope' | 'forbidden' | 'not_found' | 'service_unavailable';
+        code: 'bad_request' | 'unauthorized' | 'read_only_credential' | 'insufficient_scope' | 'agenda_not_granted' | 'forbidden' | 'not_found' | 'service_unavailable';
         /**
          * Human-readable explanation.
          */

@@ -12,6 +12,7 @@ export const zError = z.object({
             'unauthorized',
             'read_only_credential',
             'insufficient_scope',
+            'agenda_not_granted',
             'forbidden',
             'not_found',
             'service_unavailable'
