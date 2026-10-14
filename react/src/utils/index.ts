@@ -3,7 +3,3 @@ export {
   default as isUpcomingOnlyQuery,
   isPastOnlyAgenda,
 } from './isUpcomingOnlyQuery';
-export {
-  default as withDefaultCorpus,
-  isFullyArchivedAgenda,
-} from './withDefaultCorpus';

@@ -2,7 +2,7 @@
 
 import { type Client, formDataBodySerializer, type Options as Options2, type TDataShape } from './client';
 import { client } from './client.gen';
-import type { AgendasEventsCreateData, AgendasEventsCreateErrors, AgendasEventsCreateResponses, AgendasEventsDeleteByExtIdData, AgendasEventsDeleteByExtIdErrors, AgendasEventsDeleteByExtIdResponses, AgendasEventsDeleteData, AgendasEventsDeleteErrors, AgendasEventsDeleteResponses, AgendasEventsFacetsData, AgendasEventsFacetsErrors, AgendasEventsFacetsReportData, AgendasEventsFacetsReportErrors, AgendasEventsFacetsReportResponses, AgendasEventsFacetsResponses, AgendasEventsGetByExtIdData, AgendasEventsGetByExtIdErrors, AgendasEventsGetByExtIdResponses, AgendasEventsGetData, AgendasEventsGetErrors, AgendasEventsGetResponses, AgendasEventsListData, AgendasEventsListErrors, AgendasEventsListResponses, AgendasEventsPatchByExtIdData, AgendasEventsPatchByExtIdErrors, AgendasEventsPatchByExtIdResponses, AgendasEventsPatchData, AgendasEventsPatchErrors, AgendasEventsPatchResponses, AgendasEventsSchemaData, AgendasEventsSchemaErrors, AgendasEventsSchemaResponses, AgendasEventsSetByExtIdData, AgendasEventsSetByExtIdErrors, AgendasEventsSetByExtIdResponses, AgendasEventsUpdateData, AgendasEventsUpdateErrors, AgendasEventsUpdateResponses, AgendasEventsValidateData, AgendasEventsValidateErrors, AgendasEventsValidateResponses, AgendasGetData, AgendasGetErrors, AgendasGetResponses, AgendasListData, AgendasListErrors, AgendasListResponses, AgendasLocationsCreateData, AgendasLocationsCreateErrors, AgendasLocationsCreateResponses, AgendasLocationsDeleteByExtIdData, AgendasLocationsDeleteByExtIdErrors, AgendasLocationsDeleteByExtIdResponses, AgendasLocationsDeleteData, AgendasLocationsDeleteErrors, AgendasLocationsDeleteResponses, AgendasLocationsGetByExtIdData, AgendasLocationsGetByExtIdErrors, AgendasLocationsGetByExtIdResponses, AgendasLocationsGetData, AgendasLocationsGetErrors, AgendasLocationsGetResponses, AgendasLocationsListData, AgendasLocationsListErrors, AgendasLocationsListResponses, AgendasLocationsPatchByExtIdData, AgendasLocationsPatchByExtIdErrors, AgendasLocationsPatchByExtIdResponses, AgendasLocationsPatchData, AgendasLocationsPatchErrors, AgendasLocationsPatchResponses, AgendasLocationsSetByExtIdData, AgendasLocationsSetByExtIdErrors, AgendasLocationsSetByExtIdResponses, AgendasLocationsSettingsData, AgendasLocationsSettingsErrors, AgendasLocationsSettingsResponses, AgendasLocationsUpdateData, AgendasLocationsUpdateErrors, AgendasLocationsUpdateResponses, AgendasLocationsValidateData, AgendasLocationsValidateErrors, AgendasLocationsValidateResponses, AgendasOverviewData, AgendasOverviewErrors, AgendasOverviewResponses, AgendasUploadsCreateData, AgendasUploadsCreateErrors, AgendasUploadsCreateResponses, AgendasUploadsCreateTicketData, AgendasUploadsCreateTicketErrors, AgendasUploadsCreateTicketResponses, GeocodingReverseData, GeocodingReverseErrors, GeocodingReverseResponses, GeocodingSearchData, GeocodingSearchErrors, GeocodingSearchResponses, KeysVerifyData, KeysVerifyErrors, KeysVerifyResponses, MeAgendasListData, MeAgendasListErrors, MeAgendasListResponses, UploadsStagedData, UploadsStagedErrors, UploadsStagedResponses } from './types.gen';
+import type { AgendasEventsCreateData, AgendasEventsCreateErrors, AgendasEventsCreateResponses, AgendasEventsDeleteByExtIdData, AgendasEventsDeleteByExtIdErrors, AgendasEventsDeleteByExtIdResponses, AgendasEventsDeleteData, AgendasEventsDeleteErrors, AgendasEventsDeleteResponses, AgendasEventsFacetsData, AgendasEventsFacetsErrors, AgendasEventsFacetsReportData, AgendasEventsFacetsReportErrors, AgendasEventsFacetsReportResponses, AgendasEventsFacetsResponses, AgendasEventsGetByExtIdData, AgendasEventsGetByExtIdErrors, AgendasEventsGetByExtIdResponses, AgendasEventsGetData, AgendasEventsGetErrors, AgendasEventsGetResponses, AgendasEventsListData, AgendasEventsListErrors, AgendasEventsListResponses, AgendasEventsPatchByExtIdData, AgendasEventsPatchByExtIdErrors, AgendasEventsPatchByExtIdResponses, AgendasEventsPatchData, AgendasEventsPatchErrors, AgendasEventsPatchResponses, AgendasEventsSchemaData, AgendasEventsSchemaErrors, AgendasEventsSchemaResponses, AgendasEventsSetByExtIdData, AgendasEventsSetByExtIdErrors, AgendasEventsSetByExtIdResponses, AgendasEventsUpdateData, AgendasEventsUpdateErrors, AgendasEventsUpdateResponses, AgendasEventsValidateData, AgendasEventsValidateErrors, AgendasEventsValidateResponses, AgendasGetData, AgendasGetErrors, AgendasGetResponses, AgendasListData, AgendasListErrors, AgendasListResponses, AgendasLocationsGetByExtIdData, AgendasLocationsGetByExtIdErrors, AgendasLocationsGetByExtIdResponses, AgendasLocationsGetData, AgendasLocationsGetErrors, AgendasLocationsGetResponses, AgendasLocationsListData, AgendasLocationsListErrors, AgendasLocationsListResponses, AgendasOverviewData, AgendasOverviewErrors, AgendasOverviewResponses, AgendasUploadsCreateData, AgendasUploadsCreateErrors, AgendasUploadsCreateResponses, AgendasUploadsCreateTicketData, AgendasUploadsCreateTicketErrors, AgendasUploadsCreateTicketResponses, KeysVerifyData, KeysVerifyErrors, KeysVerifyResponses, MeAgendasListData, MeAgendasListErrors, MeAgendasListResponses, UploadsStagedData, UploadsStagedErrors, UploadsStagedResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -54,8 +54,6 @@ export class Events extends HeyApiClient {
      *
      * Only published events are listed. Unknown or malformed filter values answer `400`, with per-field context under `error.errors`. An unrecognized top-level query parameter is ignored.
      *
-     * A location's administrative levels go from `adminLevel1`, the largest division of its country, to `adminLevel6`, the smallest; what each one is depends on the country, and `adminLevel4` is the municipality.
-     *
      */
     public list<ThrowOnError extends boolean = false>(options: Options<AgendasEventsListData, ThrowOnError>) {
         return (options.client ?? this.client).get<AgendasEventsListResponses, AgendasEventsListErrors, ThrowOnError>({
@@ -95,9 +93,9 @@ export class Events extends HeyApiClient {
     /**
      * Validate an event without creating it
      *
-     * Checks the body as creating the event in this agenda would, without creating anything. A valid body answers `200 { "valid": true }`; an invalid one answers `422` with per-field problems under `error.errors[]`, and a caller who may not create gets `403`.
+     * Checks the body as creating the event in this agenda would - the caller's right to create, the fields the agenda requires, every field value - without creating anything. A valid body answers `200 { "valid": true }`; an invalid one answers `422` with per-field problems under `error.errors[]`, and a caller who may not create gets `403`.
      *
-     * A native `image: { url }` is checked for URL syntax only (an `http(s)` URL without embedded credentials): the URL is not fetched, so a URL that create refuses with `422` once it fetches it passes validate. The image counts as present, so an agenda whose schema requires one validates as it would create.
+     * A native `image: { url }` is checked for URL syntax only (an `http(s)` URL without embedded credentials): the URL is not fetched, so a URL that create rejects with `422` at fetch time (unreachable host, private address, over 20 MiB, not an image) passes validate. The image counts as present, so an agenda whose schema requires one validates as it would create.
      *
      */
     public validate<ThrowOnError extends boolean = false>(options: Options<AgendasEventsValidateData, ThrowOnError>) {
@@ -149,7 +147,7 @@ export class Events extends HeyApiClient {
     /**
      * Partially update an event
      *
-     * Updates only the fields present in the body (an `EventPatch`) and returns the updated `Event`. Fields left out are unchanged.
+     * Updates only the fields present in the body (an `EventPatch`) and returns the updated `Event`. Fields left out are unchanged; `extIds` present in the body are merged by key with the stored ones.
      *
      * The acting member must be allowed to edit this event's content, otherwise `403`. An unknown event uid answers `404`, invalid field values `422`.
      *
@@ -170,6 +168,8 @@ export class Events extends HeyApiClient {
      * Replace an event
      *
      * Replaces the event's content with the submitted body and returns the updated `Event`. A full write: the server-side requirements of create apply. Use `PATCH` to change only a few fields.
+     *
+     * External id mappings (`extIds`) in the body are merged by key with the stored ones; pass `?mergeExtIds=false` to replace them wholesale.
      *
      * The acting member must be allowed to edit this event's content, otherwise `403`. An unknown event uid answers `404`.
      *
@@ -221,11 +221,11 @@ export class Events extends HeyApiClient {
     }
     
     /**
-     * Partially update an event by external id
+     * Upsert an event by external id (partial)
      *
-     * Changes the fields the body carries (an `EventPatch`) on the event that carries the `(extKey, extId)` pair. When no event carries it, the request answers `404`. `extIds` in the body are merged by key with the stored ones; an empty array leaves them as they are, and a mapping under the key `extKey` with a value other than `extId` is refused with `422`.
+     * Upserts the event carrying the `(extKey, extId)` pair. When it already exists, only the fields present in the body (an `EventPatch`) are changed - the rest is left untouched (`200`). If no event carries the pair it is created (`201` + a `Location` header pointing at its canonical by-uid URL), in which case the full server-side requirements apply, so the body must be complete enough to create a valid event (else `422`). The path pair is added to the event's `extIds`, keeping the mappings from other systems; any `extIds` in the body are ignored.
      *
-     * The acting member must be allowed to edit the event, otherwise `403`. A caller who may not write events on the agenda gets `403` also when no event carries the pair.
+     * The acting member must be allowed to create or edit the event, otherwise `403`.
      *
      */
     public patchByExtId<ThrowOnError extends boolean = false>(options: Options<AgendasEventsPatchByExtIdData, ThrowOnError>) {
@@ -243,7 +243,7 @@ export class Events extends HeyApiClient {
     /**
      * Upsert an event by external id (replace)
      *
-     * Replaces the event that carries the `(extKey, extId)` pair with the body and answers `200`, or creates an event carrying it and answers `201`, with a `Location` header giving its by-uid URL. The pair joins the body's `extIds`, which are merged by key with the stored ones; a mapping under the key `extKey` with a value other than `extId` is refused with `422`. Repeated after a lost response, the request replaces the event the first request created.
+     * Upserts the event carrying the `(extKey, extId)` pair: its content is REPLACED if it already exists (`200`), or the event is CREATED if not (`201` + a `Location` header pointing at its canonical by-uid URL). The path pair is authoritative - it is added to the event's `extIds`, keeping the mappings from other systems, so the event always carries its own external identity; any `extIds` in the body are ignored. This is the recommended write path for syncing from your own system: it is idempotent by external identity, so a lost response can be retried without creating a duplicate.
      *
      * The acting member must be allowed to create or edit the event, otherwise `403`.
      *
@@ -263,13 +263,11 @@ export class Events extends HeyApiClient {
     /**
      * Faceted counts for an agenda's events — native facets plus its `additionalFields`
      *
-     * Returns event counts grouped by the requested facets, computed over the **same filtered set** as `agendas.events.list`. Pass the same filter parameters to scope the counts (e.g. `?keyword=concert` then facet on `adminLevel4`). The response carries only the requested facets, in the shapes `FacetResults` defines.
+     * Returns event counts grouped by the requested facets, computed over the **same filtered set** as `agendas.events.list`. Pass the same filter parameters to scope the counts (e.g. `?keyword=concert` then facet on `cities`). The response carries only the requested facets, in the shapes `FacetResults` defines.
      *
      * The agenda's own fields (its categories, labels…) are faceted by `additionalFields` - request it too for an agenda-wide stats overview (`additionalFieldMetrics` covers its numeric fields). The fields themselves are declared by the agenda's event form schema (`GET /agendas/{agendaUid}/events/schema`).
      *
      * Only published events are counted. `facets` selects which facets to compute; an unknown facet name returns `400`. Facets cover the whole filtered set in one response.
-     *
-     * A location's administrative levels go from `adminLevel1`, the largest division of its country, to `adminLevel6`, the smallest; what each one is depends on the country, and `adminLevel4` is the municipality.
      *
      */
     public facets<ThrowOnError extends boolean = false>(options: Options<AgendasEventsFacetsData, ThrowOnError>) {
@@ -338,9 +336,9 @@ export class Uploads extends HeyApiClient {
     /**
      * Stage a media upload
      *
-     * Stages a media file - for an `image` field, or for a custom `file`/`image` form-schema field of an event. Send the file as `multipart/form-data` (field `file`); the API validates its real type and size, stores it, and returns a short-lived `ref`. Then attach `ref` on a write - `image: { ref }`, or a custom field under `additionalFields` as `{ ref, name? }` (`name` being the download filename) - so the media lands in the same write as the rest of the edit.
+     * Stages a media file - the native event `image`, or a custom `file`/`image` form-schema field. Send the file as `multipart/form-data` (field `file`); the API validates its real type and size, stores it, and returns a short-lived `ref`. Then attach `ref` on an event write - `image: { ref }` or a custom field under `additionalFields` as `{ ref, name? }` (`name` being the download filename) - so the media lands in the same write as the rest of the edit.
      *
-     * The type is detected from the file content, or from the filename extension for signature-less formats such as CSV; a type outside the platform's allowed set (images, PDF and common office documents) answers `422` with the code `file.invalidType`. The file is capped at 20 MiB (`422` with the code `file.tooBig` past it). This is a coarse gate: the precise types a given field accepts are enforced on the write that attaches the file.
+     * The type is detected from the file content, or from the filename extension for signature-less formats such as CSV; a type outside the platform's allowed set (images, PDF and common office documents) answers `422` with the code `file.invalidType`. The file is capped at 20 MiB (`422` with the code `file.tooBig` past it). This is a coarse gate: the precise types a given field accepts are enforced on the event write, against the agenda's form schema.
      *
      * A request without a file answers `422` with the code `required` on `file`; a file sent in another part, or a second file, answers `422` with the code `file.unexpected` on that part. A multipart body that cannot be read (cut short, without a boundary, a text part over 1 MiB) answers `400`.
      *
@@ -363,7 +361,7 @@ export class Uploads extends HeyApiClient {
      *
      * Authorizes an OUT-OF-BAND upload of a LOCAL image file, made from outside this API client (e.g. with curl), so its bytes never pass through the caller's prompt. Returns a self-contained descriptor: an `uploadUrl`, a short-lived single-use `ticket`, and the `header`/`field` to use.
      *
-     * Upload the file with a plain HTTPS `POST` to `uploadUrl`: send the `ticket` in the `X-Upload-Ticket` header and the file as multipart field `file`. That call returns a staging `ref`, which you then attach with `image: { ref }` on a write.
+     * Upload the file with a plain HTTPS `POST` to `uploadUrl`: send the `ticket` in the `X-Upload-Ticket` header and the file as multipart field `file`. That call returns a staging `ref`, which you then attach with `image: { ref }` on an event write.
      *
      * An image already reachable at a public `http(s)` URL is attached directly with `image: { url }` on the write, with no ticket.
      *
@@ -404,82 +402,6 @@ export class Locations extends HeyApiClient {
     }
     
     /**
-     * Create a location
-     *
-     * Creates a location in the agenda, or in its shared location set when the agenda has one. `verified` is set by an administrator or a moderator of the agenda: from anyone else, a body carrying it is refused with `422`.
-     *
-     * The position is geocoded: the coordinates, the administrative levels, the postal code, the time zone and the INSEE code the body leaves out are filled in from the coordinates when the body carries them, from the address otherwise; the ones it gives are kept.
-     *
-     * The acting member must be a contributor of the agenda or above. On an agenda open to contributions that asks no member information, a user who is not a member becomes its contributor by creating a location. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow creating locations.
-     *
-     */
-    public create<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsCreateData, ThrowOnError>) {
-        return (options.client ?? this.client).post<AgendasLocationsCreateResponses, AgendasLocationsCreateErrors, ThrowOnError>({
-            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
-            url: '/agendas/{agendaUid}/locations',
-            ...options,
-            headers: {
-                'Content-Type': 'application/json',
-                ...options.headers
-            }
-        });
-    }
-    
-    /**
-     * Validate a location without creating it
-     *
-     * Checks the body as creating the location in this agenda would, the geocoding of its position included, without creating anything. A valid body answers `200 { "valid": true }`; an invalid one answers `422` with per-field problems under `error.errors[]`, and a caller who may not create gets `403`.
-     *
-     * The `image` file is not read. An `image: { url }` is checked for URL syntax only (an `http(s)` URL without embedded credentials); an `image: { ref }` is checked to name an image uploaded to this agenda, not an SVG, that is still there. A file that create refuses once it reads it passes validate.
-     *
-     */
-    public validate<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsValidateData, ThrowOnError>) {
-        return (options.client ?? this.client).post<AgendasLocationsValidateResponses, AgendasLocationsValidateErrors, ThrowOnError>({
-            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
-            url: '/agendas/{agendaUid}/locations/validate',
-            ...options,
-            headers: {
-                'Content-Type': 'application/json',
-                ...options.headers
-            }
-        });
-    }
-    
-    /**
-     * Get the location writes an agenda allows
-     *
-     * Returns which location writes the agenda allows. A write it does not allow is refused with `403` to every caller, whatever their role. An agenda that shares a location set has the settings the set gives it.
-     *
-     */
-    public settings<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsSettingsData, ThrowOnError>) {
-        return (options.client ?? this.client).get<AgendasLocationsSettingsResponses, AgendasLocationsSettingsErrors, ThrowOnError>({
-            security: [
-                { scheme: 'bearer', type: 'http' },
-                { scheme: 'bearer', type: 'http' },
-                { scheme: 'bearer', type: 'http' }
-            ],
-            url: '/agendas/{agendaUid}/locations/settings',
-            ...options
-        });
-    }
-    
-    /**
-     * Delete a location by external id
-     *
-     * Deletes the location that carries the `(extKey, extId)` pair, among the locations of the agenda, or of its shared location set when it has one. The events located there keep it.
-     *
-     * The acting member must be an administrator or a moderator of the agenda. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow deleting locations.
-     *
-     */
-    public deleteByExtId<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsDeleteByExtIdData, ThrowOnError>) {
-        return (options.client ?? this.client).delete<AgendasLocationsDeleteByExtIdResponses, AgendasLocationsDeleteByExtIdErrors, ThrowOnError>({
-            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
-            url: '/agendas/{agendaUid}/locations/ext/{extKey}/{extId}',
-            ...options
-        });
-    }
-    
-    /**
      * Get a single location by external id
      *
      * Returns a single location by its external identifier within the given agenda - the `(key, value)` pair an `ExtId` mapping carries in the location's `extIds`. Use this when you sync from your own system and hold its id rather than the OpenAgenda uid. Resolves to the same `Location` as the by-uid get.
@@ -493,64 +415,6 @@ export class Locations extends HeyApiClient {
                 { scheme: 'bearer', type: 'http' }
             ],
             url: '/agendas/{agendaUid}/locations/ext/{extKey}/{extId}',
-            ...options
-        });
-    }
-    
-    /**
-     * Partially update a location by external id
-     *
-     * Changes the fields the body carries on the location that carries the `(extKey, extId)` pair, among the locations of the agenda, or of its shared location set when it has one. `extIds` in the body are merged by key with the stored ones; an empty array leaves them as they are, and a mapping under the key `extKey` with a value other than `extId` is refused with `422`.
-     *
-     * The acting member must be an administrator or a moderator of the agenda. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow editing locations.
-     *
-     */
-    public patchByExtId<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsPatchByExtIdData, ThrowOnError>) {
-        return (options.client ?? this.client).patch<AgendasLocationsPatchByExtIdResponses, AgendasLocationsPatchByExtIdErrors, ThrowOnError>({
-            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
-            url: '/agendas/{agendaUid}/locations/ext/{extKey}/{extId}',
-            ...options,
-            headers: {
-                'Content-Type': 'application/json',
-                ...options.headers
-            }
-        });
-    }
-    
-    /**
-     * Upsert a location by external id
-     *
-     * Replaces the location that carries the `(extKey, extId)` pair with the body and answers `200`, or creates a location carrying it and answers `201`. The pair is looked up among the locations of the agenda, or of its shared location set when it has one. A pair only deleted locations carry gets a new location; when one of them is merged into another one, the request answers `404` instead. The pair joins the body's `extIds`, which are merged by key with the stored ones; a mapping under the key `extKey` with a value other than `extId` is refused with `422`.
-     *
-     * On a replace, a `LocationInput` field the body leaves out is emptied, except `extIds`, `verified` and what the geocoding fills in from the position: the coordinates, the administrative levels, the postal code, the time zone and the INSEE code. These are looked up again when the address, the country code or the coordinates change - the values the body sends back unchanged, the country code included, then follow the new place - and at the point when `adminLevel1`, `adminLevel2` or `adminLevel4` is missing. On a create, the coordinates, the administrative levels, the postal code, the time zone and the INSEE code the body leaves out are filled in from the coordinates when the body carries them, from the address otherwise; the ones it gives are kept.
-     *
-     * Replacing, or writing a pair a merged location carries, takes an administrator or a moderator of the agenda. Creating takes a contributor or above; on an agenda open to contributions that asks no member information, a user who is not a member becomes its contributor by creating a location. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow the write. `verified` is set by an administrator or a moderator: from anyone else, a body carrying it is refused with `422`.
-     *
-     */
-    public setByExtId<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsSetByExtIdData, ThrowOnError>) {
-        return (options.client ?? this.client).put<AgendasLocationsSetByExtIdResponses, AgendasLocationsSetByExtIdErrors, ThrowOnError>({
-            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
-            url: '/agendas/{agendaUid}/locations/ext/{extKey}/{extId}',
-            ...options,
-            headers: {
-                'Content-Type': 'application/json',
-                ...options.headers
-            }
-        });
-    }
-    
-    /**
-     * Delete a location
-     *
-     * Deletes the location. The events located there keep it.
-     *
-     * The acting member must be an administrator or a moderator of the agenda. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow deleting locations.
-     *
-     */
-    public delete<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsDeleteData, ThrowOnError>) {
-        return (options.client ?? this.client).delete<AgendasLocationsDeleteResponses, AgendasLocationsDeleteErrors, ThrowOnError>({
-            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
-            url: '/agendas/{agendaUid}/locations/{locationUid}',
             ...options
         });
     }
@@ -572,53 +436,13 @@ export class Locations extends HeyApiClient {
             ...options
         });
     }
-    
-    /**
-     * Partially update a location
-     *
-     * Changes the fields the body carries.
-     *
-     * The acting member must be an administrator or a moderator of the agenda. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow editing locations.
-     *
-     */
-    public patch<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsPatchData, ThrowOnError>) {
-        return (options.client ?? this.client).patch<AgendasLocationsPatchResponses, AgendasLocationsPatchErrors, ThrowOnError>({
-            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
-            url: '/agendas/{agendaUid}/locations/{locationUid}',
-            ...options,
-            headers: {
-                'Content-Type': 'application/json',
-                ...options.headers
-            }
-        });
-    }
-    
-    /**
-     * Replace a location
-     *
-     * Replaces the location with the body. A `LocationInput` field the body leaves out is emptied, except `extIds`, `verified` and what the geocoding fills in from the position: the coordinates, the administrative levels, the postal code, the time zone and the INSEE code. These are looked up again when the address, the country code or the coordinates change - the values the body sends back unchanged, the country code included, then follow the new place - and at the point when `adminLevel1`, `adminLevel2` or `adminLevel4` is missing.
-     *
-     * The acting member must be an administrator or a moderator of the agenda. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow editing locations.
-     *
-     */
-    public update<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsUpdateData, ThrowOnError>) {
-        return (options.client ?? this.client).put<AgendasLocationsUpdateResponses, AgendasLocationsUpdateErrors, ThrowOnError>({
-            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
-            url: '/agendas/{agendaUid}/locations/{locationUid}',
-            ...options,
-            headers: {
-                'Content-Type': 'application/json',
-                ...options.headers
-            }
-        });
-    }
 }
 
 export class Agendas extends HeyApiClient {
     /**
      * List agendas
      *
-     * Returns a cursor-paginated list of agendas. Pass the `after` cursor returned in `pagination.after` to fetch the next page, with the same filters. Private agendas and agendas not indexed in public search are absent from this list. With an API key limited to a list of agendas, only those agendas appear, whatever the filters.
+     * Returns a cursor-paginated list of agendas. Pass the `after` cursor returned in `pagination.after` to fetch the next page, with the same filters. Private agendas and agendas not indexed in public search are absent from this list.
      *
      * Unknown or malformed filter values answer `400`, with per-field context under `error.errors`. An unrecognized top-level query parameter is ignored.
      *
@@ -718,7 +542,7 @@ export class Uploads2 extends HeyApiClient {
     /**
      * Upload a file with an upload ticket
      *
-     * Receives the bytes of an OUT-OF-BAND upload authorized by `agendas.uploads.createTicket`, and returns the staging `ref` to attach on a write (`image: { ref }`, or a custom `additionalFields` field of an event). This is the endpoint the ticket descriptor's `uploadUrl` points at.
+     * Receives the bytes of an OUT-OF-BAND upload authorized by `agendas.uploads.createTicket`, and returns the staging `ref` to attach on an event write (`image: { ref }` or a custom `additionalFields` field). This is the endpoint the ticket descriptor's `uploadUrl` points at.
      *
      * Call it with a plain HTTPS `POST` from outside the typed API client, so the file never transits the client (or an LLM's token stream). Authorize with the ticket in the `X-Upload-Ticket` header (no API key or access token) and send the file as `multipart/form-data` field `file`. The target agenda is taken from the signed ticket.
      *
@@ -762,44 +586,6 @@ export class Keys extends HeyApiClient {
     }
 }
 
-export class Geocoding extends HeyApiClient {
-    /**
-     * Geocode an address
-     *
-     * Returns the place a location created with this address gets: what a location create fills in from the address and its country, under the labels it stores. The values the parameters give are kept in it, and a location created with the result's values keeps those that are not `null`. `data` is `null` when no place matches the address.
-     *
-     */
-    public search<ThrowOnError extends boolean = false>(options: Options<GeocodingSearchData, ThrowOnError>) {
-        return (options.client ?? this.client).get<GeocodingSearchResponses, GeocodingSearchErrors, ThrowOnError>({
-            security: [
-                { scheme: 'bearer', type: 'http' },
-                { scheme: 'bearer', type: 'http' },
-                { scheme: 'bearer', type: 'http' }
-            ],
-            url: '/geocoding/search',
-            ...options
-        });
-    }
-    
-    /**
-     * Name the place at a point
-     *
-     * Returns the place a location created at this point gets: what a location create fills in from the point, its address included, under the labels it stores. The values the parameters give are kept in it, and a location created with the result's values keeps those that are not `null`. `data` is `null` when no place is found at the point.
-     *
-     */
-    public reverse<ThrowOnError extends boolean = false>(options: Options<GeocodingReverseData, ThrowOnError>) {
-        return (options.client ?? this.client).get<GeocodingReverseResponses, GeocodingReverseErrors, ThrowOnError>({
-            security: [
-                { scheme: 'bearer', type: 'http' },
-                { scheme: 'bearer', type: 'http' },
-                { scheme: 'bearer', type: 'http' }
-            ],
-            url: '/geocoding/reverse',
-            ...options
-        });
-    }
-}
-
 export class OpenAgenda extends HeyApiClient {
     public static readonly __registry = new HeyApiRegistry<OpenAgenda>();
     
@@ -829,10 +615,5 @@ export class OpenAgenda extends HeyApiClient {
     private _keys?: Keys;
     get keys(): Keys {
         return this._keys ??= new Keys({ client: this.client });
-    }
-    
-    private _geocoding?: Geocoding;
-    get geocoding(): Geocoding {
-        return this._geocoding ??= new Geocoding({ client: this.client });
     }
 }
