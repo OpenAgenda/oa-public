@@ -4,6 +4,7 @@
 // administration moves to next.
 $oa-admin-primary-50: #ebf1fe;
 $oa-admin-primary-700: #0e4880;
+$oa-admin-gray-700: #5c5c5c; // oaGray.700: 4.5:1 on white at small sizes
 $oa-admin-radius: 3px; // as the legacy white pages (.wsq)
 $oa-admin-gap: 24px;
 
@@ -269,6 +270,30 @@ $oa-admin-gap: 24px;
       background: $oa-admin-primary-50;
       color: $oa-admin-primary-700;
       font-weight: bold;
+    }
+
+    // Settings: groups under a small heading, the dangerous entries apart
+    .oa-admin-menu-group {
+      display: block;
+      padding: 0 24px 6px;
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: $oa-admin-gray-700;
+    }
+
+    .group-start {
+      margin-top: 16px;
+    }
+
+    .danger {
+      padding-top: 12px;
+      border-top: 1px solid $oa-gray-lighter;
+
+      a {
+        color: $state-danger-text;
+      }
     }
 
     .menu-item {
