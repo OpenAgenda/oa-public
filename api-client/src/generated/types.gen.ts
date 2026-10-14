@@ -4412,6 +4412,11 @@ export type AgendasLocationsGetByExtIdData = {
 
 export type AgendasLocationsGetByExtIdErrors = {
     /**
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
+     *
+     */
+    400: Error | ValidationError;
+    /**
      * The request carries no credential this operation accepts.
      */
     401: Error;
