@@ -1286,7 +1286,8 @@ paths:
         authenticated user is a member of, with their role on each.
         Private agendas the user belongs to ARE included (each item
         carries a `private` flag), and so are agendas not indexed in
-        public search.
+        public search. With an API key limited to a list of agendas, the
+        list holds only the memberships in those agendas.
       security:
         - secretKey: []
         - oauth2:
@@ -3846,6 +3847,7 @@ components:
                   unauthorized,
                   read_only_credential,
                   insufficient_scope,
+                  agenda_not_granted,
                   forbidden,
                   not_found,
                   service_unavailable,
@@ -3855,6 +3857,9 @@ components:
                   403 - the credential may only read, and this operation writes
                 insufficient_scope: >-
                   403 - the credential lacks the scope this operation declares
+                agenda_not_granted: >-
+                  403 - the API key is limited to a list of agendas that does
+                  not include this one
                 forbidden: 403 - any other refusal of an authenticated caller
             message:
               type: string
