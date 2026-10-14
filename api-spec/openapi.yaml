@@ -4174,7 +4174,7 @@ components:
       type: object
       description: >
         An external identifier mapping this location to a third-party system.
-        A write whose key or value contains `->` is refused with `422`.
+        A mapping whose key or value contains `->` is refused with `422`.
       additionalProperties: false
       properties:
         key:
