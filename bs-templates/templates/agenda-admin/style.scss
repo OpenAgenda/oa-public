@@ -1,98 +1,331 @@
+// Values copied from @openagenda/uikit, so that the administration looks like
+// the pages next renders: primary.50 / primary.500 / primary.700 and
+// darkPurple.500 ($oa-dark-purple). This frame goes away as the
+// administration moves to next.
+$oa-admin-primary-50: #ebf1fe;
+$oa-admin-primary-700: #0e4880;
+$oa-admin-radius: 3px; // as the legacy white pages (.wsq)
+$oa-admin-gap: 24px;
+
+.oa-admin-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 $oa-admin-gap;
+}
+
+// The agenda's compact header, as on the public event page
+.oa-admin-agenda {
+  background: $oa-dark-purple;
+  color: $oa-white;
+
+  .oa-admin-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
+  .oa-admin-agenda-logo {
+    flex: 0 0 auto;
+    width: 56px;
+    height: 56px;
+    border: 3px solid $oa-white;
+    border-radius: 50%;
+    overflow: hidden;
+    background: $oa-white;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .oa-admin-agenda-title {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.2;
+
+    a {
+      color: $oa-white;
+    }
+  }
+}
+
+// Where the viewer is in the administration, and the ways out of it
+.oa-admin-bar {
+  background: $oa-blue;
+  color: $oa-white;
+
+  .oa-admin-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 16px;
+    min-height: 50px;
+  }
+
+  a {
+    color: $oa-white;
+  }
+
+  // Bootstrap's breadcrumb, on the bar's colours
+  .breadcrumb {
+    margin: 0;
+    padding: 0;
+    background: none;
+    border-radius: 0;
+
+    > li + li::before {
+      content: '\203A';
+      padding: 0 8px;
+      color: inherit;
+    }
+
+    a {
+      text-decoration: underline;
+    }
+
+    [aria-current='page'] {
+      font-weight: bold;
+    }
+  }
+
+  .oa-admin-bar-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-left: auto;
+  }
+
+  .oa-admin-bar-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 14px;
+    border: 1px solid $oa-white;
+    border-radius: 6px;
+
+    &:hover,
+    &:focus {
+      background: $oa-white;
+      color: $oa-blue;
+      text-decoration: none;
+    }
+  }
+}
+
 .agenda-admin {
+  margin-bottom: 48px;
 
-  margin: 60px auto;
+  .oa-admin-columns {
+    display: flex;
+    flex-direction: column;
+    gap: $oa-admin-gap;
+    padding-top: $oa-admin-gap;
 
-  .header {
+    @media (min-width: $screen-md-min) {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
 
-    padding: 20px;
+  .oa-admin-card {
+    background: $oa-white;
+    border-radius: $oa-admin-radius;
+  }
 
-    .agenda-logo {
-      display: block;
-      border-radius: 50%;
-      overflow: hidden;
-      img {
+  .oa-admin-aside {
+    @media (min-width: $screen-md-min) {
+      flex: 0 0 240px;
+    }
+  }
+
+  .oa-admin-side {
+    padding: 12px 0;
+  }
+
+  // The support team's hidden resync button, right below the menu card: out
+  // of the menu's way, and always in the same place
+  .oa-admin-system {
+    text-align: right;
+  }
+
+  // As wide as its content, within the room left: each body keeps its own
+  // width without leaving an empty white area beside a narrow form
+  // Capped at the events list's width, so that a fluid body (members, inbox…)
+  // does not stretch across the page; a body that needs more sets its own.
+  .oa-admin-main {
+    flex: 0 1 auto;
+    max-width: 800px;
+    min-width: 0;
+    padding: 20px 24px 32px;
+  }
+
+  // The profile and contribution forms sat in a grid column, a share of the
+  // old body; in a card that fits its content they take the width they had.
+  .oa-admin-main .agenda-settings-edit {
+    > .profile,
+    > .contribution {
+      > .row > .col-md-7 {
+        float: none;
+        width: 530px;
         max-width: 100%;
       }
     }
-
   }
 
-  .body {
-    padding: 0 30px 2em;
+  // While an application loads, its body holds its loader (`.oa-admin-loading`,
+  // set by the application) and nothing else: no white card then, the spinner
+  // centred in the room the body takes once loaded (its usual width, beside the
+  // filters when the page has some)
+  .oa-admin-main:has(.oa-admin-loading) {
+    flex: 1 1 auto;
+    background: transparent;
   }
 
-  .nav {
-    padding-bottom: 20px;
-    ul {
-      display: inline-block;
-      padding: 0 6px;
-      margin-bottom: 0;
+  // The inbox opens on its breadcrumb (empty on the list) and a padded title,
+  // spacing meant for the page without a card: the card's own padding is enough
+  .oa-admin-main .inbox-agenda-admin {
+    .inbox-breadcrumbs {
+      margin-top: 0;
+
+      &:empty {
+        display: none;
+      }
     }
-    li {
-      display: none;
-      &.menu-item {
-        display: inline-block;
-        padding: 0 10px;
-        margin: 0;
-        &.selected {
-          border-left: none;
-          color: $oa-blue;
+
+    .inbox-head {
+      padding-bottom: 0;
+    }
+
+    > h4:first-of-type {
+      margin-top: 0;
+      padding-top: 0;
+    }
+  }
+
+  // The card's padding is the body's top space: what the applications put
+  // above their first line for the old frame (a heading's margin, a
+  // padding-top utility) goes, down to the seventh level of first children.
+  .oa-admin-main {
+    $first: '> :first-child';
+
+    @for $i from 1 through 7 {
+      #{$first} {
+        margin-top: 0;
+
+        &.padding-top-sm,
+        &.padding-top-md,
+        &.padding-all-sm,
+        &.padding-v-sm,
+        &.padding-v-md {
+          padding-top: 0;
         }
       }
+
+      $first: '#{$first} > :first-child';
     }
-    @media (min-width: $screen-md-min) {
-      ul {
-        display: block;
-        padding: 0;
-      }
-      li {
-        display: block;
-        &.menu-item {
-          display: block;
-          padding: 0 0 0 20px;
-          &.selected {
-            border-left: 4px solid $oa-blue;
-            color: inherit;
-          }
-        }
-      }
+
+    // The statistics open on their print-only header, hidden on screen
+    .agenda-stats-print-header + * {
+      margin-top: 0;
     }
   }
 
-  @media (min-width: $screen-md-min) {
-    .filters {
+  .oa-admin-loading {
+    min-height: 400px;
+
+    // The spinner's veil is for content it covers; here it covers nothing
+    .spin-canvas {
       background: transparent;
+    }
+  }
 
-      & > div {
-        background: $oa-white;
-        margin: 10px;
-        padding: 10px 20px;
+  .oa-admin-menu {
+    margin: 0;
+
+    li {
+      margin: 0;
+    }
+
+    a {
+      display: block;
+      padding: 8px 24px;
+      color: $text-color;
+
+      &:hover,
+      &:focus {
+        background: $oa-gray-lightest;
+        text-decoration: none;
+      }
+    }
+
+    .selected a {
+      padding-left: 21px;
+      border-left: 3px solid $oa-blue;
+      background: $oa-admin-primary-50;
+      color: $oa-admin-primary-700;
+      font-weight: bold;
+    }
+
+    .menu-item {
+      position: relative;
+
+      .badge {
+        position: absolute;
+        top: 50%;
+        right: 24px;
+        transform: translateY(-50%);
       }
     }
   }
 
-  &.redirect {
+  .oa-admin-menu-footer {
+    margin-top: 12px;
+    padding: 16px 24px 4px;
+    border-top: 1px solid $oa-gray-lighter;
 
-    .body {
-      text-align: center;
-      padding: 16em 0;
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
-
   }
-
 }
 
 .agenda-admin-filters-layout {
-  @media (max-width: $screen-sm-max) {
-    .row:first-child {
-      padding: 0 30px;
-    }
+  // A list beside its filters takes all the room the screen leaves it, so
+  // that the filters stay put whatever the list holds
+  .oa-admin-main {
+    flex: 1 1 auto;
+    max-width: none;
   }
 
-  .body {
+  .oa-admin-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    & > div {
+      background: $oa-white;
+      border-radius: $oa-admin-radius;
+      padding: 10px 20px;
+    }
+
+    // Kept beside the list while it is still empty, so that the list loads in
+    // the room it will take: no jump once the filters come in
+    @media (max-width: $screen-sm-max) {
+      &:empty {
+        display: none;
+      }
+    }
+
     @media (min-width: $screen-md-min) {
-      padding: 0;
-      display: flex;
+      flex: 0 0 300px;
+      order: 3;
     }
   }
 
