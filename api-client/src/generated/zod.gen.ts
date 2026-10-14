@@ -59,6 +59,7 @@ export const zVerifiedKey = z.object({
     ]),
     owner: zKeyOwner,
     scopes: z.array(z.string()).nullable(),
+    agendas: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).nullable(),
     expiresAt: z.string().datetime({ offset: true }).nullable()
 });
 

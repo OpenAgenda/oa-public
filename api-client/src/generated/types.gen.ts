@@ -66,6 +66,11 @@ export type VerifiedKey = {
      */
     scopes: Array<string> | null;
     /**
+     * The uids of the agendas the key is limited to. `null` when the key is not limited to a list of agendas.
+     *
+     */
+    agendas: Array<number> | null;
+    /**
      * The instant the key stops authenticating, or `null` when it does not expire.
      *
      */
