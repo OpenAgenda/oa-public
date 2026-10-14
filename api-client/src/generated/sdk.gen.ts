@@ -556,7 +556,7 @@ export class Locations extends HeyApiClient {
     /**
      * Replace a location
      *
-     * Replaces the location with the body. A `LocationInput` field the body leaves out is emptied, except `extIds` and what the geocoding fills in from the position. What the geocoding fills in is looked up again when the address, the country code or the coordinates change, or when the location lacks its city, department or region, and kept otherwise, as it is when the geocoder fails. Next to a new address, country code or coordinates, what the geocoding fills in that the body sends back unchanged follows the new place.
+     * Replaces the location with the body. A `LocationInput` field the body leaves out is emptied, except `extIds`, `verified` and what the geocoding fills in from the position: the coordinates, the administrative levels, the postal code, the time zone and the INSEE code. These are looked up again when the address, the country code or the coordinates change - the values the body sends back unchanged, the country code included, then follow the new place - and at the point when the city, department or region is missing.
      *
      * `extIds` in the body are merged by key with the stored ones, so an empty array leaves them as they are; with `mergeExtIds` set to `false`, they replace the stored ones. A body without `extIds` keeps them either way.
      *

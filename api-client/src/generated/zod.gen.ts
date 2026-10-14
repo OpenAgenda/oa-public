@@ -189,7 +189,7 @@ export const zLocationSummary = z.object({
 });
 
 /**
- * An external identifier mapping this location to a third-party system. A write whose key or value contains `->` is refused with `422`.
+ * An external identifier mapping this location to a third-party system. A mapping whose key or value contains `->` is refused with `422`.
  *
  */
 export const zLocationExtId = z.object({
