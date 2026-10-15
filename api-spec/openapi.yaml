@@ -4000,6 +4000,7 @@ components:
               url: https://img.openagenda.com/u/1080x0/main/67890.full.image.jpg
           ref: 67890.full.image.jpg
         imageCredits: null
+        imageRightsAreHeld: null
         website: http://www.domainedeslebres.com/
         email: null
         phone: '0475363414'
@@ -4038,6 +4039,7 @@ components:
         - access
         - image
         - imageCredits
+        - imageRightsAreHeld
         - website
         - email
         - phone
@@ -4109,6 +4111,14 @@ components:
             - type: 'null'
         imageCredits:
           type: [string, 'null']
+          description: >
+            Credits for the location `image`; `null` when the location has no
+            image.
+        imageRightsAreHeld:
+          type: [boolean, 'null']
+          description: >
+            Whether the rights to use the location `image` are held; `null`
+            when the location has no image or the rights are not stated.
         website:
           type: [string, 'null']
         email:
@@ -4246,6 +4256,13 @@ components:
             no image. They go with the image: removed with it, and cleared
             by a write that gives a new image without them; `null` clears
             them.
+        imageRightsAreHeld:
+          type: [boolean, 'null']
+          description: >
+            Whether the rights to use the location `image` are held. Ignored
+            when the location has no image. It goes with the image: removed
+            with it, and cleared by a write that gives a new image without
+            it; `null` clears it.
         website:
           type: [string, 'null']
         email:
@@ -4337,6 +4354,13 @@ components:
             no image. They go with the image: removed with it, and cleared
             by a write that gives a new image without them; `null` clears
             them.
+        imageRightsAreHeld:
+          type: [boolean, 'null']
+          description: >
+            Whether the rights to use the location `image` are held. Ignored
+            when the location has no image. It goes with the image: removed
+            with it, and cleared by a write that gives a new image without
+            it; `null` clears it.
         website:
           type: [string, 'null']
         email:
