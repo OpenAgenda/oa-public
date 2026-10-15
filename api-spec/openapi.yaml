@@ -1922,11 +1922,14 @@ paths:
         body leaves out is emptied, except `extIds`, which a body without
         them keeps, and what the geocoding fills in from the position. That
         is looked up again when the address, the country code or the
-        coordinates change, or when the location lacks its city, department
-        or region, and kept otherwise, as it is when the geocoder fails.
-        Next to a new address, country code or coordinates, what the
-        geocoding fills in that the body sends back unchanged follows the
-        new place.
+        coordinates change, completed from the point when the location lacks
+        its city, department or region and the place found there is in its
+        country - the postal code and the INSEE code the geocoder reads
+        there that the body leaves out then follow that place - and kept
+        otherwise, as it is when the geocoder fails. Next to a new address,
+        country code or coordinates, what the geocoding fills in that the
+        body sends back unchanged follows the new place, its country
+        included when it is another.
 
 
         The acting member must be an administrator or a moderator of the
@@ -2002,9 +2005,9 @@ paths:
             if (error) throw error;
             return data;
       description: >
-        Changes the fields the body carries. `extIds` in the body are
-        merged by key with the stored ones; an empty array leaves them as
-        they are.
+        Changes the fields the body carries, and what the geocoding fills in
+        from the position. `extIds` in the body are merged by key with the
+        stored ones; an empty array leaves them as they are.
 
 
         The acting member must be an administrator or a moderator of the
@@ -4009,10 +4012,18 @@ components:
       type: object
       description: >
         Partial update body. A new address, country code or coordinates are
-        geocoded: the coordinates, the postal code and the INSEE code the
-        body leaves out follow the place found. A place the geocoder cannot
-        find is refused with `422`, on the address, the country code or the
-        coordinates the body changes.
+        geocoded: at the point when the body changes a coordinate or sends
+        both, at the address otherwise. What the geocoding fills in from the
+        position then follows the place found, its country included when it
+        is another, for the fields the body leaves out and for a coordinate
+        it sends back alone and unchanged. A location that lacks its city,
+        department or region has what it lacks filled in from its point when
+        the place found there is in its country, and the postal code and the
+        INSEE code the geocoder reads there that the body leaves out then
+        follow that place. A place the geocoder cannot find is refused with
+        `422`: when it is looked up at the point, on the coordinates the
+        body sends both of or changes, and otherwise on the address or the
+        country code the body changes.
       additionalProperties: false
       properties:
         name:
