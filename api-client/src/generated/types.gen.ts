@@ -326,7 +326,16 @@ export type Location = {
      */
     access: LocalizedString;
     image: Image | null;
+    /**
+     * Credits for the location `image`; `null` when the location has no image.
+     *
+     */
     imageCredits: string | null;
+    /**
+     * Whether the rights to use the location `image` are held; `null` when the location has no image or the rights are not stated.
+     *
+     */
+    imageRightsAreHeld: boolean | null;
     website: string | null;
     email: string | null;
     phone: string | null;
@@ -418,6 +427,11 @@ export type LocationInput = {
      *
      */
     imageCredits?: string | null;
+    /**
+     * Whether the rights to use the location `image` are held. Ignored when the location has no image. It goes with the image: removed with it, and cleared by a write that gives a new image without it; `null` clears it.
+     *
+     */
+    imageRightsAreHeld?: boolean | null;
     website?: string | null;
     email?: string | null;
     phone?: string | null;
@@ -481,6 +495,11 @@ export type LocationPatch = {
      *
      */
     imageCredits?: string | null;
+    /**
+     * Whether the rights to use the location `image` are held. Ignored when the location has no image. It goes with the image: removed with it, and cleared by a write that gives a new image without it; `null` clears it.
+     *
+     */
+    imageRightsAreHeld?: boolean | null;
     website?: string | null;
     email?: string | null;
     phone?: string | null;
@@ -2144,7 +2163,16 @@ export type LocationWritable = {
      */
     access: LocalizedString;
     image: Image | null;
+    /**
+     * Credits for the location `image`; `null` when the location has no image.
+     *
+     */
     imageCredits: string | null;
+    /**
+     * Whether the rights to use the location `image` are held; `null` when the location has no image or the rights are not stated.
+     *
+     */
+    imageRightsAreHeld: boolean | null;
     website: string | null;
     email: string | null;
     phone: string | null;
