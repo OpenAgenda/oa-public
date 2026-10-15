@@ -478,7 +478,7 @@ export class Locations extends HeyApiClient {
     /**
      * Partially update a location
      *
-     * Changes the fields the body carries, and what the geocoding fills in from the position. `extIds` in the body are merged by key with the stored ones; an empty array leaves them as they are.
+     * Changes the fields the body carries. `extIds` in the body are merged by key with the stored ones; an empty array leaves them as they are.
      *
      * The acting member must be an administrator or a moderator of the agenda. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow editing locations.
      *
@@ -498,7 +498,7 @@ export class Locations extends HeyApiClient {
     /**
      * Replace a location
      *
-     * Replaces the location with the body. A `LocationInput` field the body leaves out is emptied, except `extIds`, which a body without them keeps, and what the geocoding fills in from the position. That is looked up again when the address, the country code or the coordinates change, completed from the point when the location lacks its city, department or region and the place found there is in its country - the postal code and the INSEE code the geocoder reads there that the body leaves out then follow that place - and kept otherwise, as it is when the geocoder fails. Next to a new address, country code or coordinates, what the geocoding fills in that the body sends back unchanged follows the new place, its country included when it is another.
+     * Replaces the location with the body. A `LocationInput` field the body leaves out is emptied, except `extIds`, which a body without them keeps, and what the geocoding fills in from the position: the coordinates, the administrative levels, the postal code, the time zone and the INSEE code. These are looked up again when the address, the country code or the coordinates change, and kept otherwise, as they are when the geocoder fails. Next to a new address, country code or coordinates, those the body sends back unchanged follow the new place, its country included when it is another. A location that lacks its city, department or region has what it lacks filled in from its point when the place found there is in its country; the postal code the geocoder reads there then replaces the stored one, and the INSEE code is read there again, emptied when the point has none, unless the body sends them.
      *
      * The acting member must be an administrator or a moderator of the agenda. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow editing locations.
      *
