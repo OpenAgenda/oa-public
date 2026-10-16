@@ -858,6 +858,8 @@ export type TicketingProvider = 'billetweb' | 'eventbrite' | 'helloasso' | 'mapa
 /**
  * What one ticketing provider says about one occurrence. `status` is the provider's word as of `syncedAt`; the sale window is what lets a reader tell `notYetOnSale` and `salesClosed` from a stock answer, and `offersAggregate` recomputes that half at read time.
  *
+ * The event's own `status` answers over the provider's word: a cancelled event serves every row `salesClosed`, and a full one serves every row `soldOut` — the sale window applying first there, so a full event past its window serves `salesClosed`.
+ *
  */
 export type TimingAvailability = {
     /**
@@ -892,7 +894,7 @@ export type TimingAvailability = {
 };
 
 /**
- * What the ticketing sources of this event add up to, computed on each read. `availability` is `null` when nothing can be said - every occurrence past, or no source carrying a usable status - and reflects the current time, except `soldOut` and `limited`, which reflect the last sync with the provider. `pricing` is a category rolled up from the sources' price lists and declared pricing.
+ * What the ticketing sources of this event add up to, computed on each read. `availability` is `null` when nothing can be said - every occurrence past, or no source carrying a usable status - and reflects the current time, except `soldOut` and `limited`, which reflect the last sync with the provider or the event's own `status`. `pricing` is a category rolled up from the sources' price lists and declared pricing.
  *
  */
 export type OffersAggregate = {
