@@ -280,7 +280,7 @@ export const zLocationInput = z.object({
 });
 
 /**
- * Partial update body. A new address, country code or coordinates are geocoded, at the point when the body sends both coordinates or changes one, at the address otherwise: the coordinates, the administrative levels, the postal code, the time zone, the INSEE code and the country code the body leaves out follow the place found. A location whose city, department or region is missing is looked up again at its point. A place the geocoder cannot find is refused with `422` on what was looked up: the `latitude` and `longitude` the body sends, or the `address` or `countryCode` it changes.
+ * Partial update body. A new address, country code or coordinates are geocoded, at the point when the body changes a coordinate, at the address otherwise: the coordinates, the administrative levels, the postal code, the time zone, the INSEE code and the country code the body leaves out or sends back unchanged follow the place found. A location whose city, department or region is missing is looked up again at its point. A place the geocoder cannot find is refused with `422` on the address, country code or coordinates the body changes.
  *
  */
 export const zLocationPatch = z.object({
