@@ -81,6 +81,10 @@ tags:
     description: >
       Where events happen. Each agenda has its own pool of locations —
       or shares one with other agendas through a location set.
+  - name: Geocoding
+    description: >
+      The place an address designates, or the place at a point, as a location
+      created there gets it.
   - name: Me
     description: >
       The authenticated caller: the agendas they are a member of and their
@@ -105,6 +109,7 @@ x-tagGroups:
       - Agendas
       - Events
       - Locations
+      - Geocoding
       - Me
       - Keys
       - Uploads
@@ -2441,6 +2446,149 @@ paths:
         '400':
           $ref: '#/components/responses/BadRequest'
 
+  /geocoding/search:
+    get:
+      operationId: geocoding.search
+      tags: [Geocoding]
+      summary: Geocode an address
+      x-synonyms:
+        [
+          geocode,
+          address lookup,
+          verify address,
+          check address,
+          coordinates,
+          locate,
+        ]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Geocode an address
+          source: |
+            const { data, error } = await oa.geocoding.search({
+              query: {
+                address: '1 place Maurice Marchais, Vannes',
+                countryCode: 'FR',
+              },
+            });
+            if (error) throw error;
+            return data.data;
+      description: >
+        Returns the place a location created with this address gets: what a
+        location create fills in from the address and its country, under the
+        labels it stores. The values the parameters give are kept in it, and a
+        location created with the result's values keeps them. `data` is `null`
+        when no place matches the address.
+      security:
+        - publicKey: []
+        - secretKey: []
+        - oauth2:
+            - geocoding:use
+      parameters:
+        - name: address
+          in: query
+          required: true
+          description: Address of the place.
+          schema:
+            type: string
+        - name: countryCode
+          in: query
+          required: true
+          description: ISO 3166-1 alpha-2 code of the country the address is in.
+          schema:
+            type: string
+            pattern: '^[A-Za-z]{2}$'
+        - $ref: '#/components/parameters/GeocodingPostalCode'
+        - name: insee
+          in: query
+          required: false
+          description: INSEE code of the French municipality the address is in.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The place, or `null` when none matches the address.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeocodingResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+
+  /geocoding/reverse:
+    get:
+      operationId: geocoding.reverse
+      tags: [Geocoding]
+      summary: Name the place at a point
+      x-synonyms:
+        [
+          reverse geocode,
+          address at coordinates,
+          address of a point,
+          what is at,
+          latitude,
+          longitude,
+          gps,
+        ]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Name the place at a point
+          source: |
+            const { data, error } = await oa.geocoding.reverse({
+              query: { latitude: 47.658236, longitude: -2.760847 },
+            });
+            if (error) throw error;
+            return data.data;
+      description: >
+        Returns the place a location created at this point gets: what a
+        location create fills in from the point, its address included, under
+        the labels it stores. The values the parameters give are kept in it,
+        and a location created with the result's values keeps them. `data` is
+        `null` when no place is found at the point.
+      security:
+        - publicKey: []
+        - secretKey: []
+        - oauth2:
+            - geocoding:use
+      parameters:
+        - name: latitude
+          in: query
+          required: true
+          description: Latitude of the point.
+          schema:
+            type: number
+            minimum: -90
+            maximum: 90
+        - name: longitude
+          in: query
+          required: true
+          description: Longitude of the point.
+          schema:
+            type: number
+            minimum: -180
+            maximum: 180
+        - $ref: '#/components/parameters/GeocodingPostalCode'
+      responses:
+        '200':
+          description: The place, or `null` when none is found at the point.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeocodingResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+
 components:
   securitySchemes:
     oauth2:
@@ -2547,6 +2695,13 @@ components:
       schema:
         type: boolean
         default: true
+    GeocodingPostalCode:
+      name: postalCode
+      in: query
+      required: false
+      description: Postal code of the place.
+      schema:
+        type: string
     AfterCursor:
       name: after
       in: query
@@ -3595,6 +3750,87 @@ components:
             message:
               type: string
               description: Human-readable explanation.
+
+    GeocodingResult:
+      type: object
+      required: [data]
+      additionalProperties: false
+      properties:
+        data:
+          oneOf:
+            - $ref: '#/components/schemas/GeocodedPlace'
+            - type: 'null'
+
+    GeocodedPlace:
+      type: object
+      description: A place, as a location created there gets it.
+      additionalProperties: false
+      example:
+        address: 1 place Maurice Marchais, Vannes
+        adminLevel1: Bretagne
+        adminLevel2: Morbihan
+        adminLevel3: Golfe du Morbihan - Vannes Agglomération
+        adminLevel4: Vannes
+        adminLevel5: null
+        adminLevel6: null
+        postalCode: '56000'
+        insee: '56260'
+        countryCode: FR
+        latitude: 47.658236
+        longitude: -2.760847
+        timezone: Europe/Paris
+      required:
+        - address
+        - adminLevel1
+        - adminLevel2
+        - adminLevel3
+        - adminLevel4
+        - adminLevel5
+        - adminLevel6
+        - postalCode
+        - insee
+        - countryCode
+        - latitude
+        - longitude
+        - timezone
+      properties:
+        address:
+          type: string
+        adminLevel1:
+          type: [string, 'null']
+          description: Largest administrative division of the country. In France, the region.
+        adminLevel2:
+          type: [string, 'null']
+          description: Administrative division below `adminLevel1`. In France, the department.
+        adminLevel3:
+          type: [string, 'null']
+          description: Administrative division below `adminLevel2`. In France, the intercommunality.
+        adminLevel4:
+          type: [string, 'null']
+          description: Municipality.
+        adminLevel5:
+          type: [string, 'null']
+          description: Subdivision of the municipality. In France, the arrondissement of Paris, Lyon and Marseille.
+        adminLevel6:
+          type: [string, 'null']
+          description: Subdivision of the municipality, below `adminLevel5`. In France, the neighbourhood.
+        postalCode:
+          type: [string, 'null']
+        insee:
+          type: [string, 'null']
+          description: INSEE code of the French municipality, when known.
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2 country code.
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        timezone:
+          type: [string, 'null']
+          description: IANA time zone of the place.
 
     KeyVerification:
       description: The outcome of checking an API key.
