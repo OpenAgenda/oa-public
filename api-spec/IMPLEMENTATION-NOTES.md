@@ -356,8 +356,9 @@ et `derelativize` (dates « today »).
   les numériques), renvoi prose vers `settings/eventSchema`. Symétrie avec le nesting `custom` des
   réponses. Câblage du `formSchema` public requis (tranche 4e).
 - **`sort` curé** : `timings(.asc/WithFeatured)`, `lastTiming(.asc/WithFeatured)`, `updatedAt.asc/desc`,
-  `location.name.asc/desc`, `location.city.asc/desc`, `score`. **Écartés** : tris admin-levels 1–6 /
-  countryCode / region / department (traînent la logique `mapAdminLevelSwap` par pays) — réintroductibles.
+  `location.name.asc/desc`, `location.adminLevel4.asc/desc`, `score`. **Écartés** : les autres
+  niveaux administratifs et countryCode (traînent la logique `mapAdminLevelSwap` par pays) —
+  réintroductibles.
 - **Texte/tri** : défaut `timingsWithFeatured.asc`, ou `score` (relevance) si `search` présent et pas
   de `sort` (comportement v2 conservé). `mlt`/`boost` droppés du public (recommandeur → futur endpoint
   `/events/{uid}/related`). `localTime` gardé (filtre v2 réel, inoffensif).
@@ -474,20 +475,20 @@ ensemble filtré** que la liste (mêmes params de filtre), **sans données d'eve
 répartissent en **8 familles de formes** distinctes → on les livre **famille par famille** (granularité
 = unité de déploiement), pas en un bloc :
 
-| Famille               | Forme                         | Facettes                                                                                                             | État                                                           |
-| --------------------- | ----------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| **A — termes**        | `[{value,count}]`             | cities, regions, departments, districts, countryCodes, keywords, languages, accessibilities, status, attendanceModes | **fait (6a)**                                                  |
-| B — geo points        | `[{value,count,lat,lng}]`     | geohash                                                                                                              | **fait (6c)**                                                  |
-| C — viewport          | objet `{topLeft,bottomRight}` | viewport                                                                                                             | **fait (6c)**                                                  |
-| D — tranches de dates | `[{value,count}]`             | eventsByDateRanges                                                                                                   | **fait (6e)** — slim, sans `samples` (cf. décision ci-dessous) |
-| E — timespan          | objet `{first,last}`          | timespan                                                                                                             | **fait (6d)**                                                  |
-| F — timings           | `[{value,timingCount}]`       | timings                                                                                                              | **fait (6d)**                                                  |
-| G — refs d'agenda     | `[{agenda,count}]`            | originAgendas, sourceAgendas                                                                                         | **fait (6b)**                                                  |
-| H — additionalFields  | map `{field:{label,values}}`  | additionalFields, additionalFieldMetrics                                                                             | **fait (6f)** — multi-champ, gate d'accès appliqué côté v3     |
+| Famille               | Forme                         | Facettes                                                                                               | État                                                           |
+| --------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------- |
+| **A — termes**        | `[{value,count}]`             | adminLevel1 à adminLevel6, countryCodes, keywords, languages, accessibilities, status, attendanceModes | **fait (6a)**                                                  |
+| B — geo points        | `[{value,count,lat,lng}]`     | geohash                                                                                                | **fait (6c)**                                                  |
+| C — viewport          | objet `{topLeft,bottomRight}` | viewport                                                                                               | **fait (6c)**                                                  |
+| D — tranches de dates | `[{value,count}]`             | eventsByDateRanges                                                                                     | **fait (6e)** — slim, sans `samples` (cf. décision ci-dessous) |
+| E — timespan          | objet `{first,last}`          | timespan                                                                                               | **fait (6d)**                                                  |
+| F — timings           | `[{value,timingCount}]`       | timings                                                                                                | **fait (6d)**                                                  |
+| G — refs d'agenda     | `[{agenda,count}]`            | originAgendas, sourceAgendas                                                                           | **fait (6b)**                                                  |
+| H — additionalFields  | map `{field:{label,values}}`  | additionalFields, additionalFieldMetrics                                                               | **fait (6f)** — multi-champ, gate d'accès appliqué côté v3     |
 
 **Exclu (modération/interne)** : `members`, `valid`, `states`, `addMethods`, `additionalFieldMetrics`,
-`missingAdditionalFields`, `adminLevels3/5` — absents de l'enum, inatteignables (curation cohérente
-avec filtres/tri de tranche 4).
+`missingAdditionalFields` — absents de l'enum, inatteignables (curation cohérente avec filtres/tri
+de tranche 4).
 
 **Famille A — implémentation (6a)** :
 
@@ -497,11 +498,12 @@ avec filtres/tri de tranche 4).
 - `api-v3/lib/facets.js` : `parseFacets` (split CSV, dédup, **400** `bad_request` + `details.errors`
   par champ sur facette inconnue/absente — comme les filtres) ; `mapFacets` (`{key,eventCount}` →
   `{value:String(key),count}`, `value` stringifié pour les facettes à clé entière comme `status`).
-- **Mapping identité** : les 10 noms publics = les types internes de `aggregations/index.js`, passés tels
-  quels en `aggregations`. `nav = { size: 0 }` (aucun hit, juste les comptes — accepté par `core`).
+- **Mapping identité** : les noms publics = les types internes de `aggregations/index.js`, passés tels
+  quels en `aggregations`, sauf les niveaux administratifs, nommés comme les champs du lieu
+  (`adminLevel4` → `cities`, `AGGREGATION_TYPES`). `nav = { size: 0 }` (aucun hit, juste les comptes — accepté par `core`).
 - Route montée **avant** `/events/:eventUid` (sinon `facets` capté comme `:eventUid`). Verrou de
   visibilité hérité de la liste (pk → public ; facettes de modération hors enum).
-- Tests intégration (`90_apiV3_events`) : `facets=cities,status` → buckets valides contre `FacetResults`
+- Tests intégration (`90_apiV3_events`) : `facets=adminLevel4,status` → buckets valides contre `FacetResults`
   (seules les facettes demandées présentes) ; un filtre sans match vide les buckets (scoping) ; facette
   inconnue → 400 `details.errors[0].field==='facets'` ; `facets` absent → 400. Suite api-v3 : 106 verts.
 

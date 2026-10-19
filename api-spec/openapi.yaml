@@ -287,7 +287,7 @@ paths:
             do {
               const { data, error } = await oa.agendas.events.list({
                 path: { agendaUid: 12345 },
-                query: { city: ['Paris'], relative: ['upcoming'], limit: 100, after },
+                query: { adminLevel4: ['Paris'], relative: ['upcoming'], limit: 100, after },
               });
               if (error) throw error;
               events.push(...data.data);
@@ -303,6 +303,11 @@ paths:
         Only published events are listed. Unknown or malformed filter values answer `400`, with per-field
         context under `error.errors`. An unrecognized top-level query parameter
         is ignored.
+
+
+        A location's administrative levels go from `adminLevel1`, the largest
+        division of its country, to `adminLevel6`, the smallest; what each one
+        is depends on the country, and `adminLevel4` is the municipality.
       security:
         - publicKey: []
         - secretKey: []
@@ -331,12 +336,12 @@ paths:
         # place
         - $ref: '#/components/parameters/FilterLocationUid'
         - $ref: '#/components/parameters/FilterLocationExtId'
-        - $ref: '#/components/parameters/FilterRegion'
-        - $ref: '#/components/parameters/FilterDepartment'
-        - $ref: '#/components/parameters/FilterCity'
-        - $ref: '#/components/parameters/FilterDistrict'
+        - $ref: '#/components/parameters/FilterAdminLevel1'
+        - $ref: '#/components/parameters/FilterAdminLevel2'
         - $ref: '#/components/parameters/FilterAdminLevel3'
+        - $ref: '#/components/parameters/FilterAdminLevel4'
         - $ref: '#/components/parameters/FilterAdminLevel5'
+        - $ref: '#/components/parameters/FilterAdminLevel6'
         - $ref: '#/components/parameters/FilterCountryCode'
         - $ref: '#/components/parameters/FilterBoundingBox'
         - $ref: '#/components/parameters/FilterNear'
@@ -962,7 +967,7 @@ paths:
             const { data, error } = await oa.agendas.events.facets({
               path: { agendaUid: 12345 },
               query: {
-                facets: ['cities', 'keywords', 'timespan', 'additionalFields', 'additionalFieldMetrics'],
+                facets: ['adminLevel4', 'keywords', 'timespan', 'additionalFields', 'additionalFieldMetrics'],
               },
             });
             if (error) throw error;
@@ -972,15 +977,15 @@ paths:
           source: |
             const { data, error } = await oa.agendas.events.facets({
               path: { agendaUid: 12345 },
-              query: { facets: ['cities'], keyword: ['concert'] },
+              query: { facets: ['adminLevel4'], keyword: ['concert'] },
             });
             if (error) throw error;
-            return data.facets.cities;
+            return data.facets.adminLevel4;
       description: >
         Returns event counts grouped by the requested facets, computed over the
         **same filtered set** as `agendas.events.list`. Pass the same filter
         parameters to scope the counts (e.g. `?keyword=concert` then facet on
-        `cities`). The response carries only the requested facets, in the
+        `adminLevel4`). The response carries only the requested facets, in the
         shapes `FacetResults` defines.
 
 
@@ -994,6 +999,11 @@ paths:
         Only published events are counted. `facets` selects which facets to
         compute; an unknown facet name returns `400`. Facets cover the whole
         filtered set in one response.
+
+
+        A location's administrative levels go from `adminLevel1`, the largest
+        division of its country, to `adminLevel6`, the smallest; what each one
+        is depends on the country, and `adminLevel4` is the municipality.
       security:
         - publicKey: []
         - secretKey: []
@@ -1026,12 +1036,12 @@ paths:
         - $ref: '#/components/parameters/FilterFeatured'
         - $ref: '#/components/parameters/FilterLocationUid'
         - $ref: '#/components/parameters/FilterLocationExtId'
-        - $ref: '#/components/parameters/FilterRegion'
-        - $ref: '#/components/parameters/FilterDepartment'
-        - $ref: '#/components/parameters/FilterCity'
-        - $ref: '#/components/parameters/FilterDistrict'
+        - $ref: '#/components/parameters/FilterAdminLevel1'
+        - $ref: '#/components/parameters/FilterAdminLevel2'
         - $ref: '#/components/parameters/FilterAdminLevel3'
+        - $ref: '#/components/parameters/FilterAdminLevel4'
         - $ref: '#/components/parameters/FilterAdminLevel5'
+        - $ref: '#/components/parameters/FilterAdminLevel6'
         - $ref: '#/components/parameters/FilterCountryCode'
         - $ref: '#/components/parameters/FilterBoundingBox'
         - $ref: '#/components/parameters/FilterNear'
@@ -1679,7 +1689,7 @@ paths:
         The position is geocoded: the coordinates, the administrative
         levels, the postal code, the time zone and the INSEE code the body
         leaves out are filled in from the coordinates when the body carries
-        them, from the address otherwise.
+        them, from the address otherwise; the ones it gives are kept.
 
 
         The acting member must be a contributor of the agenda or above. On
@@ -1843,11 +1853,12 @@ paths:
         the postal code, the time zone and the INSEE code. These are looked
         up again when the address, the country code or the coordinates
         change - the values the body sends back unchanged, the country code
-        included, then follow the new place - and at the point when the
-        city, department or region is missing. On a create, the
-        coordinates, the administrative levels, the postal code, the time
-        zone and the INSEE code the body leaves out are filled in from the
-        coordinates when the body carries them, from the address otherwise.
+        included, then follow the new place - and at the point when
+        `adminLevel1`, `adminLevel2` or `adminLevel4` is missing. On a
+        create, the coordinates, the administrative levels, the postal code,
+        the time zone and the INSEE code the body leaves out are filled in
+        from the coordinates when the body carries them, from the address
+        otherwise; the ones it gives are kept.
 
 
         Replacing, or writing a pair a merged location carries, takes an
@@ -2172,7 +2183,8 @@ paths:
         code. These are looked up again when the address, the country code
         or the coordinates change - the values the body sends back
         unchanged, the country code included, then follow the new place -
-        and at the point when the city, department or region is missing.
+        and at the point when `adminLevel1`, `adminLevel2` or `adminLevel4`
+        is missing.
 
 
         The acting member must be an administrator or a moderator of the
@@ -2691,8 +2703,8 @@ components:
       in: query
       required: false
       description: >
-        Free-text search over the locations' name, address, city, region and
-        department.
+        Free-text search over the locations' name, address, `adminLevel1`,
+        `adminLevel2` and `adminLevel4`.
       schema:
         type: string
 
@@ -2770,10 +2782,12 @@ components:
           enum:
             - additionalFields
             - additionalFieldMetrics
-            - cities
-            - regions
-            - departments
-            - districts
+            - adminLevel1
+            - adminLevel2
+            - adminLevel3
+            - adminLevel4
+            - adminLevel5
+            - adminLevel6
             - countryCodes
             - keywords
             - languages
@@ -2788,6 +2802,13 @@ components:
             - timespan
             - timings
             - dateRanges
+          x-enum-descriptions:
+            adminLevel1: Largest administrative division of the country (in France, the region)
+            adminLevel2: Division below adminLevel1 (in France, the department)
+            adminLevel3: Division below adminLevel2 (in France, the intercommunality)
+            adminLevel4: Municipality
+            adminLevel5: Subdivision of the municipality (in France, the arrondissement of Paris, Lyon and Marseille)
+            adminLevel6: Subdivision of the municipality, below adminLevel5 (in France, the neighbourhood)
 
     FacetSize:
       name: facetSize
@@ -2810,7 +2831,7 @@ components:
       required: false
       description: >
         Per-facet override of `facetSize`, keyed by facet name
-        (`facetSizes[cities]=50`). Precedence: per-facet override > `facetSize`
+        (`facetSizes[adminLevel4]=50`). Precedence: per-facet override > `facetSize`
         > default (10). Only applies to bucket-list facets; values are clamped
         to [1, 250].
       style: deepObject
@@ -2829,8 +2850,8 @@ components:
       description: >
         Default ordering of the bucket-list facets. `count` (default) returns
         the most frequent buckets first; `alpha` returns the same top-`facetSize`
-        buckets but ordered alphabetically by their display value (city/keyword
-        name, location name, agenda title) for readable scanning. Override a
+        buckets but ordered alphabetically by their display value (administrative
+        area, keyword, location name, agenda title) for readable scanning. Override a
         single facet with `facetSorts[<facet>]`.
       schema:
         type: string
@@ -2845,7 +2866,7 @@ components:
       required: false
       description: >
         Per-facet override of `facetSort`, keyed by facet name
-        (`facetSorts[cities]=alpha`). Precedence: per-facet override >
+        (`facetSorts[adminLevel4]=alpha`). Precedence: per-facet override >
         `facetSort` > default (`count`).
       style: deepObject
       explode: true
@@ -2864,7 +2885,7 @@ components:
       description: >
         Per-facet label for a synthetic bucket counting the filtered events that
         have **no value** for the facet's field
-        (`facetMissing[district]=Unknown` adds an `{ value: "Unknown", count }`
+        (`facetMissing[adminLevel6]=Unknown` adds an `{ value: "Unknown", count }`
         bucket). Honoured by the term facets (those whose buckets are keyed by
         the displayed value) except `accessibilities`; ignored by the
         provenance, `locations` and remaining families. The bucket appears only
@@ -2975,8 +2996,8 @@ components:
           - availabilityUpdatedAt.desc
           - location.name.asc
           - location.name.desc
-          - location.city.asc
-          - location.city.desc
+          - location.adminLevel4.asc
+          - location.adminLevel4.desc
           - score
         x-enum-descriptions:
           timings.asc: By event date, earliest first
@@ -2989,8 +3010,8 @@ components:
           availabilityUpdatedAt.desc: Newest inventory write first; events with no inventory last
           location.name.asc: By location name, A→Z
           location.name.desc: By location name, Z→A
-          location.city.asc: By city, A→Z
-          location.city.desc: By city, Z→A
+          location.adminLevel4.asc: By municipality (`adminLevel4`), A→Z
+          location.adminLevel4.desc: By municipality (`adminLevel4`), Z→A
           score: By search relevance (only meaningful with `search`)
 
     Search:
@@ -3161,41 +3182,25 @@ components:
           value:
             type: string
 
-    FilterRegion:
-      name: region
+    FilterAdminLevel1:
+      name: adminLevel1
       in: query
       required: false
-      description: Restrict to events located in these regions.
+      description: >
+        Restrict to events whose `adminLevel1` (in France, the region) is one of
+        these values.
       schema:
         type: array
         items:
           type: string
 
-    FilterDepartment:
-      name: department
+    FilterAdminLevel2:
+      name: adminLevel2
       in: query
       required: false
-      description: Restrict to events located in these departments.
-      schema:
-        type: array
-        items:
-          type: string
-
-    FilterCity:
-      name: city
-      in: query
-      required: false
-      description: Restrict to events located in these cities.
-      schema:
-        type: array
-        items:
-          type: string
-
-    FilterDistrict:
-      name: district
-      in: query
-      required: false
-      description: Restrict to events located in these districts.
+      description: >
+        Restrict to events whose `adminLevel2` (in France, the department) is
+        one of these values.
       schema:
         type: array
         items:
@@ -3205,7 +3210,21 @@ components:
       name: adminLevel3
       in: query
       required: false
-      description: Restrict to events located in these level-3 administrative areas.
+      description: >
+        Restrict to events whose `adminLevel3` (in France, the intercommunality)
+        is one of these values.
+      schema:
+        type: array
+        items:
+          type: string
+
+    FilterAdminLevel4:
+      name: adminLevel4
+      in: query
+      required: false
+      description: >
+        Restrict to events whose `adminLevel4` (the municipality) is one of
+        these values.
       schema:
         type: array
         items:
@@ -3215,7 +3234,21 @@ components:
       name: adminLevel5
       in: query
       required: false
-      description: Restrict to events located in these level-5 administrative areas.
+      description: >
+        Restrict to events whose `adminLevel5` (in France, the arrondissement of
+        Paris, Lyon and Marseille) is one of these values.
+      schema:
+        type: array
+        items:
+          type: string
+
+    FilterAdminLevel6:
+      name: adminLevel6
+      in: query
+      required: false
+      description: >
+        Restrict to events whose `adminLevel6` (in France, the neighbourhood) is
+        one of these values.
       schema:
         type: array
         items:
@@ -3886,10 +3919,24 @@ components:
           type: [string, 'null']
         address:
           type: [string, 'null']
-        city:
+        adminLevel1:
           type: [string, 'null']
-        region:
+          description: Largest administrative division of the country. In France, the region.
+        adminLevel2:
           type: [string, 'null']
+          description: Administrative division below `adminLevel1`. In France, the department.
+        adminLevel3:
+          type: [string, 'null']
+          description: Administrative division below `adminLevel2`. In France, the intercommunality.
+        adminLevel4:
+          type: [string, 'null']
+          description: Municipality.
+        adminLevel5:
+          type: [string, 'null']
+          description: Subdivision of the municipality. In France, the arrondissement of Paris, Lyon and Marseille.
+        adminLevel6:
+          type: [string, 'null']
+          description: Subdivision of the municipality, below `adminLevel5`. In France, the neighbourhood.
         postalCode:
           type: [string, 'null']
         countryCode:
@@ -3901,14 +3948,6 @@ components:
         longitude:
           type: [number, 'null']
           format: double
-        district:
-          type: [string, 'null']
-        department:
-          type: [string, 'null']
-        adminLevel3:
-          type: [string, 'null']
-        adminLevel5:
-          type: [string, 'null']
         timezone:
           type: [string, 'null']
           description: IANA time zone of the location.
@@ -3970,12 +4009,12 @@ components:
         setUid: null
         name: Château des Lèbres
         address: Naves, 07140 Les Vans
-        city: Les Vans
-        district: null
-        region: Auvergne-Rhône-Alpes
-        department: Ardèche
+        adminLevel1: Auvergne-Rhône-Alpes
+        adminLevel2: Ardèche
         adminLevel3: null
+        adminLevel4: Les Vans
         adminLevel5: null
+        adminLevel6: null
         postalCode: '07140'
         insee: '07334'
         countryCode: FR
@@ -4020,12 +4059,12 @@ components:
         - setUid
         - name
         - address
-        - city
-        - district
-        - region
-        - department
+        - adminLevel1
+        - adminLevel2
         - adminLevel3
+        - adminLevel4
         - adminLevel5
+        - adminLevel6
         - postalCode
         - insee
         - countryCode
@@ -4066,18 +4105,24 @@ components:
           type: string
         address:
           type: [string, 'null']
-        city:
+        adminLevel1:
           type: [string, 'null']
-        district:
+          description: Largest administrative division of the country. In France, the region.
+        adminLevel2:
           type: [string, 'null']
-        region:
-          type: [string, 'null']
-        department:
-          type: [string, 'null']
+          description: Administrative division below `adminLevel1`. In France, the department.
         adminLevel3:
           type: [string, 'null']
+          description: Administrative division below `adminLevel2`. In France, the intercommunality.
+        adminLevel4:
+          type: [string, 'null']
+          description: Municipality.
         adminLevel5:
           type: [string, 'null']
+          description: Subdivision of the municipality. In France, the arrondissement of Paris, Lyon and Marseille.
+        adminLevel6:
+          type: [string, 'null']
+          description: Subdivision of the municipality, below `adminLevel5`. In France, the neighbourhood.
         postalCode:
           type: [string, 'null']
         insee:
@@ -4202,24 +4247,30 @@ components:
           type: string
         address:
           type: string
-        city:
-          type: [string, 'null']
-        district:
-          type: [string, 'null']
-        region:
+        adminLevel1:
           type: [string, 'null']
           description: >
-            In France, written under the official label of the region, the
-            one the INSEE code names when they disagree.
-        department:
+            Largest administrative division of the country. In France, the
+            region, written under its official label: the one the INSEE code
+            names when they disagree.
+        adminLevel2:
           type: [string, 'null']
           description: >
-            In France, written under the official label of the department, the
-            one the INSEE code names when they disagree.
+            Administrative division below `adminLevel1`. In France, the
+            department, written under its official label: the one the INSEE
+            code names when they disagree.
         adminLevel3:
           type: [string, 'null']
+          description: Administrative division below `adminLevel2`. In France, the intercommunality.
+        adminLevel4:
+          type: [string, 'null']
+          description: Municipality.
         adminLevel5:
           type: [string, 'null']
+          description: Subdivision of the municipality. In France, the arrondissement of Paris, Lyon and Marseille.
+        adminLevel6:
+          type: [string, 'null']
+          description: Subdivision of the municipality, below `adminLevel5`. In France, the neighbourhood.
         postalCode:
           type: [string, 'null']
         insee:
@@ -4291,8 +4342,9 @@ components:
         address otherwise: the coordinates, the administrative levels, the
         postal code, the time zone, the INSEE code and the country code
         the body leaves out or sends back unchanged follow the place found.
-        A location whose city, department or region is missing is looked up
-        again at its point. A place the geocoder cannot find is refused with
+        A location whose `adminLevel1`, `adminLevel2` or `adminLevel4` is
+        missing is looked up again at its point. A place the geocoder cannot
+        find is refused with
         `422` on the address, country code or coordinates the body changes.
       additionalProperties: false
       properties:
@@ -4300,24 +4352,30 @@ components:
           type: string
         address:
           type: string
-        city:
-          type: [string, 'null']
-        district:
-          type: [string, 'null']
-        region:
+        adminLevel1:
           type: [string, 'null']
           description: >
-            In France, written under the official label of the region, the
-            one the INSEE code names when they disagree.
-        department:
+            Largest administrative division of the country. In France, the
+            region, written under its official label: the one the INSEE code
+            names when they disagree.
+        adminLevel2:
           type: [string, 'null']
           description: >
-            In France, written under the official label of the department, the
-            one the INSEE code names when they disagree.
+            Administrative division below `adminLevel1`. In France, the
+            department, written under its official label: the one the INSEE
+            code names when they disagree.
         adminLevel3:
           type: [string, 'null']
+          description: Administrative division below `adminLevel2`. In France, the intercommunality.
+        adminLevel4:
+          type: [string, 'null']
+          description: Municipality.
         adminLevel5:
           type: [string, 'null']
+          description: Subdivision of the municipality. In France, the arrondissement of Paris, Lyon and Marseille.
+        adminLevel6:
+          type: [string, 'null']
+          description: Subdivision of the municipality, below `adminLevel5`. In France, the neighbourhood.
         postalCode:
           type: [string, 'null']
         insee:
@@ -5874,16 +5932,16 @@ components:
           uid: 55512
           name: Parc de la Tête d'Or
           address: Place Général Leclerc
-          city: Lyon
-          region: Auvergne-Rhône-Alpes
+          adminLevel1: Auvergne-Rhône-Alpes
+          adminLevel2: Rhône
+          adminLevel3: null
+          adminLevel4: Lyon
+          adminLevel5: null
+          adminLevel6: null
           postalCode: '69006'
           countryCode: FR
           latitude: 45.7772
           longitude: 4.8558
-          district: null
-          department: Rhône
-          adminLevel3: null
-          adminLevel5: null
           timezone: Europe/Paris
           deleted: false
         timezone: Europe/Paris
@@ -6100,16 +6158,16 @@ components:
           uid: 55512
           name: Parc de la Tête d'Or
           address: Place Général Leclerc
-          city: Lyon
-          region: Auvergne-Rhône-Alpes
+          adminLevel1: Auvergne-Rhône-Alpes
+          adminLevel2: Rhône
+          adminLevel3: null
+          adminLevel4: Lyon
+          adminLevel5: null
+          adminLevel6: null
           postalCode: '69006'
           countryCode: FR
           latitude: 45.7772
           longitude: 4.8558
-          district: null
-          department: Rhône
-          adminLevel3: null
-          adminLevel5: null
           timezone: Europe/Paris
           deleted: false
         timezone: Europe/Paris
@@ -6846,10 +6904,12 @@ components:
       enum:
         - additionalFields
         - additionalFieldMetrics
-        - cities
-        - regions
-        - departments
-        - districts
+        - adminLevel1
+        - adminLevel2
+        - adminLevel3
+        - adminLevel4
+        - adminLevel5
+        - adminLevel6
         - countryCodes
         - keywords
         - languages
@@ -6922,7 +6982,7 @@ components:
       example:
         filters: { keyword: [concert] }
         facets:
-          - cities
+          - adminLevel4
           - { name: topKeywords, type: keywords, size: 20, sort: count }
           - { name: byMonth, type: timings, interval: month }
           - { name: byYear, type: timings, interval: year }
@@ -6977,12 +7037,12 @@ components:
         locationExtId:
           type: object
           properties: { key: { type: string }, value: { type: string } }
-        region: { type: array, items: { type: string } }
-        department: { type: array, items: { type: string } }
-        city: { type: array, items: { type: string } }
-        district: { type: array, items: { type: string } }
+        adminLevel1: { type: array, items: { type: string } }
+        adminLevel2: { type: array, items: { type: string } }
         adminLevel3: { type: array, items: { type: string } }
+        adminLevel4: { type: array, items: { type: string } }
         adminLevel5: { type: array, items: { type: string } }
+        adminLevel6: { type: array, items: { type: string } }
         countryCode: { type: array, items: { type: string } }
         bbox:
           {
@@ -7030,7 +7090,8 @@ components:
       description: Named facet results, keyed by each facet's `name` alias.
       example:
         facets:
-          cities: { type: cities, result: [{ value: Lyon, count: 42 }] }
+          adminLevel4:
+            { type: adminLevel4, result: [{ value: Lyon, count: 42 }] }
           byMonth:
             type: timings
             result:
@@ -7056,10 +7117,12 @@ components:
               type: string
               enum:
                 [
-                  cities,
-                  regions,
-                  departments,
-                  districts,
+                  adminLevel1,
+                  adminLevel2,
+                  adminLevel3,
+                  adminLevel4,
+                  adminLevel5,
+                  adminLevel6,
                   countryCodes,
                   keywords,
                   languages,
@@ -7151,7 +7214,7 @@ components:
         value:
           type: string
           description: >
-            The facet value — e.g. a city name, a keyword, a language code, a
+            The facet value - e.g. a municipality, a keyword, a language code, a
             status. Always a string (numeric-keyed facets are stringified).
         count:
           type: integer
@@ -7164,7 +7227,7 @@ components:
       additionalProperties: false
       example:
         facets:
-          cities:
+          adminLevel4:
             - { value: Lyon, count: 42 }
             - { value: Villeurbanne, count: 11 }
           keywords:
@@ -7204,21 +7267,29 @@ components:
             object, `null`, or its own fixed structure with zero counts,
             depending on the facet. Each property below defines its shape.
           properties:
-            cities:
+            adminLevel1:
               type: array
-              description: Top cities by event count.
+              description: Top `adminLevel1` values by event count.
               items: { $ref: '#/components/schemas/FacetBucket' }
-            regions:
+            adminLevel2:
               type: array
-              description: Top regions by event count.
+              description: Top `adminLevel2` values by event count.
               items: { $ref: '#/components/schemas/FacetBucket' }
-            departments:
+            adminLevel3:
               type: array
-              description: Top departments by event count.
+              description: Top `adminLevel3` values by event count.
               items: { $ref: '#/components/schemas/FacetBucket' }
-            districts:
+            adminLevel4:
               type: array
-              description: Top districts by event count.
+              description: Top `adminLevel4` values by event count.
+              items: { $ref: '#/components/schemas/FacetBucket' }
+            adminLevel5:
+              type: array
+              description: Top `adminLevel5` values by event count.
+              items: { $ref: '#/components/schemas/FacetBucket' }
+            adminLevel6:
+              type: array
+              description: Top `adminLevel6` values by event count.
               items: { $ref: '#/components/schemas/FacetBucket' }
             countryCodes:
               type: array
