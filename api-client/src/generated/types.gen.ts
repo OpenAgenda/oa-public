@@ -858,7 +858,7 @@ export type TicketingProvider = 'billetweb' | 'eventbrite' | 'helloasso' | 'mapa
 /**
  * What one ticketing provider says about one occurrence. `status` is the provider's word as of `syncedAt`; the sale window is what lets a reader tell `notYetOnSale` and `salesClosed` from a stock answer, and `offersAggregate` recomputes that half at read time.
  *
- * The event's own `status` answers over the provider's word: a cancelled event serves every row `salesClosed`, and a full one serves every row `soldOut` — the sale window applying first there, so a full event past its window serves `salesClosed`.
+ * The event's own `status` answers over the provider's word, and in one direction only - towards less bookable. A cancelled event serves every row `salesClosed`, whatever the window says, and with `closedBySource: true`, since the window is not what closed it. A full event serves `soldOut` every row that is not already `salesClosed`: a row whose window has elapsed, or whose provider shut its own channel, stays closed rather than becoming sold out, and a row whose sale has not opened yet is served `soldOut` rather than `notYetOnSale` - there is nothing left to wait for.
  *
  */
 export type TimingAvailability = {
@@ -887,14 +887,14 @@ export type TimingAvailability = {
      */
     onSaleThrough?: string;
     /**
-     * Provenance of a `salesClosed`: `true` when the provider itself shut the channel, `false` or absent when only the sale window elapsed. Decides whether a later read may reopen the row on the window alone.
+     * Provenance of a `salesClosed`: `true` when something other than the window shut the sale - the provider shutting its own channel, or the event's own `status` being `cancelled` - `false` or absent when only the sale window elapsed. Decides whether a later read may reopen the row on the window alone.
      *
      */
     closedBySource?: boolean;
 };
 
 /**
- * What the ticketing sources of this event add up to, computed on each read. `availability` is `null` when nothing can be said - every occurrence past, or no source carrying a usable status - and reflects the current time, except `soldOut` and `limited`, which reflect the last sync with the provider or the event's own `status`. `pricing` is a category rolled up from the sources' price lists and declared pricing.
+ * What the ticketing sources of this event add up to, computed on each read. `availability` is `null` when nothing can be said - every occurrence past, or no source carrying a usable status - and reflects the current time, except `soldOut` and `limited`, which reflect the last sync with the provider, and the two answers the event's own `status` dictates whatever the clock says: `soldOut` when it is `full`, `salesClosed` when it is `cancelled`. `pricing` is a category rolled up from the sources' price lists and declared pricing.
  *
  */
 export type OffersAggregate = {
@@ -914,7 +914,7 @@ export type OffersAggregate = {
      */
     price?: OffersPrice;
     /**
-     * Where to book, one entry per ticketing source that carries a usable URL, in catalogue order. `null` when none does.
+     * Where to book, one entry per ticketing source that carries a usable URL, in catalogue order. `null` when none does, and on a cancelled event, whose sale no longer exists - the same read also adds no booking link to `registration`, though whatever the organiser stored there is left untouched.
      * The same URLs reach `registration` as `{type: link}` entries, but stripped of their source: that field lists ways to sign up, not a map of ticketing providers. A reader showing one line PER SOURCE — a per-date detail panel, say — could attach no URL to any line. This is that attribution, and nothing more.
      * EVENT-LEVEL, NEVER PER DATE — a limit of what OpenAgenda stores and serves, not a claim about what ticketing services can do. An availability row cannot carry a URL (`TimingAvailability` is `additionalProperties: false`), and the only URL held for a source is the event-level one its connector wrote. A per-date link is constructible for at least some services — Mapado's booking site takes an `eventDate` parameter whose id is what a row's `sourceRef` is meant to carry — but building one per service belongs with the connectors, not here.
      *
