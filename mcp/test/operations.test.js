@@ -405,8 +405,8 @@ describe('structured params (derived from the contract)', () => {
   });
 
   it('resolves array item types', () => {
-    const city = list.params.find((p) => p.name === 'city');
-    expect(city.type).toBe('string[]');
+    const municipality = list.params.find((p) => p.name === 'adminLevel4');
+    expect(municipality.type).toBe('string[]');
   });
 });
 
@@ -1396,11 +1396,11 @@ describe('renderOperation', () => {
   });
 
   // A compacted parameter kept only its name, and a name does not say that
-  // `region` takes a LIST - which is what the generated client types it as.
+  // `adminLevel1` takes a LIST - which is what the generated client types it as.
   it('gives every compacted parameter its type', () => {
     const md = renderOperation(byId('agendas.events.list'), 0);
     const [, compacted = ''] = md.match(/Other optional parameters: (.*)\./) ?? [];
-    expect(compacted).toContain('region (string[])');
+    expect(compacted).toContain('adminLevel1 (string[])');
     expect(compacted).toContain('featured (boolean)');
     for (const entry of compacted.split(', ')) {
       expect(entry).toMatch(/^\S+ \(.+\)$/);
