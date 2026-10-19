@@ -245,8 +245,30 @@ export type EventLocation = {
     readonly uid?: number;
     name?: string | null;
     address?: string | null;
-    city?: string | null;
-    region?: string | null;
+    /**
+     * Largest administrative division of the country. In France, the region.
+     */
+    adminLevel1?: string | null;
+    /**
+     * Administrative division below `adminLevel1`. In France, the department.
+     */
+    adminLevel2?: string | null;
+    /**
+     * Administrative division below `adminLevel2`. In France, the intercommunality.
+     */
+    adminLevel3?: string | null;
+    /**
+     * Municipality.
+     */
+    adminLevel4?: string | null;
+    /**
+     * Subdivision of the municipality. In France, the arrondissement of Paris, Lyon and Marseille.
+     */
+    adminLevel5?: string | null;
+    /**
+     * Subdivision of the municipality, below `adminLevel5`. In France, the neighbourhood.
+     */
+    adminLevel6?: string | null;
     postalCode?: string | null;
     /**
      * ISO 3166-1 alpha-2 country code.
@@ -254,10 +276,6 @@ export type EventLocation = {
     countryCode?: string | null;
     latitude?: number | null;
     longitude?: number | null;
-    district?: string | null;
-    department?: string | null;
-    adminLevel3?: string | null;
-    adminLevel5?: string | null;
     /**
      * IANA time zone of the location.
      */
@@ -298,12 +316,30 @@ export type Location = {
     readonly setUid: number | null;
     name: string;
     address: string | null;
-    city: string | null;
-    district: string | null;
-    region: string | null;
-    department: string | null;
+    /**
+     * Largest administrative division of the country. In France, the region.
+     */
+    adminLevel1: string | null;
+    /**
+     * Administrative division below `adminLevel1`. In France, the department.
+     */
+    adminLevel2: string | null;
+    /**
+     * Administrative division below `adminLevel2`. In France, the intercommunality.
+     */
     adminLevel3: string | null;
+    /**
+     * Municipality.
+     */
+    adminLevel4: string | null;
+    /**
+     * Subdivision of the municipality. In France, the arrondissement of Paris, Lyon and Marseille.
+     */
     adminLevel5: string | null;
+    /**
+     * Subdivision of the municipality, below `adminLevel5`. In France, the neighbourhood.
+     */
+    adminLevel6: string | null;
     postalCode: string | null;
     /**
      * INSEE code of the French municipality, when known.
@@ -386,20 +422,32 @@ export type LocationAdditionalFields = {
 export type LocationInput = {
     name: string;
     address: string;
-    city?: string | null;
-    district?: string | null;
     /**
-     * In France, written under the official label of the region, the one the INSEE code names when they disagree.
+     * Largest administrative division of the country. In France, the region, written under its official label: the one the INSEE code names when they disagree.
      *
      */
-    region?: string | null;
+    adminLevel1?: string | null;
     /**
-     * In France, written under the official label of the department, the one the INSEE code names when they disagree.
+     * Administrative division below `adminLevel1`. In France, the department, written under its official label: the one the INSEE code names when they disagree.
      *
      */
-    department?: string | null;
+    adminLevel2?: string | null;
+    /**
+     * Administrative division below `adminLevel2`. In France, the intercommunality.
+     */
     adminLevel3?: string | null;
+    /**
+     * Municipality.
+     */
+    adminLevel4?: string | null;
+    /**
+     * Subdivision of the municipality. In France, the arrondissement of Paris, Lyon and Marseille.
+     */
     adminLevel5?: string | null;
+    /**
+     * Subdivision of the municipality, below `adminLevel5`. In France, the neighbourhood.
+     */
+    adminLevel6?: string | null;
     postalCode?: string | null;
     /**
      * INSEE code of the French municipality.
@@ -448,26 +496,38 @@ export type LocationInput = {
 };
 
 /**
- * Partial update body. A new address, country code or coordinates are geocoded, at the point when the body changes a coordinate, at the address otherwise: the coordinates, the administrative levels, the postal code, the time zone, the INSEE code and the country code the body leaves out or sends back unchanged follow the place found. A location whose city, department or region is missing is looked up again at its point. A place the geocoder cannot find is refused with `422` on the address, country code or coordinates the body changes.
+ * Partial update body. A new address, country code or coordinates are geocoded, at the point when the body changes a coordinate, at the address otherwise: the coordinates, the administrative levels, the postal code, the time zone, the INSEE code and the country code the body leaves out or sends back unchanged follow the place found. A location whose `adminLevel1`, `adminLevel2` or `adminLevel4` is missing is looked up again at its point. A place the geocoder cannot find is refused with `422` on the address, country code or coordinates the body changes.
  *
  */
 export type LocationPatch = {
     name?: string;
     address?: string;
-    city?: string | null;
-    district?: string | null;
     /**
-     * In France, written under the official label of the region, the one the INSEE code names when they disagree.
+     * Largest administrative division of the country. In France, the region, written under its official label: the one the INSEE code names when they disagree.
      *
      */
-    region?: string | null;
+    adminLevel1?: string | null;
     /**
-     * In France, written under the official label of the department, the one the INSEE code names when they disagree.
+     * Administrative division below `adminLevel1`. In France, the department, written under its official label: the one the INSEE code names when they disagree.
      *
      */
-    department?: string | null;
+    adminLevel2?: string | null;
+    /**
+     * Administrative division below `adminLevel2`. In France, the intercommunality.
+     */
     adminLevel3?: string | null;
+    /**
+     * Municipality.
+     */
+    adminLevel4?: string | null;
+    /**
+     * Subdivision of the municipality. In France, the arrondissement of Paris, Lyon and Marseille.
+     */
     adminLevel5?: string | null;
+    /**
+     * Subdivision of the municipality, below `adminLevel5`. In France, the neighbourhood.
+     */
+    adminLevel6?: string | null;
     postalCode?: string | null;
     /**
      * INSEE code of the French municipality.
@@ -1659,7 +1719,7 @@ export type EventList = {
 /**
  * A facet type name (shared by the GET `facets` list and the POST report).
  */
-export type FacetName = 'additionalFields' | 'additionalFieldMetrics' | 'cities' | 'regions' | 'departments' | 'districts' | 'countryCodes' | 'keywords' | 'languages' | 'accessibilities' | 'status' | 'attendanceModes' | 'originAgendas' | 'sourceAgendas' | 'locations' | 'geohash' | 'viewport' | 'timespan' | 'timings' | 'dateRanges';
+export type FacetName = 'additionalFields' | 'additionalFieldMetrics' | 'adminLevel1' | 'adminLevel2' | 'adminLevel3' | 'adminLevel4' | 'adminLevel5' | 'adminLevel6' | 'countryCodes' | 'keywords' | 'languages' | 'accessibilities' | 'status' | 'attendanceModes' | 'originAgendas' | 'sourceAgendas' | 'locations' | 'geohash' | 'viewport' | 'timespan' | 'timings' | 'dateRanges';
 
 /**
  * A single named aggregation in a facet report. `name` (the output key) defaults to `type`; reuse a `type` under distinct `name`s to aggregate the same field several ways in one request. Options not relevant to the `type` are ignored.
@@ -1747,12 +1807,12 @@ export type EventFilters = {
         key?: string;
         value?: string;
     };
-    region?: Array<string>;
-    department?: Array<string>;
-    city?: Array<string>;
-    district?: Array<string>;
+    adminLevel1?: Array<string>;
+    adminLevel2?: Array<string>;
     adminLevel3?: Array<string>;
+    adminLevel4?: Array<string>;
     adminLevel5?: Array<string>;
+    adminLevel6?: Array<string>;
     countryCode?: Array<string>;
     /**
      * "west,south,east,north" in decimal degrees.
@@ -1816,7 +1876,7 @@ export type FacetReport = {
  *
  */
 export type FacetReportEntry = {
-    type: 'cities' | 'regions' | 'departments' | 'districts' | 'countryCodes' | 'keywords' | 'languages' | 'accessibilities' | 'status' | 'attendanceModes' | 'timings' | 'dateRanges';
+    type: 'adminLevel1' | 'adminLevel2' | 'adminLevel3' | 'adminLevel4' | 'adminLevel5' | 'adminLevel6' | 'countryCodes' | 'keywords' | 'languages' | 'accessibilities' | 'status' | 'attendanceModes' | 'timings' | 'dateRanges';
     result: Array<FacetBucket>;
 } | {
     type: 'originAgendas';
@@ -1853,7 +1913,7 @@ export type FacetReportEntry = {
  */
 export type FacetBucket = {
     /**
-     * The facet value — e.g. a city name, a keyword, a language code, a status. Always a string (numeric-keyed facets are stringified).
+     * The facet value - e.g. a municipality, a keyword, a language code, a status. Always a string (numeric-keyed facets are stringified).
      *
      */
     value: string;
@@ -1873,21 +1933,29 @@ export type FacetResults = {
      */
     facets: {
         /**
-         * Top cities by event count.
+         * Top `adminLevel1` values by event count.
          */
-        cities?: Array<FacetBucket>;
+        adminLevel1?: Array<FacetBucket>;
         /**
-         * Top regions by event count.
+         * Top `adminLevel2` values by event count.
          */
-        regions?: Array<FacetBucket>;
+        adminLevel2?: Array<FacetBucket>;
         /**
-         * Top departments by event count.
+         * Top `adminLevel3` values by event count.
          */
-        departments?: Array<FacetBucket>;
+        adminLevel3?: Array<FacetBucket>;
         /**
-         * Top districts by event count.
+         * Top `adminLevel4` values by event count.
          */
-        districts?: Array<FacetBucket>;
+        adminLevel4?: Array<FacetBucket>;
+        /**
+         * Top `adminLevel5` values by event count.
+         */
+        adminLevel5?: Array<FacetBucket>;
+        /**
+         * Top `adminLevel6` values by event count.
+         */
+        adminLevel6?: Array<FacetBucket>;
         /**
          * Top countries (ISO 3166-1 alpha-2) by event count.
          */
@@ -2094,8 +2162,30 @@ export type Timespan = {
 export type EventLocationWritable = {
     name?: string | null;
     address?: string | null;
-    city?: string | null;
-    region?: string | null;
+    /**
+     * Largest administrative division of the country. In France, the region.
+     */
+    adminLevel1?: string | null;
+    /**
+     * Administrative division below `adminLevel1`. In France, the department.
+     */
+    adminLevel2?: string | null;
+    /**
+     * Administrative division below `adminLevel2`. In France, the intercommunality.
+     */
+    adminLevel3?: string | null;
+    /**
+     * Municipality.
+     */
+    adminLevel4?: string | null;
+    /**
+     * Subdivision of the municipality. In France, the arrondissement of Paris, Lyon and Marseille.
+     */
+    adminLevel5?: string | null;
+    /**
+     * Subdivision of the municipality, below `adminLevel5`. In France, the neighbourhood.
+     */
+    adminLevel6?: string | null;
     postalCode?: string | null;
     /**
      * ISO 3166-1 alpha-2 country code.
@@ -2103,10 +2193,6 @@ export type EventLocationWritable = {
     countryCode?: string | null;
     latitude?: number | null;
     longitude?: number | null;
-    district?: string | null;
-    department?: string | null;
-    adminLevel3?: string | null;
-    adminLevel5?: string | null;
     /**
      * IANA time zone of the location.
      */
@@ -2135,12 +2221,30 @@ export type LocationSummaryWritable = {
 export type LocationWritable = {
     name: string;
     address: string | null;
-    city: string | null;
-    district: string | null;
-    region: string | null;
-    department: string | null;
+    /**
+     * Largest administrative division of the country. In France, the region.
+     */
+    adminLevel1: string | null;
+    /**
+     * Administrative division below `adminLevel1`. In France, the department.
+     */
+    adminLevel2: string | null;
+    /**
+     * Administrative division below `adminLevel2`. In France, the intercommunality.
+     */
     adminLevel3: string | null;
+    /**
+     * Municipality.
+     */
+    adminLevel4: string | null;
+    /**
+     * Subdivision of the municipality. In France, the arrondissement of Paris, Lyon and Marseille.
+     */
     adminLevel5: string | null;
+    /**
+     * Subdivision of the municipality, below `adminLevel5`. In France, the neighbourhood.
+     */
+    adminLevel6: string | null;
     postalCode: string | null;
     /**
      * INSEE code of the French municipality, when known.
@@ -2430,7 +2534,7 @@ export type AgendaFilterOfficial = boolean;
 export type LocationUid = number;
 
 /**
- * Free-text search over the locations' name, address, city, region and department.
+ * Free-text search over the locations' name, address, `adminLevel1`, `adminLevel2` and `adminLevel4`.
  *
  */
 export type LocationSearch = string;
@@ -2460,7 +2564,7 @@ export type LocationBoundingBox = string;
  * Comma-separated list of facets to compute over the filtered events. Unknown facet names return `400`. Each facet's result shape is defined by `FacetResults`. Bucket-list facets (the term, provenance and `locations` families) return the top buckets by event count, capped by `facetSize` (overridable per facet with `facetSizes[<facet>]`) and reordered by `facetSort`; past the cap, narrow the filter. `additionalFields` and `additionalFieldMetrics` cover the agenda's own fields as its event form schema declares them (`GET /agendas/{agendaUid}/events/schema`), named by `additionalFieldsKeys`/`additionalFieldMetricsKeys` or all readable fields when omitted; `additionalFields` returns one bucket per option. `timings` bucket width is set by `timingsInterval`, the `dateRanges` month by `month`, `geohash` granularity by `geohashZoom`.
  *
  */
-export type Facets = Array<'additionalFields' | 'additionalFieldMetrics' | 'cities' | 'regions' | 'departments' | 'districts' | 'countryCodes' | 'keywords' | 'languages' | 'accessibilities' | 'status' | 'attendanceModes' | 'originAgendas' | 'sourceAgendas' | 'locations' | 'geohash' | 'viewport' | 'timespan' | 'timings' | 'dateRanges'>;
+export type Facets = Array<'additionalFields' | 'additionalFieldMetrics' | 'adminLevel1' | 'adminLevel2' | 'adminLevel3' | 'adminLevel4' | 'adminLevel5' | 'adminLevel6' | 'countryCodes' | 'keywords' | 'languages' | 'accessibilities' | 'status' | 'attendanceModes' | 'originAgendas' | 'sourceAgendas' | 'locations' | 'geohash' | 'viewport' | 'timespan' | 'timings' | 'dateRanges'>;
 
 /**
  * Default maximum number of buckets for the bucket-list facets (the term, provenance and `locations` families), ordered by event count. Override a single facet with `facetSizes[<facet>]`. Out-of-range values are clamped; other facets ignore it.
@@ -2469,7 +2573,7 @@ export type Facets = Array<'additionalFields' | 'additionalFieldMetrics' | 'citi
 export type FacetSize = number;
 
 /**
- * Per-facet override of `facetSize`, keyed by facet name (`facetSizes[cities]=50`). Precedence: per-facet override > `facetSize` > default (10). Only applies to bucket-list facets; values are clamped to [1, 250].
+ * Per-facet override of `facetSize`, keyed by facet name (`facetSizes[adminLevel4]=50`). Precedence: per-facet override > `facetSize` > default (10). Only applies to bucket-list facets; values are clamped to [1, 250].
  *
  */
 export type FacetSizes = {
@@ -2477,13 +2581,13 @@ export type FacetSizes = {
 };
 
 /**
- * Default ordering of the bucket-list facets. `count` (default) returns the most frequent buckets first; `alpha` returns the same top-`facetSize` buckets but ordered alphabetically by their display value (city/keyword name, location name, agenda title) for readable scanning. Override a single facet with `facetSorts[<facet>]`.
+ * Default ordering of the bucket-list facets. `count` (default) returns the most frequent buckets first; `alpha` returns the same top-`facetSize` buckets but ordered alphabetically by their display value (administrative area, keyword, location name, agenda title) for readable scanning. Override a single facet with `facetSorts[<facet>]`.
  *
  */
 export type FacetSort = 'count' | 'alpha';
 
 /**
- * Per-facet override of `facetSort`, keyed by facet name (`facetSorts[cities]=alpha`). Precedence: per-facet override > `facetSort` > default (`count`).
+ * Per-facet override of `facetSort`, keyed by facet name (`facetSorts[adminLevel4]=alpha`). Precedence: per-facet override > `facetSort` > default (`count`).
  *
  */
 export type FacetSorts = {
@@ -2491,7 +2595,7 @@ export type FacetSorts = {
 };
 
 /**
- * Per-facet label for a synthetic bucket counting the filtered events that have **no value** for the facet's field (`facetMissing[district]=Unknown` adds an `{ value: "Unknown", count }` bucket). Honoured by the term facets (those whose buckets are keyed by the displayed value) except `accessibilities`; ignored by the provenance, `locations` and remaining families. The bucket appears only when such events exist.
+ * Per-facet label for a synthetic bucket counting the filtered events that have **no value** for the facet's field (`facetMissing[adminLevel6]=Unknown` adds an `{ value: "Unknown", count }` bucket). Honoured by the term facets (those whose buckets are keyed by the displayed value) except `accessibilities`; ignored by the provenance, `locations` and remaining families. The bucket appears only when such events exist.
  *
  */
 export type FacetMissing = {
@@ -2532,7 +2636,7 @@ export type AdditionalFieldMetricsKeys = Array<string>;
  * Ordering of the results. Defaults to `timingsWithFeatured.asc`, or to `score` (relevance) when `search` is set and no `sort` is given.
  *
  */
-export type Sort = 'timings.asc' | 'timingsWithFeatured.asc' | 'lastTiming.asc' | 'lastTimingWithFeatured.asc' | 'updatedAt.asc' | 'updatedAt.desc' | 'availabilityUpdatedAt.asc' | 'availabilityUpdatedAt.desc' | 'location.name.asc' | 'location.name.desc' | 'location.city.asc' | 'location.city.desc' | 'score';
+export type Sort = 'timings.asc' | 'timingsWithFeatured.asc' | 'lastTiming.asc' | 'lastTimingWithFeatured.asc' | 'updatedAt.asc' | 'updatedAt.desc' | 'availabilityUpdatedAt.asc' | 'availabilityUpdatedAt.desc' | 'location.name.asc' | 'location.name.desc' | 'location.adminLevel4.asc' | 'location.adminLevel4.desc' | 'score';
 
 /**
  * Full-text search across title, description, keywords and address. Wrap the value in double quotes for an exact phrase match.
@@ -2611,34 +2715,40 @@ export type FilterLocationExtId = {
 };
 
 /**
- * Restrict to events located in these regions.
+ * Restrict to events whose `adminLevel1` (in France, the region) is one of these values.
+ *
  */
-export type FilterRegion = Array<string>;
+export type FilterAdminLevel1 = Array<string>;
 
 /**
- * Restrict to events located in these departments.
+ * Restrict to events whose `adminLevel2` (in France, the department) is one of these values.
+ *
  */
-export type FilterDepartment = Array<string>;
+export type FilterAdminLevel2 = Array<string>;
 
 /**
- * Restrict to events located in these cities.
- */
-export type FilterCity = Array<string>;
-
-/**
- * Restrict to events located in these districts.
- */
-export type FilterDistrict = Array<string>;
-
-/**
- * Restrict to events located in these level-3 administrative areas.
+ * Restrict to events whose `adminLevel3` (in France, the intercommunality) is one of these values.
+ *
  */
 export type FilterAdminLevel3 = Array<string>;
 
 /**
- * Restrict to events located in these level-5 administrative areas.
+ * Restrict to events whose `adminLevel4` (the municipality) is one of these values.
+ *
+ */
+export type FilterAdminLevel4 = Array<string>;
+
+/**
+ * Restrict to events whose `adminLevel5` (in France, the arrondissement of Paris, Lyon and Marseille) is one of these values.
+ *
  */
 export type FilterAdminLevel5 = Array<string>;
+
+/**
+ * Restrict to events whose `adminLevel6` (in France, the neighbourhood) is one of these values.
+ *
+ */
+export type FilterAdminLevel6 = Array<string>;
 
 /**
  * Restrict to events located in these countries (ISO 3166-1 alpha-2).
@@ -2933,7 +3043,7 @@ export type AgendasEventsListData = {
          * Ordering of the results. Defaults to `timingsWithFeatured.asc`, or to `score` (relevance) when `search` is set and no `sort` is given.
          *
          */
-        sort?: 'timings.asc' | 'timingsWithFeatured.asc' | 'lastTiming.asc' | 'lastTimingWithFeatured.asc' | 'updatedAt.asc' | 'updatedAt.desc' | 'availabilityUpdatedAt.asc' | 'availabilityUpdatedAt.desc' | 'location.name.asc' | 'location.name.desc' | 'location.city.asc' | 'location.city.desc' | 'score';
+        sort?: 'timings.asc' | 'timingsWithFeatured.asc' | 'lastTiming.asc' | 'lastTimingWithFeatured.asc' | 'updatedAt.asc' | 'updatedAt.desc' | 'availabilityUpdatedAt.asc' | 'availabilityUpdatedAt.desc' | 'location.name.asc' | 'location.name.desc' | 'location.adminLevel4.asc' | 'location.adminLevel4.desc' | 'score';
         /**
          * Full-text search across title, description, keywords and address. Wrap the value in double quotes for an exact phrase match.
          *
@@ -2998,29 +3108,35 @@ export type AgendasEventsListData = {
             value: string;
         };
         /**
-         * Restrict to events located in these regions.
+         * Restrict to events whose `adminLevel1` (in France, the region) is one of these values.
+         *
          */
-        region?: Array<string>;
+        adminLevel1?: Array<string>;
         /**
-         * Restrict to events located in these departments.
+         * Restrict to events whose `adminLevel2` (in France, the department) is one of these values.
+         *
          */
-        department?: Array<string>;
+        adminLevel2?: Array<string>;
         /**
-         * Restrict to events located in these cities.
-         */
-        city?: Array<string>;
-        /**
-         * Restrict to events located in these districts.
-         */
-        district?: Array<string>;
-        /**
-         * Restrict to events located in these level-3 administrative areas.
+         * Restrict to events whose `adminLevel3` (in France, the intercommunality) is one of these values.
+         *
          */
         adminLevel3?: Array<string>;
         /**
-         * Restrict to events located in these level-5 administrative areas.
+         * Restrict to events whose `adminLevel4` (the municipality) is one of these values.
+         *
+         */
+        adminLevel4?: Array<string>;
+        /**
+         * Restrict to events whose `adminLevel5` (in France, the arrondissement of Paris, Lyon and Marseille) is one of these values.
+         *
          */
         adminLevel5?: Array<string>;
+        /**
+         * Restrict to events whose `adminLevel6` (in France, the neighbourhood) is one of these values.
+         *
+         */
+        adminLevel6?: Array<string>;
         /**
          * Restrict to events located in these countries (ISO 3166-1 alpha-2).
          */
@@ -3666,33 +3782,33 @@ export type AgendasEventsFacetsData = {
          * Comma-separated list of facets to compute over the filtered events. Unknown facet names return `400`. Each facet's result shape is defined by `FacetResults`. Bucket-list facets (the term, provenance and `locations` families) return the top buckets by event count, capped by `facetSize` (overridable per facet with `facetSizes[<facet>]`) and reordered by `facetSort`; past the cap, narrow the filter. `additionalFields` and `additionalFieldMetrics` cover the agenda's own fields as its event form schema declares them (`GET /agendas/{agendaUid}/events/schema`), named by `additionalFieldsKeys`/`additionalFieldMetricsKeys` or all readable fields when omitted; `additionalFields` returns one bucket per option. `timings` bucket width is set by `timingsInterval`, the `dateRanges` month by `month`, `geohash` granularity by `geohashZoom`.
          *
          */
-        facets: Array<'additionalFields' | 'additionalFieldMetrics' | 'cities' | 'regions' | 'departments' | 'districts' | 'countryCodes' | 'keywords' | 'languages' | 'accessibilities' | 'status' | 'attendanceModes' | 'originAgendas' | 'sourceAgendas' | 'locations' | 'geohash' | 'viewport' | 'timespan' | 'timings' | 'dateRanges'>;
+        facets: Array<'additionalFields' | 'additionalFieldMetrics' | 'adminLevel1' | 'adminLevel2' | 'adminLevel3' | 'adminLevel4' | 'adminLevel5' | 'adminLevel6' | 'countryCodes' | 'keywords' | 'languages' | 'accessibilities' | 'status' | 'attendanceModes' | 'originAgendas' | 'sourceAgendas' | 'locations' | 'geohash' | 'viewport' | 'timespan' | 'timings' | 'dateRanges'>;
         /**
          * Default maximum number of buckets for the bucket-list facets (the term, provenance and `locations` families), ordered by event count. Override a single facet with `facetSizes[<facet>]`. Out-of-range values are clamped; other facets ignore it.
          *
          */
         facetSize?: number;
         /**
-         * Per-facet override of `facetSize`, keyed by facet name (`facetSizes[cities]=50`). Precedence: per-facet override > `facetSize` > default (10). Only applies to bucket-list facets; values are clamped to [1, 250].
+         * Per-facet override of `facetSize`, keyed by facet name (`facetSizes[adminLevel4]=50`). Precedence: per-facet override > `facetSize` > default (10). Only applies to bucket-list facets; values are clamped to [1, 250].
          *
          */
         facetSizes?: {
             [key: string]: number;
         };
         /**
-         * Default ordering of the bucket-list facets. `count` (default) returns the most frequent buckets first; `alpha` returns the same top-`facetSize` buckets but ordered alphabetically by their display value (city/keyword name, location name, agenda title) for readable scanning. Override a single facet with `facetSorts[<facet>]`.
+         * Default ordering of the bucket-list facets. `count` (default) returns the most frequent buckets first; `alpha` returns the same top-`facetSize` buckets but ordered alphabetically by their display value (administrative area, keyword, location name, agenda title) for readable scanning. Override a single facet with `facetSorts[<facet>]`.
          *
          */
         facetSort?: 'count' | 'alpha';
         /**
-         * Per-facet override of `facetSort`, keyed by facet name (`facetSorts[cities]=alpha`). Precedence: per-facet override > `facetSort` > default (`count`).
+         * Per-facet override of `facetSort`, keyed by facet name (`facetSorts[adminLevel4]=alpha`). Precedence: per-facet override > `facetSort` > default (`count`).
          *
          */
         facetSorts?: {
             [key: string]: 'count' | 'alpha';
         };
         /**
-         * Per-facet label for a synthetic bucket counting the filtered events that have **no value** for the facet's field (`facetMissing[district]=Unknown` adds an `{ value: "Unknown", count }` bucket). Honoured by the term facets (those whose buckets are keyed by the displayed value) except `accessibilities`; ignored by the provenance, `locations` and remaining families. The bucket appears only when such events exist.
+         * Per-facet label for a synthetic bucket counting the filtered events that have **no value** for the facet's field (`facetMissing[adminLevel6]=Unknown` adds an `{ value: "Unknown", count }` bucket). Honoured by the term facets (those whose buckets are keyed by the displayed value) except `accessibilities`; ignored by the provenance, `locations` and remaining families. The bucket appears only when such events exist.
          *
          */
         facetMissing?: {
@@ -3787,29 +3903,35 @@ export type AgendasEventsFacetsData = {
             value: string;
         };
         /**
-         * Restrict to events located in these regions.
+         * Restrict to events whose `adminLevel1` (in France, the region) is one of these values.
+         *
          */
-        region?: Array<string>;
+        adminLevel1?: Array<string>;
         /**
-         * Restrict to events located in these departments.
+         * Restrict to events whose `adminLevel2` (in France, the department) is one of these values.
+         *
          */
-        department?: Array<string>;
+        adminLevel2?: Array<string>;
         /**
-         * Restrict to events located in these cities.
-         */
-        city?: Array<string>;
-        /**
-         * Restrict to events located in these districts.
-         */
-        district?: Array<string>;
-        /**
-         * Restrict to events located in these level-3 administrative areas.
+         * Restrict to events whose `adminLevel3` (in France, the intercommunality) is one of these values.
+         *
          */
         adminLevel3?: Array<string>;
         /**
-         * Restrict to events located in these level-5 administrative areas.
+         * Restrict to events whose `adminLevel4` (the municipality) is one of these values.
+         *
+         */
+        adminLevel4?: Array<string>;
+        /**
+         * Restrict to events whose `adminLevel5` (in France, the arrondissement of Paris, Lyon and Marseille) is one of these values.
+         *
          */
         adminLevel5?: Array<string>;
+        /**
+         * Restrict to events whose `adminLevel6` (in France, the neighbourhood) is one of these values.
+         *
+         */
+        adminLevel6?: Array<string>;
         /**
          * Restrict to events located in these countries (ISO 3166-1 alpha-2).
          */
@@ -4251,7 +4373,7 @@ export type AgendasLocationsListData = {
          */
         fields?: Array<string>;
         /**
-         * Free-text search over the locations' name, address, city, region and department.
+         * Free-text search over the locations' name, address, `adminLevel1`, `adminLevel2` and `adminLevel4`.
          *
          */
         search?: string;

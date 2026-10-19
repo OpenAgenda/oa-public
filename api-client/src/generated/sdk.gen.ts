@@ -54,6 +54,8 @@ export class Events extends HeyApiClient {
      *
      * Only published events are listed. Unknown or malformed filter values answer `400`, with per-field context under `error.errors`. An unrecognized top-level query parameter is ignored.
      *
+     * A location's administrative levels go from `adminLevel1`, the largest division of its country, to `adminLevel6`, the smallest; what each one is depends on the country, and `adminLevel4` is the municipality.
+     *
      */
     public list<ThrowOnError extends boolean = false>(options: Options<AgendasEventsListData, ThrowOnError>) {
         return (options.client ?? this.client).get<AgendasEventsListResponses, AgendasEventsListErrors, ThrowOnError>({
@@ -261,11 +263,13 @@ export class Events extends HeyApiClient {
     /**
      * Faceted counts for an agenda's events — native facets plus its `additionalFields`
      *
-     * Returns event counts grouped by the requested facets, computed over the **same filtered set** as `agendas.events.list`. Pass the same filter parameters to scope the counts (e.g. `?keyword=concert` then facet on `cities`). The response carries only the requested facets, in the shapes `FacetResults` defines.
+     * Returns event counts grouped by the requested facets, computed over the **same filtered set** as `agendas.events.list`. Pass the same filter parameters to scope the counts (e.g. `?keyword=concert` then facet on `adminLevel4`). The response carries only the requested facets, in the shapes `FacetResults` defines.
      *
      * The agenda's own fields (its categories, labels…) are faceted by `additionalFields` - request it too for an agenda-wide stats overview (`additionalFieldMetrics` covers its numeric fields). The fields themselves are declared by the agenda's event form schema (`GET /agendas/{agendaUid}/events/schema`).
      *
      * Only published events are counted. `facets` selects which facets to compute; an unknown facet name returns `400`. Facets cover the whole filtered set in one response.
+     *
+     * A location's administrative levels go from `adminLevel1`, the largest division of its country, to `adminLevel6`, the smallest; what each one is depends on the country, and `adminLevel4` is the municipality.
      *
      */
     public facets<ThrowOnError extends boolean = false>(options: Options<AgendasEventsFacetsData, ThrowOnError>) {
@@ -404,7 +408,7 @@ export class Locations extends HeyApiClient {
      *
      * Creates a location in the agenda, or in its shared location set when the agenda has one. `verified` is set by an administrator or a moderator of the agenda: from anyone else, a body carrying it is refused with `422`.
      *
-     * The position is geocoded: the coordinates, the administrative levels, the postal code, the time zone and the INSEE code the body leaves out are filled in from the coordinates when the body carries them, from the address otherwise.
+     * The position is geocoded: the coordinates, the administrative levels, the postal code, the time zone and the INSEE code the body leaves out are filled in from the coordinates when the body carries them, from the address otherwise; the ones it gives are kept.
      *
      * The acting member must be a contributor of the agenda or above. On an agenda open to contributions that asks no member information, a user who is not a member becomes its contributor by creating a location. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow creating locations.
      *
@@ -480,7 +484,7 @@ export class Locations extends HeyApiClient {
      *
      * Replaces the location that carries the `(extKey, extId)` pair with the body and answers `200`, or creates a location carrying it and answers `201`. The pair is looked up among the locations of the agenda, or of its shared location set when it has one. A pair only deleted locations carry gets a new location; when one of them is merged into another one, the request answers `404` instead. The pair joins the body's `extIds`, which are merged by key with the stored ones; a mapping under the key `extKey` with a value other than `extId` is refused with `422`.
      *
-     * On a replace, a `LocationInput` field the body leaves out is emptied, except `extIds`, `verified` and what the geocoding fills in from the position: the coordinates, the administrative levels, the postal code, the time zone and the INSEE code. These are looked up again when the address, the country code or the coordinates change - the values the body sends back unchanged, the country code included, then follow the new place - and at the point when the city, department or region is missing. On a create, the coordinates, the administrative levels, the postal code, the time zone and the INSEE code the body leaves out are filled in from the coordinates when the body carries them, from the address otherwise.
+     * On a replace, a `LocationInput` field the body leaves out is emptied, except `extIds`, `verified` and what the geocoding fills in from the position: the coordinates, the administrative levels, the postal code, the time zone and the INSEE code. These are looked up again when the address, the country code or the coordinates change - the values the body sends back unchanged, the country code included, then follow the new place - and at the point when `adminLevel1`, `adminLevel2` or `adminLevel4` is missing. On a create, the coordinates, the administrative levels, the postal code, the time zone and the INSEE code the body leaves out are filled in from the coordinates when the body carries them, from the address otherwise; the ones it gives are kept.
      *
      * Replacing, or writing a pair a merged location carries, takes an administrator or a moderator of the agenda. Creating takes a contributor or above; on an agenda open to contributions that asks no member information, a user who is not a member becomes its contributor by creating a location. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow the write. `verified` is set by an administrator or a moderator: from anyone else, a body carrying it is refused with `422`.
      *
@@ -554,7 +558,7 @@ export class Locations extends HeyApiClient {
     /**
      * Replace a location
      *
-     * Replaces the location with the body. A `LocationInput` field the body leaves out is emptied, except `extIds`, `verified` and what the geocoding fills in from the position: the coordinates, the administrative levels, the postal code, the time zone and the INSEE code. These are looked up again when the address, the country code or the coordinates change - the values the body sends back unchanged, the country code included, then follow the new place - and at the point when the city, department or region is missing.
+     * Replaces the location with the body. A `LocationInput` field the body leaves out is emptied, except `extIds`, `verified` and what the geocoding fills in from the position: the coordinates, the administrative levels, the postal code, the time zone and the INSEE code. These are looked up again when the address, the country code or the coordinates change - the values the body sends back unchanged, the country code included, then follow the new place - and at the point when `adminLevel1`, `adminLevel2` or `adminLevel4` is missing.
      *
      * The acting member must be an administrator or a moderator of the agenda. Anyone else is refused with `403`, as is every caller when the agenda's settings do not allow editing locations.
      *

@@ -162,16 +162,16 @@ export const zEventLocation = z.object({
     uid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }).readonly().optional(),
     name: z.string().nullish(),
     address: z.string().nullish(),
-    city: z.string().nullish(),
-    region: z.string().nullish(),
+    adminLevel1: z.string().nullish(),
+    adminLevel2: z.string().nullish(),
+    adminLevel3: z.string().nullish(),
+    adminLevel4: z.string().nullish(),
+    adminLevel5: z.string().nullish(),
+    adminLevel6: z.string().nullish(),
     postalCode: z.string().nullish(),
     countryCode: z.string().nullish(),
     latitude: z.number().nullish(),
     longitude: z.number().nullish(),
-    district: z.string().nullish(),
-    department: z.string().nullish(),
-    adminLevel3: z.string().nullish(),
-    adminLevel5: z.string().nullish(),
     timezone: z.string().nullish(),
     deleted: z.boolean().readonly()
 });
@@ -222,12 +222,12 @@ export const zLocation = z.object({
     setUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }).readonly().nullable(),
     name: z.string(),
     address: z.string().nullable(),
-    city: z.string().nullable(),
-    district: z.string().nullable(),
-    region: z.string().nullable(),
-    department: z.string().nullable(),
+    adminLevel1: z.string().nullable(),
+    adminLevel2: z.string().nullable(),
     adminLevel3: z.string().nullable(),
+    adminLevel4: z.string().nullable(),
     adminLevel5: z.string().nullable(),
+    adminLevel6: z.string().nullable(),
     postalCode: z.string().nullable(),
     insee: z.string().nullable(),
     countryCode: z.string().nullable(),
@@ -825,12 +825,12 @@ export const zImageInput = z.union([
 export const zLocationInput = z.object({
     name: z.string(),
     address: z.string(),
-    city: z.string().nullish(),
-    district: z.string().nullish(),
-    region: z.string().nullish(),
-    department: z.string().nullish(),
+    adminLevel1: z.string().nullish(),
+    adminLevel2: z.string().nullish(),
     adminLevel3: z.string().nullish(),
+    adminLevel4: z.string().nullish(),
     adminLevel5: z.string().nullish(),
+    adminLevel6: z.string().nullish(),
     postalCode: z.string().nullish(),
     insee: z.string().nullish(),
     countryCode: z.string(),
@@ -852,18 +852,18 @@ export const zLocationInput = z.object({
 });
 
 /**
- * Partial update body. A new address, country code or coordinates are geocoded, at the point when the body changes a coordinate, at the address otherwise: the coordinates, the administrative levels, the postal code, the time zone, the INSEE code and the country code the body leaves out or sends back unchanged follow the place found. A location whose city, department or region is missing is looked up again at its point. A place the geocoder cannot find is refused with `422` on the address, country code or coordinates the body changes.
+ * Partial update body. A new address, country code or coordinates are geocoded, at the point when the body changes a coordinate, at the address otherwise: the coordinates, the administrative levels, the postal code, the time zone, the INSEE code and the country code the body leaves out or sends back unchanged follow the place found. A location whose `adminLevel1`, `adminLevel2` or `adminLevel4` is missing is looked up again at its point. A place the geocoder cannot find is refused with `422` on the address, country code or coordinates the body changes.
  *
  */
 export const zLocationPatch = z.object({
     name: z.string().optional(),
     address: z.string().optional(),
-    city: z.string().nullish(),
-    district: z.string().nullish(),
-    region: z.string().nullish(),
-    department: z.string().nullish(),
+    adminLevel1: z.string().nullish(),
+    adminLevel2: z.string().nullish(),
     adminLevel3: z.string().nullish(),
+    adminLevel4: z.string().nullish(),
     adminLevel5: z.string().nullish(),
+    adminLevel6: z.string().nullish(),
     postalCode: z.string().nullish(),
     insee: z.string().nullish(),
     countryCode: z.string().optional(),
@@ -970,10 +970,12 @@ export const zEventList = z.object({
 export const zFacetName = z.enum([
     'additionalFields',
     'additionalFieldMetrics',
-    'cities',
-    'regions',
-    'departments',
-    'districts',
+    'adminLevel1',
+    'adminLevel2',
+    'adminLevel3',
+    'adminLevel4',
+    'adminLevel5',
+    'adminLevel6',
     'countryCodes',
     'keywords',
     'languages',
@@ -1060,12 +1062,12 @@ export const zEventFilters = z.object({
         key: z.string().optional(),
         value: z.string().optional()
     }).optional(),
-    region: z.array(z.string()).optional(),
-    department: z.array(z.string()).optional(),
-    city: z.array(z.string()).optional(),
-    district: z.array(z.string()).optional(),
+    adminLevel1: z.array(z.string()).optional(),
+    adminLevel2: z.array(z.string()).optional(),
     adminLevel3: z.array(z.string()).optional(),
+    adminLevel4: z.array(z.string()).optional(),
     adminLevel5: z.array(z.string()).optional(),
+    adminLevel6: z.array(z.string()).optional(),
     countryCode: z.array(z.string()).optional(),
     bbox: z.string().optional(),
     near: z.string().optional(),
@@ -1275,10 +1277,12 @@ export const zTimespan = z.object({
 export const zFacetReportEntry = z.union([
     z.object({
         type: z.enum([
-            'cities',
-            'regions',
-            'departments',
-            'districts',
+            'adminLevel1',
+            'adminLevel2',
+            'adminLevel3',
+            'adminLevel4',
+            'adminLevel5',
+            'adminLevel6',
             'countryCodes',
             'keywords',
             'languages',
@@ -1336,10 +1340,12 @@ export const zFacetReport = z.object({
  */
 export const zFacetResults = z.object({
     facets: z.object({
-        cities: z.array(zFacetBucket).optional(),
-        regions: z.array(zFacetBucket).optional(),
-        departments: z.array(zFacetBucket).optional(),
-        districts: z.array(zFacetBucket).optional(),
+        adminLevel1: z.array(zFacetBucket).optional(),
+        adminLevel2: z.array(zFacetBucket).optional(),
+        adminLevel3: z.array(zFacetBucket).optional(),
+        adminLevel4: z.array(zFacetBucket).optional(),
+        adminLevel5: z.array(zFacetBucket).optional(),
+        adminLevel6: z.array(zFacetBucket).optional(),
         countryCodes: z.array(zFacetBucket).optional(),
         keywords: z.array(zFacetBucket).optional(),
         languages: z.array(zFacetBucket).optional(),
@@ -1365,16 +1371,16 @@ export const zFacetResults = z.object({
 export const zEventLocationWritable = z.object({
     name: z.string().nullish(),
     address: z.string().nullish(),
-    city: z.string().nullish(),
-    region: z.string().nullish(),
+    adminLevel1: z.string().nullish(),
+    adminLevel2: z.string().nullish(),
+    adminLevel3: z.string().nullish(),
+    adminLevel4: z.string().nullish(),
+    adminLevel5: z.string().nullish(),
+    adminLevel6: z.string().nullish(),
     postalCode: z.string().nullish(),
     countryCode: z.string().nullish(),
     latitude: z.number().nullish(),
     longitude: z.number().nullish(),
-    district: z.string().nullish(),
-    department: z.string().nullish(),
-    adminLevel3: z.string().nullish(),
-    adminLevel5: z.string().nullish(),
     timezone: z.string().nullish()
 });
 
@@ -1397,12 +1403,12 @@ export const zLocationSummaryWritable = z.object({
 export const zLocationWritable = z.object({
     name: z.string(),
     address: z.string().nullable(),
-    city: z.string().nullable(),
-    district: z.string().nullable(),
-    region: z.string().nullable(),
-    department: z.string().nullable(),
+    adminLevel1: z.string().nullable(),
+    adminLevel2: z.string().nullable(),
     adminLevel3: z.string().nullable(),
+    adminLevel4: z.string().nullable(),
     adminLevel5: z.string().nullable(),
+    adminLevel6: z.string().nullable(),
     postalCode: z.string().nullable(),
     insee: z.string().nullable(),
     countryCode: z.string().nullable(),
@@ -1630,7 +1636,7 @@ export const zAgendaFilterOfficial = z.boolean();
 export const zLocationUid = z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' });
 
 /**
- * Free-text search over the locations' name, address, city, region and department.
+ * Free-text search over the locations' name, address, `adminLevel1`, `adminLevel2` and `adminLevel4`.
  *
  */
 export const zLocationSearch = z.string();
@@ -1663,10 +1669,12 @@ export const zLocationBoundingBox = z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+
 export const zFacets = z.array(z.enum([
     'additionalFields',
     'additionalFieldMetrics',
-    'cities',
-    'regions',
-    'departments',
-    'districts',
+    'adminLevel1',
+    'adminLevel2',
+    'adminLevel3',
+    'adminLevel4',
+    'adminLevel5',
+    'adminLevel6',
     'countryCodes',
     'keywords',
     'languages',
@@ -1690,25 +1698,25 @@ export const zFacets = z.array(z.enum([
 export const zFacetSize = z.number().int().gte(1).lte(250).default(10);
 
 /**
- * Per-facet override of `facetSize`, keyed by facet name (`facetSizes[cities]=50`). Precedence: per-facet override > `facetSize` > default (10). Only applies to bucket-list facets; values are clamped to [1, 250].
+ * Per-facet override of `facetSize`, keyed by facet name (`facetSizes[adminLevel4]=50`). Precedence: per-facet override > `facetSize` > default (10). Only applies to bucket-list facets; values are clamped to [1, 250].
  *
  */
 export const zFacetSizes = z.record(z.number().int().gte(1).lte(250));
 
 /**
- * Default ordering of the bucket-list facets. `count` (default) returns the most frequent buckets first; `alpha` returns the same top-`facetSize` buckets but ordered alphabetically by their display value (city/keyword name, location name, agenda title) for readable scanning. Override a single facet with `facetSorts[<facet>]`.
+ * Default ordering of the bucket-list facets. `count` (default) returns the most frequent buckets first; `alpha` returns the same top-`facetSize` buckets but ordered alphabetically by their display value (administrative area, keyword, location name, agenda title) for readable scanning. Override a single facet with `facetSorts[<facet>]`.
  *
  */
 export const zFacetSort = z.enum(['count', 'alpha']).default('count');
 
 /**
- * Per-facet override of `facetSort`, keyed by facet name (`facetSorts[cities]=alpha`). Precedence: per-facet override > `facetSort` > default (`count`).
+ * Per-facet override of `facetSort`, keyed by facet name (`facetSorts[adminLevel4]=alpha`). Precedence: per-facet override > `facetSort` > default (`count`).
  *
  */
 export const zFacetSorts = z.record(z.enum(['count', 'alpha']));
 
 /**
- * Per-facet label for a synthetic bucket counting the filtered events that have **no value** for the facet's field (`facetMissing[district]=Unknown` adds an `{ value: "Unknown", count }` bucket). Honoured by the term facets (those whose buckets are keyed by the displayed value) except `accessibilities`; ignored by the provenance, `locations` and remaining families. The bucket appears only when such events exist.
+ * Per-facet label for a synthetic bucket counting the filtered events that have **no value** for the facet's field (`facetMissing[adminLevel6]=Unknown` adds an `{ value: "Unknown", count }` bucket). Honoured by the term facets (those whose buckets are keyed by the displayed value) except `accessibilities`; ignored by the provenance, `locations` and remaining families. The bucket appears only when such events exist.
  *
  */
 export const zFacetMissing = z.record(z.string());
@@ -1764,8 +1772,8 @@ export const zSort = z.enum([
     'availabilityUpdatedAt.desc',
     'location.name.asc',
     'location.name.desc',
-    'location.city.asc',
-    'location.city.desc',
+    'location.adminLevel4.asc',
+    'location.adminLevel4.desc',
     'score'
 ]);
 
@@ -1850,34 +1858,40 @@ export const zFilterLocationExtId = z.object({
 });
 
 /**
- * Restrict to events located in these regions.
+ * Restrict to events whose `adminLevel1` (in France, the region) is one of these values.
+ *
  */
-export const zFilterRegion = z.array(z.string());
+export const zFilterAdminLevel1 = z.array(z.string());
 
 /**
- * Restrict to events located in these departments.
+ * Restrict to events whose `adminLevel2` (in France, the department) is one of these values.
+ *
  */
-export const zFilterDepartment = z.array(z.string());
+export const zFilterAdminLevel2 = z.array(z.string());
 
 /**
- * Restrict to events located in these cities.
- */
-export const zFilterCity = z.array(z.string());
-
-/**
- * Restrict to events located in these districts.
- */
-export const zFilterDistrict = z.array(z.string());
-
-/**
- * Restrict to events located in these level-3 administrative areas.
+ * Restrict to events whose `adminLevel3` (in France, the intercommunality) is one of these values.
+ *
  */
 export const zFilterAdminLevel3 = z.array(z.string());
 
 /**
- * Restrict to events located in these level-5 administrative areas.
+ * Restrict to events whose `adminLevel4` (the municipality) is one of these values.
+ *
+ */
+export const zFilterAdminLevel4 = z.array(z.string());
+
+/**
+ * Restrict to events whose `adminLevel5` (in France, the arrondissement of Paris, Lyon and Marseille) is one of these values.
+ *
  */
 export const zFilterAdminLevel5 = z.array(z.string());
+
+/**
+ * Restrict to events whose `adminLevel6` (in France, the neighbourhood) is one of these values.
+ *
+ */
+export const zFilterAdminLevel6 = z.array(z.string());
 
 /**
  * Restrict to events located in these countries (ISO 3166-1 alpha-2).
@@ -2042,8 +2056,8 @@ export const zAgendasEventsListQuery = z.object({
         'availabilityUpdatedAt.desc',
         'location.name.asc',
         'location.name.desc',
-        'location.city.asc',
-        'location.city.desc',
+        'location.adminLevel4.asc',
+        'location.adminLevel4.desc',
         'score'
     ]).optional(),
     search: z.string().optional(),
@@ -2069,12 +2083,12 @@ export const zAgendasEventsListQuery = z.object({
         key: z.string(),
         value: z.string()
     }).optional(),
-    region: z.array(z.string()).optional(),
-    department: z.array(z.string()).optional(),
-    city: z.array(z.string()).optional(),
-    district: z.array(z.string()).optional(),
+    adminLevel1: z.array(z.string()).optional(),
+    adminLevel2: z.array(z.string()).optional(),
     adminLevel3: z.array(z.string()).optional(),
+    adminLevel4: z.array(z.string()).optional(),
     adminLevel5: z.array(z.string()).optional(),
+    adminLevel6: z.array(z.string()).optional(),
     countryCode: z.array(z.string().regex(/^[A-Za-z]{2}$/)).optional(),
     bbox: z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$/).optional(),
     near: z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?$/).optional(),
@@ -2249,10 +2263,12 @@ export const zAgendasEventsFacetsQuery = z.object({
     facets: z.array(z.enum([
         'additionalFields',
         'additionalFieldMetrics',
-        'cities',
-        'regions',
-        'departments',
-        'districts',
+        'adminLevel1',
+        'adminLevel2',
+        'adminLevel3',
+        'adminLevel4',
+        'adminLevel5',
+        'adminLevel6',
         'countryCodes',
         'keywords',
         'languages',
@@ -2307,12 +2323,12 @@ export const zAgendasEventsFacetsQuery = z.object({
         key: z.string(),
         value: z.string()
     }).optional(),
-    region: z.array(z.string()).optional(),
-    department: z.array(z.string()).optional(),
-    city: z.array(z.string()).optional(),
-    district: z.array(z.string()).optional(),
+    adminLevel1: z.array(z.string()).optional(),
+    adminLevel2: z.array(z.string()).optional(),
     adminLevel3: z.array(z.string()).optional(),
+    adminLevel4: z.array(z.string()).optional(),
     adminLevel5: z.array(z.string()).optional(),
+    adminLevel6: z.array(z.string()).optional(),
     countryCode: z.array(z.string().regex(/^[A-Za-z]{2}$/)).optional(),
     bbox: z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$/).optional(),
     near: z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?$/).optional(),
