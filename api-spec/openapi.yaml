@@ -5298,10 +5298,15 @@ components:
         `offersAggregate` recomputes that half at read time.
 
 
-        The event's own `status` answers over the provider's word: a cancelled
-        event serves every row `salesClosed`, and a full one serves every row
-        `soldOut` — the sale window applying first there, so a full event past
-        its window serves `salesClosed`.
+        The event's own `status` answers over the provider's word, and in one
+        direction only - towards less bookable. A cancelled event serves every
+        row `salesClosed`, whatever the window says, and with
+        `closedBySource: true`, since the window is not what closed it. A full
+        event serves `soldOut` every row that is not already `salesClosed`: a
+        row whose window has elapsed, or whose provider shut its own channel,
+        stays closed rather than becoming sold out, and a row whose sale has not
+        opened yet is served `soldOut` rather than `notYetOnSale` - there is
+        nothing left to wait for.
       properties:
         provider:
           allOf:
@@ -5339,9 +5344,11 @@ components:
         closedBySource:
           type: boolean
           description: >
-            Provenance of a `salesClosed`: `true` when the provider itself shut
-            the channel, `false` or absent when only the sale window elapsed.
-            Decides whether a later read may reopen the row on the window alone.
+            Provenance of a `salesClosed`: `true` when something other than the
+            window shut the sale - the provider shutting its own channel, or the
+            event's own `status` being `cancelled` - `false` or absent when only
+            the sale window elapsed. Decides whether a later read may reopen the
+            row on the window alone.
 
     OffersAggregate:
       type: [object, 'null']
@@ -5351,8 +5358,10 @@ components:
         read. `availability` is `null` when nothing can be said - every
         occurrence past, or no source carrying a usable status - and reflects
         the current time, except `soldOut` and `limited`, which reflect the last
-        sync with the provider or the event's own `status`. `pricing` is a category rolled up from the
-        sources' price lists and declared pricing.
+        sync with the provider, and the two answers the event's own `status`
+        dictates whatever the clock says: `soldOut` when it is `full`,
+        `salesClosed` when it is `cancelled`. `pricing` is a category rolled up
+        from the sources' price lists and declared pricing.
       properties:
         availability:
           type: [string, 'null']
@@ -5389,7 +5398,10 @@ components:
           type: [array, 'null']
           description: >
             Where to book, one entry per ticketing source that carries a usable
-            URL, in catalogue order. `null` when none does.
+            URL, in catalogue order. `null` when none does, and on a cancelled
+            event, whose sale no longer exists - the same read also adds no
+            booking link to `registration`, though whatever the organiser stored
+            there is left untouched.
 
             The same URLs reach `registration` as `{type: link}` entries, but
             stripped of their source: that field lists ways to sign up, not a
