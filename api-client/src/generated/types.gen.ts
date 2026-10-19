@@ -1536,10 +1536,6 @@ export type EventInput = {
  *
  */
 export type EventPatch = {
-    /**
-     * When the event is created, its `slug` is derived from this title, preferring the language that comes first in the request body. Put the event's original language first.
-     *
-     */
     title?: LocalizedString;
     description?: LocalizedString;
     longDescription?: LocalizedString;
@@ -2314,7 +2310,7 @@ export type ExtKey = string;
 export type ExtIdValue = string;
 
 /**
- * Whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`).
+ * Whether the body's `extIds` are merged by key with the stored ones (`true`, the default) or replace them (`false`). With `true`, an empty array adds nothing; with `false`, it removes every mapping. A body without `extIds` keeps them either way.
  *
  */
 export type MergeExtIds = boolean;
@@ -3298,7 +3294,7 @@ export type AgendasEventsPatchData = {
     };
     query?: {
         /**
-         * Whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`).
+         * Whether the body's `extIds` are merged by key with the stored ones (`true`, the default) or replace them (`false`). With `true`, an empty array adds nothing; with `false`, it removes every mapping. A body without `extIds` keeps them either way.
          *
          */
         mergeExtIds?: boolean;
@@ -3355,7 +3351,7 @@ export type AgendasEventsUpdateData = {
     };
     query?: {
         /**
-         * Whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`).
+         * Whether the body's `extIds` are merged by key with the stored ones (`true`, the default) or replace them (`false`). With `true`, an empty array adds nothing; with `false`, it removes every mapping. A body without `extIds` keeps them either way.
          *
          */
         mergeExtIds?: boolean;
@@ -3544,13 +3540,9 @@ export type AgendasEventsPatchByExtIdError = AgendasEventsPatchByExtIdErrors[key
 
 export type AgendasEventsPatchByExtIdResponses = {
     /**
-     * The existing event was updated.
+     * The updated event.
      */
     200: Event;
-    /**
-     * A new event was created.
-     */
-    201: Event;
 };
 
 export type AgendasEventsPatchByExtIdResponse = AgendasEventsPatchByExtIdResponses[keyof AgendasEventsPatchByExtIdResponses];
@@ -4672,7 +4664,7 @@ export type AgendasLocationsPatchData = {
     };
     query?: {
         /**
-         * Whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`).
+         * Whether the body's `extIds` are merged by key with the stored ones (`true`, the default) or replace them (`false`). With `true`, an empty array adds nothing; with `false`, it removes every mapping. A body without `extIds` keeps them either way.
          *
          */
         mergeExtIds?: boolean;
@@ -4730,7 +4722,7 @@ export type AgendasLocationsUpdateData = {
     };
     query?: {
         /**
-         * Whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`).
+         * Whether the body's `extIds` are merged by key with the stored ones (`true`, the default) or replace them (`false`). With `true`, an empty array adds nothing; with `false`, it removes every mapping. A body without `extIds` keeps them either way.
          *
          */
         mergeExtIds?: boolean;

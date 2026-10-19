@@ -582,11 +582,6 @@ paths:
         fields.
 
 
-        External id mappings (`extIds`) in the body are merged by key
-        with the stored ones; pass `?mergeExtIds=false` to replace them
-        wholesale.
-
-
         The acting member must be allowed to edit this event's
         content, otherwise `403`. An unknown event uid answers `404`.
       security:
@@ -637,9 +632,7 @@ paths:
             return data;
       description: >
         Updates only the fields present in the body (an `EventPatch`)
-        and returns the updated `Event`. Fields left out are unchanged;
-        a non-empty `extIds` is merged by key with the stored ones,
-        whatever `mergeExtIds` says, and an empty array clears them.
+        and returns the updated `Event`. Fields left out are unchanged.
 
 
         The acting member must be allowed to edit this event's
@@ -786,16 +779,13 @@ paths:
             if (error) throw error;
             return data;
       description: >
-        Upserts the event carrying the `(extKey, extId)` pair: its
-        content is REPLACED if it already exists (`200`), or the event
-        is CREATED if not (`201` + a `Location` header pointing at its
-        canonical by-uid URL). The path pair is authoritative - it is
-        added to the event's `extIds`, keeping the mappings from other
-        systems, so the event always carries its own external identity;
-        any `extIds` in the body are ignored. This is the recommended
-        write path for syncing from your own system: it is idempotent
-        by external identity, so a lost response can be retried without
-        creating a duplicate.
+        Replaces the event that carries the `(extKey, extId)` pair with
+        the body and answers `200`, or creates an event carrying it and
+        answers `201`, with a `Location` header giving its by-uid URL.
+        The pair joins the body's `extIds`, which are merged by key with
+        the stored ones; a mapping under the key `extKey` with a value
+        other than `extId` is refused with `422`. Repeated after a lost
+        response, the request replaces the event the first request created.
 
 
         The acting member must be allowed to create or edit the event,
@@ -847,11 +837,11 @@ paths:
     patch:
       operationId: agendas.events.patchByExtId
       tags: [Events]
-      summary: Upsert an event by external id (partial)
-      x-synonyms: [upsert, sync, patch, partial, merge, by ext]
+      summary: Partially update an event by external id
+      x-synonyms: [patch, partial update, edit, modify, change, by ext]
       x-codeSamples:
         - lang: TypeScript
-          label: Partially upsert an event addressed by its sync id
+          label: Change the title of an event of your own system
           source: |
             const { data, error } = await oa.agendas.events.patchByExtId({
               path: { agendaUid: 12345, extKey: 'my-system', extId: 'abc-123' },
@@ -860,20 +850,17 @@ paths:
             if (error) throw error;
             return data;
       description: >
-        Upserts the event carrying the `(extKey, extId)` pair. When it
-        already exists, only the fields present in the body (an
-        `EventPatch`) are changed - the rest is left untouched (`200`).
-        If no event carries the pair it is created (`201` + a
-        `Location` header pointing at its canonical by-uid URL), in
-        which case the full server-side requirements apply, so the body
-        must be complete enough to create a valid event (else `422`).
-        The path pair is added to the event's `extIds`, keeping the
-        mappings from other systems; any `extIds` in the body are
-        ignored.
+        Changes the fields the body carries (an `EventPatch`) on the
+        event that carries the `(extKey, extId)` pair. When no event
+        carries it, the request answers `404`. `extIds` in the body are
+        merged by key with the stored ones; an empty array leaves them as
+        they are, and a mapping under the key `extKey` with a value other
+        than `extId` is refused with `422`.
 
 
-        The acting member must be allowed to create or edit the event,
-        otherwise `403`.
+        The acting member must be allowed to edit the event, otherwise
+        `403`. A caller who may not write events on the agenda gets `403`
+        also when no event carries the pair.
       security:
         - secretKey: []
         - oauth2:
@@ -890,20 +877,7 @@ paths:
               $ref: '#/components/schemas/EventPatch'
       responses:
         '200':
-          description: The existing event was updated.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Event'
-        '201':
-          description: A new event was created.
-          headers:
-            Location:
-              description: Canonical by-uid URL of the created event.
-              required: true
-              schema:
-                type: string
-              example: /agendas/12345/events/9876543
+          description: The updated event.
           content:
             application/json:
               schema:
@@ -2204,12 +2178,6 @@ paths:
         and at the point when the city, department or region is missing.
 
 
-        `extIds` in the body are merged by key with the stored ones, so an
-        empty array leaves them as they are; with `mergeExtIds` set to
-        `false`, they replace the stored ones. A body without `extIds`
-        keeps them either way.
-
-
         The acting member must be an administrator or a moderator of the
         agenda. Anyone else is refused with `403`, as is every caller when
         the agenda's settings do not allow editing locations.
@@ -2283,9 +2251,7 @@ paths:
             if (error) throw error;
             return data;
       description: >
-        Changes the fields the body carries. `extIds` in the body are merged
-        by key with the stored ones, so an empty array leaves them as they
-        are; with `mergeExtIds` set to `false`, they replace the stored ones.
+        Changes the fields the body carries.
 
 
         The acting member must be an administrator or a moderator of the
@@ -2565,8 +2531,10 @@ components:
       in: query
       required: false
       description: >
-        Whether the body's `extIds` are merged by key with the ones already
-        stored (`true`, the default) or replace them wholesale (`false`).
+        Whether the body's `extIds` are merged by key with the stored ones
+        (`true`, the default) or replace them (`false`). With `true`, an
+        empty array adds nothing; with `false`, it removes every mapping. A
+        body without `extIds` keeps them either way.
       schema:
         type: boolean
         default: true
@@ -6624,12 +6592,7 @@ components:
       additionalProperties: false
       properties:
         title:
-          allOf:
-            - $ref: '#/components/schemas/LocalizedString'
-          description: >
-            When the event is created, its `slug` is derived from this title,
-            preferring the language that comes first in the request body. Put
-            the event's original language first.
+          $ref: '#/components/schemas/LocalizedString'
         description:
           $ref: '#/components/schemas/LocalizedString'
         longDescription:
