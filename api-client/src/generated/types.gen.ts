@@ -341,7 +341,7 @@ export type Location = {
 };
 
 /**
- * An external identifier mapping this location to a third-party system. A mapping whose key or value contains `->` is refused with `422`.
+ * An external identifier mapping this location to a third-party system. A write whose key or value contains `->` is refused with `422`.
  *
  */
 export type LocationExtId = {
@@ -1536,6 +1536,10 @@ export type EventInput = {
  *
  */
 export type EventPatch = {
+    /**
+     * When the event is created, its `slug` is derived from this title, preferring the language that comes first in the request body. Put the event's original language first.
+     *
+     */
     title?: LocalizedString;
     description?: LocalizedString;
     longDescription?: LocalizedString;
@@ -2298,7 +2302,7 @@ export type AgendaUid = number;
 export type EventUid = number;
 
 /**
- * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
+ * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
  *
  */
 export type ExtKey = string;
@@ -2310,7 +2314,7 @@ export type ExtKey = string;
 export type ExtIdValue = string;
 
 /**
- * Whether the body's `extIds` are merged by key with the stored ones (`true`, the default) or replace them (`false`). With `true`, an empty array adds nothing; with `false`, it removes every mapping. A body without `extIds` keeps them either way.
+ * Whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`).
  *
  */
 export type MergeExtIds = boolean;
@@ -3294,7 +3298,7 @@ export type AgendasEventsPatchData = {
     };
     query?: {
         /**
-         * Whether the body's `extIds` are merged by key with the stored ones (`true`, the default) or replace them (`false`). With `true`, an empty array adds nothing; with `false`, it removes every mapping. A body without `extIds` keeps them either way.
+         * Whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`).
          *
          */
         mergeExtIds?: boolean;
@@ -3351,7 +3355,7 @@ export type AgendasEventsUpdateData = {
     };
     query?: {
         /**
-         * Whether the body's `extIds` are merged by key with the stored ones (`true`, the default) or replace them (`false`). With `true`, an empty array adds nothing; with `false`, it removes every mapping. A body without `extIds` keeps them either way.
+         * Whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`).
          *
          */
         mergeExtIds?: boolean;
@@ -3402,7 +3406,7 @@ export type AgendasEventsDeleteByExtIdData = {
          */
         agendaUid: number;
         /**
-         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
+         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
          *
          */
         extKey: string;
@@ -3450,7 +3454,7 @@ export type AgendasEventsGetByExtIdData = {
          */
         agendaUid: number;
         /**
-         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
+         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
          *
          */
         extKey: string;
@@ -3498,7 +3502,7 @@ export type AgendasEventsPatchByExtIdData = {
          */
         agendaUid: number;
         /**
-         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
+         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
          *
          */
         extKey: string;
@@ -3540,9 +3544,13 @@ export type AgendasEventsPatchByExtIdError = AgendasEventsPatchByExtIdErrors[key
 
 export type AgendasEventsPatchByExtIdResponses = {
     /**
-     * The updated event.
+     * The existing event was updated.
      */
     200: Event;
+    /**
+     * A new event was created.
+     */
+    201: Event;
 };
 
 export type AgendasEventsPatchByExtIdResponse = AgendasEventsPatchByExtIdResponses[keyof AgendasEventsPatchByExtIdResponses];
@@ -3555,7 +3563,7 @@ export type AgendasEventsSetByExtIdData = {
          */
         agendaUid: number;
         /**
-         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
+         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
          *
          */
         extKey: string;
@@ -4326,60 +4334,6 @@ export type AgendasLocationsCreateResponses = {
 
 export type AgendasLocationsCreateResponse = AgendasLocationsCreateResponses[keyof AgendasLocationsCreateResponses];
 
-export type AgendasLocationsDeleteByExtIdData = {
-    body?: never;
-    path: {
-        /**
-         * Numeric uid of the agenda.
-         */
-        agendaUid: number;
-        /**
-         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
-         *
-         */
-        extKey: string;
-        /**
-         * The resource's identifier within that external system (the `value` of an `ExtId` mapping carried in the resource's `extIds`). Percent-encode reserved characters.
-         *
-         */
-        extId: string;
-    };
-    query?: never;
-    url: '/agendas/{agendaUid}/locations/ext/{extKey}/{extId}';
-};
-
-export type AgendasLocationsDeleteByExtIdErrors = {
-    /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
-     *
-     */
-    400: Error | ValidationError;
-    /**
-     * The request carries no credential this operation accepts.
-     */
-    401: Error;
-    /**
-     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
-     */
-    403: Error;
-    /**
-     * Agenda or location not found. A location merged into another one answers here too, and identifies the surviving one so a stale reference can be repaired.
-     *
-     */
-    404: Error | MergedLocationError;
-};
-
-export type AgendasLocationsDeleteByExtIdError = AgendasLocationsDeleteByExtIdErrors[keyof AgendasLocationsDeleteByExtIdErrors];
-
-export type AgendasLocationsDeleteByExtIdResponses = {
-    /**
-     * The location was deleted.
-     */
-    200: DeletionResult;
-};
-
-export type AgendasLocationsDeleteByExtIdResponse = AgendasLocationsDeleteByExtIdResponses[keyof AgendasLocationsDeleteByExtIdResponses];
-
 export type AgendasLocationsGetByExtIdData = {
     body?: never;
     path: {
@@ -4388,7 +4342,7 @@ export type AgendasLocationsGetByExtIdData = {
          */
         agendaUid: number;
         /**
-         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
+         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
          *
          */
         extKey: string;
@@ -4403,11 +4357,6 @@ export type AgendasLocationsGetByExtIdData = {
 };
 
 export type AgendasLocationsGetByExtIdErrors = {
-    /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
-     *
-     */
-    400: Error | ValidationError;
     /**
      * The request carries no credential this operation accepts.
      */
@@ -4433,126 +4382,6 @@ export type AgendasLocationsGetByExtIdResponses = {
 };
 
 export type AgendasLocationsGetByExtIdResponse = AgendasLocationsGetByExtIdResponses[keyof AgendasLocationsGetByExtIdResponses];
-
-export type AgendasLocationsPatchByExtIdData = {
-    body: LocationPatch;
-    path: {
-        /**
-         * Numeric uid of the agenda.
-         */
-        agendaUid: number;
-        /**
-         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
-         *
-         */
-        extKey: string;
-        /**
-         * The resource's identifier within that external system (the `value` of an `ExtId` mapping carried in the resource's `extIds`). Percent-encode reserved characters.
-         *
-         */
-        extId: string;
-    };
-    query?: never;
-    url: '/agendas/{agendaUid}/locations/ext/{extKey}/{extId}';
-};
-
-export type AgendasLocationsPatchByExtIdErrors = {
-    /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
-     *
-     */
-    400: Error | ValidationError;
-    /**
-     * The request carries no credential this operation accepts.
-     */
-    401: Error;
-    /**
-     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
-     */
-    403: Error;
-    /**
-     * Agenda or location not found. A location merged into another one answers here too, and identifies the surviving one so a stale reference can be repaired.
-     *
-     */
-    404: Error | MergedLocationError;
-    /**
-     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
-     */
-    422: ValidationError;
-};
-
-export type AgendasLocationsPatchByExtIdError = AgendasLocationsPatchByExtIdErrors[keyof AgendasLocationsPatchByExtIdErrors];
-
-export type AgendasLocationsPatchByExtIdResponses = {
-    /**
-     * The updated location.
-     */
-    200: Location;
-};
-
-export type AgendasLocationsPatchByExtIdResponse = AgendasLocationsPatchByExtIdResponses[keyof AgendasLocationsPatchByExtIdResponses];
-
-export type AgendasLocationsSetByExtIdData = {
-    body: LocationInput;
-    path: {
-        /**
-         * Numeric uid of the agenda.
-         */
-        agendaUid: number;
-        /**
-         * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
-         *
-         */
-        extKey: string;
-        /**
-         * The resource's identifier within that external system (the `value` of an `ExtId` mapping carried in the resource's `extIds`). Percent-encode reserved characters.
-         *
-         */
-        extId: string;
-    };
-    query?: never;
-    url: '/agendas/{agendaUid}/locations/ext/{extKey}/{extId}';
-};
-
-export type AgendasLocationsSetByExtIdErrors = {
-    /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
-     *
-     */
-    400: Error | ValidationError;
-    /**
-     * The request carries no credential this operation accepts.
-     */
-    401: Error;
-    /**
-     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
-     */
-    403: Error;
-    /**
-     * Agenda not found, or a location merged into another one carries the pair: the answer identifies the surviving one, so a stale reference can be repaired. Nothing is created.
-     *
-     */
-    404: Error | MergedLocationError;
-    /**
-     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
-     */
-    422: ValidationError;
-};
-
-export type AgendasLocationsSetByExtIdError = AgendasLocationsSetByExtIdErrors[keyof AgendasLocationsSetByExtIdErrors];
-
-export type AgendasLocationsSetByExtIdResponses = {
-    /**
-     * The replaced location.
-     */
-    200: Location;
-    /**
-     * The created location.
-     */
-    201: Location;
-};
-
-export type AgendasLocationsSetByExtIdResponse = AgendasLocationsSetByExtIdResponses[keyof AgendasLocationsSetByExtIdResponses];
 
 export type AgendasLocationsDeleteData = {
     body?: never;
@@ -4662,13 +4491,7 @@ export type AgendasLocationsPatchData = {
          */
         locationUid: number;
     };
-    query?: {
-        /**
-         * Whether the body's `extIds` are merged by key with the stored ones (`true`, the default) or replace them (`false`). With `true`, an empty array adds nothing; with `false`, it removes every mapping. A body without `extIds` keeps them either way.
-         *
-         */
-        mergeExtIds?: boolean;
-    };
+    query?: never;
     url: '/agendas/{agendaUid}/locations/{locationUid}';
 };
 
@@ -4722,7 +4545,7 @@ export type AgendasLocationsUpdateData = {
     };
     query?: {
         /**
-         * Whether the body's `extIds` are merged by key with the stored ones (`true`, the default) or replace them (`false`). With `true`, an empty array adds nothing; with `false`, it removes every mapping. A body without `extIds` keeps them either way.
+         * Whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`).
          *
          */
         mergeExtIds?: boolean;

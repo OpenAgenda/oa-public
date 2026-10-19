@@ -147,6 +147,7 @@ describe('the contract stays inside what search_docs can render', () => {
       '/paths/*/get/tags',
       '/paths/*/get/x-codeSamples/*',
       '/paths/*/get/x-codeSamples/*/label',
+      '/paths/*/patch/responses/*',
       '/paths/*/patch/responses/*/content/*/examples',
       '/paths/*/patch/responses/*/description',
       '/paths/*/patch/tags',
