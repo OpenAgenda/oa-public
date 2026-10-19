@@ -189,7 +189,7 @@ export const zLocationSummary = z.object({
 });
 
 /**
- * An external identifier mapping this location to a third-party system. A write whose key or value contains `->` is refused with `422`.
+ * An external identifier mapping this location to a third-party system. A mapping whose key or value contains `->` is refused with `422`.
  *
  */
 export const zLocationExtId = z.object({
@@ -1534,7 +1534,7 @@ export const zAgendaUid = z.coerce.bigint().min(BigInt('-9223372036854775808'), 
 export const zEventUid = z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' });
 
 /**
- * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
+ * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
  *
  */
 export const zExtKey = z.string();
@@ -2455,6 +2455,17 @@ export const zAgendasLocationsCreatePath = z.object({
  */
 export const zAgendasLocationsCreateResponse = zLocation;
 
+export const zAgendasLocationsDeleteByExtIdPath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
+    extKey: z.string(),
+    extId: z.string()
+});
+
+/**
+ * The location was deleted.
+ */
+export const zAgendasLocationsDeleteByExtIdResponse = zDeletionResult;
+
 export const zAgendasLocationsGetByExtIdPath = z.object({
     agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
     extKey: z.string(),
@@ -2465,6 +2476,32 @@ export const zAgendasLocationsGetByExtIdPath = z.object({
  * The location.
  */
 export const zAgendasLocationsGetByExtIdResponse = zLocation;
+
+export const zAgendasLocationsPatchByExtIdBody = zLocationPatch;
+
+export const zAgendasLocationsPatchByExtIdPath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
+    extKey: z.string(),
+    extId: z.string()
+});
+
+/**
+ * The updated location.
+ */
+export const zAgendasLocationsPatchByExtIdResponse = zLocation;
+
+export const zAgendasLocationsSetByExtIdBody = zLocationInput;
+
+export const zAgendasLocationsSetByExtIdPath = z.object({
+    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
+    extKey: z.string(),
+    extId: z.string()
+});
+
+/**
+ * The replaced location.
+ */
+export const zAgendasLocationsSetByExtIdResponse = zLocation;
 
 export const zAgendasLocationsDeletePath = z.object({
     agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
@@ -2491,6 +2528,10 @@ export const zAgendasLocationsPatchBody = zLocationPatch;
 export const zAgendasLocationsPatchPath = z.object({
     agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
     locationUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
+});
+
+export const zAgendasLocationsPatchQuery = z.object({
+    mergeExtIds: z.boolean().optional().default(true)
 });
 
 /**
