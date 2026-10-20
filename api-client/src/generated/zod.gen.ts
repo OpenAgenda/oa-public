@@ -387,7 +387,7 @@ export const zTicketingProvider = z.enum([
 ]);
 
 /**
- * What one ticketing provider says about one occurrence. `status` is the provider's word as of `syncedAt`; the sale window is what lets a reader tell `notYetOnSale` and `salesClosed` from a stock answer, and `offersAggregate` recomputes that half at read time.
+ * What one ticketing provider says about one occurrence. `status` is served RESOLVED, as of the moment of the read: the provider's word of `syncedAt`, with the sale window already applied to it and the event's own `status` already answered over it. Take it as final. `onSaleFrom` and `onSaleThrough` say what produced it, and re-applying them to the value you received contradicts it - a full event's row is served `soldOut` even when its window only opens next week, because there is nothing left to wait for.
  *
  * The event's own `status` answers over the provider's word, and in one direction only - towards less bookable. A cancelled event serves every row `salesClosed`, whatever the window says, and with `closedBySource: true`, since the window is not what closed it. A full event serves `soldOut` every row that is not already `salesClosed`: a row whose window has elapsed, or whose provider shut its own channel, stays closed rather than becoming sold out, and a row whose sale has not opened yet is served `soldOut` rather than `notYetOnSale` - there is nothing left to wait for.
  *
@@ -446,7 +446,7 @@ export const zOffersPrice = z.object({
 }).nullable();
 
 /**
- * What the ticketing sources of this event add up to, computed on each read. `availability` is `null` when nothing can be said - every occurrence past, or no source carrying a usable status - and reflects the current time, except `soldOut` and `limited`, which reflect the last sync with the provider, and the two answers the event's own `status` dictates whatever the clock says: `soldOut` when it is `full`, `salesClosed` when it is `cancelled`. `pricing` is a category rolled up from the sources' price lists and declared pricing.
+ * What the ticketing sources of this event add up to, computed on each read. `availability` is `null` when nothing can be said - every occurrence past, or no source carrying a usable status - and reflects the current time, except `soldOut` and `limited`, which reflect the last sync with the provider, and the answers the event's own `status` dictates whatever the clock says: `salesClosed` when it is `cancelled`, and `soldOut` when it is `full` - including where the sources disagree, since the status is global and the stock is not. The one exception is an event whose sale is over on every occurrence, which stays `salesClosed`: a sale that ended two months ago is not a sold-out one. `pricing` is a category rolled up from the sources' price lists and declared pricing.
  *
  */
 export const zOffersAggregate = z.object({
