@@ -6,6 +6,10 @@ $oa-admin-primary-50: #ebf1fe;
 $oa-admin-primary-700: #0e4880;
 $oa-admin-gray-700: #5c5c5c; // oaGray.700: 4.5:1 on white at small sizes
 $oa-admin-radius: 3px; // as the legacy white pages (.wsq)
+// Bootstrap's danger text and background: 5.85:1 on white, 4.53:1 together,
+// where the theme's red is under the 4.5:1 a 14px text needs
+$oa-admin-danger: #a94442;
+$oa-admin-danger-bg: #f2dede;
 $oa-admin-gap: 24px;
 
 .oa-admin-container {
@@ -248,7 +252,8 @@ $oa-admin-gap: 24px;
   .oa-admin-menu {
     margin: 0;
 
-    li {
+    li,
+    ul {
       margin: 0;
     }
 
@@ -292,7 +297,13 @@ $oa-admin-gap: 24px;
       border-top: 1px solid $oa-gray-lighter;
 
       a {
-        color: $state-danger-text;
+        color: $oa-admin-danger;
+      }
+
+      // Selected, it keeps its red rather than taking the blue of the others
+      &.selected a {
+        border-left-color: $oa-admin-danger;
+        background: $oa-admin-danger-bg;
       }
     }
 
