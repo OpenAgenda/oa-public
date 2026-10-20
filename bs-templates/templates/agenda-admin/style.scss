@@ -10,6 +10,7 @@ $oa-admin-radius: 3px; // as the legacy white pages (.wsq)
 // where the theme's red is under the 4.5:1 a 14px text needs
 $oa-admin-danger: #a94442;
 $oa-admin-danger-bg: #f2dede;
+$oa-admin-inactive: #767676;
 $oa-admin-gap: 24px;
 
 .oa-admin-container {
@@ -290,6 +291,12 @@ $oa-admin-gap: 24px;
 
     .group-start {
       margin-top: 16px;
+    }
+
+    // A page not activated for this agenda: greyed, still a link to ask for
+    // it, so still readable (4.54:1, the lightest grey at 4.5:1 on white)
+    .inactive a {
+      color: $oa-admin-inactive;
     }
 
     .danger {
