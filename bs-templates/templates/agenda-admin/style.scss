@@ -4,13 +4,7 @@
 // administration moves to next.
 $oa-admin-primary-50: #ebf1fe;
 $oa-admin-primary-700: #0e4880;
-$oa-admin-gray-700: #5c5c5c; // oaGray.700: 4.5:1 on white at small sizes
 $oa-admin-radius: 3px; // as the legacy white pages (.wsq)
-// Bootstrap's danger text and background: 5.85:1 on white, 4.53:1 together,
-// where the theme's red is under the 4.5:1 a 14px text needs
-$oa-admin-danger: #a94442;
-$oa-admin-danger-bg: #f2dede;
-$oa-admin-inactive: #767676;
 $oa-admin-gap: 24px;
 
 .oa-admin-container {
@@ -253,8 +247,7 @@ $oa-admin-gap: 24px;
   .oa-admin-menu {
     margin: 0;
 
-    li,
-    ul {
+    li {
       margin: 0;
     }
 
@@ -276,42 +269,6 @@ $oa-admin-gap: 24px;
       background: $oa-admin-primary-50;
       color: $oa-admin-primary-700;
       font-weight: bold;
-    }
-
-    // Settings: groups under a small heading, the dangerous entries apart
-    .oa-admin-menu-group {
-      display: block;
-      padding: 0 24px 6px;
-      font-size: 12px;
-      font-weight: bold;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: $oa-admin-gray-700;
-    }
-
-    .group-start {
-      margin-top: 16px;
-    }
-
-    // A page not activated for this agenda: greyed, still a link to ask for
-    // it, so still readable (4.54:1, the lightest grey at 4.5:1 on white)
-    .inactive a {
-      color: $oa-admin-inactive;
-    }
-
-    .danger {
-      padding-top: 12px;
-      border-top: 1px solid $oa-gray-lighter;
-
-      a {
-        color: $oa-admin-danger;
-      }
-
-      // Selected, it keeps its red rather than taking the blue of the others
-      &.selected a {
-        border-left-color: $oa-admin-danger;
-        background: $oa-admin-danger-bg;
-      }
     }
 
     .menu-item {
