@@ -465,23 +465,20 @@ paths:
                 location: { uid: 55512 },
               },
             });
-            if (error) throw error; // 422 with error.errors when invalid
+            if (error) throw error; // 422 with error.error.errors when invalid
             return data.valid; // true
       description: >
-        Checks the body as creating the event in this agenda would - the
-        caller's right to create, the fields the agenda requires, every
-        field value - without creating anything. A valid body answers `200
-        { "valid": true }`; an invalid one answers `422` with per-field
-        problems under `error.errors[]`, and a caller who may not create
-        gets `403`.
+        Checks the body as creating the event in this agenda would, without
+        creating anything. A valid body answers `200 { "valid": true }`; an
+        invalid one answers `422` with per-field problems under
+        `error.errors[]`, and a caller who may not create gets `403`.
 
 
         A native `image: { url }` is checked for URL syntax only (an
         `http(s)` URL without embedded credentials): the URL is not
-        fetched, so a URL that create rejects with `422` at fetch time
-        (unreachable host, private address, over 20 MiB, not an image)
-        passes validate. The image counts as present, so an agenda
-        whose schema requires one validates as it would create.
+        fetched, so a URL that create refuses with `422` once it fetches it
+        passes validate. The image counts as present, so an agenda whose
+        schema requires one validates as it would create.
       security:
         - secretKey: []
         - oauth2:
