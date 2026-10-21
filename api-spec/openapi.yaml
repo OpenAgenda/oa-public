@@ -5267,10 +5267,15 @@ components:
             answers `422` `offers.disabled` otherwise. An event can thus be created
             with its inventory in a single call.
 
-            Served wherever a `Timing` is: `timings[]`, and also
-            `firstTiming` / `lastTiming` / `nextTiming`, which copy the
-            occurrence whole — so a compact listing carries the inventory of
-            its next date.
+            SERVED IN `timings[]` ONLY, and an earlier wording of this
+            paragraph promised more: `firstTiming` / `lastTiming` /
+            `nextTiming` copy the occurrence, and that copy used to carry the
+            rows. It carried them AS SYNCED — nothing resolves a compact copy,
+            and a compact listing does not even load the catalogue a sale
+            window would be read from. Serving them there contradicted the
+            rule stated above, that a row is served resolved or not at all, so
+            the copies no longer carry the field. Read `timings[]` for
+            inventory.
           items:
             $ref: '#/components/schemas/TimingAvailability'
 
@@ -5461,15 +5466,25 @@ components:
             a per-date detail panel, say — could attach no URL to any line.
             This is that attribution, and nothing more.
 
-            EVENT-LEVEL, NEVER PER DATE — a limit of what OpenAgenda stores
-            and serves, not a claim about what ticketing services can do. An
-            availability row cannot carry a URL (`TimingAvailability` is
-            `additionalProperties: false`), and the only URL held for a source
-            is the event-level one its connector wrote. A per-date link is
-            constructible for at least some services — Mapado's booking site
-            takes an `eventDate` parameter whose id is what a row's `sourceRef`
-            is meant to carry — but building one per service belongs with the
-            connectors, not here.
+            EVENT-LEVEL, and that is a property of THIS field — not a limit
+            of what OpenAgenda can hold, which is what an earlier wording of
+            this paragraph claimed. A per-(date, provider) booking URL is part
+            of the model and a connector can write one, through the **v2**
+            event API. This API neither returns nor accepts it: the value is
+            internal, `Timing` is `additionalProperties: false` here, and a
+            body carrying one is refused. WHICH refusal depends on the agenda:
+            ticketing is gated per agenda and that gate speaks first, so an
+            agenda without it answers `422` `offers.disabled` for the whole
+            write, and only one that has it reaches the strict schema check and
+            its `422` `schema.unknown`. Same split as the availability
+            endpoint, for which this document likewise declares no path.
+
+            An availability row cannot carry one either (`TimingAvailability`
+            is `additionalProperties: false`). So read `links` as "where this
+            source sells this event", never "where this source sells this
+            date" — even though a per-date link is constructible for some
+            services, Mapado's booking site taking an `eventDate` parameter
+            whose id is what a row's `sourceRef` is meant to carry.
           items:
             $ref: '#/components/schemas/OffersLink'
 
