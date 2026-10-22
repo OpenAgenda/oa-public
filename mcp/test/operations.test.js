@@ -259,6 +259,18 @@ describe('searchOperations', () => {
     expect(searchOperations(query)[0].id).toBe(id);
   });
 
+  // An address to check or to place, and a point to name, lead to the
+  // geocoding, not to the location reads and writes that share their words.
+  it.each([
+    ['verify an address', 'geocoding.search'],
+    ['geocode an address', 'geocoding.search'],
+    ['coordinates of an address', 'geocoding.search'],
+    ['address at these coordinates', 'geocoding.reverse'],
+    ['reverse geocode a point', 'geocoding.reverse'],
+  ])('ranks the geocoding query %p first on %s', (query, id) => {
+    expect(searchOperations(query)[0].id).toBe(id);
+  });
+
   // An image reaches a location through an upload, as it reaches an event.
   it('ranks the upload first for an image of a location', () => {
     expect(searchOperations('attach an image to a location')[0].id).toBe(
