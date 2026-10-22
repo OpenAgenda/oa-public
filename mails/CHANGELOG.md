@@ -1,5 +1,22 @@
 # Change Log
 
+## 6.1.0
+
+### Minor Changes
+
+- [#628](https://github.com/OpenAgenda/oa/pull/628) [`2c7ac36`](https://github.com/OpenAgenda/oa/commit/2c7ac3625f62c2449af9cb0efaa91ce51bf078fc) Thanks [@clement180](https://github.com/clement180)! - `send()` takes `jobOptions`, the BullMQ job options of the enqueued send.
+
+  They are passed to `queue.add` as its third argument (`delay`, `priority`,
+  `jobId`…) and never travel in the job payload — which matters, since unknown
+  top-level keys of a message are handed to the transport. They are ignored on
+  the unqueued path (`queue: false`).
+
+  This is what lets a caller pace what it hands over without staying alive for
+  it: a job given a `delay` is held by the queue, then rendered and sent when
+  the delay is up. A caller that would otherwise hand a hundred mails to the
+  queue in one second — a campaign walking its cohort — can spread them over an
+  hour, which is what a sending IP's per-domain pacing responds to.
+
 ## 6.0.3
 
 ### Patch Changes

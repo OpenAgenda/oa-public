@@ -1,5 +1,12 @@
 # @openagenda/mcp
 
+## 1.5.3
+
+### Patch Changes
+
+- Updated dependencies [[`ad72273`](https://github.com/OpenAgenda/oa/commit/ad72273b8d22719519dbcbbf756c0ed754fe4fa4), [`0ba0646`](https://github.com/OpenAgenda/oa/commit/0ba06465b3d8f2464ef16a51a50d07d14ead91d3), [`11785bf`](https://github.com/OpenAgenda/oa/commit/11785bfd709b2c0fb1406f966f8bd94c43e8280e), [`10d06be`](https://github.com/OpenAgenda/oa/commit/10d06bec667bbf3367296588e0244acfbdd79b6b), [`e01d660`](https://github.com/OpenAgenda/oa/commit/e01d660bf89c0f913b352fb026e8f64789e40aff), [`2a4072f`](https://github.com/OpenAgenda/oa/commit/2a4072f7d29ea5dd98491cc5a39eba341003f99c), [`6992828`](https://github.com/OpenAgenda/oa/commit/6992828aa9bdc6cc11fc15bb7c51e2d0ba5b7124), [`697170c`](https://github.com/OpenAgenda/oa/commit/697170cb556d5f880ff0cb868a454d47b56f3adf), [`b6316cc`](https://github.com/OpenAgenda/oa/commit/b6316ccac711dcf1a1e8efe1a16f85a8c67da9a4), [`3765b84`](https://github.com/OpenAgenda/oa/commit/3765b84bdfc2ddd7ebedc3793ff93791c29ce8db), [`f99ffb5`](https://github.com/OpenAgenda/oa/commit/f99ffb5e8af00a6898d93e5bc391da3baf59eb56), [`5d34165`](https://github.com/OpenAgenda/oa/commit/5d34165403ee03f60ab96e67b0cb69668bc8c611), [`379be71`](https://github.com/OpenAgenda/oa/commit/379be710dba97269d41c7d638eaf1efab544201a)]:
+  - @openagenda/api-spec@0.8.0
+
 ## 1.5.2
 
 ### Patch Changes

@@ -1,5 +1,42 @@
 # @openagenda/api-client
 
+## 0.8.0
+
+### Minor Changes
+
+- [#621](https://github.com/OpenAgenda/oa/pull/621) [`7c93641`](https://github.com/OpenAgenda/oa/commit/7c93641684ca27008a637fcbab8847e42f0c97d5) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Regenerated: the administrative levels of a location are `adminLevel1` to `adminLevel6` in the location and event types, the event filters, the facets and the sort. Breaking for pre-1.0 consumers: `region`, `department`, `city` and `district` are gone, and the parameter types `FilterRegion`, `FilterDepartment`, `FilterCity` and `FilterDistrict` become `FilterAdminLevel1`, `FilterAdminLevel2`, `FilterAdminLevel4` and `FilterAdminLevel6`.
+
+- [#550](https://github.com/OpenAgenda/oa/pull/550) [`95d66c2`](https://github.com/OpenAgenda/oa/commit/95d66c203a758d28860ec43b492ada737446fa85) Thanks [@clement180](https://github.com/clement180)! - Regenerate for `availabilityAuthority` and the named `TicketingProvider`.
+
+  `EventInput` and `EventPatch` gain
+  `availabilityAuthority?: Array<TicketingProvider> | null`, the ticketing sources a
+  write declares it owns — `null`, like an empty array, claims nothing and behaves
+  like omitting the field, which is why the zod schema reads `.nullish()`. `TicketingProvider` is now an
+  exported type rather than the same seven-value union spelled inline on
+  `TimingAvailability.provider`, so a caller can name the type it passes.
+
+- [#585](https://github.com/OpenAgenda/oa/pull/585) [`be49f09`](https://github.com/OpenAgenda/oa/commit/be49f0916cbe1167fef705fe46eb0fa04fbce51a) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `agendas.events.patchByExtId` answers the updated event only: its `201` response is gone.
+
+- [#570](https://github.com/OpenAgenda/oa/pull/570) [`0279fe5`](https://github.com/OpenAgenda/oa/commit/0279fe5cebe07d7186420d5cda2a3cb17c68e437) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Types and schemas for the new `deleted` on an event's location.
+
+- [#573](https://github.com/OpenAgenda/oa/pull/573) [`b24e45b`](https://github.com/OpenAgenda/oa/commit/b24e45be51213e52f6c17f19fde3ba544fece626) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Types and schemas without `country` on `Event` and `EventLocation`: the country reads as `location.countryCode`. The `zEvent` of an earlier version requires `country`, so it rejects an event the API returns.
+
+- [#626](https://github.com/OpenAgenda/oa/pull/626) [`66522ef`](https://github.com/OpenAgenda/oa/commit/66522efc18f0d73505f5dd0e973fa5b68e53fa6a) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `geocoding.search` and `geocoding.reverse`, with the `GeocodingResult` and `GeocodedPlace` types and schemas.
+
+- [#586](https://github.com/OpenAgenda/oa/pull/586) [`7a125e5`](https://github.com/OpenAgenda/oa/commit/7a125e5c1e611d284f51ce87240f7b6bc99cddf8) Thanks [@bertho-zero](https://github.com/bertho-zero)! - The location write bodies take `image`, `imageCredits` and `imageRightsAreHeld`, `Location` carries `imageRightsAreHeld`, and `Image` carries the `ref` a write sends back to keep the image.
+
+- [#632](https://github.com/OpenAgenda/oa/pull/632) [`d5bce4d`](https://github.com/OpenAgenda/oa/commit/d5bce4ddd6ff0375b14487746327f15fc5c7d792) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `agendas.locations.validate` and `agendas.locations.settings`, with the `LocationSettings` type and schema.
+
+- [#582](https://github.com/OpenAgenda/oa/pull/582) [`95f5d1e`](https://github.com/OpenAgenda/oa/commit/95f5d1e0c5e59007ee793fb2869430cbb87131db) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `agendas.locations.setByExtId`, `patchByExtId` and `deleteByExtId`; `agendas.locations.patch` takes the `mergeExtIds` query. `getByExtId` types its `400`.
+
+- [#576](https://github.com/OpenAgenda/oa/pull/576) [`08e70ec`](https://github.com/OpenAgenda/oa/commit/08e70ec33323c2cb3c6decd27161e3b68f41c216) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `agendas.locations.create`, `update`, `patch` and `delete`, with the `LocationInput` and `LocationPatch` types and schemas.
+
+### Patch Changes
+
+- [#578](https://github.com/OpenAgenda/oa/pull/578) [`54f141d`](https://github.com/OpenAgenda/oa/commit/54f141d6c4fd8a086c23baa9de27cbb3ee93a850) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Regenerated: `EventInput` and `ImageInput` document the `422` an event write body carrying a key it does not take receives.
+
+- [#633](https://github.com/OpenAgenda/oa/pull/633) [`ccddd2f`](https://github.com/OpenAgenda/oa/commit/ccddd2f67821ba9cd5584701af2642ac1ce2341e) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Regenerated: the `agendas.events.validate` documentation follows the contract.
+
 ## 0.7.0
 
 ### Minor Changes

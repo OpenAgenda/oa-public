@@ -1,5 +1,33 @@
 # Change Log
 
+## 3.0.0
+
+### Major Changes
+
+- [#613](https://github.com/OpenAgenda/oa/pull/613) [`d4c23f5`](https://github.com/OpenAgenda/oa/commit/d4c23f5a07e0f20789de502246cefcdc80c9ed0b) Thanks [@kaore](https://github.com/kaore)! - Restyle the agenda administration frame to match the pages next renders.
+
+  The agenda's compact header (`.oa-admin-agenda`) and the administration bar
+  (`.oa-admin-bar`, a bootstrap `.breadcrumb` and its buttons) now span the page
+  above the body, and the menu, the body and the filters sit in separate cards
+  (`.oa-admin-columns`, `.oa-admin-aside` > `.oa-admin-side`, `.oa-admin-main`,
+  `.oa-admin-filters`) inside a 1440px container.
+
+  Breaking: the rules for the old frame are gone — `.agenda-admin`'s `.header`,
+  `.nav`, `.body` and `.filters`, `.agenda-admin.redirect`, and the
+  `.row:first-child` padding of `.agenda-admin-filters-layout`. Markup still built
+  on them renders unstyled; the `agenda-admin` previews show the new markup.
+
+  While an application loads, the element it marks with `.oa-admin-loading`
+  makes the body drop its white card and centres the spinner in the room the
+  body will take.
+
+### Minor Changes
+
+- [#615](https://github.com/OpenAgenda/oa/pull/615) [`9f29e90`](https://github.com/OpenAgenda/oa/commit/9f29e9071005ef55fdecaea434886b203b42ac18) Thanks [@kaore](https://github.com/kaore)! - Style the grouped settings menu of the agenda administration: group headings
+  (`.oa-admin-menu-group`) over their own nested list (`.oa-admin-menu-section`),
+  the space before a new group (`.group-start`) and the separated entry for
+  deleting the agenda (`.danger`), in a red that reaches 4.5:1, selected included.
+
 ## 2.6.4
 
 ### Patch Changes

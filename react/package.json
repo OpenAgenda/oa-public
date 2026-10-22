@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/react",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -68,7 +68,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.3",
     "@openagenda/common-labels": "^2.0.1",
-    "@openagenda/mails": "^6.0.3",
+    "@openagenda/mails": "^6.1.0",
     "@openagenda/react-filters": "^3.2.0",
     "@openagenda/react-shared": "^3.2.1",
     "@openagenda/uikit": "^0.4.0",

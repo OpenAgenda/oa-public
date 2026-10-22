@@ -1,5 +1,16 @@
 # @openagenda/react
 
+## 0.4.2
+
+### Patch Changes
+
+- [#584](https://github.com/OpenAgenda/oa/pull/584) [`5305611`](https://github.com/OpenAgenda/oa/commit/5305611220bd83b258613920c859aff7512bdb7f) Thanks [@kaore](https://github.com/kaore)! - `AgendaExportModal` exports what the listing shows for a fully archived agenda — no published event left in the active corpus, some in its archives (`summary.archivedEvents`): the one-off files (PDF, Word, spreadsheet, CSV, ICS download) read its archives, unless the query says `archived=0`. The feeds (calendar subscription, RSS, JSON API URL) and the embed code keep the reader's query, its `archived` spelling normalised: their URL outlives the agenda's current state. `withDefaultCorpus(query, agenda)` and `isFullyArchivedAgenda(agenda)` are exported (`@openagenda/react/utils/withDefaultCorpus`); without an agenda, `withDefaultCorpus` only normalises the spelling of `archived`.
+
+- [#556](https://github.com/OpenAgenda/oa/pull/556) [`ddf9f44`](https://github.com/OpenAgenda/oa/commit/ddf9f44e4e8fb7db96ab0812cff642f2ac4849df) Thanks [@kaore](https://github.com/kaore)! - `AgendaExportModal` exports what the listing shows for an agenda whose published events are all past: in "selection" mode, the one-off files (PDF, Word, spreadsheet, CSV, ICS download) no longer add the default current-and-upcoming window, which exported none of the past events the listing opens on. The feeds — the calendar subscription URL (`export.ics`), RSS and the JSON API URL — keep the default window: their URL outlives the agenda's current state and must bring the upcoming events back once there are some. The ICS download uses the new `export.icsFile`. The agenda's detailed summary (`summary.publishedEvents`) decides, as on the listing, and a `relative` the query asks for still wins. `isUpcomingOnlyQuery(query, agenda)` takes the agenda as an optional second argument, and `isPastOnlyAgenda(agenda)` is exported alongside it.
+
+- Updated dependencies [[`2c7ac36`](https://github.com/OpenAgenda/oa/commit/2c7ac3625f62c2449af9cb0efaa91ce51bf078fc)]:
+  - @openagenda/mails@6.1.0
+
 ## 0.4.1
 
 ### Patch Changes
