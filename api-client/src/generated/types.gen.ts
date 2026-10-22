@@ -20,56 +20,6 @@ export type Error = {
     };
 };
 
-export type GeocodingResult = {
-    data: GeocodedPlace | null;
-};
-
-/**
- * A place, as a location created there gets it.
- */
-export type GeocodedPlace = {
-    address: string;
-    /**
-     * Largest administrative division of the country. In France, the region.
-     */
-    adminLevel1: string | null;
-    /**
-     * Administrative division below `adminLevel1`. In France, the department.
-     */
-    adminLevel2: string | null;
-    /**
-     * Administrative division below `adminLevel2`. In France, the intercommunality.
-     */
-    adminLevel3: string | null;
-    /**
-     * Municipality.
-     */
-    adminLevel4: string | null;
-    /**
-     * Subdivision of the municipality. In France, the arrondissement of Paris, Lyon and Marseille.
-     */
-    adminLevel5: string | null;
-    /**
-     * Subdivision of the municipality, below `adminLevel5`. In France, the neighbourhood.
-     */
-    adminLevel6: string | null;
-    postalCode: string | null;
-    /**
-     * INSEE code of the French municipality, when known.
-     */
-    insee: string | null;
-    /**
-     * ISO 3166-1 alpha-2 country code.
-     */
-    countryCode: string;
-    latitude: number;
-    longitude: number;
-    /**
-     * IANA time zone of the place.
-     */
-    timezone: string | null;
-};
-
 /**
  * The outcome of checking an API key.
  */
@@ -182,26 +132,6 @@ export type ValidationIssue = {
      * The value the validator refused, as the request carried it. A validator that reports a problem without recording the value omits this key.
      */
     input?: unknown;
-};
-
-export type LocationSettings = {
-    /**
-     * Whether the agenda allows each location write.
-     */
-    access: {
-        /**
-         * Creating a location, by external id too.
-         */
-        create: boolean;
-        /**
-         * Replacing or patching a location, by external id too.
-         */
-        update: boolean;
-        /**
-         * Deleting a location, by external id too.
-         */
-        delete: boolean;
-    };
 };
 
 /**
@@ -2535,11 +2465,6 @@ export type ExtIdValue = string;
 export type MergeExtIds = boolean;
 
 /**
- * Postal code of the place.
- */
-export type GeocodingPostalCode = string;
-
-/**
  * Opaque pagination cursor returned in `pagination.after` of the previous page. Omit it to fetch the first page.
  *
  */
@@ -4568,91 +4493,6 @@ export type AgendasLocationsCreateResponses = {
 
 export type AgendasLocationsCreateResponse = AgendasLocationsCreateResponses[keyof AgendasLocationsCreateResponses];
 
-export type AgendasLocationsValidateData = {
-    body: LocationInput;
-    path: {
-        /**
-         * Numeric uid of the agenda.
-         */
-        agendaUid: number;
-    };
-    query?: never;
-    url: '/agendas/{agendaUid}/locations/validate';
-};
-
-export type AgendasLocationsValidateErrors = {
-    /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
-     *
-     */
-    400: Error | ValidationError;
-    /**
-     * The request carries no credential this operation accepts.
-     */
-    401: Error;
-    /**
-     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
-     */
-    403: Error;
-    /**
-     * No resource answers this identifier.
-     */
-    404: Error;
-    /**
-     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
-     */
-    422: ValidationError;
-};
-
-export type AgendasLocationsValidateError = AgendasLocationsValidateErrors[keyof AgendasLocationsValidateErrors];
-
-export type AgendasLocationsValidateResponses = {
-    /**
-     * The body is valid.
-     */
-    200: ValidationVerdict;
-};
-
-export type AgendasLocationsValidateResponse = AgendasLocationsValidateResponses[keyof AgendasLocationsValidateResponses];
-
-export type AgendasLocationsSettingsData = {
-    body?: never;
-    path: {
-        /**
-         * Numeric uid of the agenda.
-         */
-        agendaUid: number;
-    };
-    query?: never;
-    url: '/agendas/{agendaUid}/locations/settings';
-};
-
-export type AgendasLocationsSettingsErrors = {
-    /**
-     * The request carries no credential this operation accepts.
-     */
-    401: Error;
-    /**
-     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
-     */
-    403: Error;
-    /**
-     * No resource answers this identifier.
-     */
-    404: Error;
-};
-
-export type AgendasLocationsSettingsError = AgendasLocationsSettingsErrors[keyof AgendasLocationsSettingsErrors];
-
-export type AgendasLocationsSettingsResponses = {
-    /**
-     * The agenda's location settings.
-     */
-    200: LocationSettings;
-};
-
-export type AgendasLocationsSettingsResponse = AgendasLocationsSettingsResponses[keyof AgendasLocationsSettingsResponses];
-
 export type AgendasLocationsDeleteByExtIdData = {
     body?: never;
     path: {
@@ -5124,109 +4964,3 @@ export type KeysVerifyResponses = {
 };
 
 export type KeysVerifyResponse = KeysVerifyResponses[keyof KeysVerifyResponses];
-
-export type GeocodingSearchData = {
-    body?: never;
-    path?: never;
-    query: {
-        /**
-         * Address of the place.
-         */
-        address: string;
-        /**
-         * ISO 3166-1 alpha-2 code of the country the address is in.
-         */
-        countryCode: string;
-        /**
-         * Postal code of the place.
-         */
-        postalCode?: string;
-        /**
-         * INSEE code of the French municipality the address is in.
-         */
-        insee?: string;
-    };
-    url: '/geocoding/search';
-};
-
-export type GeocodingSearchErrors = {
-    /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
-     *
-     */
-    400: Error | ValidationError;
-    /**
-     * The request carries no credential this operation accepts.
-     */
-    401: Error;
-    /**
-     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
-     */
-    403: Error;
-    /**
-     * The request was not processed and can be retried after a short delay.
-     */
-    503: Error;
-};
-
-export type GeocodingSearchError = GeocodingSearchErrors[keyof GeocodingSearchErrors];
-
-export type GeocodingSearchResponses = {
-    /**
-     * The place, or `null` when none matches the address.
-     */
-    200: GeocodingResult;
-};
-
-export type GeocodingSearchResponse = GeocodingSearchResponses[keyof GeocodingSearchResponses];
-
-export type GeocodingReverseData = {
-    body?: never;
-    path?: never;
-    query: {
-        /**
-         * Latitude of the point.
-         */
-        latitude: number;
-        /**
-         * Longitude of the point.
-         */
-        longitude: number;
-        /**
-         * Postal code of the place.
-         */
-        postalCode?: string;
-    };
-    url: '/geocoding/reverse';
-};
-
-export type GeocodingReverseErrors = {
-    /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
-     *
-     */
-    400: Error | ValidationError;
-    /**
-     * The request carries no credential this operation accepts.
-     */
-    401: Error;
-    /**
-     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
-     */
-    403: Error;
-    /**
-     * The request was not processed and can be retried after a short delay.
-     */
-    503: Error;
-};
-
-export type GeocodingReverseError = GeocodingReverseErrors[keyof GeocodingReverseErrors];
-
-export type GeocodingReverseResponses = {
-    /**
-     * The place, or `null` when none is found at the point.
-     */
-    200: GeocodingResult;
-};
-
-export type GeocodingReverseResponse = GeocodingReverseResponses[keyof GeocodingReverseResponses];

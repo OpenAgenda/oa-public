@@ -2,7 +2,7 @@
 
 import { type Client, formDataBodySerializer, type Options as Options2, type TDataShape } from './client';
 import { client } from './client.gen';
-import type { AgendasEventsCreateData, AgendasEventsCreateErrors, AgendasEventsCreateResponses, AgendasEventsDeleteByExtIdData, AgendasEventsDeleteByExtIdErrors, AgendasEventsDeleteByExtIdResponses, AgendasEventsDeleteData, AgendasEventsDeleteErrors, AgendasEventsDeleteResponses, AgendasEventsFacetsData, AgendasEventsFacetsErrors, AgendasEventsFacetsReportData, AgendasEventsFacetsReportErrors, AgendasEventsFacetsReportResponses, AgendasEventsFacetsResponses, AgendasEventsGetByExtIdData, AgendasEventsGetByExtIdErrors, AgendasEventsGetByExtIdResponses, AgendasEventsGetData, AgendasEventsGetErrors, AgendasEventsGetResponses, AgendasEventsListData, AgendasEventsListErrors, AgendasEventsListResponses, AgendasEventsPatchByExtIdData, AgendasEventsPatchByExtIdErrors, AgendasEventsPatchByExtIdResponses, AgendasEventsPatchData, AgendasEventsPatchErrors, AgendasEventsPatchResponses, AgendasEventsSchemaData, AgendasEventsSchemaErrors, AgendasEventsSchemaResponses, AgendasEventsSetByExtIdData, AgendasEventsSetByExtIdErrors, AgendasEventsSetByExtIdResponses, AgendasEventsUpdateData, AgendasEventsUpdateErrors, AgendasEventsUpdateResponses, AgendasEventsValidateData, AgendasEventsValidateErrors, AgendasEventsValidateResponses, AgendasGetData, AgendasGetErrors, AgendasGetResponses, AgendasListData, AgendasListErrors, AgendasListResponses, AgendasLocationsCreateData, AgendasLocationsCreateErrors, AgendasLocationsCreateResponses, AgendasLocationsDeleteByExtIdData, AgendasLocationsDeleteByExtIdErrors, AgendasLocationsDeleteByExtIdResponses, AgendasLocationsDeleteData, AgendasLocationsDeleteErrors, AgendasLocationsDeleteResponses, AgendasLocationsGetByExtIdData, AgendasLocationsGetByExtIdErrors, AgendasLocationsGetByExtIdResponses, AgendasLocationsGetData, AgendasLocationsGetErrors, AgendasLocationsGetResponses, AgendasLocationsListData, AgendasLocationsListErrors, AgendasLocationsListResponses, AgendasLocationsPatchByExtIdData, AgendasLocationsPatchByExtIdErrors, AgendasLocationsPatchByExtIdResponses, AgendasLocationsPatchData, AgendasLocationsPatchErrors, AgendasLocationsPatchResponses, AgendasLocationsSetByExtIdData, AgendasLocationsSetByExtIdErrors, AgendasLocationsSetByExtIdResponses, AgendasLocationsSettingsData, AgendasLocationsSettingsErrors, AgendasLocationsSettingsResponses, AgendasLocationsUpdateData, AgendasLocationsUpdateErrors, AgendasLocationsUpdateResponses, AgendasLocationsValidateData, AgendasLocationsValidateErrors, AgendasLocationsValidateResponses, AgendasOverviewData, AgendasOverviewErrors, AgendasOverviewResponses, AgendasUploadsCreateData, AgendasUploadsCreateErrors, AgendasUploadsCreateResponses, AgendasUploadsCreateTicketData, AgendasUploadsCreateTicketErrors, AgendasUploadsCreateTicketResponses, GeocodingReverseData, GeocodingReverseErrors, GeocodingReverseResponses, GeocodingSearchData, GeocodingSearchErrors, GeocodingSearchResponses, KeysVerifyData, KeysVerifyErrors, KeysVerifyResponses, MeAgendasListData, MeAgendasListErrors, MeAgendasListResponses, UploadsStagedData, UploadsStagedErrors, UploadsStagedResponses } from './types.gen';
+import type { AgendasEventsCreateData, AgendasEventsCreateErrors, AgendasEventsCreateResponses, AgendasEventsDeleteByExtIdData, AgendasEventsDeleteByExtIdErrors, AgendasEventsDeleteByExtIdResponses, AgendasEventsDeleteData, AgendasEventsDeleteErrors, AgendasEventsDeleteResponses, AgendasEventsFacetsData, AgendasEventsFacetsErrors, AgendasEventsFacetsReportData, AgendasEventsFacetsReportErrors, AgendasEventsFacetsReportResponses, AgendasEventsFacetsResponses, AgendasEventsGetByExtIdData, AgendasEventsGetByExtIdErrors, AgendasEventsGetByExtIdResponses, AgendasEventsGetData, AgendasEventsGetErrors, AgendasEventsGetResponses, AgendasEventsListData, AgendasEventsListErrors, AgendasEventsListResponses, AgendasEventsPatchByExtIdData, AgendasEventsPatchByExtIdErrors, AgendasEventsPatchByExtIdResponses, AgendasEventsPatchData, AgendasEventsPatchErrors, AgendasEventsPatchResponses, AgendasEventsSchemaData, AgendasEventsSchemaErrors, AgendasEventsSchemaResponses, AgendasEventsSetByExtIdData, AgendasEventsSetByExtIdErrors, AgendasEventsSetByExtIdResponses, AgendasEventsUpdateData, AgendasEventsUpdateErrors, AgendasEventsUpdateResponses, AgendasEventsValidateData, AgendasEventsValidateErrors, AgendasEventsValidateResponses, AgendasGetData, AgendasGetErrors, AgendasGetResponses, AgendasListData, AgendasListErrors, AgendasListResponses, AgendasLocationsCreateData, AgendasLocationsCreateErrors, AgendasLocationsCreateResponses, AgendasLocationsDeleteByExtIdData, AgendasLocationsDeleteByExtIdErrors, AgendasLocationsDeleteByExtIdResponses, AgendasLocationsDeleteData, AgendasLocationsDeleteErrors, AgendasLocationsDeleteResponses, AgendasLocationsGetByExtIdData, AgendasLocationsGetByExtIdErrors, AgendasLocationsGetByExtIdResponses, AgendasLocationsGetData, AgendasLocationsGetErrors, AgendasLocationsGetResponses, AgendasLocationsListData, AgendasLocationsListErrors, AgendasLocationsListResponses, AgendasLocationsPatchByExtIdData, AgendasLocationsPatchByExtIdErrors, AgendasLocationsPatchByExtIdResponses, AgendasLocationsPatchData, AgendasLocationsPatchErrors, AgendasLocationsPatchResponses, AgendasLocationsSetByExtIdData, AgendasLocationsSetByExtIdErrors, AgendasLocationsSetByExtIdResponses, AgendasLocationsUpdateData, AgendasLocationsUpdateErrors, AgendasLocationsUpdateResponses, AgendasOverviewData, AgendasOverviewErrors, AgendasOverviewResponses, AgendasUploadsCreateData, AgendasUploadsCreateErrors, AgendasUploadsCreateResponses, AgendasUploadsCreateTicketData, AgendasUploadsCreateTicketErrors, AgendasUploadsCreateTicketResponses, KeysVerifyData, KeysVerifyErrors, KeysVerifyResponses, MeAgendasListData, MeAgendasListErrors, MeAgendasListResponses, UploadsStagedData, UploadsStagedErrors, UploadsStagedResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -426,44 +426,6 @@ export class Locations extends HeyApiClient {
     }
     
     /**
-     * Validate a location without creating it
-     *
-     * Checks the body as creating the location in this agenda would, the geocoding of its position included, without creating anything. A valid body answers `200 { "valid": true }`; an invalid one answers `422` with per-field problems under `error.errors[]`, and a caller who may not create gets `403`.
-     *
-     * The `image` file is not read. An `image: { url }` is checked for URL syntax only (an `http(s)` URL without embedded credentials); an `image: { ref }` is checked to name an image uploaded to this agenda, not an SVG, that is still there. A file that create refuses once it reads it passes validate.
-     *
-     */
-    public validate<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsValidateData, ThrowOnError>) {
-        return (options.client ?? this.client).post<AgendasLocationsValidateResponses, AgendasLocationsValidateErrors, ThrowOnError>({
-            security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
-            url: '/agendas/{agendaUid}/locations/validate',
-            ...options,
-            headers: {
-                'Content-Type': 'application/json',
-                ...options.headers
-            }
-        });
-    }
-    
-    /**
-     * Get the location writes an agenda allows
-     *
-     * Returns which location writes the agenda allows. A write it does not allow is refused with `403` to every caller, whatever their role. An agenda that shares a location set has the settings the set gives it.
-     *
-     */
-    public settings<ThrowOnError extends boolean = false>(options: Options<AgendasLocationsSettingsData, ThrowOnError>) {
-        return (options.client ?? this.client).get<AgendasLocationsSettingsResponses, AgendasLocationsSettingsErrors, ThrowOnError>({
-            security: [
-                { scheme: 'bearer', type: 'http' },
-                { scheme: 'bearer', type: 'http' },
-                { scheme: 'bearer', type: 'http' }
-            ],
-            url: '/agendas/{agendaUid}/locations/settings',
-            ...options
-        });
-    }
-    
-    /**
      * Delete a location by external id
      *
      * Deletes the location that carries the `(extKey, extId)` pair, among the locations of the agenda, or of its shared location set when it has one. The events located there keep it.
@@ -762,44 +724,6 @@ export class Keys extends HeyApiClient {
     }
 }
 
-export class Geocoding extends HeyApiClient {
-    /**
-     * Geocode an address
-     *
-     * Returns the place a location created with this address gets: what a location create fills in from the address and its country, under the labels it stores. The values the parameters give are kept in it, and a location created with the result's values keeps those that are not `null`. `data` is `null` when no place matches the address.
-     *
-     */
-    public search<ThrowOnError extends boolean = false>(options: Options<GeocodingSearchData, ThrowOnError>) {
-        return (options.client ?? this.client).get<GeocodingSearchResponses, GeocodingSearchErrors, ThrowOnError>({
-            security: [
-                { scheme: 'bearer', type: 'http' },
-                { scheme: 'bearer', type: 'http' },
-                { scheme: 'bearer', type: 'http' }
-            ],
-            url: '/geocoding/search',
-            ...options
-        });
-    }
-    
-    /**
-     * Name the place at a point
-     *
-     * Returns the place a location created at this point gets: what a location create fills in from the point, its address included, under the labels it stores. The values the parameters give are kept in it, and a location created with the result's values keeps those that are not `null`. `data` is `null` when no place is found at the point.
-     *
-     */
-    public reverse<ThrowOnError extends boolean = false>(options: Options<GeocodingReverseData, ThrowOnError>) {
-        return (options.client ?? this.client).get<GeocodingReverseResponses, GeocodingReverseErrors, ThrowOnError>({
-            security: [
-                { scheme: 'bearer', type: 'http' },
-                { scheme: 'bearer', type: 'http' },
-                { scheme: 'bearer', type: 'http' }
-            ],
-            url: '/geocoding/reverse',
-            ...options
-        });
-    }
-}
-
 export class OpenAgenda extends HeyApiClient {
     public static readonly __registry = new HeyApiRegistry<OpenAgenda>();
     
@@ -829,10 +753,5 @@ export class OpenAgenda extends HeyApiClient {
     private _keys?: Keys;
     get keys(): Keys {
         return this._keys ??= new Keys({ client: this.client });
-    }
-    
-    private _geocoding?: Geocoding;
-    get geocoding(): Geocoding {
-        return this._geocoding ??= new Geocoding({ client: this.client });
     }
 }

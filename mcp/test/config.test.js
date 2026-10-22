@@ -514,14 +514,13 @@ describe('loadConfig', () => {
       // appears here without a code change: this assertion is the canary that
       // the list moved (events:write arrived with the v3 event writes,
       // media:write with the uploads, locations:write with the location
-      // writes, geocoding:use with the geocoding).
+      // writes).
       expect(cfg.oauth.scopesSupported).toEqual([
         'openid',
         'offline_access',
         'agendas:read',
         'events:read',
         'events:write',
-        'geocoding:use',
         'locations:read',
         'locations:write',
         'me:read',

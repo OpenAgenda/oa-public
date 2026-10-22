@@ -21,29 +21,6 @@ export const zError = z.object({
 });
 
 /**
- * A place, as a location created there gets it.
- */
-export const zGeocodedPlace = z.object({
-    address: z.string(),
-    adminLevel1: z.string().nullable(),
-    adminLevel2: z.string().nullable(),
-    adminLevel3: z.string().nullable(),
-    adminLevel4: z.string().nullable(),
-    adminLevel5: z.string().nullable(),
-    adminLevel6: z.string().nullable(),
-    postalCode: z.string().nullable(),
-    insee: z.string().nullable(),
-    countryCode: z.string(),
-    latitude: z.number(),
-    longitude: z.number(),
-    timezone: z.string().nullable()
-});
-
-export const zGeocodingResult = z.object({
-    data: zGeocodedPlace.nullable()
-});
-
-/**
  * A key that does not authenticate, and why.
  */
 export const zInvalidKey = z.object({
@@ -120,14 +97,6 @@ export const zValidationError = z.object({
         code: z.enum(['validation_error', 'bad_request']),
         message: z.string(),
         errors: z.array(zValidationIssue).min(1)
-    })
-});
-
-export const zLocationSettings = z.object({
-    access: z.object({
-        create: z.boolean(),
-        update: z.boolean(),
-        delete: z.boolean()
     })
 });
 
@@ -1598,11 +1567,6 @@ export const zExtIdValue = z.string();
 export const zMergeExtIds = z.boolean().default(true);
 
 /**
- * Postal code of the place.
- */
-export const zGeocodingPostalCode = z.string();
-
-/**
  * Opaque pagination cursor returned in `pagination.after` of the previous page. Omit it to fetch the first page.
  *
  */
@@ -2516,26 +2480,6 @@ export const zAgendasLocationsCreatePath = z.object({
  */
 export const zAgendasLocationsCreateResponse = zLocation;
 
-export const zAgendasLocationsValidateBody = zLocationInput;
-
-export const zAgendasLocationsValidatePath = z.object({
-    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
-});
-
-/**
- * The body is valid.
- */
-export const zAgendasLocationsValidateResponse = zValidationVerdict;
-
-export const zAgendasLocationsSettingsPath = z.object({
-    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
-});
-
-/**
- * The agenda's location settings.
- */
-export const zAgendasLocationsSettingsResponse = zLocationSettings;
-
 export const zAgendasLocationsDeleteByExtIdPath = z.object({
     agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
     extKey: z.string(),
@@ -2644,26 +2588,3 @@ export const zKeysVerifyBody = z.object({
  * Whether the key authenticates, and what it is.
  */
 export const zKeysVerifyResponse = zKeyVerification;
-
-export const zGeocodingSearchQuery = z.object({
-    address: z.string(),
-    countryCode: z.string().regex(/^[A-Za-z]{2}$/),
-    postalCode: z.string().optional(),
-    insee: z.string().optional()
-});
-
-/**
- * The place, or `null` when none matches the address.
- */
-export const zGeocodingSearchResponse = zGeocodingResult;
-
-export const zGeocodingReverseQuery = z.object({
-    latitude: z.number().gte(-90).lte(90),
-    longitude: z.number().gte(-180).lte(180),
-    postalCode: z.string().optional()
-});
-
-/**
- * The place, or `null` when none is found at the point.
- */
-export const zGeocodingReverseResponse = zGeocodingResult;
