@@ -357,8 +357,8 @@ et `derelativize` (dates « today »).
   réponses. Câblage du `formSchema` public requis (tranche 4e).
 - **`sort` curé** : `timings(.asc/WithFeatured)`, `lastTiming(.asc/WithFeatured)`, `updatedAt.asc/desc`,
   `location.name.asc/desc`, `location.adminLevel4.asc/desc`, `score`. **Écartés** : les autres
-  niveaux administratifs et countryCode (traînent la logique `mapAdminLevelSwap` par pays) —
-  réintroductibles.
+  niveaux administratifs et countryCode, faute de besoin : event-search les trie déjà
+  (`validateQuery`), les exposer est additif.
 - **Texte/tri** : défaut `timingsWithFeatured.asc`, ou `score` (relevance) si `search` présent et pas
   de `sort` (comportement v2 conservé). `mlt`/`boost` droppés du public (recommandeur → futur endpoint
   `/events/{uid}/related`). `localTime` gardé (filtre v2 réel, inoffensif).
