@@ -728,7 +728,7 @@ export class Geocoding extends HeyApiClient {
     /**
      * Geocode an address
      *
-     * Returns the place a location created with this address gets: what a location create fills in from the address and its country, under the labels it stores. The values the parameters give are kept in it, and a location created with the result's values keeps them. `data` is `null` when no place matches the address.
+     * Returns the place a location created with this address gets: what a location create fills in from the address and its country, under the labels it stores. The values the parameters give are kept in it, and a location created with the result's values keeps those that are not `null`. `data` is `null` when no place matches the address.
      *
      */
     public search<ThrowOnError extends boolean = false>(options: Options<GeocodingSearchData, ThrowOnError>) {
@@ -746,7 +746,7 @@ export class Geocoding extends HeyApiClient {
     /**
      * Name the place at a point
      *
-     * Returns the place a location created at this point gets: what a location create fills in from the point, its address included, under the labels it stores. The values the parameters give are kept in it, and a location created with the result's values keeps them. `data` is `null` when no place is found at the point.
+     * Returns the place a location created at this point gets: what a location create fills in from the point, its address included, under the labels it stores. The values the parameters give are kept in it, and a location created with the result's values keeps those that are not `null`. `data` is `null` when no place is found at the point.
      *
      */
     public reverse<ThrowOnError extends boolean = false>(options: Options<GeocodingReverseData, ThrowOnError>) {
