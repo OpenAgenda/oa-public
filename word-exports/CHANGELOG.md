@@ -1,5 +1,14 @@
 # @openagenda/word-exports
 
+## 0.3.1
+
+### Patch Changes
+
+- Updated dependencies [[`a2079a5`](https://github.com/OpenAgenda/oa/commit/a2079a59f3e021837353c19bb28c1f82db55cb17)]:
+  - @openagenda/date-utils@0.1.0
+  - @openagenda/intl@2.2.0
+  - @openagenda/logs@1.3.0
+
 ## 0.3.0
 
 ### Minor Changes

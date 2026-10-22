@@ -1,5 +1,12 @@
 # @openagenda/mcp
 
+## 1.5.4
+
+### Patch Changes
+
+- Updated dependencies [[`a2079a5`](https://github.com/OpenAgenda/oa/commit/a2079a59f3e021837353c19bb28c1f82db55cb17)]:
+  - @openagenda/logs@1.3.0
+
 ## 1.5.3
 
 ### Patch Changes
