@@ -184,6 +184,26 @@ export type ValidationIssue = {
     input?: unknown;
 };
 
+export type LocationSettings = {
+    /**
+     * Whether the agenda allows each location write.
+     */
+    access: {
+        /**
+         * Creating a location, by external id too.
+         */
+        create: boolean;
+        /**
+         * Replacing or patching a location, by external id too.
+         */
+        update: boolean;
+        /**
+         * Deleting a location, by external id too.
+         */
+        delete: boolean;
+    };
+};
+
 /**
  * The verdict of a dry run, reached when validation found nothing to refuse.
  */
@@ -4547,6 +4567,91 @@ export type AgendasLocationsCreateResponses = {
 };
 
 export type AgendasLocationsCreateResponse = AgendasLocationsCreateResponses[keyof AgendasLocationsCreateResponses];
+
+export type AgendasLocationsValidateData = {
+    body: LocationInput;
+    path: {
+        /**
+         * Numeric uid of the agenda.
+         */
+        agendaUid: number;
+    };
+    query?: never;
+    url: '/agendas/{agendaUid}/locations/validate';
+};
+
+export type AgendasLocationsValidateErrors = {
+    /**
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
+     *
+     */
+    400: Error | ValidationError;
+    /**
+     * The request carries no credential this operation accepts.
+     */
+    401: Error;
+    /**
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     */
+    403: Error;
+    /**
+     * No resource answers this identifier.
+     */
+    404: Error;
+    /**
+     * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
+     */
+    422: ValidationError;
+};
+
+export type AgendasLocationsValidateError = AgendasLocationsValidateErrors[keyof AgendasLocationsValidateErrors];
+
+export type AgendasLocationsValidateResponses = {
+    /**
+     * The body is valid.
+     */
+    200: ValidationVerdict;
+};
+
+export type AgendasLocationsValidateResponse = AgendasLocationsValidateResponses[keyof AgendasLocationsValidateResponses];
+
+export type AgendasLocationsSettingsData = {
+    body?: never;
+    path: {
+        /**
+         * Numeric uid of the agenda.
+         */
+        agendaUid: number;
+    };
+    query?: never;
+    url: '/agendas/{agendaUid}/locations/settings';
+};
+
+export type AgendasLocationsSettingsErrors = {
+    /**
+     * The request carries no credential this operation accepts.
+     */
+    401: Error;
+    /**
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     */
+    403: Error;
+    /**
+     * No resource answers this identifier.
+     */
+    404: Error;
+};
+
+export type AgendasLocationsSettingsError = AgendasLocationsSettingsErrors[keyof AgendasLocationsSettingsErrors];
+
+export type AgendasLocationsSettingsResponses = {
+    /**
+     * The agenda's location settings.
+     */
+    200: LocationSettings;
+};
+
+export type AgendasLocationsSettingsResponse = AgendasLocationsSettingsResponses[keyof AgendasLocationsSettingsResponses];
 
 export type AgendasLocationsDeleteByExtIdData = {
     body?: never;

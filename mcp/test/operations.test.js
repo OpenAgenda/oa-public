@@ -259,6 +259,17 @@ describe('searchOperations', () => {
     expect(searchOperations(query)[0].id).toBe(id);
   });
 
+  // A location checked before it is written, and the writes an agenda allows,
+  // lead to their own operations rather than to the writes themselves.
+  it.each([
+    ['validate a location before creating it', 'agendas.locations.validate'],
+    ['check a venue before creating', 'agendas.locations.validate'],
+    ['location permissions of an agenda', 'agendas.locations.settings'],
+    ['location settings', 'agendas.locations.settings'],
+  ])('ranks the location query %p first on %s', (query, id) => {
+    expect(searchOperations(query)[0].id).toBe(id);
+  });
+
   // An address to check or to place, and a point to name, lead to the
   // geocoding, not to the location reads and writes that share their words.
   it.each([

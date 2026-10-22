@@ -1739,6 +1739,111 @@ paths:
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
 
+  /agendas/{agendaUid}/locations/validate:
+    post:
+      operationId: agendas.locations.validate
+      tags: [Locations]
+      summary: Validate a location without creating it
+      x-synonyms: [dry run, check, validate, preview, lint, venue, place]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Dry-run validate a location body before creating it
+          source: |
+            const { data, error } = await oa.agendas.locations.validate({
+              path: { agendaUid: 12345 },
+              body: {
+                name: 'Château des Lèbres',
+                address: 'Naves, 07140 Les Vans',
+                countryCode: 'FR',
+              },
+            });
+            if (error) throw error; // 422 with error.error.errors when invalid
+            return data.valid; // true
+      description: >
+        Checks the body as creating the location in this agenda would, the
+        geocoding of its position included, without creating anything. A
+        valid body answers `200 { "valid": true }`; an invalid one answers `422`
+        with per-field problems under `error.errors[]`, and a caller who may
+        not create gets `403`.
+
+
+        The `image` file is not read. An `image: { url }` is checked for URL
+        syntax only (an `http(s)` URL without embedded credentials); an
+        `image: { ref }` is checked to name an image uploaded to this agenda,
+        not an SVG, that is still there. A file that create refuses once it
+        reads it passes validate.
+      security:
+        - secretKey: []
+        - oauth2:
+            - locations:write
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationInput'
+      responses:
+        '200':
+          description: The body is valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationVerdict'
+              example:
+                valid: true
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+
+  /agendas/{agendaUid}/locations/settings:
+    get:
+      operationId: agendas.locations.settings
+      tags: [Locations]
+      summary: Get the location writes an agenda allows
+      x-synonyms: [permissions, rights, allowed, locked, read-only, policy]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Check whether the agenda allows creating locations
+          source: |
+            const { data, error } = await oa.agendas.locations.settings({
+              path: { agendaUid: 12345 },
+            });
+            if (error) throw error;
+            return data.access.create;
+      description: >
+        Returns which location writes the agenda allows. A write it does not
+        allow is refused with `403` to every caller, whatever their role. An
+        agenda that shares a location set has the settings the set gives it.
+      security:
+        - publicKey: []
+        - secretKey: []
+        - oauth2:
+            - locations:read
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+      responses:
+        '200':
+          description: The agenda's location settings.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationSettings'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
   /agendas/{agendaUid}/locations/ext/{extKey}/{extId}:
     get:
       operationId: agendas.locations.getByExtId
@@ -4001,6 +4106,32 @@ components:
             The value the validator refused, as the request carried it. A
             validator that reports a problem without recording the value omits
             this key.
+
+    LocationSettings:
+      type: object
+      required: [access]
+      additionalProperties: false
+      example:
+        access:
+          create: true
+          update: true
+          delete: false
+      properties:
+        access:
+          type: object
+          description: Whether the agenda allows each location write.
+          required: [create, update, delete]
+          additionalProperties: false
+          properties:
+            create:
+              type: boolean
+              description: Creating a location, by external id too.
+            update:
+              type: boolean
+              description: Replacing or patching a location, by external id too.
+            delete:
+              type: boolean
+              description: Deleting a location, by external id too.
 
     ValidationVerdict:
       type: object
