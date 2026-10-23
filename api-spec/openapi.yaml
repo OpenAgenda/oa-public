@@ -2741,7 +2741,8 @@ components:
         writes answers `403` (`read_only_credential`) and one that needs an
         identity answers `401` - or `403` (`insufficient_scope`) when the key
         carries its own scopes and they exclude the operation. A per-agenda key
-        reads the same way.
+        reads the same way, and reads its own agenda as its administrators do,
+        private or not.
     uploadTicketAuth:
       type: apiKey
       in: header
@@ -2757,7 +2758,10 @@ components:
       name: agendaUid
       in: path
       required: true
-      description: Numeric uid of the agenda.
+      description: >
+        Numeric uid of the agenda. A private agenda answers a caller identified
+        as one of its members, whatever their role, and its own per-agenda key;
+        to any other caller it answers `404`, as an unknown uid does.
       schema:
         type: integer
         format: int64
@@ -5962,7 +5966,9 @@ components:
           description: When the agenda was officialized, or `null` if it is not official.
         private:
           type: boolean
-          description: Whether the agenda is private (not publicly listed).
+          description: >
+            Whether the agenda is private: absent from public listings, and
+            reserved to its members and its per-agenda key.
         indexed:
           type: boolean
           description: Whether the agenda is indexed in public search.
