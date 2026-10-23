@@ -5966,9 +5966,7 @@ components:
           description: When the agenda was officialized, or `null` if it is not official.
         private:
           type: boolean
-          description: >
-            Whether the agenda is private: absent from public listings, and
-            reserved to its members and its per-agenda key.
+          description: Whether the agenda is private.
         indexed:
           type: boolean
           description: Whether the agenda is indexed in public search.
