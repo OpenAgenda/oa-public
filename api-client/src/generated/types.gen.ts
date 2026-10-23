@@ -1196,8 +1196,7 @@ export type Agenda = {
      */
     officializedAt: string | null;
     /**
-     * Whether the agenda is private: absent from public listings, and reserved to its members and its per-agenda key.
-     *
+     * Whether the agenda is private.
      */
     private: boolean;
     /**
@@ -2448,8 +2447,7 @@ export type AgendaWritable = {
      */
     officializedAt: string | null;
     /**
-     * Whether the agenda is private: absent from public listings, and reserved to its members and its per-agenda key.
-     *
+     * Whether the agenda is private.
      */
     private: boolean;
     /**
