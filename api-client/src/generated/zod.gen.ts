@@ -1581,8 +1581,7 @@ export const zEventListWritable = z.object({
 });
 
 /**
- * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
- *
+ * Numeric uid of the agenda.
  */
 export const zAgendaUid = z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' });
 

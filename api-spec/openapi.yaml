@@ -2743,8 +2743,7 @@ components:
         writes answers `403` (`read_only_credential`) and one that needs an
         identity answers `401` - or `403` (`insufficient_scope`) when the key
         carries its own scopes and they exclude the operation. A per-agenda key
-        reads the same way, and reads its own agenda as its administrators do,
-        private or not.
+        reads the same way.
     uploadTicketAuth:
       type: apiKey
       in: header
@@ -2760,10 +2759,7 @@ components:
       name: agendaUid
       in: path
       required: true
-      description: >
-        Numeric uid of the agenda. A private agenda answers a caller identified
-        as one of its members, whatever their role, and its own per-agenda key;
-        to any other caller it answers `404`, as an unknown uid does.
+      description: Numeric uid of the agenda.
       schema:
         type: integer
         format: int64
@@ -5273,15 +5269,10 @@ components:
             answers `422` `offers.disabled` otherwise. An event can thus be created
             with its inventory in a single call.
 
-            SERVED IN `timings[]` ONLY, and an earlier wording of this
-            paragraph promised more: `firstTiming` / `lastTiming` /
-            `nextTiming` copy the occurrence, and that copy used to carry the
-            rows. It carried them AS SYNCED — nothing resolves a compact copy,
-            and a compact listing does not even load the catalogue a sale
-            window would be read from. Serving them there contradicted the
-            rule stated above, that a row is served resolved or not at all, so
-            the copies no longer carry the field. Read `timings[]` for
-            inventory.
+            Served wherever a `Timing` is: `timings[]`, and also
+            `firstTiming` / `lastTiming` / `nextTiming`, which copy the
+            occurrence whole — so a compact listing carries the inventory of
+            its next date.
           items:
             $ref: '#/components/schemas/TimingAvailability'
 
@@ -5472,25 +5463,15 @@ components:
             a per-date detail panel, say — could attach no URL to any line.
             This is that attribution, and nothing more.
 
-            EVENT-LEVEL, and that is a property of THIS field — not a limit
-            of what OpenAgenda can hold, which is what an earlier wording of
-            this paragraph claimed. A per-(date, provider) booking URL is part
-            of the model and a connector can write one, through the **v2**
-            event API. This API neither returns nor accepts it: the value is
-            internal, `Timing` is `additionalProperties: false` here, and a
-            body carrying one is refused. WHICH refusal depends on the agenda:
-            ticketing is gated per agenda and that gate speaks first, so an
-            agenda without it answers `422` `offers.disabled` for the whole
-            write, and only one that has it reaches the strict schema check and
-            its `422` `schema.unknown`. Same split as the availability
-            endpoint, for which this document likewise declares no path.
-
-            An availability row cannot carry one either (`TimingAvailability`
-            is `additionalProperties: false`). So read `links` as "where this
-            source sells this event", never "where this source sells this
-            date" — even though a per-date link is constructible for some
-            services, Mapado's booking site taking an `eventDate` parameter
-            whose id is what a row's `sourceRef` is meant to carry.
+            EVENT-LEVEL, NEVER PER DATE — a limit of what OpenAgenda stores
+            and serves, not a claim about what ticketing services can do. An
+            availability row cannot carry a URL (`TimingAvailability` is
+            `additionalProperties: false`), and the only URL held for a source
+            is the event-level one its connector wrote. A per-date link is
+            constructible for at least some services — Mapado's booking site
+            takes an `eventDate` parameter whose id is what a row's `sourceRef`
+            is meant to carry — but building one per service belongs with the
+            connectors, not here.
           items:
             $ref: '#/components/schemas/OffersLink'
 
@@ -5987,7 +5968,7 @@ components:
           description: When the agenda was officialized, or `null` if it is not official.
         private:
           type: boolean
-          description: Whether the agenda is private.
+          description: Whether the agenda is private (not publicly listed).
         indexed:
           type: boolean
           description: Whether the agenda is indexed in public search.

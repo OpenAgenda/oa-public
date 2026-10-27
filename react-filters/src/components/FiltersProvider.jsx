@@ -7,7 +7,6 @@ import React, {
   useRef,
 } from 'react';
 import isEqualWith from 'lodash/isEqualWith.js';
-import omitBy from 'lodash/omitBy.js';
 import { Form, FormSpy } from 'react-final-form';
 import useConstant from '@openagenda/react-shared/hooks/useConstant';
 import { createForm } from 'final-form';
@@ -40,12 +39,6 @@ function sameValues(a, b) {
     return [...x].sort(byJSON).every((v, i) => sameValues(v, sortedY[i]));
   });
 }
-
-// A cleared text field holds undefined, its initial value can be ''
-function withoutEmpty(values) {
-  return omitBy(values, (v) => v === undefined || v === '');
-}
-
 const spySubscription = { dirty: true, values: true };
 
 const FiltersForm = React.forwardRef(
@@ -103,10 +96,7 @@ const FiltersForm = React.forwardRef(
         if (manualSubmit) {
           const applied = submittedValuesRef.current ?? form.getState().initialValues ?? {};
 
-          setPending(
-            !sameValues(withoutEmpty(values), withoutEmpty(applied)),
-            values,
-          );
+          setPending(!sameValues(values, applied), values);
           return;
         }
         if (dirty) {
