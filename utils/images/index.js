@@ -7,6 +7,7 @@ export {
   responsiveImageFromServed,
   imageRefFromSource,
   imageRefFromServed,
+  storedImageRef,
   imageServingOptions,
   DEFAULT_WIDTHS,
   DEFAULT_SRC_WIDTH,

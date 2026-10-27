@@ -137,7 +137,7 @@
 @media print {
   body:has(.agenda-stats) {
     .oa-page-header,
-    .agenda-admin .row.header {
+    .oa-admin-top {
       display: none !important;
     }
 

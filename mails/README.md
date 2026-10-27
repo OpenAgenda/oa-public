@@ -201,14 +201,15 @@ await mails({
 
 **_Options_**
 
-| Value    | Required | Description                                                                                                                         |
-| -------- | :------: | ----------------------------------------------------------------------------------------------------------------------------------- |
-| template |          | A string that is the name of the template, is equal to the folder name.                                                             |
-| data     |          | An object that contains the data to passed to the template, this can be overloaded for each recipient.                              |
-| lang     |          | A string that defines the default language that will be applied to all recipients without lang.                                     |
-| to       |    \*    | A recipient or array of recipients.                                                                                                 |
-| queue    |          | A Boolean, if false do not queue job and execute directly.                                                                          |
-| **...**  |          | **All other nodemailer options are normally handled by nodemailer, see the other options [here](https://nodemailer.com/message/).** |
+| Value      | Required | Description                                                                                                                                      |
+| ---------- | :------: | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| template   |          | A string that is the name of the template, is equal to the folder name.                                                                          |
+| data       |          | An object that contains the data to passed to the template, this can be overloaded for each recipient.                                           |
+| lang       |          | A string that defines the default language that will be applied to all recipients without lang.                                                  |
+| to         |    \*    | A recipient or array of recipients.                                                                                                              |
+| queue      |          | A Boolean, if false do not queue job and execute directly.                                                                                       |
+| jobOptions |          | An object of BullMQ job options for the enqueued send (`delay`, `priority`, `jobId`…). Never part of the message, ignored when `queue` is false. |
+| **...**    |          | **All other nodemailer options are normally handled by nodemailer, see the other options [here](https://nodemailer.com/message/).**              |
 
 **_Error handling_**  
 `sendMail` does not throw an error in case of problem, it returns an object `{ results, errors }`.  

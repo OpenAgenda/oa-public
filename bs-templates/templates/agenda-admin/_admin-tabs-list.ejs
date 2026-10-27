@@ -1,28 +1,21 @@
 <% if( typeof selectedTab === 'undefined' ) selectedTab = 'events'  %>
 
-<ul class="list-unstyled">
-  <li>
-    <h2>Manage</h2>
-  </li>
-  <li class="menu-item <%= selectedTab === 'events' ? 'selected' : '' %>">
-    Evénements
-    <a href="#" class="badge badge-primary">nouveau</a>
-  </li>
-  <li class="menu-item">Contributeurs</li>
-  <li class="menu-item <%= selectedTab === 'inbox' ? 'selected' : '' %>">
-    Messagerie</li>
-</ul>
-<ul class="list-unstyled">
-  <li>
-    <h2>Export</h2>
-  </li>
-  <li class="menu-item disabled">Facebook</li>
-  <li class="menu-item">Web Integration</li>
-</ul>
-<ul class="list-unstyled">
-  <li>
-    <h2>Customize</h2>
-    <li class="menu-item">Administrators</li>
-    <li class="menu-item">Settings</li>
-  </li>
-</ul>
+<nav class="oa-admin-nav" aria-label="Administration">
+  <ul class="oa-admin-menu list-unstyled">
+    <li class="menu-item <%= selectedTab === 'events' ? 'selected' : '' %>">
+      <a href="#">Événements</a>
+    </li>
+    <li class="menu-item"><a href="#">Membres</a></li>
+    <li class="menu-item">
+      <a href="#">Lieux</a>
+      <span class="badge badge-warning">12</span>
+    </li>
+    <li class="menu-item <%= selectedTab === 'inbox' ? 'selected' : '' %>">
+      <a href="#">Messagerie</a>
+    </li>
+    <li class="menu-item"><a href="#">Historique</a></li>
+  </ul>
+  <div class="oa-admin-menu-footer">
+    <a class="btn btn-default" href="#"><i class="fa fa-gear" aria-hidden="true"></i>Paramètres</a>
+  </div>
+</nav>
