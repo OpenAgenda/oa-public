@@ -137,7 +137,8 @@ paths:
         Returns a cursor-paginated list of agendas. Pass the `after`
         cursor returned in `pagination.after` to fetch the next page,
         with the same filters. Private agendas and agendas not indexed in
-        public search are absent from this list.
+        public search are absent from this list. With an API key limited to
+        a list of agendas, only those agendas appear, whatever the filters.
 
 
         Unknown or malformed filter values answer `400`, with per-field
@@ -3010,8 +3011,8 @@ components:
                 insufficient_scope: >-
                   403 - the credential lacks the scope this operation declares
                 agenda_not_granted: >-
-                  403 - the API key is limited to a list of agendas that does
-                  not include this one
+                  403 - the API key is limited to a list of agendas, and this
+                  operation reaches outside it
                 forbidden: 403 - any other refusal of an authenticated caller
             message:
               type: string

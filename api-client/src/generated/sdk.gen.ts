@@ -442,7 +442,7 @@ export class Agendas extends HeyApiClient {
     /**
      * List agendas
      *
-     * Returns a cursor-paginated list of agendas. Pass the `after` cursor returned in `pagination.after` to fetch the next page, with the same filters. Private agendas and agendas not indexed in public search are absent from this list.
+     * Returns a cursor-paginated list of agendas. Pass the `after` cursor returned in `pagination.after` to fetch the next page, with the same filters. Private agendas and agendas not indexed in public search are absent from this list. With an API key limited to a list of agendas, only those agendas appear, whatever the filters.
      *
      * Unknown or malformed filter values answer `400`, with per-field context under `error.errors`. An unrecognized top-level query parameter is ignored.
      *
