@@ -1,5 +1,85 @@
 # @openagenda/api-spec
 
+## 0.8.0
+
+### Minor Changes
+
+- [#621](https://github.com/OpenAgenda/oa/pull/621) [`ad72273`](https://github.com/OpenAgenda/oa/commit/ad72273b8d22719519dbcbbf756c0ed754fe4fa4) Thanks [@bertho-zero](https://github.com/bertho-zero)! - The administrative levels of a location are named `adminLevel1` to `adminLevel6` everywhere: `Location`, `LocationInput`, `LocationPatch` and `EventLocation`, the event filters, the facets and the sort. Each level says where it sits among the others and what it is in France; what a level is depends on the country.
+
+  Breaking for pre-1.0 consumers: `region`, `department`, `city` and `district` become `adminLevel1`, `adminLevel2`, `adminLevel4` and `adminLevel6`, as fields and as filters; the facets `regions`, `departments`, `cities` and `districts` become `adminLevel1`, `adminLevel2`, `adminLevel4` and `adminLevel6`, joined by `adminLevel3` and `adminLevel5`; the sort `location.city.asc`/`.desc` becomes `location.adminLevel4.asc`/`.desc`.
+
+  On a location create, the geocoded values the body gives are documented as kept.
+
+- [#550](https://github.com/OpenAgenda/oa/pull/550) [`0ba0646`](https://github.com/OpenAgenda/oa/commit/0ba06465b3d8f2464ef16a51a50d07d14ead91d3) Thanks [@clement180](https://github.com/clement180)! - Declare `availabilityAuthority`, the ticketing sources a write owns.
+
+  Until now an ordinary event write could not change, add or clear the inventory of
+  an occurrence the event already has: whatever it sent for one was dropped before
+  validation. Not a restriction for its own sake — such a payload could not be told
+  apart from the inventory it merely transports, since a connector may write between
+  the moment a client reads an event and the moment its save arrives, so a row
+  absent from that save may be one the client never saw rather than one it means to
+  drop.
+
+  The write now says which sources it speaks for. For a provider it names, the
+  payload is law: a row present is written, a row absent is a removal. For a
+  provider it does not name, nothing changes — which is what keeps a connector from
+  wiping the source a peer has just pushed and does not know about, and for an
+  occurrence sent with its stored `id` those rows are dropped before the body is
+  judged, so a connector may send a peer's row back exactly as it read it without
+  being critiqued on it. An `availability` that is not an array is still refused:
+  it carries nothing, so it is a malformed body rather than transport. The
+  ambiguity goes away by construction rather than by heuristic: the missing
+  information, what the caller claims to own, is finally in the request.
+
+  An empty array — and `null` — claims nothing and behaves exactly like omitting the
+  field, so a client may compute the value unconditionally, including on an agenda
+  without ticketing. A name outside the seven, or the same name twice, is refused
+  rather than ignored; so is an array longer than the list of providers, with one
+  refusal for the array rather than one per entry.
+
+  It governs only the `timings` the body sends: a body without them declares a scope
+  over nothing. On a partial update the server refills the occurrences it was not
+  sent from the stored event, and honouring those would let a write replay a snapshot
+  taken when the request arrived over what the availability endpoint published since.
+
+  Declared PER EVENT, not per date. Being authoritative on a provider for some
+  occurrences only is not a need anyone has, and guessing at it would cost a shape
+  nobody asked for.
+
+  Not a new model, the same one through another door: the availability endpoint
+  takes a map keyed by provider and `null` removes, so its scope is implicit in its
+  keys; this names the scope beside a complete array. The two remain complementary,
+  because this settles the contract question and not the one of scale — the
+  availability endpoint is still where large batches, frequent ticks and events too
+  old to pass the full event validation belong.
+
+  `TicketingProvider` is now a named schema, referenced by this field and by
+  `TimingAvailability.provider`, which spelled the same seven values inline.
+
+- [#585](https://github.com/OpenAgenda/oa/pull/585) [`10d06be`](https://github.com/OpenAgenda/oa/commit/10d06bec667bbf3367296588e0244acfbdd79b6b) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `agendas.events.patchByExtId` answers `404` when no event carries the pair, instead of creating one, and drops its `201` response. The by-ext event writes merge the body's `extIds` with the pair and refuse a mapping that contradicts it with `422`. The event writes refuse `extIds` that are not a list, `null` included, with `422`. `agendas.events.patch` honours `mergeExtIds`, and the `MergeExtIds` parameter states the rule of every by-uid write: an empty array merged adds nothing (a `PATCH` with `extIds: []` no longer clears them), and a body without `extIds` keeps them (a `PUT` without them no longer clears them). `EventPatch.title` no longer describes a creation.
+
+- [#570](https://github.com/OpenAgenda/oa/pull/570) [`e01d660`](https://github.com/OpenAgenda/oa/commit/e01d660bf89c0f913b352fb026e8f64789e40aff) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `deleted` on an event's location, always present: whether the location has been deleted. `EventLocationRef` describes what a write naming a location gets: a merged location stands for the location that replaced it, and a location that does not exist, or has been deleted, is refused with a 422 on `location.uid` - a deleted one is accepted when it is the one the event already has.
+
+- [#573](https://github.com/OpenAgenda/oa/pull/573) [`2a4072f`](https://github.com/OpenAgenda/oa/commit/2a4072f7d29ea5dd98491cc5a39eba341003f99c) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `Event` and `EventLocation` drop `country`, the localized label of the location's country: the location carries its country as `countryCode`, an ISO 3166-1 alpha-2 code, as `Location` does.
+
+- [#626](https://github.com/OpenAgenda/oa/pull/626) [`697170c`](https://github.com/OpenAgenda/oa/commit/697170cb556d5f880ff0cb868a454d47b56f3adf) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Geocoding: `geocoding.search` (`GET /geocoding/search`) answers the place a location created with an address and its country gets, and `geocoding.reverse` (`GET /geocoding/reverse`) the place a location created at a point gets, its address included. Both answer `{ data }`, a `GeocodedPlace` or `null` when no place is found, keep the values their parameters give, and answer `503` when the geocoder is unavailable. A location created with a result's values keeps those that are not `null`. Under the `geocoding:use` scope, with a public or a secret key.
+
+- [#586](https://github.com/OpenAgenda/oa/pull/586) [`b6316cc`](https://github.com/OpenAgenda/oa/commit/b6316ccac711dcf1a1e8efe1a16f85a8c67da9a4) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `LocationInput` and `LocationPatch` take `image` (an `ImageInput`: a staged upload `ref`, a public `url`, or `null` to remove it), `imageCredits` and `imageRightsAreHeld`, which the read `Location` carries too and reads as `null` when the location has no image. A replacing write whose body leaves `image` out removes the image, its credits and its rights. The read `Image` carries a `ref`; a write that sends it back as `image: { ref }` keeps the image as it is, and any other reference that is not a staged upload is refused with `422`. The upload operations stage the image of any write, not only an event's, and `ImageInput` states its `422` for an object carrying both `ref` and `url` or another key. A write that gives a location a new image without `imageCredits` or `imageRightsAreHeld` clears them.
+
+- [#632](https://github.com/OpenAgenda/oa/pull/632) [`3765b84`](https://github.com/OpenAgenda/oa/commit/3765b84bdfc2ddd7ebedc3793ff93791c29ce8db) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `agendas.locations.validate` (`POST /agendas/{agendaUid}/locations/validate`) checks a location body as creating it would, the geocoding of its position included, without creating anything: `200 { "valid": true }`, `422` or `403`. The `image` file is not read. `agendas.locations.settings` (`GET /agendas/{agendaUid}/locations/settings`) answers `LocationSettings`, which location writes the agenda allows: one it does not allow is refused with `403` to every caller.
+
+- [#582](https://github.com/OpenAgenda/oa/pull/582) [`f99ffb5`](https://github.com/OpenAgenda/oa/commit/f99ffb5e8af00a6898d93e5bc391da3baf59eb56) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Location writes by external id: `agendas.locations.setByExtId` (replaces the location carrying the pair or creates it), `patchByExtId` and `deleteByExtId`, under the `locations:write` scope. `agendas.locations.getByExtId` trades its `sync` synonym for `retrieve` and `fetch`, so a search for syncing a location leads to `setByExtId`. The geocoding sentence of `agendas.locations.update` names what it looks up again. `agendas.locations.patch` takes `mergeExtIds`, as `update` does. `getByExtId`, `setByExtId`, `patchByExtId` and `deleteByExtId` refuse a pair whose `extKey` or `extId` contains `->` with `400`, as does the `extId` filter of `agendas.locations.list`, and `deleteByExtId` leaves the events located there.
+
+- [#576](https://github.com/OpenAgenda/oa/pull/576) [`5d34165`](https://github.com/OpenAgenda/oa/commit/5d34165403ee03f60ab96e67b0cb69668bc8c611) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Location writes: `agendas.locations.create`, `update` (a replace, which keeps the `extIds` and `verified` its body leaves out), `patch` and `delete` (which leaves the events located there), under the `locations:write` scope, with the `LocationInput` and `LocationPatch` bodies. The `mergeExtIds` parameter reads the same on every operation that takes it; what an event `PATCH` does with `extIds` is said on that operation. A location ext id whose key or value contains `->` is refused with `422`. Next to a new address, country code or coordinates, what the geocoding fills in that the body leaves out or sends back unchanged follows the new place, on a replace as on a patch; a patch is geocoded at the point when it changes a coordinate, at the address otherwise.
+
+### Patch Changes
+
+- [#578](https://github.com/OpenAgenda/oa/pull/578) [`11785bf`](https://github.com/OpenAgenda/oa/commit/11785bfd709b2c0fb1406f966f8bd94c43e8280e) Thanks [@bertho-zero](https://github.com/bertho-zero)! - An event write body carrying a key it does not take (an unknown or read-only top-level key, an `additionalFields` name that collides with a native field, an `image` with both `ref` and `url` or any other key) is documented as refused with `422`, the status the server answers; the texts said `400`.
+
+- [#633](https://github.com/OpenAgenda/oa/pull/633) [`6992828`](https://github.com/OpenAgenda/oa/commit/6992828aa9bdc6cc11fc15bb7c51e2d0ba5b7124) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `agendas.events.validate` says it checks the body as creating the event would, and that a URL create refuses once it fetches it passes, without listing either; its code sample reads the refused values at `error.error.errors`, where the client puts them.
+
+- [#608](https://github.com/OpenAgenda/oa/pull/608) [`379be71`](https://github.com/OpenAgenda/oa/commit/379be710dba97269d41c7d638eaf1efab544201a) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Writing descriptions: a text says what the caller acts on, not every branch of the code.
+
 ## 0.7.0
 
 ### Minor Changes

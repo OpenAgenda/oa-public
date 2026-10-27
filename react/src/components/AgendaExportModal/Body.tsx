@@ -11,6 +11,7 @@ import {
   Radio,
 } from '@openagenda/uikit/snippets';
 import isUpcomingOnlyQuery from '../../utils/isUpcomingOnlyQuery';
+import withDefaultCorpus from '../../utils/withDefaultCorpus';
 import ModalLoadingBody from '../ModalLoadingBody';
 import type { Agenda, EventQuery, ExportSettings } from '../../types';
 import SpreadsheetAccordionItem from './SpreadsheetAccordionItem';
@@ -48,27 +49,36 @@ function completeUrls(
   rootUrl = 'https://openagenda.com',
   apiRootUrl = 'https://api.openagenda.com',
 ): CompleteUrlsResult {
-  const apiQueryFor = (upcomingOnly: boolean) => ({
+  const apiQueryFor = (q: EventQuery, upcomingOnly: boolean) => ({
     ...upcomingOnly
       ? {
         relative: ['current', 'upcoming'],
       }
       : null,
-    ...query,
+    ...q,
     passed: undefined, // omit passed
   });
 
   // A one-off file holds what the listing shows: an agenda whose events are
-  // all past exports them. A feed — a calendar subscription, the RSS, the
-  // JSON an integrator polls — keeps the default upcoming window: its URL
-  // outlives the agenda's current state, and must bring the upcoming events
-  // back once the agenda has some again.
-  const apiQuery = apiQueryFor(isUpcomingOnlyQuery(query, agenda));
-  const feedQuery = apiQueryFor(isUpcomingOnlyQuery(query));
+  // all past exports them, a fully archived one its archives. A feed — a
+  // calendar subscription, the RSS, the JSON an integrator polls — and the
+  // embed keep the defaults: their URL outlives the agenda's current state,
+  // and must bring the upcoming events back once the agenda has some again.
+  // Both read the reader's own corpus, its spelling normalised (`?archived=
+  // true` is the archives, never their upcoming window).
+  const fileQuery = withDefaultCorpus(query, agenda);
+  const readerQuery = withDefaultCorpus(query);
+  const apiQuery = apiQueryFor(
+    fileQuery,
+    isUpcomingOnlyQuery(fileQuery, agenda),
+  );
+  const feedQuery = apiQueryFor(readerQuery, isUpcomingOnlyQuery(readerQuery));
 
   const apiQueryString = qs.stringify(apiQuery, { addQueryPrefix: true });
   const feedQueryString = qs.stringify(feedQuery, { addQueryPrefix: true });
-  const embedQueryString = qs.stringify(query, { addQueryPrefix: true });
+  const embedQueryString = qs.stringify(readerQuery, {
+    addQueryPrefix: true,
+  });
   const countQueryString = qs.stringify(
     { ...apiQuery, size: 0 },
     { addQueryPrefix: true },
@@ -124,7 +134,9 @@ export default function Body({
   const [mode, setMode] = useState<'all' | 'selection'>('selection');
   const res = useMemo(() => {
     // "All" is every event of the corpus on screen: from the archives view,
-    // every archived event.
+    // every archived event. The reader's `archived` as written, `0` included:
+    // `completeUrls` reads its spelling, and derives a fully archived
+    // agenda's default for the files only.
     const usedQuery: EventQuery = mode === 'all'
       ? {
         relative: ['passed', 'current', 'upcoming'],

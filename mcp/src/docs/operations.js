@@ -121,7 +121,7 @@ export function enumSchemaOf(schema, seen = new Set()) {
   if (schema.$ref) return enumSchemaOf(resolveRef(schema.$ref), seen);
   if (schema.enum) return schema;
   if (schema.items) return enumSchemaOf(schema.items, seen);
-  // A map's values carry the enum (`facetSorts[cities]=alpha`): the card names
+  // A map's values carry the enum (`facetSorts[adminLevel4]=alpha`): the card names
   // the map `Record<string, string>`, so the values it accepts have nowhere
   // else to appear.
   if (
@@ -1009,8 +1009,8 @@ export function searchOperations(query) {
   // already holds the ranking that named it, so the answer is that one card and
   // the components it uses - not two neighbouring cards, their components and
   // the tail again.
-  const named = OPERATIONS.find((op) => op.id === q);
-  if (named) return [named];
+  const exact = OPERATIONS.find((op) => op.id === q);
+  if (exact) return [exact];
   const results = miniSearch.search(q);
   if (!results.length) return [];
   const byId = new Map(OPERATIONS.map((op) => [op.id, op]));
@@ -1263,8 +1263,8 @@ function renderRich(op) {
   if (plain.length) {
     lines.push(
       '',
-      // With its type: a bare name does not say that `region` takes a LIST,
-      // and the generated client types it as one. The server's query gate
+      // With its type: a bare name does not say that `adminLevel1` takes a
+      // LIST, and the generated client types it as one. The server's query gate
       // wraps a scalar (`asList`), so writing one is not punished - the caller
       // simply has no way to know the shape the SDK expects.
       `Other optional parameters: ${plain
@@ -1411,9 +1411,11 @@ function renderValidatorsFooter(types, hits) {
   if (!available.length) return '';
   const root = hits[0].response?.root;
   const sample = root && types.has(root) ? `z${root}` : available[0];
-  return 'Validators: a `schemas` namespace of zod validators is available in `execute` '
+  return (
+    'Validators: a `schemas` namespace of zod validators is available in `execute` '
     + `to parse payloads (e.g. \`schemas.${sample}.parse(data)\`). For the types above: `
-    + `${available.join(', ')}.`;
+    + `${available.join(', ')}.`
+  );
 }
 
 // The SDK frame, rendered FIRST so it sets the lens for everything below: the

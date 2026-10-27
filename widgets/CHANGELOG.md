@@ -1,5 +1,20 @@
 # @openagenda/widgets
 
+## 0.2.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @openagenda/react@0.4.3
+  - @openagenda/react-filters@3.2.1
+
+## 0.2.4
+
+### Patch Changes
+
+- Updated dependencies [[`5305611`](https://github.com/OpenAgenda/oa/commit/5305611220bd83b258613920c859aff7512bdb7f), [`ddf9f44`](https://github.com/OpenAgenda/oa/commit/ddf9f44e4e8fb7db96ab0812cff642f2ac4849df)]:
+  - @openagenda/react@0.4.2
+
 ## 0.2.3
 
 ### Patch Changes

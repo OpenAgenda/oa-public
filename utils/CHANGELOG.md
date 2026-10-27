@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.3.0
+
+### Minor Changes
+
+- [#586](https://github.com/OpenAgenda/oa/pull/586) [`c692191`](https://github.com/OpenAgenda/oa/commit/c692191fc8b981d76f2b30bf9ac42e83b685a3a0) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `storedImageRef` names a stored image by the last segment of the name its image field holds, without the query, from an event descriptor or an agenda or location string, prefixed or not.
+
 ## 2.2.0
 
 ### Minor Changes

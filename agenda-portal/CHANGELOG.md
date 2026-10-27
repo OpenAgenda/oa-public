@@ -1,5 +1,20 @@
 # Change Log
 
+## 7.0.3
+
+### Patch Changes
+
+- Updated dependencies [[`a2079a5`](https://github.com/OpenAgenda/oa/commit/a2079a59f3e021837353c19bb28c1f82db55cb17)]:
+  - @openagenda/babel-preset@2.1.0
+  - @openagenda/browserslist-config@2.1.0
+  - @openagenda/intl@2.2.0
+  - @openagenda/logs@1.3.0
+  - @openagenda/md@2.1.0
+  - @openagenda/polyfills@1.3.0
+  - @openagenda/react-portal-ssr@1.3.0
+  - @openagenda/react-shared@3.2.2
+  - @openagenda/react-filters@3.2.1
+
 ## 7.0.2
 
 ### Patch Changes
