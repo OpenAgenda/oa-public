@@ -22,29 +22,6 @@ export const zError = z.object({
 });
 
 /**
- * A place, as a location created there gets it.
- */
-export const zGeocodedPlace = z.object({
-    address: z.string(),
-    adminLevel1: z.string().nullable(),
-    adminLevel2: z.string().nullable(),
-    adminLevel3: z.string().nullable(),
-    adminLevel4: z.string().nullable(),
-    adminLevel5: z.string().nullable(),
-    adminLevel6: z.string().nullable(),
-    postalCode: z.string().nullable(),
-    insee: z.string().nullable(),
-    countryCode: z.string(),
-    latitude: z.number(),
-    longitude: z.number(),
-    timezone: z.string().nullable()
-});
-
-export const zGeocodingResult = z.object({
-    data: zGeocodedPlace.nullable()
-});
-
-/**
  * A key that does not authenticate, and why.
  */
 export const zInvalidKey = z.object({
@@ -125,14 +102,6 @@ export const zValidationError = z.object({
     })
 });
 
-export const zLocationSettings = z.object({
-    access: z.object({
-        create: z.boolean(),
-        update: z.boolean(),
-        delete: z.boolean()
-    })
-});
-
 /**
  * The verdict of a dry run, reached when validation found nothing to refuse.
  */
@@ -184,29 +153,29 @@ export const zImage = z.object({
     srcset: z.array(z.object({
         width: z.number().int().optional(),
         url: z.string().url().optional()
-    })),
-    ref: z.string().nullable()
+    }))
 });
 
 /**
- * The location snapshot an event carries.
+ * The location snapshot an event carries - a nullable subset of the `Location` record. The canonical, full record is the `Location` resource (`GET /agendas/{agendaUid}/locations/{locationUid}`, same `uid`).
+ *
  */
 export const zEventLocation = z.object({
     uid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }).readonly().optional(),
     name: z.string().nullish(),
     address: z.string().nullish(),
-    adminLevel1: z.string().nullish(),
-    adminLevel2: z.string().nullish(),
-    adminLevel3: z.string().nullish(),
-    adminLevel4: z.string().nullish(),
-    adminLevel5: z.string().nullish(),
-    adminLevel6: z.string().nullish(),
+    city: z.string().nullish(),
+    region: z.string().nullish(),
     postalCode: z.string().nullish(),
     countryCode: z.string().nullish(),
     latitude: z.number().nullish(),
     longitude: z.number().nullish(),
-    timezone: z.string().nullish(),
-    deleted: z.boolean().readonly()
+    district: z.string().nullish(),
+    department: z.string().nullish(),
+    adminLevel3: z.string().nullish(),
+    adminLevel5: z.string().nullish(),
+    country: zLocalizedString.nullish(),
+    timezone: z.string().nullish()
 });
 
 /**
@@ -223,7 +192,7 @@ export const zLocationSummary = z.object({
 });
 
 /**
- * An external identifier mapping this location to a third-party system. A mapping whose key or value contains `->` is refused with `422`.
+ * An external identifier mapping this location to a third-party system.
  *
  */
 export const zLocationExtId = z.object({
@@ -246,7 +215,7 @@ export const zLocationAdditionalFields = z.object({
 });
 
 /**
- * Full location representation returned by the single-get endpoint and by the list when `detailed=true`.
+ * Full location representation returned by the single-get endpoint and by the list when `detailed=true` — the canonical record (the events' embedded `EventLocation` is a nullable snapshot of it).
  *
  */
 export const zLocation = z.object({
@@ -255,12 +224,12 @@ export const zLocation = z.object({
     setUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }).readonly().nullable(),
     name: z.string(),
     address: z.string().nullable(),
-    adminLevel1: z.string().nullable(),
-    adminLevel2: z.string().nullable(),
+    city: z.string().nullable(),
+    district: z.string().nullable(),
+    region: z.string().nullable(),
+    department: z.string().nullable(),
     adminLevel3: z.string().nullable(),
-    adminLevel4: z.string().nullable(),
     adminLevel5: z.string().nullable(),
-    adminLevel6: z.string().nullable(),
     postalCode: z.string().nullable(),
     insee: z.string().nullable(),
     countryCode: z.string().nullable(),
@@ -271,7 +240,6 @@ export const zLocation = z.object({
     access: zLocalizedString,
     image: zImage.nullable(),
     imageCredits: z.string().nullable(),
-    imageRightsAreHeld: z.boolean().nullable(),
     website: z.string().nullable(),
     email: z.string().nullable(),
     phone: z.string().nullable(),
@@ -375,48 +343,19 @@ export const zMeAgendaItem = z.object({
 });
 
 /**
- * A group of agendas.
- */
-export const zNetwork = z.object({
-    uid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
-    title: z.string().nullable()
-});
-
-export const zNetworkList = z.object({
-    data: z.array(zNetwork),
-    pagination: zPagination
-});
-
-/**
- * A ticketing source OpenAgenda knows. `passculture` is the published spelling here; the `registration` service of the same name is spelled `passCulture` — two fields, two namespaces.
- *
- */
-export const zTicketingProvider = z.enum([
-    'billetweb',
-    'eventbrite',
-    'helloasso',
-    'mapado',
-    'weezevent',
-    'passculture',
-    'manual'
-]);
-
-/**
- * What one ticketing provider says about one occurrence. THIS SCHEMA IS READ AND WRITTEN, and `status` does not mean the same thing in the two directions.
- *
- * WHAT YOU SEND is the provider's RAW word as of `syncedAt`. Do not apply the sale window to it yourself: send `available` with its bounds and let every read derive the window half from them. A connector that pre-resolves its own window stores a value that is already stale the moment the window moves, and the server re-derives on top of it.
- *
- * WHAT YOU RECEIVE is that word RESOLVED, as of the moment of the read: the provider's word of `syncedAt`, with the sale window already applied to it and the event's own `status` already answered over it. Take it as final. `onSaleFrom` and `onSaleThrough` say what produced it, and re-applying them to the value you received contradicts it - a full event's row is served `soldOut` even when its window only opens next week, because there is nothing left to wait for.
- *
- * The event's own `status` answers over the provider's word, and it answers alone. A cancelled event serves every row `salesClosed`, whatever the window says, and with `closedBySource: true`, since the window is not what closed it - and it serves no sale window at all: `onSaleFrom` and `onSaleThrough` are absent from the rows of a cancelled event, because a sale that opens next month on an event that will not happen is not a fact about anything. The stored values are untouched, and an event that leaves the cancelled status serves them again. A per-source lead time (`onSaleFromBeforeBegin`) is still served with the catalogue, and deriving a window from it on a cancelled event is the same mistake in another shape.
- *
- * A full event serves every row `soldOut`, with no exception: a row whose sale has not opened yet, one whose window has elapsed, and one whose provider shut its own channel are all served `soldOut`. The status is set on the whole event while stock is managed per provider, so it decides; for a visitor looking to book, the answer is the same in all three cases. Nothing is overwritten - the column keeps what the provider synced, and the next read of an event no longer full serves it again.
- *
- * WHAT TELLS YOU A ROW WAS DICTATED is the event's own `status`, in this same document: a decision taken on the whole event is served on the global field rather than copied onto every row. `onSaleFrom` and `onSaleThrough` are not that mark - they are a fact about the provider's channel, and under a dictating status they no longer explain the value you received. ASK FOR `status` IN YOUR FIELD SELECTION if you need the mark: a selection that leaves it out - `?if[]=uid,timings` - is served the dictated rows with nothing in the response saying so.
+ * What one ticketing provider says about one occurrence. `status` is the provider's word as of `syncedAt`; the sale window is what lets a reader tell `notYetOnSale` and `salesClosed` from a stock answer, and `offersAggregate` recomputes that half at read time.
  *
  */
 export const zTimingAvailability = z.object({
-    provider: zTicketingProvider,
+    provider: z.enum([
+        'billetweb',
+        'eventbrite',
+        'helloasso',
+        'mapado',
+        'weezevent',
+        'passculture',
+        'manual'
+    ]),
     status: z.enum([
         'available',
         'limited',
@@ -469,7 +408,7 @@ export const zOffersPrice = z.object({
 }).nullable();
 
 /**
- * What the ticketing sources of this event add up to, computed on each read. `availability` is `null` when nothing can be said - every occurrence past, or no source carrying a usable status - and reflects the current time, except `soldOut` and `limited`, which reflect the last sync with the provider, and the answers the event's own `status` dictates whatever the clock says: `salesClosed` when it is `cancelled`, and `soldOut` when it is `full`, with no exception - sources that disagree, windows that have elapsed and sales that have not opened all included, since the status is global where the stock is not. `mixed` and `unknown` therefore never answer for a full event. `pricing` is a category rolled up from the sources' price lists and declared pricing.
+ * What the ticketing sources of this event add up to, computed on each read. `availability` is `null` when nothing can be said - every occurrence past, or no source carrying a usable status - and reflects the current time, except `soldOut` and `limited`, which reflect the last sync with the provider. `pricing` is a category rolled up from the sources' price lists and declared pricing.
  *
  */
 export const zOffersAggregate = z.object({
@@ -821,6 +760,7 @@ export const zEvent = z.object({
     additionalFields: zAdditionalFields,
     longDescription: zLocalizedString,
     conditions: zLocalizedString,
+    country: zLocalizedString.nullable(),
     registration: z.array(zRegistration),
     offersAggregate: zOffersAggregate.readonly().optional(),
     createdAt: z.string().datetime({ offset: true }).readonly(),
@@ -835,7 +775,7 @@ export const zEvent = z.object({
 });
 
 /**
- * A staged upload. Attach `ref` on a write (`image`, or a custom file/image field of an event under `additionalFields`) before it expires.
+ * A staged upload. Attach `ref` on an event write (`image`, or a custom file/image field under `additionalFields`) before it expires.
  *
  */
 export const zUploadTicket = z.object({
@@ -858,7 +798,7 @@ export const zUploadDescriptor = z.object({
 });
 
 /**
- * Write shape for an image (the read `Image` carries the rendition URLs). Attach the image one of two ways - a freshly-staged upload by its `ref` (the value returned by `POST /agendas/{uid}/uploads`), or a publicly reachable `url` the server fetches - or send `null` to remove the current image. The image is stored as part of the same write as the rest of the edit; renditions are derived from it on demand.
+ * Write shape for an event image (the read `Image` carries the rendition URLs). Attach the image one of two ways - a freshly-staged upload by its `ref` (the value returned by `POST /agendas/{uid}/uploads`), or a publicly reachable `url` the server fetches - or send `null` to remove the current image. The image is stored as part of the same write as the rest of the edit; renditions are derived from it on demand.
  *
  * The `url` must be a publicly reachable `http(s)` image, without credentials in the URL. A URL that is malformed, not `http(s)`, carries credentials, is not publicly reachable, cannot be retrieved, is not a valid image, or is larger than 20 MiB is rejected with `422`.
  *
@@ -875,74 +815,7 @@ export const zImageInput = z.union([
 ]).nullable();
 
 /**
- * Request body for creating or replacing a location: the fields a client may set. Any other key - a read-only field such as `uid` or `slug`, an unknown name - is refused with `422`, as is a field value the server rejects, with per-field `error.errors[]`. A place the geocoder cannot find is refused with `422`, on the address, the country code or the coordinates the body changes.
- *
- */
-export const zLocationInput = z.object({
-    name: z.string(),
-    address: z.string(),
-    adminLevel1: z.string().nullish(),
-    adminLevel2: z.string().nullish(),
-    adminLevel3: z.string().nullish(),
-    adminLevel4: z.string().nullish(),
-    adminLevel5: z.string().nullish(),
-    adminLevel6: z.string().nullish(),
-    postalCode: z.string().nullish(),
-    insee: z.string().nullish(),
-    countryCode: z.string(),
-    latitude: z.number().optional(),
-    longitude: z.number().optional(),
-    timezone: z.string().nullish(),
-    description: zLocalizedString.optional(),
-    access: zLocalizedString.optional(),
-    image: zImageInput.optional(),
-    imageCredits: z.string().nullish(),
-    imageRightsAreHeld: z.boolean().nullish(),
-    website: z.string().nullish(),
-    email: z.string().nullish(),
-    phone: z.string().nullish(),
-    links: z.array(z.string()).optional(),
-    extIds: z.array(zLocationExtId).optional(),
-    siret: z.string().nullish(),
-    verified: z.boolean().optional()
-});
-
-/**
- * Partial update body. A new address, country code or coordinates are geocoded, at the point when the body changes a coordinate, at the address otherwise: the coordinates, the administrative levels, the postal code, the time zone, the INSEE code and the country code the body leaves out or sends back unchanged follow the place found. A location whose `adminLevel1`, `adminLevel2` or `adminLevel4` is missing is looked up again at its point. A place the geocoder cannot find is refused with `422` on the address, country code or coordinates the body changes.
- *
- */
-export const zLocationPatch = z.object({
-    name: z.string().optional(),
-    address: z.string().optional(),
-    adminLevel1: z.string().nullish(),
-    adminLevel2: z.string().nullish(),
-    adminLevel3: z.string().nullish(),
-    adminLevel4: z.string().nullish(),
-    adminLevel5: z.string().nullish(),
-    adminLevel6: z.string().nullish(),
-    postalCode: z.string().nullish(),
-    insee: z.string().nullish(),
-    countryCode: z.string().optional(),
-    latitude: z.number().optional(),
-    longitude: z.number().optional(),
-    timezone: z.string().nullish(),
-    description: zLocalizedString.optional(),
-    access: zLocalizedString.optional(),
-    image: zImageInput.optional(),
-    imageCredits: z.string().nullish(),
-    imageRightsAreHeld: z.boolean().nullish(),
-    website: z.string().nullish(),
-    email: z.string().nullish(),
-    phone: z.string().nullish(),
-    links: z.array(z.string()).optional(),
-    extIds: z.array(zLocationExtId).optional(),
-    siret: z.string().nullish(),
-    verified: z.boolean().optional()
-});
-
-/**
- * A reference to a location by its OpenAgenda uid. A merged location stands for the location that replaced it. A location that does not exist, or has been deleted, is refused with a 422 on `location.uid`; a deleted one is accepted when it is the one the event already has.
- *
+ * A reference to an existing location by its OpenAgenda uid.
  */
 export const zEventLocationRef = z.object({
     uid: z.coerce.bigint().gte(BigInt(1)).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
@@ -953,7 +826,7 @@ export const zEventLocationRef = z.object({
  *
  * Required fields depend on the target agenda: an event needs at least `title`, `description` and `timings`, plus a `location` unless it is online-only, plus whatever the agenda marks required; a missing one answers `422` with the per-field set under `error.errors[]`.
  *
- * A body that replaces an event and leaves `image` out removes the image and its credits. An event's privacy is derived from its agenda.
+ * The `image` is set either by reference - stage the bytes via `POST /agendas/{uid}/uploads` and pass the returned `ref` here - or by a public `url` the server fetches (or `null` to clear it). An event's privacy is derived from its agenda.
  *
  */
 export const zEventInput = z.object({
@@ -963,7 +836,6 @@ export const zEventInput = z.object({
     conditions: zLocalizedString.optional(),
     keywords: zLocalizedStringArray.optional(),
     timings: z.array(zTiming).optional(),
-    availabilityAuthority: z.array(zTicketingProvider).max(7).nullish(),
     location: zEventLocationRef.nullish(),
     attendanceMode: zAttendanceMode.optional(),
     onlineAccessLink: z.string().url().nullish(),
@@ -990,7 +862,6 @@ export const zEventPatch = z.object({
     conditions: zLocalizedString.optional(),
     keywords: zLocalizedStringArray.optional(),
     timings: z.array(zTiming).optional(),
-    availabilityAuthority: z.array(zTicketingProvider).max(7).nullish(),
     location: zEventLocationRef.nullish(),
     attendanceMode: zAttendanceMode.optional(),
     onlineAccessLink: z.string().url().nullish(),
@@ -1026,12 +897,10 @@ export const zEventList = z.object({
 export const zFacetName = z.enum([
     'additionalFields',
     'additionalFieldMetrics',
-    'adminLevel1',
-    'adminLevel2',
-    'adminLevel3',
-    'adminLevel4',
-    'adminLevel5',
-    'adminLevel6',
+    'cities',
+    'regions',
+    'departments',
+    'districts',
     'countryCodes',
     'keywords',
     'languages',
@@ -1084,7 +953,7 @@ export const zDateRangeFilter = z.object({
  */
 export const zEventFilters = z.object({
     search: z.string().optional(),
-    uid: z.array(z.number().int().gte(1).lte(2147483647)).optional(),
+    uid: z.array(z.number().int()).optional(),
     slug: z.array(z.string()).optional(),
     extId: z.object({
         key: z.string().optional(),
@@ -1113,24 +982,24 @@ export const zEventFilters = z.object({
         z.literal(3)
     ])).optional(),
     featured: z.boolean().optional(),
-    locationUid: z.array(z.number().int().gte(1).lte(2147483647)).optional(),
+    locationUid: z.array(z.number().int()).optional(),
     locationExtId: z.object({
         key: z.string().optional(),
         value: z.string().optional()
     }).optional(),
-    adminLevel1: z.array(z.string()).optional(),
-    adminLevel2: z.array(z.string()).optional(),
+    region: z.array(z.string()).optional(),
+    department: z.array(z.string()).optional(),
+    city: z.array(z.string()).optional(),
+    district: z.array(z.string()).optional(),
     adminLevel3: z.array(z.string()).optional(),
-    adminLevel4: z.array(z.string()).optional(),
     adminLevel5: z.array(z.string()).optional(),
-    adminLevel6: z.array(z.string()).optional(),
     countryCode: z.array(z.string()).optional(),
     bbox: z.string().optional(),
     near: z.string().optional(),
     radius: z.number().int().optional(),
-    originAgendaUid: z.array(z.number().int().gte(1).lte(2147483647)).optional(),
+    originAgendaUid: z.array(z.number().int()).optional(),
     originAgendaOfficial: z.boolean().optional(),
-    sourceAgendaUid: z.array(z.number().int().gte(1).lte(2147483647)).optional(),
+    sourceAgendaUid: z.array(z.number().int()).optional(),
     relative: z.array(z.enum([
         'passed',
         'upcoming',
@@ -1141,12 +1010,12 @@ export const zEventFilters = z.object({
     updatedAt: zDateRangeFilter.optional(),
     availabilityUpdatedAt: zDateRangeFilter.optional(),
     localTime: z.object({
-        gte: z.number().int().gte(0).lte(1440).optional(),
-        lte: z.number().int().gte(0).lte(1440).optional()
+        gte: z.number().int().optional(),
+        lte: z.number().int().optional()
     }).optional(),
     age: z.object({
-        gte: z.number().int().gte(0).lte(2147483647).optional(),
-        lte: z.number().int().gte(0).lte(2147483647).optional()
+        gte: z.number().int().optional(),
+        lte: z.number().int().optional()
     }).optional(),
     sort: z.string().optional(),
     additionalFields: z.record(z.unknown()).optional()
@@ -1333,12 +1202,10 @@ export const zTimespan = z.object({
 export const zFacetReportEntry = z.union([
     z.object({
         type: z.enum([
-            'adminLevel1',
-            'adminLevel2',
-            'adminLevel3',
-            'adminLevel4',
-            'adminLevel5',
-            'adminLevel6',
+            'cities',
+            'regions',
+            'departments',
+            'districts',
             'countryCodes',
             'keywords',
             'languages',
@@ -1396,12 +1263,10 @@ export const zFacetReport = z.object({
  */
 export const zFacetResults = z.object({
     facets: z.object({
-        adminLevel1: z.array(zFacetBucket).optional(),
-        adminLevel2: z.array(zFacetBucket).optional(),
-        adminLevel3: z.array(zFacetBucket).optional(),
-        adminLevel4: z.array(zFacetBucket).optional(),
-        adminLevel5: z.array(zFacetBucket).optional(),
-        adminLevel6: z.array(zFacetBucket).optional(),
+        cities: z.array(zFacetBucket).optional(),
+        regions: z.array(zFacetBucket).optional(),
+        departments: z.array(zFacetBucket).optional(),
+        districts: z.array(zFacetBucket).optional(),
         countryCodes: z.array(zFacetBucket).optional(),
         keywords: z.array(zFacetBucket).optional(),
         languages: z.array(zFacetBucket).optional(),
@@ -1422,21 +1287,23 @@ export const zFacetResults = z.object({
 });
 
 /**
- * The location snapshot an event carries.
+ * The location snapshot an event carries - a nullable subset of the `Location` record. The canonical, full record is the `Location` resource (`GET /agendas/{agendaUid}/locations/{locationUid}`, same `uid`).
+ *
  */
 export const zEventLocationWritable = z.object({
     name: z.string().nullish(),
     address: z.string().nullish(),
-    adminLevel1: z.string().nullish(),
-    adminLevel2: z.string().nullish(),
-    adminLevel3: z.string().nullish(),
-    adminLevel4: z.string().nullish(),
-    adminLevel5: z.string().nullish(),
-    adminLevel6: z.string().nullish(),
+    city: z.string().nullish(),
+    region: z.string().nullish(),
     postalCode: z.string().nullish(),
     countryCode: z.string().nullish(),
     latitude: z.number().nullish(),
     longitude: z.number().nullish(),
+    district: z.string().nullish(),
+    department: z.string().nullish(),
+    adminLevel3: z.string().nullish(),
+    adminLevel5: z.string().nullish(),
+    country: zLocalizedString.nullish(),
     timezone: z.string().nullish()
 });
 
@@ -1453,18 +1320,18 @@ export const zLocationSummaryWritable = z.object({
 });
 
 /**
- * Full location representation returned by the single-get endpoint and by the list when `detailed=true`.
+ * Full location representation returned by the single-get endpoint and by the list when `detailed=true` — the canonical record (the events' embedded `EventLocation` is a nullable snapshot of it).
  *
  */
 export const zLocationWritable = z.object({
     name: z.string(),
     address: z.string().nullable(),
-    adminLevel1: z.string().nullable(),
-    adminLevel2: z.string().nullable(),
+    city: z.string().nullable(),
+    district: z.string().nullable(),
+    region: z.string().nullable(),
+    department: z.string().nullable(),
     adminLevel3: z.string().nullable(),
-    adminLevel4: z.string().nullable(),
     adminLevel5: z.string().nullable(),
-    adminLevel6: z.string().nullable(),
     postalCode: z.string().nullable(),
     insee: z.string().nullable(),
     countryCode: z.string().nullable(),
@@ -1475,7 +1342,6 @@ export const zLocationWritable = z.object({
     access: zLocalizedString,
     image: zImage.nullable(),
     imageCredits: z.string().nullable(),
-    imageRightsAreHeld: z.boolean().nullable(),
     website: z.string().nullable(),
     email: z.string().nullable(),
     phone: z.string().nullable(),
@@ -1595,8 +1461,7 @@ export const zEventListWritable = z.object({
 });
 
 /**
- * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
- *
+ * Numeric uid of the agenda.
  */
 export const zAgendaUid = z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' });
 
@@ -1606,7 +1471,7 @@ export const zAgendaUid = z.coerce.bigint().min(BigInt('-9223372036854775808'), 
 export const zEventUid = z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' });
 
 /**
- * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on an event or a location).
+ * Name of the external system/source the identifier belongs to (the `key` of an `ExtId` mapping carried on the resource — an event or a location).
  *
  */
 export const zExtKey = z.string();
@@ -1618,15 +1483,10 @@ export const zExtKey = z.string();
 export const zExtIdValue = z.string();
 
 /**
- * Whether the body's `extIds` are merged by key with the stored ones (`true`, the default) or replace them (`false`). With `true`, an empty array adds nothing; with `false`, it removes every mapping. A body without `extIds` keeps them either way.
+ * On the by-uid `PUT`, whether the body's `extIds` are merged by key with the ones already stored (`true`, the default) or replace them wholesale (`false`). A `PATCH` merges a non-empty `extIds` whatever this parameter says; an empty array clears the stored mappings.
  *
  */
 export const zMergeExtIds = z.boolean().default(true);
-
-/**
- * Postal code of the place.
- */
-export const zGeocodingPostalCode = z.string();
 
 /**
  * Opaque pagination cursor returned in `pagination.after` of the previous page. Omit it to fetch the first page.
@@ -1667,7 +1527,7 @@ export const zAgendaSort = z.enum(['createdAt.desc', 'recentlyAddedEvents.desc']
 /**
  * Restrict to these agenda uids. Repeat the parameter for multiple values.
  */
-export const zAgendaFilterUid = z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647)));
+export const zAgendaFilterUid = z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }));
 
 /**
  * Restrict to these agenda slugs. Repeat the parameter for multiple values.
@@ -1693,37 +1553,21 @@ export const zMeAgendaFilterRole = z.array(zMemberRole);
 export const zAgendaFilterOfficial = z.boolean();
 
 /**
- * Restrict to the agendas of these networks. Repeat the parameter for multiple values.
- */
-export const zAgendaFilterNetworkUid = z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647)));
-
-/**
- * Free-text search over the network title: every word of the text, in any order, even within a longer word. When no title holds them all, a word of three or four letters may be one letter off, a longer one two; numbers match as written. Case and accents are ignored and punctuation separates words; short words such as `de` or `la` count only when the text holds nothing else.
- *
- */
-export const zNetworkSearch = z.string().max(255);
-
-/**
- * Restrict to these network uids. Repeat the parameter for multiple values.
- */
-export const zNetworkFilterUid = z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647)));
-
-/**
  * Numeric uid of the location.
  */
 export const zLocationUid = z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' });
 
 /**
- * Free-text search over the locations' name, address, `adminLevel1`, `adminLevel2` and `adminLevel4`.
+ * Free-text search over the locations' name, address, city, region and department.
  *
  */
-export const zLocationSearch = z.string().max(255);
+export const zLocationSearch = z.string();
 
 /**
  * Restrict to the given location uid(s). Repeat the parameter (`uid=123&uid=456`) for multiple values.
  *
  */
-export const zLocationFilterUid = z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647)));
+export const zLocationFilterUid = z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }));
 
 /**
  * Match a location by an external identifier: `extId[key]=<system>&extId[value]=<id>`. Both parts are required.
@@ -1747,12 +1591,10 @@ export const zLocationBoundingBox = z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+
 export const zFacets = z.array(z.enum([
     'additionalFields',
     'additionalFieldMetrics',
-    'adminLevel1',
-    'adminLevel2',
-    'adminLevel3',
-    'adminLevel4',
-    'adminLevel5',
-    'adminLevel6',
+    'cities',
+    'regions',
+    'departments',
+    'districts',
     'countryCodes',
     'keywords',
     'languages',
@@ -1776,25 +1618,25 @@ export const zFacets = z.array(z.enum([
 export const zFacetSize = z.number().int().gte(1).lte(250).default(10);
 
 /**
- * Per-facet override of `facetSize`, keyed by facet name (`facetSizes[adminLevel4]=50`). Precedence: per-facet override > `facetSize` > default (10). Only applies to bucket-list facets; values are clamped to [1, 250].
+ * Per-facet override of `facetSize`, keyed by facet name (`facetSizes[cities]=50`). Precedence: per-facet override > `facetSize` > default (10). Only applies to bucket-list facets; values are clamped to [1, 250].
  *
  */
 export const zFacetSizes = z.record(z.number().int().gte(1).lte(250));
 
 /**
- * Default ordering of the bucket-list facets. `count` (default) returns the most frequent buckets first; `alpha` returns the same top-`facetSize` buckets but ordered alphabetically by their display value (administrative area, keyword, location name, agenda title) for readable scanning. Override a single facet with `facetSorts[<facet>]`.
+ * Default ordering of the bucket-list facets. `count` (default) returns the most frequent buckets first; `alpha` returns the same top-`facetSize` buckets but ordered alphabetically by their display value (city/keyword name, location name, agenda title) for readable scanning. Override a single facet with `facetSorts[<facet>]`.
  *
  */
 export const zFacetSort = z.enum(['count', 'alpha']).default('count');
 
 /**
- * Per-facet override of `facetSort`, keyed by facet name (`facetSorts[adminLevel4]=alpha`). Precedence: per-facet override > `facetSort` > default (`count`).
+ * Per-facet override of `facetSort`, keyed by facet name (`facetSorts[cities]=alpha`). Precedence: per-facet override > `facetSort` > default (`count`).
  *
  */
 export const zFacetSorts = z.record(z.enum(['count', 'alpha']));
 
 /**
- * Per-facet label for a synthetic bucket counting the filtered events that have **no value** for the facet's field (`facetMissing[adminLevel6]=Unknown` adds an `{ value: "Unknown", count }` bucket). Honoured by the term facets (those whose buckets are keyed by the displayed value) except `accessibilities`; ignored by the provenance, `locations` and remaining families. The bucket appears only when such events exist.
+ * Per-facet label for a synthetic bucket counting the filtered events that have **no value** for the facet's field (`facetMissing[district]=Unknown` adds an `{ value: "Unknown", count }` bucket). Honoured by the term facets (those whose buckets are keyed by the displayed value) except `accessibilities`; ignored by the provenance, `locations` and remaining families. The bucket appears only when such events exist.
  *
  */
 export const zFacetMissing = z.record(z.string());
@@ -1850,8 +1692,8 @@ export const zSort = z.enum([
     'availabilityUpdatedAt.desc',
     'location.name.asc',
     'location.name.desc',
-    'location.adminLevel4.asc',
-    'location.adminLevel4.desc',
+    'location.city.asc',
+    'location.city.desc',
     'score'
 ]);
 
@@ -1874,7 +1716,7 @@ export const zRelevanceThreshold = z.union([
 /**
  * Restrict to these event uids. Repeat the parameter for multiple values.
  */
-export const zFilterUid = z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647)));
+export const zFilterUid = z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }));
 
 /**
  * Restrict to these event slugs. Repeat the parameter for multiple values.
@@ -1924,7 +1766,7 @@ export const zFilterFeatured = z.boolean();
 /**
  * Restrict to events held at these location uids.
  */
-export const zFilterLocationUid = z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647)));
+export const zFilterLocationUid = z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }));
 
 /**
  * Match by a location external identifier: `locationExtId[key]=<system>&locationExtId[value]=<id>`.
@@ -1936,40 +1778,34 @@ export const zFilterLocationExtId = z.object({
 });
 
 /**
- * Restrict to events whose `adminLevel1` (in France, the region) is one of these values.
- *
+ * Restrict to events located in these regions.
  */
-export const zFilterAdminLevel1 = z.array(z.string());
+export const zFilterRegion = z.array(z.string());
 
 /**
- * Restrict to events whose `adminLevel2` (in France, the department) is one of these values.
- *
+ * Restrict to events located in these departments.
  */
-export const zFilterAdminLevel2 = z.array(z.string());
+export const zFilterDepartment = z.array(z.string());
 
 /**
- * Restrict to events whose `adminLevel3` (in France, the intercommunality) is one of these values.
- *
+ * Restrict to events located in these cities.
+ */
+export const zFilterCity = z.array(z.string());
+
+/**
+ * Restrict to events located in these districts.
+ */
+export const zFilterDistrict = z.array(z.string());
+
+/**
+ * Restrict to events located in these level-3 administrative areas.
  */
 export const zFilterAdminLevel3 = z.array(z.string());
 
 /**
- * Restrict to events whose `adminLevel4` (the municipality) is one of these values.
- *
- */
-export const zFilterAdminLevel4 = z.array(z.string());
-
-/**
- * Restrict to events whose `adminLevel5` (in France, the arrondissement of Paris, Lyon and Marseille) is one of these values.
- *
+ * Restrict to events located in these level-5 administrative areas.
  */
 export const zFilterAdminLevel5 = z.array(z.string());
-
-/**
- * Restrict to events whose `adminLevel6` (in France, the neighbourhood) is one of these values.
- *
- */
-export const zFilterAdminLevel6 = z.array(z.string());
 
 /**
  * Restrict to events located in these countries (ISO 3166-1 alpha-2).
@@ -1997,7 +1833,7 @@ export const zFilterRadius = z.number().int().gte(1);
 /**
  * Restrict to events originally created in these agendas.
  */
-export const zFilterOriginAgendaUid = z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647)));
+export const zFilterOriginAgendaUid = z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }));
 
 /**
  * Restrict to events whose origin agenda is official (`true`) or not (`false`).
@@ -2007,7 +1843,7 @@ export const zFilterOriginAgendaOfficial = z.boolean();
 /**
  * Restrict to events aggregated from these source agendas.
  */
-export const zFilterSourceAgendaUid = z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647)));
+export const zFilterSourceAgendaUid = z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }));
 
 /**
  * Restrict by temporal position relative to now. Combine values (repeat the parameter) to widen the window: `passed`, `upcoming`, `current`.
@@ -2069,8 +1905,8 @@ export const zFilterAvailabilityUpdatedAt = z.object({
  *
  */
 export const zFilterAge = z.object({
-    gte: z.number().int().gte(0).lte(2147483647).optional(),
-    lte: z.number().int().gte(0).lte(2147483647).optional()
+    gte: z.number().int().gte(0).optional(),
+    lte: z.number().int().gte(0).optional()
 });
 
 /**
@@ -2086,10 +1922,9 @@ export const zAgendasListQuery = z.object({
     fields: z.array(z.string()).optional(),
     search: z.string().optional(),
     sort: z.enum(['createdAt.desc', 'recentlyAddedEvents.desc']).optional(),
-    uid: z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647))).optional(),
+    uid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
     slug: z.array(z.string()).optional(),
-    official: z.boolean().optional(),
-    networkUid: z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647))).optional()
+    official: z.boolean().optional()
 });
 
 /**
@@ -2135,8 +1970,8 @@ export const zAgendasEventsListQuery = z.object({
         'availabilityUpdatedAt.desc',
         'location.name.asc',
         'location.name.desc',
-        'location.adminLevel4.asc',
-        'location.adminLevel4.desc',
+        'location.city.asc',
+        'location.city.desc',
         'score'
     ]).optional(),
     search: z.string().optional(),
@@ -2145,7 +1980,7 @@ export const zAgendasEventsListQuery = z.object({
         z.literal('auto'),
         z.number().gte(0)
     ]).optional().default('off'),
-    uid: z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647))).optional(),
+    uid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
     slug: z.array(z.string()).optional(),
     extId: z.object({
         key: z.string(),
@@ -2157,24 +1992,24 @@ export const zAgendasEventsListQuery = z.object({
     status: z.array(zEventStatus).optional(),
     attendanceMode: z.array(zAttendanceMode).optional(),
     featured: z.boolean().optional(),
-    locationUid: z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647))).optional(),
+    locationUid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
     locationExtId: z.object({
         key: z.string(),
         value: z.string()
     }).optional(),
-    adminLevel1: z.array(z.string()).optional(),
-    adminLevel2: z.array(z.string()).optional(),
+    region: z.array(z.string()).optional(),
+    department: z.array(z.string()).optional(),
+    city: z.array(z.string()).optional(),
+    district: z.array(z.string()).optional(),
     adminLevel3: z.array(z.string()).optional(),
-    adminLevel4: z.array(z.string()).optional(),
     adminLevel5: z.array(z.string()).optional(),
-    adminLevel6: z.array(z.string()).optional(),
     countryCode: z.array(z.string().regex(/^[A-Za-z]{2}$/)).optional(),
     bbox: z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$/).optional(),
     near: z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?$/).optional(),
     radius: z.number().int().gte(1).optional(),
-    originAgendaUid: z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647))).optional(),
+    originAgendaUid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
     originAgendaOfficial: z.boolean().optional(),
-    sourceAgendaUid: z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647))).optional(),
+    sourceAgendaUid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
     relative: z.array(z.enum([
         'passed',
         'upcoming',
@@ -2201,8 +2036,8 @@ export const zAgendasEventsListQuery = z.object({
         lte: z.string().datetime({ offset: true }).optional()
     }).optional(),
     age: z.object({
-        gte: z.number().int().gte(0).lte(2147483647).optional(),
-        lte: z.number().int().gte(0).lte(2147483647).optional()
+        gte: z.number().int().gte(0).optional(),
+        lte: z.number().int().gte(0).optional()
     }).optional(),
     additionalFields: z.record(z.unknown()).optional()
 });
@@ -2317,7 +2152,7 @@ export const zAgendasEventsPatchByExtIdPath = z.object({
 });
 
 /**
- * The updated event.
+ * The existing event was updated.
  */
 export const zAgendasEventsPatchByExtIdResponse = zEvent;
 
@@ -2342,12 +2177,10 @@ export const zAgendasEventsFacetsQuery = z.object({
     facets: z.array(z.enum([
         'additionalFields',
         'additionalFieldMetrics',
-        'adminLevel1',
-        'adminLevel2',
-        'adminLevel3',
-        'adminLevel4',
-        'adminLevel5',
-        'adminLevel6',
+        'cities',
+        'regions',
+        'departments',
+        'districts',
         'countryCodes',
         'keywords',
         'languages',
@@ -2385,7 +2218,7 @@ export const zAgendasEventsFacetsQuery = z.object({
         z.literal('auto'),
         z.number().gte(0)
     ]).optional().default('off'),
-    uid: z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647))).optional(),
+    uid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
     slug: z.array(z.string()).optional(),
     extId: z.object({
         key: z.string(),
@@ -2397,24 +2230,24 @@ export const zAgendasEventsFacetsQuery = z.object({
     status: z.array(zEventStatus).optional(),
     attendanceMode: z.array(zAttendanceMode).optional(),
     featured: z.boolean().optional(),
-    locationUid: z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647))).optional(),
+    locationUid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
     locationExtId: z.object({
         key: z.string(),
         value: z.string()
     }).optional(),
-    adminLevel1: z.array(z.string()).optional(),
-    adminLevel2: z.array(z.string()).optional(),
+    region: z.array(z.string()).optional(),
+    department: z.array(z.string()).optional(),
+    city: z.array(z.string()).optional(),
+    district: z.array(z.string()).optional(),
     adminLevel3: z.array(z.string()).optional(),
-    adminLevel4: z.array(z.string()).optional(),
     adminLevel5: z.array(z.string()).optional(),
-    adminLevel6: z.array(z.string()).optional(),
     countryCode: z.array(z.string().regex(/^[A-Za-z]{2}$/)).optional(),
     bbox: z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$/).optional(),
     near: z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?$/).optional(),
     radius: z.number().int().gte(1).optional(),
-    originAgendaUid: z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647))).optional(),
+    originAgendaUid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
     originAgendaOfficial: z.boolean().optional(),
-    sourceAgendaUid: z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647))).optional(),
+    sourceAgendaUid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
     relative: z.array(z.enum([
         'passed',
         'upcoming',
@@ -2441,8 +2274,8 @@ export const zAgendasEventsFacetsQuery = z.object({
         lte: z.string().datetime({ offset: true }).optional()
     }).optional(),
     age: z.object({
-        gte: z.number().int().gte(0).lte(2147483647).optional(),
-        lte: z.number().int().gte(0).lte(2147483647).optional()
+        gte: z.number().int().gte(0).optional(),
+        lte: z.number().int().gte(0).optional()
     }).optional(),
     additionalFields: z.record(z.unknown()).optional()
 });
@@ -2472,18 +2305,6 @@ export const zAgendasEventsSchemaPath = z.object({
  */
 export const zAgendasEventsSchemaResponse = zEventFormSchema;
 
-export const zNetworksListQuery = z.object({
-    after: z.string().optional(),
-    limit: z.number().int().gte(1).lte(100).optional().default(20),
-    search: z.string().max(255).optional(),
-    uid: z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647))).optional()
-});
-
-/**
- * A page of networks.
- */
-export const zNetworksListResponse = zNetworkList;
-
 export const zMeAgendasListQuery = z.object({
     after: z.string().optional(),
     limit: z.number().int().gte(1).lte(100).optional().default(20),
@@ -2507,7 +2328,7 @@ export const zAgendasUploadsCreatePath = z.object({
 });
 
 /**
- * The staging reference to attach on a write.
+ * The staging reference to attach on an event write.
  */
 export const zAgendasUploadsCreateResponse = zUploadTicket;
 
@@ -2525,7 +2346,7 @@ export const zUploadsStagedBody = z.object({
 });
 
 /**
- * The staging reference to attach on a write.
+ * The staging reference to attach on an event write.
  */
 export const zUploadsStagedResponse = zUploadTicket;
 
@@ -2538,8 +2359,8 @@ export const zAgendasLocationsListQuery = z.object({
     limit: z.number().int().gte(1).lte(100).optional().default(20),
     detailed: z.boolean().optional().default(false),
     fields: z.array(z.string()).optional(),
-    search: z.string().max(255).optional(),
-    uid: z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647))).optional(),
+    search: z.string().optional(),
+    uid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
     extId: z.object({
         key: z.string(),
         value: z.string()
@@ -2560,48 +2381,6 @@ export const zAgendasLocationsListQuery = z.object({
  */
 export const zAgendasLocationsListResponse = zLocationList;
 
-export const zAgendasLocationsCreateBody = zLocationInput;
-
-export const zAgendasLocationsCreatePath = z.object({
-    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
-});
-
-/**
- * The created location.
- */
-export const zAgendasLocationsCreateResponse = zLocation;
-
-export const zAgendasLocationsValidateBody = zLocationInput;
-
-export const zAgendasLocationsValidatePath = z.object({
-    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
-});
-
-/**
- * The body is valid.
- */
-export const zAgendasLocationsValidateResponse = zValidationVerdict;
-
-export const zAgendasLocationsSettingsPath = z.object({
-    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
-});
-
-/**
- * The agenda's location settings.
- */
-export const zAgendasLocationsSettingsResponse = zLocationSettings;
-
-export const zAgendasLocationsDeleteByExtIdPath = z.object({
-    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
-    extKey: z.string(),
-    extId: z.string()
-});
-
-/**
- * The location was deleted.
- */
-export const zAgendasLocationsDeleteByExtIdResponse = zDeletionResult;
-
 export const zAgendasLocationsGetByExtIdPath = z.object({
     agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
     extKey: z.string(),
@@ -2613,42 +2392,6 @@ export const zAgendasLocationsGetByExtIdPath = z.object({
  */
 export const zAgendasLocationsGetByExtIdResponse = zLocation;
 
-export const zAgendasLocationsPatchByExtIdBody = zLocationPatch;
-
-export const zAgendasLocationsPatchByExtIdPath = z.object({
-    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
-    extKey: z.string(),
-    extId: z.string()
-});
-
-/**
- * The updated location.
- */
-export const zAgendasLocationsPatchByExtIdResponse = zLocation;
-
-export const zAgendasLocationsSetByExtIdBody = zLocationInput;
-
-export const zAgendasLocationsSetByExtIdPath = z.object({
-    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
-    extKey: z.string(),
-    extId: z.string()
-});
-
-/**
- * The replaced location.
- */
-export const zAgendasLocationsSetByExtIdResponse = zLocation;
-
-export const zAgendasLocationsDeletePath = z.object({
-    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
-    locationUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
-});
-
-/**
- * The location was deleted.
- */
-export const zAgendasLocationsDeleteResponse = zDeletionResult;
-
 export const zAgendasLocationsGetPath = z.object({
     agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
     locationUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
@@ -2659,38 +2402,6 @@ export const zAgendasLocationsGetPath = z.object({
  */
 export const zAgendasLocationsGetResponse = zLocation;
 
-export const zAgendasLocationsPatchBody = zLocationPatch;
-
-export const zAgendasLocationsPatchPath = z.object({
-    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
-    locationUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
-});
-
-export const zAgendasLocationsPatchQuery = z.object({
-    mergeExtIds: z.boolean().optional().default(true)
-});
-
-/**
- * The updated location.
- */
-export const zAgendasLocationsPatchResponse = zLocation;
-
-export const zAgendasLocationsUpdateBody = zLocationInput;
-
-export const zAgendasLocationsUpdatePath = z.object({
-    agendaUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
-    locationUid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })
-});
-
-export const zAgendasLocationsUpdateQuery = z.object({
-    mergeExtIds: z.boolean().optional().default(true)
-});
-
-/**
- * The updated location.
- */
-export const zAgendasLocationsUpdateResponse = zLocation;
-
 export const zKeysVerifyBody = z.object({
     key: z.string()
 });
@@ -2699,26 +2410,3 @@ export const zKeysVerifyBody = z.object({
  * Whether the key authenticates, and what it is.
  */
 export const zKeysVerifyResponse = zKeyVerification;
-
-export const zGeocodingSearchQuery = z.object({
-    address: z.string(),
-    countryCode: z.string().regex(/^[A-Za-z]{2}$/),
-    postalCode: z.string().optional(),
-    insee: z.string().optional()
-});
-
-/**
- * The place, or `null` when none matches the address.
- */
-export const zGeocodingSearchResponse = zGeocodingResult;
-
-export const zGeocodingReverseQuery = z.object({
-    latitude: z.number().gte(-90).lte(90),
-    longitude: z.number().gte(-180).lte(180),
-    postalCode: z.string().optional()
-});
-
-/**
- * The place, or `null` when none is found at the point.
- */
-export const zGeocodingReverseResponse = zGeocodingResult;

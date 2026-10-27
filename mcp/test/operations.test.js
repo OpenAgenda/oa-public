@@ -236,57 +236,9 @@ describe('searchOperations', () => {
     ['find event by external identifier', 'agendas.events.getByExtId'],
     ['validate event before creation', 'agendas.events.validate'],
     ['event update patch title', 'agendas.events.patch'],
-    [
-      'create or replace event external identifier',
-      'agendas.events.setByExtId',
-    ],
-    ['change an event by external id', 'agendas.events.patchByExtId'],
+    ['create or replace event external identifier', 'agendas.events.setByExtId'],
   ])('ranks the recorded query %p first on %s', (query, id) => {
     expect(searchOperations(query)[0].id).toBe(id);
-  });
-
-  // The location writes share their vocabulary with the event writes and the
-  // location reads: the location noun, under its synonyms, must lead to them.
-  it.each([
-    ['create a venue', 'agendas.locations.create'],
-    ['update a place', 'agendas.locations.update'],
-    ['change location phone', 'agendas.locations.patch'],
-    ['delete a location', 'agendas.locations.delete'],
-    ['sync a venue from my system', 'agendas.locations.setByExtId'],
-    ['change a location by external id', 'agendas.locations.patchByExtId'],
-    ['delete a location by external id', 'agendas.locations.deleteByExtId'],
-  ])('ranks the location write %p first on %s', (query, id) => {
-    expect(searchOperations(query)[0].id).toBe(id);
-  });
-
-  // A location checked before it is written, and the writes an agenda allows,
-  // lead to their own operations rather than to the writes themselves.
-  it.each([
-    ['validate a location before creating it', 'agendas.locations.validate'],
-    ['check a venue before creating', 'agendas.locations.validate'],
-    ['location permissions of an agenda', 'agendas.locations.settings'],
-    ['location settings', 'agendas.locations.settings'],
-  ])('ranks the location query %p first on %s', (query, id) => {
-    expect(searchOperations(query)[0].id).toBe(id);
-  });
-
-  // An address to check or to place, and a point to name, lead to the
-  // geocoding, not to the location reads and writes that share their words.
-  it.each([
-    ['verify an address', 'geocoding.search'],
-    ['geocode an address', 'geocoding.search'],
-    ['coordinates of an address', 'geocoding.search'],
-    ['address at these coordinates', 'geocoding.reverse'],
-    ['reverse geocode a point', 'geocoding.reverse'],
-  ])('ranks the geocoding query %p first on %s', (query, id) => {
-    expect(searchOperations(query)[0].id).toBe(id);
-  });
-
-  // An image reaches a location through an upload, as it reaches an event.
-  it('ranks the upload first for an image of a location', () => {
-    expect(searchOperations('attach an image to a location')[0].id).toBe(
-      'agendas.uploads.createTicket',
-    );
   });
 
   // Short words are damped, never muted: the operation they genuinely ask for
@@ -428,8 +380,8 @@ describe('structured params (derived from the contract)', () => {
   });
 
   it('resolves array item types', () => {
-    const municipality = list.params.find((p) => p.name === 'adminLevel4');
-    expect(municipality.type).toBe('string[]');
+    const city = list.params.find((p) => p.name === 'city');
+    expect(city.type).toBe('string[]');
   });
 });
 
@@ -1419,11 +1371,11 @@ describe('renderOperation', () => {
   });
 
   // A compacted parameter kept only its name, and a name does not say that
-  // `adminLevel1` takes a LIST - which is what the generated client types it as.
+  // `region` takes a LIST - which is what the generated client types it as.
   it('gives every compacted parameter its type', () => {
     const md = renderOperation(byId('agendas.events.list'), 0);
     const [, compacted = ''] = md.match(/Other optional parameters: (.*)\./) ?? [];
-    expect(compacted).toContain('adminLevel1 (string[])');
+    expect(compacted).toContain('region (string[])');
     expect(compacted).toContain('featured (boolean)');
     for (const entry of compacted.split(', ')) {
       expect(entry).toMatch(/^\S+ \(.+\)$/);
@@ -1611,12 +1563,10 @@ describe('renderSearch', () => {
     });
 
     it('defines object components with typed, described property lines', () => {
-      // OffersAggregate.price line: typed by component name AND described.
+      // EventLocation.country line: typed by component name AND described.
       expect(section).toMatch(
-        /- price \(OffersPrice\) — The event's price bounds/,
+        /- country \(LocalizedString \| null\) — Localized country label\./,
       );
-      // A nullable component reference reads as `Component | null`.
-      expect(section).toMatch(/- image \(ImageRef \| null\)/);
     });
 
     it('defines the components that field types reference (no dangling name)', () => {

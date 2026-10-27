@@ -12,7 +12,6 @@ Table of contents:
 - [Styles](#styles)
 - [Available filters](#filters)
 - [Widgets](#widgets)
-- [Manual submit](#manual-submit)
 - [Accessibility](#accessibility)
 
 ## Principles
@@ -25,7 +24,7 @@ Configuration is provided to the controller through a `window.oa` object that mu
     <!-- after your own framework stylesheet, see Styles below -->
     <link
       rel="stylesheet"
-      href="https://unpkg.com/@openagenda/react-filters@3/dist/style.css"
+      href="https://unpkg.com/@openagenda/react-filters@3.0.0/dist/style.css"
     />
   </head>
   <body>
@@ -34,12 +33,12 @@ Configuration is provided to the controller through a `window.oa` object that mu
       window.oa = {
         res: '/events',
         locale: 'fr',
-        onLoad: (values, aggregations, ref, form) => {}, // ...
-        onFilterChange: (values, aggregations, ref, form) => {}, // ...
+        onLoad: () => {}, // ...
+        onFilterChange: (), // ...
         // ...
       };
     </script>
-    <script src="https://unpkg.com/@openagenda/react-filters@3/dist/main.js"></script>
+    <script src="https://unpkg.com/@openagenda/react-filters@3.0.0/dist/main.js"></script>
   </body>
 </html>
 ```
@@ -50,7 +49,7 @@ If you need to use this library outside of the context of a plugin, see the cont
 
 ### Controller options
 
-These are loaded through the `window.oa` object.
+This are loaded through the `window.oa` object.
 
 - **res**: The path where the controller will retrieve aggregated data to populate the filters with
 - **locale**: The locale in which the filters should be loaded
@@ -66,27 +65,16 @@ These are loaded through the `window.oa` object.
 - **apiClient**: An optional axios instance. Useful for tests.
 - **ref**: A React ref. Useful if the controller is to be used with the `FilterManager` component (not documented). See `React.createRef()` or `React.useRef()`
 
-### Callback arguments
-
-`onLoad` and `onFilterChange` are both called as `(values, aggregations, ref, form)`:
-
-- **values**: The filter values: the initial `query` for `onLoad`, the submitted values for `onFilterChange`. They take the shape of an OpenAgenda events query.
-- **aggregations**: The aggregations the filters on the page need, to be requested along with the events.
-- **ref**: The controller, to be updated once the events are loaded:
-  - `updateFiltersAndWidgets(values, result)` refreshes the filter options and the widgets from the `aggregations` and `total` of `result`.
-  - `updateLocation(values)` writes the values in the URL query string.
-- **form**: The [final-form](https://final-form.org/docs/final-form/types/FormApi) instance holding the filters. In [manual submit](#manual-submit) mode, `form.submit()` applies the pending values.
-
 ## Styles
 
 **Since 3.0.0**, the library ships its rules as a stylesheet you load yourself. Earlier versions injected them at runtime, so nothing had to be loaded — an integration upgrading from 2.x renders unstyled filters until the stylesheet is added.
 
-When the library is loaded through a `<script>` tag, add the matching `<link>`, from the same version as the script:
+When the library is loaded through a `<script>` tag, add the matching `<link>`:
 
 ```html
 <link
   rel="stylesheet"
-  href="https://unpkg.com/@openagenda/react-filters@3/dist/style.css"
+  href="https://unpkg.com/@openagenda/react-filters@3.0.0/dist/style.css"
 />
 ```
 
@@ -148,8 +136,7 @@ For all filters that take the form of a list of checkboxes, the parameter `input
 A text input for open-text search. Parameters are:
 
 - **name**: 'search'.
-- **manualSearch**: Boolean, false by default. When true, search is only triggered when the user submits the value. With `manualSubmit`, the whole form already waits for a submit: the typed value is held by the form like any other filter, so it makes the filters pending and the page's submit applies it.
-- **displayReset**: Boolean, false by default. When true, the search button turns into a reset button (×) once the field holds text, which clears the search and submits. With `manualSubmit`, it only does so on the applied search: until the typed text is submitted, the button searches.
+- **manualSearch**: Boolean, false by default. When true, search is only triggered when the user submits the value.
 - **label**: Text of a `<label>` rendered above the input and associated with it. It carries the class `oa-filters-search-label`. Without it, the input is only named by its `aria-label`.
 - **placeholder**: Placeholder of the input. Defaults to "Search", translated.
 
@@ -250,48 +237,23 @@ The available orders:
 
 The widget starts on the `sort` of the initial `query`, so a link carrying an order shows it and keeps it through later filter changes. An order the widget does not offer is still shown, under its label. Without one, the values passed to `onFilterChange` carry no `sort` until the visitor picks an order: the page should then request the events in the order given as `defaultValue`.
 
-## Manual submit
+## Accessibility
+
+### Total widget: `role="status"`
+
+Add `role="status"` on the container `div` of the `total` widget so that screen readers announce the updated count when filters change:
+
+```html
+<div role="status" data-oa-widget="total" data-oa-widget-params="..."></div>
+```
+
+This makes the element a live region (`aria-live="polite"` is implicit), so assistive technologies will announce the new total without interrupting the user.
+
+### Manual submit
 
 With `manualSubmit`, a visitor can change the filters without the list following, so that nothing reloads until they ask for it. Between a change and the next submit, the filters show one selection while the list, the total and the URL still show the one last applied: the filters are **pending**.
 
-**Since 3.1.0.**
-
-### Submitting
-
-react-filters does not render a submit button: the page provides one and calls `form.submit()`, which calls `onFilterChange` with the values held by the filters. Place the filters and the button in a form, and submit from its `submit` event, set up in `onLoad`:
-
-```html
-<form id="filters-form">
-  <div data-oa-filter="search" data-oa-filter-params='{"name":"search"}'></div>
-  <div data-oa-filter="city" data-oa-filter-params='{"name":"city"}'></div>
-  <button type="submit">Search</button>
-</form>
-
-<script>
-  window.oa = {
-    // ...
-    manualSubmit: true,
-    onLoad: (values, aggregations, ref, form) => {
-      document
-        .getElementById('filters-form')
-        .addEventListener('submit', (event) => {
-          event.preventDefault();
-          form.submit();
-        });
-    },
-  };
-</script>
-```
-
-The listener also catches Enter in the search field. **Do not leave it out**: without it, Enter can make the browser submit the form itself and leave the page.
-
-### The search field
-
-In this mode the search text is held by the form like any other filter: typing makes the filters pending, and the page's submit applies the text as it stands, without waiting for a pause in typing. `manualSearch` changes nothing here, since the whole form already waits for the submit. With `displayReset`, the field's button searches until the text is applied, and only then turns into a reset button.
-
-### Pending state
-
-`onPendingChange(pending, values)` reports whether the filters are pending, so the page can say so:
+`onPendingChange(pending, values)` reports that state so the page can say so:
 
 - `pending` is `true` when the filter values differ from the applied ones, `false` when they match again, whether the visitor submitted or undid their changes. The applied values are those of the last submit, or the initial `query` before any submit.
 - It is called on transitions only, never twice in a row with the same `pending`, so it does not follow every keystroke in the search field. It is not called at load, where the filters are not pending.
@@ -319,18 +281,6 @@ react-filters does not render the list, the total or the submit button, so the p
   };
 </script>
 ```
-
-## Accessibility
-
-### Total widget: `role="status"`
-
-Add `role="status"` on the container `div` of the `total` widget so that screen readers announce the updated count when filters change:
-
-```html
-<div role="status" data-oa-widget="total" data-oa-widget-params="..."></div>
-```
-
-This makes the element a live region (`aria-live="polite"` is implicit), so assistive technologies will announce the new total without interrupting the user.
 
 ### Timings: `simpleDateRange` type
 
