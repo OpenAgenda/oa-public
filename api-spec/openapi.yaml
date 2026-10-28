@@ -4032,8 +4032,8 @@ components:
             type: integer
             format: int64
           description: >
-            The uids of the agendas the key is limited to. `null` when the key
-            is not limited to a list of agendas.
+            The uids of the agendas the key is limited to and can read. `null`
+            when the key is not limited to a list of agendas.
         expiresAt:
           type: [string, 'null']
           format: date-time
