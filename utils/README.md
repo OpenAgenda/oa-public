@@ -37,6 +37,8 @@ d’ensemble.
 - `Stopwatch()` — instrumentation grossière de durées
 - `cleanString(str)` — retire les codets de contrôle d'un texte saisi
 - `isInteger(num)` — vrai pour un entier, y compris sous forme de chaîne
+- `tokenizeSearch(search)` — découpe une recherche libre en mots à trouver chacun
+- `escapeLike(value)` — échappe les jokers d'un motif SQL `LIKE`
 
 ## Développement
 

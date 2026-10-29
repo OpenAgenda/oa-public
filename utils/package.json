@@ -18,11 +18,13 @@
   "files": [
     "index.js",
     "cleanString.js",
+    "escapeLike.js",
     "isInteger.js",
     "Stopwatch.js",
     "iso4217.js",
     "isoDatetime.js",
     "shortId.js",
+    "tokenizeSearch.js",
     "images",
     "CHANGELOG.md"
   ],
