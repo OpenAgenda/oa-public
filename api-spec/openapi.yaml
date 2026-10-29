@@ -5832,12 +5832,21 @@ components:
             its `422` `schema.unknown`. Same split as the availability
             endpoint, for which this document likewise declares no path.
 
-            An availability row cannot carry one either (`TimingAvailability`
-            is `additionalProperties: false`). So read `links` as "where this
-            source sells this event", never "where this source sells this
-            date" — even though a per-date link is constructible for some
-            services, Mapado's booking site taking an `eventDate` parameter
-            whose id is what a row's `sourceRef` is meant to carry.
+            An availability row does not carry one HERE either, and that is
+            now a limit of THIS API rather than of the model: the **v2** read
+            joins the override onto the row of the same (occurrence, provider)
+            pair and serves it as `bookingUrl`. This API strips it instead of
+            serving it undeclared, because `TimingAvailability` is
+            `additionalProperties: false` and a consumer validating against
+            this document would reject the row.
+
+            Declaring it needs the read/write split this document applies
+            everywhere else and not here: `Timing` and `TimingAvailability` are
+            reached by both the request bodies and the responses — the schema
+            says so itself — so a `readOnly` field on either offers a field the
+            API refuses. Splitting them is a contract change of its own, and
+            until it lands, read `links` as "where this source sells this
+            event", never "where this source sells this date".
           items:
             $ref: '#/components/schemas/OffersLink'
 
