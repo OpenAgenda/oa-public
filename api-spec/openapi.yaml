@@ -5614,6 +5614,149 @@ components:
             was stored is kept in the column, it is what decides a later
             reopening, and a read that does serve `salesClosed` shows it again.
 
+    OffersSource:
+      type: object
+      additionalProperties: false
+      required: [provider, currency, pricing]
+      description: >
+        One ticketing source of an event, as this API publishes it: what it
+        sells the event at, and where.
+
+        `tiers` is absent when the source pushed none - a first sync that
+        declares its pricing before its catalogue - and an empty array means a
+        catalogue deliberately cleared. `pricing` answers either way, which is
+        why it is required and the tiers are not.
+      properties:
+        provider:
+          type: string
+          enum:
+            [
+              billetweb,
+              eventbrite,
+              helloasso,
+              mapado,
+              weezevent,
+              passculture,
+              manual,
+            ]
+        currency:
+          type: string
+          description: >
+            An ISO 4217 code. It describes the SOURCE, not its amounts: a free
+            catalogue carries one too, and gaining a paid tier later does not
+            change denomination.
+        pricing:
+          type: string
+          enum: [free, paid, donation, mixed, unknown]
+          description: >
+            The category this source declared. `offersAggregate.pricing` rolls
+            every source up, and a single source can disagree with it.
+        source:
+          type: object
+          additionalProperties: false
+          description: >
+            How to find this event on the provider's side.
+          properties:
+            ref:
+              type: string
+              description: >
+                The provider's own id for the catalogue object. Opaque, and the
+                key a connector writes against.
+            url:
+              type: string
+              format: uri
+              description: >
+                The booking page. The same URL reaches `offersAggregate.links`
+                attributed to this provider, and `registration` stripped of its
+                source.
+        syncedAt:
+          type: string
+          format: date-time
+          description: >
+            When the connector last pushed this source. It says how fresh the
+            price list is, nothing more - inventory has its own stamp, on each
+            availability row.
+        onSaleFromBeforeBegin:
+          type: string
+          description: >
+            An ISO 8601 duration: sales open that long before each occurrence
+            starts. Resolved for you - a row whose window has not opened is
+            served `notYetOnSale` - so read this as the rule, not as something
+            to compute with.
+        onSaleThroughBeforeBegin:
+          type: string
+          description: >
+            An ISO 8601 duration: sales shut that long before each occurrence
+            starts. Being a lead time, it is never greater than
+            `onSaleFromBeforeBegin`, which would shut sales before they open.
+        tiers:
+          type: array
+          items:
+            $ref: '#/components/schemas/OffersTier'
+
+    OffersTier:
+      type: object
+      additionalProperties: false
+      required: [sourceRef]
+      description: >
+        One line of a source's price list.
+
+        Amounts are in the smallest unit of the source's `currency` (`1800` is
+        EUR 18.00), and an amount can be absent: a membership at no stated
+        price is a real tier, which is also why `offersAggregate.price` is
+        `null` rather than computed over part of a list.
+      properties:
+        sourceRef:
+          type: string
+          description: >
+            The provider's own id for this tier. Opaque, and what a per-date
+            override names to say which tiers it replaces.
+        label:
+          allOf:
+            - $ref: '#/components/schemas/LocalizedString'
+          description: >
+            A localized map, even for a monolingual source - at least one
+            language is filled.
+
+            ABSENT UNLESS THE EVENT WAS READ ON ITS OWN, and this is the one
+            place where this contract trades completeness for weight. Labels
+            are localized maps over eight locales and, at the published caps
+            (10 sources x 50 tiers), 81.5% of a catalogue's bytes - 110.5 KiB
+            against 20.4 KiB per event. A listing that carries grids at all
+            would pay that per event, on the same paths as the JSON and JSON-LD
+            feeds, which is a memory incident this API has already had. So the
+            labels travel for a single-event read, and a listing's grid carries
+            the prices, the sale windows and the types without them.
+
+            Read a grid you mean to display from the event's own endpoint. A
+            listing is better served by `offersAggregate`, which is what it is
+            for.
+        offerType:
+          type: string
+          enum: [standard, donation, membership]
+          description: >
+            `donation` carries `minAmountCents` and never `priceCents` - a
+            floor plus a fixed amount is just a fixed amount. Absent reads as
+            `standard`.
+        priceCents:
+          type: integer
+          minimum: 0
+        minAmountCents:
+          type: integer
+          minimum: 0
+          description: >
+            The floor of a free-price tier, when it declares one.
+        saleStart:
+          type: string
+          format: date-time
+          description: >
+            When this tier goes on sale, for display - "on sale until 12
+            November". Unlike the source's relative window, this pair is not an
+            input of `availability`.
+        saleEnd:
+          type: string
+          format: date-time
+
     OffersAggregate:
       type: [object, 'null']
       additionalProperties: false
@@ -5738,12 +5881,14 @@ components:
         minimum as easily as above the maximum. "Unknown" is an answer; "from
         EUR 18" when a EUR 9 tier exists is not.
 
-        These bounds replace what a consumer was told to compute itself. T16
-        removed `priceRanges` on the grounds that "the tiers carry every price,
-        and a consumer wanting 'from X' computes min(tiers[].priceCents)" - but
-        the tiers are `read: ['internal']` and reach no public response, so that
-        computation was never available to anyone. This is the only figure a
-        public reader gets.
+        These bounds are what T16 removed `priceRanges` in favour of: "the
+        tiers carry every price, and a consumer wanting 'from X' computes
+        min(tiers[].priceCents)". For a while that reasoning stood on nothing -
+        the tiers reached no public response - and this was the only figure a
+        public reader got. `offers` now publishes the grid on a detailed read,
+        so the computation is available again; these bounds remain the answer
+        for a listing, which carries no grid, and the only one that accounts
+        for a per-date override.
       properties:
         minCents:
           type: integer
@@ -6982,6 +7127,31 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Registration'
+        offers:
+          type: array
+          readOnly: true
+          description: >
+            The ticketing catalogue of this event, one entry per source: the
+            price list a reader can display as a grid, with the booking page it
+            is sold on.
+
+            DETAILED READS ONLY. A compact listing speaks prices through
+            `offersAggregate` instead, which is what it is for: a card says
+            "from EUR 15", a detail page unfolds the four tiers. And on a
+            detailed listing the grid comes without its tier labels - see
+            `OffersTier.label`, where the measurement behind that is set out.
+
+            Present only on an event that carries a catalogue, and absent - not
+            `null` - otherwise, like `offersAggregate` beside it.
+
+            A VIEW, NOT THE STORED COLUMN. What a connector pushes is kept as
+            sent, and the keys below are what this API publishes of it; a key
+            outside them is stored and not served. The grid is also the
+            EVENT's: an occurrence may override it, which `offersAggregate`
+            accounts for, so an event with an overridden date can carry bounds
+            that no tier of this grid names.
+          items:
+            $ref: '#/components/schemas/OffersSource'
         offersAggregate:
           allOf:
             - $ref: '#/components/schemas/OffersAggregate'
