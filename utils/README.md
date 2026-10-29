@@ -38,7 +38,7 @@ d’ensemble.
 - `cleanString(str)` — retire les codets de contrôle d'un texte saisi
 - `isInteger(num)` — vrai pour un entier, y compris sous forme de chaîne
 - `tokenizeSearch(search)` — découpe une recherche libre en mots à trouver chacun
-- `escapeLike(value)` — échappe les jokers d'un motif SQL `LIKE`
+- `deburr`, `foldText`, `relevanceBucket`, `fuzzyScore` — plient un texte et classent une recherche en mémoire
 
 ## Développement
 
