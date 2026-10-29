@@ -808,6 +808,19 @@ export type MeAgendaItemDetailed = {
     locationSet: AgendaLocationSetRef;
 };
 
+/**
+ * A group of agendas.
+ */
+export type Network = {
+    uid: number;
+    title: string | null;
+};
+
+export type NetworkList = {
+    data: Array<Network>;
+    pagination: Pagination;
+};
+
 export type MeAgendaList = {
     /**
      * `MeAgendaItem` items by default, or `MeAgendaItemDetailed` items when `detailed=true`.
@@ -2628,6 +2641,17 @@ export type AgendaFilterOfficial = boolean;
 export type AgendaFilterNetworkUid = Array<number>;
 
 /**
+ * Restrict to the networks whose title holds every word of this text, in any order. Case and accents are ignored, and so are short French words such as `de`, `la` or `et`. At most 255 characters.
+ *
+ */
+export type NetworkSearch = string;
+
+/**
+ * Restrict to these network uids. Repeat the parameter for multiple values.
+ */
+export type NetworkFilterUid = Array<number>;
+
+/**
  * Numeric uid of the location.
  */
 export type LocationUid = number;
@@ -4257,6 +4281,60 @@ export type AgendasEventsSchemaResponses = {
 };
 
 export type AgendasEventsSchemaResponse = AgendasEventsSchemaResponses[keyof AgendasEventsSchemaResponses];
+
+export type NetworksListData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Opaque pagination cursor returned in `pagination.after` of the previous page. Omit it to fetch the first page.
+         *
+         */
+        after?: string;
+        /**
+         * Maximum number of items to return per page. An out-of-range or non-integer value is rejected with `400`, never clamped; use the `after` cursor to page further.
+         *
+         */
+        limit?: number;
+        /**
+         * Restrict to the networks whose title holds every word of this text, in any order. Case and accents are ignored, and so are short French words such as `de`, `la` or `et`. At most 255 characters.
+         *
+         */
+        search?: string;
+        /**
+         * Restrict to these network uids. Repeat the parameter for multiple values.
+         */
+        uid?: Array<number>;
+    };
+    url: '/networks';
+};
+
+export type NetworksListErrors = {
+    /**
+     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
+     *
+     */
+    400: Error | ValidationError;
+    /**
+     * The request carries no credential this operation accepts.
+     */
+    401: Error;
+    /**
+     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
+     */
+    403: Error;
+};
+
+export type NetworksListError = NetworksListErrors[keyof NetworksListErrors];
+
+export type NetworksListResponses = {
+    /**
+     * A page of networks.
+     */
+    200: NetworkList;
+};
+
+export type NetworksListResponse = NetworksListResponses[keyof NetworksListResponses];
 
 export type MeAgendasListData = {
     body?: never;
