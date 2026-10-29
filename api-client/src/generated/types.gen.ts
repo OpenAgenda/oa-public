@@ -2641,7 +2641,7 @@ export type AgendaFilterOfficial = boolean;
 export type AgendaFilterNetworkUid = Array<number>;
 
 /**
- * Restrict to the networks whose title contains every word of this text, in any order, also within a longer word. Case and accents are ignored, and so are one-letter words and short French words such as `de`, `la` or `et` when the text holds other words. At most 255 characters.
+ * Free-text search over the network title: every word of the text, in any order, even within a longer word. When no title holds them all, a word of three or four letters may be one letter off, a longer one two; numbers match as written. Case and accents are ignored and punctuation separates words; short words such as `de` or `la` count only when the text holds nothing else. At most 255 characters.
  *
  */
 export type NetworkSearch = string;
@@ -4297,7 +4297,7 @@ export type NetworksListData = {
          */
         limit?: number;
         /**
-         * Restrict to the networks whose title contains every word of this text, in any order, also within a longer word. Case and accents are ignored, and so are one-letter words and short French words such as `de`, `la` or `et` when the text holds other words. At most 255 characters.
+         * Free-text search over the network title: every word of the text, in any order, even within a longer word. When no title holds them all, a word of three or four letters may be one letter off, a longer one two; numbers match as written. Case and accents are ignored and punctuation separates words; short words such as `de` or `la` count only when the text holds nothing else. At most 255 characters.
          *
          */
         search?: string;

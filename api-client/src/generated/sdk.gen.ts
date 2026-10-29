@@ -694,7 +694,7 @@ export class Networks extends HeyApiClient {
     /**
      * List networks
      *
-     * Returns a cursor-paginated list of networks, the most recently added first. Pass the `after` cursor returned in `pagination.after` to fetch the next page, with the same filters. A network's `uid`, passed as `networkUid` to `agendas.list`, lists those of its agendas that are public and indexed in public search.
+     * Returns a cursor-paginated list of networks, the most recently added first, or with `search` the closest titles first. Pass the `after` cursor returned in `pagination.after` to fetch the next page, with the same filters. A network's `uid`, passed as `networkUid` to `agendas.list`, lists those of its agendas that are public and indexed in public search.
      *
      * Malformed filter values answer `400`, with per-field context under `error.errors`. An unrecognized top-level query parameter is ignored.
      *
