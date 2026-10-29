@@ -1257,19 +1257,13 @@ paths:
       x-synonyms: [groups, federation, umbrella, name]
       x-codeSamples:
         - lang: TypeScript
-          label: Find a network by its title, then list its agendas
+          label: Find the networks whose title holds these words
           source: |
-            const { data: networks, error } = await oa.networks.list({
+            const { data, error } = await oa.networks.list({
               query: { search: 'nuit des musées' },
             });
             if (error) throw error;
-            const [network] = networks.data;
-            if (!network) return [];
-            const { data: agendas, error: agendasError } = await oa.agendas.list({
-              query: { networkUid: [network.uid] },
-            });
-            if (agendasError) throw agendasError;
-            return agendas.data.map((a) => ({ uid: a.uid, title: a.title }));
+            return data.data.map((n) => ({ uid: n.uid, title: n.title }));
       description: >
         Returns a cursor-paginated list of networks, the most recently added
         first. Pass the `after` cursor returned in `pagination.after` to fetch
@@ -3033,12 +3027,13 @@ components:
       in: query
       required: false
       description: >
-        Restrict to the networks whose title holds every word of this text, in
-        any order. Case and accents are ignored, and so are short French words
-        such as `de`, `la` or `et` when the text holds other words. At most 255
-        characters.
+        Restrict to the networks whose title contains every word of this text,
+        in any order, also within a longer word. Case and accents are ignored,
+        and so are one-letter words and short French words such as `de`, `la`
+        or `et` when the text holds other words. At most 255 characters.
       schema:
         type: string
+        maxLength: 255
 
     NetworkFilterUid:
       name: uid
