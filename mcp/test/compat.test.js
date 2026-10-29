@@ -81,6 +81,7 @@ describe('the contract stays inside what search_docs can render', () => {
       '/components/parameters/*/schema/format:int64',
       '/components/parameters/*/schema/items/format:int64',
       '/components/parameters/*/schema/items/pattern',
+      '/components/parameters/*/schema/maxLength',
       '/components/parameters/*/schema/minItems',
       '/components/parameters/*/schema/oneOf/*/minimum',
       '/components/parameters/*/schema/properties/*/format:date-time',
