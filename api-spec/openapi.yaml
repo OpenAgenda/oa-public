@@ -85,6 +85,9 @@ tags:
     description: >
       The place an address designates, or the place at a point, as a location
       created there gets it.
+  - name: Networks
+    description: >
+      Groups of agendas. Find a network by its title, then list its agendas.
   - name: Me
     description: >
       The authenticated caller: the agendas they are a member of and their
@@ -109,6 +112,7 @@ x-tagGroups:
       - Agendas
       - Events
       - Locations
+      - Networks
       - Geocoding
       - Me
       - Keys
@@ -1244,6 +1248,61 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
+
+  /networks:
+    get:
+      operationId: networks.list
+      tags: [Networks]
+      summary: List networks
+      x-synonyms: [groups, federation, umbrella, name]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Find a network by its title, then list its agendas
+          source: |
+            const networks = await oa.networks.list({
+              query: { search: 'nuit des musées' },
+            });
+            if (networks.error) throw networks.error;
+            const [network] = networks.data.data;
+            if (!network) return [];
+            const agendas = await oa.agendas.list({
+              query: { networkUid: [network.uid] },
+            });
+            if (agendas.error) throw agendas.error;
+            return agendas.data.data.map((a) => ({ uid: a.uid, title: a.title }));
+      description: >
+        Returns a cursor-paginated list of networks, the most recently added
+        first. Pass the `after` cursor returned in `pagination.after` to fetch
+        the next page, with the same filters. A network's `uid`, passed as
+        `networkUid` to `agendas.list`, lists those of its agendas that are
+        public and indexed in public search.
+
+
+        Malformed filter values answer `400`, with per-field context under
+        `error.errors`. An unrecognized top-level query parameter is ignored.
+      security:
+        - publicKey: []
+        - secretKey: []
+        - oauth2:
+            - agendas:read
+      parameters:
+        - $ref: '#/components/parameters/AfterCursor'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/NetworkSearch'
+        - $ref: '#/components/parameters/NetworkFilterUid'
+      responses:
+        '200':
+          description: A page of networks.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
 
   /me/agendas:
     get:
@@ -2963,6 +3022,28 @@ components:
       in: query
       required: false
       description: Restrict to the agendas of these networks. Repeat the parameter for multiple values.
+      schema:
+        type: array
+        items:
+          type: integer
+          format: int64
+
+    NetworkSearch:
+      name: search
+      in: query
+      required: false
+      description: >
+        Restrict to the networks whose title holds every word of this text, in
+        any order. Case and accents are ignored, and so are short French words
+        such as `de`, `la` or `et`. At most 255 characters.
+      schema:
+        type: string
+
+    NetworkFilterUid:
+      name: uid
+      in: query
+      required: false
+      description: Restrict to these network uids. Repeat the parameter for multiple values.
       schema:
         type: array
         items:
@@ -5144,6 +5225,30 @@ components:
           $ref: '#/components/schemas/AgendaNetworkRef'
         locationSet:
           $ref: '#/components/schemas/AgendaLocationSetRef'
+
+    Network:
+      type: object
+      description: A group of agendas.
+      additionalProperties: false
+      required: [uid, title]
+      properties:
+        uid:
+          type: integer
+          format: int64
+        title:
+          type: [string, 'null']
+
+    NetworkList:
+      type: object
+      required: [data, pagination]
+      additionalProperties: false
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Network'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
 
     MeAgendaList:
       type: object
