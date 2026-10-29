@@ -1698,7 +1698,7 @@ export const zAgendaFilterOfficial = z.boolean();
 export const zAgendaFilterNetworkUid = z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }));
 
 /**
- * Restrict to the networks whose title holds every word of this text, in any order. Case and accents are ignored, and so are short French words such as `de`, `la` or `et`. At most 255 characters.
+ * Restrict to the networks whose title holds every word of this text, in any order. Case and accents are ignored, and so are short French words such as `de`, `la` or `et` when the text holds other words. At most 255 characters.
  *
  */
 export const zNetworkSearch = z.string();
