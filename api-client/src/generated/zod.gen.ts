@@ -443,6 +443,58 @@ export const zTiming = z.object({
     availability: z.array(zTimingAvailability).max(7).optional()
 });
 
+/**
+ * One line of a source's price list.
+ * Amounts are in the smallest unit of the source's `currency` (`1800` is EUR 18.00), and an amount can be absent: a membership at no stated price is a real tier, which is also why `offersAggregate.price` is `null` rather than computed over part of a list.
+ *
+ */
+export const zOffersTier = z.object({
+    sourceRef: z.string(),
+    label: zLocalizedString.optional(),
+    offerType: z.enum([
+        'standard',
+        'donation',
+        'membership'
+    ]).optional(),
+    priceCents: z.number().int().gte(0).optional(),
+    minAmountCents: z.number().int().gte(0).optional(),
+    saleStart: z.string().datetime({ offset: true }).optional(),
+    saleEnd: z.string().datetime({ offset: true }).optional()
+});
+
+/**
+ * One ticketing source of an event, as this API publishes it: what it sells the event at, and where.
+ * `tiers` is absent when the source pushed none - a first sync that declares its pricing before its catalogue - and an empty array means a catalogue deliberately cleared. `pricing` answers either way, which is why it is required and the tiers are not.
+ *
+ */
+export const zOffersSource = z.object({
+    provider: z.enum([
+        'billetweb',
+        'eventbrite',
+        'helloasso',
+        'mapado',
+        'weezevent',
+        'passculture',
+        'manual'
+    ]),
+    currency: z.string(),
+    pricing: z.enum([
+        'free',
+        'paid',
+        'donation',
+        'mixed',
+        'unknown'
+    ]),
+    source: z.object({
+        ref: z.string().optional(),
+        url: z.string().url().optional()
+    }).optional(),
+    syncedAt: z.string().datetime({ offset: true }).optional(),
+    onSaleFromBeforeBegin: z.string().optional(),
+    onSaleThroughBeforeBegin: z.string().optional(),
+    tiers: z.array(zOffersTier).optional()
+});
+
 export const zOffersLink = z.object({
     provider: z.enum([
         'billetweb',
@@ -459,7 +511,7 @@ export const zOffersLink = z.object({
 /**
  * What the event's ticketing costs, in the smallest unit of its currency.
  * ALL OR NOTHING. `null` whenever a single tier cannot be read as an amount - a membership at no stated price, a source that declared its pricing before pushing a catalogue - or when the contributing sources do not share one currency. A bound computed over part of a price list is wrong in both directions: the unreadable tier could sit below the minimum as easily as above the maximum. "Unknown" is an answer; "from EUR 18" when a EUR 9 tier exists is not.
- * These bounds replace what a consumer was told to compute itself. T16 removed `priceRanges` on the grounds that "the tiers carry every price, and a consumer wanting 'from X' computes min(tiers[].priceCents)" - but the tiers are `read: ['internal']` and reach no public response, so that computation was never available to anyone. This is the only figure a public reader gets.
+ * These bounds are what T16 removed `priceRanges` in favour of: "the tiers carry every price, and a consumer wanting 'from X' computes min(tiers[].priceCents)". For a while that reasoning stood on nothing - the tiers reached no public response - and this was the only figure a public reader got. `offers` now publishes the grid on a detailed read, so the computation is available again; these bounds remain the answer for a listing, which carries no grid, and the only one that accounts for a per-date override.
  *
  */
 export const zOffersPrice = z.object({
@@ -822,6 +874,7 @@ export const zEvent = z.object({
     longDescription: zLocalizedString,
     conditions: zLocalizedString,
     registration: z.array(zRegistration),
+    offers: z.array(zOffersSource).readonly().optional(),
     offersAggregate: zOffersAggregate.readonly().optional(),
     createdAt: z.string().datetime({ offset: true }).readonly(),
     updatedAt: z.string().datetime({ offset: true }).readonly(),

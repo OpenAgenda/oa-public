@@ -921,6 +921,94 @@ export type TimingAvailability = {
 };
 
 /**
+ * One ticketing source of an event, as this API publishes it: what it sells the event at, and where.
+ * `tiers` is absent when the source pushed none - a first sync that declares its pricing before its catalogue - and an empty array means a catalogue deliberately cleared. `pricing` answers either way, which is why it is required and the tiers are not.
+ *
+ */
+export type OffersSource = {
+    provider: 'billetweb' | 'eventbrite' | 'helloasso' | 'mapado' | 'weezevent' | 'passculture' | 'manual';
+    /**
+     * An ISO 4217 code. It describes the SOURCE, not its amounts: a free catalogue carries one too, and gaining a paid tier later does not change denomination.
+     *
+     */
+    currency: string;
+    /**
+     * The category this source declared. `offersAggregate.pricing` rolls every source up, and a single source can disagree with it.
+     *
+     */
+    pricing: 'free' | 'paid' | 'donation' | 'mixed' | 'unknown';
+    /**
+     * How to find this event on the provider's side.
+     *
+     */
+    source?: {
+        /**
+         * The provider's own id for the catalogue object. Opaque, and the key a connector writes against.
+         *
+         */
+        ref?: string;
+        /**
+         * The booking page. The same URL reaches `offersAggregate.links` attributed to this provider, and `registration` stripped of its source.
+         *
+         */
+        url?: string;
+    };
+    /**
+     * When the connector last pushed this source. It says how fresh the price list is, nothing more - inventory has its own stamp, on each availability row.
+     *
+     */
+    syncedAt?: string;
+    /**
+     * An ISO 8601 duration: sales open that long before each occurrence starts. Resolved for you - a row whose window has not opened is served `notYetOnSale` - so read this as the rule, not as something to compute with.
+     *
+     */
+    onSaleFromBeforeBegin?: string;
+    /**
+     * An ISO 8601 duration: sales shut that long before each occurrence starts. Being a lead time, it is never greater than `onSaleFromBeforeBegin`, which would shut sales before they open.
+     *
+     */
+    onSaleThroughBeforeBegin?: string;
+    tiers?: Array<OffersTier>;
+};
+
+/**
+ * One line of a source's price list.
+ * Amounts are in the smallest unit of the source's `currency` (`1800` is EUR 18.00), and an amount can be absent: a membership at no stated price is a real tier, which is also why `offersAggregate.price` is `null` rather than computed over part of a list.
+ *
+ */
+export type OffersTier = {
+    /**
+     * The provider's own id for this tier. Opaque, and what a per-date override names to say which tiers it replaces.
+     *
+     */
+    sourceRef: string;
+    /**
+     * A localized map, even for a monolingual source - at least one language is filled.
+     * ABSENT UNLESS THE EVENT WAS READ ON ITS OWN, and this is the one place where this contract trades completeness for weight. Labels are localized maps over eight locales and, at the published caps (10 sources x 50 tiers), 81.5% of a catalogue's bytes - 110.5 KiB against 20.4 KiB per event. A listing that carries grids at all would pay that per event, on the same paths as the JSON and JSON-LD feeds, which is a memory incident this API has already had. So the labels travel for a single-event read, and a listing's grid carries the prices, the sale windows and the types without them.
+     * Read a grid you mean to display from the event's own endpoint. A listing is better served by `offersAggregate`, which is what it is for.
+     *
+     */
+    label?: LocalizedString;
+    /**
+     * `donation` carries `minAmountCents` and never `priceCents` - a floor plus a fixed amount is just a fixed amount. Absent reads as `standard`.
+     *
+     */
+    offerType?: 'standard' | 'donation' | 'membership';
+    priceCents?: number;
+    /**
+     * The floor of a free-price tier, when it declares one.
+     *
+     */
+    minAmountCents?: number;
+    /**
+     * When this tier goes on sale, for display - "on sale until 12 November". Unlike the source's relative window, this pair is not an input of `availability`.
+     *
+     */
+    saleStart?: string;
+    saleEnd?: string;
+};
+
+/**
  * What the ticketing sources of this event add up to, computed on each read. `availability` is `null` when nothing can be said - every occurrence past, or no source carrying a usable status - and reflects the current time, except `soldOut` and `limited`, which reflect the last sync with the provider, and the answers the event's own `status` dictates whatever the clock says: `salesClosed` when it is `cancelled`, and `soldOut` when it is `full`, with no exception - sources that disagree, windows that have elapsed and sales that have not opened all included, since the status is global where the stock is not. `mixed` and `unknown` therefore never answer for a full event. `pricing` is a category rolled up from the sources' price lists and declared pricing.
  *
  */
@@ -962,7 +1050,7 @@ export type OffersLink = {
 /**
  * What the event's ticketing costs, in the smallest unit of its currency.
  * ALL OR NOTHING. `null` whenever a single tier cannot be read as an amount - a membership at no stated price, a source that declared its pricing before pushing a catalogue - or when the contributing sources do not share one currency. A bound computed over part of a price list is wrong in both directions: the unreadable tier could sit below the minimum as easily as above the maximum. "Unknown" is an answer; "from EUR 18" when a EUR 9 tier exists is not.
- * These bounds replace what a consumer was told to compute itself. T16 removed `priceRanges` on the grounds that "the tiers carry every price, and a consumer wanting 'from X' computes min(tiers[].priceCents)" - but the tiers are `read: ['internal']` and reach no public response, so that computation was never available to anyone. This is the only figure a public reader gets.
+ * These bounds are what T16 removed `priceRanges` in favour of: "the tiers carry every price, and a consumer wanting 'from X' computes min(tiers[].priceCents)". For a while that reasoning stood on nothing - the tiers reached no public response - and this was the only figure a public reader got. `offers` now publishes the grid on a detailed read, so the computation is available again; these bounds remain the answer for a listing, which carries no grid, and the only one that accounts for a per-date override.
  *
  */
 export type OffersPrice = {
@@ -1534,6 +1622,14 @@ export type Event = {
     longDescription: LocalizedString;
     conditions: LocalizedString;
     registration: Array<Registration>;
+    /**
+     * The ticketing catalogue of this event, one entry per source: the price list a reader can display as a grid, with the booking page it is sold on.
+     * DETAILED READS ONLY. A compact listing speaks prices through `offersAggregate` instead, which is what it is for: a card says "from EUR 15", a detail page unfolds the four tiers. And on a detailed listing the grid comes without its tier labels - see `OffersTier.label`, where the measurement behind that is set out.
+     * Present only on an event that carries a catalogue, and absent - not `null` - otherwise, like `offersAggregate` beside it.
+     * A VIEW, NOT THE STORED COLUMN. What a connector pushes is kept as sent, and the keys below are what this API publishes of it; a key outside them is stored and not served. The grid is also the EVENT's: an occurrence may override it, which `offersAggregate` accounts for, so an event with an overridden date can carry bounds that no tier of this grid names.
+     *
+     */
+    readonly offers?: Array<OffersSource>;
     /**
      * Present only on an event with a ticketing catalogue.
      *
