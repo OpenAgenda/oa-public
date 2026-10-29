@@ -97,7 +97,9 @@ export default function SearchInput({
   const isResetButton = displayReset && tmpValue && (tmpValue === input.value || !manualSubmit);
 
   const debouncedOnChange = useDebouncedCallback((e) => {
-    if (manualSearch) {
+    // With manualSubmit the form already waits for a submit: the value goes
+    // to it, so that it counts as pending and the page's submit carries it
+    if (manualSearch && !manualSubmit) {
       return;
     }
 
@@ -118,7 +120,7 @@ export default function SearchInput({
         debouncedOnChange.flush();
       }
     },
-    [debouncedOnChange],
+    [debouncedOnChange, manualSubmit],
   );
 
   const onButtonClick = useCallback(

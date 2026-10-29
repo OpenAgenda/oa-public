@@ -136,7 +136,7 @@ For all filters that take the form of a list of checkboxes, the parameter `input
 A text input for open-text search. Parameters are:
 
 - **name**: 'search'.
-- **manualSearch**: Boolean, false by default. When true, search is only triggered when the user submits the value.
+- **manualSearch**: Boolean, false by default. When true, search is only triggered when the user submits the value. With `manualSubmit`, the whole form already waits for a submit: the typed value is held by the form like any other filter, so it makes the filters pending and the page's submit applies it.
 - **label**: Text of a `<label>` rendered above the input and associated with it. It carries the class `oa-filters-search-label`. Without it, the input is only named by its `aria-label`.
 - **placeholder**: Placeholder of the input. Defaults to "Search", translated.
 
