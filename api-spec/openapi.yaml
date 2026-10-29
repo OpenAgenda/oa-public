@@ -1259,17 +1259,17 @@ paths:
         - lang: TypeScript
           label: Find a network by its title, then list its agendas
           source: |
-            const networks = await oa.networks.list({
+            const { data: networks, error } = await oa.networks.list({
               query: { search: 'nuit des musées' },
             });
-            if (networks.error) throw networks.error;
-            const [network] = networks.data.data;
+            if (error) throw error;
+            const [network] = networks.data;
             if (!network) return [];
-            const agendas = await oa.agendas.list({
+            const { data: agendas, error: agendasError } = await oa.agendas.list({
               query: { networkUid: [network.uid] },
             });
-            if (agendas.error) throw agendas.error;
-            return agendas.data.data.map((a) => ({ uid: a.uid, title: a.title }));
+            if (agendasError) throw agendasError;
+            return agendas.data.map((a) => ({ uid: a.uid, title: a.title }));
       description: >
         Returns a cursor-paginated list of networks, the most recently added
         first. Pass the `after` cursor returned in `pagination.after` to fetch
@@ -3035,7 +3035,8 @@ components:
       description: >
         Restrict to the networks whose title holds every word of this text, in
         any order. Case and accents are ignored, and so are short French words
-        such as `de`, `la` or `et`. At most 255 characters.
+        such as `de`, `la` or `et` when the text holds other words. At most 255
+        characters.
       schema:
         type: string
 
