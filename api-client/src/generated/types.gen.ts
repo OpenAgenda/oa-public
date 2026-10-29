@@ -848,7 +848,7 @@ export type Timing = {
      * The reason is that such a write cannot be told apart from the inventory it merely transports: a connector writes between the moment a client reads an event and the moment its save arrives, so a row absent from that save may be one the client never saw rather than one it means to drop. The endpoint writes under a compare-and-swap and has no such ambiguity.
      * A CLIENT SHOULD THEREFORE OMIT THE FIELD when saving an event it has just read: an occurrence whose entry does not mention `availability` keeps its stored rows. Omitting the FIELD is safe; omitting the OCCURRENCE is not — a timings write is a full replacement, and an occurrence no incoming entry claims is deleted along with its inventory. Sending the rows back is not merely useless, it is what pushes a read-modify-write past the 100 kB body limit of the ordinary event routes: measured, a payload crosses it at about 500 occurrences carrying one row each, or 300 carrying two.
      * AN OCCURRENCE THE EVENT DOES NOT HAVE YET is the exception, and the only way an ordinary write stores inventory: it has no stored rows to protect, so the rows sent with it are kept — provided ticketing is enabled on the agenda, which is checked for exactly this case and answers `422` `offers.disabled` otherwise. An event can thus be created with its inventory in a single call.
-     * Served wherever a `Timing` is: `timings[]`, and also `firstTiming` / `lastTiming` / `nextTiming`, which copy the occurrence whole — so a compact listing carries the inventory of its next date.
+     * SERVED IN `timings[]` ONLY, and an earlier wording of this paragraph promised more: `firstTiming` / `lastTiming` / `nextTiming` copy the occurrence, and that copy used to carry the rows. It carried them AS SYNCED — nothing resolves a compact copy, and a compact listing does not even load the catalogue a sale window would be read from. Serving them there contradicted the rule stated above, that a row is served resolved or not at all, so the copies no longer carry the field. Read `timings[]` for inventory.
      *
      */
     availability?: Array<TimingAvailability>;
@@ -930,7 +930,8 @@ export type OffersAggregate = {
     /**
      * Where to book, one entry per ticketing source that carries a usable URL, in catalogue order. `null` when none does, and on a cancelled event, whose sale no longer exists - the same read also adds no booking link to `registration`, though whatever the organiser stored there is left untouched.
      * The same URLs reach `registration` as `{type: link}` entries, but stripped of their source: that field lists ways to sign up, not a map of ticketing providers. A reader showing one line PER SOURCE — a per-date detail panel, say — could attach no URL to any line. This is that attribution, and nothing more.
-     * EVENT-LEVEL, NEVER PER DATE — a limit of what OpenAgenda stores and serves, not a claim about what ticketing services can do. An availability row cannot carry a URL (`TimingAvailability` is `additionalProperties: false`), and the only URL held for a source is the event-level one its connector wrote. A per-date link is constructible for at least some services — Mapado's booking site takes an `eventDate` parameter whose id is what a row's `sourceRef` is meant to carry — but building one per service belongs with the connectors, not here.
+     * EVENT-LEVEL, and that is a property of THIS field — not a limit of what OpenAgenda can hold, which is what an earlier wording of this paragraph claimed. A per-(date, provider) booking URL is part of the model and a connector can write one, through the **v2** event API. This API neither returns nor accepts it: the value is internal, `Timing` is `additionalProperties: false` here, and a body carrying one is refused. WHICH refusal depends on the agenda: ticketing is gated per agenda and that gate speaks first, so an agenda without it answers `422` `offers.disabled` for the whole write, and only one that has it reaches the strict schema check and its `422` `schema.unknown`. Same split as the availability endpoint, for which this document likewise declares no path.
+     * An availability row cannot carry one either (`TimingAvailability` is `additionalProperties: false`). So read `links` as "where this source sells this event", never "where this source sells this date" — even though a per-date link is constructible for some services, Mapado's booking site taking an `eventDate` parameter whose id is what a row's `sourceRef` is meant to carry.
      *
      */
     links?: Array<OffersLink> | null;
@@ -1201,7 +1202,7 @@ export type Agenda = {
      */
     officializedAt: string | null;
     /**
-     * Whether the agenda is private (not publicly listed).
+     * Whether the agenda is private.
      */
     private: boolean;
     /**
@@ -2452,7 +2453,7 @@ export type AgendaWritable = {
      */
     officializedAt: string | null;
     /**
-     * Whether the agenda is private (not publicly listed).
+     * Whether the agenda is private.
      */
     private: boolean;
     /**
@@ -2524,7 +2525,8 @@ export type EventListWritable = {
 };
 
 /**
- * Numeric uid of the agenda.
+ * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+ *
  */
 export type AgendaUid = number;
 
@@ -3030,7 +3032,8 @@ export type AgendasGetData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
     };
@@ -3068,7 +3071,8 @@ export type AgendasOverviewData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
     };
@@ -3106,7 +3110,8 @@ export type AgendasEventsListData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
     };
@@ -3359,7 +3364,8 @@ export type AgendasEventsCreateData = {
     body: EventInput;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
     };
@@ -3406,7 +3412,8 @@ export type AgendasEventsValidateData = {
     body: EventInput;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
     };
@@ -3453,7 +3460,8 @@ export type AgendasEventsDeleteData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
         /**
@@ -3495,7 +3503,8 @@ export type AgendasEventsGetData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
         /**
@@ -3537,7 +3546,8 @@ export type AgendasEventsPatchData = {
     body: EventPatch;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
         /**
@@ -3594,7 +3604,8 @@ export type AgendasEventsUpdateData = {
     body: EventInput;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
         /**
@@ -3651,7 +3662,8 @@ export type AgendasEventsDeleteByExtIdData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
         /**
@@ -3699,7 +3711,8 @@ export type AgendasEventsGetByExtIdData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
         /**
@@ -3747,7 +3760,8 @@ export type AgendasEventsPatchByExtIdData = {
     body: EventPatch;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
         /**
@@ -3804,7 +3818,8 @@ export type AgendasEventsSetByExtIdData = {
     body: EventInput;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
         /**
@@ -3865,7 +3880,8 @@ export type AgendasEventsFacetsData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
     };
@@ -4154,7 +4170,8 @@ export type AgendasEventsFacetsReportData = {
     body: FacetReportRequest;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
     };
@@ -4197,7 +4214,8 @@ export type AgendasEventsSchemaData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
     };
@@ -4306,7 +4324,8 @@ export type AgendasUploadsCreateData = {
     };
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
     };
@@ -4353,7 +4372,8 @@ export type AgendasUploadsCreateTicketData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
     };
@@ -4439,7 +4459,8 @@ export type AgendasLocationsListData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
     };
@@ -4542,7 +4563,8 @@ export type AgendasLocationsCreateData = {
     body: LocationInput;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
     };
@@ -4589,7 +4611,8 @@ export type AgendasLocationsValidateData = {
     body: LocationInput;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
     };
@@ -4636,7 +4659,8 @@ export type AgendasLocationsSettingsData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
     };
@@ -4674,7 +4698,8 @@ export type AgendasLocationsDeleteByExtIdData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
         /**
@@ -4728,7 +4753,8 @@ export type AgendasLocationsGetByExtIdData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
         /**
@@ -4782,7 +4808,8 @@ export type AgendasLocationsPatchByExtIdData = {
     body: LocationPatch;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
         /**
@@ -4840,7 +4867,8 @@ export type AgendasLocationsSetByExtIdData = {
     body: LocationInput;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
         /**
@@ -4902,7 +4930,8 @@ export type AgendasLocationsDeleteData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
         /**
@@ -4950,7 +4979,8 @@ export type AgendasLocationsGetData = {
     body?: never;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
         /**
@@ -4998,7 +5028,8 @@ export type AgendasLocationsPatchData = {
     body: LocationPatch;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
         /**
@@ -5056,7 +5087,8 @@ export type AgendasLocationsUpdateData = {
     body: LocationInput;
     path: {
         /**
-         * Numeric uid of the agenda.
+         * Numeric uid of the agenda. A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key; to any other caller it answers `404`, as an unknown uid does.
+         *
          */
         agendaUid: number;
         /**
