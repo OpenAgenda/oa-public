@@ -1698,10 +1698,10 @@ export const zAgendaFilterOfficial = z.boolean();
 export const zAgendaFilterNetworkUid = z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }));
 
 /**
- * Restrict to the networks whose title holds every word of this text, in any order. Case and accents are ignored, and so are short French words such as `de`, `la` or `et` when the text holds other words. At most 255 characters.
+ * Restrict to the networks whose title contains every word of this text, in any order, also within a longer word. Case and accents are ignored, and so are one-letter words and short French words such as `de`, `la` or `et` when the text holds other words. At most 255 characters.
  *
  */
-export const zNetworkSearch = z.string();
+export const zNetworkSearch = z.string().max(255);
 
 /**
  * Restrict to these network uids. Repeat the parameter for multiple values.
@@ -2475,7 +2475,7 @@ export const zAgendasEventsSchemaResponse = zEventFormSchema;
 export const zNetworksListQuery = z.object({
     after: z.string().optional(),
     limit: z.number().int().gte(1).lte(100).optional().default(20),
-    search: z.string().optional(),
+    search: z.string().max(255).optional(),
     uid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional()
 });
 
