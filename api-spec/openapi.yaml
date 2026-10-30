@@ -3077,7 +3077,7 @@ components:
       required: false
       description: >
         Free-text search over the locations' name, address, `adminLevel1`,
-        `adminLevel2` and `adminLevel4`. At most 255 characters.
+        `adminLevel2` and `adminLevel4`.
       schema:
         type: string
         maxLength: 255
