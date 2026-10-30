@@ -1084,7 +1084,7 @@ export const zDateRangeFilter = z.object({
  */
 export const zEventFilters = z.object({
     search: z.string().optional(),
-    uid: z.array(z.number().int()).optional(),
+    uid: z.array(z.number().int().gte(1).lte(2147483647)).optional(),
     slug: z.array(z.string()).optional(),
     extId: z.object({
         key: z.string().optional(),
@@ -1113,7 +1113,7 @@ export const zEventFilters = z.object({
         z.literal(3)
     ])).optional(),
     featured: z.boolean().optional(),
-    locationUid: z.array(z.number().int()).optional(),
+    locationUid: z.array(z.number().int().gte(1).lte(2147483647)).optional(),
     locationExtId: z.object({
         key: z.string().optional(),
         value: z.string().optional()
@@ -1128,9 +1128,9 @@ export const zEventFilters = z.object({
     bbox: z.string().optional(),
     near: z.string().optional(),
     radius: z.number().int().optional(),
-    originAgendaUid: z.array(z.number().int()).optional(),
+    originAgendaUid: z.array(z.number().int().gte(1).lte(2147483647)).optional(),
     originAgendaOfficial: z.boolean().optional(),
-    sourceAgendaUid: z.array(z.number().int()).optional(),
+    sourceAgendaUid: z.array(z.number().int().gte(1).lte(2147483647)).optional(),
     relative: z.array(z.enum([
         'passed',
         'upcoming',
@@ -1667,7 +1667,7 @@ export const zAgendaSort = z.enum(['createdAt.desc', 'recentlyAddedEvents.desc']
 /**
  * Restrict to these agenda uids. Repeat the parameter for multiple values.
  */
-export const zAgendaFilterUid = z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }));
+export const zAgendaFilterUid = z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647)));
 
 /**
  * Restrict to these agenda slugs. Repeat the parameter for multiple values.
@@ -1714,16 +1714,16 @@ export const zNetworkFilterUid = z.array(z.coerce.bigint().min(BigInt('-92233720
 export const zLocationUid = z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' });
 
 /**
- * Free-text search over the locations' name, address, `adminLevel1`, `adminLevel2` and `adminLevel4`.
+ * Free-text search over the locations' name, address, `adminLevel1`, `adminLevel2` and `adminLevel4`. At most 255 characters.
  *
  */
-export const zLocationSearch = z.string();
+export const zLocationSearch = z.string().max(255);
 
 /**
  * Restrict to the given location uid(s). Repeat the parameter (`uid=123&uid=456`) for multiple values.
  *
  */
-export const zLocationFilterUid = z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }));
+export const zLocationFilterUid = z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647)));
 
 /**
  * Match a location by an external identifier: `extId[key]=<system>&extId[value]=<id>`. Both parts are required.
@@ -1874,7 +1874,7 @@ export const zRelevanceThreshold = z.union([
 /**
  * Restrict to these event uids. Repeat the parameter for multiple values.
  */
-export const zFilterUid = z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }));
+export const zFilterUid = z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647)));
 
 /**
  * Restrict to these event slugs. Repeat the parameter for multiple values.
@@ -1924,7 +1924,7 @@ export const zFilterFeatured = z.boolean();
 /**
  * Restrict to events held at these location uids.
  */
-export const zFilterLocationUid = z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }));
+export const zFilterLocationUid = z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647)));
 
 /**
  * Match by a location external identifier: `locationExtId[key]=<system>&locationExtId[value]=<id>`.
@@ -1997,7 +1997,7 @@ export const zFilterRadius = z.number().int().gte(1);
 /**
  * Restrict to events originally created in these agendas.
  */
-export const zFilterOriginAgendaUid = z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }));
+export const zFilterOriginAgendaUid = z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647)));
 
 /**
  * Restrict to events whose origin agenda is official (`true`) or not (`false`).
@@ -2007,7 +2007,7 @@ export const zFilterOriginAgendaOfficial = z.boolean();
 /**
  * Restrict to events aggregated from these source agendas.
  */
-export const zFilterSourceAgendaUid = z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }));
+export const zFilterSourceAgendaUid = z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647)));
 
 /**
  * Restrict by temporal position relative to now. Combine values (repeat the parameter) to widen the window: `passed`, `upcoming`, `current`.
@@ -2086,7 +2086,7 @@ export const zAgendasListQuery = z.object({
     fields: z.array(z.string()).optional(),
     search: z.string().optional(),
     sort: z.enum(['createdAt.desc', 'recentlyAddedEvents.desc']).optional(),
-    uid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
+    uid: z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647))).optional(),
     slug: z.array(z.string()).optional(),
     official: z.boolean().optional(),
     networkUid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional()
@@ -2145,7 +2145,7 @@ export const zAgendasEventsListQuery = z.object({
         z.literal('auto'),
         z.number().gte(0)
     ]).optional().default('off'),
-    uid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
+    uid: z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647))).optional(),
     slug: z.array(z.string()).optional(),
     extId: z.object({
         key: z.string(),
@@ -2157,7 +2157,7 @@ export const zAgendasEventsListQuery = z.object({
     status: z.array(zEventStatus).optional(),
     attendanceMode: z.array(zAttendanceMode).optional(),
     featured: z.boolean().optional(),
-    locationUid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
+    locationUid: z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647))).optional(),
     locationExtId: z.object({
         key: z.string(),
         value: z.string()
@@ -2172,9 +2172,9 @@ export const zAgendasEventsListQuery = z.object({
     bbox: z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$/).optional(),
     near: z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?$/).optional(),
     radius: z.number().int().gte(1).optional(),
-    originAgendaUid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
+    originAgendaUid: z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647))).optional(),
     originAgendaOfficial: z.boolean().optional(),
-    sourceAgendaUid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
+    sourceAgendaUid: z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647))).optional(),
     relative: z.array(z.enum([
         'passed',
         'upcoming',
@@ -2385,7 +2385,7 @@ export const zAgendasEventsFacetsQuery = z.object({
         z.literal('auto'),
         z.number().gte(0)
     ]).optional().default('off'),
-    uid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
+    uid: z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647))).optional(),
     slug: z.array(z.string()).optional(),
     extId: z.object({
         key: z.string(),
@@ -2397,7 +2397,7 @@ export const zAgendasEventsFacetsQuery = z.object({
     status: z.array(zEventStatus).optional(),
     attendanceMode: z.array(zAttendanceMode).optional(),
     featured: z.boolean().optional(),
-    locationUid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
+    locationUid: z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647))).optional(),
     locationExtId: z.object({
         key: z.string(),
         value: z.string()
@@ -2412,9 +2412,9 @@ export const zAgendasEventsFacetsQuery = z.object({
     bbox: z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$/).optional(),
     near: z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?$/).optional(),
     radius: z.number().int().gte(1).optional(),
-    originAgendaUid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
+    originAgendaUid: z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647))).optional(),
     originAgendaOfficial: z.boolean().optional(),
-    sourceAgendaUid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
+    sourceAgendaUid: z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647))).optional(),
     relative: z.array(z.enum([
         'passed',
         'upcoming',
@@ -2538,8 +2538,8 @@ export const zAgendasLocationsListQuery = z.object({
     limit: z.number().int().gte(1).lte(100).optional().default(20),
     detailed: z.boolean().optional().default(false),
     fields: z.array(z.string()).optional(),
-    search: z.string().optional(),
-    uid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional(),
+    search: z.string().max(255).optional(),
+    uid: z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647))).optional(),
     extId: z.object({
         key: z.string(),
         value: z.string()
