@@ -2657,7 +2657,7 @@ export type NetworkFilterUid = Array<number>;
 export type LocationUid = number;
 
 /**
- * Free-text search over the locations' name, address, `adminLevel1`, `adminLevel2` and `adminLevel4`. At most 255 characters.
+ * Free-text search over the locations' name, address, `adminLevel1`, `adminLevel2` and `adminLevel4`.
  *
  */
 export type LocationSearch = string;
@@ -4573,7 +4573,7 @@ export type AgendasLocationsListData = {
          */
         fields?: Array<string>;
         /**
-         * Free-text search over the locations' name, address, `adminLevel1`, `adminLevel2` and `adminLevel4`. At most 255 characters.
+         * Free-text search over the locations' name, address, `adminLevel1`, `adminLevel2` and `adminLevel4`.
          *
          */
         search?: string;

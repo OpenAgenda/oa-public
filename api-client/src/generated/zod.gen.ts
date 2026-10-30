@@ -1714,7 +1714,7 @@ export const zNetworkFilterUid = z.array(z.coerce.bigint().min(BigInt('-92233720
 export const zLocationUid = z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' });
 
 /**
- * Free-text search over the locations' name, address, `adminLevel1`, `adminLevel2` and `adminLevel4`. At most 255 characters.
+ * Free-text search over the locations' name, address, `adminLevel1`, `adminLevel2` and `adminLevel4`.
  *
  */
 export const zLocationSearch = z.string().max(255);
