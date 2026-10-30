@@ -2978,6 +2978,8 @@ components:
         items:
           type: integer
           format: int64
+          minimum: 1
+          maximum: 2147483647
 
     AgendaFilterSlug:
       name: slug
@@ -3075,9 +3077,10 @@ components:
       required: false
       description: >
         Free-text search over the locations' name, address, `adminLevel1`,
-        `adminLevel2` and `adminLevel4`.
+        `adminLevel2` and `adminLevel4`. At most 255 characters.
       schema:
         type: string
+        maxLength: 255
 
     LocationFilterUid:
       name: uid
@@ -3093,6 +3096,8 @@ components:
         items:
           type: integer
           format: int64
+          minimum: 1
+          maximum: 2147483647
 
     LocationFilterExtId:
       name: extId
@@ -3433,6 +3438,8 @@ components:
         items:
           type: integer
           format: int64
+          minimum: 1
+          maximum: 2147483647
 
     FilterSlug:
       name: slug
@@ -3533,6 +3540,8 @@ components:
         items:
           type: integer
           format: int64
+          minimum: 1
+          maximum: 2147483647
 
     FilterLocationExtId:
       name: locationExtId
@@ -3679,6 +3688,8 @@ components:
         items:
           type: integer
           format: int64
+          minimum: 1
+          maximum: 2147483647
 
     FilterOriginAgendaOfficial:
       name: originAgendaOfficial
@@ -3698,6 +3709,8 @@ components:
         items:
           type: integer
           format: int64
+          minimum: 1
+          maximum: 2147483647
 
     FilterRelative:
       name: relative
@@ -7623,7 +7636,9 @@ components:
         native JSON types. Unknown keys are ignored.
       properties:
         search: { type: string }
-        uid: { type: array, items: { type: integer } }
+        uid:
+          type: array
+          items: { type: integer, minimum: 1, maximum: 2147483647 }
         slug: { type: array, items: { type: string } }
         extId:
           type: object
@@ -7638,7 +7653,9 @@ components:
         attendanceMode:
           { type: array, items: { type: integer, enum: [1, 2, 3] } }
         featured: { type: boolean }
-        locationUid: { type: array, items: { type: integer } }
+        locationUid:
+          type: array
+          items: { type: integer, minimum: 1, maximum: 2147483647 }
         locationExtId:
           type: object
           properties: { key: { type: string }, value: { type: string } }
@@ -7656,9 +7673,13 @@ components:
           }
         near: { type: string, description: '"lat,lng" — requires `radius`.' }
         radius: { type: integer, description: Metres; requires `near`. }
-        originAgendaUid: { type: array, items: { type: integer } }
+        originAgendaUid:
+          type: array
+          items: { type: integer, minimum: 1, maximum: 2147483647 }
         originAgendaOfficial: { type: boolean }
-        sourceAgendaUid: { type: array, items: { type: integer } }
+        sourceAgendaUid:
+          type: array
+          items: { type: integer, minimum: 1, maximum: 2147483647 }
         relative:
           type: array
           items: { type: string, enum: [passed, upcoming, current] }
