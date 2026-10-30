@@ -137,6 +137,7 @@ A text input for open-text search. Parameters are:
 
 - **name**: 'search'.
 - **manualSearch**: Boolean, false by default. When true, search is only triggered when the user submits the value. With `manualSubmit`, the whole form already waits for a submit: the typed value is held by the form like any other filter, so it makes the filters pending and the page's submit applies it.
+- **displayReset**: Boolean, false by default. When true, the search button turns into a reset button (×) once the field holds text, which clears the search and submits. With `manualSubmit`, it only does so on the applied search: until the typed text is submitted, the button searches.
 - **label**: Text of a `<label>` rendered above the input and associated with it. It carries the class `oa-filters-search-label`. Without it, the input is only named by its `aria-label`.
 - **placeholder**: Placeholder of the input. Defaults to "Search", translated.
 

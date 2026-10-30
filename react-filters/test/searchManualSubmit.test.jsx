@@ -4,9 +4,11 @@
 import { jest } from '@jest/globals';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
-import { Field, useField, useForm } from 'react-final-form';
+import { useField, useForm } from 'react-final-form';
 import FiltersProvider from '../src/components/FiltersProvider.jsx';
-import SearchInput from '../src/components/fields/SearchInput.jsx';
+import SearchFilter from '../src/components/filters/SearchFilter.jsx';
+
+const filter = { name: 'search' };
 
 globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -24,13 +26,14 @@ function renderSearch({ manualSearch, displayReset, onChange, ...props }) {
     <IntlProvider locale="en">
       <FiltersProvider filters={[]} onSubmit={() => {}} {...props}>
         <GrabForm />
-        <Field
+        {/* SearchFilter only subscribes to the value: the field must
+            re-render on a submit by itself */}
+        <SearchFilter
           name="search"
-          component={SearchInput}
+          filter={filter}
           manualSearch={manualSearch}
           displayReset={displayReset}
           onChange={onChange}
-          type="text"
         />
       </FiltersProvider>
     </IntlProvider>,
@@ -127,7 +130,14 @@ describe('search field with manualSubmit', () => {
       type('concerts');
       expect(button()).toBe('Search');
 
+      click();
+      expect(onSubmit.mock.calls.at(-1)[0]).toEqual({ search: 'concerts' });
+      expect(button()).toBe('Reset search');
+
       type('concert');
+      expect(button()).toBe('Search');
+
+      type('concerts');
       expect(button()).toBe('Reset search');
 
       click();
