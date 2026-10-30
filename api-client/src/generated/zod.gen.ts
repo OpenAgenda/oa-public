@@ -1698,7 +1698,7 @@ export const zAgendaFilterOfficial = z.boolean();
 export const zAgendaFilterNetworkUid = z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }));
 
 /**
- * Free-text search over the network title: every word of the text, in any order, even within a longer word. When no title holds them all, a word of three or four letters may be one letter off, a longer one two; numbers match as written. Case and accents are ignored and punctuation separates words; short words such as `de` or `la` count only when the text holds nothing else. At most 255 characters.
+ * Free-text search over the network title: every word of the text, in any order, even within a longer word. When no title holds them all, a word of three or four letters may be one letter off, a longer one two; numbers match as written. Case and accents are ignored and punctuation separates words; short words such as `de` or `la` count only when the text holds nothing else.
  *
  */
 export const zNetworkSearch = z.string().max(255);
