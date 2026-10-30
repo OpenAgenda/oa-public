@@ -3047,7 +3047,7 @@ components:
         word of three or four letters may be one letter off, a longer one two;
         numbers match as written. Case and accents are ignored and punctuation
         separates words; short words such as `de` or `la` count only when the
-        text holds nothing else. At most 255 characters.
+        text holds nothing else.
       schema:
         type: string
         maxLength: 255
