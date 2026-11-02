@@ -5,14 +5,22 @@ import { radioCardAnatomy } from '@chakra-ui/react/anatomy';
 // on one wrapping row (a key's permission shortcuts), where a full card would
 // outweigh the list it fills. Meant without an indicator, the shape and the
 // fill saying which is chosen; it sets its own padding, so `size` only scales
-// the text.
+// the text. It keeps its width on the row, and wraps its text only when wider
+// than the row. The focus is an outline: the base recipe says it by a fill,
+// which `_checked` covers.
 export const radioCardRecipe = defineSlotRecipe({
   slots: radioCardAnatomy.keys(),
   variants: {
     variant: {
       pill: {
         item: {
-          flex: '0 0 auto',
+          flex: '0 1 auto',
+          _focusVisible: {
+            outlineWidth: '2px',
+            outlineStyle: 'solid',
+            outlineColor: 'colorPalette.focusRing',
+            outlineOffset: '2px',
+          },
           borderWidth: '1px',
           borderRadius: 'full',
           _checked: {
