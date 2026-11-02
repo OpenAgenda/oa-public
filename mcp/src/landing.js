@@ -172,7 +172,7 @@ h1 em { font-style: normal; color: var(--primary); }
 .sketch { display: block; width: min(100%, 46rem); height: auto; margin: 2rem auto; }
 .cta { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; }
 .addr { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .25rem .6rem; margin: 1.25rem 0 0; font-size: .92rem; color: var(--muted); }
-.addr code { color: var(--ink); overflow-wrap: anywhere; }
+.addr code { color: var(--ink); white-space: nowrap; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .lang { position: relative; }
 .lang summary { color: var(--primary); font-size: .95rem; font-weight: 400; }
@@ -210,8 +210,13 @@ h1 em { font-style: normal; color: var(--primary); }
 .checks li::before { content: ""; position: absolute; left: .15rem; top: .62em; width: .4rem; height: .4rem; border-radius: 50%; background: var(--ink); }
 .convo details { margin-top: .75rem; }
 summary { cursor: pointer; color: var(--primary); font-weight: 500; }
-pre { margin: .6rem 0 0; padding: .85rem 1rem; background: #f4f4f5; border-radius: var(--r); white-space: pre-wrap; overflow-wrap: anywhere; font-size: .84rem; line-height: 1.55; }
+pre { margin: .6rem 0 0; padding: .85rem 1rem; background: #f4f4f5; border-radius: var(--r); overflow-x: auto; font-size: .84rem; line-height: 1.55; }
 pre code { font-size: 1em; }
+.snippet { position: relative; margin-top: .6rem; }
+.snippet pre { margin: 0; padding-right: 6rem; scrollbar-width: thin; }
+.snippet::after { content: ""; position: absolute; top: 0; right: 0; width: 6rem; height: 2.9rem; background: linear-gradient(to right, transparent, #f4f4f5 1.25rem); border-top-right-radius: var(--r); pointer-events: none; }
+.snippet button { position: absolute; z-index: 1; top: .45rem; right: .45rem; padding: .2rem .55rem; background: #fff; border: 1px solid var(--primary-line); border-radius: var(--r); color: var(--primary); font: 500 .8rem var(--body); cursor: pointer; }
+.snippet button:hover { background: var(--primary-soft); }
 [role="tabpanel"]:not([hidden]) { animation: show .22s cubic-bezier(.22, 1, .36, 1); }
 @keyframes show { from { opacity: .4; } to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { [role="tabpanel"]:not([hidden]) { animation: none; } }
@@ -221,7 +226,7 @@ pre code { font-size: 1em; }
 @media (min-width: 1024px) { .split { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); } }
 .intro p { margin: .75rem 0 0; }
 .urlbox { display: flex; margin-top: 1.25rem; border: 1px solid var(--primary-line); border-radius: var(--r); overflow: hidden; min-width: 0; }
-.urlbox code { flex: 1; min-width: 0; padding: .6rem .8rem; overflow-wrap: anywhere; }
+.urlbox code { flex: 1; min-width: 0; padding: .6rem .8rem; white-space: nowrap; overflow-x: auto; scrollbar-width: thin; }
 .urlbox button { flex: none; border: 0; background: var(--primary); color: #fff; font: 500 .95rem var(--body); padding: 0 1rem; cursor: pointer; }
 .urlbox button:hover { background: #1560a7; }
 .tabs { display: flex; flex-wrap: wrap; gap: .1rem; box-shadow: inset 0 -1px 0 var(--line); }
@@ -232,7 +237,7 @@ pre code { font-size: 1em; }
 .cmd { margin-top: .75rem; }
 .next { margin: 1.75rem 0 .35rem; }
 .pane { padding-top: 1.1rem; }
-.pane ol { margin: 0; padding-left: 1.3rem; display: grid; gap: .6rem; }
+.pane ol { margin: 0; padding-left: 1.3rem; display: grid; grid-template-columns: minmax(0, 1fr); gap: .6rem; }
 .pane p { margin: 0 0 .7rem; }
 .pane .hint { margin: .85rem 0 0; color: var(--muted); font-size: .92rem; }
 
@@ -478,22 +483,22 @@ ${LOCALES.map((l) => `<link rel="alternate" hreflang="${l}" href="${escapeHtml(o
           <li>${t('lechat.step3')}</li>
         </ol></div>
         <div class="pane" id="tool-claudecode" role="tabpanel" aria-labelledby="tool-tab-claudecode" hidden><ol>
-          <li>${t('claudecode.step1')}<pre><code>claude mcp add --transport http openagenda ${endpoint}</code></pre></li>
+          <li>${t('claudecode.step1')}<div class="snippet"><pre><code id="claudecode-cmd">claude mcp add --transport http openagenda ${endpoint}</code></pre>${copyButton('claudecode-cmd')}</div></li>
           <li>${t('claudecode.step2', { command: code('/mcp') })}</li>
         </ol></div>
         <div class="pane" id="tool-cursor" role="tabpanel" aria-labelledby="tool-tab-cursor" hidden>
           <p><a class="btn btn-solid btn-sm" href="${cursorInstall}">${t('cursor.button')}</a></p>
           <p>${t('cursor.or', { path: code('~/.cursor/mcp.json') })}</p>
-          <pre><code>{
+          <div class="snippet"><pre><code id="cursor-config">{
   "mcpServers": {
     "openagenda": { "url": "${endpoint}" }
   }
-}</code></pre>
+}</code></pre>${copyButton('cursor-config')}</div>
         </div>
         <div class="pane" id="tool-vscode" role="tabpanel" aria-labelledby="tool-tab-vscode" hidden>
           <p><a class="btn btn-solid btn-sm" href="${vscodeInstall}">${t('vscode.button')}</a></p>
           <p>${t('vscode.or')}</p>
-          <pre><code>code --add-mcp '{"name":"openagenda","type":"http","url":"${endpoint}"}'</code></pre>
+          <div class="snippet"><pre><code id="vscode-cmd">code --add-mcp '{"name":"openagenda","type":"http","url":"${endpoint}"}'</code></pre>${copyButton('vscode-cmd')}</div>
         </div>
         <div class="pane" id="tool-other" role="tabpanel" aria-labelledby="tool-tab-other" hidden><p>${t('other.text', { metadata })}</p></div>
       </div>

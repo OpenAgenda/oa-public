@@ -51,6 +51,23 @@ describe('landing page', () => {
     );
   });
 
+  it('gives every copy button a target, and every connection command a button', () => {
+    const html = landingPage({ resourceUrl });
+    const targets = [...html.matchAll(/data-copy="([^"]+)"/g)].map((m) => m[1]);
+
+    expect(targets).toEqual(
+      expect.arrayContaining([
+        'addmcp',
+        'claudecode-cmd',
+        'cursor-config',
+        'vscode-cmd',
+      ]),
+    );
+    for (const target of targets) {
+      expect(html).toContain(`id="${target}"`);
+    }
+  });
+
   it('escapes the endpoint it injects', () => {
     const html = landingPage({ resourceUrl: 'https://mcp.test/mcp?a="<b>' });
     expect(html).not.toContain('"<b>');
