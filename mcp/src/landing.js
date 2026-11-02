@@ -10,6 +10,7 @@
 // (public/crowdin.yml). A message may hold `<em>`, `<strong>` or `<a>`, so it is
 // written as HTML; only the values it interpolates are escaped.
 
+import { highlight } from 'sugar-high';
 import { getOAuthProtectedResourceMetadataUrl } from '@modelcontextprotocol/sdk/server/auth/router.js';
 import pkg from '../package.json' with { type: 'json' };
 import {
@@ -212,6 +213,7 @@ h1 em { font-style: normal; color: var(--primary); }
 summary { cursor: pointer; color: var(--primary); font-weight: 500; }
 pre { margin: .6rem 0 0; padding: .85rem 1rem; background: #f4f4f5; border-radius: var(--r); overflow-x: auto; font-size: .84rem; line-height: 1.55; }
 pre code { font-size: 1em; }
+pre { --sh-identifier: var(--ink); --sh-sign: var(--muted); --sh-comment: var(--muted); --sh-keyword: #1560a7; --sh-class: #1560a7; --sh-entity: #1560a7; --sh-property: #3f3f46; --sh-string: #0f766e; --sh-jsxliterals: var(--ink); }
 .snippet { position: relative; margin-top: .6rem; }
 .snippet pre { margin: 0; padding-right: 6rem; scrollbar-width: thin; }
 .snippet::after { content: ""; position: absolute; top: 0; right: 0; width: 6rem; height: 2.9rem; background: linear-gradient(to right, transparent, #f4f4f5 1.25rem); border-top-right-radius: var(--r); pointer-events: none; }
@@ -369,6 +371,8 @@ export function landingPage({ resourceUrl, locale = 'en', isolated = false }) {
     `<ul class="checks">${[1, 2, 3].map((n) => `<li>${t(`${id}.point${n}`)}</li>`).join('')}</ul>`;
 
   const code = (value) => `<code>${escapeHtml(value)}</code>`;
+  const colored = (value, lang, id) =>
+    `<code${id ? ` id="${id}"` : ''}>${highlight(value, { lang })}</code>`;
 
   return `<!doctype html>
 <html lang="${locale}">
@@ -430,7 +434,7 @@ ${LOCALES.map((l) => `<link rel="alternate" hreflang="${l}" href="${escapeHtml(o
       `<div class="ev"><img src="https://img.openagenda.com/u/128x128/smart/main/${event.image}.full.image.jpg" width="64" height="64" loading="lazy" alt=""><div class="ev-t">${escapeHtml(event.title)}</div><div class="ev-m">${t(`find.event${i + 1}.when`)}. ${escapeHtml(event.where)}</div><div class="ev-p">${escapeHtml(event.price)}</div></div>`,
   ).join('\n        ')}
         <p class="more">${t('find.more')}</p>
-        <details><summary>${t('find.code')}</summary><pre>${code(FIND_CODE)}</pre></details>
+        <details><summary>${t('find.code')}</summary><pre>${colored(FIND_CODE, 'javascript')}</pre></details>
       </div>
 
       <div class="convo" id="example-edit" role="tabpanel" aria-labelledby="example-tab-edit" hidden>
@@ -490,11 +494,15 @@ ${LOCALES.map((l) => `<link rel="alternate" hreflang="${l}" href="${escapeHtml(o
         <div class="pane" id="tool-cursor" role="tabpanel" aria-labelledby="tool-tab-cursor" hidden>
           <p><a class="btn btn-solid btn-sm" href="${cursorInstall}">${t('cursor.button')}</a></p>
           <p>${t('cursor.or', { path: code('~/.cursor/mcp.json') })}</p>
-          <div class="snippet"><pre><code id="cursor-config">{
+          <div class="snippet"><pre>${colored(
+    `{
   "mcpServers": {
-    "openagenda": { "url": "${endpoint}" }
+    "openagenda": { "url": "${resourceUrl}" }
   }
-}</code></pre>${copyButton('cursor-config')}</div>
+}`,
+    'json',
+    'cursor-config',
+  )}</pre>${copyButton('cursor-config')}</div>
         </div>
         <div class="pane" id="tool-vscode" role="tabpanel" aria-labelledby="tool-tab-vscode" hidden>
           <p><a class="btn btn-solid btn-sm" href="${vscodeInstall}">${t('vscode.button')}</a></p>
@@ -530,7 +538,7 @@ ${LOCALES.map((l) => `<link rel="alternate" hreflang="${l}" href="${escapeHtml(o
         <div>
           <h3>${t('devs.build.title')}</h3>
           <p>${t('devs.build.text')}</p>
-          <pre>${code(SDK_CODE)}</pre>
+          <pre>${colored(SDK_CODE, 'javascript')}</pre>
           <p>${t('devs.build.keys', { pk: code('oa_pk_…'), sk: code('oa_sk_…') })}</p>
           <div class="row"><a class="btn btn-outline btn-sm" href="${SDK_URL}">${t('devs.build.sdk')}</a></div>
         </div>

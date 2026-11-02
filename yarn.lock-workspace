@@ -6211,6 +6211,7 @@ __metadata:
     jose: "npm:^6.2.3"
     microsandbox: "npm:^0.5.4"
     minisearch: "npm:^7.2.0"
+    sugar-high: "npm:2.6.4"
     tsdown: "npm:^0.22.0"
     typescript: "npm:^5.6.3"
     yaml: "npm:^2.4.5"
@@ -31953,6 +31954,13 @@ __metadata:
   dependencies:
     minimist: "npm:^1.1.0"
   checksum: 10c0/8ecdfa682e50b98272b283f1094ae2f82e5c84b258fd3ac6e47a69149059bd786ef6586305243a5b60746ce23e3e738de7ed8277c76f3363fa351bbfe9c71f37
+  languageName: node
+  linkType: hard
+
+"sugar-high@npm:2.6.4":
+  version: 2.6.4
+  resolution: "sugar-high@npm:2.6.4"
+  checksum: 10c0/6556cd36962a0c993b3b6db9995538784adaa3acb2b654f4099d50ebe5abacbb5ce731180625c28712a132f55064f419cbb931b5017de59fe140ce924ecccc47
   languageName: node
   linkType: hard
 
