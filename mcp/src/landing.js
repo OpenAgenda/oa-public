@@ -378,6 +378,7 @@ export function landingPage({ resourceUrl, locale = 'en', isolated = false }) {
 <title>${t('meta.title')}</title>
 <meta name="description" content="${attr('meta.description')}">
 ${LOCALES.map((l) => `<link rel="alternate" hreflang="${l}" href="${escapeHtml(origin)}/?lang=${l}">`).join('\n')}
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preload" href="/assets/fonts/ubuntu-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/noto-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>${STYLES}</style>

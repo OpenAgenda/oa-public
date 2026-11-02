@@ -302,6 +302,11 @@ export function createHttpApp({ config, executor }) {
           }),
         );
     });
+    app.get(['/favicon.svg', '/favicon.ico'], (req, res) => {
+      res.sendFile(join(import.meta.dirname, '../assets', req.path), {
+        maxAge: '7d',
+      });
+    });
     app.use(
       '/assets/fonts',
       express.static(join(import.meta.dirname, '../assets/fonts'), {

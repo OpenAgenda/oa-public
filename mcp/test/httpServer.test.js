@@ -265,6 +265,22 @@ describe('MCP HTTP resource server', () => {
       expect(html).toContain(RESOURCE);
     });
 
+    it.each([
+      ['favicon.svg', 'image/svg+xml'],
+      ['favicon.ico', 'image/x-icon'],
+    ])('serves %s', async (file, type) => {
+      const res = await fetch(`${baseUrl}${file}`);
+      expect(res.status).toBe(200);
+      expect(res.headers.get('content-type')).toContain(type);
+    });
+
+    it('declares the SVG favicon', async () => {
+      const res = await fetch(baseUrl);
+      expect(await res.text()).toContain(
+        '<link rel="icon" type="image/svg+xml" href="/favicon.svg">',
+      );
+    });
+
     const langOf = async (query, headers) => {
       const res = await fetch(`${baseUrl}${query}`, { headers });
       return /<html lang="([^"]+)"/.exec(await res.text())[1];
