@@ -14,8 +14,10 @@ import { highlight } from 'sugar-high';
 import { getOAuthProtectedResourceMetadataUrl } from '@modelcontextprotocol/sdk/server/auth/router.js';
 import pkg from '../package.json' with { type: 'json' };
 import {
+  chevronIcon,
   githubIcon,
   globeIcon,
+  langIcon,
   logo,
   personIcon,
   shieldIcon,
@@ -120,6 +122,7 @@ const STYLES = `
   color-scheme: light;
   --primary: #1d77ce;      /* uikit primary.500 */
   --primary-soft: #ebf1fe; /* primary.50 */
+  --primary-subtle: #d7e3fe; /* primary.100 */
   --primary-line: #acc7fc; /* primary.200 */
   --ink: #09090b;
   --muted: #52525b;
@@ -147,7 +150,8 @@ h2 { font-size: clamp(1.75rem, 3.4vw, 2.25rem); line-height: 1.22; font-weight: 
 h3 { font-size: 1.05rem; line-height: 1.3; font-weight: 700; }
 
 /* Buttons: the site's solid and outline pair */
-.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 20px; border-radius: var(--r); border: 1px solid transparent; font: 500 1rem/1.2 var(--body); text-decoration: none; cursor: pointer; transition: background-color .15s ease-out; }
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 20px; border-radius: var(--r); border: 1px solid transparent; font: 500 1rem/1.2 var(--body); text-decoration: none; cursor: pointer; }
+.btn, .pill, .linkbtn, .lang summary, .urlbox button, .snippet button, .tabs button { transition: background-color .2s ease, border-color .2s ease, color .2s ease, box-shadow .2s ease; }
 .btn-solid { background: var(--primary); color: #fff; }
 .btn-solid:hover { background: #1560a7; }
 .btn-outline { background: #fff; color: var(--primary); border-color: var(--primary-line); }
@@ -158,11 +162,11 @@ h3 { font-size: 1.05rem; line-height: 1.3; font-weight: 700; }
 .nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 60px; }
 .brand { display: flex; align-items: center; gap: .55rem; text-decoration: none; color: var(--ink); font-family: var(--heading); font-weight: 600; }
 .brand svg { height: 24px; width: auto; display: block; }
-.nav-links { display: flex; align-items: center; gap: 1.25rem; }
-.nav-links a { text-decoration: none; font-size: .95rem; }
-.nav-links a:hover { text-decoration: underline; }
-.pill { display: inline-flex; align-items: center; gap: .45rem; border: 1px solid var(--primary); border-radius: 999px; padding: .35rem .95rem; }
-.gh { width: 1.05em; height: 1.05em; display: block; flex: none; }
+.nav-links { display: flex; align-items: center; gap: 1.5rem; }
+.nav-links a { text-decoration: none; }
+.pill { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border: 1px solid var(--primary-line); border-radius: 9999px; color: var(--primary); font: 500 14px/20px var(--body); }
+.pill:hover { background: var(--primary-subtle); }
+.gh, .nav-icon { width: 16px; height: 16px; display: block; flex: none; }
 
 /* Hero */
 .hero { background: linear-gradient(to right bottom, #fff, #fff, #fff, var(--hero-end)); }
@@ -176,11 +180,17 @@ h1 em { font-style: normal; color: var(--primary); }
 .addr code { color: var(--ink); white-space: nowrap; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .lang { position: relative; }
-.lang summary { color: var(--primary); font-size: .95rem; font-weight: 400; }
-.lang ul { position: absolute; right: 0; z-index: 10; margin: .35rem 0 0; padding: .35rem 0; list-style: none; background: #fff; border: 1px solid var(--line); border-radius: var(--r); box-shadow: 0 4px 12px rgb(3 28 55 / 12%); }
-.lang li a { display: block; padding: .3rem 1rem; white-space: nowrap; }
-.lang a[aria-current] { font-weight: 600; }
-@media (max-width: 480px) { .pill span { display: none; } .pill { padding: .45rem; } }
+.lang summary { display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: var(--r); color: var(--primary); font: 500 14px/20px var(--body); list-style: none; }
+.lang summary::-webkit-details-marker { display: none; }
+.lang summary:hover, .lang[open] summary { background: var(--primary-subtle); }
+.lang ul { position: absolute; right: 0; z-index: 10; min-width: 128px; margin: 8px 0 0; padding: 6px; list-style: none; background: #fff; border-radius: var(--r); box-shadow: 0 8px 16px rgb(24 24 27 / 10%), 0 0 1px rgb(24 24 27 / 30%); }
+.lang[open] ul { animation: menu-in .15s ease; }
+@keyframes menu-in { from { opacity: 0; translate: 0 -.5rem; } }
+.lang li a { display: block; padding: 6px 8px; border-radius: 2px; color: var(--ink); font-size: 14px; line-height: 20px; white-space: nowrap; }
+.lang li a:hover { background: color-mix(in srgb, var(--primary-subtle) 30%, transparent); }
+.lang a[aria-current] { color: var(--muted); }
+@media (max-width: 480px) { .nav { gap: .5rem; } .nav-links { gap: .25rem; } .lang summary { padding: 0 8px; } .pill span { display: none; } .pill { width: 36px; padding: 0; justify-content: center; } }
+@media (max-width: 359px) { .lang-name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; } }
 .linkbtn { background: none; border: 0; padding: .25rem; color: var(--primary); font: 500 .92rem var(--body); cursor: pointer; text-decoration: underline; }
 
 /* Examples */
@@ -221,7 +231,7 @@ pre { --sh-identifier: var(--ink); --sh-sign: var(--muted); --sh-comment: var(--
 .snippet button:hover { background: var(--primary-soft); }
 [role="tabpanel"]:not([hidden]) { animation: show .22s cubic-bezier(.22, 1, .36, 1); }
 @keyframes show { from { opacity: .4; } to { opacity: 1; } }
-@media (prefers-reduced-motion: reduce) { [role="tabpanel"]:not([hidden]) { animation: none; } }
+@media (prefers-reduced-motion: reduce) { [role="tabpanel"]:not([hidden]), .lang[open] ul { animation: none; } .btn, .pill, .linkbtn, .lang summary, .urlbox button, .snippet button, .tabs button { transition: none; } }
 
 /* Connect */
 .split { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem 3.5rem; }
@@ -294,6 +304,7 @@ document.querySelectorAll('[data-copy]').forEach((btn) => btn.addEventListener('
 
 const language = document.querySelector('.lang');
 document.addEventListener('click', (e) => { if (!language.contains(e.target)) language.open = false; });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && language.open) { language.open = false; language.querySelector('summary').focus(); } });
 `;
 
 const escapeHtml = (value) =>
@@ -395,7 +406,7 @@ ${LOCALES.map((l) => `<link rel="alternate" hreflang="${l}" href="${escapeHtml(o
       <a class="brand" href="https://openagenda.com" aria-label="OpenAgenda">${logo}</a>
       <div class="nav-links">
         <details class="lang">
-          <summary><span class="sr">${t('nav.language')} : </span>${LANGUAGE_NAMES[locale]}</summary>
+          <summary>${langIcon}<span class="sr">${t('nav.language')} : </span><span class="lang-name">${LANGUAGE_NAMES[locale]}</span>${chevronIcon}</summary>
           <ul>
             ${LOCALES.map((l) => `<li><a href="/?lang=${l}" hreflang="${l}" lang="${l}"${l === locale ? ' aria-current="true"' : ''}>${LANGUAGE_NAMES[l]}</a></li>`).join('\n            ')}
           </ul>
