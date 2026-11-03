@@ -60,9 +60,6 @@ const optionMessages = {
   'updatedAt.asc': messages.leastRecentlyUpdated,
 };
 
-// what a public listing wants, with a single chronological order so the
-// closed select never shows two orders under the same short label; the agenda
-// admin passes its own
 // Lays every label the closed select can show, invisible, in the cell of the
 // value: the select is as wide as the widest of them, whichever is selected
 // and whether a search offers relevance or not.
@@ -92,6 +89,9 @@ function ValueContainer({ children, ...props }) {
 
 const selectComponentsOverrides = { ValueContainer };
 
+// what a public listing wants, with a single chronological order so the
+// closed select never shows two orders under the same short label; the agenda
+// admin passes its own
 const defaultOptions = ['lastTimingWithFeatured.asc', 'score'];
 const noLabels = {};
 
@@ -113,10 +113,20 @@ export default function Sort({
   // accessible name of the select, a translated "Sort by" by default; `false`
   // when the page names it with its own <label>
   label = undefined,
+  // merged over the component that sizes the select
+  components = undefined,
   ...rest
 }) {
   const intl = useIntl();
   const form = useForm();
+
+  const mergedComponents = useMemo(
+    () =>
+      (components
+        ? { ...selectComponentsOverrides, ...components }
+        : selectComponentsOverrides),
+    [components],
+  );
 
   const mergedStyles = useMemo(
     () => (styles ? { ...stateSelectStyles, ...styles } : stateSelectStyles),
@@ -190,16 +200,39 @@ export default function Sort({
     [descriptions, intl, labels, shortLabels],
   );
 
+  // A sort the select does not offer, from the page's URL, is shown under
+  // its label: it joins the sizing for good, so that picking an offered order
+  // afterwards does not narrow the select.
+  const {
+    input: { value: shownSort },
+  } = useField('sort', { subscription: { value: true } });
+  const [foreignSorts, setForeignSorts] = useState(() => {
+    const initialSort = form.getState().values.sort;
+    return initialSort && !options.includes(initialSort) ? [initialSort] : [];
+  });
+
+  useEffect(() => {
+    if (
+      shownSort
+      && !options.includes(shownSort)
+      && !foreignSorts.includes(shownSort)
+    ) {
+      setForeignSorts((previous) => [...previous, shownSort]);
+    }
+  }, [foreignSorts, options, shownSort]);
+
   // relevance included: the width must not change when a search adds it
   const sizingLabels = useMemo(
     () => [
-      ...new Set(
-        options
+      ...new Set([
+        ...options
           .filter((value) => optionMessages[value])
           .map((value) => formatOptionLabel({ value }, { context: 'value' })),
-      ),
+        ...foreignSorts.map((value) =>
+          formatOptionLabel({ value, label: value }, { context: 'value' })),
+      ]),
     ],
-    [formatOptionLabel, options],
+    [foreignSorts, formatOptionLabel, options],
   );
 
   const userSortRef = useRef(userSort);
@@ -251,14 +284,17 @@ export default function Sort({
         isClearable={false}
         defaultValue={shownDefault}
         formatOptionLabel={formatOptionLabel}
-        components={selectComponentsOverrides}
+        components={mergedComponents}
         sizingLabels={sizingLabels}
+        // with nothing to offer, the select stays in place, named and idle
+        placeholder={intl.formatMessage(messages.sortBy)}
         aria-label={
           label === false
             ? undefined
             : (label ?? intl.formatMessage(messages.sortBy))
         }
         {...rest}
+        isDisabled={rest.isDisabled || !orderOptions.length}
       />
       <OnChange name="sort">
         {(value) => {

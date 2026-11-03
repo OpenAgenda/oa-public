@@ -90,6 +90,47 @@ describe('Sort', () => {
     expect(sizingLabels(container)).toEqual(expected);
   });
 
+  test('keeps a sort it does not offer in the sizing once shown', () => {
+    const { container, change } = renderSort({}, { sort: 'updatedAt.asc' });
+
+    expect(shownValue()).toBe('Oldest updates');
+    expect(sizingLabels(container)).toEqual([
+      'Chronological',
+      'Relevance',
+      'Oldest updates',
+    ]);
+
+    change('sort', 'lastTimingWithFeatured.asc');
+
+    expect(sizingLabels(container)).toEqual([
+      'Chronological',
+      'Relevance',
+      'Oldest updates',
+    ]);
+  });
+
+  test('keeps its sizing when the page passes its own components', () => {
+    const DropdownIndicator = () => <span className="page-indicator" />;
+    const { container } = renderSort({
+      options: ['lastTimingWithFeatured.asc', 'updatedAt.desc'],
+      components: { DropdownIndicator },
+    });
+
+    expect(container.querySelector('.page-indicator')).toBeTruthy();
+    expect(sizingLabels(container)).toEqual([
+      'Chronological',
+      'Recently updated',
+    ]);
+  });
+
+  test('stays in place, named and disabled, with nothing to offer', () => {
+    const { container } = renderSort({ options: ['score'] });
+
+    expect(container.textContent).toContain('Sort by');
+    expect(container.textContent).not.toContain('Select...');
+    expect(container.querySelector('input').disabled).toBe(true);
+  });
+
   test('offers relevance only while a search is typed', () => {
     const { container, change, openMenu } = renderSort();
 
