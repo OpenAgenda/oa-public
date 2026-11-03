@@ -128,9 +128,11 @@ describe('the contract stays inside what search_docs can render', () => {
       '/components/schemas/*/properties/*/properties/*/additionalProperties/x-additionalPropertiesName',
       '/components/schemas/*/properties/*/properties/*/format:int64',
       '/components/schemas/*/properties/*/properties/*/format:uri',
+      '/components/schemas/*/properties/*/properties/*/maximum',
       // `ValidationError.error.errors` is never empty. Same construct the card
       // already drops a level up, and a reader who gets the list reads it.
       '/components/schemas/*/properties/*/properties/*/minItems',
+      '/components/schemas/*/properties/*/properties/*/minimum',
       '/components/schemas/*/properties/*/readOnly',
       '/components/schemas/*/properties/*/uniqueItems',
       '/components/securitySchemes/*/description',
