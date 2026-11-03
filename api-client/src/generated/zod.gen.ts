@@ -1680,7 +1680,7 @@ export const zAgendaFilterOfficial = z.boolean();
 /**
  * Restrict to the agendas of these networks. Repeat the parameter for multiple values.
  */
-export const zAgendaFilterNetworkUid = z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }));
+export const zAgendaFilterNetworkUid = z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647)));
 
 /**
  * Numeric uid of the location.
@@ -2063,7 +2063,7 @@ export const zAgendasListQuery = z.object({
     uid: z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647))).optional(),
     slug: z.array(z.string()).optional(),
     official: z.boolean().optional(),
-    networkUid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional()
+    networkUid: z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647))).optional()
 });
 
 /**
