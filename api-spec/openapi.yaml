@@ -1669,8 +1669,39 @@ paths:
           search,
           name,
           uid,
+          near,
+          nearby,
+          radius,
+          distance,
+          proximity,
+          match,
+          duplicate,
+          verified,
         ]
       x-codeSamples:
+        - lang: TypeScript
+          label: Find the existing locations around an address
+          source: |
+            const { data: place, error: geocodingError } = await oa.geocoding.search({
+              query: { address: '1 place Maurice Marchais, Vannes', countryCode: 'FR' },
+            });
+            if (geocodingError) throw geocodingError;
+            if (!place.data) return [];
+
+            const { data, error } = await oa.agendas.locations.list({
+              path: { agendaUid: 12345 },
+              query: {
+                near: `${place.data.latitude},${place.data.longitude}`,
+                radius: 200,
+              },
+            });
+            if (error) throw error;
+            return data.data.map((l) => ({
+              uid: l.uid,
+              name: l.name,
+              address: l.address,
+              verified: l.verified,
+            }));
         - lang: TypeScript
           label: Find a location by name
           source: |
@@ -1716,6 +1747,9 @@ paths:
         - $ref: '#/components/parameters/LocationFilterUid'
         - $ref: '#/components/parameters/LocationFilterExtId'
         - $ref: '#/components/parameters/LocationBoundingBox'
+        - $ref: '#/components/parameters/FilterNear'
+        - $ref: '#/components/parameters/FilterRadius'
+        - $ref: '#/components/parameters/LocationFilterVerified'
         - $ref: '#/components/parameters/FilterCreatedAt'
         - $ref: '#/components/parameters/FilterUpdatedAt'
       responses:
@@ -3133,6 +3167,14 @@ components:
       schema:
         type: string
         pattern: '^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$'
+
+    LocationFilterVerified:
+      name: verified
+      in: query
+      required: false
+      description: Restrict to verified (`true`) or unverified (`false`) locations.
+      schema:
+        type: boolean
 
     Facets:
       name: facets
