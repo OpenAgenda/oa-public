@@ -3858,9 +3858,11 @@ components:
           gte:
             type: integer
             minimum: 0
+            maximum: 2147483647
           lte:
             type: integer
             minimum: 0
+            maximum: 2147483647
 
     FilterAdditionalFields:
       name: additionalFields
@@ -7682,10 +7684,14 @@ components:
         availabilityUpdatedAt: { $ref: '#/components/schemas/DateRangeFilter' }
         localTime:
           type: object
-          properties: { gte: { type: integer }, lte: { type: integer } }
+          properties:
+            gte: { type: integer, minimum: 0, maximum: 1440 }
+            lte: { type: integer, minimum: 0, maximum: 1440 }
         age:
           type: object
-          properties: { gte: { type: integer }, lte: { type: integer } }
+          properties:
+            gte: { type: integer, minimum: 0, maximum: 2147483647 }
+            lte: { type: integer, minimum: 0, maximum: 2147483647 }
         sort: { type: string }
         additionalFields:
           type: object
