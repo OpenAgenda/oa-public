@@ -2623,6 +2623,11 @@ export type MeAgendaFilterRole = Array<MemberRole>;
 export type AgendaFilterOfficial = boolean;
 
 /**
+ * Restrict to the agendas of these networks. Repeat the parameter for multiple values.
+ */
+export type AgendaFilterNetworkUid = Array<number>;
+
+/**
  * Numeric uid of the location.
  */
 export type LocationUid = number;
@@ -2997,6 +3002,10 @@ export type AgendasListData = {
          *
          */
         official?: boolean;
+        /**
+         * Restrict to the agendas of these networks. Repeat the parameter for multiple values.
+         */
+        networkUid?: Array<number>;
     };
     url: '/agendas';
 };

@@ -164,6 +164,7 @@ paths:
         - $ref: '#/components/parameters/AgendaFilterUid'
         - $ref: '#/components/parameters/AgendaFilterSlug'
         - $ref: '#/components/parameters/AgendaFilterOfficial'
+        - $ref: '#/components/parameters/AgendaFilterNetworkUid'
       responses:
         '200':
           description: A page of agendas.
@@ -2958,6 +2959,19 @@ components:
         (`false`). Omit to return both.
       schema:
         type: boolean
+
+    AgendaFilterNetworkUid:
+      name: networkUid
+      in: query
+      required: false
+      description: Restrict to the agendas of these networks. Repeat the parameter for multiple values.
+      schema:
+        type: array
+        items:
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 2147483647
 
     LocationUid:
       name: locationUid
