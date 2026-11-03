@@ -22,7 +22,9 @@
     "Stopwatch.js",
     "iso4217.js",
     "isoDatetime.js",
+    "searchRank.js",
     "shortId.js",
+    "tokenizeSearch.js",
     "images",
     "CHANGELOG.md"
   ],
@@ -33,6 +35,9 @@
     "./iso4217": "./iso4217.js",
     "./isoDatetime": "./isoDatetime.js",
     "./shortId": "./shortId.js"
+  },
+  "dependencies": {
+    "fastest-levenshtein": "^1.0.16"
   },
   "scripts": {
     "lint": "eslint .",
