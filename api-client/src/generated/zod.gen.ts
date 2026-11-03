@@ -1139,12 +1139,12 @@ export const zEventFilters = z.object({
     updatedAt: zDateRangeFilter.optional(),
     availabilityUpdatedAt: zDateRangeFilter.optional(),
     localTime: z.object({
-        gte: z.number().int().optional(),
-        lte: z.number().int().optional()
+        gte: z.number().int().gte(0).lte(1440).optional(),
+        lte: z.number().int().gte(0).lte(1440).optional()
     }).optional(),
     age: z.object({
-        gte: z.number().int().optional(),
-        lte: z.number().int().optional()
+        gte: z.number().int().gte(0).lte(2147483647).optional(),
+        lte: z.number().int().gte(0).lte(2147483647).optional()
     }).optional(),
     sort: z.string().optional(),
     additionalFields: z.record(z.unknown()).optional()
@@ -2067,8 +2067,8 @@ export const zFilterAvailabilityUpdatedAt = z.object({
  *
  */
 export const zFilterAge = z.object({
-    gte: z.number().int().gte(0).optional(),
-    lte: z.number().int().gte(0).optional()
+    gte: z.number().int().gte(0).lte(2147483647).optional(),
+    lte: z.number().int().gte(0).lte(2147483647).optional()
 });
 
 /**
@@ -2199,8 +2199,8 @@ export const zAgendasEventsListQuery = z.object({
         lte: z.string().datetime({ offset: true }).optional()
     }).optional(),
     age: z.object({
-        gte: z.number().int().gte(0).optional(),
-        lte: z.number().int().gte(0).optional()
+        gte: z.number().int().gte(0).lte(2147483647).optional(),
+        lte: z.number().int().gte(0).lte(2147483647).optional()
     }).optional(),
     additionalFields: z.record(z.unknown()).optional()
 });
@@ -2439,8 +2439,8 @@ export const zAgendasEventsFacetsQuery = z.object({
         lte: z.string().datetime({ offset: true }).optional()
     }).optional(),
     age: z.object({
-        gte: z.number().int().gte(0).optional(),
-        lte: z.number().int().gte(0).optional()
+        gte: z.number().int().gte(0).lte(2147483647).optional(),
+        lte: z.number().int().gte(0).lte(2147483647).optional()
     }).optional(),
     additionalFields: z.record(z.unknown()).optional()
 });
