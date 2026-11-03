@@ -477,7 +477,6 @@ ${LOCALES.map((l) => `<link rel="alternate" hreflang="${l}" href="${escapeHtml(o
         <div class="tabs" role="tablist" aria-label="${attr('connect.tools.label')}">
           ${toolTab('claude', 'Claude', true)}
           ${toolTab('chatgpt', 'ChatGPT')}
-          ${toolTab('lechat', 'Le Chat')}
           ${toolTab('claudecode', 'Claude Code')}
           ${toolTab('cursor', 'Cursor')}
           ${toolTab('vscode', 'VS Code')}
@@ -493,11 +492,6 @@ ${LOCALES.map((l) => `<link rel="alternate" hreflang="${l}" href="${escapeHtml(o
           <li>${t('chatgpt.step2')}</li>
           <li>${t('step.signin')}</li>
         </ol><p class="hint">${t('chatgpt.hint')}</p></div>
-        <div class="pane" id="tool-lechat" role="tabpanel" aria-labelledby="tool-tab-lechat" hidden><ol>
-          <li>${t('lechat.step1')}</li>
-          <li>${t('lechat.step2', { name: code('openagenda') })}</li>
-          <li>${t('lechat.step3')}</li>
-        </ol></div>
         <div class="pane" id="tool-claudecode" role="tabpanel" aria-labelledby="tool-tab-claudecode" hidden><ol>
           <li>${t('claudecode.step1')}<div class="snippet"><pre><code id="claudecode-cmd">claude mcp add --transport http openagenda ${endpoint}</code></pre>${copyButton('claudecode-cmd')}</div></li>
           <li>${t('claudecode.step2', { command: code('/mcp') })}</li>
