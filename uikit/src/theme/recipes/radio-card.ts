@@ -15,12 +15,7 @@ export const radioCardRecipe = defineSlotRecipe({
       pill: {
         item: {
           flex: '0 1 auto',
-          _focusVisible: {
-            outlineWidth: '2px',
-            outlineStyle: 'solid',
-            outlineColor: 'colorPalette.focusRing',
-            outlineOffset: '2px',
-          },
+          focusVisibleRing: 'outside',
           borderWidth: '1px',
           borderRadius: 'full',
           _checked: {
