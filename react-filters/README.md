@@ -246,6 +246,8 @@ The available orders:
 
 `timings` orders events by their next date, `lastTiming` by their last one. The `WithFeatured` variants list featured events first.
 
+The select is at least 180px wide, and as wide as the longest label it can show closed, `score` included: its width does not change with the order picked, nor when a search adds relevance.
+
 `score` is only listed while a search is typed, since relevance ranks against it. When it is among the options, typing a search switches the order to relevance, and clearing the search brings back the order picked before.
 
 The widget starts on the `sort` of the initial `query`, so a link carrying an order shows it and keeps it through later filter changes. An order the widget does not offer is still shown, under its label. Without one, the values passed to `onFilterChange` carry no `sort` until the visitor picks an order: the page should then request the events in the order given as `defaultValue`.

@@ -45,6 +45,18 @@ function renderSort(sortProps = {}, initialValues = {}) {
   };
 }
 
+// what the closed select shows
+const shownValue = (root = document.body) =>
+  root.querySelector('[class*="singleValue"]')?.textContent;
+
+// the labels the select is sized to
+const sizingLabels = (container) =>
+  [
+    ...container.querySelectorAll(
+      'span[aria-hidden][style*="visibility: hidden"]',
+    ),
+  ].map((el) => el.textContent);
+
 // the label of each menu option, without its detail line
 const optionLabels = (container) =>
   [...container.querySelectorAll('[id*="-option-"]')].map(
@@ -61,6 +73,21 @@ describe('Sort', () => {
     expect(optionLabels(container)).toEqual([
       'Featured first, chronological (last date)',
     ]);
+  });
+
+  test('sizes the select to every label it can show, relevance included', () => {
+    const { container, change } = renderSort({
+      options: ['lastTimingWithFeatured.asc', 'updatedAt.desc', 'score'],
+      shortLabels: { 'updatedAt.desc': 'Latest' },
+    });
+    const expected = ['Chronological', 'Latest', 'Relevance'];
+
+    expect(sizingLabels(container)).toEqual(expected);
+
+    change('search', 'concert');
+    change('sort', 'updatedAt.desc');
+
+    expect(sizingLabels(container)).toEqual(expected);
   });
 
   test('offers relevance only while a search is typed', () => {
@@ -101,8 +128,7 @@ describe('Sort', () => {
       defaultValue: 'updatedAt.desc',
     });
 
-    expect(screen.getByText('Chronological')).toBeTruthy();
-    expect(screen.queryByText('Recently updated')).toBeNull();
+    expect(shownValue()).toBe('Chronological');
   });
 
   test('shows the sort of the initial query', () => {
@@ -111,7 +137,7 @@ describe('Sort', () => {
       { sort: 'updatedAt.desc' },
     );
 
-    expect(screen.getByText('Recently updated')).toBeTruthy();
+    expect(shownValue()).toBe('Recently updated');
   });
 
   test('names an initial sort the select does not offer', () => {
@@ -120,8 +146,7 @@ describe('Sort', () => {
       { sort: 'timings.asc' },
     );
 
-    expect(screen.getByText('Chronological')).toBeTruthy();
-    expect(screen.queryByText('timings.asc')).toBeNull();
+    expect(shownValue()).toBe('Chronological');
   });
 
   test('shows a detail line under each option in the menu only', () => {
@@ -161,7 +186,7 @@ describe('Sort', () => {
       shortLabels: { 'lastTimingWithFeatured.asc': 'Chronological' },
     });
 
-    expect(screen.getByText('Chronological')).toBeTruthy();
+    expect(shownValue()).toBe('Chronological');
 
     openMenu();
 
@@ -204,8 +229,7 @@ describe('Sort', () => {
       labels: { 'lastTimingWithFeatured.asc': 'Public view' },
     });
 
-    expect(screen.getByText('Public view')).toBeTruthy();
-    expect(screen.queryByText('Chronological')).toBeNull();
+    expect(shownValue()).toBe('Public view');
   });
 
   test('takes label overrides', () => {
@@ -214,7 +238,7 @@ describe('Sort', () => {
       labels: { 'lastTimingWithFeatured.asc': 'Public view' },
     });
 
-    expect(screen.getByText('Public view')).toBeTruthy();
+    expect(shownValue()).toBe('Public view');
   });
 
   test('switches to relevance on a first search, and back when it is cleared', () => {
@@ -295,7 +319,7 @@ describe('sort widget', () => {
     expect(
       within(anchor).getByRole('combobox', { name: 'Order the events' }),
     ).toBeTruthy();
-    expect(within(anchor).getByText('Chronological')).toBeTruthy();
+    expect(shownValue(anchor)).toBe('Chronological');
 
     anchor.remove();
   });

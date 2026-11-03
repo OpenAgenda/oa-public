@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { Field, useField, useForm } from 'react-final-form';
 import { OnChange } from 'react-final-form-listeners';
+import { components as selectComponents } from 'react-select';
 import ReactSelectField from '@openagenda/react-shared/components/ReactSelectField';
 import messages from '../messages/sort.js';
 
@@ -12,7 +13,7 @@ const stateSelectStyles = {
   container: (provided) => ({
     ...provided,
     display: 'inline-block',
-    width: '180px',
+    minWidth: '180px',
   }),
   control: (provided, state) => ({
     ...defaultReactSelectStyles.control(provided, state),
@@ -62,6 +63,35 @@ const optionMessages = {
 // what a public listing wants, with a single chronological order so the
 // closed select never shows two orders under the same short label; the agenda
 // admin passes its own
+// Lays every label the closed select can show, invisible, in the cell of the
+// value: the select is as wide as the widest of them, whichever is selected
+// and whether a search offers relevance or not.
+function ValueContainer({ children, ...props }) {
+  return (
+    <selectComponents.ValueContainer {...props}>
+      {children}
+      {props.selectProps.sizingLabels?.map((sizingLabel) => (
+        <span
+          key={sizingLabel}
+          aria-hidden
+          style={{
+            gridArea: '1 / 1 / 2 / 3',
+            height: 0,
+            margin: '0 2px',
+            overflow: 'hidden',
+            visibility: 'hidden',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {sizingLabel}
+        </span>
+      ))}
+    </selectComponents.ValueContainer>
+  );
+}
+
+const selectComponentsOverrides = { ValueContainer };
+
 const defaultOptions = ['lastTimingWithFeatured.asc', 'score'];
 const noLabels = {};
 
@@ -160,6 +190,18 @@ export default function Sort({
     [descriptions, intl, labels, shortLabels],
   );
 
+  // relevance included: the width must not change when a search adds it
+  const sizingLabels = useMemo(
+    () => [
+      ...new Set(
+        options
+          .filter((value) => optionMessages[value])
+          .map((value) => formatOptionLabel({ value }, { context: 'value' })),
+      ),
+    ],
+    [formatOptionLabel, options],
+  );
+
   const userSortRef = useRef(userSort);
   userSortRef.current = userSort;
   const hasRelevanceRef = useRef(hasRelevance);
@@ -209,6 +251,8 @@ export default function Sort({
         isClearable={false}
         defaultValue={shownDefault}
         formatOptionLabel={formatOptionLabel}
+        components={selectComponentsOverrides}
+        sizingLabels={sizingLabels}
         aria-label={
           label === false
             ? undefined
