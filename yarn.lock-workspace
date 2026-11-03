@@ -6211,7 +6211,6 @@ __metadata:
     jose: "npm:^6.2.3"
     microsandbox: "npm:^0.5.4"
     minisearch: "npm:^7.2.0"
-    sugar-high: "npm:2.6.4"
     tsdown: "npm:^0.22.0"
     typescript: "npm:^5.6.3"
     yaml: "npm:^2.4.5"
@@ -6611,7 +6610,6 @@ __metadata:
     "@openagenda/eslint-config": "npm:^2.3.0"
     babel-jest: "npm:^30.4.1"
     eslint: "npm:^8.36.0"
-    fastest-levenshtein: "npm:^1.0.16"
     jest: "npm:^30.4.2"
   languageName: unknown
   linkType: soft
@@ -18496,13 +18494,6 @@ __metadata:
   bin:
     fxparser: src/cli/cli.js
   checksum: 10c0/5fccf3f53d6b2b83143d73089f04ef5db5343422891193cf10d92d3eb856007b7337818494109e46f6fa47b31b9716be15c4b275ff87a0aeb6f7315aa2edc181
-  languageName: node
-  linkType: hard
-
-"fastest-levenshtein@npm:^1.0.16":
-  version: 1.0.16
-  resolution: "fastest-levenshtein@npm:1.0.16"
-  checksum: 10c0/7e3d8ae812a7f4fdf8cad18e9cde436a39addf266a5986f653ea0d81e0de0900f50c0f27c6d5aff3f686bcb48acbd45be115ae2216f36a6a13a7dbbf5cad878b
   languageName: node
   linkType: hard
 
@@ -31962,13 +31953,6 @@ __metadata:
   dependencies:
     minimist: "npm:^1.1.0"
   checksum: 10c0/8ecdfa682e50b98272b283f1094ae2f82e5c84b258fd3ac6e47a69149059bd786ef6586305243a5b60746ce23e3e738de7ed8277c76f3363fa351bbfe9c71f37
-  languageName: node
-  linkType: hard
-
-"sugar-high@npm:2.6.4":
-  version: 2.6.4
-  resolution: "sugar-high@npm:2.6.4"
-  checksum: 10c0/6556cd36962a0c993b3b6db9995538784adaa3acb2b654f4099d50ebe5abacbb5ce731180625c28712a132f55064f419cbb931b5017de59fe140ce924ecccc47
   languageName: node
   linkType: hard
 

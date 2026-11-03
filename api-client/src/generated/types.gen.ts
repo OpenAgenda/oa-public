@@ -12,7 +12,7 @@ export type Error = {
         /**
          * Stable, machine-readable error code.
          */
-        code: 'bad_request' | 'unauthorized' | 'read_only_credential' | 'insufficient_scope' | 'agenda_not_granted' | 'forbidden' | 'not_found' | 'service_unavailable';
+        code: 'bad_request' | 'unauthorized' | 'read_only_credential' | 'insufficient_scope' | 'forbidden' | 'not_found' | 'service_unavailable';
         /**
          * Human-readable explanation.
          */
@@ -115,11 +115,6 @@ export type VerifiedKey = {
      *
      */
     scopes: Array<string> | null;
-    /**
-     * The uids of the agendas the key is limited to and can read. `null` when the key is not limited to a list of agendas.
-     *
-     */
-    agendas: Array<number> | null;
     /**
      * The instant the key stops authenticating, or `null` when it does not expire.
      *
@@ -806,19 +801,6 @@ export type MeAgendaItemDetailed = {
     createdAt: string | null;
     network: AgendaNetworkRef;
     locationSet: AgendaLocationSetRef;
-};
-
-/**
- * A group of agendas.
- */
-export type Network = {
-    uid: number;
-    title: string | null;
-};
-
-export type NetworkList = {
-    data: Array<Network>;
-    pagination: Pagination;
 };
 
 export type MeAgendaList = {
@@ -2641,17 +2623,6 @@ export type AgendaFilterOfficial = boolean;
 export type AgendaFilterNetworkUid = Array<number>;
 
 /**
- * Free-text search over the network title: every word of the text, in any order, even within a longer word. When no title holds them all, a word of three or four letters may be one letter off, a longer one two; numbers match as written. Case and accents are ignored and punctuation separates words; short words such as `de` or `la` count only when the text holds nothing else.
- *
- */
-export type NetworkSearch = string;
-
-/**
- * Restrict to these network uids. Repeat the parameter for multiple values.
- */
-export type NetworkFilterUid = Array<number>;
-
-/**
  * Numeric uid of the location.
  */
 export type LocationUid = number;
@@ -4281,60 +4252,6 @@ export type AgendasEventsSchemaResponses = {
 };
 
 export type AgendasEventsSchemaResponse = AgendasEventsSchemaResponses[keyof AgendasEventsSchemaResponses];
-
-export type NetworksListData = {
-    body?: never;
-    path?: never;
-    query?: {
-        /**
-         * Opaque pagination cursor returned in `pagination.after` of the previous page. Omit it to fetch the first page.
-         *
-         */
-        after?: string;
-        /**
-         * Maximum number of items to return per page. An out-of-range or non-integer value is rejected with `400`, never clamped; use the `after` cursor to page further.
-         *
-         */
-        limit?: number;
-        /**
-         * Free-text search over the network title: every word of the text, in any order, even within a longer word. When no title holds them all, a word of three or four letters may be one letter off, a longer one two; numbers match as written. Case and accents are ignored and punctuation separates words; short words such as `de` or `la` count only when the text holds nothing else.
-         *
-         */
-        search?: string;
-        /**
-         * Restrict to these network uids. Repeat the parameter for multiple values.
-         */
-        uid?: Array<number>;
-    };
-    url: '/networks';
-};
-
-export type NetworksListErrors = {
-    /**
-     * Malformed request: the body is not valid JSON, it carries a field the operation does not accept, or a recognized parameter carries an invalid value. `error.errors`, when present, names the offending values.
-     *
-     */
-    400: Error | ValidationError;
-    /**
-     * The request carries no credential this operation accepts.
-     */
-    401: Error;
-    /**
-     * Authenticated, but not allowed to access this resource. A blacklisted account is refused like a member the agenda does not allow to perform the operation. On an `insufficient_scope` refusal a `WWW-Authenticate: Bearer error="insufficient_scope", scope="<required>"` header names the missing scope (RFC 6750 §3.1); an API key carries scopes only when it declares its own permissions.
-     */
-    403: Error;
-};
-
-export type NetworksListError = NetworksListErrors[keyof NetworksListErrors];
-
-export type NetworksListResponses = {
-    /**
-     * A page of networks.
-     */
-    200: NetworkList;
-};
-
-export type NetworksListResponse = NetworksListResponses[keyof NetworksListResponses];
 
 export type MeAgendasListData = {
     body?: never;
