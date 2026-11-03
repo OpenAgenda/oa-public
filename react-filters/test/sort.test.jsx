@@ -53,10 +53,14 @@ const optionLabels = (container) =>
   );
 
 describe('Sort', () => {
-  test('hides a menu with a single choice, as the defaults are without a search', () => {
-    const { container } = renderSort();
+  test('shows the select with a single choice, as the defaults are without a search', () => {
+    const { container, openMenu } = renderSort();
 
-    expect(container.querySelector('input')).toBeNull();
+    openMenu();
+
+    expect(optionLabels(container)).toEqual([
+      'Featured first, chronological (last date)',
+    ]);
   });
 
   test('offers relevance only while a search is typed', () => {
