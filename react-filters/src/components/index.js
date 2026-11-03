@@ -10,6 +10,7 @@ export { default as NumberRangeFilter } from './filters/NumberRangeFilter.jsx';
 export { default as SimpleDateRangeFilter } from './filters/SimpleDateRangeFilter.jsx';
 
 export { default as ActiveFilters } from './ActiveFilters.jsx';
+export { default as AppliedValuesForm } from './AppliedValuesForm.jsx';
 export { default as FavoriteToggle } from './FavoriteToggle.js';
 export { default as Filters } from './Filters.jsx';
 export { default as FiltersManager } from './FiltersManager.jsx';

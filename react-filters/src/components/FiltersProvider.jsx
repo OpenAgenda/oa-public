@@ -107,31 +107,44 @@ const FiltersForm = React.forwardRef(
     // Applies `values` as they are, whatever the form holds: the active
     // filters remove a value from the list without applying the visitor's
     // pending changes on other filters. The filter the change is on takes the
-    // applied value, its own pending changes dropped.
+    // applied value, its own pending changes dropped. What a field subscriber
+    // changes in reaction (Sort leaving relevance once the search goes) is
+    // applied along with it, as a submit would.
+    const applyingRef = useRef(false);
     const apply = useCallback(
-      (values) => {
+      (requested) => {
         const previous = submittedValuesRef.current ?? form.getState().initialValues ?? {};
+        const before = form.getState().values;
+        const names = [
+          ...new Set([...Object.keys(previous), ...Object.keys(requested)]),
+        ].filter((name) => !sameValues(previous[name], requested[name]));
+
+        applyingRef.current = true;
+        try {
+          form.batch(() => {
+            names.forEach((name) => form.change(name, requested[name]));
+          });
+        } finally {
+          applyingRef.current = false;
+        }
+
+        const { values: after } = form.getState();
+        const reactions = [
+          ...new Set([...Object.keys(before), ...Object.keys(after)]),
+        ].filter(
+          (name) =>
+            !names.includes(name) && !sameValues(before[name], after[name]),
+        );
+        const values = reactions.reduce(
+          (applied, name) => ({ ...applied, [name]: after[name] }),
+          requested,
+        );
 
         submittedValuesRef.current = values;
         setAppliedValues(values);
-
-        form.batch(() => {
-          const names = new Set([
-            ...Object.keys(previous),
-            ...Object.keys(values),
-          ]);
-
-          names.forEach((name) => {
-            if (!sameValues(previous[name], values[name])) {
-              form.change(name, values[name]);
-            }
-          });
-        });
-
-        const { values: current } = form.getState();
         setPending(
-          !sameValues(withoutEmpty(current), withoutEmpty(values)),
-          current,
+          !sameValues(withoutEmpty(after), withoutEmpty(values)),
+          after,
         );
 
         return onSubmit(values, filtersToAggregations(filters), form);
@@ -147,6 +160,11 @@ const FiltersForm = React.forwardRef(
     const onValueChange = useCallback(
       ({ dirty, values }) => {
         if (manualSubmit) {
+          // apply settles the pending state itself, once its changes are in
+          if (applyingRef.current) {
+            return;
+          }
+
           const applied = submittedValuesRef.current ?? form.getState().initialValues ?? {};
 
           setPending(
