@@ -254,7 +254,7 @@ The widget starts on the `sort` of the initial `query`, so a link carrying an or
 
 ## Manual submit
 
-With `manualSubmit`, a visitor can change the filters without the list following, so that nothing reloads until they ask for it. Between a change and the next submit, the filters show one selection while the list, the total and the URL still show the one last applied: the filters are **pending**.
+With `manualSubmit`, a visitor can change the filters without the list following, so that nothing reloads until they ask for it. Between a change and the next submit, the filters show one selection while the list, the total, the active filters and the URL still show the one last applied: the filters are **pending**.
 
 **Since 3.1.0.**
 
@@ -290,6 +290,10 @@ The listener also catches Enter in the search field. **Do not leave it out**: wi
 ### The search field
 
 In this mode the search text is held by the form like any other filter: typing makes the filters pending, and the page's submit applies the text as it stands, without waiting for a pause in typing. `manualSearch` changes nothing here, since the whole form already waits for the submit. With `displayReset`, the field's button searches until the text is applied, and only then turns into a reset button.
+
+### Active filters
+
+The active filters describe the list, so they show the applied values, not the pending ones: they change on a submit. Removing a value from them applies that removal at once, alone: `onFilterChange` is called with the applied values minus that one, and the visitor's other pending changes stay pending. The filter the value comes from realigns on the list: it shows the applied values, and the visitor's pending changes on it are dropped.
 
 ### Pending state
 

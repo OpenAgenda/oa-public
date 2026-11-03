@@ -14,6 +14,7 @@ import { createForm } from 'final-form';
 import { RawIntlProvider, useIntl } from 'react-intl';
 import filtersToAggregations from '../utils/filtersToAggregations.js';
 import FiltersAndWidgetsContext from '../contexts/FiltersAndWidgetsContext.js';
+import AppliedValuesContext from '../contexts/AppliedValuesContext.js';
 import { withDefaultFilterConfig } from '../utils/index.js';
 
 const defaultSubscription = {};
@@ -63,6 +64,10 @@ const FiltersForm = React.forwardRef(
     const { filters } = useContext(FiltersAndWidgetsContext);
 
     const submittedValuesRef = useRef();
+    // the same, as state, for what renders the applied values
+    const [appliedValues, setAppliedValues] = useState(
+      () => initialValues ?? {},
+    );
 
     // Pending: the form holds values that have not been submitted yet. Only
     // manual submit can get there, automatic mode submits every change.
@@ -83,6 +88,7 @@ const FiltersForm = React.forwardRef(
         const aggregations = filtersToAggregations(filters);
 
         submittedValuesRef.current = values;
+        setAppliedValues(values);
         setPending(false, values);
 
         return onSubmit(values, aggregations, form);
@@ -97,6 +103,46 @@ const FiltersForm = React.forwardRef(
     });
 
     useImperativeHandle(ref, () => form);
+
+    // Applies `values` as they are, whatever the form holds: the active
+    // filters remove a value from the list without applying the visitor's
+    // pending changes on other filters. The filter the change is on takes the
+    // applied value, its own pending changes dropped.
+    const apply = useCallback(
+      (values) => {
+        const previous = submittedValuesRef.current ?? form.getState().initialValues ?? {};
+
+        submittedValuesRef.current = values;
+        setAppliedValues(values);
+
+        form.batch(() => {
+          const names = new Set([
+            ...Object.keys(previous),
+            ...Object.keys(values),
+          ]);
+
+          names.forEach((name) => {
+            if (!sameValues(previous[name], values[name])) {
+              form.change(name, values[name]);
+            }
+          });
+        });
+
+        const { values: current } = form.getState();
+        setPending(
+          !sameValues(withoutEmpty(current), withoutEmpty(values)),
+          current,
+        );
+
+        return onSubmit(values, filtersToAggregations(filters), form);
+      },
+      [filters, form, onSubmit, setPending],
+    );
+
+    const appliedContext = useMemo(
+      () => (manualSubmit ? { values: appliedValues, apply } : null),
+      [manualSubmit, appliedValues, apply],
+    );
 
     const onValueChange = useCallback(
       ({ dirty, values }) => {
@@ -118,15 +164,20 @@ const FiltersForm = React.forwardRef(
     );
 
     return (
-      <Form form={form} subscription={subscription}>
-        {() => (
-          <>
-            {children}
+      <AppliedValuesContext.Provider value={appliedContext}>
+        <Form form={form} subscription={subscription}>
+          {() => (
+            <>
+              {children}
 
-            <FormSpy subscription={spySubscription} onChange={onValueChange} />
-          </>
-        )}
-      </Form>
+              <FormSpy
+                subscription={spySubscription}
+                onChange={onValueChange}
+              />
+            </>
+          )}
+        </Form>
+      </AppliedValuesContext.Provider>
     );
   },
 );
