@@ -375,6 +375,19 @@ export const zMeAgendaItem = z.object({
 });
 
 /**
+ * A group of agendas.
+ */
+export const zNetwork = z.object({
+    uid: z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }),
+    title: z.string().nullable()
+});
+
+export const zNetworkList = z.object({
+    data: z.array(zNetwork),
+    pagination: zPagination
+});
+
+/**
  * A ticketing source OpenAgenda knows. `passculture` is the published spelling here; the `registration` service of the same name is spelled `passCulture` — two fields, two namespaces.
  *
  */
@@ -1685,6 +1698,17 @@ export const zAgendaFilterOfficial = z.boolean();
 export const zAgendaFilterNetworkUid = z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647)));
 
 /**
+ * Free-text search over the network title: every word of the text, in any order, even within a longer word. When no title holds them all, a word of three or four letters may be one letter off, a longer one two; numbers match as written. Case and accents are ignored and punctuation separates words; short words such as `de` or `la` count only when the text holds nothing else.
+ *
+ */
+export const zNetworkSearch = z.string().max(255);
+
+/**
+ * Restrict to these network uids. Repeat the parameter for multiple values.
+ */
+export const zNetworkFilterUid = z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647)));
+
+/**
  * Numeric uid of the location.
  */
 export const zLocationUid = z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' });
@@ -2447,6 +2471,18 @@ export const zAgendasEventsSchemaPath = z.object({
  * The merged event form schema.
  */
 export const zAgendasEventsSchemaResponse = zEventFormSchema;
+
+export const zNetworksListQuery = z.object({
+    after: z.string().optional(),
+    limit: z.number().int().gte(1).lte(100).optional().default(20),
+    search: z.string().max(255).optional(),
+    uid: z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647))).optional()
+});
+
+/**
+ * A page of networks.
+ */
+export const zNetworksListResponse = zNetworkList;
 
 export const zMeAgendasListQuery = z.object({
     after: z.string().optional(),
