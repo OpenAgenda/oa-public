@@ -1741,6 +1741,11 @@ export const zLocationFilterExtId = z.object({
 export const zLocationBoundingBox = z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$/);
 
 /**
+ * Restrict to verified (`true`) or unverified (`false`) locations.
+ */
+export const zLocationFilterVerified = z.boolean();
+
+/**
  * Comma-separated list of facets to compute over the filtered events. Unknown facet names return `400`. Each facet's result shape is defined by `FacetResults`. Bucket-list facets (the term, provenance and `locations` families) return the top buckets by event count, capped by `facetSize` (overridable per facet with `facetSizes[<facet>]`) and reordered by `facetSort`; past the cap, narrow the filter. `additionalFields` and `additionalFieldMetrics` cover the agenda's own fields as its event form schema declares them (`GET /agendas/{agendaUid}/events/schema`), named by `additionalFieldsKeys`/`additionalFieldMetricsKeys` or all readable fields when omitted; `additionalFields` returns one bucket per option. `timings` bucket width is set by `timingsInterval`, the `dateRanges` month by `month`, `geohash` granularity by `geohashZoom`.
  *
  */
@@ -2545,6 +2550,9 @@ export const zAgendasLocationsListQuery = z.object({
         value: z.string()
     }).optional(),
     bbox: z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$/).optional(),
+    near: z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?$/).optional(),
+    radius: z.number().int().gte(1).optional(),
+    verified: z.boolean().optional(),
     createdAt: z.object({
         gte: z.string().datetime({ offset: true }).optional(),
         lte: z.string().datetime({ offset: true }).optional()

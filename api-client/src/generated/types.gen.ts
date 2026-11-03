@@ -2684,6 +2684,11 @@ export type LocationFilterExtId = {
 export type LocationBoundingBox = string;
 
 /**
+ * Restrict to verified (`true`) or unverified (`false`) locations.
+ */
+export type LocationFilterVerified = boolean;
+
+/**
  * Comma-separated list of facets to compute over the filtered events. Unknown facet names return `400`. Each facet's result shape is defined by `FacetResults`. Bucket-list facets (the term, provenance and `locations` families) return the top buckets by event count, capped by `facetSize` (overridable per facet with `facetSizes[<facet>]`) and reordered by `facetSort`; past the cap, narrow the filter. `additionalFields` and `additionalFieldMetrics` cover the agenda's own fields as its event form schema declares them (`GET /agendas/{agendaUid}/events/schema`), named by `additionalFieldsKeys`/`additionalFieldMetricsKeys` or all readable fields when omitted; `additionalFields` returns one bucket per option. `timings` bucket width is set by `timingsInterval`, the `dateRanges` month by `month`, `geohash` granularity by `geohashZoom`.
  *
  */
@@ -4595,6 +4600,20 @@ export type AgendasLocationsListData = {
          *
          */
         bbox?: string;
+        /**
+         * Center of a proximity search, given as `latitude,longitude` in decimal degrees. Must be combined with `radius`.
+         *
+         */
+        near?: string;
+        /**
+         * Proximity radius in metres around `near`. Requires `near` to be set.
+         *
+         */
+        radius?: number;
+        /**
+         * Restrict to verified (`true`) or unverified (`false`) locations.
+         */
+        verified?: boolean;
         /**
          * Restrict by creation date, as RFC 3339 date-times: `createdAt[gte]=…&createdAt[lte]=…`. Date-times must carry an explicit offset (e.g. `Z`); a bare date (`YYYY-MM-DD`) is read as UTC midnight.
          *
