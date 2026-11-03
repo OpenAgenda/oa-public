@@ -264,6 +264,65 @@ describe('MCP HTTP resource server', () => {
       // Advertises the /mcp endpoint a client should be configured with.
       expect(html).toContain(RESOURCE);
     });
+
+    it.each([
+      ['favicon.svg', 'image/svg+xml'],
+      ['favicon.ico', 'image/x-icon'],
+    ])('serves %s', async (file, type) => {
+      const res = await fetch(`${baseUrl}${file}`);
+      expect(res.status).toBe(200);
+      expect(res.headers.get('content-type')).toContain(type);
+    });
+
+    it('declares the SVG favicon', async () => {
+      const res = await fetch(baseUrl);
+      expect(await res.text()).toContain(
+        '<link rel="icon" type="image/svg+xml" href="/favicon.svg">',
+      );
+    });
+
+    const langOf = async (query, headers) => {
+      const res = await fetch(`${baseUrl}${query}`, { headers });
+      return /<html lang="([^"]+)"/.exec(await res.text())[1];
+    };
+
+    it('serves the language the browser asks for, and says it varies on it', async () => {
+      const res = await fetch(baseUrl, {
+        headers: { 'Accept-Language': 'fr-FR,fr;q=0.9,en;q=0.8' },
+      });
+      expect(res.headers.get('vary')).toContain('Accept-Language');
+      const html = await res.text();
+      expect(html).toContain('<html lang="fr">');
+      expect(html).toContain('Connectez votre assistant');
+    });
+
+    it('falls back on English for a language it does not have', async () => {
+      expect(await langOf('', { 'Accept-Language': 'ja' })).toBe('en');
+    });
+
+    it('prefers an explicit ?lang= over the browser', async () => {
+      expect(await langOf('?lang=de', { 'Accept-Language': 'fr' })).toBe('de');
+    });
+
+    it('ignores a ?lang= it does not know, without echoing it', async () => {
+      const query = '?lang=%3Cscript%3Ealert(1)%3C/script%3E';
+      const res = await fetch(`${baseUrl}${query}`);
+      expect(await res.text()).not.toContain('<script>alert(1)');
+      expect(await langOf(query, { 'Accept-Language': 'nl' })).toBe('nl');
+    });
+
+    it('serves the fonts the page asks for', async () => {
+      const html = await (await fetch(baseUrl)).text();
+      const paths = [
+        ...html.matchAll(/url\("\/(assets\/fonts\/[^"]+)"\)/g),
+      ].map((m) => m[1]);
+      expect(paths).toHaveLength(2);
+      for (const path of paths) {
+        const res = await fetch(`${baseUrl}${path}`);
+        expect(res.status).toBe(200);
+        expect(res.headers.get('content-type')).toContain('font/woff2');
+      }
+    });
   });
 
   describe('bearer auth', () => {
