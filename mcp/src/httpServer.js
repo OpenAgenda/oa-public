@@ -12,6 +12,7 @@
 // /.well-known/oauth-protected-resource/mcp (RFC 9728). The subdomain root is
 // left for a human landing page (`GET /`) instead of the bare auth challenge.
 
+import { join } from 'node:path';
 import express from 'express';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { requireBearerAuth } from '@modelcontextprotocol/sdk/server/auth/middleware/bearerAuth.js';
@@ -23,7 +24,8 @@ import { createCallerConcurrencyLimiter } from './callerConcurrency.js';
 import { createTokenVerifier } from './auth/verifier.js';
 import { exchangeToken, TokenExchangeError } from './auth/tokenExchange.js';
 import { buildServerCard } from './serverCard.js';
-import { landingPage } from './landing.js';
+import { LOCALES, landingPage, pickLocale } from './landing.js';
+import { sandboxFacts } from './config.js';
 import { log, makeAuditRecorder } from './log.js';
 import { recordMetric } from './telemetry.js';
 
@@ -283,9 +285,34 @@ export function createHttpApp({ config, executor }) {
   // when the endpoint isn't itself at the root (a bare-origin resource would put
   // POST / at `/`; we then leave `/` to the endpoint, no separate landing).
   if (mcpPath !== '/') {
+    const { egressBounded, fsBounded } = sandboxFacts(config);
     app.get('/', (req, res) => {
-      res.type('html').send(landingPage(oauth));
+      const locale = pickLocale(
+        req.query.lang,
+        req.acceptsLanguages(...LOCALES),
+      );
+      res
+        .vary('Accept-Language')
+        .type('html')
+        .send(
+          landingPage({
+            ...oauth,
+            locale,
+            isolated: egressBounded && fsBounded,
+          }),
+        );
     });
+    app.get(['/favicon.svg', '/favicon.ico'], (req, res) => {
+      res.sendFile(join(import.meta.dirname, '../assets', req.path), {
+        maxAge: '7d',
+      });
+    });
+    app.use(
+      '/assets/fonts',
+      express.static(join(import.meta.dirname, '../assets/fonts'), {
+        maxAge: '7d',
+      }),
+    );
   }
 
   return app;
