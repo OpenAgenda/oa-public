@@ -1704,7 +1704,7 @@ export const zNetworkSearch = z.string().max(255);
 /**
  * Restrict to these network uids. Repeat the parameter for multiple values.
  */
-export const zNetworkFilterUid = z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' }));
+export const zNetworkFilterUid = z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647)));
 
 /**
  * Numeric uid of the location.
@@ -2474,7 +2474,7 @@ export const zNetworksListQuery = z.object({
     after: z.string().optional(),
     limit: z.number().int().gte(1).lte(100).optional().default(20),
     search: z.string().max(255).optional(),
-    uid: z.array(z.coerce.bigint().min(BigInt('-9223372036854775808'), { message: 'Invalid value: Expected int64 to be >= -9223372036854775808' }).max(BigInt('9223372036854775807'), { message: 'Invalid value: Expected int64 to be <= 9223372036854775807' })).optional()
+    uid: z.array(z.coerce.bigint().gte(BigInt(1)).lte(BigInt(2147483647))).optional()
 });
 
 /**
