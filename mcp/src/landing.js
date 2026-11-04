@@ -144,7 +144,7 @@ export function parisWeek(now) {
 const findCode = ({
   gte,
   lte,
-}) => `const { data, error } = await oa.agendas.events.list({
+}) => `const { data: page, error } = await oa.agendas.events.list({
   path: { agendaUid: 82470621 },
   query: {
     search: 'concert',
@@ -158,7 +158,7 @@ const findCode = ({
 
 if (error) throw error;
 
-return data.data;`;
+return page.data;`;
 
 const SDK_CODE = `import { OpenAgenda, client } from '@openagenda/api-client';
 
