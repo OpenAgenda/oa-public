@@ -36,11 +36,11 @@ function AppliedForm({ applied, children }) {
     return finalForm;
   });
 
-  // before paint: a submit never shows the previous badges for a frame
+  // before paint: a submit never shows the previous badges for a frame.
+  // Also after a change made here, whose values are already shown: the form
+  // starts over from them, pristine again.
   useLayoutEffect(() => {
-    if (!isEqual(appliedForm.getState().values, applied.values)) {
-      appliedForm.initialize(applied.values);
-    }
+    appliedForm.initialize(applied.values);
   }, [appliedForm, applied.values]);
 
   useEffect(

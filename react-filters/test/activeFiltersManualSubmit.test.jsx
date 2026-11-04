@@ -2,6 +2,7 @@
  * @jest-environment jsdom
  */
 import { jest } from '@jest/globals';
+import { useState } from 'react';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { useField, useForm } from 'react-final-form';
@@ -413,5 +414,65 @@ describe('ActiveFilters', () => {
     );
 
     expect(onSubmit).not.toHaveBeenCalled();
+  });
+
+  describe('with manual submit, AppliedValuesForm starts over from each removal', () => {
+    function renderAppliedForm(onSubmit, initialValues) {
+      let appliedForm;
+      let showField;
+
+      function FieldWithInitialValue() {
+        useField('keyword', { initialValue: ['rock'], subscription: {} });
+        return null;
+      }
+
+      function Applied() {
+        const [fieldShown, setFieldShown] = useState(false);
+        appliedForm = useForm();
+        showField = () => setFieldShown(true);
+        useField('city', { subscription: {} });
+        return fieldShown ? <FieldWithInitialValue /> : null;
+      }
+
+      renderActiveFiltersWith(
+        {
+          manualSubmit: true,
+          initialValues,
+          onSubmit,
+        },
+        <AppliedValuesForm>
+          <Applied />
+        </AppliedValuesForm>,
+      );
+
+      return {
+        change: (name, value) => act(() => appliedForm.change(name, value)),
+        showField: () => act(() => showField()),
+      };
+    }
+
+    test('a field mounting after a removal is not applied', () => {
+      const onSubmit = jest.fn();
+      const { change, showField } = renderAppliedForm(onSubmit, {
+        city: ['Paris', 'Lyon'],
+      });
+
+      change('city', ['Paris']);
+      showField();
+
+      expect(onSubmit).toHaveBeenCalledTimes(1);
+      expect(onSubmit.mock.calls[0][0]).toStrictEqual({ city: ['Paris'] });
+    });
+
+    test('a value restored after a removal is applied', () => {
+      const onSubmit = jest.fn();
+      const { change } = renderAppliedForm(onSubmit, { city: 'Paris' });
+
+      change('city', undefined);
+      change('city', 'Paris');
+
+      expect(onSubmit).toHaveBeenCalledTimes(2);
+      expect(onSubmit.mock.calls[1][0]).toStrictEqual({ city: 'Paris' });
+    });
   });
 });
