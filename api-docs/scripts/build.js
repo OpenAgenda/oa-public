@@ -94,14 +94,14 @@ const ENVIRONMENTS = {
     apiServer: 'https://api.openagenda.com/v3',
     authorizeUrl: 'https://openagenda.com/api/auth/oauth2/authorize',
     tokenUrl: 'https://openagenda.com/api/auth/oauth2/token',
-    resource: 'https://api.openagenda.com/v3',
+    resource: 'https://api.openagenda.com',
   },
   dev: {
     label: 'Development',
     apiServer: 'https://dapi.openagenda.com/v3',
     authorizeUrl: 'https://d.openagenda.com/api/auth/oauth2/authorize',
     tokenUrl: 'https://d.openagenda.com/api/auth/oauth2/token',
-    resource: 'https://dapi.openagenda.com/v3',
+    resource: 'https://dapi.openagenda.com',
   },
 };
 const envName = process.env.OA_DOCS_ENV || 'prod';
@@ -124,7 +124,10 @@ const oauthClientId = process.env.OA_DOCS_OAUTH_CLIENT_ID || 'oa-api-docs';
 // Per-env endpoints, each overridable one-off. authorizeUrl/tokenUrl drive the
 // OAuth flow; apiServer is the single server "Test Request" hits; v3Resource is
 // the RFC 8707 resource indicator carried on both OAuth legs so the AS issues a
-// JWS `aud=v3` the resource server verifies offline (not a stray opaque token).
+// JWS bound to the API, which the API verifies offline (not a stray opaque
+// token). The API is one resource for every version: its root, with no /v3
+// (cibul-node's apiResourceUrl). The authorization server refuses any other
+// value at the token exchange ("requested resource invalid").
 const apiServer = process.env.OA_DOCS_API_SERVER || env.apiServer;
 const authorizeUrl = process.env.OA_DOCS_OAUTH_AUTHORIZE_URL || env.authorizeUrl;
 const tokenUrl = process.env.OA_DOCS_OAUTH_TOKEN_URL || env.tokenUrl;
@@ -238,7 +241,15 @@ const brandCss = `${fontFaceCss}
 // origin: the download link of the page leads there, to the file itself, and
 // the contract is cached apart from this configuration.
 const specUrl = `${new URL(docsUrl).pathname.replace(/\/$/, '')}/openapi.yaml`;
-const reference = `import { createApiReference } from ${JSON.stringify(runtimeUrl)};
+// zod, inside the runtime, tests whether it may compile with eval (Function('')).
+// The page's policy says no, as intended, but every load then reports a
+// violation: this module, imported first, gives zod the answer beforehand.
+const jitlessUrl = emit(
+  'zod-jitless.js',
+  'globalThis.__zod_globalConfig = { ...globalThis.__zod_globalConfig, jitless: true };\n',
+);
+const reference = `import ${JSON.stringify(jitlessUrl)};
+import { createApiReference } from ${JSON.stringify(runtimeUrl)};
 
 createApiReference('#app', {
         url: ${JSON.stringify(specUrl)},
@@ -272,15 +283,11 @@ createApiReference('#app', {
         // could point "Test Request" at prod while the OAuth token is dev-bound
         // (the auth leg is baked, not switchable at runtime).
         servers: [{ url: ${JSON.stringify(apiServer)}, description: ${JSON.stringify(env.label)} }],
-        // Persist the playground's auth (OAuth token / API key) to localStorage
-        // so a page refresh doesn't drop it. Tradeoff: the token lives in the
-        // localStorage of the API origin, readable by any script that origin
-        // runs. Acceptable here: everything else the origin serves is JSON, this
-        // page is its only HTML and runs only its own files (script-src 'self',
-        // agent/telemetry/proxy off), the client is public + PKCE, and the token
-        // is short-lived, read-only, with no refresh token (no offline_access).
-        // The UX win (no re-auth per refresh) outweighs the residual risk.
-        persistAuth: true,
+        // The playground's credential (OAuth token, or a key the reader pastes,
+        // secret keys included) stays in memory: nothing is written to the
+        // localStorage of the API origin. A refresh asks for it again, one
+        // click for OAuth once consent is given.
+        persistAuth: false,
         authentication: {
           // Which credential the page offers first. Left to the contract it
           // would be the first entry of the root security list (publicKey), and
@@ -307,11 +314,12 @@ createApiReference('#app', {
                   // Pre-tick every scope the oa-api-docs client may request
                   // (its scopes column in oauth_client, the ceiling the server
                   // enforces): the read surface and geocoding. One click gives
-                  // a token every read operation accepts; writes stay out, the
-                  // playground runs against real data.
+                  // a token every read operation accepts. The playground runs
+                  // against real data: a write is sent with the reader's own
+                  // secret key, a deliberate act, never with this token.
                   selectedScopes: ['agendas:read', 'events:read', 'locations:read', 'me:read', 'geocoding:use'],
                   // RFC 8707 — carry the resource indicator on both legs so the
-                  // issued token is a JWS bound to aud=v3 (offline-verified),
+                  // issued token is a JWS bound to the API (offline-verified),
                   // not an unbound opaque token the API rejects as a stray key.
                   'x-scalar-security-query': { resource: ${JSON.stringify(v3Resource)} },
                   'x-scalar-security-body': { resource: ${JSON.stringify(v3Resource)} },

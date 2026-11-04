@@ -55,8 +55,11 @@ secret, whose redirect URI is the address of the page,
 `https://dapi.openagenda.com/v3` in development, without a trailing slash.
 Its scopes are the ones the page pre-ticks, the read surface and geocoding
 (`agendas:read`, `events:read`, `locations:read`, `me:read`,
-`geocoding:use`): the server refuses any other, and writes stay out of a
-playground that runs against real data. They hold no `offline_access`, so no
-refresh token is issued.
-Tokens stay in the browser (`persistAuth` keeps them in localStorage on the
-docs origin only).
+`geocoding:use`): the server refuses any other, so a one-click token only
+reads. They hold no `offline_access`, so no refresh token is issued.
+
+The playground runs against real data, same-origin, so no CORS rule stops a
+write: a reader who pastes their own secret key (`oa_sk_`) can create, change
+or delete what that key may, as with any HTTP client. The credential stays in
+memory (`persistAuth: false`): nothing is stored on the API origin, and a
+refresh asks for it again.
