@@ -1,4 +1,4 @@
-import { LOCALES, landingPage, pickLocale } from '../src/landing.js';
+import { LOCALES, landingPage, parisWeek, pickLocale } from '../src/landing.js';
 import en from '../src/locales/en.json' with { type: 'json' };
 import br from '../src/locales/br.json' with { type: 'json' };
 import de from '../src/locales/de.json' with { type: 'json' };
@@ -32,7 +32,9 @@ describe('landing page', () => {
     it('renders with no placeholder left', () => {
       const html = landingPage({ resourceUrl, locale, isolated: true });
       expect(html).toContain(`<html lang="${locale}">`);
-      expect(html).not.toMatch(/\{(name|command|path|metadata|pk|sk)\}/);
+      // The page's own CSS and JS hold braces of their own.
+      const text = html.replace(/<(style|script)>[\s\S]*?<\/\1>/g, '');
+      expect(text).not.toMatch(/\{\w+\}/);
     });
   });
 
@@ -68,9 +70,107 @@ describe('landing page', () => {
     }
   });
 
+  it.each([true, false])(
+    'names the two tools and keeps the AI provider note, isolation card or not (isolated: %s)',
+    (isolated) => {
+      const html = landingPage({ resourceUrl, isolated });
+      expect(html).toContain('<code class="tool">search_docs</code>');
+      expect(html).toContain('<code class="tool">execute</code>');
+      expect(html).toContain(`<p class="note">${en['control.privacy']}</p>`);
+    },
+  );
+
+  it('links the privacy policy from the footer, marked as French', () => {
+    const html = landingPage({ resourceUrl, locale: 'de' });
+    const links = html.match(
+      /<a href="https:\/\/doc\.openagenda\.com\/confidentialite\/" hreflang="fr">/g,
+    );
+    expect(links).toHaveLength(1);
+  });
+
+  it('links the API reference, the help centre and the support address', () => {
+    const html = landingPage({ resourceUrl, locale: 'fr' });
+    expect(
+      html.match(/href="https:\/\/api\.openagenda\.com\/v3"/g),
+    ).toHaveLength(2);
+    expect(html).toContain('href="https://doc.openagenda.com"');
+    expect(html).toContain(
+      '<a href="mailto:support@openagenda.com">support@openagenda.com</a>',
+    );
+  });
+
+  it('describes itself to link previews, in the language of the page', () => {
+    const html = landingPage({ resourceUrl, locale: 'de' });
+    const og = (property) =>
+      new RegExp(`<meta property="og:${property}" content="([^"]*)">`).exec(
+        html,
+      )?.[1];
+    expect(og('title')).toBe(de['meta.title']);
+    expect(og('description')).toBe(de['meta.description']);
+    expect(og('url')).toBe('https://mcp.test/?lang=de');
+    expect(og('locale')).toBe('de');
+    expect(og('image')).toBe('https://mcp.test/assets/og.png');
+    expect(html).toContain(
+      '<meta name="twitter:card" content="summary_large_image">',
+    );
+  });
+
+  it('names its canonical address and its default language', () => {
+    const html = landingPage({ resourceUrl, locale: 'fr' });
+    expect(html).toContain(
+      '<link rel="canonical" href="https://mcp.test/?lang=fr">',
+    );
+    expect(html).toContain(
+      '<link rel="alternate" hreflang="x-default" href="https://mcp.test/">',
+    );
+  });
+
+  it.each(LOCALES)(
+    'keeps the %s title short enough not to be cut',
+    (locale) => {
+      const messages = locale === 'en' ? en : translations[locale];
+      expect(messages['meta.title'].length).toBeLessThanOrEqual(60);
+    },
+  );
+
   it('escapes the endpoint it injects', () => {
     const html = landingPage({ resourceUrl: 'https://mcp.test/mcp?a="<b>' });
     expect(html).not.toContain('"<b>');
+  });
+
+  describe('parisWeek', () => {
+    it('spans the Monday to Sunday of the request, in Paris time', () => {
+      expect(parisWeek(new Date('2026-11-04T10:00:00Z'))).toEqual({
+        gte: '2026-11-02T00:00:00+01:00',
+        lte: '2026-11-08T23:59:59+01:00',
+      });
+    });
+
+    it('turns to the next week at midnight in Paris, not in UTC', () => {
+      // Sunday 23:30 and Monday 00:30 in Paris.
+      expect(parisWeek(new Date('2026-11-08T22:30:00Z')).gte).toBe(
+        '2026-11-02T00:00:00+01:00',
+      );
+      expect(parisWeek(new Date('2026-11-08T23:30:00Z')).gte).toBe(
+        '2026-11-09T00:00:00+01:00',
+      );
+    });
+
+    it('gives each bound its own offset in a week that changes the clocks', () => {
+      expect(parisWeek(new Date('2026-10-21T10:00:00Z'))).toEqual({
+        gte: '2026-10-19T00:00:00+02:00',
+        lte: '2026-10-25T23:59:59+01:00',
+      });
+    });
+
+    it('puts the week of the request in the example code', () => {
+      const html = landingPage({
+        resourceUrl,
+        now: new Date('2027-03-10T12:00:00Z'),
+      });
+      expect(html).toContain('2027-03-08T00:00:00+01:00');
+      expect(html).not.toContain('2026-11-02');
+    });
   });
 
   describe('pickLocale', () => {

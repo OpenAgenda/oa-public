@@ -268,6 +268,7 @@ describe('MCP HTTP resource server', () => {
     it.each([
       ['favicon.svg', 'image/svg+xml'],
       ['favicon.ico', 'image/x-icon'],
+      ['assets/og.png', 'image/png'],
     ])('serves %s', async (file, type) => {
       const res = await fetch(`${baseUrl}${file}`);
       expect(res.status).toBe(200);

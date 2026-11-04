@@ -307,6 +307,12 @@ export function createHttpApp({ config, executor }) {
         maxAge: '7d',
       });
     });
+    // The share card link previews show (og:image).
+    app.get('/assets/og.png', (req, res) => {
+      res.sendFile(join(import.meta.dirname, '../assets/og.png'), {
+        maxAge: '7d',
+      });
+    });
     app.use(
       '/assets/fonts',
       express.static(join(import.meta.dirname, '../assets/fonts'), {

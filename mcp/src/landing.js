@@ -14,6 +14,7 @@ import { highlight } from 'sugar-high';
 import { getOAuthProtectedResourceMetadataUrl } from '@modelcontextprotocol/sdk/server/auth/router.js';
 import pkg from '../package.json' with { type: 'json' };
 import {
+  checkIcon,
   chevronIcon,
   githubIcon,
   globeIcon,
@@ -22,6 +23,7 @@ import {
   personIcon,
   shieldIcon,
   sketch,
+  stepRing,
   whiteLogo,
 } from './landingArt.js';
 import br from './locales/br.json' with { type: 'json' };
@@ -52,6 +54,13 @@ const LANGUAGE_NAMES = {
 const SOURCE_URL = 'https://github.com/OpenAgenda/oa-public/tree/main/mcp';
 const NPM_URL = 'https://www.npmjs.com/package/@openagenda/mcp';
 const SDK_URL = 'https://www.npmjs.com/package/@openagenda/api-client';
+// The v3 reference: the same documentation `search_docs` reads.
+const API_DOCS_URL = 'https://api.openagenda.com/v3';
+// What openagenda.com's help button opens; it redirects to the visitor's language.
+const HELP_URL = 'https://doc.openagenda.com';
+const SUPPORT_EMAIL = 'support@openagenda.com';
+// The alias the sign-up form links to; the policy exists in French only.
+const PRIVACY_URL = 'https://doc.openagenda.com/confidentialite/';
 
 // One-click Claude Desktop bundle for the LOCAL (API-key) path — pinned to this
 // server's version, whose release uploads the asset (see release.yml). The tag
@@ -88,13 +97,60 @@ const FIND_EVENTS = [
   },
 ];
 
-const FIND_CODE = `const { data, error } = await oa.agendas.events.list({
+const PARIS = new Intl.DateTimeFormat('en-CA', {
+  timeZone: 'Europe/Paris',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  timeZoneName: 'longOffset',
+});
+
+/**
+ * The week of `now` in Paris time, Monday to Sunday, as the bounds the API takes:
+ * the question asks for "this week", so the code must not age into the past.
+ * Each bound carries its own day's offset, a week may change the clocks.
+ *
+ * @param {Date} now
+ * @returns {{ gte: string, lte: string }}
+ */
+export function parisWeek(now) {
+  const parts = (date) =>
+    Object.fromEntries(PARIS.formatToParts(date).map((p) => [p.type, p.value]));
+  const today = parts(now);
+  // Days since Monday, from the date itself rather than a formatted name.
+  const shift = (new Date(Date.UTC(+today.year, +today.month - 1, +today.day)).getUTCDay()
+      + 6)
+    % 7;
+  // Noon, so a clock change in the night never moves the day.
+  const day = (offset) => {
+    const p = parts(
+      new Date(
+        Date.UTC(+today.year, +today.month - 1, +today.day + offset, 12),
+      ),
+    );
+    return {
+      date: `${p.year}-${p.month}-${p.day}`,
+      offset: p.timeZoneName.replace('GMT', '') || '+00:00',
+    };
+  };
+  const monday = day(-shift);
+  const sunday = day(6 - shift);
+  return {
+    gte: `${monday.date}T00:00:00${monday.offset}`,
+    lte: `${sunday.date}T23:59:59${sunday.offset}`,
+  };
+}
+
+const findCode = ({
+  gte,
+  lte,
+}) => `const { data, error } = await oa.agendas.events.list({
   path: { agendaUid: 82470621 },
   query: {
     search: 'concert',
     timings: {
-      gte: '2026-11-02T00:00:00+01:00',
-      lte: '2026-11-08T23:59:59+01:00',
+      gte: '${gte}',
+      lte: '${lte}',
     },
     sort: 'timings.asc',
   },
@@ -121,6 +177,7 @@ const STYLES = `
 :root {
   color-scheme: light;
   --primary: #1d77ce;      /* uikit primary.500 */
+  --primary-dark: #1560a7; /* primary.600: the hover shade, and small text on tints */
   --primary-soft: #ebf1fe; /* primary.50 */
   --primary-subtle: #d7e3fe; /* primary.100 */
   --primary-line: #acc7fc; /* primary.200 */
@@ -153,9 +210,9 @@ h3 { font-size: 1.05rem; line-height: 1.3; font-weight: 700; }
 .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 20px; border-radius: var(--r); border: 1px solid transparent; font: 500 1rem/1.2 var(--body); text-decoration: none; cursor: pointer; }
 .btn, .pill, .linkbtn, .lang summary, .urlbox button, .snippet button, .tabs button { transition: background-color .2s ease, border-color .2s ease, color .2s ease, box-shadow .2s ease; }
 .btn-solid { background: var(--primary); color: #fff; }
-.btn-solid:hover { background: #1560a7; }
+.btn-solid:hover { background: var(--primary-dark); }
 .btn-outline { background: #fff; color: var(--primary); border-color: var(--primary-line); }
-.btn-outline:hover { background: var(--primary-soft); color: #1560a7; }
+.btn-outline:hover { background: var(--primary-soft); color: var(--primary-dark); }
 .btn-sm { min-height: 36px; padding: 0 14px; font-size: .92rem; }
 
 /* Nav */
@@ -223,7 +280,7 @@ h1 em { font-style: normal; color: var(--primary); }
 summary { cursor: pointer; color: var(--primary); font-weight: 500; }
 pre { margin: .6rem 0 0; padding: .85rem 1rem; background: #f4f4f5; border-radius: var(--r); overflow-x: auto; font-size: .84rem; line-height: 1.55; }
 pre code { font-size: 1em; }
-pre { --sh-identifier: var(--ink); --sh-sign: var(--muted); --sh-comment: var(--muted); --sh-keyword: #1560a7; --sh-class: #1560a7; --sh-entity: #1560a7; --sh-property: #3f3f46; --sh-string: #0f766e; --sh-jsxliterals: var(--ink); }
+pre { --sh-identifier: var(--ink); --sh-sign: var(--muted); --sh-comment: var(--muted); --sh-keyword: var(--primary-dark); --sh-class: var(--primary-dark); --sh-entity: var(--primary-dark); --sh-property: #3f3f46; --sh-string: #0f766e; --sh-jsxliterals: var(--ink); }
 .snippet { position: relative; margin-top: .6rem; }
 .snippet pre { margin: 0; padding-right: 6rem; scrollbar-width: thin; }
 .snippet::after { content: ""; position: absolute; top: 0; right: 0; width: 6rem; height: 2.9rem; background: linear-gradient(to right, transparent, #f4f4f5 1.25rem); border-top-right-radius: var(--r); pointer-events: none; }
@@ -233,6 +290,54 @@ pre { --sh-identifier: var(--ink); --sh-sign: var(--muted); --sh-comment: var(--
 @keyframes show { from { opacity: .4; } to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { [role="tabpanel"]:not([hidden]), .lang[open] ul { animation: none; } .btn, .pill, .linkbtn, .lang summary, .urlbox button, .snippet button, .tabs button { transition: none; } }
 
+/* How it works: one rail, from the connection to the answer */
+#how .sub { text-wrap: balance; }
+.flow { list-style: none; max-width: 62rem; margin: clamp(2rem, 4vw, 3rem) auto 0; padding: 0; }
+.step { position: relative; display: grid; grid-template-columns: 2.75rem minmax(0, 1fr); column-gap: 1.1rem; padding-bottom: clamp(2rem, 4vw, 3rem); }
+.step:last-child { padding-bottom: 0; }
+.step:not(:last-child)::before { content: ""; position: absolute; left: calc(1.375rem - 1px); top: 3.1rem; bottom: .35rem; width: 2px; border-radius: 2px; background: var(--primary-line); transform-origin: top; }
+.node { grid-row: 1 / span 2; position: relative; width: 2.75rem; height: 2.75rem; display: grid; place-items: center; color: var(--primary); }
+.node svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.node span { position: relative; font: 700 1.05rem/1 var(--heading); color: var(--primary-dark); }
+.step-text { padding-top: .45rem; }
+.step-text p { margin: .35rem 0 0; max-width: 30rem; text-wrap: pretty; }
+.step-text .steplink { margin-top: .6rem; font-weight: 500; }
+.shot { margin-top: 1rem; min-width: 0; background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: .9rem 1rem; box-shadow: 0 1px 2px rgb(24 24 27 / 5%); }
+@media (min-width: 860px) {
+  .step { grid-template-columns: 2.75rem minmax(0, 5fr) minmax(0, 6fr); }
+  .node { grid-row: 1; }
+  .shot { margin: 0 0 0 1.75rem; grid-column: 3; grid-row: 1; }
+}
+.tool { display: inline-block; padding: .1rem .45rem; background: var(--primary-soft); border-radius: var(--r); color: var(--primary-dark); font-weight: 600; }
+.shot-head { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-bottom: .6rem; font-size: .85rem; color: var(--muted); }
+.shot .ask { margin: 0 0 0 auto; }
+.shot pre { margin: 0; font-size: .8rem; }
+.shot-code { padding: 0; border: 0; background: #f4f4f5; box-shadow: none; }
+.shot-code pre { padding: 1rem 1.1rem; background: none; }
+.linked { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .75rem; }
+.linked code { min-width: 0; max-width: 100%; overflow-x: auto; white-space: nowrap; scrollbar-width: none; font-size: .85rem; color: var(--ink); }
+.ok { display: inline-flex; align-items: center; gap: .4rem; color: var(--primary-dark); font-weight: 500; font-size: .92rem; }
+.ok svg { width: 1rem; height: 1rem; flex: none; }
+.op-name { font-family: var(--mono); font-weight: 600; font-size: .9rem; }
+.op-sum { color: var(--muted); font-size: .9rem; }
+.params { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .45rem; }
+.params code { padding: .05rem .4rem; background: #f4f4f5; border-radius: var(--r); font-size: .8rem; }
+.shot .ev { grid-template-columns: 44px minmax(0, 1fr); padding-block: .5rem; }
+@media (min-width: 640px) { .shot .ev { grid-template-columns: 44px minmax(0, 1fr) auto; } }
+.shot-head + .ev { border-top: 0; padding-top: 0; }
+.shot .ev img { width: 44px; height: 44px; align-self: center; }
+.shot .ev-t { font-size: .95rem; }
+.shot .ev-m, .shot .ev-p { font-size: .85rem; }
+.shot .more { font-size: .9rem; color: var(--muted); padding-top: .5rem; }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .step:not(:last-child)::before { animation: rail linear both; animation-timeline: view(); animation-range: entry 30% entry 100%; }
+    .node svg { animation: node linear both; animation-timeline: view(); animation-range: entry 40% entry 90%; }
+  }
+}
+@keyframes rail { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes node { from { scale: .8; opacity: .4; } to { scale: 1; opacity: 1; } }
+
 /* Connect */
 .split { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem 3.5rem; }
 @media (min-width: 1024px) { .split { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); } }
@@ -240,7 +345,7 @@ pre { --sh-identifier: var(--ink); --sh-sign: var(--muted); --sh-comment: var(--
 .urlbox { display: flex; margin-top: 1.25rem; border: 1px solid var(--primary-line); border-radius: var(--r); overflow: hidden; min-width: 0; }
 .urlbox code { flex: 1; min-width: 0; padding: .6rem .8rem; white-space: nowrap; overflow-x: auto; scrollbar-width: thin; }
 .urlbox button { flex: none; border: 0; background: var(--primary); color: #fff; font: 500 .95rem var(--body); padding: 0 1rem; cursor: pointer; }
-.urlbox button:hover { background: #1560a7; }
+.urlbox button:hover { background: var(--primary-dark); }
 .tabs { display: flex; flex-wrap: wrap; gap: .1rem; box-shadow: inset 0 -1px 0 var(--line); }
 .tabs button { flex: none; background: none; border: 0; border-bottom: 2px solid transparent; padding: .55rem .6rem; font: 500 .95rem var(--body); color: var(--muted); cursor: pointer; }
 .tabs button:hover { color: var(--ink); }
@@ -252,6 +357,7 @@ pre { --sh-identifier: var(--ink); --sh-sign: var(--muted); --sh-comment: var(--
 .pane ol { margin: 0; padding-left: 1.3rem; display: grid; grid-template-columns: minmax(0, 1fr); gap: .6rem; }
 .pane p { margin: 0 0 .7rem; }
 .pane .hint { margin: .85rem 0 0; color: var(--muted); font-size: .92rem; }
+.help { margin: 1.75rem 0 0; padding-top: 1rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .92rem; }
 
 /* Control */
 .three { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem 3rem; margin-top: 2rem; }
@@ -259,6 +365,7 @@ pre { --sh-identifier: var(--ink); --sh-sign: var(--muted); --sh-comment: var(--
 .three > div { text-align: center; }
 .three svg { height: 72px; width: auto; display: block; margin: 0 auto .75rem; color: var(--primary); }
 .three p { margin: .4rem auto 0; max-width: 21rem; text-wrap: pretty; }
+.note { max-width: 44rem; margin: 2.25rem auto 0; text-align: center; color: var(--muted); font-size: .92rem; text-wrap: balance; }
 
 /* Developers */
 .devs { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem 3.5rem; margin-top: 1.5rem; }
@@ -269,7 +376,7 @@ pre { --sh-identifier: var(--ink); --sh-sign: var(--muted); --sh-comment: var(--
 footer { background: var(--foot); color: #fff; padding-block: 1.75rem; }
 .foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; }
 .foot svg { height: 22px; width: auto; display: block; }
-.foot nav { display: flex; flex-wrap: wrap; gap: 1.25rem; }
+.foot nav { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; }
 .foot a { color: #fff; font-size: .95rem; }
 `;
 
@@ -338,9 +445,16 @@ export function pickLocale(requested, negotiated) {
  * @param {boolean} [options.isolated] - whether this deployment's sandbox bounds
  *   both egress and the filesystem. The page only promises isolation it has,
  *   like the `execute` tool description (see sandboxFacts).
+ * @param {Date} [options.now] - the moment of the request, whose week the
+ *   example code searches (default: now).
  * @returns {string} a complete HTML document.
  */
-export function landingPage({ resourceUrl, locale = 'en', isolated = false }) {
+export function landingPage({
+  resourceUrl,
+  locale = 'en',
+  isolated = false,
+  now = new Date(),
+}) {
   const messages = MESSAGES[locale];
   // A language Crowdin has not finished falls back on the source, key by key.
   const t = (key, values = {}) =>
@@ -382,8 +496,15 @@ export function landingPage({ resourceUrl, locale = 'en', isolated = false }) {
     `<ul class="checks">${[1, 2, 3].map((n) => `<li>${t(`${id}.point${n}`)}</li>`).join('')}</ul>`;
 
   const code = (value) => `<code>${escapeHtml(value)}</code>`;
+  const eventRow = (event, i) =>
+    `<div class="ev"><img src="https://img.openagenda.com/u/128x128/smart/main/${event.image}.full.image.jpg" width="64" height="64" loading="lazy" alt=""><div class="ev-t">${escapeHtml(event.title)}</div><div class="ev-m">${t(`find.event${i + 1}.when`)}. ${escapeHtml(event.where)}</div><div class="ev-p">${escapeHtml(event.price)}</div></div>`;
+  // A step of "how it works": its number is drawn, the list says it.
+  const step = (n, id, shot, { kind = '', more = '' } = {}) =>
+    `<li class="step"><div class="node" aria-hidden="true">${stepRing}<span>${n}</span></div><div class="step-text"><h3>${t(`how.${id}.title`)}</h3><p>${t(`how.${id}.text`)}</p>${more}</div><div class="shot${kind ? ` shot-${kind}` : ''}">${shot}</div></li>`;
   const colored = (value, lang, id) =>
     `<code${id ? ` id="${id}"` : ''}>${highlight(value, { lang })}</code>`;
+  // Highlighted once, shown twice: in the "find" example and in step 4.
+  const exampleCode = colored(findCode(parisWeek(now)), 'javascript');
 
   return `<!doctype html>
 <html lang="${locale}">
@@ -392,7 +513,24 @@ export function landingPage({ resourceUrl, locale = 'en', isolated = false }) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${t('meta.title')}</title>
 <meta name="description" content="${attr('meta.description')}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OpenAgenda">
+<meta property="og:title" content="${attr('meta.title')}">
+<meta property="og:description" content="${attr('meta.description')}">
+<meta property="og:url" content="${escapeHtml(origin)}/?lang=${locale}">
+<meta property="og:locale" content="${locale}">
+${LOCALES.filter((l) => l !== locale)
+    .map((l) => `<meta property="og:locale:alternate" content="${l}">`)
+    .join('\n')}
+<meta property="og:image" content="${escapeHtml(origin)}/assets/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="${attr('sketch.alt')}">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="${escapeHtml(origin)}/?lang=${locale}">
 ${LOCALES.map((l) => `<link rel="alternate" hreflang="${l}" href="${escapeHtml(origin)}/?lang=${l}">`).join('\n')}
+<link rel="alternate" hreflang="x-default" href="${escapeHtml(origin)}/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preload" href="/assets/fonts/ubuntu-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/noto-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -440,12 +578,9 @@ ${LOCALES.map((l) => `<link rel="alternate" hreflang="${l}" href="${escapeHtml(o
       <div class="convo" id="example-find" role="tabpanel" aria-labelledby="example-tab-find">
         <p class="ask">${t('find.ask')}</p>
         <p class="says">${t('find.says')}</p>
-        ${FIND_EVENTS.map(
-    (event, i) =>
-      `<div class="ev"><img src="https://img.openagenda.com/u/128x128/smart/main/${event.image}.full.image.jpg" width="64" height="64" loading="lazy" alt=""><div class="ev-t">${escapeHtml(event.title)}</div><div class="ev-m">${t(`find.event${i + 1}.when`)}. ${escapeHtml(event.where)}</div><div class="ev-p">${escapeHtml(event.price)}</div></div>`,
-  ).join('\n        ')}
+        ${FIND_EVENTS.map(eventRow).join('\n        ')}
         <p class="more">${t('find.more')}</p>
-        <details><summary>${t('find.code')}</summary><pre>${colored(FIND_CODE, 'javascript')}</pre></details>
+        <details><summary>${t('find.code')}</summary><pre>${exampleCode}</pre></details>
       </div>
 
       <div class="convo" id="example-edit" role="tabpanel" aria-labelledby="example-tab-edit" hidden>
@@ -459,6 +594,27 @@ ${LOCALES.map((l) => `<link rel="alternate" hreflang="${l}" href="${escapeHtml(o
         <p class="says">${t('moderate.says')}</p>
         ${points('moderate')}
       </div>
+    </div>
+  </section>
+
+  <section class="band band-cool" id="how">
+    <div class="wrap">
+      <h2 class="center">${t('how.title')}</h2>
+      <p class="sub center">${t('how.lede')}</p>
+      <ol class="flow">
+        ${step(1, 'connect', `<div class="linked"><code>${escapeHtml(resourceUrl.replace(/^https?:\/\//, ''))}</code><span class="ok">${checkIcon}${t('how.connect.status')}</span></div>`)}
+        ${step(2, 'ask', `<p class="ask">${t('find.ask')}</p>`)}
+        ${step(
+    3,
+    'search',
+    `<div class="shot-head"><code class="tool">search_docs</code></div><div class="op"><div class="op-name">agendas.events.list</div><div class="op-sum">${t('how.search.summary')}</div><div class="params">${['search', 'timings', 'sort'].map(code).join('')}</div></div>`,
+    {
+      more: `<p class="steplink"><a href="${API_DOCS_URL}">${t('how.search.docs')}</a></p>`,
+    },
+  )}
+        ${step(4, 'write', `<pre>${exampleCode}</pre>`, { kind: 'code' })}
+        ${step(5, 'run', `<div class="shot-head"><code class="tool">execute</code></div>${FIND_EVENTS.slice(0, 2).map(eventRow).join('')}<p class="more">${t('how.run.more')}</p>`)}
+      </ol>
     </div>
   </section>
 
@@ -515,6 +671,7 @@ ${LOCALES.map((l) => `<link rel="alternate" hreflang="${l}" href="${escapeHtml(o
           <div class="snippet"><pre><code id="vscode-cmd">code --add-mcp '{"name":"openagenda","type":"http","url":"${endpoint}"}'</code></pre>${copyButton('vscode-cmd')}</div>
         </div>
         <div class="pane" id="tool-other" role="tabpanel" aria-labelledby="tool-tab-other" hidden><p>${t('other.text', { metadata })}</p></div>
+        <p class="help">${t('connect.help', { email: `<a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>` })}</p>
       </div>
     </div>
   </section>
@@ -527,6 +684,7 @@ ${LOCALES.map((l) => `<link rel="alternate" hreflang="${l}" href="${escapeHtml(o
         ${isolated ? `<div>${shieldIcon}<h3>${t('control.isolated.title')}</h3><p>${t('control.isolated.text')}</p></div>` : ''}
         <div>${globeIcon}<h3>${t('control.open.title')}</h3><p>${t('control.open.text')}</p></div>
       </div>
+      <p class="note">${t('control.privacy')}</p>
     </div>
   </section>
 
@@ -545,14 +703,14 @@ ${LOCALES.map((l) => `<link rel="alternate" hreflang="${l}" href="${escapeHtml(o
           <p>${t('devs.build.text')}</p>
           <pre>${colored(SDK_CODE, 'javascript')}</pre>
           <p>${t('devs.build.keys', { pk: code('oa_pk_…'), sk: code('oa_sk_…') })}</p>
-          <div class="row"><a class="btn btn-outline btn-sm" href="${SDK_URL}">${t('devs.build.sdk')}</a></div>
+          <div class="row"><a class="btn btn-outline btn-sm" href="${API_DOCS_URL}">${t('devs.build.docs')}</a><a class="btn btn-outline btn-sm" href="${SDK_URL}">${t('devs.build.sdk')}</a></div>
         </div>
       </div>
     </div>
   </section>
 </main>
 
-<footer><div class="wrap foot"><a href="https://openagenda.com" aria-label="OpenAgenda">${whiteLogo}</a><nav><a href="https://openagenda.com">openagenda.com</a><a href="${SOURCE_URL}">${t('nav.source')}</a><a href="${NPM_URL}">npm</a></nav></div></footer>
+<footer><div class="wrap foot"><a href="https://openagenda.com" aria-label="OpenAgenda">${whiteLogo}</a><nav><a href="https://openagenda.com">openagenda.com</a><a href="${SOURCE_URL}">${t('nav.source')}</a><a href="${NPM_URL}">npm</a><a href="${HELP_URL}">${t('nav.help')}</a><a href="${PRIVACY_URL}" hreflang="fr">${t('nav.privacy')}</a></nav></div></footer>
 <script>${SCRIPT}</script>
 </body>
 </html>`;
