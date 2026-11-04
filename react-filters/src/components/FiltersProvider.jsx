@@ -146,8 +146,16 @@ const FiltersForm = React.forwardRef(
       [applyRules, filters, manualSubmit, onSubmit, realign, setPending],
     );
 
+    // the form is created once: its submits go through the latest handler,
+    // as `apply` does
+    const handleSubmitRef = useRef(handleSubmit);
+    handleSubmitRef.current = handleSubmit;
+
     const form = useConstant(() => {
-      const finalForm = createForm({ onSubmit: handleSubmit, initialValues });
+      const finalForm = createForm({
+        onSubmit: (...args) => handleSubmitRef.current(...args),
+        initialValues,
+      });
       finalForm.getSubmittedValues = () => submittedValuesRef.current;
       return finalForm;
     });
