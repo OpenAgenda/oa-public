@@ -352,6 +352,26 @@ describe('ActiveFilters', () => {
       expect(form().getState().values.sort).toBe('updatedAt.desc');
     });
 
+    test('a search typed and cleared before any submit gives back the pending order', () => {
+      const { form, change } = renderSearchAndSort({
+        initialValues: { sort: 'updatedAt.desc' },
+      });
+
+      change('sort', 'lastTimingWithFeatured.asc');
+      change('search', 'jazz');
+      change('search', undefined);
+
+      expect(form().getState().values.sort).toBe('lastTimingWithFeatured.asc');
+    });
+
+    test('a search from the page query keeps the sort it comes with', () => {
+      const { form } = renderSearchAndSort({
+        initialValues: { search: 'jazz', sort: 'updatedAt.desc' },
+      });
+
+      expect(form().getState().values.sort).toBe('updatedAt.desc');
+    });
+
     test('the search already cleared in the form, then its badge removed', () => {
       const onSubmit = jest.fn();
       const onPendingChange = jest.fn();

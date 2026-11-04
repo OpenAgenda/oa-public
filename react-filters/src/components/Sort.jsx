@@ -290,11 +290,13 @@ export default function Sort({
   hasRelevanceRef.current = hasRelevance;
 
   // Switch to relevance when the visitor types a search, and back when they
-  // clear it. A field subscriber runs before the provider's automatic submit
-  // resets the form, so `dirty` still tells a typed search from one the form
-  // was reset to (back/forward, a link), which comes with its own sort.
+  // clear it. In automatic mode, a field subscriber runs before the
+  // provider's submit resets the form, so `dirty` still tells a typed search
+  // from one the form was reset to (back/forward, a link), which comes with
+  // its own sort. Manual submit never resets the form: a search cleared back
+  // to the initial one is not dirty, yet the visitor cleared it.
   useEffect(() => {
-    let previous;
+    let previous = form.getState().values.search;
 
     return form.registerField(
       'search',
@@ -305,8 +307,8 @@ export default function Sort({
 
         if (
           !hasRelevanceRef.current
-          || !dirty
           || wasSet === isSet
+          || (!appliedRef.current && !dirty)
           // the provider realigns the form on applied values, rules included
           || appliedRef.current?.isApplying()
         ) {
@@ -321,7 +323,12 @@ export default function Sort({
           }
           form.change('sort', 'score');
         } else if (sort === 'score') {
-          form.change('sort', userSortRef.current || undefined);
+          // relevance applied: the order applied before it, as when the
+          // search badge goes
+          const back = appliedRef.current?.values.sort === 'score'
+            ? appliedSortBeforeRelevanceRef.current
+            : userSortRef.current;
+          form.change('sort', back || undefined);
         }
       },
       { value: true, dirty: true },
