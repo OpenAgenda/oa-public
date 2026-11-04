@@ -372,6 +372,23 @@ describe('ActiveFilters', () => {
       expect(form().getState().values.sort).toBe('updatedAt.desc');
     });
 
+    test('a reset the page makes keeps the sort it brings', () => {
+      const onSubmit = jest.fn();
+      const { form, submit } = renderSearchAndSort({
+        onSubmit,
+        initialValues: { sort: 'updatedAt.desc' },
+      });
+
+      act(() =>
+        form().reset({ search: 'jazz', sort: 'lastTimingWithFeatured.asc' }));
+      submit();
+
+      expect(onSubmit.mock.calls[0][0]).toStrictEqual({
+        search: 'jazz',
+        sort: 'lastTimingWithFeatured.asc',
+      });
+    });
+
     test('the search already cleared in the form, then its badge removed', () => {
       const onSubmit = jest.fn();
       const onPendingChange = jest.fn();
