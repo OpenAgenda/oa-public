@@ -95,14 +95,18 @@ function ValueContainer({ children, ...props }) {
   );
 }
 
-// shown with nothing to offer; without its id, which react-select points
-// `aria-describedby` at: the select's name already says "Sort by"
-function Placeholder({ innerProps, ...props }) {
+// shown with nothing to offer. react-select points `aria-describedby` at its
+// id: the id goes to an empty element, as the select's name already says
+// "Sort by", and the reference stays valid.
+function Placeholder({ innerProps, children, ...props }) {
   return (
     <selectComponents.Placeholder
       {...props}
       innerProps={{ ...innerProps, id: undefined }}
-    />
+    >
+      {children}
+      <span id={innerProps?.id} />
+    </selectComponents.Placeholder>
   );
 }
 
@@ -230,12 +234,16 @@ export default function Sort({
   } = useField('sort', { subscription: { value: true } });
   const [foreignSorts, setForeignSorts] = useState(() => {
     const initialSort = form.getState().values.sort;
-    return initialSort && !options.includes(initialSort) ? [initialSort] : [];
+    return typeof initialSort === 'string' && !options.includes(initialSort)
+      ? [initialSort]
+      : [];
   });
 
   useEffect(() => {
     if (
-      shownSort
+      // a query such as ?sort[a]=b gives an object, which has no label
+      typeof shownSort === 'string'
+      && shownSort
       && !options.includes(shownSort)
       && !foreignSorts.includes(shownSort)
     ) {
@@ -260,60 +268,36 @@ export default function Sort({
   const userSortRef = useRef(userSort);
   userSortRef.current = userSort;
 
-  // With manual submit, what gets applied never ranks by relevance without a
-  // search, whichever way the search went (the field, a badge): the order
-  // applied before relevance comes back. The form alone cannot tell, since
-  // manual submit never resets it.
+  // with manual submit, the provider keeps the applied values and the order
+  // applied before relevance
   const applied = useContext(AppliedValuesContext);
   const appliedRef = useRef(applied);
   appliedRef.current = applied;
-  const appliedSortBeforeRelevanceRef = useRef(userSort);
-  const appliedSort = applied?.values.sort;
 
-  useEffect(() => {
-    if (appliedSort !== 'score') {
-      appliedSortBeforeRelevanceRef.current = appliedSort;
-    }
-  }, [appliedSort]);
-
-  const registerRule = applied?.registerRule;
-
-  useEffect(
-    () =>
-      registerRule?.((values) =>
-        (!values.search && values.sort === 'score'
-          ? { ...values, sort: appliedSortBeforeRelevanceRef.current }
-          : values)),
-    [registerRule],
-  );
   const hasRelevanceRef = useRef(hasRelevance);
   hasRelevanceRef.current = hasRelevance;
 
   // Switch to relevance when the visitor types a search, and back when they
   // clear it. A search the form is reset to (back/forward, a link, a reset
-  // the page makes) comes with its own sort: a reset changes the initial
-  // value with it. Not `dirty`: with manual submit the form is never reset,
-  // and a search cleared back to the initial one is not dirty, yet the
-  // visitor cleared it. In automatic mode, a field subscriber runs before
-  // the provider's submit resets the form.
+  // the page makes) comes with its own sort, and so do the applied values
+  // the provider realigns the form on. Not `dirty`: with manual submit the
+  // form is never reset, and a search cleared back to the initial one is not
+  // dirty, yet the visitor cleared it. In automatic mode, a field subscriber
+  // runs before the provider's submit resets the form.
   useEffect(() => {
     let previous = form.getState().values.search;
-    let previousInitial = form.getState().initialValues?.search;
 
     return form.registerField(
       'search',
-      ({ value, initial }) => {
+      ({ value }) => {
         const wasSet = Boolean(previous);
         const isSet = Boolean(value);
-        const isReset = initial !== previousInitial;
         previous = value;
-        previousInitial = initial;
 
         if (
           !hasRelevanceRef.current
           || wasSet === isSet
-          || isReset
-          // the provider realigns the form on applied values, rules included
+          || form.isResetting?.()
           || appliedRef.current?.isApplying()
         ) {
           return;
@@ -330,12 +314,12 @@ export default function Sort({
           // relevance applied: the order applied before it, as when the
           // search badge goes
           const back = appliedRef.current?.values.sort === 'score'
-            ? appliedSortBeforeRelevanceRef.current
+            ? appliedRef.current.sortBeforeRelevance()
             : userSortRef.current;
           form.change('sort', back || undefined);
         }
       },
-      { value: true, initial: true },
+      { value: true },
     );
   }, [form]);
 

@@ -146,8 +146,16 @@ describe('Sort', () => {
       .split(' ')
       .filter(Boolean)
       .forEach((id) => {
-        expect(document.getElementById(id)?.textContent).not.toBe('Sort by');
+        // and no reference to an element that does not exist
+        expect(document.getElementById(id)).not.toBeNull();
+        expect(document.getElementById(id).textContent).not.toBe('Sort by');
       });
+  });
+
+  test('survives a sort from the URL that is not a string', () => {
+    const { container } = renderSort({}, { sort: { a: 'b' } });
+
+    expect(container.querySelector('input')).not.toBeNull();
   });
 
   test('offers relevance only while a search is typed', () => {

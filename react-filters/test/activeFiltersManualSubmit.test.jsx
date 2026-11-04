@@ -389,6 +389,77 @@ describe('ActiveFilters', () => {
       });
     });
 
+    test('a reset to the same values after the search was cleared keeps their sort', () => {
+      const { form, change } = renderSearchAndSort({
+        initialValues: { search: 'jazz', sort: 'updatedAt.desc' },
+      });
+
+      change('search', undefined);
+      act(() => form().reset());
+
+      expect(form().getState().values).toStrictEqual({
+        search: 'jazz',
+        sort: 'updatedAt.desc',
+      });
+
+      change('search', undefined);
+      act(() => form().initialize({ search: 'jazz', sort: 'updatedAt.desc' }));
+
+      expect(form().getState().values).toStrictEqual({
+        search: 'jazz',
+        sort: 'updatedAt.desc',
+      });
+    });
+
+    test('the order applied before relevance survives a remount of Sort', () => {
+      const onSubmit = jest.fn();
+      let form;
+      let remount;
+
+      function GrabForm() {
+        form = useForm();
+        useField('search', { subscription: {} });
+        return null;
+      }
+
+      function RemountableSort() {
+        const [key, setKey] = useState(0);
+        remount = () => setKey((k) => k + 1);
+        return (
+          <Sort
+            key={key}
+            options={['lastTimingWithFeatured.asc', 'updatedAt.desc', 'score']}
+          />
+        );
+      }
+
+      render(
+        <IntlProvider locale="en">
+          <FiltersProvider
+            filters={searchFilters}
+            manualSubmit
+            initialValues={{ sort: 'updatedAt.desc' }}
+            onSubmit={onSubmit}
+          >
+            <GrabForm />
+            <RemountableSort />
+            <ActiveFilters filters={searchFilters} getOptions={getOptions} />
+          </FiltersProvider>
+        </IntlProvider>,
+      );
+
+      act(() => form.change('search', 'jazz'));
+      act(() => form.submit());
+      act(() => remount());
+      act(() => {
+        fireEvent.click(screen.getByRole('button', { name: /jazz/ }));
+      });
+
+      expect(onSubmit.mock.calls[1][0]).toStrictEqual({
+        sort: 'updatedAt.desc',
+      });
+    });
+
     test('the search already cleared in the form, then its badge removed', () => {
       const onSubmit = jest.fn();
       const onPendingChange = jest.fn();
@@ -505,6 +576,7 @@ describe('ActiveFilters', () => {
       return {
         change: (name, value) => act(() => appliedForm.change(name, value)),
         showField: () => act(() => showField()),
+        appliedForm: () => appliedForm,
       };
     }
 
@@ -519,6 +591,19 @@ describe('ActiveFilters', () => {
 
       expect(onSubmit).toHaveBeenCalledTimes(1);
       expect(onSubmit.mock.calls[0][0]).toStrictEqual({ city: ['Paris'] });
+    });
+
+    test('a reset of the applied form applies what it brings', () => {
+      const onSubmit = jest.fn();
+      const { appliedForm } = renderAppliedForm(onSubmit, {
+        city: ['Paris', 'Lyon'],
+      });
+
+      // a "clear all" button of the page's own active filters
+      act(() => appliedForm().reset({}));
+
+      expect(onSubmit).toHaveBeenCalledTimes(1);
+      expect(onSubmit.mock.calls[0][0]).toStrictEqual({});
     });
 
     test('a value restored after a removal is applied', () => {

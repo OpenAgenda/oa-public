@@ -95,22 +95,24 @@ const FiltersForm = React.forwardRef(
       onPendingChangeRef.current?.(pending, values);
     });
 
-    // Rules the fields set on what gets applied, e.g. Sort: no relevance
-    // without a search. Manual submit only: in automatic mode the fields
-    // settle the form themselves before each submit.
-    const rulesRef = useRef([]);
-    const registerRule = useConstant(() => (rule) => {
-      rulesRef.current = [...rulesRef.current, rule];
-      return () => {
-        rulesRef.current = rulesRef.current.filter((r) => r !== rule);
-      };
-    });
-    const applyRules = useConstant(
-      () => (values) =>
-        withoutUndefined(
-          rulesRef.current.reduce((ruled, rule) => rule(ruled), values),
-        ),
+    // Relevance only ranks against a search: it is never applied without
+    // one, the order applied before it comes back. Kept here with the
+    // applied values, whether a Sort is mounted or not. Manual submit only:
+    // in automatic mode Sort settles the form itself before each submit.
+    const sortBeforeRelevanceRef = useRef(
+      initialValues?.sort === 'score' ? undefined : initialValues?.sort,
     );
+    const applyRules = useConstant(() => (values) => {
+      const ruled = !values.search && values.sort === 'score'
+        ? { ...values, sort: sortBeforeRelevanceRef.current }
+        : values;
+
+      if (ruled.sort !== 'score') {
+        sortBeforeRelevanceRef.current = ruled.sort;
+      }
+
+      return withoutUndefined(ruled);
+    });
 
     // Set while the provider realigns the form on the applied values: the
     // pending state and the fields' own reactions wait for it to end.
@@ -151,12 +153,31 @@ const FiltersForm = React.forwardRef(
     const handleSubmitRef = useRef(handleSubmit);
     handleSubmitRef.current = handleSubmit;
 
+    // Set while the form is reset to other values (back/forward, a link, a
+    // reset the page makes): Sort leaves the sort they come with alone.
+    // A count, as final-form's reset calls initialize.
+    const resettingRef = useRef(0);
+
     const form = useConstant(() => {
       const finalForm = createForm({
         onSubmit: (...args) => handleSubmitRef.current(...args),
         initialValues,
       });
       finalForm.getSubmittedValues = () => submittedValuesRef.current;
+
+      ['reset', 'initialize', 'restart'].forEach((method) => {
+        const original = finalForm[method];
+        finalForm[method] = (...args) => {
+          resettingRef.current += 1;
+          try {
+            return original(...args);
+          } finally {
+            resettingRef.current -= 1;
+          }
+        };
+      });
+      finalForm.isResetting = () => resettingRef.current > 0;
+
       return finalForm;
     });
     formRef.current = form;
@@ -201,11 +222,11 @@ const FiltersForm = React.forwardRef(
           ? {
             values: appliedValues,
             apply,
-            registerRule,
+            sortBeforeRelevance: () => sortBeforeRelevanceRef.current,
             isApplying: () => applyingRef.current,
           }
           : null),
-      [manualSubmit, appliedValues, apply, registerRule],
+      [manualSubmit, appliedValues, apply],
     );
 
     const onValueChange = useCallback(
