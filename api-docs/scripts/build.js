@@ -17,7 +17,13 @@
 // and contacts no CDN or third party at runtime.
 
 import { createHash } from 'node:crypto';
-import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import {
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs';
 import { createRequire } from 'node:module';
 import { dirname, extname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -35,7 +41,12 @@ const specPath = require.resolve('@openagenda/api-spec/openapi.yaml');
 // (.../dist/index.js) and reach the vendored bundle from there.
 const scalarMain = require.resolve('@scalar/api-reference');
 const scalarRoot = dirname(dirname(scalarMain));
-const standalonePath = join(scalarRoot, 'dist/browser/standalone.js');
+// The ESM build of the runtime: an entry that imports the rest from chunks/
+// as the page needs it (the API client, the agent drawer, the code samples),
+// about 0.1 MiB compressed at first load instead of 1 MiB for the classic
+// bundle. Scalar names the chunks after their content already.
+const runtimeEntryPath = join(scalarRoot, 'dist/browser/standalone.esm.js');
+const runtimeChunksDir = join(scalarRoot, 'dist/browser/chunks');
 // Favicon: the OpenAgenda colour picto, vendored into the package (kept
 // self-contained, like the spec and the runtime) and copied into dist/.
 const faviconPath = join(pkgRoot, 'oa-picto.svg');
@@ -131,15 +142,9 @@ rmSync(distDir, { recursive: true, force: true });
 const filesDir = join(distDir, '_docs');
 mkdirSync(join(filesDir, 'fonts'), { recursive: true });
 
-// Writes a file the page loads under a name that carries its content
-// (`standalone.3f2a9c41d0.js`), so it is cached for good and a new build is a
-// new address. Scripts are also written precompressed: the API serves them,
-// with no compression of its own. Returns the address the page uses.
-const emit = (name, content, { compress = false } = {}) => {
-  const hash = createHash('sha256').update(content).digest('hex').slice(0, 10);
-  const ext = extname(name);
-  const hashed = `${name.slice(0, -ext.length)}.${hash}${ext}`;
-  const path = join(filesDir, hashed);
+// Writes a file of dist/_docs; a script is also written precompressed (.br,
+// .gz), as the API serves it with no compression of its own.
+const write = (path, content, { compress = false } = {}) => {
   writeFileSync(path, content);
   if (compress) {
     writeFileSync(
@@ -150,8 +155,41 @@ const emit = (name, content, { compress = false } = {}) => {
     );
     writeFileSync(`${path}.gz`, gzipSync(content, { level: 9 }));
   }
+};
+
+// Writes a file the page loads under a name that carries its content
+// (`scalar.3f2a9c41d0.js`), so it is cached for good and a new build is a new
+// address. Returns the address the page uses.
+const emit = (name, content, options) => {
+  const hash = createHash('sha256').update(content).digest('hex').slice(0, 10);
+  const ext = extname(name);
+  const hashed = `${name.slice(0, -ext.length)}.${hash}${ext}`;
+  write(join(filesDir, hashed), content, options);
   return `${assetBase}${hashed}`;
 };
+
+// The vendored source maps stay out: nothing serves them.
+const withoutSourceMap = (code) =>
+  code.toString().replace(/\n\/\/# sourceMappingURL=\S+\s*$/, '\n');
+
+// The runtime: its chunks keep their names, which the entry imports them by
+// (./chunks/…) and which already carry their content; the entry sits next to
+// chunks/ under a name of ours.
+mkdirSync(join(filesDir, 'chunks'));
+const chunkNames = readdirSync(runtimeChunksDir).filter((n) =>
+  n.endsWith('.js'));
+for (const name of chunkNames) {
+  write(
+    join(filesDir, 'chunks', name),
+    withoutSourceMap(readFileSync(join(runtimeChunksDir, name))),
+    { compress: true },
+  );
+}
+const runtimeUrl = emit(
+  'scalar.js',
+  withoutSourceMap(readFileSync(runtimeEntryPath)),
+  { compress: true },
+);
 
 // The favicon and the brand fonts (see brandCss).
 const faviconUrl = emit('oa-picto.svg', readFileSync(faviconPath));
@@ -200,7 +238,9 @@ const brandCss = `${fontFaceCss}
 // origin: the download link of the page leads there, to the file itself, and
 // the contract is cached apart from this configuration.
 const specUrl = `${new URL(docsUrl).pathname.replace(/\/$/, '')}/openapi.yaml`;
-const reference = `Scalar.createApiReference('#app', {
+const reference = `import { createApiReference } from ${JSON.stringify(runtimeUrl)};
+
+createApiReference('#app', {
         url: ${JSON.stringify(specUrl)},
         theme: 'default',
         favicon: ${JSON.stringify(faviconUrl)},
@@ -300,14 +340,13 @@ const reference = `Scalar.createApiReference('#app', {
       });
 `;
 
-const standaloneUrl = emit('standalone.js', readFileSync(standalonePath), {
-  compress: true,
-});
 const referenceUrl = emit('reference.js', reference, { compress: true });
 
-// The page holds no script of its own: the configuration below goes to
-// reference.js, next to the runtime, so the page runs under a policy that
-// allows scripts from its own origin only (no inline script, no nonce).
+// The page holds no script of its own: its configuration is reference.js, a
+// module that imports the runtime, so the page runs under a policy that allows
+// scripts from its own origin only (no inline script, no nonce). Without
+// JavaScript, it points to the contract and the MCP server, which are what a
+// crawler or an assistant reading the page can use.
 const html = `<!doctype html>
 <html lang="en">
   <head>
@@ -316,14 +355,23 @@ const html = `<!doctype html>
     <title>OpenAgenda API — Reference</title>
     <link rel="canonical" href="${docsUrl}" />
     <link rel="icon" type="image/svg+xml" href="${faviconUrl}" />
+    <link rel="alternate" type="application/yaml" title="OpenAPI 3.1 contract" href="${specUrl}" />
+    <link rel="modulepreload" href="${runtimeUrl}" />
     <style>
       body { margin: 0; }
     </style>
   </head>
   <body>
     <div id="app"></div>
-    <script src="${standaloneUrl}"></script>
-    <script src="${referenceUrl}"></script>
+    <noscript>
+      <p>
+        This reference needs JavaScript. The OpenAPI 3.1 contract it renders is
+        at <a href="${specUrl}">${docsUrl}/openapi.yaml</a>, and AI assistants
+        reach the API through the OpenAgenda MCP server,
+        <a href="https://mcp.openagenda.com">mcp.openagenda.com</a>.
+      </p>
+    </noscript>
+    <script type="module" src="${referenceUrl}"></script>
   </body>
 </html>
 `;
@@ -340,8 +388,9 @@ console.log(
 console.log('  dist/index.html   the page');
 console.log('  dist/docs.json    the environment it was built for');
 console.log(`  dist/_docs/       served under ${assetBase}:`);
+console.log(`    chunks/ (${chunkNames.length} chunks of the runtime)`);
 for (const url of [
-  standaloneUrl,
+  runtimeUrl,
   referenceUrl,
   faviconUrl,
   ...fontUrls.values(),

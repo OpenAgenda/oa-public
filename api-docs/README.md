@@ -21,9 +21,12 @@ download link of the page leads.
 - The page holds no inline script (its configuration is the `reference.*.js`
   of `dist/_docs/`), so it runs under a policy that only allows scripts from
   its own origin, and the playground's requests to the API are same-origin.
+- The runtime is Scalar's ESM build: an entry that imports the rest from
+  `chunks/` as the page needs it (about 0.1 MiB compressed at first load).
 - The files of `dist/_docs/` are named after their content and cached for
   good; the scripts are precompressed (`.br`, `.gz`), as the API compresses
-  nothing itself.
+  nothing itself. A deployment replaces the chunks: a page left open across
+  it loads the parts it has not opened yet only once reloaded.
 - `dist/docs.json` names the environment the page was built for: cibul-node
   serves no page built for another API than its own.
 
