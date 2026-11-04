@@ -9,7 +9,7 @@ import AppliedValuesContext from '../contexts/AppliedValuesContext.js';
 const useLatest = useLatestModule.default || useLatestModule;
 
 const noSubscription = {};
-const changeSubscription = { values: true, pristine: true };
+const changeSubscription = { values: true, initialValues: true };
 
 function report(error) {
   // eslint-disable-next-line no-console
@@ -45,10 +45,14 @@ function AppliedForm({ applied, children }) {
 
   useEffect(
     () =>
-      appliedForm.subscribe(({ values, pristine }) => {
-        // a field registering its initial value leaves the form pristine:
-        // only a change makes it dirty
-        if (pristine || isEqual(values, latestValues.current)) {
+      appliedForm.subscribe(({ values, initialValues }) => {
+        // a field registering its initial value adds it to both. Not
+        // `pristine`: it only counts registered fields, and the custom and
+        // favorites badges change values no field registers.
+        if (
+          isEqual(values, initialValues)
+          || isEqual(values, latestValues.current)
+        ) {
           return;
         }
 

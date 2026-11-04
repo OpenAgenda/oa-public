@@ -515,4 +515,37 @@ describe('ActiveFilters', () => {
       expect(onSubmit.mock.calls[1][0]).toStrictEqual({ city: 'Paris' });
     });
   });
+
+  test('with manual submit, apply the removal of a custom filter badge, whose values no field registers', () => {
+    const onSubmit = jest.fn();
+    const customFilters = [
+      {
+        name: 'free',
+        type: 'custom',
+        query: { free: '1' },
+        activeFilterLabel: 'Free',
+      },
+    ];
+
+    render(
+      <IntlProvider locale="en">
+        <FiltersProvider
+          filters={customFilters}
+          manualSubmit
+          initialValues={{ free: '1' }}
+          onSubmit={onSubmit}
+        >
+          <ActiveFilters filters={customFilters} />
+        </FiltersProvider>
+      </IntlProvider>,
+    );
+
+    act(() => {
+      fireEvent.click(screen.getByRole('button', { name: /Free/ }));
+    });
+
+    expect(onSubmit).toHaveBeenCalledTimes(1);
+    expect(onSubmit.mock.calls[0][0]).toStrictEqual({});
+    expect(badges()).toEqual([]);
+  });
 });
