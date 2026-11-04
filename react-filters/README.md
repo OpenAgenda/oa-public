@@ -246,7 +246,7 @@ The available orders:
 
 `timings` orders events by their next date, `lastTiming` by their last one. The `WithFeatured` variants list featured events first.
 
-The select is at least 180px wide, and as wide as the longest label it can show closed, `score` included, as well as an order from the page's URL that it does not offer: its width does not change with the order picked, nor when a search adds relevance. It is always shown: with no order to offer (only `score` and no search, or only unknown values), it stays in place, disabled, named "Sort by".
+The select is at least 180px wide, and as wide as the longest label it can show closed, `score` included, as well as an order from the page's URL that it does not offer: its width does not change with the order picked, nor when a search adds relevance. Used as a React component, `sizeToLabels={false}` lets it follow the selected label instead, e.g. for a select styled as a link. It is always shown: with no order to offer (only `score` and no search, or only unknown values), it stays in place, disabled, showing "Sort by".
 
 `score` is only listed while a search is typed, since relevance ranks against it. When it is among the options, typing a search switches the order to relevance, and clearing the search brings back the order picked before.
 
@@ -293,9 +293,11 @@ In this mode the search text is held by the form like any other filter: typing m
 
 ### Active filters
 
-The active filters describe the list, so they show the applied values, not the pending ones: they change on a submit. Removing a value from them applies that removal at once, alone: `onFilterChange` is called with the applied values minus that one, and the visitor's other pending changes stay pending. The filter the value comes from realigns on the list: it shows the applied values, and the visitor's pending changes on it are dropped. What the removal changes in turn is applied with it: removing the search while the list is ordered by relevance brings back the order picked before, as clearing the search field and submitting would.
+The active filters describe the list, so they show the applied values, not the pending ones: they change on a submit. Removing a value from them applies that removal at once, alone: `onFilterChange` is called with the applied values minus that one, and the visitor's other pending changes stay pending. The filter the value comes from realigns on the list: it shows the applied values, and the visitor's pending changes on it are dropped. Relevance is never applied without a search: removing the search, from the active filters or by clearing the field and submitting, brings back the order applied before relevance, and the select shows it.
 
-`ActiveFilters` gets this from `AppliedValuesForm`, which is exported: a page that builds its own active filters with `useActiveFilters` and the `*.Preview` components wraps them in it to read the applied values, and to apply a value removed there. In automatic mode it renders its children as they are.
+`ActiveFilters` gets this from `AppliedValuesForm`, which is exported: a page that builds its own active filters with `useActiveFilters` and the `*.Preview` components wraps them in it to read the applied values, and to apply a value changed there. Its form's `submit()` and `getSubmittedValues()` are those of the main form, so a submit button or a `SearchInput` placed inside work as outside. In automatic mode it renders its children as they are.
+
+The applied values change on a submit and on a change made in `AppliedValuesForm`. A page that resets the main form itself (`getForm().reset()`) should submit afterwards: until then, the active filters keep showing the list as it was.
 
 ```jsx
 <AppliedValuesForm>

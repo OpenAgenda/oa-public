@@ -47,6 +47,17 @@ function withoutEmpty(values) {
   return omitBy(values, (v) => v === undefined || v === '');
 }
 
+// what a submit sends: final-form drops a cleared field's key
+function withoutUndefined(values) {
+  return omitBy(values, (v) => v === undefined);
+}
+
+function changedNames(a, b) {
+  return [...new Set([...Object.keys(a), ...Object.keys(b)])].filter(
+    (name) => !sameValues(a[name], b[name]),
+  );
+}
+
 const spySubscription = { dirty: true, values: true };
 
 const FiltersForm = React.forwardRef(
@@ -64,7 +75,8 @@ const FiltersForm = React.forwardRef(
     const { filters } = useContext(FiltersAndWidgetsContext);
 
     const submittedValuesRef = useRef();
-    // the same, as state, for what renders the applied values
+    // the same, as state, for what renders the applied values; manual submit
+    // only, where they can differ from the form's
     const [appliedValues, setAppliedValues] = useState(
       () => initialValues ?? {},
     );
@@ -83,17 +95,55 @@ const FiltersForm = React.forwardRef(
       onPendingChangeRef.current?.(pending, values);
     });
 
+    // Rules the fields set on what gets applied, e.g. Sort: no relevance
+    // without a search. Manual submit only: in automatic mode the fields
+    // settle the form themselves before each submit.
+    const rulesRef = useRef([]);
+    const registerRule = useConstant(() => (rule) => {
+      rulesRef.current = [...rulesRef.current, rule];
+      return () => {
+        rulesRef.current = rulesRef.current.filter((r) => r !== rule);
+      };
+    });
+    const applyRules = useConstant(
+      () => (values) =>
+        withoutUndefined(
+          rulesRef.current.reduce((ruled, rule) => rule(ruled), values),
+        ),
+    );
+
+    // Set while the provider realigns the form on the applied values: the
+    // pending state and the fields' own reactions wait for it to end.
+    const applyingRef = useRef(false);
+    const formRef = useRef();
+    const realign = useConstant(() => (values, names) => {
+      applyingRef.current = true;
+      try {
+        formRef.current.batch(() => {
+          names.forEach((name) => formRef.current.change(name, values[name]));
+        });
+      } finally {
+        applyingRef.current = false;
+      }
+    });
+
     const handleSubmit = useCallback(
-      (values, form) => {
+      (submitted, form) => {
         const aggregations = filtersToAggregations(filters);
+        let values = submitted;
+
+        if (manualSubmit) {
+          values = applyRules(submitted);
+          realign(values, changedNames(submitted, values));
+          setAppliedValues(values);
+        }
 
         submittedValuesRef.current = values;
-        setAppliedValues(values);
         setPending(false, values);
 
         return onSubmit(values, aggregations, form);
       },
-      [filters, onSubmit, setPending],
+      [applyRules, filters, manualSubmit, onSubmit, realign, setPending],
     );
 
     const form = useConstant(() => {
@@ -101,74 +151,65 @@ const FiltersForm = React.forwardRef(
       finalForm.getSubmittedValues = () => submittedValuesRef.current;
       return finalForm;
     });
+    formRef.current = form;
 
     useImperativeHandle(ref, () => form);
 
-    // Applies `values` as they are, whatever the form holds: the active
+    const getApplied = useConstant(
+      () => () =>
+        submittedValuesRef.current
+        ?? formRef.current.getState().initialValues
+        ?? {},
+    );
+
+    // Applies `requested` as it is, whatever the form holds: the active
     // filters remove a value from the list without applying the visitor's
-    // pending changes on other filters. The filter the change is on takes the
-    // applied value, its own pending changes dropped. What a field subscriber
-    // changes in reaction (Sort leaving relevance once the search goes) is
-    // applied along with it, as a submit would.
-    const applyingRef = useRef(false);
+    // pending changes on other filters. Each filter whose applied value
+    // changes, by the request or by a rule, realigns on it, its own pending
+    // changes dropped.
     const apply = useCallback(
       (requested) => {
-        const previous = submittedValuesRef.current ?? form.getState().initialValues ?? {};
-        const before = form.getState().values;
-        const names = [
-          ...new Set([...Object.keys(previous), ...Object.keys(requested)]),
-        ].filter((name) => !sameValues(previous[name], requested[name]));
-
-        applyingRef.current = true;
-        try {
-          form.batch(() => {
-            names.forEach((name) => form.change(name, requested[name]));
-          });
-        } finally {
-          applyingRef.current = false;
-        }
-
-        const { values: after } = form.getState();
-        const reactions = [
-          ...new Set([...Object.keys(before), ...Object.keys(after)]),
-        ].filter(
-          (name) =>
-            !names.includes(name) && !sameValues(before[name], after[name]),
-        );
-        const values = reactions.reduce(
-          (applied, name) => ({ ...applied, [name]: after[name] }),
-          requested,
-        );
+        const previous = getApplied();
+        const values = applyRules(requested);
 
         submittedValuesRef.current = values;
         setAppliedValues(values);
+        realign(values, changedNames(previous, values));
+
+        const { values: current } = form.getState();
         setPending(
-          !sameValues(withoutEmpty(after), withoutEmpty(values)),
-          after,
+          !sameValues(withoutEmpty(current), withoutEmpty(values)),
+          current,
         );
 
         return onSubmit(values, filtersToAggregations(filters), form);
       },
-      [filters, form, onSubmit, setPending],
+      [applyRules, filters, form, getApplied, onSubmit, realign, setPending],
     );
 
     const appliedContext = useMemo(
-      () => (manualSubmit ? { values: appliedValues, apply } : null),
-      [manualSubmit, appliedValues, apply],
+      () =>
+        (manualSubmit
+          ? {
+            values: appliedValues,
+            apply,
+            registerRule,
+            isApplying: () => applyingRef.current,
+          }
+          : null),
+      [manualSubmit, appliedValues, apply, registerRule],
     );
 
     const onValueChange = useCallback(
       ({ dirty, values }) => {
         if (manualSubmit) {
-          // apply settles the pending state itself, once its changes are in
+          // a realignment settles the pending state itself, once it is done
           if (applyingRef.current) {
             return;
           }
 
-          const applied = submittedValuesRef.current ?? form.getState().initialValues ?? {};
-
           setPending(
-            !sameValues(withoutEmpty(values), withoutEmpty(applied)),
+            !sameValues(withoutEmpty(values), withoutEmpty(getApplied())),
             values,
           );
           return;
@@ -178,7 +219,7 @@ const FiltersForm = React.forwardRef(
           form.reset(values);
         }
       },
-      [form, manualSubmit, setPending],
+      [form, getApplied, manualSubmit, setPending],
     );
 
     return (

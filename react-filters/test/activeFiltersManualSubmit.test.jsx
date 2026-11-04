@@ -60,6 +60,41 @@ function renderActiveFilters(props) {
   );
 }
 
+const searchFilters = [{ name: 'search', type: 'search' }];
+
+function renderSearchAndSort(props, extra = null) {
+  let form;
+
+  function GrabForm() {
+    form = useForm();
+    useField('search', { subscription: {} });
+    return null;
+  }
+
+  render(
+    <IntlProvider locale="en">
+      <FiltersProvider filters={searchFilters} manualSubmit {...props}>
+        <GrabForm />
+        <Sort
+          options={['lastTimingWithFeatured.asc', 'updatedAt.desc', 'score']}
+        />
+        <ActiveFilters filters={searchFilters} getOptions={getOptions} />
+        {extra}
+      </FiltersProvider>
+    </IntlProvider>,
+  );
+
+  return {
+    form: () => form,
+    change: (name, value) => act(() => form.change(name, value)),
+    submit: () => act(() => form.submit()),
+    removeBadge: (name) =>
+      act(() => {
+        fireEvent.click(screen.getByRole('button', { name }));
+      }),
+  };
+}
+
 const badges = () =>
   screen.queryAllByRole('button').map((button) => button.textContent.trim());
 
@@ -107,10 +142,7 @@ describe('ActiveFilters', () => {
 
     // the list loses Paris, not the pending keyword
     expect(onSubmit).toHaveBeenCalledTimes(1);
-    expect(onSubmit.mock.calls[0][0]).toEqual({
-      city: undefined,
-      keyword: ['jazz'],
-    });
+    expect(onSubmit.mock.calls[0][0]).toStrictEqual({ keyword: ['jazz'] });
     expect(badges()).toEqual(['jazz']);
 
     // the filter loses Paris, the keyword keeps its pending value
@@ -120,10 +152,7 @@ describe('ActiveFilters', () => {
     });
     // still pending, on the keyword: no new transition
     expect(onPendingChange).toHaveBeenCalledTimes(1);
-    expect(form().getSubmittedValues()).toEqual({
-      city: undefined,
-      keyword: ['jazz'],
-    });
+    expect(form().getSubmittedValues()).toStrictEqual({ keyword: ['jazz'] });
   });
 
   test('with manual submit, realign a filter with pending values on the removal', () => {
@@ -174,14 +203,13 @@ describe('ActiveFilters', () => {
       fireEvent.click(screen.getByRole('button', { name: /Paris/ }));
     });
 
-    expect(onSubmit.mock.calls[0][0]).toEqual({ city: undefined });
+    expect(onSubmit.mock.calls[0][0]).toStrictEqual({});
     expect(form.getState().values).toEqual({ city: undefined });
   });
 
   test('with manual submit, apply what Sort changes when the search badge goes', () => {
     const onSubmit = jest.fn();
     const onPendingChange = jest.fn();
-    const searchFilters = [{ name: 'search', type: 'search' }];
     let form;
 
     function GrabForm() {
@@ -211,10 +239,7 @@ describe('ActiveFilters', () => {
     });
 
     // relevance leaves with the search, in the list as in the form
-    expect(onSubmit.mock.calls[0][0]).toEqual({
-      search: undefined,
-      sort: undefined,
-    });
+    expect(onSubmit.mock.calls[0][0]).toStrictEqual({});
     expect(form.getState().values).toEqual({});
     expect(onPendingChange).not.toHaveBeenCalled();
   });
@@ -231,12 +256,15 @@ describe('ActiveFilters', () => {
       onSubmit: () => Promise.reject(error),
     });
 
-    await act(async () => {
-      fireEvent.click(screen.getByRole('button', { name: /Paris/ }));
-    });
+    try {
+      await act(async () => {
+        fireEvent.click(screen.getByRole('button', { name: /Paris/ }));
+      });
 
-    expect(consoleError).toHaveBeenCalledWith('onFilterChange failed', error);
-    consoleError.mockRestore();
+      expect(consoleError).toHaveBeenCalledWith('onFilterChange failed', error);
+    } finally {
+      consoleError.mockRestore();
+    }
   });
 
   test('with manual submit, AppliedValuesForm serves the applied values to custom active filters', () => {
@@ -257,5 +285,133 @@ describe('ActiveFilters', () => {
     change('keyword', ['jazz']);
 
     expect(screen.getByTestId('active').textContent).toBe('city');
+  });
+
+  describe('with manual submit, relevance never applied without a search', () => {
+    test('a search typed and submitted during the visit, then its badge removed', () => {
+      const onSubmit = jest.fn();
+      const { form, change, submit, removeBadge } = renderSearchAndSort({
+        onSubmit,
+        initialValues: { sort: 'updatedAt.desc' },
+      });
+
+      change('search', 'jazz');
+      submit();
+
+      expect(onSubmit.mock.calls[0][0]).toStrictEqual({
+        search: 'jazz',
+        sort: 'score',
+      });
+
+      removeBadge(/jazz/);
+
+      expect(onSubmit.mock.calls[1][0]).toStrictEqual({
+        sort: 'updatedAt.desc',
+      });
+      expect(form().getState().values).toStrictEqual({
+        sort: 'updatedAt.desc',
+      });
+    });
+
+    test('a search cleared in the field and submitted, after an earlier submit (#713)', () => {
+      const onSubmit = jest.fn();
+      const { form, change, submit } = renderSearchAndSort({
+        onSubmit,
+        initialValues: { sort: 'updatedAt.desc' },
+      });
+
+      change('search', 'jazz');
+      submit();
+      change('search', undefined);
+      submit();
+
+      expect(onSubmit.mock.calls[1][0]).toStrictEqual({
+        sort: 'updatedAt.desc',
+      });
+      expect(form().getState().values.sort).toBe('updatedAt.desc');
+    });
+
+    test('the search already cleared in the form, then its badge removed', () => {
+      const onSubmit = jest.fn();
+      const onPendingChange = jest.fn();
+      const { form, change, removeBadge } = renderSearchAndSort({
+        onSubmit,
+        onPendingChange,
+        initialValues: { search: 'jazz', sort: 'score' },
+      });
+
+      change('search', undefined);
+      removeBadge(/jazz/);
+
+      expect(onSubmit.mock.calls[0][0]).toStrictEqual({});
+      expect(form().getState().values).toStrictEqual({});
+      expect(onPendingChange).toHaveBeenLastCalledWith(false, {});
+    });
+
+    test('another order picked in the form, then the search badge removed', () => {
+      const onSubmit = jest.fn();
+      const { form, change, removeBadge } = renderSearchAndSort({
+        onSubmit,
+        initialValues: { search: 'jazz', sort: 'score' },
+      });
+
+      change('sort', 'updatedAt.desc');
+      removeBadge(/jazz/);
+
+      // the list leaves relevance for the order applied before it, and the
+      // select realigns on what the list shows
+      expect(onSubmit.mock.calls[0][0]).toStrictEqual({});
+      expect(form().getState().values).toStrictEqual({});
+    });
+  });
+
+  test('with manual submit, AppliedValuesForm hands submit and getSubmittedValues to the main form', () => {
+    const onSubmit = jest.fn();
+    let appliedForm;
+
+    function GrabAppliedForm() {
+      appliedForm = useForm();
+      return null;
+    }
+
+    const { change } = renderActiveFiltersWith(
+      { manualSubmit: true, initialValues: { city: ['Paris'] }, onSubmit },
+      <AppliedValuesForm>
+        <GrabAppliedForm />
+      </AppliedValuesForm>,
+    );
+
+    change('keyword', ['jazz']);
+
+    expect(appliedForm.getSubmittedValues()).toBeUndefined();
+
+    act(() => appliedForm.submit());
+
+    expect(onSubmit.mock.calls[0][0]).toStrictEqual({
+      city: ['Paris'],
+      keyword: ['jazz'],
+    });
+    expect(appliedForm.getSubmittedValues()).toStrictEqual({
+      city: ['Paris'],
+      keyword: ['jazz'],
+    });
+  });
+
+  test('with manual submit, a value a field sets on mount under AppliedValuesForm is not applied', () => {
+    const onSubmit = jest.fn();
+
+    function FieldWithInitialValue() {
+      useField('keyword', { initialValue: ['rock'], subscription: {} });
+      return null;
+    }
+
+    renderActiveFiltersWith(
+      { manualSubmit: true, initialValues: { city: ['Paris'] }, onSubmit },
+      <AppliedValuesForm>
+        <FieldWithInitialValue />
+      </AppliedValuesForm>,
+    );
+
+    expect(onSubmit).not.toHaveBeenCalled();
   });
 });

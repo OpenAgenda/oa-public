@@ -123,12 +123,31 @@ describe('Sort', () => {
     ]);
   });
 
+  test('follows the selected label with sizeToLabels false', () => {
+    const { container } = renderSort({
+      options: ['lastTimingWithFeatured.asc', 'updatedAt.desc'],
+      sizeToLabels: false,
+    });
+
+    expect(shownValue()).toBe('Chronological');
+    expect(sizingLabels(container)).toEqual([]);
+  });
+
   test('stays in place, named and disabled, with nothing to offer', () => {
     const { container } = renderSort({ options: ['score'] });
 
     expect(container.textContent).toContain('Sort by');
     expect(container.textContent).not.toContain('Select...');
     expect(container.querySelector('input').disabled).toBe(true);
+    // named once: the placeholder is not its description too
+    const input = container.querySelector('input');
+    const describedBy = input.getAttribute('aria-describedby') ?? '';
+    describedBy
+      .split(' ')
+      .filter(Boolean)
+      .forEach((id) => {
+        expect(document.getElementById(id)?.textContent).not.toBe('Sort by');
+      });
   });
 
   test('offers relevance only while a search is typed', () => {

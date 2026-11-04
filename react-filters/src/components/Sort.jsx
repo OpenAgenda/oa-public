@@ -1,9 +1,17 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { useIntl } from 'react-intl';
 import { Field, useField, useForm } from 'react-final-form';
 import { OnChange } from 'react-final-form-listeners';
 import { components as selectComponents } from 'react-select';
 import ReactSelectField from '@openagenda/react-shared/components/ReactSelectField';
+import AppliedValuesContext from '../contexts/AppliedValuesContext.js';
 import messages from '../messages/sort.js';
 
 const { defaultStyles: defaultReactSelectStyles } = ReactSelectField;
@@ -87,7 +95,18 @@ function ValueContainer({ children, ...props }) {
   );
 }
 
-const selectComponentsOverrides = { ValueContainer };
+// shown with nothing to offer; without its id, which react-select points
+// `aria-describedby` at: the select's name already says "Sort by"
+function Placeholder({ innerProps, ...props }) {
+  return (
+    <selectComponents.Placeholder
+      {...props}
+      innerProps={{ ...innerProps, id: undefined }}
+    />
+  );
+}
+
+const selectComponentsOverrides = { ValueContainer, Placeholder };
 
 // what a public listing wants, with a single chronological order so the
 // closed select never shows two orders under the same short label; the agenda
@@ -115,18 +134,21 @@ export default function Sort({
   label = undefined,
   // merged over the component that sizes the select
   components = undefined,
+  // as wide as the longest label it can show, whichever is selected; `false`
+  // lets the select follow the selected label, e.g. styled as a link
+  sizeToLabels = true,
   ...rest
 }) {
   const intl = useIntl();
   const form = useForm();
 
-  const mergedComponents = useMemo(
-    () =>
-      (components
-        ? { ...selectComponentsOverrides, ...components }
-        : selectComponentsOverrides),
-    [components],
-  );
+  const mergedComponents = useMemo(() => {
+    const own = sizeToLabels
+      ? selectComponentsOverrides
+      : { Placeholder: selectComponentsOverrides.Placeholder };
+
+    return components ? { ...own, ...components } : own;
+  }, [components, sizeToLabels]);
 
   const mergedStyles = useMemo(
     () => (styles ? { ...stateSelectStyles, ...styles } : stateSelectStyles),
@@ -237,6 +259,33 @@ export default function Sort({
 
   const userSortRef = useRef(userSort);
   userSortRef.current = userSort;
+
+  // With manual submit, what gets applied never ranks by relevance without a
+  // search, whichever way the search went (the field, a badge): the order
+  // applied before relevance comes back. The form alone cannot tell, since
+  // manual submit never resets it.
+  const applied = useContext(AppliedValuesContext);
+  const appliedRef = useRef(applied);
+  appliedRef.current = applied;
+  const appliedSortBeforeRelevanceRef = useRef(userSort);
+  const appliedSort = applied?.values.sort;
+
+  useEffect(() => {
+    if (appliedSort !== 'score') {
+      appliedSortBeforeRelevanceRef.current = appliedSort;
+    }
+  }, [appliedSort]);
+
+  const registerRule = applied?.registerRule;
+
+  useEffect(
+    () =>
+      registerRule?.((values) =>
+        (!values.search && values.sort === 'score'
+          ? { ...values, sort: appliedSortBeforeRelevanceRef.current }
+          : values)),
+    [registerRule],
+  );
   const hasRelevanceRef = useRef(hasRelevance);
   hasRelevanceRef.current = hasRelevance;
 
@@ -254,7 +303,13 @@ export default function Sort({
         const isSet = Boolean(value);
         previous = value;
 
-        if (!hasRelevanceRef.current || !dirty || wasSet === isSet) {
+        if (
+          !hasRelevanceRef.current
+          || !dirty
+          || wasSet === isSet
+          // the provider realigns the form on applied values, rules included
+          || appliedRef.current?.isApplying()
+        ) {
           return;
         }
 
