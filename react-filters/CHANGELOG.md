@@ -1,5 +1,30 @@
 # Change Log
 
+## 3.3.0
+
+### Minor Changes
+
+- [#711](https://github.com/OpenAgenda/oa/pull/711) [`222b0fe`](https://github.com/OpenAgenda/oa/commit/222b0fe8ac8850e8d9c492f59df2bd135b6ac95e) Thanks [@kaore](https://github.com/kaore)! - With `manualSubmit`, the active filters show the applied values, like the list they describe, instead of following the visitor's pending selection. Removing a value from them applies that removal alone, at once: `onFilterChange` gets the applied values minus that one, the filter it comes from realigns on the applied values, its own pending changes dropped, and pending changes on other filters stay pending. Automatic mode is unchanged. Relevance is never applied without a search: removing the search, from the active filters or by clearing the field and submitting, brings back the order applied before relevance. `AppliedValuesForm` is exported so that active filters built with `useActiveFilters` and the `*.Preview` components get the same behaviour; its `submit()` and `getSubmittedValues()` are the main form's.
+
+### Patch Changes
+
+- [#711](https://github.com/OpenAgenda/oa/pull/711) [`1cb4c3d`](https://github.com/OpenAgenda/oa/commit/1cb4c3d37e3f5b96aaf27dff858e4f26dba514fb) Thanks [@kaore](https://github.com/kaore)! - With manual submit, clearing a typed search in the field takes the sort off relevance again, back to the order picked before. It stayed on relevance when the page had opened without a search.
+
+- [#685](https://github.com/OpenAgenda/oa/pull/685) [`3c68e27`](https://github.com/OpenAgenda/oa/commit/3c68e279e8800a1203102641c2eb14a7b38f9803) Thanks [@kaore](https://github.com/kaore)! - README: the manual submit section shows how the page submits the filters (`form.submit()` from a form's `submit` event set up in `onLoad`) and how the search field behaves in that mode. The arguments of `onLoad` and `onFilterChange` are documented, and the unpkg links follow the latest 3.x.
+
+- [#671](https://github.com/OpenAgenda/oa/pull/671) [`9d82325`](https://github.com/OpenAgenda/oa/commit/9d82325f48e36119b3c4818fa6f00227cb81fc5d) Thanks [@kaore](https://github.com/kaore)! - With `manualSubmit`, a search filter set to `manualSearch` hands the typed text to the form: it now makes the filters pending (`onPendingChange`) and is carried by the page's submit, instead of being held until its own search button is clicked. Its `onChange` follows every keystroke, as it does without `manualSearch`.
+
+  With `manualSubmit` and `displayReset`, the reset button only shows on the applied search: until then, the field's button submits the typed text. Erasing a search that started empty no longer leaves the filters pending.
+
+- [#711](https://github.com/OpenAgenda/oa/pull/711) [`d39b864`](https://github.com/OpenAgenda/oa/commit/d39b864088fa56dead8f42f0d59843ffaa4ef054) Thanks [@kaore](https://github.com/kaore)! - `Sort` always shows its select, whatever the number of choices: with the defaults and no search, it was hidden until a search added relevance. A page that does not want the widget leaves it out. With no order to offer (only `score` and no search, or only unknown values), it stays in place, disabled and showing "Sort by", read once by screen readers, instead of react-select's untranslated placeholder.
+
+- [#711](https://github.com/OpenAgenda/oa/pull/711) [`8333644`](https://github.com/OpenAgenda/oa/commit/83336446a10d5cd73885881d2bf1d19c1459255b) Thanks [@kaore](https://github.com/kaore)! - The sort select is as wide as the longest label it can show closed, relevance included, and at least 180px: its width no longer cuts labels such as « Mise à jour récente » or the Italian and Spanish ones, and it does not change with the order picked or when a search adds relevance. A `container` style passed through `styles` replaces the default one, the 180px floor included, and can still set a width. An order from the page's URL that the select does not offer joins the sizing once shown. A `components` prop passed to `Sort` is merged over the sizing component instead of replacing it. `sizeToLabels={false}` lets the select follow the selected label instead.
+
+- [#711](https://github.com/OpenAgenda/oa/pull/711) [`8bf0fac`](https://github.com/OpenAgenda/oa/commit/8bf0fac5bbf173ade7b04df2785672a97b0f8f9f) Thanks [@kaore](https://github.com/kaore)! - A submit uses the provider's current `onSubmit`, `manualSubmit` and filters, instead of those it was mounted with.
+
+- Updated dependencies []:
+  - @openagenda/react-shared@3.2.3
+
 ## 3.2.1
 
 ### Patch Changes

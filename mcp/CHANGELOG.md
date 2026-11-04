@@ -1,5 +1,18 @@
 # @openagenda/mcp
 
+## 1.6.0
+
+### Minor Changes
+
+- [#688](https://github.com/OpenAgenda/oa/pull/688) [`f4f7bbf`](https://github.com/OpenAgenda/oa/commit/f4f7bbf47e5f5b25c80a10e39762732e46807940) Thanks [@bertho-zero](https://github.com/bertho-zero)! - New landing page, in the look of openagenda.com and in eight languages: it shows what an assistant does with an agenda before explaining how to connect one, and proposes `npx add-mcp` ahead of the per-tool instructions. The translations go through Crowdin. The LM Studio and VS Code Insiders install buttons are gone: both remain reachable through the server address. Le Chat is not listed: its connector does not sign in to the server correctly yet. A "How it works" section follows one question from the connection to the answer, through the two tools, and says the assistant can do everything the OpenAgenda API allows; the page links the API reference, the help centre and the support address, says that what the assistant reads goes through the AI provider, and links the privacy policy from the footer. Shared links preview with a card of their own, and with the title and description of the page's language; the title is shorter, so that search results and previews do not cut it, and each language names its canonical address.
+
+### Patch Changes
+
+- [#726](https://github.com/OpenAgenda/oa/pull/726) [`41718e5`](https://github.com/OpenAgenda/oa/commit/41718e577662823670e313adf7e9bfa11ba08980) Thanks [@bertho-zero](https://github.com/bertho-zero)! - The example code of the landing page names the response body `page`, so the list reads `page.data` rather than `data.data`.
+
+- Updated dependencies [[`366ee15`](https://github.com/OpenAgenda/oa/commit/366ee15a7b406ab18b0f2de2398b0a76164be0bf), [`b1a6383`](https://github.com/OpenAgenda/oa/commit/b1a6383f7513034a5ce3edc394f4bbd5c4c15e71), [`1af26e8`](https://github.com/OpenAgenda/oa/commit/1af26e8bce51c4b44cded5ebdd855c1745d4be33), [`d688cb8`](https://github.com/OpenAgenda/oa/commit/d688cb8cb9674de87f6bb1ab7a5d82510cb0b957), [`fa5295c`](https://github.com/OpenAgenda/oa/commit/fa5295c5e89148920ac375346423751e1c34e7ec), [`9514a9a`](https://github.com/OpenAgenda/oa/commit/9514a9a436984c8307ec0aa617211f4a222d91d4), [`c6cf780`](https://github.com/OpenAgenda/oa/commit/c6cf78011546d89f0f78374fb36671d53ebaf7f5), [`82e08ce`](https://github.com/OpenAgenda/oa/commit/82e08ce58fb2b1aee32d609e3f6bbe557b0c97d7), [`217c25d`](https://github.com/OpenAgenda/oa/commit/217c25d76e127d215307b3ca9ef474aeb521accd), [`37a790e`](https://github.com/OpenAgenda/oa/commit/37a790e44c49f7032d4f1330d8632c7edf682f98)]:
+  - @openagenda/api-spec@0.9.0
+
 ## 1.5.4
 
 ### Patch Changes

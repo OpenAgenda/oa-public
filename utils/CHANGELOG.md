@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.4.0
+
+### Minor Changes
+
+- [#672](https://github.com/OpenAgenda/oa/pull/672) [`d83554c`](https://github.com/OpenAgenda/oa/commit/d83554c725356354a516a66cdc9931f2d2dd3428) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `tokenizeSearch` splits a free-text search into the words to match. `deburr` folds case and accents; `foldText` also folds compatibility forms and turns punctuation into word breaks. `relevanceBucket` and `fuzzyScore` rank a search against a text, a typo included.
+
 ## 2.3.0
 
 ### Minor Changes

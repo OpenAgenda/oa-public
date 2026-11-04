@@ -1,5 +1,37 @@
 # @openagenda/api-client
 
+## 0.9.0
+
+### Minor Changes
+
+- [#669](https://github.com/OpenAgenda/oa/pull/669) [`366ee15`](https://github.com/OpenAgenda/oa/commit/366ee15a7b406ab18b0f2de2398b0a76164be0bf) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `agendas.list` takes `networkUid`, which restricts the list to the agendas of these networks.
+
+- [#595](https://github.com/OpenAgenda/oa/pull/595) [`514ccfb`](https://github.com/OpenAgenda/oa/commit/514ccfb73f08bed8aa6016d9a67e2a444d48d32b) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Regenerated: the error code `agenda_not_granted`, and the descriptions of `GET /me/agendas` and `GET /agendas` for a key limited to agendas.
+
+- [#710](https://github.com/OpenAgenda/oa/pull/710) [`efb0ba5`](https://github.com/OpenAgenda/oa/commit/efb0ba531e630c3760e00fbac34ee96c6eb8e3c4) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Regenerated: `agendas.locations.list` takes `near`, `radius` and `verified`.
+
+- [#597](https://github.com/OpenAgenda/oa/pull/597) [`ff17434`](https://github.com/OpenAgenda/oa/commit/ff17434d5b3df43703fac45954640d613d377f62) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Regenerated: `VerifiedKey` carries `agendas`.
+
+- [#672](https://github.com/OpenAgenda/oa/pull/672) [`82e08ce`](https://github.com/OpenAgenda/oa/commit/82e08ce58fb2b1aee32d609e3f6bbe557b0c97d7) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `networks.list` lists the networks, searched on their title, with the `uid` to pass as `networkUid` to `agendas.list`.
+
+### Patch Changes
+
+- [#616](https://github.com/OpenAgenda/oa/pull/616) [`b535248`](https://github.com/OpenAgenda/oa/commit/b5352489e589caa86fb7a284680189b53ca82b26) Thanks [@clement180](https://github.com/clement180)! - Regenerate from the spec: the JSDoc of `TimingAvailability`, `OffersAggregate`
+  and the `closedBySource` / `links` fields says what an event's own `status`
+  does to the inventory its occurrences carry. No type changes.
+
+- [#625](https://github.com/OpenAgenda/oa/pull/625) [`37fbc90`](https://github.com/OpenAgenda/oa/commit/37fbc90c8af64c234be22ff46d3dfec8f6790d65) Thanks [@clement180](https://github.com/clement180)! - Regenerated from the contract: the two descriptions corrected in `@openagenda/api-spec` are
+  emitted as JSDoc on `offersAggregate.links` and `TimingAvailability`. The previous output told
+  integrators that `firstTiming` / `lastTiming` / `nextTiming` carry the inventory of the date
+  they copy — they do not — and that holding a per-date booking URL is a limit of what
+  OpenAgenda stores.
+
+  No type changes: the same fields, the same shapes.
+
+- [#646](https://github.com/OpenAgenda/oa/pull/646) [`217c25d`](https://github.com/OpenAgenda/oa/commit/217c25d76e127d215307b3ca9ef474aeb521accd) Thanks [@bertho-zero](https://github.com/bertho-zero)! - A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key, on every operation under `/agendas/{agendaUid}`; to any other caller it answers `404`, as an unknown uid does. Its per-agenda key reads it as its administrators do, a single event included.
+
+- [#683](https://github.com/OpenAgenda/oa/pull/683) [`37a790e`](https://github.com/OpenAgenda/oa/commit/37a790e44c49f7032d4f1330d8632c7edf682f98) Thanks [@bertho-zero](https://github.com/bertho-zero)! - The uid filters of `agendas.list`, of the event lists and of the location list take values from 1 to 2147483647, `age` from 0 to 2147483647, `localTime` in the facets filters from 0 to 1440, and the location `search` at most 255 characters.
+
 ## 0.8.0
 
 ### Minor Changes

@@ -1,5 +1,80 @@
 # @openagenda/api-spec
 
+## 0.9.0
+
+### Minor Changes
+
+- [#669](https://github.com/OpenAgenda/oa/pull/669) [`366ee15`](https://github.com/OpenAgenda/oa/commit/366ee15a7b406ab18b0f2de2398b0a76164be0bf) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `agendas.list` takes `networkUid`, which restricts the list to the agendas of these networks.
+
+- [#595](https://github.com/OpenAgenda/oa/pull/595) [`b1a6383`](https://github.com/OpenAgenda/oa/commit/b1a6383f7513034a5ce3edc394f4bbd5c4c15e71) Thanks [@bertho-zero](https://github.com/bertho-zero)! - New error code `agenda_not_granted` (403), returned to an API key limited to a list of agendas on an agenda outside that list. `GET /me/agendas` lists only the memberships in those agendas for such a key, and `GET /agendas` only agendas from the list.
+
+- [#710](https://github.com/OpenAgenda/oa/pull/710) [`d688cb8`](https://github.com/OpenAgenda/oa/commit/d688cb8cb9674de87f6bb1ab7a5d82510cb0b957) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `agendas.locations.list` filters by distance from a point (`near` + `radius`, the same parameters as the events list) and by `verified`.
+
+- [#597](https://github.com/OpenAgenda/oa/pull/597) [`c6cf780`](https://github.com/OpenAgenda/oa/commit/c6cf78011546d89f0f78374fb36671d53ebaf7f5) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `VerifiedKey` reports `agendas`: the uids of the agendas an API key is limited to and can read, or `null` when it is not limited to a list of agendas.
+
+- [#672](https://github.com/OpenAgenda/oa/pull/672) [`82e08ce`](https://github.com/OpenAgenda/oa/commit/82e08ce58fb2b1aee32d609e3f6bbe557b0c97d7) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `networks.list` lists the networks, searched on their title, with the `uid` to pass as `networkUid` to `agendas.list`.
+
+- [#646](https://github.com/OpenAgenda/oa/pull/646) [`217c25d`](https://github.com/OpenAgenda/oa/commit/217c25d76e127d215307b3ca9ef474aeb521accd) Thanks [@bertho-zero](https://github.com/bertho-zero)! - A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key, on every operation under `/agendas/{agendaUid}`; to any other caller it answers `404`, as an unknown uid does. Its per-agenda key reads it as its administrators do, a single event included.
+
+### Patch Changes
+
+- [#616](https://github.com/OpenAgenda/oa/pull/616) [`1af26e8`](https://github.com/OpenAgenda/oa/commit/1af26e8bce51c4b44cded5ebdd855c1745d4be33) Thanks [@clement180](https://github.com/clement180)! - Say what an event's own `status` does to the inventory its occurrences carry.
+
+  A cancelled event serves every availability row `salesClosed`, with
+  `closedBySource: true` since the window is not what closed it, serves no
+  booking link at all, and serves no sale window either — `onSaleFrom` and
+  `onSaleThrough` are absent from its rows, a window on an event that will not
+  happen being a fact about nothing. The stored values are untouched. A full event serves every row `soldOut`, with no
+  exception: a sale that has not opened, a window that has elapsed and a channel
+  the provider shut itself are all served `soldOut`, and so is the aggregate
+  where the sources or the occurrences disagree. The status is set on the whole
+  event while stock is managed per provider, so it decides — and `mixed` and
+  `unknown` never answer for a full event.
+
+  A row's `status` is also documented as served RESOLVED rather than as the
+  provider's raw word: the window is already applied to it and must not be
+  re-applied to the value received. The aggregate's freshness clause promised
+  that `soldOut` and `limited` always reflect the last sync with the provider;
+  the first of the two can reflect the event's `status` instead. What tells a
+  consumer that a row was dictated is the event's own `status`, served in the
+  same document — ask for `status` in a field selection if you need the mark —
+  and `closedBySource` is now served with a `salesClosed` and with nothing else,
+  whatever was stored: a row served `soldOut`, `limited`, or `available` because
+  its window reopened carries no such flag. What was stored stays in the column
+  and still decides a later reopening.
+
+  `TimingAvailability` says what it means in each direction, this schema being
+  both read and written: what a connector SENDS is the provider's raw word, the
+  window unapplied, and what it RECEIVES is that word resolved.
+
+  `availabilityUpdatedAt` says it moves on a status that changes what the rows
+  serve, with no row written: entering `full` or `cancelled`, leaving either, and
+  moving from one to the other, since a full event keeps its booking links where
+  a cancelled one serves none. An event carrying no inventory is never stamped by
+  a status change.
+
+- [#625](https://github.com/OpenAgenda/oa/pull/625) [`fa5295c`](https://github.com/OpenAgenda/oa/commit/fa5295c5e89148920ac375346423751e1c34e7ec) Thanks [@clement180](https://github.com/clement180)! - Correct two descriptions about where ticketing data is served.
+
+  `offersAggregate.links` claimed that holding a per-date booking URL "is a limit
+  of what OpenAgenda stores and serves". Only the second half was true: a
+  per-(date, provider) booking URL is part of the model and a connector can now
+  write one — through the v2 event API, not this one. This API neither returns
+  nor accepts it: the value is internal, `Timing` is `additionalProperties:
+false`, and a body carrying one is refused — `offers.disabled` on an agenda
+  without ticketing, whose gate speaks before the schema check, `schema.unknown`
+  on one that has it.
+
+  `TimingAvailability` promised that `firstTiming` / `lastTiming` / `nextTiming`
+  carry the inventory of the date they copy. They no longer do: nothing resolves
+  those copies, and the rule stated in the same paragraph is that a row is served
+  resolved or not at all. Inventory is served in `timings[]`.
+
+  No schema changes: the same keys, the same types.
+
+- [#726](https://github.com/OpenAgenda/oa/pull/726) [`9514a9a`](https://github.com/OpenAgenda/oa/commit/9514a9a436984c8307ec0aa617211f4a222d91d4) Thanks [@bertho-zero](https://github.com/bertho-zero)! - The contract names the help centre and the privacy policy (`x-scalar-links`), which the reference shows next to the contact and the license.
+
+- [#683](https://github.com/OpenAgenda/oa/pull/683) [`37a790e`](https://github.com/OpenAgenda/oa/commit/37a790e44c49f7032d4f1330d8632c7edf682f98) Thanks [@bertho-zero](https://github.com/bertho-zero)! - The uid filters of `agendas.list`, of the event lists and of the location list take values from 1 to 2147483647, `age` from 0 to 2147483647, `localTime` in the facets filters from 0 to 1440, and the location `search` at most 255 characters.
+
 ## 0.8.0
 
 ### Minor Changes

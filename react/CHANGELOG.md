@@ -1,5 +1,14 @@
 # @openagenda/react
 
+## 0.4.4
+
+### Patch Changes
+
+- Updated dependencies [[`222b0fe`](https://github.com/OpenAgenda/oa/commit/222b0fe8ac8850e8d9c492f59df2bd135b6ac95e), [`1cb4c3d`](https://github.com/OpenAgenda/oa/commit/1cb4c3d37e3f5b96aaf27dff858e4f26dba514fb), [`3c68e27`](https://github.com/OpenAgenda/oa/commit/3c68e279e8800a1203102641c2eb14a7b38f9803), [`9d82325`](https://github.com/OpenAgenda/oa/commit/9d82325f48e36119b3c4818fa6f00227cb81fc5d), [`d39b864`](https://github.com/OpenAgenda/oa/commit/d39b864088fa56dead8f42f0d59843ffaa4ef054), [`8333644`](https://github.com/OpenAgenda/oa/commit/83336446a10d5cd73885881d2bf1d19c1459255b), [`8bf0fac`](https://github.com/OpenAgenda/oa/commit/8bf0fac5bbf173ade7b04df2785672a97b0f8f9f), [`9b8839d`](https://github.com/OpenAgenda/oa/commit/9b8839d39639755f84553bf0ee83431195a92da1), [`d39f473`](https://github.com/OpenAgenda/oa/commit/d39f4739e2ee51fb9e72ae849c0ae396c66e489f)]:
+  - @openagenda/react-filters@3.3.0
+  - @openagenda/uikit@0.5.0
+  - @openagenda/react-shared@3.2.3
+
 ## 0.4.3
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @openagenda/uikit
 
+## 0.5.0
+
+### Minor Changes
+
+- [#654](https://github.com/OpenAgenda/oa/pull/654) [`9b8839d`](https://github.com/OpenAgenda/oa/commit/9b8839d39639755f84553bf0ee83431195a92da1) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `RadioCard` gains a `pill` variant: compact rounded choices on one wrapping row, meant without an indicator.
+
+### Patch Changes
+
+- [#655](https://github.com/OpenAgenda/oa/pull/655) [`d39f473`](https://github.com/OpenAgenda/oa/commit/d39f4739e2ee51fb9e72ae849c0ae396c66e489f) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `Status` shows `error` and `warning` in the `danger` and `warning` state palettes, instead of Chakra's raw `red` and `orange`.
+
 ## 0.4.0
 
 ### Minor Changes

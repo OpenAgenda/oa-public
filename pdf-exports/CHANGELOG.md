@@ -1,5 +1,11 @@
 # @openagenda/pdf-exports
 
+## 0.2.2
+
+### Patch Changes
+
+- [#666](https://github.com/OpenAgenda/oa/pull/666) [`89e8f83`](https://github.com/OpenAgenda/oa/commit/89e8f8367230d12d78af5f21cea200b676554839) Thanks [@kaore](https://github.com/kaore)! - Requiert sharp ^0.35.5, dont libheif corrige GHSA-rgj7-g3m4-5g8c.
+
 ## 0.2.1
 
 ### Patch Changes

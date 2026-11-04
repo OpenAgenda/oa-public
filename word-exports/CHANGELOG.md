@@ -1,5 +1,11 @@
 # @openagenda/word-exports
 
+## 0.3.2
+
+### Patch Changes
+
+- [#666](https://github.com/OpenAgenda/oa/pull/666) [`e9e3353`](https://github.com/OpenAgenda/oa/commit/e9e33539cf000992f31660ba2372c4f4b05617fd) Thanks [@kaore](https://github.com/kaore)! - Requiert sharp ^0.35.5, dont libheif corrige GHSA-rgj7-g3m4-5g8c.
+
 ## 0.3.1
 
 ### Patch Changes
