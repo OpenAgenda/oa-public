@@ -4,9 +4,10 @@
 // This script is the third consumer of that file (alongside the generated SDK
 // and the MCP server): it never edits the contract, only renders it.
 //
-// Output: a self-contained dist/ — index.html references a vendored copy of
-// Scalar's standalone bundle and inlines the spec, so it renders from a static
-// host (and even from file://) with no CDN or network dependency at runtime.
+// Output: a self-contained dist/ — index.html loads a vendored copy of Scalar's
+// standalone bundle and reference.js, which inlines the spec, so it renders
+// with no CDN or network dependency at runtime. The page is meant for the base
+// address of the API (see `assetBase` below), not for any static host.
 
 import {
   copyFileSync,
@@ -116,6 +117,14 @@ const authorizeUrl = process.env.OA_DOCS_OAUTH_AUTHORIZE_URL || env.authorizeUrl
 const tokenUrl = process.env.OA_DOCS_OAUTH_TOKEN_URL || env.tokenUrl;
 const v3Resource = process.env.OA_DOCS_V3_RESOURCE || env.resource;
 
+// The reference is served at the base address of the API it documents: the API
+// answers a browser there with this page (cibul-node, api-v3/lib/docs.js). Its
+// files live under `_docs/` below that address, a path no API resource takes;
+// they are referenced by absolute path, since the page address has no trailing
+// slash and a relative path would resolve from the root of the host.
+const docsUrl = apiServer;
+const assetBase = `${new URL(docsUrl).pathname.replace(/\/$/, '')}/_docs/`;
+
 rmSync(distDir, { recursive: true, force: true });
 mkdirSync(distDir, { recursive: true });
 
@@ -143,7 +152,7 @@ const fontFaceCss = fonts
     font-style: ${f.style};
     font-weight: ${f.weight};
     font-display: swap;
-    src: url('./fonts/${f.file}') format('woff2-variations');
+    src: url('${assetBase}fonts/${f.file}') format('woff2-variations');
   }`,
   )
   .join('\n');
@@ -166,28 +175,36 @@ const brandCss = `${fontFaceCss}
   }
 `;
 
-// Inline the spec as a JS string literal — avoids a runtime fetch (keeps the
-// page openable from file://) and side-steps YAML parsing in the browser by
-// letting Scalar parse the raw document.
+// The page holds no script of its own: the configuration below goes to
+// reference.js, next to the runtime, so the page runs under a policy that
+// allows scripts from its own origin only (no inline script, no nonce).
 const html = `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>OpenAgenda API — Reference</title>
-    <link rel="icon" type="image/svg+xml" href="./oa-picto.svg" />
+    <link rel="canonical" href="${docsUrl}" />
+    <link rel="icon" type="image/svg+xml" href="${assetBase}oa-picto.svg" />
     <style>
       body { margin: 0; }
     </style>
   </head>
   <body>
     <div id="app"></div>
-    <script src="./standalone.js"></script>
-    <script>
-      Scalar.createApiReference('#app', {
+    <script src="${assetBase}standalone.js"></script>
+    <script src="${assetBase}reference.js"></script>
+  </body>
+</html>
+`;
+
+// Inline the spec as a JS string literal — avoids a runtime fetch and
+// side-steps YAML parsing in the browser by letting Scalar parse the raw
+// document.
+const reference = `Scalar.createApiReference('#app', {
         content: ${JSON.stringify(spec)},
         theme: 'default',
-        favicon: './oa-picto.svg',
+        favicon: ${JSON.stringify(`${assetBase}oa-picto.svg`)},
         // Don't pull Inter/JetBrains Mono from fonts.scalar.com at runtime; use
         // the system stack from brandCss (keeps the page zero-CDN, like the JS).
         withDefaultFonts: false,
@@ -209,8 +226,8 @@ const html = `<!doctype html>
         // Send "Test Request" calls straight to the API — never through
         // Scalar's hosted CORS proxy. The v3 API is authenticated; routing a
         // request (and its Authorization header / OAuth token) through a third
-        // party is unacceptable. This requires the API to send its own CORS
-        // headers for the docs origin (see the api-docs README).
+        // party is unacceptable. The page is served by the API it documents,
+        // so these calls are same-origin and need no CORS.
         proxyUrl: '',
         // One server: the env this bundle was built for. Avoids a selector that
         // could point "Test Request" at prod while the OAuth token is dev-bound
@@ -242,10 +259,17 @@ const html = `<!doctype html>
                   tokenUrl: ${JSON.stringify(tokenUrl)},
                   refreshUrl: ${JSON.stringify(tokenUrl)},
                   'x-scalar-client-id': ${JSON.stringify(oauthClientId)},
+                  // The one address the client registers: Scalar would otherwise
+                  // take the address in the bar, and /v3/ is not /v3.
+                  'x-scalar-redirect-uri': ${JSON.stringify(docsUrl)},
                   // OAuth 2.1 — the AS mandates PKCE (S256) for this public client.
                   'x-usePkce': 'SHA-256',
-                  // Pre-tick the read scopes the current (read-only) surface uses.
-                  selectedScopes: ['agendas:read', 'events:read', 'locations:read', 'me:read'],
+                  // Pre-tick every scope the oa-api-docs client may request
+                  // (its scopes column in oauth_client, the ceiling the server
+                  // enforces): the read surface and geocoding. One click gives
+                  // a token every read operation accepts; writes stay out, the
+                  // playground runs against real data.
+                  selectedScopes: ['agendas:read', 'events:read', 'locations:read', 'me:read', 'geocoding:use'],
                   // RFC 8707 — carry the resource indicator on both legs so the
                   // issued token is a JWS bound to aud=v3 (offline-verified),
                   // not an unbound opaque token the API rejects as a stray key.
@@ -273,17 +297,19 @@ const html = `<!doctype html>
           url: 'https://mcp.openagenda.com/mcp',
         }
       });
-    </script>
-  </body>
-</html>
 `;
 
 writeFileSync(join(distDir, 'index.html'), html);
+writeFileSync(join(distDir, 'reference.js'), reference);
 
-const bytes = Buffer.byteLength(html);
+const kib = (text) => `${(Buffer.byteLength(text) / 1024).toFixed(1)} KiB`;
 console.log(
-  `api-docs: built dist/ from ${specPath.replace(`${pkgRoot}/`, '')}`,
+  `api-docs: built dist/ from ${specPath.replace(`${pkgRoot}/`, '')}, for ${docsUrl}`,
 );
-console.log(`  dist/index.html      ${(bytes / 1024).toFixed(1)} KiB`);
+console.log(`  dist/index.html      ${kib(html)}`);
+console.log(
+  `  dist/reference.js    ${kib(reference)} (configuration and contract)`,
+);
 console.log('  dist/standalone.js   (vendored Scalar runtime)');
 console.log('  dist/openapi.yaml    (downloadable contract)');
+console.log(`  served under ${assetBase}, except index.html`);

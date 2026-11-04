@@ -15,6 +15,8 @@ const types = {
   '.js': 'text/javascript; charset=utf-8',
   '.yaml': 'text/yaml; charset=utf-8',
   '.json': 'application/json; charset=utf-8',
+  '.svg': 'image/svg+xml',
+  '.woff2': 'font/woff2',
 };
 
 if (!existsSync(join(distDir, 'index.html'))) {
@@ -31,15 +33,17 @@ createServer((req, res) => {
     res.writeHead(400).end('Bad request');
     return;
   }
-  let filePath = join(distDir, normalize(urlPath));
-  if (!filePath.startsWith(distDir)) {
+  // The layout the API serves: the files under `…/_docs/`, the page at any
+  // other address (the API base, /v3 in production).
+  const at = urlPath.indexOf('/_docs/');
+  const filePath = at === -1
+    ? join(distDir, 'index.html')
+    : join(distDir, normalize(urlPath.slice(at + '/_docs/'.length)));
+  if (!filePath.startsWith(`${distDir}/`)) {
     res.writeHead(403).end('Forbidden');
     return;
   }
-  if (existsSync(filePath) && statSync(filePath).isDirectory()) {
-    filePath = join(filePath, 'index.html');
-  }
-  if (!existsSync(filePath)) {
+  if (!existsSync(filePath) || statSync(filePath).isDirectory()) {
     res.writeHead(404).end('Not found');
     return;
   }
@@ -48,5 +52,5 @@ createServer((req, res) => {
   });
   createReadStream(filePath).pipe(res);
 }).listen(port, () => {
-  console.log(`api-docs: serving dist/ at http://localhost:${port}`);
+  console.log(`api-docs: serving dist/ at http://localhost:${port}/v3`);
 });
