@@ -50,6 +50,12 @@ info:
   license:
     name: Proprietary — © OpenAgenda
     identifier: LicenseRef-OpenAgenda-Proprietary
+  # Named links shown next to the contact and the license in the reference.
+  x-scalar-links:
+    - name: Help centre
+      url: https://doc.openagenda.com
+    - name: Privacy policy
+      url: https://doc.openagenda.com/confidentialite/
   # SDK-first story: the code samples on each operation use @openagenda/api-client
   # (generated from this very contract). Surface its install up front.
   x-scalar-sdk-installation:
