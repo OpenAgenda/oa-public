@@ -6,26 +6,34 @@ The **OpenAgenda v3 API reference** — a self-contained static
 source of truth).
 
 The build output is fully static and zero-egress: the Scalar runtime is
-copied next to the page, the spec is inlined, and the OAuth playground
-talks directly to the OpenAgenda API and authorization server — nothing
-else is contacted at view time.
+copied next to the page, the contract is read from the API's own origin,
+and the OAuth playground talks directly to the OpenAgenda API and
+authorization server — nothing else is contacted at view time.
 
 ## Where it is served
 
-At the base address of the API it documents, https://api.openagenda.com/v3:
-cibul-node answers a browser there with `dist/index.html`, and serves the
-other files of `dist/` under `/v3/_docs/`, a path no API resource takes. The
-page holds no inline script (its configuration is `dist/reference.js`), so
-it runs under a policy that only allows scripts from its own origin, and the
-playground's requests to the API are same-origin.
+At the base address of the API it documents, https://api.openagenda.com/v3.
+cibul-node (`api-v3/lib/docs.js`) answers a browser there with
+`dist/index.html`, serves `dist/_docs/` under `/v3/_docs/`, a path no API
+resource takes, and publishes the contract at `/v3/openapi.yaml`, where the
+download link of the page leads.
+
+- The page holds no inline script (its configuration is the `reference.*.js`
+  of `dist/_docs/`), so it runs under a policy that only allows scripts from
+  its own origin, and the playground's requests to the API are same-origin.
+- The files of `dist/_docs/` are named after their content and cached for
+  good; the scripts are precompressed (`.br`, `.gz`), as the API compresses
+  nothing itself.
+- `dist/docs.json` names the environment the page was built for: cibul-node
+  serves no page built for another API than its own.
 
 The deployment builds it with the other workspaces (`prepack`), for the
-environment `OA_DOCS_ENV` names.
+environment `OA_DOCS_ENV` names (production by default).
 
 ## Scripts
 
 ```sh
-yarn build     # render dist/ (index.html, reference.js, standalone.js, openapi.yaml)
+yarn build     # render dist/ (index.html, docs.json, _docs/)
 yarn dev       # rebuild on spec change + serve with live reload
 yarn preview   # serve an existing dist/, at http://localhost:4321/v3
 ```

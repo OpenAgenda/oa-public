@@ -4,21 +4,24 @@
 // This script is the third consumer of that file (alongside the generated SDK
 // and the MCP server): it never edits the contract, only renders it.
 //
-// Output: a self-contained dist/ — index.html loads a vendored copy of Scalar's
-// standalone bundle and reference.js, which inlines the spec, so it renders
-// with no CDN or network dependency at runtime. The page is meant for the base
-// address of the API (see `assetBase` below), not for any static host.
+// Output, for cibul-node to serve at the base address of the API (see
+// `assetBase` below), not for a static host:
+//   dist/index.html  the page;
+//   dist/docs.json   the environment it was built for, which cibul-node checks
+//                    against its own before serving it;
+//   dist/_docs/      what the page loads: the vendored Scalar runtime, the
+//                    configuration (reference.js), the favicon and the fonts,
+//                    named after their content so they cache for good, the
+//                    scripts precompressed (.br, .gz).
+// The page reads the contract the API publishes next to it (/v3/openapi.yaml),
+// and contacts no CDN or third party at runtime.
 
-import {
-  copyFileSync,
-  mkdirSync,
-  readFileSync,
-  rmSync,
-  writeFileSync,
-} from 'node:fs';
+import { createHash } from 'node:crypto';
+import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
-import { dirname, join } from 'node:path';
+import { dirname, extname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { brotliCompressSync, constants, gzipSync } from 'node:zlib';
 
 const require = createRequire(import.meta.url);
 const here = dirname(fileURLToPath(import.meta.url));
@@ -40,7 +43,7 @@ const faviconPath = join(pkgRoot, 'oa-picto.svg');
 // Brand fonts: Noto Sans (body) + Ubuntu Sans (headings), matching the
 // OpenAgenda Next app (which loads the same two via next/font). Self-hosted
 // from @fontsource — latin subset, variable weight axis, upright + italic — and
-// vendored into dist/fonts/, so the page keeps the same zero-CDN posture as the
+// vendored into dist/_docs/fonts/, so the page keeps the same zero-CDN posture as the
 // vendored Scalar runtime (next/font self-hosts these the same way).
 const fonts = [
   {
@@ -67,14 +70,13 @@ const fonts = [
     return { src, file, family, weight, style };
   }));
 
-const spec = readFileSync(specPath, 'utf8');
-
 // Target environment for the playground. The doc is built PER environment: a
 // single static bundle can't switch the OAuth authorization server at runtime
 // (Scalar substitutes variables into request URLs only, never into the OAuth
 // authorize/token endpoints), so everything below is baked from one env and
 // stays internally consistent — API base, authorization server and resource all
-// match. Defaults to production; CI sets OA_DOCS_ENV=dev for the staging build.
+// match. Defaults to production: another deployment sets OA_DOCS_ENV, and
+// cibul-node serves no page built for an environment that is not its own.
 const ENVIRONMENTS = {
   prod: {
     label: 'Production',
@@ -126,21 +128,40 @@ const docsUrl = apiServer;
 const assetBase = `${new URL(docsUrl).pathname.replace(/\/$/, '')}/_docs/`;
 
 rmSync(distDir, { recursive: true, force: true });
-mkdirSync(distDir, { recursive: true });
+const filesDir = join(distDir, '_docs');
+mkdirSync(join(filesDir, 'fonts'), { recursive: true });
 
-// Vendor the Scalar runtime, a downloadable copy of the contract, and the favicon.
-copyFileSync(standalonePath, join(distDir, 'standalone.js'));
-copyFileSync(specPath, join(distDir, 'openapi.yaml'));
-copyFileSync(faviconPath, join(distDir, 'oa-picto.svg'));
+// Writes a file the page loads under a name that carries its content
+// (`standalone.3f2a9c41d0.js`), so it is cached for good and a new build is a
+// new address. Scripts are also written precompressed: the API serves them,
+// with no compression of its own. Returns the address the page uses.
+const emit = (name, content, { compress = false } = {}) => {
+  const hash = createHash('sha256').update(content).digest('hex').slice(0, 10);
+  const ext = extname(name);
+  const hashed = `${name.slice(0, -ext.length)}.${hash}${ext}`;
+  const path = join(filesDir, hashed);
+  writeFileSync(path, content);
+  if (compress) {
+    writeFileSync(
+      `${path}.br`,
+      brotliCompressSync(content, {
+        params: { [constants.BROTLI_PARAM_QUALITY]: 11 },
+      }),
+    );
+    writeFileSync(`${path}.gz`, gzipSync(content, { level: 9 }));
+  }
+  return `${assetBase}${hashed}`;
+};
 
-// Vendor the brand fonts alongside, served from dist/fonts/ (see brandCss).
-const fontDir = join(distDir, 'fonts');
-mkdirSync(fontDir, { recursive: true });
-for (const f of fonts) copyFileSync(f.src, join(fontDir, f.file));
+// The favicon and the brand fonts (see brandCss).
+const faviconUrl = emit('oa-picto.svg', readFileSync(faviconPath));
+const fontUrls = new Map(
+  fonts.map((f) => [f.file, emit(`fonts/${f.file}`, readFileSync(f.src))]),
+);
 
 // Brand the reference with the OpenAgenda accent and the same fonts as the Next
 // app: Noto Sans for body/UI (--scalar-font), Ubuntu Sans for headings. Both are
-// self-hosted from dist/fonts/ — with `withDefaultFonts:false` this also stops
+// self-hosted from dist/_docs/fonts/ — with `withDefaultFonts:false` this also stops
 // Scalar's bundle from fetching Inter/JetBrains Mono from fonts.scalar.com at
 // runtime (the whole point of vendoring the JS was zero CDN egress). Code stays
 // on a system monospace stack (neither brand font is monospaced).
@@ -152,7 +173,7 @@ const fontFaceCss = fonts
     font-style: ${f.style};
     font-weight: ${f.weight};
     font-display: swap;
-    src: url('${assetBase}fonts/${f.file}') format('woff2-variations');
+    src: url('${fontUrls.get(f.file)}') format('woff2-variations');
   }`,
   )
   .join('\n');
@@ -175,36 +196,14 @@ const brandCss = `${fontFaceCss}
   }
 `;
 
-// The page holds no script of its own: the configuration below goes to
-// reference.js, next to the runtime, so the page runs under a policy that
-// allows scripts from its own origin only (no inline script, no nonce).
-const html = `<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>OpenAgenda API — Reference</title>
-    <link rel="canonical" href="${docsUrl}" />
-    <link rel="icon" type="image/svg+xml" href="${assetBase}oa-picto.svg" />
-    <style>
-      body { margin: 0; }
-    </style>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script src="${assetBase}standalone.js"></script>
-    <script src="${assetBase}reference.js"></script>
-  </body>
-</html>
-`;
-
-// Inline the spec as a JS string literal — avoids a runtime fetch and
-// side-steps YAML parsing in the browser by letting Scalar parse the raw
-// document.
+// The contract is read from the address the API publishes it at, on this
+// origin: the download link of the page leads there, to the file itself, and
+// the contract is cached apart from this configuration.
+const specUrl = `${new URL(docsUrl).pathname.replace(/\/$/, '')}/openapi.yaml`;
 const reference = `Scalar.createApiReference('#app', {
-        content: ${JSON.stringify(spec)},
+        url: ${JSON.stringify(specUrl)},
         theme: 'default',
-        favicon: ${JSON.stringify(`${assetBase}oa-picto.svg`)},
+        favicon: ${JSON.stringify(faviconUrl)},
         // Don't pull Inter/JetBrains Mono from fonts.scalar.com at runtime; use
         // the system stack from brandCss (keeps the page zero-CDN, like the JS).
         withDefaultFonts: false,
@@ -234,12 +233,13 @@ const reference = `Scalar.createApiReference('#app', {
         // (the auth leg is baked, not switchable at runtime).
         servers: [{ url: ${JSON.stringify(apiServer)}, description: ${JSON.stringify(env.label)} }],
         // Persist the playground's auth (OAuth token / API key) to localStorage
-        // so a page refresh doesn't drop it. Tradeoff: the token lives in
-        // localStorage on a public origin. Acceptable here — the origin is a
-        // static, zero-egress bundle (agent/telemetry/proxy all off, minimal XSS
-        // surface), the client is public + PKCE, and the scopes are read-only
-        // with a short-lived token. The UX win (no re-auth per refresh)
-        // outweighs the residual risk on this surface.
+        // so a page refresh doesn't drop it. Tradeoff: the token lives in the
+        // localStorage of the API origin, readable by any script that origin
+        // runs. Acceptable here: everything else the origin serves is JSON, this
+        // page is its only HTML and runs only its own files (script-src 'self',
+        // agent/telemetry/proxy off), the client is public + PKCE, and the token
+        // is short-lived, read-only, with no refresh token (no offline_access).
+        // The UX win (no re-auth per refresh) outweighs the residual risk.
         persistAuth: true,
         authentication: {
           // Which credential the page offers first. Left to the contract it
@@ -289,8 +289,9 @@ const reference = `Scalar.createApiReference('#app', {
         // already sane (shell, js, node, python, php, go, ruby, rust, dart, f#)
         // with no exotic noise, so a denylist would hide nothing and only rot as
         // Scalar's defaults shift.
-        // One downloadable format — the YAML contract we already vendor.
-        documentDownloadType: 'yaml',
+        // The download link leads to the published contract itself, not to a
+        // copy Scalar would serialize again in the browser.
+        documentDownloadType: 'direct',
         modelsSectionLabel: 'Schemas',
         mcp: {
           name: 'OpenAgenda',
@@ -299,17 +300,51 @@ const reference = `Scalar.createApiReference('#app', {
       });
 `;
 
-writeFileSync(join(distDir, 'index.html'), html);
-writeFileSync(join(distDir, 'reference.js'), reference);
+const standaloneUrl = emit('standalone.js', readFileSync(standalonePath), {
+  compress: true,
+});
+const referenceUrl = emit('reference.js', reference, { compress: true });
 
-const kib = (text) => `${(Buffer.byteLength(text) / 1024).toFixed(1)} KiB`;
+// The page holds no script of its own: the configuration below goes to
+// reference.js, next to the runtime, so the page runs under a policy that
+// allows scripts from its own origin only (no inline script, no nonce).
+const html = `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>OpenAgenda API — Reference</title>
+    <link rel="canonical" href="${docsUrl}" />
+    <link rel="icon" type="image/svg+xml" href="${faviconUrl}" />
+    <style>
+      body { margin: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="${standaloneUrl}"></script>
+    <script src="${referenceUrl}"></script>
+  </body>
+</html>
+`;
+
+writeFileSync(join(distDir, 'index.html'), html);
+writeFileSync(
+  join(distDir, 'docs.json'),
+  `${JSON.stringify({ docsUrl, apiServer, authorizeUrl, tokenUrl }, null, 2)}\n`,
+);
+
 console.log(
   `api-docs: built dist/ from ${specPath.replace(`${pkgRoot}/`, '')}, for ${docsUrl}`,
 );
-console.log(`  dist/index.html      ${kib(html)}`);
-console.log(
-  `  dist/reference.js    ${kib(reference)} (configuration and contract)`,
-);
-console.log('  dist/standalone.js   (vendored Scalar runtime)');
-console.log('  dist/openapi.yaml    (downloadable contract)');
-console.log(`  served under ${assetBase}, except index.html`);
+console.log('  dist/index.html   the page');
+console.log('  dist/docs.json    the environment it was built for');
+console.log(`  dist/_docs/       served under ${assetBase}:`);
+for (const url of [
+  standaloneUrl,
+  referenceUrl,
+  faviconUrl,
+  ...fontUrls.values(),
+]) {
+  console.log(`    ${url.slice(assetBase.length)}`);
+}
