@@ -465,6 +465,8 @@ paths:
           $ref: '#/components/responses/NotFound'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
 
   /agendas/{agendaUid}/events/validate:
     post:
@@ -634,6 +636,8 @@ paths:
           $ref: '#/components/responses/NotFound'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
     patch:
       operationId: agendas.events.patch
       tags: [Events]
@@ -688,6 +692,8 @@ paths:
           $ref: '#/components/responses/NotFound'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
     delete:
       operationId: agendas.events.delete
       tags: [Events]
@@ -731,6 +737,8 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
 
   /agendas/{agendaUid}/events/ext/{extKey}/{extId}:
     get:
@@ -853,6 +861,8 @@ paths:
           $ref: '#/components/responses/NotFound'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
     patch:
       operationId: agendas.events.patchByExtId
       tags: [Events]
@@ -911,6 +921,8 @@ paths:
           $ref: '#/components/responses/NotFound'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
     delete:
       operationId: agendas.events.deleteByExtId
       tags: [Events]
@@ -956,6 +968,8 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
 
   /agendas/{agendaUid}/events/facets:
     get:
@@ -1480,6 +1494,8 @@ paths:
           $ref: '#/components/responses/NotFound'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
 
   /agendas/{agendaUid}/uploads/ticket:
     post:
@@ -1569,6 +1585,8 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
 
@@ -1847,6 +1865,8 @@ paths:
           $ref: '#/components/responses/NotFound'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
 
   /agendas/{agendaUid}/locations/validate:
     post:
@@ -2156,6 +2176,8 @@ paths:
                       message: agenda not found
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
     patch:
       operationId: agendas.locations.patchByExtId
       tags: [Locations]
@@ -2238,6 +2260,8 @@ paths:
                       message: location not found
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
     delete:
       operationId: agendas.locations.deleteByExtId
       tags: [Locations]
@@ -2307,6 +2331,8 @@ paths:
                     error:
                       code: not_found
                       message: location not found
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
 
   /agendas/{agendaUid}/locations/{locationUid}:
     get:
@@ -2463,6 +2489,8 @@ paths:
                       message: location not found
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
     patch:
       operationId: agendas.locations.patch
       tags: [Locations]
@@ -2539,6 +2567,8 @@ paths:
                       message: location not found
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
     delete:
       operationId: agendas.locations.delete
       tags: [Locations]
@@ -2605,6 +2635,8 @@ paths:
                     error:
                       code: not_found
                       message: location not found
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
 
   /keys/verify:
     post:
@@ -3990,6 +4022,23 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ValidationError'
+    TooManyRequests:
+      description: >-
+        The account has written more than its limit allows, counted across
+        every key and token it writes with, and the request was not processed.
+        An account writes at most 120 times a minute; one OpenAgenda has not
+        validated, at most 10 times a minute and 100 times an hour - contact
+        support@openagenda.com to have it validated.
+      headers:
+        Retry-After:
+          description: Seconds until the limit lets the account write again.
+          required: true
+          schema:
+            type: integer
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     ServiceUnavailable:
       description: >-
         The request was not processed and can be retried after a short
@@ -4023,6 +4072,7 @@ components:
                   agenda_not_granted,
                   forbidden,
                   not_found,
+                  too_many_requests,
                   service_unavailable,
                 ]
               x-enum-descriptions:
@@ -4034,6 +4084,8 @@ components:
                   403 - the API key is limited to a list of agendas, and this
                   operation reaches outside it
                 forbidden: 403 - any other refusal of an authenticated caller
+                too_many_requests: >-
+                  429 - the account writes faster than its limit allows
             message:
               type: string
               description: Human-readable explanation.
