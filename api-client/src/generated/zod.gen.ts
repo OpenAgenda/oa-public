@@ -15,6 +15,7 @@ export const zError = z.object({
             'agenda_not_granted',
             'forbidden',
             'not_found',
+            'too_many_requests',
             'service_unavailable'
         ]),
         message: z.string()

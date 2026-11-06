@@ -12,7 +12,7 @@ export type Error = {
         /**
          * Stable, machine-readable error code.
          */
-        code: 'bad_request' | 'unauthorized' | 'read_only_credential' | 'insufficient_scope' | 'agenda_not_granted' | 'forbidden' | 'not_found' | 'service_unavailable';
+        code: 'bad_request' | 'unauthorized' | 'read_only_credential' | 'insufficient_scope' | 'agenda_not_granted' | 'forbidden' | 'not_found' | 'too_many_requests' | 'service_unavailable';
         /**
          * Human-readable explanation.
          */
@@ -3530,6 +3530,10 @@ export type AgendasEventsCreateErrors = {
      * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
      */
     422: ValidationError;
+    /**
+     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     */
+    429: Error;
 };
 
 export type AgendasEventsCreateError = AgendasEventsCreateErrors[keyof AgendasEventsCreateErrors];
@@ -3621,6 +3625,10 @@ export type AgendasEventsDeleteErrors = {
      * No resource answers this identifier.
      */
     404: Error;
+    /**
+     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     */
+    429: Error;
 };
 
 export type AgendasEventsDeleteError = AgendasEventsDeleteErrors[keyof AgendasEventsDeleteErrors];
@@ -3722,6 +3730,10 @@ export type AgendasEventsPatchErrors = {
      * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
      */
     422: ValidationError;
+    /**
+     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     */
+    429: Error;
 };
 
 export type AgendasEventsPatchError = AgendasEventsPatchErrors[keyof AgendasEventsPatchErrors];
@@ -3780,6 +3792,10 @@ export type AgendasEventsUpdateErrors = {
      * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
      */
     422: ValidationError;
+    /**
+     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     */
+    429: Error;
 };
 
 export type AgendasEventsUpdateError = AgendasEventsUpdateErrors[keyof AgendasEventsUpdateErrors];
@@ -3829,6 +3845,10 @@ export type AgendasEventsDeleteByExtIdErrors = {
      * No resource answers this identifier.
      */
     404: Error;
+    /**
+     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     */
+    429: Error;
 };
 
 export type AgendasEventsDeleteByExtIdError = AgendasEventsDeleteByExtIdErrors[keyof AgendasEventsDeleteByExtIdErrors];
@@ -3936,6 +3956,10 @@ export type AgendasEventsPatchByExtIdErrors = {
      * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
      */
     422: ValidationError;
+    /**
+     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     */
+    429: Error;
 };
 
 export type AgendasEventsPatchByExtIdError = AgendasEventsPatchByExtIdErrors[keyof AgendasEventsPatchByExtIdErrors];
@@ -3994,6 +4018,10 @@ export type AgendasEventsSetByExtIdErrors = {
      * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
      */
     422: ValidationError;
+    /**
+     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     */
+    429: Error;
 };
 
 export type AgendasEventsSetByExtIdError = AgendasEventsSetByExtIdErrors[keyof AgendasEventsSetByExtIdErrors];
@@ -4544,6 +4572,10 @@ export type AgendasUploadsCreateErrors = {
      * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
      */
     422: ValidationError;
+    /**
+     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     */
+    429: Error;
 };
 
 export type AgendasUploadsCreateError = AgendasUploadsCreateErrors[keyof AgendasUploadsCreateErrors];
@@ -4583,6 +4615,10 @@ export type AgendasUploadsCreateTicketErrors = {
      * No resource answers this identifier.
      */
     404: Error;
+    /**
+     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     */
+    429: Error;
     /**
      * The request was not processed and can be retried after a short delay.
      */
@@ -4797,6 +4833,10 @@ export type AgendasLocationsCreateErrors = {
      * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
      */
     422: ValidationError;
+    /**
+     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     */
+    429: Error;
 };
 
 export type AgendasLocationsCreateError = AgendasLocationsCreateErrors[keyof AgendasLocationsCreateErrors];
@@ -4939,6 +4979,10 @@ export type AgendasLocationsDeleteByExtIdErrors = {
      *
      */
     404: Error | MergedLocationError;
+    /**
+     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     */
+    429: Error;
 };
 
 export type AgendasLocationsDeleteByExtIdError = AgendasLocationsDeleteByExtIdErrors[keyof AgendasLocationsDeleteByExtIdErrors];
@@ -5053,6 +5097,10 @@ export type AgendasLocationsPatchByExtIdErrors = {
      * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
      */
     422: ValidationError;
+    /**
+     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     */
+    429: Error;
 };
 
 export type AgendasLocationsPatchByExtIdError = AgendasLocationsPatchByExtIdErrors[keyof AgendasLocationsPatchByExtIdErrors];
@@ -5112,6 +5160,10 @@ export type AgendasLocationsSetByExtIdErrors = {
      * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
      */
     422: ValidationError;
+    /**
+     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     */
+    429: Error;
 };
 
 export type AgendasLocationsSetByExtIdError = AgendasLocationsSetByExtIdErrors[keyof AgendasLocationsSetByExtIdErrors];
@@ -5165,6 +5217,10 @@ export type AgendasLocationsDeleteErrors = {
      *
      */
     404: Error | MergedLocationError;
+    /**
+     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     */
+    429: Error;
 };
 
 export type AgendasLocationsDeleteError = AgendasLocationsDeleteErrors[keyof AgendasLocationsDeleteErrors];
@@ -5273,6 +5329,10 @@ export type AgendasLocationsPatchErrors = {
      * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
      */
     422: ValidationError;
+    /**
+     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     */
+    429: Error;
 };
 
 export type AgendasLocationsPatchError = AgendasLocationsPatchErrors[keyof AgendasLocationsPatchErrors];
@@ -5332,6 +5392,10 @@ export type AgendasLocationsUpdateErrors = {
      * The request was well-formed but its field values failed validation (e.g. a missing title, an invalid timing, an unknown location uid).
      */
     422: ValidationError;
+    /**
+     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     */
+    429: Error;
 };
 
 export type AgendasLocationsUpdateError = AgendasLocationsUpdateErrors[keyof AgendasLocationsUpdateErrors];
