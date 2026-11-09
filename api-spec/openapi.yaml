@@ -4025,7 +4025,8 @@ components:
     TooManyRequests:
       description: >-
         The account has written more than its limit allows, counted across
-        every key and token it writes with, and the request was not processed.
+        every key, token and session it writes with, and the request was not
+        processed.
         An account writes at most 120 times a minute; one OpenAgenda has not
         validated, at most 10 times a minute and 100 times an hour - contact
         support@openagenda.com to have it validated.
