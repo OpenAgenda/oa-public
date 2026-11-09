@@ -3531,7 +3531,7 @@ export type AgendasEventsCreateErrors = {
      */
     422: ValidationError;
     /**
-     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
      */
     429: Error;
 };
@@ -3626,7 +3626,7 @@ export type AgendasEventsDeleteErrors = {
      */
     404: Error;
     /**
-     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
      */
     429: Error;
 };
@@ -3731,7 +3731,7 @@ export type AgendasEventsPatchErrors = {
      */
     422: ValidationError;
     /**
-     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
      */
     429: Error;
 };
@@ -3793,7 +3793,7 @@ export type AgendasEventsUpdateErrors = {
      */
     422: ValidationError;
     /**
-     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
      */
     429: Error;
 };
@@ -3846,7 +3846,7 @@ export type AgendasEventsDeleteByExtIdErrors = {
      */
     404: Error;
     /**
-     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
      */
     429: Error;
 };
@@ -3957,7 +3957,7 @@ export type AgendasEventsPatchByExtIdErrors = {
      */
     422: ValidationError;
     /**
-     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
      */
     429: Error;
 };
@@ -4019,7 +4019,7 @@ export type AgendasEventsSetByExtIdErrors = {
      */
     422: ValidationError;
     /**
-     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
      */
     429: Error;
 };
@@ -4573,7 +4573,7 @@ export type AgendasUploadsCreateErrors = {
      */
     422: ValidationError;
     /**
-     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
      */
     429: Error;
 };
@@ -4616,7 +4616,7 @@ export type AgendasUploadsCreateTicketErrors = {
      */
     404: Error;
     /**
-     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
      */
     429: Error;
     /**
@@ -4834,7 +4834,7 @@ export type AgendasLocationsCreateErrors = {
      */
     422: ValidationError;
     /**
-     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
      */
     429: Error;
 };
@@ -4980,7 +4980,7 @@ export type AgendasLocationsDeleteByExtIdErrors = {
      */
     404: Error | MergedLocationError;
     /**
-     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
      */
     429: Error;
 };
@@ -5098,7 +5098,7 @@ export type AgendasLocationsPatchByExtIdErrors = {
      */
     422: ValidationError;
     /**
-     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
      */
     429: Error;
 };
@@ -5161,7 +5161,7 @@ export type AgendasLocationsSetByExtIdErrors = {
      */
     422: ValidationError;
     /**
-     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
      */
     429: Error;
 };
@@ -5218,7 +5218,7 @@ export type AgendasLocationsDeleteErrors = {
      */
     404: Error | MergedLocationError;
     /**
-     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
      */
     429: Error;
 };
@@ -5330,7 +5330,7 @@ export type AgendasLocationsPatchErrors = {
      */
     422: ValidationError;
     /**
-     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
      */
     429: Error;
 };
@@ -5393,7 +5393,7 @@ export type AgendasLocationsUpdateErrors = {
      */
     422: ValidationError;
     /**
-     * The account has written more than its limit allows, counted across every key and token it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
+     * The account has written more than its limit allows, counted across every key, token and session it writes with, and the request was not processed. An account writes at most 120 times a minute; one OpenAgenda has not validated, at most 10 times a minute and 100 times an hour - contact support@openagenda.com to have it validated.
      */
     429: Error;
 };
