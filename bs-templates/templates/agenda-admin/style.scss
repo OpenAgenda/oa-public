@@ -153,6 +153,11 @@ $oa-admin-gap: 24px;
     padding: 12px 0;
   }
 
+  // Settings: no card around the menu, one per group (.oa-admin-menu-section)
+  .oa-admin-side-blocks {
+    padding: 0;
+  }
+
   // The support team's hidden resync button, right below the menu card: out
   // of the menu's way, and always in the same place
   .oa-admin-system {
@@ -289,8 +294,21 @@ $oa-admin-gap: 24px;
       color: $oa-admin-gray-700;
     }
 
-    .group-start {
-      margin-top: 16px;
+    // A settings group, in its card, as next's menu draws them
+    .oa-admin-menu-section {
+      padding: 12px 0;
+      border-radius: $oa-admin-radius;
+      background: $oa-white;
+
+      & + .oa-admin-menu-section {
+        margin-top: 16px;
+      }
+
+      // Its own card sets the dangerous entries apart
+      .danger {
+        padding-top: 0;
+        border-top: 0;
+      }
     }
 
     // A page not activated for this agenda: greyed, still a link to ask for
