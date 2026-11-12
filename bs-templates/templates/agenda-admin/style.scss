@@ -175,19 +175,6 @@ $oa-admin-gap: 24px;
     padding: 20px 24px 32px;
   }
 
-  // The profile and contribution forms sat in a grid column, a share of the
-  // old body; in a card that fits its content they take the width they had.
-  .oa-admin-main .agenda-settings-edit {
-    > .profile,
-    > .contribution {
-      > .row > .col-md-7 {
-        float: none;
-        width: 530px;
-        max-width: 100%;
-      }
-    }
-  }
-
   // While an application loads, its body holds its loader (`.oa-admin-loading`,
   // set by the application) and nothing else: no white card then, the spinner
   // centred in the room the body takes once loaded (its usual width, beside the
