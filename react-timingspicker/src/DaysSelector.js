@@ -9,7 +9,7 @@ import secondsToHeight from './utils/secondsToHeight.js';
 import splitSelection from './utils/splitSelection.js';
 import stepPositionToSelection from './utils/stepPositionToSelection.js';
 import valueToStepPosition from './utils/valueToStepPosition.js';
-import editedTiming from './utils/editedTiming.js';
+import editedTiming, { isSameTiming } from './utils/editedTiming.js';
 import timingUtils from './utils/timing.js';
 
 const ONE_DAY = 60 * 60 * 24;
@@ -180,13 +180,7 @@ class DaysSelector extends Component {
     const { onChange } = this.props;
     const { value, reducedAllowedTimings } = this.state;
 
-    const filteredValue = value.filter(
-      (v) =>
-        !(
-          dateFns.isEqual(v.begin, valueToUpdate.begin)
-          && dateFns.isEqual(v.end, valueToUpdate.end)
-        ),
-    );
+    const filteredValue = value.filter((v) => !isSameTiming(v, valueToUpdate));
     const isDisabled = isDisabledTiming(
       submittedValue,
       filteredValue,
@@ -564,9 +558,7 @@ class DaysSelector extends Component {
 
     selectionMoving.end = normalizeEndOfTiming(selectionMoving.end);
 
-    const filteredValue = value.filter(
-      (v) => !(v.begin === valueToMove.begin && v.end === valueToMove.end),
-    );
+    const filteredValue = value.filter((v) => !isSameTiming(v, valueToMove));
     const isDisabled = isDisabledTiming(
       selectionMoving,
       filteredValue,
@@ -578,17 +570,15 @@ class DaysSelector extends Component {
       && (!dateFns.isEqual(selectionMoving.begin, valueToMove.begin)
         || !dateFns.isEqual(selectionMoving.end, valueToMove.end))
     ) {
-      const newValue = [
-        ...filteredValue,
-        editedTiming(valueToMove, selectionMoving),
-      ];
+      const moved = editedTiming(valueToMove, selectionMoving);
+      const newValue = [...filteredValue, moved];
 
       this.setState({
         value: newValue,
       });
 
       if (typeof onMove === 'function') {
-        onMove(selectionMoving, valueToMove);
+        onMove(moved, valueToMove);
       }
 
       if (typeof onChange === 'function') {
@@ -734,9 +724,7 @@ class DaysSelector extends Component {
         true,
       ),
     );
-    const filteredValue = value.filter(
-      (v) => !(v.begin === valueToResize.begin && v.end === valueToResize.end),
-    );
+    const filteredValue = value.filter((v) => !isSameTiming(v, valueToResize));
     const isDisabled = selection.some((item) =>
       isDisabledTiming(item, filteredValue, reducedAllowedTimings));
 
@@ -757,18 +745,16 @@ class DaysSelector extends Component {
     ) {
       // Split across days, the first part is the timing resized, the others
       // are new.
-      const newValue = [
-        ...filteredValue,
-        ...selection.map((item, index) =>
-          (index ? item : editedTiming(valueToResize, item))),
-      ];
+      const resized = selection.map((item, index) =>
+        (index ? item : editedTiming(valueToResize, item)));
+      const newValue = [...filteredValue, ...resized];
 
       this.setState({
         value: newValue,
       });
 
       if (typeof onResize === 'function') {
-        onResize(selection, valueToResize);
+        onResize(resized, valueToResize);
       }
 
       if (typeof onChange === 'function') {
@@ -806,9 +792,7 @@ class DaysSelector extends Component {
       return;
     }
 
-    const newValue = value.filter(
-      (v) => !(v.begin === valueToRemove.begin && v.end === valueToRemove.end),
-    );
+    const newValue = value.filter((v) => !isSameTiming(v, valueToRemove));
 
     this.setState({
       value: newValue,
