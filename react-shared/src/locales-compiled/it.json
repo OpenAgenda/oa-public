@@ -471,11 +471,5 @@
       "type": 0,
       "value": "Lei è sicura di voler lasciare questa pagina? Tutti i dati non salvati saranno persi."
     }
-  ],
-  "ReactShared.Modal.close": [
-    {
-      "type": 0,
-      "value": "Chiudi"
-    }
   ]
 }

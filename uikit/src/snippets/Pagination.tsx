@@ -93,7 +93,12 @@ export const PaginationItem = React.forwardRef<
 
   if (getHref) {
     return (
-      <LinkButton href={getHref(props.value)} variant={variant} size={size}>
+      <LinkButton
+        href={getHref(props.value)}
+        variant={variant}
+        size={size}
+        aria-current={current ? 'page' : undefined}
+      >
         {props.value}
       </LinkButton>
     );
@@ -115,15 +120,28 @@ export const PaginationPrevTrigger = React.forwardRef<
   const { size, variantMap, getHref } = useRootProps();
   const { previousPage } = usePaginationContext();
 
+  // As links: named (an icon alone has no name), and a disabled button on
+  // the first page rather than an `a` without an address
   if (getHref) {
-    return (
+    const label = props['aria-label'] ?? 'Previous page';
+    return previousPage != null ? (
       <LinkButton
-        href={previousPage != null ? getHref(previousPage) : undefined}
+        href={getHref(previousPage)}
         variant={variantMap.default}
         size={size}
+        aria-label={label}
       >
         <HiChevronLeft />
       </LinkButton>
+    ) : (
+      <IconButton
+        variant={variantMap.default}
+        size={size}
+        aria-label={label}
+        disabled
+      >
+        <HiChevronLeft />
+      </IconButton>
     );
   }
 
@@ -144,14 +162,25 @@ export const PaginationNextTrigger = React.forwardRef<
   const { nextPage } = usePaginationContext();
 
   if (getHref) {
-    return (
+    const label = props['aria-label'] ?? 'Next page';
+    return nextPage != null ? (
       <LinkButton
-        href={nextPage != null ? getHref(nextPage) : undefined}
+        href={getHref(nextPage)}
         variant={variantMap.default}
         size={size}
+        aria-label={label}
       >
         <HiChevronRight />
       </LinkButton>
+    ) : (
+      <IconButton
+        variant={variantMap.default}
+        size={size}
+        aria-label={label}
+        disabled
+      >
+        <HiChevronRight />
+      </IconButton>
     );
   }
 

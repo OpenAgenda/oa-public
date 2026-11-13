@@ -1,4 +1,4 @@
-import { Surface, Button, Heading, Link, Text, VStack } from '../src';
+import { Surface, Button, Heading, Text, VStack } from '../src';
 import Provider from './decorators/Provider';
 
 export default {
@@ -43,22 +43,3 @@ export function AsSemanticElement() {
 }
 
 AsSemanticElement.storyName = 'Surface (asChild)';
-
-// `note`: an information box inside a page or a dialog. The caller lays out
-// its content: a sentence, then the link that explains more.
-export function Note() {
-  return (
-    <Surface variant="note" maxW="lg" mx="auto" my="20" px="5" py="4">
-      <VStack align="flex-start" gap="1">
-        <Text>
-          This event is over. If it did take place, keep it in the archives.
-        </Text>
-        <Link href="https://doc.openagenda.com/fr/article/archives-devenements-1gul1fu/">
-          Learn more
-        </Link>
-      </VStack>
-    </Surface>
-  );
-}
-
-Note.storyName = 'Surface (note)';

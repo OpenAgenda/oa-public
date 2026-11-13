@@ -27,7 +27,7 @@ export const radioGroupRecipe = defineSlotRecipe({
           boxSize: '2',
         },
         itemDescription: {
-          ps: 'calc({spacing.2} + {spacing.1.5})',
+          ps: 'controlLabel.xs',
           textStyle: 'xs',
         },
       },
@@ -36,7 +36,7 @@ export const radioGroupRecipe = defineSlotRecipe({
           boxSize: '3',
         },
         itemDescription: {
-          ps: 'calc({spacing.3} + {spacing.2})',
+          ps: 'controlLabel.sm',
           textStyle: 'sm',
         },
       },
@@ -45,7 +45,7 @@ export const radioGroupRecipe = defineSlotRecipe({
           boxSize: '4',
         },
         itemDescription: {
-          ps: 'calc({spacing.4} + {spacing.2.5})',
+          ps: 'controlLabel.md',
           textStyle: 'sm',
         },
       },
@@ -54,7 +54,7 @@ export const radioGroupRecipe = defineSlotRecipe({
           boxSize: '5',
         },
         itemDescription: {
-          ps: 'calc({spacing.5} + {spacing.3})',
+          ps: 'controlLabel.lg',
           textStyle: 'md',
         },
       },
