@@ -9,6 +9,7 @@ import {
   Input,
   useFieldContext,
 } from '@chakra-ui/react';
+import Link from '@tiptap/extension-link';
 import { ListItem, ListKeymap } from '@tiptap/extension-list';
 import { Placeholder } from '@tiptap/extensions';
 import { Markdown } from '@tiptap/markdown';
@@ -20,6 +21,8 @@ import {
   LuBold,
   LuHeading2,
   LuHeading3,
+  LuIndentDecrease,
+  LuIndentIncrease,
   LuItalic,
   LuLink,
   LuList,
@@ -46,6 +49,8 @@ export interface MarkdownEditorLabels {
   bold: string;
   italic: string;
   bulletList: string;
+  indent: string;
+  outdent: string;
   link: string;
   linkUrl: string;
   linkApply: string;
@@ -60,16 +65,17 @@ const DEFAULT_LABELS: MarkdownEditorLabels = {
   bold: 'Bold',
   italic: 'Italic',
   bulletList: 'Bulleted list',
+  indent: 'Indent',
+  outdent: 'Outdent',
   link: 'Link',
   linkUrl: 'Web address',
   linkApply: 'Apply',
   linkRemove: 'Remove link',
 };
 
-// A link typed without its scheme goes to the web, as `example.com` means;
-// a path, an anchor or another scheme is kept as typed
 // A space, a parenthesis or an angle bracket left in the address would end
-// the markdown link early: they are percent-encoded, nothing else is
+// the markdown link early: they are percent-encoded when the markdown is
+// written, whichever way the link came in (typed, pasted, loaded)
 function encodeForMarkdown(href: string) {
   return href.replace(
     /[\s()<>]/g,
@@ -77,17 +83,37 @@ function encodeForMarkdown(href: string) {
   );
 }
 
+// An address typed in the link box: an email address becomes a mailto:
+// link, one with a scheme (any, `webcal:` included) is kept, as are a path,
+// an anchor or a query; a bare host goes to the web, as `example.com` means.
+// A colon followed by a digit is a port (`example.com:8080`), not a scheme.
 export function normalizeHref(value: string) {
-  const href = encodeForMarkdown(value.trim());
-  if (!href || /^(https?|mailto|tel|sms|ftp):/i.test(href)) return href;
-  if (/^[/#?]/.test(href) && !href.startsWith('//')) return href;
+  const href = value.trim();
+  if (!href) return href;
+  if (/^[^\s@/:]+@[^\s@/]+\.[^\s@/]+$/.test(href)) return `mailto:${href}`;
+  if (/^[a-z][a-z0-9+.-]*:(?!\d)/i.test(href)) return href;
   if (href.startsWith('//')) return `https:${href}`;
+  if (/^[/#?]/.test(href)) return href;
   return `https://${href}`;
 }
 
+// What is typed right after a link is not part of it (tiptap makes the mark
+// inclusive with autolink), and its address is encoded in the markdown
+const MarkdownLink = Link.extend({
+  inclusive: () => false,
+  renderMarkdown: (node, h) => {
+    const href = encodeForMarkdown(node.attrs?.href ?? '');
+    const title = (node.attrs?.title ?? '').replace(/"/g, '\\"');
+    const text = h.renderChildren(node);
+    return title ? `[${text}](${href} "${title}")` : `[${text}](${href})`;
+  },
+});
+
 // Tab and Shift+Tab move the focus out of the editor, as in any field, rather
 // than indent a list item and change the text on the way (RGAA 12.9): the
-// indentation goes to Mod+] and Mod+[
+// indentation goes to the toolbar's buttons, and to Mod+] and Mod+[. Those
+// are always taken, in a list or not: Cmd+[ is the browser's Back on macOS,
+// which would leave the page and the text being typed.
 function withoutTab<T>(shortcuts: Record<string, T>) {
   const { Tab: _tab, 'Shift-Tab': _shiftTab, ...rest } = shortcuts;
   return rest;
@@ -97,8 +123,14 @@ const FieldListItem = ListItem.extend({
   addKeyboardShortcuts() {
     return {
       ...withoutTab(this.parent?.() ?? {}),
-      'Mod-]': () => this.editor.commands.sinkListItem(this.name),
-      'Mod-[': () => this.editor.commands.liftListItem(this.name),
+      'Mod-]': () => {
+        this.editor.commands.sinkListItem(this.name);
+        return true;
+      },
+      'Mod-[': () => {
+        this.editor.commands.liftListItem(this.name);
+        return true;
+      },
     };
   },
 });
@@ -265,6 +297,8 @@ function Toolbar({
       bold: e.isActive('bold'),
       italic: e.isActive('italic'),
       bulletList: e.isActive('bulletList'),
+      canIndent: e.can().sinkListItem('listItem'),
+      canOutdent: e.can().liftListItem('listItem'),
     }),
   });
 
@@ -324,6 +358,22 @@ function Toolbar({
         >
           <LuList />
         </RichTextEditorButton>
+        {/* The keyboard shortcuts need AltGr on French keyboards, and are
+            told nowhere: the indentation has its buttons */}
+        <RichTextEditorButton
+          label={labels.outdent}
+          disabled={disabled || !state.canOutdent}
+          onClick={() => editor.chain().focus().liftListItem('listItem').run()}
+        >
+          <LuIndentDecrease />
+        </RichTextEditorButton>
+        <RichTextEditorButton
+          label={labels.indent}
+          disabled={disabled || !state.canIndent}
+          onClick={() => editor.chain().focus().sinkListItem('listItem').run()}
+        >
+          <LuIndentIncrease />
+        </RichTextEditorButton>
         <LinkControl editor={editor} labels={labels} disabled={disabled} />
       </RichTextEditorControlGroup>
     </RichTextEditorToolbar>
@@ -363,18 +413,24 @@ export const MarkdownEditor = React.forwardRef<
     labels: labelsProp,
     minContentHeight = '24',
     css,
-    // For the text area, with the field's own help
+    // For the text area: its help, and its name outside a Field
     'aria-describedby': ownDescribedBy,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ownLabelledBy,
     ...rest
   } = props;
   const field = useFieldContext();
   const disabled = disabledProp ?? field?.disabled ?? false;
+  const readOnly = field?.readOnly ?? false;
   const invalid = invalidProp ?? field?.invalid ?? false;
   const labels = { ...DEFAULT_LABELS, ...labelsProp };
 
   // The markdown last sent out, so that a value coming back from the parent
   // does not reset the content (and the cursor) it came from
   const emitted = React.useRef(value ?? defaultValue ?? '');
+  // Given to the editor once: a new content option at each keystroke would
+  // make it reconfigure its view each time
+  const [initialContent] = React.useState(() => emitted.current);
   const onChangeRef = React.useRef(onChange);
   const onBlurRef = React.useRef(onBlur);
   const placeholderRef = React.useRef(placeholder ?? '');
@@ -401,12 +457,13 @@ export const MarkdownEditor = React.forwardRef<
         // Without their Tab shortcut, below
         listItem: false,
         listKeymap: false,
-        link: {
-          openOnClick: false,
-          autolink: true,
-          defaultProtocol: 'https',
-          HTMLAttributes: { target: '_blank', rel: 'noopener noreferrer' },
-        },
+        link: false,
+      }),
+      MarkdownLink.configure({
+        openOnClick: false,
+        autolink: true,
+        defaultProtocol: 'https',
+        HTMLAttributes: { target: '_blank', rel: 'noopener noreferrer' },
       }),
       FieldListItem,
       FieldListKeymap,
@@ -420,7 +477,7 @@ export const MarkdownEditor = React.forwardRef<
   // The editable element's ARIA attributes, which follow the field and the
   // invalid state without recreating the editor (and losing the cursor)
   const controlId = field?.ids.control;
-  const labelId = field?.ids.label;
+  const labelId = ownLabelledBy ?? field?.ids.label;
   const describedBy = [field?.ariaDescribedby, ownDescribedBy]
     .filter(Boolean)
     .join(' ');
@@ -432,19 +489,30 @@ export const MarkdownEditor = React.forwardRef<
     };
     if (controlId) attributes.id = controlId;
     if (labelId) attributes['aria-labelledby'] = labelId;
+    else if (ariaLabel) attributes['aria-label'] = ariaLabel;
     if (describedBy) attributes['aria-describedby'] = describedBy;
     if (invalid) attributes['aria-invalid'] = 'true';
     if (required) attributes['aria-required'] = 'true';
     if (disabled) attributes['aria-disabled'] = 'true';
+    if (readOnly) attributes['aria-readonly'] = 'true';
     return { attributes };
-  }, [controlId, labelId, describedBy, invalid, required, disabled]);
+  }, [
+    controlId,
+    labelId,
+    ariaLabel,
+    describedBy,
+    invalid,
+    required,
+    disabled,
+    readOnly,
+  ]);
 
   const editor = useEditor({
     // Rendered on the client only: no markup to hydrate
     immediatelyRender: false,
-    editable: !disabled,
+    editable: !disabled && !readOnly,
     extensions,
-    content: emitted.current,
+    content: initialContent,
     contentType: 'markdown',
     editorProps,
     onUpdate: ({ editor: e, transaction }) => {
@@ -455,19 +523,11 @@ export const MarkdownEditor = React.forwardRef<
       emitted.current = markdown;
       onChangeRef.current?.(markdown);
     },
-    onBlur: ({ event }) => {
-      // Focus moving to the toolbar or the link popover stays in the editor
-      const next = event.relatedTarget as Element | null;
-      if (
-        next
-        && (rootRef.current?.contains(next) || next.closest(`[${POPOVER_ATTR}]`))
-      ) {
-        return;
-      }
-      onBlurRef.current?.();
-    },
   });
 
+  // After each render: a value the parent sets, or keeps when it refuses an
+  // edit (a maximum length), is shown, while the one just sent out leaves
+  // the content (and the cursor) alone
   React.useEffect(() => {
     if (!editor || value === undefined || value === emitted.current) return;
     emitted.current = value;
@@ -475,14 +535,29 @@ export const MarkdownEditor = React.forwardRef<
       contentType: 'markdown',
       emitUpdate: false,
     });
-  }, [editor, value]);
+  });
 
   React.useEffect(() => {
     // No update event: the content did not change
-    if (editor && editor.isEditable === disabled) {
-      editor.setEditable(!disabled, false);
+    const editable = !disabled && !readOnly;
+    if (editor && editor.isEditable !== editable) {
+      editor.setEditable(editable, false);
     }
-  }, [editor, disabled]);
+  }, [editor, disabled, readOnly]);
+
+  // The whole editor's blur: focus leaving the text, the toolbar or the link
+  // popover (portalled, its React events come here) for somewhere else.
+  // Moving between them is no blur.
+  const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
+    const next = event.relatedTarget as Element | null;
+    if (
+      next
+      && (rootRef.current?.contains(next) || next.closest(`[${POPOVER_ATTR}]`))
+    ) {
+      return;
+    }
+    onBlurRef.current?.();
+  };
 
   React.useEffect(() => {
     if (placeholderRef.current === (placeholder ?? '')) return;
@@ -507,6 +582,7 @@ export const MarkdownEditor = React.forwardRef<
       disabled={disabled}
       invalid={invalid}
       css={[{ '& .ProseMirror': { minH: minContentHeight } }, css]}
+      onBlur={handleBlur}
       {...rest}
     >
       {editor ? (

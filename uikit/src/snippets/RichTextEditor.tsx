@@ -156,6 +156,8 @@ export const RichTextEditorToolbar = React.forwardRef<
   HTMLDivElement,
   StackProps
 >(function RichTextEditorToolbar(props, ref) {
+  // The consumer's handlers run along with the toolbar's own, not instead
+  const { onMouseDown, onFocus, onKeyDown, ...rest } = props;
   const innerRef = React.useRef<HTMLDivElement | null>(null);
   const setRef = (node: HTMLDivElement | null) => {
     innerRef.current = node;
@@ -181,9 +183,11 @@ export const RichTextEditorToolbar = React.forwardRef<
       role="toolbar"
       // A click on a button keeps the focus, and the selection, in the text
       onMouseDown={(event) => {
+        onMouseDown?.(event);
         if ((event.target as Element).closest('button')) event.preventDefault();
       }}
       onFocus={(event) => {
+        onFocus?.(event);
         const toolbar = innerRef.current;
         // Focus inside the link popover bubbles here through its portal:
         // only the toolbar's own buttons take the tab stop
@@ -196,6 +200,8 @@ export const RichTextEditorToolbar = React.forwardRef<
         }
       }}
       onKeyDown={(event) => {
+        onKeyDown?.(event);
+        if (event.defaultPrevented) return;
         const toolbar = innerRef.current;
         if (!toolbar) return;
         const buttons = toolbarButtons(toolbar);
@@ -218,7 +224,7 @@ export const RichTextEditorToolbar = React.forwardRef<
       borderBottomWidth="thin"
       borderColor="border"
       separator={<StackSeparator h="5" alignSelf="center" />}
-      {...props}
+      {...rest}
     />
   );
 });
