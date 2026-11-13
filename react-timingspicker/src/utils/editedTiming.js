@@ -8,15 +8,12 @@ export default function editedTiming(previous, next) {
   return { ...previous, ...next };
 }
 
-// Whether `v` is the timing `target` names: by its id when it has one, so two
-// timings on the same span stay apart; else by its span, compared as instants
-// — the value is rebuilt from the props on every render, and a reference kept
-// from before may no longer be in it.
+// Whether `v` is the timing `target` was taken from: the same span, compared
+// as instants. The value is rebuilt from the props on every render, and a
+// reference kept from before may no longer be in it. Two timings on one span
+// cannot be made in the picker, which refuses overlaps; handed in, they go
+// together, as an edit in the form always had them.
 export function isSameTiming(v, target) {
-  if (target.id !== undefined) {
-    return v.id === target.id;
-  }
-
   return (
     dateFns.isEqual(v.begin, target.begin) && dateFns.isEqual(v.end, target.end)
   );
