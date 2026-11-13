@@ -939,6 +939,7 @@ class DaysSelector extends Component {
         selectionElems.push(
           TimingComponent({
             key: `${i}.${j}`,
+            id: timings[i].id,
             actual: timingBegin,
             first: j === 0,
             last: j === numberOfParts,
@@ -1005,7 +1006,17 @@ class DaysSelector extends Component {
 
         {this.renderTimings({
           value: value || null,
-          Component: ({ key, begin, end, top, left, height, first, last }) => (
+          Component: ({
+            key,
+            id,
+            begin,
+            end,
+            top,
+            left,
+            height,
+            first,
+            last,
+          }) => (
             <div
               key={`value-${key}`}
               className={classNames(`${classNamePrefix}value-timing`, {
@@ -1024,14 +1035,11 @@ class DaysSelector extends Component {
                 height: `${height}px`,
                 display:
                   !(
-                    valueToMove
-                    && begin === valueToMove.begin
-                    && end === valueToMove.end
+                    valueToMove && isSameTiming({ id, begin, end }, valueToMove)
                   )
                   && !(
                     valueToResize
-                    && begin === valueToResize.begin
-                    && end === valueToResize.end
+                    && isSameTiming({ id, begin, end }, valueToResize)
                   )
                     ? 'inline-block'
                     : 'none',
@@ -1112,16 +1120,10 @@ class DaysSelector extends Component {
 
         {this.renderTimings({
           value: selectionMoving,
-          disabled: value
-            ? value.filter(
-              (v) =>
-                !(
-                  valueToMove
-                    && v.begin === valueToMove.begin
-                    && v.end === valueToMove.end
-                ),
-            )
-            : value,
+          disabled:
+            value && valueToMove
+              ? value.filter((v) => !isSameTiming(v, valueToMove))
+              : value,
           Component: ({
             key,
             begin,
@@ -1174,16 +1176,10 @@ class DaysSelector extends Component {
 
         {this.renderTimings({
           value: selectionResizing,
-          disabled: value
-            ? value.filter(
-              (v) =>
-                !(
-                  valueToResize
-                    && v.begin === valueToResize.begin
-                    && v.end === valueToResize.end
-                ),
-            )
-            : value,
+          disabled:
+            value && valueToResize
+              ? value.filter((v) => !isSameTiming(v, valueToResize))
+              : value,
           Component: ({
             key,
             begin,

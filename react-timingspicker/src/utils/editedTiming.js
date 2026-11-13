@@ -8,13 +8,22 @@ export default function editedTiming(previous, next) {
   return { ...previous, ...next };
 }
 
-// Whether `v` is the timing `target` was taken from: the same span, compared
-// as instants. The value is rebuilt from the props on every render, and a
-// reference kept from before may no longer be in it. Two timings on one span
-// cannot be made in the picker, which refuses overlaps; handed in, they go
-// together, as an edit in the form always had them.
+// Whether `v` is the timing `target` was taken from. By its `id` when it has
+// one: two timings handed in on one span are two timings, and an edit of one
+// leaves the other. Else by its span, compared as instants — the value is
+// rebuilt from the props on every render, and a reference kept from before
+// may no longer be in it — among the timings that have no id, which an
+// id-less target cannot be.
+const hasId = (timing) => timing.id !== undefined && timing.id !== null;
+
 export function isSameTiming(v, target) {
+  if (hasId(target)) {
+    return v.id === target.id;
+  }
+
   return (
-    dateFns.isEqual(v.begin, target.begin) && dateFns.isEqual(v.end, target.end)
+    !hasId(v)
+    && dateFns.isEqual(v.begin, target.begin)
+    && dateFns.isEqual(v.end, target.end)
   );
 }
