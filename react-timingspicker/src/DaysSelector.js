@@ -9,6 +9,7 @@ import secondsToHeight from './utils/secondsToHeight.js';
 import splitSelection from './utils/splitSelection.js';
 import stepPositionToSelection from './utils/stepPositionToSelection.js';
 import valueToStepPosition from './utils/valueToStepPosition.js';
+import editedTiming from './utils/editedTiming.js';
 import timingUtils from './utils/timing.js';
 
 const ONE_DAY = 60 * 60 * 24;
@@ -193,7 +194,10 @@ class DaysSelector extends Component {
     );
 
     if (!isDisabled) {
-      const newValue = [...filteredValue, submittedValue];
+      const newValue = [
+        ...filteredValue,
+        editedTiming(valueToUpdate, submittedValue),
+      ];
 
       if (typeof onChange === 'function') {
         onChange(newValue);
@@ -574,7 +578,10 @@ class DaysSelector extends Component {
       && (!dateFns.isEqual(selectionMoving.begin, valueToMove.begin)
         || !dateFns.isEqual(selectionMoving.end, valueToMove.end))
     ) {
-      const newValue = [...filteredValue, selectionMoving];
+      const newValue = [
+        ...filteredValue,
+        editedTiming(valueToMove, selectionMoving),
+      ];
 
       this.setState({
         value: newValue,
@@ -748,7 +755,13 @@ class DaysSelector extends Component {
         || !dateFns.isEqual(selection[0].begin, valueToResize.begin)
         || !dateFns.isEqual(selection[0].end, valueToResize.end))
     ) {
-      const newValue = [...filteredValue, ...selection];
+      // Split across days, the first part is the timing resized, the others
+      // are new.
+      const newValue = [
+        ...filteredValue,
+        ...selection.map((item, index) =>
+          (index ? item : editedTiming(valueToResize, item))),
+      ];
 
       this.setState({
         value: newValue,
