@@ -41,6 +41,7 @@ export * from './SegmentedControl';
 export * from './Select';
 export * from './Skeleton';
 export * from './Slider';
+export * from './SortableList';
 export * from './Stat';
 export * from './Status';
 export * from './StepperInput';
