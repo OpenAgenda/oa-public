@@ -6,6 +6,7 @@ export const cursor = defineTokens.cursor({
   menuitem: { value: 'pointer' },
   option: { value: 'pointer' },
   radio: { value: 'pointer' },
+  segment: { value: 'pointer' },
   select: { value: 'pointer' },
   slider: { value: 'pointer' },
 });

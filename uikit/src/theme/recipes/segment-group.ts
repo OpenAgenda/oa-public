@@ -11,6 +11,9 @@ export const segmentGroupRecipe = defineSlotRecipe({
       '--segment-indicator-bg': 'colors.colorPalette.solid',
     },
     item: {
+      // Clickable, as a radio is: Chakra leaves the arrow
+      cursor: 'segment',
+      _disabled: { cursor: 'not-allowed' },
       _checked: {
         color: 'colorPalette.contrast',
         fontWeight: 'medium',
