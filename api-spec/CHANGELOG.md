@@ -1,54 +1,5 @@
 # @openagenda/api-spec
 
-## 0.10.0
-
-### Minor Changes
-
-- [#676](https://github.com/OpenAgenda/oa/pull/676) [`804c6a4`](https://github.com/OpenAgenda/oa/commit/804c6a4fa04d7b9e1ba66c56a996d48f72a83171) Thanks [@clement180](https://github.com/clement180)! - An event's ticketing grid is now part of the contract: `Event.offers` (read-only,
-  detailed reads only), with the `OffersSource` and `OffersTier` schemas behind it —
-  provider, currency, declared pricing, booking page, sync stamp, sale window and
-  the price list itself.
-
-  One trade-off is in the field descriptions rather than hidden: a tier's `label`
-  is absent unless the event was read on its own. Labels are localized maps over
-  eight locales and 81.5% of a catalogue's bytes at the published caps, on the same
-  read paths as the JSON and JSON-LD feeds. A listing's grid carries the prices, the
-  sale windows and the types; read the labels from the event's own endpoint.
-
-  It was meant to be public from the start: the document sent to integrators on
-  2026-06-04 shows it, and the field was held back only while the read projection
-  was unshipped. What is published is a VIEW of the stored catalogue, closed to the
-  keys the schemas declare, not the column — a connector's extra keys are stored
-  and not served.
-
-  The `OffersPrice` description is corrected with it. It claimed the T16 reasoning
-  for dropping `priceRanges` ("a consumer wanting 'from X' computes
-  min(tiers[].priceCents)") stood on nothing, since the tiers reached no public
-  response. They do now, on a detailed read; the bounds remain the answer for a
-  listing, and the only one that accounts for a per-date override.
-
-- [#739](https://github.com/OpenAgenda/oa/pull/739) [`1ae89c1`](https://github.com/OpenAgenda/oa/commit/1ae89c11f9f8fc742d80102436936ab1bea508a5) Thanks [@bertho-zero](https://github.com/bertho-zero)! - The write operations answer `429 too_many_requests`, with a `Retry-After`
-  header, when the account writes faster than its limit allows, with a secret
-  key, an OAuth access token or a session alike: 3000 writes a minute, and 10 a minute and
-  100 an hour for an account OpenAgenda has not validated. The dry runs
-  (`…/validate`) are not limited.
-
-### Patch Changes
-
-- [#677](https://github.com/OpenAgenda/oa/pull/677) [`30c7b43`](https://github.com/OpenAgenda/oa/commit/30c7b43716501e5c8e513bfbc1aa296e7ad3ed2b) Thanks [@clement180](https://github.com/clement180)! - `offersAggregate.links` says where the per-date answer lives. A connector writes
-  a per-(date, provider) booking URL as an override of the catalogue, and the **v2**
-  read now joins it onto the matching availability row as `bookingUrl` — the finer
-  answer, and the only one for a provider selling through two shops, where `links`
-  attributes nothing.
-
-  This API does not serve it yet, and the description says why rather than leaving
-  a reader to guess: `Timing` and `TimingAvailability` are reached by the request
-  bodies as well as the responses, so a `readOnly` field on either offers a field
-  the API refuses. Splitting them into read and input variants is a contract change
-  of its own.
-
-  No schema change.
-
 ## 0.9.0
 
 ### Minor Changes

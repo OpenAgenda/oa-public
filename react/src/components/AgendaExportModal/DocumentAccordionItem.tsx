@@ -5,7 +5,6 @@ import { Button, Fieldset, Flex, Box, Text } from '@openagenda/uikit';
 import { Checkbox } from '@openagenda/uikit/snippets';
 import { SortableSelect } from '@openagenda/react-shared';
 import AccordionItem from '../AccordionItem';
-import NewWindowHint from './NewWindowHint';
 import messages from './messages';
 import type { DocumentFormat, DocumentSubmitHandler } from './types';
 
@@ -211,7 +210,6 @@ export default function DocumentAccordionItem({
           })}
         >
           {intl.formatMessage(messages.PDFDownload)}
-          <NewWindowHint />
         </Button>
       </Flex>
     </AccordionItem>

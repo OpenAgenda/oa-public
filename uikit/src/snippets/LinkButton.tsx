@@ -9,6 +9,7 @@ export interface LinkButtonProps
 
 const { withContext } = createRecipeContext({ key: 'button' });
 
-// A link styled as a button: an `a`, so that it navigates and is read as a
-// link. `asChild` puts a framework's link component (next/link) in its place.
-export const LinkButton = withContext<HTMLAnchorElement, LinkButtonProps>('a');
+// Replace "a" with your framework's link component
+export const LinkButton = withContext<HTMLAnchorElement, LinkButtonProps>(
+  'div',
+);

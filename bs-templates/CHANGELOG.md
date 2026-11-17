@@ -1,15 +1,5 @@
 # Change Log
 
-## 3.0.1
-
-### Patch Changes
-
-- [#819](https://github.com/OpenAgenda/oa/pull/819) [`5bf10b7`](https://github.com/OpenAgenda/oa/commit/5bf10b7a1890da239932fc606cb07e0ad290d177) Thanks [@kaore](https://github.com/kaore)! - Agenda administration: the menu loses its "Settings" button, which repeated the one in the admin bar. The `.oa-admin-menu-footer` style and its preview go with it.
-
-  The settings menu draws one card per group (`.oa-admin-menu-section`, in a `.oa-admin-side-blocks` aside without its own card); the `.group-start` spacing is gone.
-
-  The `.agenda-settings-edit > .profile / .contribution` width rule goes too: both forms are served by the next app now.
-
 ## 3.0.0
 
 ### Major Changes

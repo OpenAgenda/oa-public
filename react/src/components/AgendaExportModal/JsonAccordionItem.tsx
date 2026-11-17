@@ -5,7 +5,6 @@ import { Checkbox, Tooltip } from '@openagenda/uikit/snippets';
 import { useTimeoutFn } from 'react-use';
 import AccordionItem from '../AccordionItem';
 import copyText from '../../utils/copyText';
-import NewWindowHint from './NewWindowHint';
 import messages from './messages';
 import type { CompleteUrlsResult } from './types';
 
@@ -63,7 +62,6 @@ export default function JsonAccordionItem({
           w="fit-content"
         >
           {intl.formatMessage(messages.documentation)}
-          <NewWindowHint />
         </Link>
 
         <Tooltip

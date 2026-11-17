@@ -93,12 +93,7 @@ export const PaginationItem = React.forwardRef<
 
   if (getHref) {
     return (
-      <LinkButton
-        href={getHref(props.value)}
-        variant={variant}
-        size={size}
-        aria-current={current ? 'page' : undefined}
-      >
+      <LinkButton href={getHref(props.value)} variant={variant} size={size}>
         {props.value}
       </LinkButton>
     );
@@ -120,30 +115,15 @@ export const PaginationPrevTrigger = React.forwardRef<
   const { size, variantMap, getHref } = useRootProps();
   const { previousPage } = usePaginationContext();
 
-  // As links: named (an icon alone has no name), and a disabled button on
-  // the first page rather than an `a` without an address. The default names
-  // are English, uikit having no translations: an app passes `aria-label` in
-  // the page's language
   if (getHref) {
-    const label = props['aria-label'] ?? 'Previous page';
-    return previousPage != null ? (
+    return (
       <LinkButton
-        href={getHref(previousPage)}
+        href={previousPage != null ? getHref(previousPage) : undefined}
         variant={variantMap.default}
         size={size}
-        aria-label={label}
       >
         <HiChevronLeft />
       </LinkButton>
-    ) : (
-      <IconButton
-        variant={variantMap.default}
-        size={size}
-        aria-label={label}
-        disabled
-      >
-        <HiChevronLeft />
-      </IconButton>
     );
   }
 
@@ -164,25 +144,14 @@ export const PaginationNextTrigger = React.forwardRef<
   const { nextPage } = usePaginationContext();
 
   if (getHref) {
-    const label = props['aria-label'] ?? 'Next page';
-    return nextPage != null ? (
+    return (
       <LinkButton
-        href={getHref(nextPage)}
+        href={nextPage != null ? getHref(nextPage) : undefined}
         variant={variantMap.default}
         size={size}
-        aria-label={label}
       >
         <HiChevronRight />
       </LinkButton>
-    ) : (
-      <IconButton
-        variant={variantMap.default}
-        size={size}
-        aria-label={label}
-        disabled
-      >
-        <HiChevronRight />
-      </IconButton>
     );
   }
 

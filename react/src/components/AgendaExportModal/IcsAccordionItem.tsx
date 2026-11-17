@@ -1,7 +1,6 @@
 import { useIntl } from 'react-intl';
 import { Button, chakra } from '@openagenda/uikit';
 import AccordionItem from '../AccordionItem';
-import NewWindowHint from './NewWindowHint';
 import messages from './messages';
 import type { IcsSubmitHandler } from './types';
 
@@ -17,7 +16,6 @@ export default function IcsAccordionItem({
       <chakra.div textAlign="center">
         <Button type="submit" alignSelf="center" onClick={onSubmit}>
           {intl.formatMessage(messages.modalTitle)}
-          <NewWindowHint />
         </Button>
       </chakra.div>
     </AccordionItem>

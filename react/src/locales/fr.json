@@ -46,7 +46,6 @@
   "react.components.AgendaExportModal.login": "Connectez-vous pour accéder au lien d'export directement depuis ce menu",
   "react.components.AgendaExportModal.needAuthentication": "L'utilisation de l'API nécessite une authentification.",
   "react.components.AgendaExportModal.new": "Nouveau",
-  "react.components.AgendaExportModal.newWindow": "(s'ouvre dans une nouvelle fenêtre)",
   "react.components.AgendaExportModal.openInSamePage": "Ouvrir les événements sur la même page",
   "react.components.AgendaExportModal.outlookStep2": "En bas de page, sélectionnez l'icône calendrier",
   "react.components.AgendaExportModal.outlookStep3": "Dans le volet de navigation, sélectionnez \"Ajouter un calendrier\"",

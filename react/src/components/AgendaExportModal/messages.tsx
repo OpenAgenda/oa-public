@@ -257,10 +257,6 @@ const messages: Record<string, MessageDescriptor> = defineMessages({
     id: 'react.components.AgendaExportModal.horizontalLayout',
     defaultMessage: 'Display events as horizontal cards',
   },
-  newWindow: {
-    id: 'react.components.AgendaExportModal.newWindow',
-    defaultMessage: '(opens in a new window)',
-  },
 });
 
 export default messages;

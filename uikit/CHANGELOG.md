@@ -1,50 +1,5 @@
 # @openagenda/uikit
 
-## 0.6.0
-
-### Minor Changes
-
-- [#854](https://github.com/OpenAgenda/oa/pull/854) [`950b971`](https://github.com/OpenAgenda/oa/commit/950b971205da5df2f1e827862e3af7429c6f6702) Thanks [@kaore](https://github.com/kaore)! - Corners are discreet at every level: the semantic radii `l1`, `l2` and `l3` all
-  take the small radius of the legacy pages, so dialogs, buttons, fields, selects,
-  tooltips, checkboxes, tags and alerts lose Chakra's growing roundness. This
-  reaches every consumer of the theme: `@openagenda/react` (agenda export and
-  event share modals, `SearchInput`, tooltips), `@openagenda/widgets` (the same
-  modals opened from widgets embedded on third-party sites), the supervisor and
-  the Next app. `Surface` takes a `note` variant, a neutral bordered box for
-  information set inside a page or a dialog.
-
-- [#819](https://github.com/OpenAgenda/oa/pull/819) [`9b5b7be`](https://github.com/OpenAgenda/oa/commit/9b5b7be844aa7b406fa567b7c95f1a7bd788c8f8) Thanks [@kaore](https://github.com/kaore)! - Form building blocks taken from the agenda settings:
-
-  - `Checkbox` and `Radio` take a `description`: a hint under the label, aligned
-    with it, read as the control's description and dimmed with it when disabled.
-  - `FormSection`: one part of a long form in its own surface, under a title.
-  - `SelectTrigger` takes `triggerProps`, passed to the button itself.
-  - `LinkButton` renders an `a` (it rendered a `div`, which `Pagination` used).
-  - Field helper texts are `sm`, the size of the labels and inputs.
-  - `controlLabel` spacing tokens (`xs` to `lg`): where a checkbox's or a radio's
-    label starts, for what lines up with it.
-  - `Pagination` with `getHref`: named previous and next links, a disabled button
-    instead of an address-less link on the first and last pages, `aria-current`
-    on the current page.
-
-- [#816](https://github.com/OpenAgenda/oa/pull/816) [`6b75569`](https://github.com/OpenAgenda/oa/commit/6b75569323220f340fc9762db43b44bac954ce06) Thanks [@kaore](https://github.com/kaore)! - `MarkdownEditor` edits a text with headings, bold, italics, bulleted lists and links, read and written as markdown; inside a `Field` it takes the field's label, help, invalid and disabled states. It is built on tiptap, from Chakra's rich-text editor composition, whose frame, toolbar and buttons are exported as `RichTextEditor*`.
-
-  `FileUploadButton` is a file upload trigger drawn as an outline button with an upload icon, for a single file where `FileInput`'s empty-field look reads as disabled.
-
-- [#871](https://github.com/OpenAgenda/oa/pull/871) [`6ef8480`](https://github.com/OpenAgenda/oa/commit/6ef8480ddd1ed4cd7ab9beb2a83a7f61a9b841a6) Thanks [@kaore](https://github.com/kaore)! - `SortableList`: a list reordered by dragging its rows' handles, with the mouse,
-  touch or the keyboard, each move announced to screen readers (dnd-kit); a row's
-  own buttons show on hover and focus.
-
-### Patch Changes
-
-- [#876](https://github.com/OpenAgenda/oa/pull/876) [`1a6b6c3`](https://github.com/OpenAgenda/oa/commit/1a6b6c3f49ebd2ae7126817aa46c634d6a777ab3) Thanks [@kaore](https://github.com/kaore)! - `fg.error` and `fg.warning` are one step darker (red.700, orange.700 in light
-  mode): Chakra's defaults stayed under the 4.5:1 contrast body text needs on
-  white.
-
-- [#876](https://github.com/OpenAgenda/oa/pull/876) [`4e0f8d2`](https://github.com/OpenAgenda/oa/commit/4e0f8d25ef511faeccd7ffcbe5707fbbe74d7dbb) Thanks [@kaore](https://github.com/kaore)! - The segmented control shows its selected segment in the palette's solid colour
-  (primary by default) instead of a white pill barely raised from its bar.
-  Its segments show the pointer cursor on hover.
-
 ## 0.5.0
 
 ### Minor Changes

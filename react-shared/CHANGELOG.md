@@ -1,14 +1,5 @@
 # Change Log
 
-## 3.2.4
-
-### Patch Changes
-
-- [#888](https://github.com/OpenAgenda/oa/pull/888) [`3b0411c`](https://github.com/OpenAgenda/oa/commit/3b0411cdce78122d968d78f5195bab272e8c8d6f) Thanks [@kaore](https://github.com/kaore)! - The modal's close button has its Italian label again: the compiled Italian
-  catalogue had missed `ReactShared.Modal.close`.
-- Updated dependencies [[`950b971`](https://github.com/OpenAgenda/oa/commit/950b971205da5df2f1e827862e3af7429c6f6702), [`1a6b6c3`](https://github.com/OpenAgenda/oa/commit/1a6b6c3f49ebd2ae7126817aa46c634d6a777ab3), [`9b5b7be`](https://github.com/OpenAgenda/oa/commit/9b5b7be844aa7b406fa567b7c95f1a7bd788c8f8), [`6b75569`](https://github.com/OpenAgenda/oa/commit/6b75569323220f340fc9762db43b44bac954ce06), [`4e0f8d2`](https://github.com/OpenAgenda/oa/commit/4e0f8d25ef511faeccd7ffcbe5707fbbe74d7dbb), [`6ef8480`](https://github.com/OpenAgenda/oa/commit/6ef8480ddd1ed4cd7ab9beb2a83a7f61a9b841a6)]:
-  - @openagenda/uikit@0.6.0
-
 ## 3.2.3
 
 ### Patch Changes

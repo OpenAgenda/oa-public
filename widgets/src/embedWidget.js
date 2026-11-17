@@ -155,10 +155,6 @@ export default class EmbedLoader {
       url.searchParams.set('sort', dataset.sort);
     }
 
-    if (dataset.threshold) {
-      url.searchParams.set('threshold', dataset.threshold);
-    }
-
     if (dataset.displayTotal) {
       url.searchParams.set('displayTotal', dataset.displayTotal);
     }

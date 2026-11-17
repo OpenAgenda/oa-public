@@ -1,18 +1,5 @@
 # Change Log
 
-## 2.2.0
-
-### Minor Changes
-
-- [#709](https://github.com/OpenAgenda/oa/pull/709) [`51105f1`](https://github.com/OpenAgenda/oa/commit/51105f17e5c5787e069ec7a2b1ba983425a0d473) Thanks [@clement180](https://github.com/clement180)! - A timing handed in `value` keeps the properties other than `begin` and `end` it carries, such as an `id`, through `onChange`, including when it is moved, resized or edited in the form. A resize that splits it across days keeps them on the first part only. A timing the picker creates (a selection, a recurrence) carries none. `onMove` and `onResize` now hand the moved or resized timing with those properties too.
-
-  The timing an edit, a move, a resize or a removal replaces is found by its `id` when it carries one, else by its span compared as instants, no longer by object reference: a `value` handed in again during a drag no longer leaves the moved timing twice. Two timings handed in on one span with distinct ids are two timings: removing one, or moving or editing it off the other, leaves the other. A move or a resize that still overlaps the other is refused, as it was; an edit in the form that does is now refused too, where it used to go through and drop the other. Two timings on one span without an id are taken together, and a timing without an id never stands for one with an id.
-
-### Patch Changes
-
-- Updated dependencies [[`3b0411c`](https://github.com/OpenAgenda/oa/commit/3b0411cdce78122d968d78f5195bab272e8c8d6f)]:
-  - @openagenda/react-shared@3.2.4
-
 ## 2.1.4
 
 ### Patch Changes

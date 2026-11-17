@@ -1,19 +1,6 @@
 import { defineSemanticTokens } from '@chakra-ui/react';
 
 export const semanticColors = defineSemanticTokens.colors({
-  // Chakra's error and warning text (red.500, orange.600) stays under 4.5:1 on
-  // white (3.76 and 3.56): an error or a warning is body text, it must be
-  // readable (RGAA 3.2). One step darker: red.700 6.47:1, orange.700 5.18:1 on
-  // white, and still above 4.5 on their pale backgrounds (bg.error,
-  // bg.warning).
-  fg: {
-    error: {
-      value: { _light: '{colors.red.700}', _dark: '{colors.red.300}' },
-    },
-    warning: {
-      value: { _light: '{colors.orange.700}', _dark: '{colors.orange.300}' },
-    },
-  },
   primary: {
     contrast: {
       value: { _light: 'white', _dark: 'white' },
