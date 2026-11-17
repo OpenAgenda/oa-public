@@ -145,4 +145,65 @@ describe('13 - schema.org', () => {
       });
     });
   });
+  describe('an event with a ticketing catalogue', () => {
+    // A date still to come: a past date claims no availability.
+    const upcoming = {
+      begin: '2099-06-15T18:00:00.000Z',
+      end: '2099-06-15T20:00:00.000Z',
+    };
+
+    const ticketed = JSON.parse(
+      getTimingJSONLD(
+        {
+          ...event,
+          status: 1,
+          offersAggregate: {
+            availability: 'limited',
+            pricing: 'paid',
+            price: { minCents: 1150, maxCents: 2300, currency: 'EUR' },
+            links: [
+              { provider: 'billetweb', url: 'https://billetweb.fr/event/1' },
+            ],
+          },
+        },
+        upcoming,
+      ),
+    );
+
+    it('offers.price is the lowest price, in major units, with its currency', () => {
+      expect(ticketed.offers.price).toBe(11.5);
+      expect(ticketed.offers.priceCurrency).toBe('EUR');
+    });
+
+    it('offers.url is the ticketing source, not the registration link', () => {
+      expect(ticketed.offers.url).toBe('https://billetweb.fr/event/1');
+    });
+
+    it('a sold-out date says SoldOut even when another date still sells', () => {
+      const soldOutDate = {
+        ...upcoming,
+        availability: [{ provider: 'billetweb', status: 'soldOut' }],
+      };
+      const parsed = JSON.parse(
+        getTimingJSONLD(
+          {
+            ...event,
+            status: 1,
+            offersAggregate: {
+              availability: 'available',
+              price: null,
+              links: null,
+            },
+          },
+          soldOutDate,
+        ),
+      );
+
+      expect(parsed.offers.availability).toBe('https://schema.org/SoldOut');
+    });
+
+    it('offers.availability comes from the catalogue', () => {
+      expect(ticketed.offers.availability).toBe('https://schema.org/InStock');
+    });
+  });
 });
