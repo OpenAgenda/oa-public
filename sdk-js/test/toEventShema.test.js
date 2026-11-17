@@ -507,3 +507,289 @@ describe('toEventSchema', () => {
     });
   });
 });
+
+describe('toEventSchema - ticketing offers', () => {
+  const base = {
+    title: { fr: 'Chers parents' },
+    description: { fr: 'Une comédie.' },
+    timezone: 'Europe/Paris',
+    attendanceMode: 1,
+    status: 1,
+    timings: [
+      {
+        begin: '2099-12-05T20:00:00+01:00',
+        end: '2099-12-05T22:00:00+01:00',
+      },
+    ],
+    registration: [
+      { type: 'link', value: 'https://theatre.example/chers-parents' },
+    ],
+  };
+
+  const offersOf = (event) => toEventSchema(event, { formatDate }).offers;
+
+  it('publishes the lowest price, its currency, the booking link and the availability', () => {
+    expect(
+      offersOf({
+        ...base,
+        offersAggregate: {
+          availability: 'available',
+          pricing: 'paid',
+          price: { minCents: 1100, maxCents: 2300, currency: 'EUR' },
+          links: [
+            { provider: 'mapado', url: 'https://theatre.mapado.com/event/1' },
+          ],
+        },
+      }),
+    ).toEqual({
+      '@type': 'Offer',
+      url: 'https://theatre.mapado.com/event/1',
+      price: 11,
+      priceCurrency: 'EUR',
+      availability: 'https://schema.org/InStock',
+    });
+  });
+
+  it('converts with the currency exponent, not a fixed 100', () => {
+    expect(
+      offersOf({
+        ...base,
+        offersAggregate: {
+          availability: 'available',
+          price: { minCents: 1500, maxCents: 1500, currency: 'JPY' },
+          links: null,
+        },
+      }).price,
+    ).toBe(1500);
+  });
+
+  it('a free event is priced 0', () => {
+    expect(
+      offersOf({
+        ...base,
+        offersAggregate: {
+          availability: 'available',
+          pricing: 'free',
+          price: { minCents: 0, maxCents: 0, currency: 'EUR' },
+          links: null,
+        },
+      }).price,
+    ).toBe(0);
+  });
+
+  it.each([
+    ['available', 'https://schema.org/InStock'],
+    ['limited', 'https://schema.org/InStock'],
+    ['soldOut', 'https://schema.org/SoldOut'],
+  ])('%s becomes %s', (availability, expected) => {
+    expect(
+      offersOf({
+        ...base,
+        offersAggregate: { availability, price: null, links: null },
+      }).availability,
+    ).toBe(expected);
+  });
+
+  it.each(['notYetOnSale', 'salesClosed', 'mixed', 'unknown', null])(
+    '%s leaves availability out rather than claiming InStock',
+    (availability) => {
+      const offers = offersOf({
+        ...base,
+        offersAggregate: { availability, price: null, links: null },
+      });
+
+      expect(offers).toEqual({
+        '@type': 'Offer',
+        url: 'https://theatre.example/chers-parents',
+      });
+    },
+  );
+
+  it('falls back to the registration link when no source carries a URL', () => {
+    expect(
+      offersOf({
+        ...base,
+        offersAggregate: { availability: 'soldOut', price: null, links: null },
+      }).url,
+    ).toBe('https://theatre.example/chers-parents');
+  });
+
+  it('leaves the price out when it cannot be read', () => {
+    const offers = offersOf({
+      ...base,
+      offersAggregate: {
+        availability: 'available',
+        price: { minCents: 1100, maxCents: 2300, currency: 'XXZ' },
+        links: null,
+      },
+    });
+
+    expect(offers.price).toBeUndefined();
+    expect(offers.priceCurrency).toBeUndefined();
+  });
+
+  it('emits no offer when the summary says nothing and there is no link', () => {
+    expect(
+      offersOf({
+        ...base,
+        registration: [],
+        offersAggregate: { availability: 'mixed', price: null, links: null },
+      }),
+    ).toBeUndefined();
+  });
+
+  it('a single date reads its own rows, not the event summary', () => {
+    const offers = offersOf({
+      ...base,
+      timings: [
+        {
+          ...base.timings[0],
+          availability: [
+            { provider: 'mapado', status: 'soldOut' },
+            { provider: 'billetweb', status: 'soldOut' },
+          ],
+        },
+      ],
+      offersAggregate: { availability: 'available', price: null, links: null },
+    });
+
+    expect(offers.availability).toBe('https://schema.org/SoldOut');
+  });
+
+  it('a single date with one source still selling is InStock', () => {
+    expect(
+      offersOf({
+        ...base,
+        timings: [
+          {
+            ...base.timings[0],
+            availability: [
+              { provider: 'mapado', status: 'soldOut' },
+              { provider: 'billetweb', status: 'limited' },
+            ],
+          },
+        ],
+        offersAggregate: { availability: 'mixed', price: null, links: null },
+      }).availability,
+    ).toBe('https://schema.org/InStock');
+  });
+
+  it('a cancelled event keeps no booking link', () => {
+    expect(
+      offersOf({
+        ...base,
+        status: 6,
+        offersAggregate: {
+          availability: 'salesClosed',
+          price: { minCents: 1100, maxCents: 1100, currency: 'EUR' },
+          links: null,
+        },
+      }),
+    ).toEqual({ '@type': 'Offer', price: 11, priceCurrency: 'EUR' });
+  });
+
+  it('a full event is sold out even when the catalogue has no rows', () => {
+    expect(
+      offersOf({
+        ...base,
+        status: 5,
+        offersAggregate: { availability: null, price: null, links: null },
+      }).availability,
+    ).toBe('https://schema.org/SoldOut');
+  });
+
+  it('a single date links to its own booking page, from a source that still sells', () => {
+    expect(
+      offersOf({
+        ...base,
+        timings: [
+          {
+            ...base.timings[0],
+            availability: [
+              {
+                provider: 'billetweb',
+                status: 'soldOut',
+                bookingUrl: 'https://billetweb.fr/a?date=1',
+              },
+              {
+                provider: 'mapado',
+                status: 'available',
+                bookingUrl: 'https://theatre.mapado.com/event/1?eventDate=9',
+              },
+            ],
+          },
+        ],
+        offersAggregate: {
+          availability: 'available',
+          price: null,
+          links: [{ provider: 'billetweb', url: 'https://billetweb.fr/a' }],
+        },
+      }).url,
+    ).toBe('https://theatre.mapado.com/event/1?eventDate=9');
+  });
+
+  it('a past date claims no availability', () => {
+    const { offers } = toEventSchema(
+      {
+        ...base,
+        timings: [
+          {
+            ...base.timings[0],
+            availability: [{ provider: 'mapado', status: 'available' }],
+          },
+        ],
+        offersAggregate: { availability: null, price: null, links: null },
+      },
+      { formatDate, now: Date.parse('2100-01-01T00:00:00Z') },
+    );
+
+    expect(offers.availability).toBeUndefined();
+  });
+
+  it('a pay-what-you-want floor of 0 is not published as a free price', () => {
+    const offers = offersOf({
+      ...base,
+      offersAggregate: {
+        availability: 'available',
+        pricing: 'donation',
+        price: { minCents: 0, maxCents: null, currency: 'EUR' },
+        links: null,
+      },
+    });
+
+    expect(offers.price).toBeUndefined();
+    expect(offers.priceCurrency).toBeUndefined();
+  });
+
+  it('reads the event status given as an object', () => {
+    expect(
+      offersOf({
+        ...base,
+        status: { id: 6, label: 'Annulé' },
+        offersAggregate: {
+          availability: 'salesClosed',
+          price: null,
+          links: null,
+        },
+      }),
+    ).toBeUndefined();
+    expect(
+      offersOf({
+        ...base,
+        status: { id: 5 },
+        offersAggregate: { availability: null, price: null, links: null },
+      }).availability,
+    ).toBe('https://schema.org/SoldOut');
+  });
+
+  it('an event without a catalogue keeps its registration-link offer', () => {
+    expect(offersOf(base)).toEqual({
+      '@type': 'Offer',
+      url: 'https://theatre.example/chers-parents',
+      availability: 'https://schema.org/InStock',
+    });
+    expect(offersOf({ ...base, status: 5 }).availability).toBe(
+      'https://schema.org/SoldOut',
+    );
+  });
+});

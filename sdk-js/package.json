@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@openagenda/intl": "^2.2.0",
+    "@openagenda/utils": "^2.4.0",
     "ky": "^1.14.0",
     "qs": "^6.10.3"
   },

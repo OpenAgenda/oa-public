@@ -6668,6 +6668,7 @@ __metadata:
     "@jest/globals": "npm:^30.4.1"
     "@openagenda/eslint-config": "npm:^2.3.0"
     "@openagenda/intl": "npm:^2.2.0"
+    "@openagenda/utils": "npm:^2.4.0"
     date-fns: "npm:^2.29.3"
     date-fns-tz: "npm:^2.0.0"
     jest: "npm:^30.4.2"
@@ -6710,7 +6711,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/utils@workspace:utils":
+"@openagenda/utils@npm:^2.4.0, @openagenda/utils@workspace:utils":
   version: 0.0.0-use.local
   resolution: "@openagenda/utils@workspace:utils"
   dependencies:
