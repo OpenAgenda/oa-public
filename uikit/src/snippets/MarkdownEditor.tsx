@@ -9,7 +9,7 @@ import {
   Input,
   useFieldContext,
 } from '@chakra-ui/react';
-import Link from '@tiptap/extension-link';
+import Link, { isAllowedUri } from '@tiptap/extension-link';
 import { ListItem, ListKeymap } from '@tiptap/extension-list';
 import { Placeholder } from '@tiptap/extensions';
 import { Markdown } from '@tiptap/markdown';
@@ -55,6 +55,7 @@ export interface MarkdownEditorLabels {
   linkUrl: string;
   linkApply: string;
   linkRemove: string;
+  linkInvalid: string;
 }
 
 // uikit has no translations: an app passes its own, these are the fallback
@@ -71,6 +72,7 @@ const DEFAULT_LABELS: MarkdownEditorLabels = {
   linkUrl: 'Web address',
   linkApply: 'Apply',
   linkRemove: 'Remove link',
+  linkInvalid: 'This address cannot be used as a link',
 };
 
 // A space, a parenthesis or an angle bracket left in the address would end
@@ -84,14 +86,17 @@ function encodeForMarkdown(href: string) {
 }
 
 // An address typed in the link box: an email address becomes a mailto:
-// link, one with a scheme (any, `webcal:` included) is kept, as are a path,
-// an anchor or a query; a bare host goes to the web, as `example.com` means.
-// A colon followed by a digit is a port (`example.com:8080`), not a scheme.
+// link, one with a scheme is kept, as are a path, an anchor or a query; a bare
+// host goes to the web, as `example.com` means. A colon followed by a digit
+// after a host is a port (`example.com:8080`, `localhost:3000`), not a scheme:
+// `tel:0612345678` keeps its own. Whether the scheme may be a link is
+// `isAllowedUri`'s call, made as the link is applied.
 export function normalizeHref(value: string) {
   const href = value.trim();
   if (!href) return href;
   if (/^[^\s@/:]+@[^\s@/]+\.[^\s@/]+$/.test(href)) return `mailto:${href}`;
-  if (/^[a-z][a-z0-9+.-]*:(?!\d)/i.test(href)) return href;
+  const port = /^(?:localhost|[^/:]*\.[^/:]*):\d/i.test(href);
+  if (!port && /^[a-z][a-z0-9+.-]*:/i.test(href)) return href;
   if (href.startsWith('//')) return `https:${href}`;
   if (/^[/#?]/.test(href)) return href;
   return `https://${href}`;
@@ -103,7 +108,7 @@ const MarkdownLink = Link.extend({
   inclusive: () => false,
   renderMarkdown: (node, h) => {
     const href = encodeForMarkdown(node.attrs?.href ?? '');
-    const title = (node.attrs?.title ?? '').replace(/"/g, '\\"');
+    const title = (node.attrs?.title ?? '').replace(/["\\]/g, '\\$&');
     const text = h.renderChildren(node);
     return title ? `[${text}](${href} "${title}")` : `[${text}](${href})`;
   },
@@ -159,6 +164,10 @@ function LinkControl({
 }) {
   const [open, setOpen] = React.useState(false);
   const [href, setHref] = React.useState('');
+  // An address no link may carry (`javascript:`, or a scheme tiptap refuses):
+  // the box stays open with the field in error, rather than closing as if the
+  // link were set
+  const [refused, setRefused] = React.useState(false);
   const refocusText = React.useRef(false);
   const escaped = React.useRef(false);
   const triggerRef = React.useRef<HTMLButtonElement | null>(null);
@@ -173,6 +182,12 @@ function LinkControl({
     // must not be submitted along
     event.stopPropagation();
     const url = normalizeHref(href);
+    // Checked before either path: inserted text would carry the mark without
+    // the check `setLink` makes, and `setLink` refuses without a word
+    if (url && !isAllowedUri(url)) {
+      setRefused(true);
+      return;
+    }
     const chain = editor.chain().focus().extendMarkRange('link');
     if (!url) {
       chain.unsetLink().run();
@@ -199,6 +214,7 @@ function LinkControl({
       open={open}
       onOpenChange={({ open: next }) => {
         if (next) setHref(editor.getAttributes('link').href ?? '');
+        setRefused(false);
         setOpen(next);
       }}
       positioning={{ placement: 'bottom-start' }}
@@ -235,7 +251,7 @@ function LinkControl({
           <form onSubmit={apply}>
             {/* A field of its own: the input must not take the editor's
                 field id, help, invalid or required state */}
-            <ChakraField.Root>
+            <ChakraField.Root invalid={refused}>
               <HStack gap="2">
                 <Input
                   size="sm"
@@ -244,12 +260,18 @@ function LinkControl({
                   aria-label={labels.linkUrl}
                   placeholder="https://"
                   value={href}
-                  onChange={(e) => setHref(e.target.value)}
+                  onChange={(e) => {
+                    setHref(e.target.value);
+                    setRefused(false);
+                  }}
                 />
                 <Button size="sm" type="submit" colorPalette="primary">
                   {labels.linkApply}
                 </Button>
               </HStack>
+              <ChakraField.ErrorText>
+                {labels.linkInvalid}
+              </ChakraField.ErrorText>
             </ChakraField.Root>
             {active ? (
               <Button
@@ -382,7 +404,9 @@ function Toolbar({
 
 export interface MarkdownEditorProps
   extends Omit<BoxProps, 'onChange' | 'defaultValue'> {
-  // Markdown, controlled
+  // Markdown, controlled. Shown again as it comes back at each render, so that
+  // a value the parent refuses is put back: a parent that hands it back later
+  // or transformed (debounced, trimmed) would overwrite what is being typed
   value?: string;
   defaultValue?: string;
   onChange?: (markdown: string) => void;
@@ -589,7 +613,9 @@ export const MarkdownEditor = React.forwardRef<
         <Toolbar
           editor={editor}
           labels={labels}
-          disabled={disabled}
+          // Read-only too: a tiptap command changes the document even when
+          // it is not editable
+          disabled={disabled || readOnly}
           fieldLabelId={labelId}
         />
       ) : null}
