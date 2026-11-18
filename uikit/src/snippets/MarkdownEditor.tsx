@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/react';
 import Link, { isAllowedUri } from '@tiptap/extension-link';
 import { ListItem, ListKeymap } from '@tiptap/extension-list';
+import Paragraph from '@tiptap/extension-paragraph';
 import { Placeholder } from '@tiptap/extensions';
 import { Markdown } from '@tiptap/markdown';
 import type { Editor, KeyboardShortcutCommand } from '@tiptap/react';
@@ -111,6 +112,34 @@ const MarkdownLink = Link.extend({
     const title = (node.attrs?.title ?? '').replace(/["\\]/g, '\\$&');
     const text = h.renderChildren(node);
     return title ? `[${text}](${href} "${title}")` : `[${text}](${href})`;
+  },
+});
+
+// A paragraph's line that markdown would read as the start of a block (`1. `,
+// `2026. `, `- `, `+ `, `# `, `---`, `===`) is escaped as it is written: typed
+// or pasted as plain text, it is a paragraph, and must be read back as one.
+// `>` and `*` are escaped by the markdown writer already.
+const BLOCK_MARKERS: [RegExp, string][] = [
+  [/^( {0,3})(#{1,6})(?=\s|$)/, '$1\\$2'],
+  [/^( {0,3})([-+])(?=\s|$)/, '$1\\$2'],
+  [/^( {0,3})(\d{1,9})([.)])(?=\s|$)/, '$1$2\\$3'],
+  [/^( {0,3})([-_=])(?=[-_=\s]*$)/, '$1\\$2'],
+];
+export function escapeBlockStarts(markdown: string) {
+  return markdown
+    .split('\n')
+    .map((line) =>
+      BLOCK_MARKERS.reduce(
+        (escaped, [marker, replacement]) =>
+          escaped.replace(marker, replacement),
+        line,
+      ))
+    .join('\n');
+}
+
+const MarkdownParagraph = Paragraph.extend({
+  renderMarkdown(node, h, ctx) {
+    return escapeBlockStarts(this.parent?.(node, h, ctx) ?? '');
   },
 });
 
@@ -478,11 +507,14 @@ export const MarkdownEditor = React.forwardRef<
 
         // Not markdown
         underline: false,
+        // Its markdown escaped, below
+        paragraph: false,
         // Without their Tab shortcut, below
         listItem: false,
         listKeymap: false,
         link: false,
       }),
+      MarkdownParagraph,
       MarkdownLink.configure({
         openOnClick: false,
         autolink: true,

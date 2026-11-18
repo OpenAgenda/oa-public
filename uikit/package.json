@@ -82,6 +82,7 @@
     "@tiptap/core": "3.33.0",
     "@tiptap/extension-link": "3.33.0",
     "@tiptap/extension-list": "3.33.0",
+    "@tiptap/extension-paragraph": "3.33.0",
     "@tiptap/extensions": "3.33.0",
     "@tiptap/markdown": "3.33.0",
     "@tiptap/pm": "3.33.0",
