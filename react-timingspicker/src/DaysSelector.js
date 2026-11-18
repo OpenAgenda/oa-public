@@ -9,6 +9,7 @@ import secondsToHeight from './utils/secondsToHeight.js';
 import splitSelection from './utils/splitSelection.js';
 import stepPositionToSelection from './utils/stepPositionToSelection.js';
 import valueToStepPosition from './utils/valueToStepPosition.js';
+import editedTiming, { isSameTiming } from './utils/editedTiming.js';
 import timingUtils from './utils/timing.js';
 
 const ONE_DAY = 60 * 60 * 24;
@@ -179,13 +180,7 @@ class DaysSelector extends Component {
     const { onChange } = this.props;
     const { value, reducedAllowedTimings } = this.state;
 
-    const filteredValue = value.filter(
-      (v) =>
-        !(
-          dateFns.isEqual(v.begin, valueToUpdate.begin)
-          && dateFns.isEqual(v.end, valueToUpdate.end)
-        ),
-    );
+    const filteredValue = value.filter((v) => !isSameTiming(v, valueToUpdate));
     const isDisabled = isDisabledTiming(
       submittedValue,
       filteredValue,
@@ -193,7 +188,10 @@ class DaysSelector extends Component {
     );
 
     if (!isDisabled) {
-      const newValue = [...filteredValue, submittedValue];
+      const newValue = [
+        ...filteredValue,
+        editedTiming(valueToUpdate, submittedValue),
+      ];
 
       if (typeof onChange === 'function') {
         onChange(newValue);
@@ -560,9 +558,7 @@ class DaysSelector extends Component {
 
     selectionMoving.end = normalizeEndOfTiming(selectionMoving.end);
 
-    const filteredValue = value.filter(
-      (v) => !(v.begin === valueToMove.begin && v.end === valueToMove.end),
-    );
+    const filteredValue = value.filter((v) => !isSameTiming(v, valueToMove));
     const isDisabled = isDisabledTiming(
       selectionMoving,
       filteredValue,
@@ -574,14 +570,15 @@ class DaysSelector extends Component {
       && (!dateFns.isEqual(selectionMoving.begin, valueToMove.begin)
         || !dateFns.isEqual(selectionMoving.end, valueToMove.end))
     ) {
-      const newValue = [...filteredValue, selectionMoving];
+      const moved = editedTiming(valueToMove, selectionMoving);
+      const newValue = [...filteredValue, moved];
 
       this.setState({
         value: newValue,
       });
 
       if (typeof onMove === 'function') {
-        onMove(selectionMoving, valueToMove);
+        onMove(moved, valueToMove);
       }
 
       if (typeof onChange === 'function') {
@@ -727,9 +724,7 @@ class DaysSelector extends Component {
         true,
       ),
     );
-    const filteredValue = value.filter(
-      (v) => !(v.begin === valueToResize.begin && v.end === valueToResize.end),
-    );
+    const filteredValue = value.filter((v) => !isSameTiming(v, valueToResize));
     const isDisabled = selection.some((item) =>
       isDisabledTiming(item, filteredValue, reducedAllowedTimings));
 
@@ -748,14 +743,18 @@ class DaysSelector extends Component {
         || !dateFns.isEqual(selection[0].begin, valueToResize.begin)
         || !dateFns.isEqual(selection[0].end, valueToResize.end))
     ) {
-      const newValue = [...filteredValue, ...selection];
+      // Split across days, the first part is the timing resized, the others
+      // are new.
+      const resized = selection.map((item, index) =>
+        (index ? item : editedTiming(valueToResize, item)));
+      const newValue = [...filteredValue, ...resized];
 
       this.setState({
         value: newValue,
       });
 
       if (typeof onResize === 'function') {
-        onResize(selection, valueToResize);
+        onResize(resized, valueToResize);
       }
 
       if (typeof onChange === 'function') {
@@ -793,9 +792,7 @@ class DaysSelector extends Component {
       return;
     }
 
-    const newValue = value.filter(
-      (v) => !(v.begin === valueToRemove.begin && v.end === valueToRemove.end),
-    );
+    const newValue = value.filter((v) => !isSameTiming(v, valueToRemove));
 
     this.setState({
       value: newValue,
@@ -942,6 +939,7 @@ class DaysSelector extends Component {
         selectionElems.push(
           TimingComponent({
             key: `${i}.${j}`,
+            id: timings[i].id,
             actual: timingBegin,
             first: j === 0,
             last: j === numberOfParts,
@@ -1008,7 +1006,17 @@ class DaysSelector extends Component {
 
         {this.renderTimings({
           value: value || null,
-          Component: ({ key, begin, end, top, left, height, first, last }) => (
+          Component: ({
+            key,
+            id,
+            begin,
+            end,
+            top,
+            left,
+            height,
+            first,
+            last,
+          }) => (
             <div
               key={`value-${key}`}
               className={classNames(`${classNamePrefix}value-timing`, {
@@ -1027,14 +1035,11 @@ class DaysSelector extends Component {
                 height: `${height}px`,
                 display:
                   !(
-                    valueToMove
-                    && begin === valueToMove.begin
-                    && end === valueToMove.end
+                    valueToMove && isSameTiming({ id, begin, end }, valueToMove)
                   )
                   && !(
                     valueToResize
-                    && begin === valueToResize.begin
-                    && end === valueToResize.end
+                    && isSameTiming({ id, begin, end }, valueToResize)
                   )
                     ? 'inline-block'
                     : 'none',
@@ -1115,16 +1120,10 @@ class DaysSelector extends Component {
 
         {this.renderTimings({
           value: selectionMoving,
-          disabled: value
-            ? value.filter(
-              (v) =>
-                !(
-                  valueToMove
-                    && v.begin === valueToMove.begin
-                    && v.end === valueToMove.end
-                ),
-            )
-            : value,
+          disabled:
+            value && valueToMove
+              ? value.filter((v) => !isSameTiming(v, valueToMove))
+              : value,
           Component: ({
             key,
             begin,
@@ -1177,16 +1176,10 @@ class DaysSelector extends Component {
 
         {this.renderTimings({
           value: selectionResizing,
-          disabled: value
-            ? value.filter(
-              (v) =>
-                !(
-                  valueToResize
-                    && v.begin === valueToResize.begin
-                    && v.end === valueToResize.end
-                ),
-            )
-            : value,
+          disabled:
+            value && valueToResize
+              ? value.filter((v) => !isSameTiming(v, valueToResize))
+              : value,
           Component: ({
             key,
             begin,

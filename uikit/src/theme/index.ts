@@ -3,7 +3,7 @@ import { globalCss } from './globalCss';
 import { recipes } from './recipes';
 import { slotRecipes } from './slotRecipes';
 import { semanticColors } from './semanticTokens/colors';
-import { semanticSpacing } from './semanticTokens/spacing';
+import { semanticRadii } from './semanticTokens/radii';
 import { colors } from './tokens/colors';
 import { cursor } from './tokens/cursor';
 import { fonts } from './tokens/fonts';
@@ -21,7 +21,7 @@ export const themeConfig = mergeConfigs(defaultConfig, {
     },
     semanticTokens: {
       colors: semanticColors,
-      spacing: semanticSpacing,
+      radii: semanticRadii,
     },
     recipes,
     slotRecipes,
