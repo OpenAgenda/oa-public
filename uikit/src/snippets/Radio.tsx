@@ -62,7 +62,8 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
           // Dimmed with the radio, disabled by itself, its group or its
           // fieldset
           data-disabled={
-            group.getItemState({ value: rest.value }).disabled || undefined
+            group.getItemState({ value: rest.value, disabled: rest.disabled })
+              .disabled || undefined
           }
         >
           {description}

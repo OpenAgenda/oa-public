@@ -121,7 +121,9 @@ export const PaginationPrevTrigger = React.forwardRef<
   const { previousPage } = usePaginationContext();
 
   // As links: named (an icon alone has no name), and a disabled button on
-  // the first page rather than an `a` without an address
+  // the first page rather than an `a` without an address. The default names
+  // are English, uikit having no translations: an app passes `aria-label` in
+  // the page's language
   if (getHref) {
     const label = props['aria-label'] ?? 'Previous page';
     return previousPage != null ? (
