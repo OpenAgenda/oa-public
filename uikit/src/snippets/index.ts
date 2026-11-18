@@ -17,6 +17,7 @@ export * from './Drawer';
 export * from './EmptyState';
 export * from './Field';
 export * from './FileUpload';
+export * from './FormSection';
 export * from './HoverCard';
 export * from './InputGroup';
 export * from './LinkButton';
