@@ -5,7 +5,6 @@ import { menuRecipe } from './recipes/menu';
 import { nativeSelectRecipe } from './recipes/native-select';
 import { radioCardRecipe } from './recipes/radio-card';
 import { radioGroupRecipe } from './recipes/radio-group';
-import { segmentGroupRecipe } from './recipes/segment-group';
 import { selectRecipe } from './recipes/select';
 import { blockquoteSlotRecipe } from './recipes/blocquoteSlot';
 import { listSlotRecipe } from './recipes/list';
@@ -18,7 +17,6 @@ export const slotRecipes = {
   nativeSelect: nativeSelectRecipe,
   radioCard: radioCardRecipe,
   radioGroup: radioGroupRecipe,
-  segmentGroup: segmentGroupRecipe,
   select: selectRecipe,
   list: listSlotRecipe,
   blockquote: blockquoteSlotRecipe,
