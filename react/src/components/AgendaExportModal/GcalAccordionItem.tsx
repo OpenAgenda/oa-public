@@ -1,6 +1,7 @@
 import { useIntl } from 'react-intl';
 import { Flex, H4, Input, Link, List } from '@openagenda/uikit';
 import AccordionItem from '../AccordionItem';
+import NewWindowHint from './NewWindowHint';
 import messages from './messages';
 import type { CompleteUrlsResult } from './types';
 
@@ -30,6 +31,7 @@ export default function GcalAccordionItem({
                   rel="noopener nofollow"
                 >
                   Google Calendar
+                  <NewWindowHint />
                 </Link>
               ),
             })}

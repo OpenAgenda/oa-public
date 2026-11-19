@@ -222,6 +222,7 @@ export default function Body({
 
       <Bleed inline="6">
         <AccordionRoot
+          size="sm"
           as="form"
           collapsible
           defaultValue={

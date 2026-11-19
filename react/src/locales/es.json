@@ -33,6 +33,7 @@
   "react.components.AgendaExportModal.inputFormat": "Elige un formato",
   "react.components.AgendaExportModal.instructions": "Instrucciones",
   "react.components.AgendaExportModal.login": "Inicie sesión para acceder al enlace de exportación directamente desde este menú",
+  "react.components.AgendaExportModal.newWindow": "(se abre en una nueva ventana)",
   "react.components.AgendaExportModal.selectAll": "Seleccionar todo",
   "react.components.AgendaExportModal.title": "Exportar",
   "react.components.EventShareModal.byEmailSub": "El evento no se enviará a más de 50 destinatarios",

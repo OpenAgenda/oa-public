@@ -40,6 +40,7 @@
   "react.components.AgendaExportModal.instructionsCopyLink": "Copiare il link nel campo qui sopra e aprirlo {link}",
   "react.components.AgendaExportModal.login": "Si prega di effettuare il login per accedere al link di esportazione direttamente da questo menu",
   "react.components.AgendaExportModal.new": "Nuovo",
+  "react.components.AgendaExportModal.newWindow": "(si apre in una nuova finestra)",
   "react.components.AgendaExportModal.outlookStep2": "In fondo alla pagina, seleziona l'icona del calendario",
   "react.components.AgendaExportModal.outlookStep3": "Nel pannello di navigazione, seleziona \"Aggiungi calendario\"",
   "react.components.AgendaExportModal.outlookStep4": "Selezionare \"Iscriviti dal web\"",
