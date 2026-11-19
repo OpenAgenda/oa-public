@@ -202,8 +202,29 @@ describe('13 - schema.org', () => {
       expect(parsed.offers.availability).toBe('https://schema.org/SoldOut');
     });
 
-    it('offers.availability comes from the catalogue', () => {
-      expect(ticketed.offers.availability).toBe('https://schema.org/InStock');
+    it('a date with no rows of its own claims nothing, whatever the event summary says', () => {
+      expect(ticketed.offers.availability).toBeUndefined();
+    });
+
+    it("the event list's first-to-last span reads the event summary", () => {
+      const parsed = JSON.parse(
+        getTimingJSONLD(
+          {
+            ...event,
+            status: 1,
+            offersAggregate: {
+              availability: 'limited',
+              price: null,
+              links: null,
+            },
+          },
+          upcoming,
+          'Europe/Paris',
+          { wholeEvent: true },
+        ),
+      );
+
+      expect(parsed.offers.availability).toBe('https://schema.org/InStock');
     });
   });
 });
