@@ -8,7 +8,8 @@ function getEventAttendanceMode(attendanceMode) {
       1: 'OfflineEventAttendanceMode',
       2: 'OnlineEventAttendanceMode',
       3: 'MixedEventAttendanceMode',
-    }[attendanceMode?.id ?? attendanceMode] ?? 'OfflineEventAttendanceMode'
+    }[Number(attendanceMode?.id ?? attendanceMode)]
+    ?? 'OfflineEventAttendanceMode'
   );
 }
 
@@ -21,7 +22,7 @@ function getEventStatus(status) {
       4: 'EventPostponed',
       5: 'EventScheduled', // but full.
       6: 'EventCancelled',
-    }[status?.id ?? status] ?? 'EventScheduled'
+    }[Number(status?.id ?? status)] ?? 'EventScheduled'
   );
 }
 
@@ -31,30 +32,67 @@ function getEventStatus(status) {
 // Every other answer has no honest equivalent and leaves `availability` out:
 // `notYetOnSale` is not a preorder (Google: omit it until the sale opens),
 // `salesClosed` is not sold out, and `mixed` / `unknown` say the dates or the
-// sources disagree.
-const TICKETING_AVAILABILITY = {
-  available: 'InStock',
-  limited: 'InStock',
-  soldOut: 'SoldOut',
-};
+// sources disagree. A Map, so that an unexpected value such as `constructor`
+// cannot resolve to something inherited.
+const TICKETING_AVAILABILITY = new Map([
+  ['available', 'InStock'],
+  ['limited', 'InStock'],
+  ['soldOut', 'SoldOut'],
+]);
+
+// The statuses a resolved row may carry. A row outside them is not a row,
+// which is how the event page reads them too (`isRow` in packages/next).
+const ROW_STATUSES = new Set([
+  'available',
+  'limited',
+  'soldOut',
+  'notYetOnSale',
+  'salesClosed',
+  'unknown',
+]);
+
+const SELLING = new Set(['available', 'limited']);
 
 // Event status ids (`status` in the event schema).
 const FULL = 5;
 const CANCELLED = 6;
 
-const SELLING = new Set(['available', 'limited']);
-
 function getRegistrationLink(event) {
   return event.registration?.find((r) => r.type === 'link')?.value;
 }
 
-// `status` arrives as an id or as `{ id, label }`, as everywhere in this file.
-const statusOf = (event) => event.status?.id ?? event.status;
+// `status` arrives as an id, a numeric string, or `{ id, label }`; the server
+// compares it the same way (`Number(value) === expected`).
+const statusIs = (event, expected) =>
+  Number(event.status?.id ?? event.status) === expected;
 
-// The parser the server's own summary uses. An end it cannot read leaves the
-// date counted, as the summary does: dropping a date silently is the harder
-// failure to notice.
-const isPast = (timing, now) => {
+// `now` is an instant: epoch milliseconds or a Date, the current time when
+// absent. Anything else is a caller's mistake, and guessing would date every
+// offer wrongly.
+function toNow(now) {
+  if (now === undefined || now === null) {
+    return Date.now();
+  }
+
+  const ms = now instanceof Date ? now.getTime() : now;
+
+  if (typeof ms !== 'number' || Number.isNaN(ms)) {
+    throw new TypeError(
+      'toEventSchema: `now` must be epoch milliseconds or a Date',
+    );
+  }
+
+  return ms;
+}
+
+// The parser the server's own summary uses. The read always serves an end
+// with its offset; an end that cannot be read leaves the date counted, as the
+// summary does: dropping a date silently is the harder failure to notice.
+function isPast(timing, now) {
+  if (typeof timing.end === 'number') {
+    return timing.end < now;
+  }
+
   try {
     const end = toInstant(timing.end);
 
@@ -62,69 +100,75 @@ const isPast = (timing, now) => {
   } catch {
     return false;
   }
-};
+}
+
+const rowsOf = (timing) =>
+  (Array.isArray(timing.availability) ? timing.availability : []).filter(
+    (row) => row && typeof row === 'object' && ROW_STATUSES.has(row.status),
+  );
 
 // One date's own rows, already resolved by the read, rolled up the way the
-// summary rolls dates up: one source with tickets is enough, sold out needs
+// event page rolls them up: one source with tickets is enough, sold out needs
 // them all.
 function rowsAvailability(rows) {
-  const statuses = rows
-    .filter((row) => row && typeof row === 'object')
-    .map((row) => row.status);
-
-  if (statuses.some((s) => SELLING.has(s))) {
+  if (rows.some((row) => SELLING.has(row.status))) {
     return 'InStock';
   }
 
-  if (statuses.length && statuses.every((s) => s === 'soldOut')) {
+  if (rows.length && rows.every((row) => row.status === 'soldOut')) {
     return 'SoldOut';
   }
 
   return undefined;
 }
 
-// A schema describing ONE date reads that date's rows. The summary answers for
-// the whole event, and its `available` means "some date has tickets": true of
-// the event, false of a sold-out date, which is what the portal renders when
-// it emits one schema per timing. A past date has nothing left to sell, as the
-// summary itself leaves past dates out. A full event is sold out whatever the
-// rows say, even when there are none.
-function getTicketingAvailability(event, now) {
-  const { timings, offersAggregate: aggregate } = event;
-  const date = timings.length === 1 ? timings[0] : null;
-
-  if (date && isPast(date, now)) {
-    return undefined;
-  }
-
-  if (statusOf(event) === FULL) {
+// A schema describing ONE date (`timing`, passed by the caller) speaks from
+// that date's rows only: no rows, nothing said — never the event summary,
+// whose `available` means "some date has tickets", true of the event and
+// false of a given date. Without `timing`, the schema describes the whole
+// event and reads the summary. A full event is sold out either way, even with
+// no rows.
+function getTicketingAvailability(event, timing) {
+  if (statusIs(event, FULL)) {
     return 'SoldOut';
   }
 
-  if (Array.isArray(date?.availability)) {
-    return rowsAvailability(date.availability);
+  if (timing) {
+    return rowsAvailability(rowsOf(timing));
   }
 
-  return TICKETING_AVAILABILITY[aggregate.availability];
+  return TICKETING_AVAILABILITY.get(event.offersAggregate.availability);
 }
 
-// The booking page: on a single date, the date's own page when a source sets
-// one (the read joins it onto that source's row as `bookingUrl`), preferring a
-// source that still sells; otherwise the first source of the catalogue. A
-// cancelled event keeps no booking link: the read withdraws the catalogue's,
-// and the organiser's would sell a show that no longer takes place.
-function getTicketingUrl(event) {
-  const { timings, offersAggregate: aggregate } = event;
-  const rows = timings.length === 1 && Array.isArray(timings[0].availability)
-    ? timings[0].availability.filter((row) => row?.bookingUrl)
-    : [];
+// The booking page follows whoever sells. On a date: the first source that
+// still sells and has a page for it — its page for the date (the read joins
+// it onto its row as `bookingUrl`), else its catalogue link; when nothing
+// sells, any page the date has; with no row to go on, the catalogue's link
+// only when there is a single source, since with several any of them may not
+// sell this date. For the whole event, the catalogue's first link: the
+// summary does not say which source sells, so with several sources this one
+// may not be it.
+function getTicketingUrl(event, timing) {
+  const { links } = event.offersAggregate;
+  const linkOf = (provider) => links?.find((l) => l.provider === provider)?.url;
 
-  return (
-    rows.find((row) => SELLING.has(row.status))?.bookingUrl
-    ?? rows[0]?.bookingUrl
-    ?? aggregate.links?.[0]?.url
-    ?? (statusOf(event) === CANCELLED ? undefined : getRegistrationLink(event))
-  );
+  if (timing) {
+    const rows = rowsOf(timing);
+    const selling = rows.filter((row) => SELLING.has(row.status));
+
+    if (selling.length) {
+      return selling
+        .map((row) => row.bookingUrl ?? linkOf(row.provider))
+        .find(Boolean);
+    }
+
+    return (
+      rows.find((row) => row.bookingUrl)?.bookingUrl
+      ?? (links?.length === 1 ? links[0].url : undefined)
+    );
+  }
+
+  return links?.[0]?.url ?? getRegistrationLink(event);
 }
 
 // An event with a ticketing catalogue speaks from it, and only from it: its
@@ -132,14 +176,16 @@ function getTicketingUrl(event) {
 // without one is given. `price` is the cheapest way in, which is what Google
 // asks for ("the lowest available price"), converted with the currency's own
 // exponent since amounts are in minor units. It is the event's: the read
-// serves no price per date. A zero that is not a free event — the floor of a
-// pay-what-you-want tier — is left out, since Google reads 0 as free.
-function getTicketingOffer(event, now) {
+// serves no price per date. A zero that is not a free event is left out,
+// because Google reads 0 as free: that zero is the floor of a pay-what-you-want
+// tier, or a free tier beside paid ones (a child goes free, an adult pays 15),
+// and the summary carries no cheapest PAID price to publish instead.
+function getTicketingOffer(event, timing) {
   const { offersAggregate: aggregate } = event;
 
   const offer = { '@type': 'Offer' };
 
-  const url = getTicketingUrl(event);
+  const url = getTicketingUrl(event, timing);
   if (url) {
     offer.url = url;
   }
@@ -155,7 +201,7 @@ function getTicketingOffer(event, now) {
     offer.priceCurrency = price.currency;
   }
 
-  const availability = getTicketingAvailability(event, now);
+  const availability = getTicketingAvailability(event, timing);
   if (availability) {
     offer.availability = `https://schema.org/${availability}`;
   }
@@ -163,9 +209,20 @@ function getTicketingOffer(event, now) {
   return Object.keys(offer).length > 1 ? offer : null;
 }
 
-function getOffer(event, now) {
+// A cancelled event offers nothing: no price, no booking link, no stock. Its
+// `eventStatus` already says it is cancelled. Nor does a past date of an event
+// with a catalogue: there is nothing left to buy for it, as the event summary
+// itself leaves past dates out. An event without one keeps the offer it always
+// had, past dates included.
+function getOffer(event, timing, now) {
+  if (statusIs(event, CANCELLED)) {
+    return null;
+  }
+
   if (event.offersAggregate) {
-    return getTicketingOffer(event, now);
+    return timing && isPast(timing, now)
+      ? null
+      : getTicketingOffer(event, timing);
   }
 
   const url = getRegistrationLink(event);
@@ -174,7 +231,7 @@ function getOffer(event, now) {
     ? {
       '@type': 'Offer',
       url,
-      availability: `https://schema.org/${statusOf(event) === FULL ? 'SoldOut' : 'InStock'}`,
+      availability: `https://schema.org/${statusIs(event, FULL) ? 'SoldOut' : 'InStock'}`,
     }
     : null;
 }
@@ -189,11 +246,15 @@ function imageToUrl(image, type) {
   return `${image.base}${variant.filename}`;
 }
 
+// `timing`, when given, makes the schema describe that one date of the event
+// (its dates, its availability, its booking page) rather than the whole event.
+// `now` (epoch milliseconds or a Date) is the instant a date is judged past
+// against.
 export default function toEventSchema(
   event,
-  { url, locale, defaultLocale = DEFAULT_LANG, formatDate, now = Date.now() },
+  { url, locale, defaultLocale = DEFAULT_LANG, formatDate, timing, now },
 ) {
-  const { timings } = event;
+  const timings = timing ? [timing] : event.timings;
 
   const { begin } = timings[0];
   const { end } = timings.at(-1);
@@ -211,7 +272,7 @@ export default function toEventSchema(
     eventStatus: `https://schema.org/${getEventStatus(event.status)}`,
   };
 
-  const offer = getOffer(event, now);
+  const offer = getOffer(event, timing, toNow(now));
   if (offer) {
     eventSchema.offers = offer;
   }
