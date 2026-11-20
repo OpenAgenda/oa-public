@@ -1,4 +1,5 @@
 import getTimingJSONLD from '../lib/timings/getSchemaJSONLD.js';
+import deprecatedToEventSchema from '../lib/timings/toEventSchema.js';
 
 describe('13 - schema.org', () => {
   const event = {
@@ -225,6 +226,59 @@ describe('13 - schema.org', () => {
       );
 
       expect(parsed.offers.availability).toBe('https://schema.org/InStock');
+    });
+  });
+
+  // The old path's callers pass the event cut down to one date: it is read as
+  // that date, not as an event whose summary speaks for its other dates.
+  describe('the deprecated toEventSchema path', () => {
+    const formatDate = (date) => new Date(date).toISOString();
+    const cut = {
+      ...event,
+      status: 1,
+      offersAggregate: {
+        availability: 'available',
+        pricing: 'paid',
+        price: null,
+        links: null,
+      },
+      timings: [
+        {
+          begin: '2099-06-15T06:30:00.000Z',
+          end: '2099-06-15T07:30:00.000Z',
+        },
+      ],
+    };
+
+    it("reads a one-date event as that date, not the event's summary", () => {
+      expect(
+        deprecatedToEventSchema(cut, { formatDate }).offers,
+      ).not.toHaveProperty('availability');
+    });
+
+    it('keeps an explicit null `timing`: the whole event', () => {
+      expect(
+        deprecatedToEventSchema(cut, { formatDate, timing: null }).offers
+          .availability,
+      ).toBe('https://schema.org/InStock');
+    });
+
+    it('reads an undefined `timing` as none given', () => {
+      expect(
+        deprecatedToEventSchema(cut, { formatDate, timing: undefined }).offers,
+      ).not.toHaveProperty('availability');
+    });
+
+    it('keeps an explicit `timing`', () => {
+      const soldOut = {
+        ...cut.timings[0],
+        availability: [{ provider: 'mapado', status: 'soldOut' }],
+      };
+
+      expect(
+        deprecatedToEventSchema(cut, { formatDate, timing: soldOut }).offers
+          .availability,
+      ).toBe('https://schema.org/SoldOut');
     });
   });
 });
