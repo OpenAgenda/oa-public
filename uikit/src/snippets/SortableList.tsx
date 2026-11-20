@@ -29,7 +29,12 @@ import { LuGripVertical } from 'react-icons/lu';
 
 export interface SortableListItem {
   id: string;
+  // The row's name: what it shows, unless `content` is given, and what the
+  // handle and the announcements call it
   label: string;
+  // What the row shows in place of its label: a head that opens on details,
+  // a title with its icons…
+  content?: React.ReactNode;
 }
 
 export interface SortableListLabels {
@@ -89,7 +94,8 @@ function SortableRow({
     <chakra.li
       ref={setNodeRef}
       display="flex"
-      alignItems="center"
+      // the handle stays by the first line of a row that grows
+      alignItems={item.content !== undefined ? 'flex-start' : 'center'}
       gap="2"
       ps="1"
       pe="3"
@@ -128,9 +134,15 @@ function SortableRow({
       >
         <LuGripVertical aria-hidden />
       </IconButton>
-      <Text flex="1" textStyle="sm">
-        {item.label}
-      </Text>
+      {item.content !== undefined ? (
+        <chakra.div flex="1" minW="0">
+          {item.content}
+        </chakra.div>
+      ) : (
+        <Text flex="1" textStyle="sm">
+          {item.label}
+        </Text>
+      )}
       {actions ? (
         <chakra.div data-sortable-actions="" display="flex" gap="1">
           {actions}
