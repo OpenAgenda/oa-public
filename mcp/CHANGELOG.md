@@ -1,5 +1,14 @@
 # @openagenda/mcp
 
+## 1.6.1
+
+### Patch Changes
+
+- [#926](https://github.com/OpenAgenda/oa/pull/926) [`244169f`](https://github.com/OpenAgenda/oa/commit/244169ff2e648af3392ceed8c2f1eadcd664d2f6) Thanks [@kaore](https://github.com/kaore)! - Bump `@modelcontextprotocol/sdk` to 1.32.2.
+
+- Updated dependencies [[`804c6a4`](https://github.com/OpenAgenda/oa/commit/804c6a4fa04d7b9e1ba66c56a996d48f72a83171), [`30c7b43`](https://github.com/OpenAgenda/oa/commit/30c7b43716501e5c8e513bfbc1aa296e7ad3ed2b), [`1ae89c1`](https://github.com/OpenAgenda/oa/commit/1ae89c11f9f8fc742d80102436936ab1bea508a5)]:
+  - @openagenda/api-spec@0.10.0
+
 ## 1.6.0
 
 ### Minor Changes

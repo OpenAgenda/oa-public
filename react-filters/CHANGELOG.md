@@ -1,5 +1,12 @@
 # Change Log
 
+## 3.3.1
+
+### Patch Changes
+
+- Updated dependencies [[`3b0411c`](https://github.com/OpenAgenda/oa/commit/3b0411cdce78122d968d78f5195bab272e8c8d6f)]:
+  - @openagenda/react-shared@3.2.4
+
 ## 3.3.0
 
 ### Minor Changes

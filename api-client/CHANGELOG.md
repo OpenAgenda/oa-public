@@ -1,5 +1,29 @@
 # @openagenda/api-client
 
+## 0.10.0
+
+### Minor Changes
+
+- [#676](https://github.com/OpenAgenda/oa/pull/676) [`f055426`](https://github.com/OpenAgenda/oa/commit/f055426154e8aa70c3e2f53a730f9197d26aba9a) Thanks [@clement180](https://github.com/clement180)! - Regenerated from the contract: `Event.offers` and the `OffersSource` /
+  `OffersTier` types, with the JSDoc the spec carries — including the one
+  trade-off a consumer has to know about, that a tier's `label` is absent unless
+  the event was read on its own.
+
+  New types and one new optional readonly property; nothing existing changed
+  shape.
+
+- [#739](https://github.com/OpenAgenda/oa/pull/739) [`f0f7058`](https://github.com/OpenAgenda/oa/commit/f0f705854240d3d41a9812e300d7abf6dbd1688e) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Regenerated from the contract: the write operations type their `429`
+  response, and the error `code` takes `too_many_requests`.
+
+### Patch Changes
+
+- [#677](https://github.com/OpenAgenda/oa/pull/677) [`c43fcc9`](https://github.com/OpenAgenda/oa/commit/c43fcc918a50bffdef5b8c84e521b0d2b67ddb57) Thanks [@clement180](https://github.com/clement180)! - Regenerated from the contract: the `OffersAggregate.links` JSDoc now says where
+  the per-date booking URL lives — the **v2** read joins it onto the matching
+  availability row — and why this API strips it rather than serving a field
+  `TimingAvailability` does not declare.
+
+  Documentation only; no type changes.
+
 ## 0.9.0
 
 ### Minor Changes
