@@ -1,6 +1,7 @@
 import { getLocaleValue, DEFAULT_LANG } from '@openagenda/intl';
 import { isCurrencyCode, toMajor } from '@openagenda/utils/iso4217';
 import { toInstant } from '@openagenda/utils/isoDatetime';
+import { httpUrl, providerBookingUrl, rowBookingUrl } from './bookingLinks.js';
 
 function getEventAttendanceMode(attendanceMode) {
   return (
@@ -57,8 +58,15 @@ const SELLING = new Set(['available', 'limited']);
 const FULL = 5;
 const CANCELLED = 6;
 
-function getRegistrationLink(event) {
-  return event.registration?.find((r) => r.type === 'link')?.value;
+// The first registration link worth linking to: an absolute http(s) URL,
+// like every booking link. A link the page cannot vouch for is left out: the
+// write cleans links into that shape, and guessing a scheme for the rest turns
+// a relative path or a phone number into an address Google would follow.
+function getRegistrationLink(event, excluded = new Set()) {
+  return event.registration
+    ?.filter((r) => r?.type === 'link' && !excluded.has(r.value))
+    .map((r) => httpUrl(r.value))
+    .find(Boolean);
 }
 
 // `status` arrives as an id, a numeric string, or `{ id, label }`; the server
@@ -140,35 +148,65 @@ function getTicketingAvailability(event, timing) {
   return TICKETING_AVAILABILITY.get(event.offersAggregate.availability);
 }
 
-// The booking page follows whoever sells. On a date: the first source that
-// still sells and has a page for it — its page for the date (the read joins
-// it onto its row as `bookingUrl`), else its catalogue link; when nothing
-// sells, any page the date has; with no row to go on, the catalogue's link
-// only when there is a single source, since with several any of them may not
-// sell this date. For the whole event, the catalogue's first link: the
-// summary does not say which source sells, so with several sources this one
-// may not be it.
+// The organiser's own registration link: the first one that is not a
+// catalogue link. The read appends each ticketing source's link to
+// `registration` after the stored entries, so the first link of an event
+// without one of its own is a source's, which may not sell a given date.
+function getOwnRegistrationLink(event) {
+  return getRegistrationLink(
+    event,
+    new Set((event.offersAggregate?.links ?? []).map((link) => link?.url)),
+  );
+}
+
+// The booking page follows whoever sells, by the rule the event page applies
+// (`rowBookingUrl`: the date's own page, else the provider's catalogue link
+// unless it sells through two shops). On a date: the first selling row with a
+// link; when nothing sells, the first row with one; with no row to go on, the
+// catalogue's link only when there is a single source, since with several any
+// of them may not sell this date. Last, the organiser's own registration link,
+// which holds for every date. For the whole event, the first catalogue link
+// the event page would give too: the summary does not say which source sells,
+// so with several sources this one may not be it.
+// The catalogue's link when every source points at the same shop.
+function soleShopUrl(links) {
+  const urls = (Array.isArray(links) ? links : [])
+    .map((link) => httpUrl(link?.url))
+    .filter(Boolean);
+
+  return urls.length && new Set(urls.map((url) => new URL(url).href)).size === 1
+    ? urls[0]
+    : null;
+}
+
 function getTicketingUrl(event, timing) {
   const { links } = event.offersAggregate;
-  const linkOf = (provider) => links?.find((l) => l.provider === provider)?.url;
 
   if (timing) {
     const rows = rowsOf(timing);
     const selling = rows.filter((row) => SELLING.has(row.status));
 
-    if (selling.length) {
-      return selling
-        .map((row) => row.bookingUrl ?? linkOf(row.provider))
-        .find(Boolean);
-    }
+    // With no row, "a single source" is a single shop: the same URL listed
+    // twice by two sources is one.
+    const fromRows = rows.length
+      ? (selling.length ? selling : rows)
+        .map((row) => rowBookingUrl(row, links)?.url)
+        .find(Boolean)
+      : soleShopUrl(links);
 
-    return (
-      rows.find((row) => row.bookingUrl)?.bookingUrl
-      ?? (links?.length === 1 ? links[0].url : undefined)
-    );
+    return fromRows ?? getOwnRegistrationLink(event);
   }
 
-  return links?.[0]?.url ?? getRegistrationLink(event);
+  // The first source's link the event page would give too: not one of a
+  // provider's two shops. Then the organiser's own link, never a source's the
+  // read appended to `registration`, for the same reason.
+  const first = Array.isArray(links)
+    ? links
+      .map((link) => providerBookingUrl(links, link?.provider))
+      .find(Boolean)
+    : null;
+
+  return first ?? getOwnRegistrationLink(event);
 }
 
 // An event with a ticketing catalogue speaks from it, and only from it: its
@@ -236,14 +274,33 @@ function getOffer(event, timing, now) {
     : null;
 }
 
-function imageToUrl(image, type) {
+// An image address, absolute: a protocol-relative one (`//cdn…`) is read as
+// https, the only scheme the CDN serves.
+const imageUrl = (value) =>
+  (typeof value === 'string' && value.startsWith('//')
+    ? httpUrl(`https:${value}`)
+    : httpUrl(value));
+
+function imageToUrl(image) {
   if (!image) return;
 
-  const variant = typeof type === 'string'
-    ? (image.variants?.find((img) => img.type === type) ?? image)
-    : image;
+  // Some reads still serve the image as a plain URL.
+  if (typeof image === 'string') {
+    return imageUrl(image) ?? undefined;
+  }
 
-  return `${image.base}${variant.filename}`;
+  // The responsive shape (`includeResponsiveImage`, which the event page asks
+  // for) carries a ready rendition as `src` and no `base` / `filename`.
+  const src = imageUrl(image.src);
+  if (src) {
+    return src;
+  }
+
+  if (typeof image.base !== 'string' || typeof image.filename !== 'string') {
+    return;
+  }
+
+  return imageUrl(`${image.base}${image.filename}`) ?? undefined;
 }
 
 // `timing`, when given, makes the schema describe that one date of the event
@@ -252,7 +309,16 @@ function imageToUrl(image, type) {
 // against.
 export default function toEventSchema(
   event,
-  { url, locale, defaultLocale = DEFAULT_LANG, formatDate, timing, now },
+  {
+    url,
+    locale,
+    defaultLocale = DEFAULT_LANG,
+    formatDate,
+    // Defaults spelled out: TypeScript callers infer this signature from the
+    // destructuring, and an option without one reads as required.
+    timing = undefined,
+    now = undefined,
+  },
 ) {
   const timings = timing ? [timing] : event.timings;
 
@@ -282,8 +348,9 @@ export default function toEventSchema(
     eventSchema.url = url;
   }
 
-  if (event.image) {
-    eventSchema.image = imageToUrl(event.image);
+  const image = imageToUrl(event.image);
+  if (image) {
+    eventSchema.image = image;
   }
 
   if (event.location) {

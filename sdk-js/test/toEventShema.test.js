@@ -504,6 +504,80 @@ describe('toEventSchema', () => {
   });
 });
 
+describe('toEventSchema - image', () => {
+  const event = {
+    title: { fr: 'x' },
+    timings: [
+      { begin: '2099-12-05T20:00:00+01:00', end: '2099-12-05T22:00:00+01:00' },
+    ],
+  };
+
+  // The event page reads with `includeResponsiveImage`.
+  it('reads the responsive shape', () => {
+    expect(
+      toEventSchema(
+        {
+          ...event,
+          image: { src: 'https://img.example/u/800x0/a.jpg', srcset: [] },
+        },
+        { formatDate },
+      ).image,
+    ).toBe('https://img.example/u/800x0/a.jpg');
+  });
+
+  it('reads the stored descriptor', () => {
+    expect(
+      toEventSchema(
+        {
+          ...event,
+          image: { base: 'https://cdn.example/', filename: 'a.jpg' },
+        },
+        { formatDate },
+      ).image,
+    ).toBe('https://cdn.example/a.jpg');
+  });
+
+  it('reads an image served as a plain URL', () => {
+    expect(
+      toEventSchema(
+        { ...event, image: 'https://cdn.example/a.jpg' },
+        { formatDate },
+      ).image,
+    ).toBe('https://cdn.example/a.jpg');
+  });
+
+  it('reads a protocol-relative `src` as https', () => {
+    expect(
+      toEventSchema(
+        { ...event, image: { src: '//img.example/a.jpg' } },
+        { formatDate },
+      ).image,
+    ).toBe('https://img.example/a.jpg');
+  });
+
+  it('falls back on the descriptor when `src` cannot be read', () => {
+    expect(
+      toEventSchema(
+        {
+          ...event,
+          image: {
+            src: 'not a url',
+            base: 'https://cdn.example/',
+            filename: 'a.jpg',
+          },
+        },
+        { formatDate },
+      ).image,
+    ).toBe('https://cdn.example/a.jpg');
+  });
+
+  it('leaves out an image it cannot read', () => {
+    expect(
+      toEventSchema({ ...event, image: { width: 10 } }, { formatDate }),
+    ).not.toHaveProperty('image');
+  });
+});
+
 describe('toEventSchema - ticketing offers', () => {
   const date = {
     begin: '2099-12-05T20:00:00+01:00',
@@ -691,6 +765,22 @@ describe('toEventSchema - ticketing offers', () => {
       ).toBe('https://schema.org/InStock');
     });
 
+    it("skips a provider's two shops for the event's link", () => {
+      expect(
+        offersOf({
+          ...base,
+          registration: [],
+          offersAggregate: summary({
+            links: [
+              { provider: 'billetweb', url: 'https://billetweb.fr/a' },
+              { provider: 'billetweb', url: 'https://billetweb.fr/b' },
+              { provider: 'mapado', url: 'https://theatre.mapado.com/1' },
+            ],
+          }),
+        }).url,
+      ).toBe('https://theatre.mapado.com/1');
+    });
+
     it('emits no offer when the summary says nothing and there is no link', () => {
       expect(
         offersOf({
@@ -742,8 +832,15 @@ describe('toEventSchema - ticketing offers', () => {
       ['no rows at all', undefined],
       ['an empty list', []],
     ])('with %s says nothing, never the summary', (_, availability) => {
-      // No stock, no safe link (two sources), no price: no offer at all.
-      expect(dateOffersOf(event, { ...date, availability })).toBeUndefined();
+      // No stock and no catalogue link (two sources may sell): only the
+      // organiser's own link, which holds for every date.
+      expect(dateOffersOf(event, { ...date, availability })).toEqual({
+        '@type': 'Offer',
+        url: 'https://theatre.example/chers-parents',
+      });
+      expect(
+        dateOffersOf({ ...event, registration: [] }, { ...date, availability }),
+      ).toBeUndefined();
     });
 
     it('ignores rows outside the status list, as the event page does', () => {
@@ -813,7 +910,132 @@ describe('toEventSchema - ticketing offers', () => {
     });
 
     it('with no rows, borrows no catalogue link when several sources may sell', () => {
-      expect(dateOffersOf(event, { ...date })).toBeUndefined();
+      expect(dateOffersOf(event, { ...date }).url).toBe(
+        'https://theatre.example/chers-parents',
+      );
+    });
+
+    // The read appends each source's link to `registration`: with no link of
+    // the organiser's own, the first one is a source's, which may not sell
+    // this date.
+    it("falls back on the organiser's own link only, never a source's", () => {
+      expect(
+        dateOffersOf(
+          {
+            ...event,
+            registration: [
+              { type: 'link', value: 'https://billetweb.fr/a' },
+              { type: 'link', value: 'https://theatre.mapado.com/event/1' },
+            ],
+          },
+          { ...date },
+        ),
+      ).toBeUndefined();
+    });
+
+    it('gives no catalogue link when the provider sells through two shops', () => {
+      const offers = dateOffersOf(
+        {
+          ...event,
+          registration: [],
+          offersAggregate: {
+            ...event.offersAggregate,
+            links: [
+              { provider: 'billetweb', url: 'https://billetweb.fr/a' },
+              { provider: 'billetweb', url: 'https://billetweb.fr/b' },
+            ],
+          },
+        },
+        {
+          ...date,
+          availability: [{ provider: 'billetweb', status: 'available' }],
+        },
+      );
+
+      expect(offers.url).toBeUndefined();
+      expect(offers.availability).toBe('https://schema.org/InStock');
+    });
+
+    // The single catalogue link stands for "the" source only when the date
+    // has no rows: a row from another provider says that one is not it.
+    it("keeps its provider's catalogue link when nothing sells", () => {
+      expect(
+        dateOffersOf(
+          {
+            ...event,
+            registration: [],
+            offersAggregate: {
+              ...event.offersAggregate,
+              links: [
+                { provider: 'mapado', url: 'https://theatre.mapado.com/1' },
+              ],
+            },
+          },
+          {
+            ...date,
+            availability: [{ provider: 'mapado', status: 'soldOut' }],
+          },
+        ).url,
+      ).toBe('https://theatre.mapado.com/1');
+    });
+
+    it("borrows no lone catalogue link when the date's rows name another provider", () => {
+      expect(
+        dateOffersOf(
+          {
+            ...event,
+            registration: [],
+            offersAggregate: {
+              ...event.offersAggregate,
+              links: [
+                { provider: 'mapado', url: 'https://theatre.mapado.com/1' },
+              ],
+            },
+          },
+          {
+            ...date,
+            availability: [{ provider: 'billetweb', status: 'soldOut' }],
+          },
+        ).url,
+      ).toBeUndefined();
+    });
+
+    it('links only to http(s) pages', () => {
+      const offers = dateOffersOf(
+        { ...event, registration: [] },
+        {
+          ...date,
+          availability: [
+            {
+              provider: 'billetweb',
+              status: 'available',
+              // eslint-disable-next-line no-script-url
+              bookingUrl: 'javascript:alert(1)',
+            },
+          ],
+        },
+      );
+
+      expect(offers.url).toBe('https://billetweb.fr/a');
+    });
+
+    it('with no rows, takes one shop listed by two sources as one', () => {
+      expect(
+        dateOffersOf(
+          {
+            ...event,
+            registration: [],
+            offersAggregate: {
+              ...event.offersAggregate,
+              links: [
+                { provider: 'mapado', url: 'https://theatre.mapado.com/1' },
+                { provider: 'mapado', url: 'https://theatre.mapado.com/1' },
+              ],
+            },
+          },
+          { ...date },
+        ).url,
+      ).toBe('https://theatre.mapado.com/1');
     });
 
     it('with no rows, uses the catalogue link of a single source', () => {
@@ -866,7 +1088,7 @@ describe('toEventSchema - ticketing offers', () => {
       ).toBeUndefined();
     });
 
-    it('a selling source with no link of its own leaves the URL out', () => {
+    it("a selling source with no link of its own falls back on the organiser's link", () => {
       const offers = dateOffersOf(
         {
           ...event,
@@ -884,7 +1106,7 @@ describe('toEventSchema - ticketing offers', () => {
         },
       );
 
-      expect(offers.url).toBeUndefined();
+      expect(offers.url).toBe('https://theatre.example/chers-parents');
       expect(offers.availability).toBe('https://schema.org/InStock');
     });
 
@@ -903,12 +1125,25 @@ describe('toEventSchema - ticketing offers', () => {
     });
   });
 
+  // `now` is only read for one date: a date that ended in 2000 is past
+  // against the current time, one in 2099 is not.
   it('a null `now` is the current time', () => {
+    const event = {
+      ...base,
+      offersAggregate: summary({ availability: 'available' }),
+    };
+    const past = {
+      begin: '2000-01-01T20:00:00+01:00',
+      end: '2000-01-01T22:00:00+01:00',
+      availability: [{ provider: 'mapado', status: 'available' }],
+    };
+
+    expect(offersOf(event, { timing: past, now: null })).toBeUndefined();
     expect(
-      offersOf(
-        { ...base, offersAggregate: summary({ availability: 'available' }) },
-        { now: null },
-      ).availability,
+      offersOf(event, {
+        timing: { ...date, availability: past.availability },
+        now: null,
+      }).availability,
     ).toBe('https://schema.org/InStock');
   });
 
@@ -928,6 +1163,45 @@ describe('toEventSchema - ticketing offers', () => {
         { ...base, offersAggregate: summary() },
         { now: '2100-01-01T00:00:00Z' },
       )).toThrow(TypeError);
+  });
+
+  // A scheme is not guessed: '/inscription' or a phone number would become
+  // an address Google follows.
+  it('leaves out a registration link that is not an absolute URL', () => {
+    expect(
+      offersOf({
+        ...base,
+        registration: [{ type: 'link', value: 'www.theatre.example/x' }],
+      }),
+    ).toBeUndefined();
+  });
+
+  it("does not take a source's link for the organiser's on the whole event", () => {
+    expect(
+      offersOf({
+        ...base,
+        registration: [{ type: 'link', value: 'https://billetweb.fr/a' }],
+        offersAggregate: summary({
+          links: [
+            { provider: 'billetweb', url: 'https://billetweb.fr/a' },
+            { provider: 'billetweb', url: 'https://billetweb.fr/b' },
+          ],
+        }),
+      }),
+    ).toBeUndefined();
+  });
+
+  it('publishes no registration link that is not http(s)', () => {
+    expect(
+      offersOf({
+        ...base,
+        registration: [
+          // eslint-disable-next-line no-script-url
+          { type: 'link', value: 'javascript:alert(1)' },
+          { type: 'link', value: 'https://theatre.example/ok' },
+        ],
+      }).url,
+    ).toBe('https://theatre.example/ok');
   });
 
   it('an event without a catalogue keeps its registration-link offer', () => {
