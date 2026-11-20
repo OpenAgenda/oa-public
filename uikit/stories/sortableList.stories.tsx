@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, IconButton } from '../src';
+import { Box, Button, IconButton, Text } from '../src';
 import { SortableList } from '../src/snippets';
 import Provider from './decorators/Provider';
 
@@ -41,3 +41,42 @@ export function Default() {
 }
 
 Default.storyName = 'SortableList';
+
+// A row may show more than its label: `content` takes its place — here a
+// title over a note, with the row's actions always in view — while `label`
+// still names the row for its handle and for screen readers
+export function WithContent() {
+  const [items, setItems] = useState([
+    { id: 'title', label: 'Title', note: 'Short text, required' },
+    { id: 'audience', label: 'Audience', note: 'Everyone, Children, Adults' },
+    { id: 'day', label: 'Day', note: 'Date' },
+  ]);
+  return (
+    <Box maxW="md" p="8">
+      <SortableList
+        aria-label="Fields"
+        items={items.map((item) => ({
+          id: item.id,
+          label: item.label,
+          content: (
+            <Box>
+              <Text fontWeight="bold">{item.label}</Text>
+              <Text color="fg.muted">{item.note}</Text>
+              <Button
+                size="sm"
+                variant="ghost"
+                colorPalette="danger"
+                ms="-3"
+                onClick={() => setItems(items.filter((i) => i.id !== item.id))}
+              >
+                Remove
+              </Button>
+            </Box>
+          ),
+        }))}
+        onReorder={(ids) =>
+          setItems(ids.map((id) => items.find((item) => item.id === id)!))}
+      />
+    </Box>
+  );
+}
