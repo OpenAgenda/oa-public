@@ -122,8 +122,8 @@ single, swappable entry point.
 > error colour. A field never signals an error by colour alone: its message says it,
 > with an icon. At the default size a field is 44px tall with 14px of inset, and its
 > placeholder is `control.placeholder` (4.83:1). A field is thus taller than a button
-> (40px): where the two share a line, give one of them an explicit `size` so they line
-> up. An error is one red, text and border alike (`fg.error` and
+> at the default sizes: where the two share a line, give one of them an explicit `size`
+> so they line up (story « Fields › Beside A Button »). An error is one red, text and border alike (`fg.error` and
 > `border.error`, 4.83:1 on white): it does not pass as text on the page's grey ground,
 > so forms and their errors sit on a white surface, never directly on `oaGray.100`.
 >

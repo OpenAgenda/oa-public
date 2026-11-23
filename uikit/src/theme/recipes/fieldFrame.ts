@@ -3,8 +3,8 @@
 // that it has the focus or that it is refused. Shared by their recipes, so
 // they all look alike.
 // The size of a field at the default size (`md`): 44px tall, a comfortable
-// target for a finger, with 14px of text inset. Taller than a button (40px):
-// a field set beside one says so with `size`.
+// target for a finger, with 14px of text inset. Taller than a button at its
+// default size: a field set beside one says so with `size`.
 export const FIELD_HEIGHT = 'sizes.11';
 export const FIELD_INSET = '3.5';
 
