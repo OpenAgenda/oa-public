@@ -97,7 +97,7 @@ describe('task', () => {
     const spy = jest.spyOn(mails.config.transporter, 'sendMail');
 
     const { results, errors } = await mails.send({
-      to: 'example@example.org',
+      to: 'example@gmail.com',
       subject: 'Nouvel inscrit',
       text: 'On a un nouvel inscrit !',
     });
@@ -118,7 +118,7 @@ describe('task', () => {
     await wait();
 
     expect(spy).toHaveBeenCalledWith({
-      to: { address: 'example@example.org', name: '' },
+      to: { address: 'example@gmail.com', name: '' },
       subject: 'Nouvel inscrit',
       text: 'On a un nouvel inscrit !',
       data: { domain: 'https://openagenda.com' },

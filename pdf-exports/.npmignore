@@ -1,6 +1,0 @@
-# .gitignore stops applying once this file exists: keep its rules.
-.envrc
-pdf-test/
-
-agenda/test/
-event/test/

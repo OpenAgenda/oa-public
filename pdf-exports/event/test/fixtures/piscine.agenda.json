@@ -982,7 +982,7 @@
         "schemaId": null,
         "schemaType": "event",
         "default": [
-          "03 53 01 07 11",
+          "03 20 69 23 60",
           "https://www.roubaix-lapiscine.com/",
           "lapiscine.musee@ville-roubaix.fr"
         ],

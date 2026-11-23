@@ -32,7 +32,7 @@ cursor.moveY(10); // Add some spacing
 const multipleRegistrations = [
   { type: 'link', value: 'https://www.musee-lam.fr/fr/oiseaux-de-nuit' },
   { type: 'email', value: 'contact@musee-lam.fr' },
-  { type: 'phone', value: '03 53 01 79 64' },
+  { type: 'phone', value: '03 20 19 68 68' },
 ];
 
 cursor.moveY(

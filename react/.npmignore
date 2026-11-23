@@ -1,6 +1,0 @@
-# .gitignore stops applying once this file exists: keep its rules.
-/dist
-src/locales/compiled/
-
-stories/
-.storybook/

@@ -49,7 +49,7 @@ describe('sendMail', () => {
           username: 'bertho',
         },
         to: [
-          'contact.6862@example.org, contact.6863@example.org',
+          'kevin.bertho@gmail.com, kevin.berthommier@openagenda.com',
           {
             address: '"Kaoré" <kaore@openagenda.com>',
             data: { username: 'kaore' },
@@ -103,7 +103,7 @@ describe('sendMail', () => {
           username: 'bertho',
         },
         to: {
-          address: 'contact.6862@example.org',
+          address: 'kevin.bertho@gmail.com',
           data: {
             domain: 'https://bertho.io',
           },
@@ -120,7 +120,7 @@ describe('sendMail', () => {
       expect(
         mails.send({
           template: 'unknow',
-          to: 'contact.6862@example.org',
+          to: 'kevin.bertho@gmail.com',
           queue: false,
         }),
       ).rejects.toThrow("Email template 'unknow' does not exist"));
@@ -132,7 +132,7 @@ describe('sendMail', () => {
           name: '',
         },
         subject: 'Nouvel inscrit à la newsletter',
-        text: '"contact.4102@example.org" a été ajouté à la newsletter. <%- root %>',
+        text: '"dominiquemuslewski@chaumesenretz.fr" a été ajouté à la newsletter. <%- root %>',
         data: {
           root: 'https://openagenda.com',
           emailSettingsLink: 'https://openagenda.com/settings/emails',
@@ -145,7 +145,7 @@ describe('sendMail', () => {
 
       expect(message.subject).toBe('Nouvel inscrit à la newsletter');
       expect(message.text).toBe(
-        '"contact.4102@example.org" a été ajouté à la newsletter. https://openagenda.com',
+        '"dominiquemuslewski@chaumesenretz.fr" a été ajouté à la newsletter. https://openagenda.com',
       );
     });
   });
@@ -173,7 +173,7 @@ describe('sendMail', () => {
           username: 'Bertho',
         },
         to: [
-          '"Kévin Berthommier" <contact.6862@example.org>, contact.6863@example.org',
+          '"Kévin Berthommier" <kevin.bertho@gmail.com>, kevin.berthommier@openagenda.com',
           { address: 'kaore@openagenda.com', data: { username: 'Kaore' } },
         ],
         queue: false,
@@ -200,7 +200,7 @@ describe('sendMail', () => {
         from,
         to: [
           {
-            address: 'contact.6862@example.org',
+            address: 'kevin.bertho@gmail.com',
             name: 'Kévin Berthommier',
             data: { username: 'Bertho' },
           },
@@ -296,7 +296,7 @@ describe('sendMail', () => {
       const { results, errors } = await mails.send({
         template: 'helloWorld-i18n',
         to: {
-          address: 'contact.6862@example.org',
+          address: 'kevin.bertho@gmail.com',
           data: { username: 'bertho' },
         },
         queue: false,
@@ -330,7 +330,7 @@ describe('sendMail', () => {
       const { results, errors } = await mails.send({
         template: 'helloWorld-i18n',
         to: {
-          address: 'contact.6862@example.org',
+          address: 'kevin.bertho@gmail.com',
           data: { username: 'bertho' },
           lang: 'fr',
         },

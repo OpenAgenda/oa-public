@@ -59,9 +59,9 @@
         "custom": {
           "organization": "test",
           "contactName": "Kévin Berthommier - OpenAgenda",
-          "contactNumber": "0639985525",
+          "contactNumber": "0608915022",
           "contactPosition": "test",
-          "email": "contact.6862@example.org"
+          "email": "kevin.bertho@gmail.com"
         },
         "actionsCounter": 4,
         "agendaUid": 59272362,
@@ -401,7 +401,7 @@
           "contactName": null,
           "contactNumber": null,
           "contactPosition": null,
-          "email": "contact.6862@example.org"
+          "email": "kevin.bertho@gmail.com"
         },
         "actionsCounter": 0,
         "agendaUid": 39293149,
@@ -533,7 +533,7 @@
         "createdAt": "2019-03-29T08:33:33.000Z",
         "updatedAt": "2022-04-02T03:14:19.000Z",
         "custom": {
-          "email": "contact.6862@example.org",
+          "email": "kevin.bertho@gmail.com",
           "contactName": "Kévin Berthommier - OpenAgenda"
         },
         "actionsCounter": 1063,
@@ -598,7 +598,7 @@
         "createdAt": "2018-11-14T15:58:24.000Z",
         "updatedAt": "2022-05-20T02:59:29.000Z",
         "custom": {
-          "email": "contact.6862@example.org",
+          "email": "kevin.bertho@gmail.com",
           "contactName": "Kévin Berthommier - OpenAgenda"
         },
         "actionsCounter": 5038,
@@ -666,8 +666,8 @@
           "contactName": "Kévin Berthommier - OpenAgenda",
           "contactPosition": "dev",
           "organization": "OpenAgenda",
-          "contactNumber": "0639985525",
-          "email": "contact.6862@example.org"
+          "contactNumber": "0608915022",
+          "email": "kevin.bertho@gmail.com"
         },
         "actionsCounter": 1,
         "agendaUid": 53020999,
@@ -797,7 +797,7 @@
           "contactName": null,
           "contactNumber": null,
           "contactPosition": null,
-          "email": "contact.6862@example.org"
+          "email": "kevin.bertho@gmail.com"
         },
         "actionsCounter": 0,
         "agendaUid": 10746689,
@@ -861,7 +861,7 @@
         "createdAt": "2018-05-02T09:26:51.000Z",
         "updatedAt": "2018-05-02T09:26:51.000Z",
         "custom": {
-          "email": "contact.6862@example.org",
+          "email": "kevin.bertho@gmail.com",
           "contactName": "Kévin Berthommier - OpenAgenda"
         },
         "actionsCounter": 0,
@@ -988,7 +988,7 @@
         "createdAt": "2017-10-20T16:28:33.000Z",
         "updatedAt": "2022-05-12T12:36:32.000Z",
         "custom": {
-          "email": "contact.6862@example.org",
+          "email": "kevin.bertho@gmail.com",
           "contactName": "Kévin Berthommier - OpenAgenda"
         },
         "actionsCounter": 41,
