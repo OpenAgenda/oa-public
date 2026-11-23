@@ -1,13 +1,13 @@
 import { selectAnatomy } from '@chakra-ui/react/anatomy';
 import { defineSlotRecipe } from '@chakra-ui/react';
+import { fieldFrame } from './fieldFrame';
 
 export const selectRecipe = defineSlotRecipe({
   slots: selectAnatomy.keys(),
   base: {
     trigger: {
       cursor: 'select',
-      // The corners of a field (see radii.ts)
-      borderRadius: 'field',
+      ...fieldFrame,
     },
     item: {
       transition: 'backgrounds',

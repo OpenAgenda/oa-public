@@ -1,14 +1,12 @@
 import { defineRecipe } from '@chakra-ui/react';
+import { fieldFrame } from './fieldFrame';
 
 // Emphasize the resting border of text inputs. Chakra's default outline
 // variant uses the faint `border` token, which is barely visible against light
 // backgrounds and makes fields read shorter/lighter than filled controls
 // (buttons) sitting next to them. Deep-merged onto the default input recipe.
 export const inputRecipe = defineRecipe({
-  base: {
-    // The corners of a field, a step rounder than the rest (see radii.ts)
-    borderRadius: 'field',
-  },
+  base: fieldFrame,
   variants: {
     variant: {
       outline: {

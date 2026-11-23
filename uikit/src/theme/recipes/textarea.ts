@@ -1,11 +1,9 @@
 import { defineRecipe } from '@chakra-ui/react';
+import { fieldFrame } from './fieldFrame';
 
 // Match the emphasized resting border applied to inputs (see input.ts).
 export const textareaRecipe = defineRecipe({
-  base: {
-    // The corners of a field (see radii.ts)
-    borderRadius: 'field',
-  },
+  base: fieldFrame,
   variants: {
     variant: {
       outline: {

@@ -113,6 +113,14 @@ single, swappable entry point.
 > resolves to nothing. A new kind of field reads `field`; everything else stays on
 > `l1`/`l2`/`l3`.
 >
+> **The frame of a field.** Corners, focus and refusal are drawn once, in
+> `src/theme/recipes/fieldFrame.ts`, and spread into the recipes of input, textarea,
+> select, native select and combobox: at rest a 1px `border.emphasized` (a cool grey,
+> 3.65:1 on white, 3.15:1 on the page grey — RGAA 3.3 asks 3:1, so no lighter); focused,
+> Chakra's ring plus a soft halo; refused, a border that reads twice as thick, in the
+> error colour. A field never signals an error by colour alone: its message says it,
+> with an icon.
+>
 > **Not yet themed: elevation.** There are no shadow tokens, so `boxShadow` resolves to
 > Chakra's built-in scale. If a design needs consistent elevation, add tokens in
 > `tokens/` rather than reaching for a Chakra default ad hoc.

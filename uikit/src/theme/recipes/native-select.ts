@@ -1,5 +1,6 @@
 import { nativeSelectAnatomy } from '@chakra-ui/react/anatomy';
 import { defineSlotRecipe } from '@chakra-ui/react';
+import { fieldFrame } from './fieldFrame';
 
 // Native <select> fields inherit their outline border from Chakra's default
 // (the faint `border` token). Emphasize it to match inputs (see input.ts).
@@ -9,10 +10,7 @@ import { defineSlotRecipe } from '@chakra-ui/react';
 export const nativeSelectRecipe = defineSlotRecipe({
   slots: nativeSelectAnatomy.keys(),
   base: {
-    field: {
-      // The corners of a field (see radii.ts)
-      borderRadius: 'field',
-    },
+    field: fieldFrame,
   },
   variants: {
     variant: {

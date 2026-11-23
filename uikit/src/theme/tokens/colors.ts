@@ -88,6 +88,13 @@ export const colors = defineTokens.colors({
     800: { value: '#201D20' },
     900: { value: '#151316' },
   },
+  // Bordure au repos d'un contrôle (champ, select, case, radio), lue par
+  // `border.emphasized`. Le gris le plus clair qui tienne 3:1 sur blanc ET sur
+  // `oaGray.100` (3,65:1 et 3,15:1) — froid plutôt que neutre, pour peser moins
+  // à contraste égal.
+  control: {
+    border: { value: '#7c8794' },
+  },
   // Statut de billetterie d'une date, lu en TEXTE sur fond clair (ligne
   // d'horaire, modale de détail). Chaque teinte est la plus saturée que l'écran
   // sache afficher à contraste ≥ 4,5:1 sur blanc ET sur `oaGray.100` (le fond de
