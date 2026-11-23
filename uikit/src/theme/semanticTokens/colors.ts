@@ -3,15 +3,27 @@ import { defineSemanticTokens } from '@chakra-ui/react';
 export const semanticColors = defineSemanticTokens.colors({
   // Chakra's error and warning text (red.500, orange.600) stays under 4.5:1 on
   // white (3.76 and 3.56): an error or a warning is body text, it must be
-  // readable (RGAA 3.2). One step darker: red.700 6.47:1, orange.700 5.18:1 on
-  // white, and still above 4.5 on their pale backgrounds (bg.error,
-  // bg.warning).
+  // readable (RGAA 3.2).
+  //
+  // An error is one red, text and border alike — red.600, the liveliest step
+  // that reads as text on white (4.83:1). It does not on the page's grey
+  // ground (4.16:1 on `oaGray.100`): forms and their errors sit on white. On
+  // its own pale ground it holds by a hair (4.51:1), which is why `bg.error`
+  // is `danger.50` and not Chakra's red.50 (4.41:1).
+  //
+  // A warning is one step darker than Chakra's: orange.700, 5.18:1 on white
+  // and still above 4.5 on `bg.warning`.
   fg: {
     error: {
-      value: { _light: '{colors.red.700}', _dark: '{colors.red.300}' },
+      value: { _light: '{colors.red.600}', _dark: '{colors.red.300}' },
     },
     warning: {
       value: { _light: '{colors.orange.700}', _dark: '{colors.orange.300}' },
+    },
+  },
+  bg: {
+    error: {
+      value: { _light: '{colors.danger.50}', _dark: '{colors.red.950}' },
     },
   },
   // The border of a control at rest — inputs, selects, checkboxes, radios —
@@ -22,6 +34,10 @@ export const semanticColors = defineSemanticTokens.colors({
   // rather than neutral: at the same contrast it reads less harsh down a long
   // form than `oaGray.500` did.
   border: {
+    // the red of the error text (see `fg.error`)
+    error: {
+      value: { _light: '{colors.red.600}', _dark: '{colors.red.400}' },
+    },
     emphasized: {
       value: {
         _light: '{colors.control.border}',

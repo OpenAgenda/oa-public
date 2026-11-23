@@ -119,7 +119,9 @@ single, swappable entry point.
 > 3.65:1 on white, 3.15:1 on the page grey — RGAA 3.3 asks 3:1, so no lighter); focused,
 > Chakra's ring plus a soft halo; refused, a border that reads twice as thick, in the
 > error colour. A field never signals an error by colour alone: its message says it,
-> with an icon.
+> with an icon. An error is one red, text and border alike (`fg.error` and
+> `border.error`, 4.83:1 on white): it does not pass as text on the page's grey ground,
+> so forms and their errors sit on a white surface, never directly on `oaGray.100`.
 >
 > **Not yet themed: elevation.** There are no shadow tokens, so `boxShadow` resolves to
 > Chakra's built-in scale. If a design needs consistent elevation, add tokens in
