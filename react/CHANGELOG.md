@@ -1,5 +1,18 @@
 # @openagenda/react
 
+## 0.4.5
+
+### Patch Changes
+
+- [#900](https://github.com/OpenAgenda/oa/pull/900) [`3ad4740`](https://github.com/OpenAgenda/oa/commit/3ad474053200f7de4ab71d35e6b7d49fa01fa729) Thanks [@kaore](https://github.com/kaore)! - Export and share dialogs: the accordion titles use the page's body size (14px) instead of 16px, in line with the dialogs' other controls and the agenda page around them.
+
+  Export dialog accessibility (RGAA 3.2, 13.2): the « À propos » title darkens on hover so it keeps 4.5:1 over the hover background, and every link or button that opens a new window says so to screen readers.
+
+- Updated dependencies [[`3b0411c`](https://github.com/OpenAgenda/oa/commit/3b0411cdce78122d968d78f5195bab272e8c8d6f), [`950b971`](https://github.com/OpenAgenda/oa/commit/950b971205da5df2f1e827862e3af7429c6f6702), [`1a6b6c3`](https://github.com/OpenAgenda/oa/commit/1a6b6c3f49ebd2ae7126817aa46c634d6a777ab3), [`9b5b7be`](https://github.com/OpenAgenda/oa/commit/9b5b7be844aa7b406fa567b7c95f1a7bd788c8f8), [`6b75569`](https://github.com/OpenAgenda/oa/commit/6b75569323220f340fc9762db43b44bac954ce06), [`4e0f8d2`](https://github.com/OpenAgenda/oa/commit/4e0f8d25ef511faeccd7ffcbe5707fbbe74d7dbb), [`6ef8480`](https://github.com/OpenAgenda/oa/commit/6ef8480ddd1ed4cd7ab9beb2a83a7f61a9b841a6)]:
+  - @openagenda/react-shared@3.2.4
+  - @openagenda/uikit@0.6.0
+  - @openagenda/react-filters@3.3.1
+
 ## 0.4.4
 
 ### Patch Changes

@@ -34,6 +34,7 @@
   "react.components.AgendaExportModal.instructions": "Instruccions",
   "react.components.AgendaExportModal.instructionsCopyLink": "Copiatz lo ligam dins lo camp çai-sus e dobrissètz-lo {link}",
   "react.components.AgendaExportModal.login": "Mercés de vos connectar per accedir al ligam d'exportacion dirèctament a partir d'aqueste menut",
+  "react.components.AgendaExportModal.newWindow": "(s'obrís dins una fenèstra novèla)",
   "react.components.AgendaExportModal.outlookStep2": "Al pè de la pagina, seleccionatz l'icòna de calendièr",
   "react.components.AgendaExportModal.outlookStep3": "Dins lo panèl de navigacion, causissètz \"Apondre calendièr\"",
   "react.components.AgendaExportModal.outlookStep4": "Causissètz \"Soscriure a partir del web\"",

@@ -25,6 +25,7 @@ import type { IntlShape } from 'react-intl';
 import copyText from '../../utils/copyText';
 import AccordionItem from '../AccordionItem';
 import type { Agenda } from '../../types';
+import NewWindowHint from './NewWindowHint';
 import messages from './messages';
 import type { CompleteUrlsResult } from './types';
 
@@ -287,6 +288,7 @@ export default function EmbedAccordionItem({
           href="https://developers.openagenda.com/codes-embed/"
         >
           {intl.formatMessage(messages.viewEmbedDoc)}
+          <NewWindowHint />
         </Link>
 
         <Tooltip

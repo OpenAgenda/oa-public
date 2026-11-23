@@ -4,6 +4,7 @@ import { recipes } from './recipes';
 import { slotRecipes } from './slotRecipes';
 import { semanticColors } from './semanticTokens/colors';
 import { semanticRadii } from './semanticTokens/radii';
+import { semanticSpacing } from './semanticTokens/spacing';
 import { colors } from './tokens/colors';
 import { cursor } from './tokens/cursor';
 import { fonts } from './tokens/fonts';
@@ -22,6 +23,7 @@ export const themeConfig = mergeConfigs(defaultConfig, {
     semanticTokens: {
       colors: semanticColors,
       radii: semanticRadii,
+      spacing: semanticSpacing,
     },
     recipes,
     slotRecipes,

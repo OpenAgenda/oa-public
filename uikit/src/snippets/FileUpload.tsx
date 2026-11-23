@@ -165,6 +165,24 @@ export const FileInput = React.forwardRef<HTMLButtonElement, FileInputProps>(
   },
 );
 
+// The trigger as a button with an upload icon: the FileInput above is drawn
+// as an empty text field, its label in placeholder grey, which reads as
+// disabled where a single file is picked
+export const FileUploadButton = React.forwardRef<
+  HTMLButtonElement,
+  ButtonProps
+>(function FileUploadButton(props, ref) {
+  const { children, ...rest } = props;
+  return (
+    <ChakraFileUpload.Trigger asChild>
+      <Button ref={ref} variant="outline" size="sm" {...rest}>
+        <LuUpload aria-hidden />
+        {children}
+      </Button>
+    </ChakraFileUpload.Trigger>
+  );
+});
+
 export const FileUploadLabel = ChakraFileUpload.Label;
 export const FileUploadClearTrigger = ChakraFileUpload.ClearTrigger;
 export const FileUploadTrigger = ChakraFileUpload.Trigger;

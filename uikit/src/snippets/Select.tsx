@@ -7,6 +7,9 @@ import { CloseButton } from './CloseButton';
 
 interface SelectTriggerProps extends ChakraSelect.ControlProps {
   clearable?: boolean;
+  // Props of the button itself (`aria-describedby`…); the others go to the
+  // control around it
+  triggerProps?: ChakraSelect.TriggerProps;
 }
 
 const SelectClearTrigger = React.forwardRef<
@@ -30,10 +33,12 @@ export const SelectTrigger = React.forwardRef<
   HTMLButtonElement,
   SelectTriggerProps
 >(function SelectTrigger(props, ref) {
-  const { children, clearable, ...rest } = props;
+  const { children, clearable, triggerProps, ...rest } = props;
   return (
     <ChakraSelect.Control {...rest}>
-      <ChakraSelect.Trigger ref={ref}>{children}</ChakraSelect.Trigger>
+      <ChakraSelect.Trigger ref={ref} {...triggerProps}>
+        {children}
+      </ChakraSelect.Trigger>
       <ChakraSelect.IndicatorGroup>
         {clearable && <SelectClearTrigger />}
         <ChakraSelect.Indicator />

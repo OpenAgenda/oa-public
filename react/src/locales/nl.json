@@ -46,6 +46,7 @@
   "react.components.AgendaExportModal.login": "Log in om rechtstreeks vanuit dit menu toegang te krijgen tot de exportlink",
   "react.components.AgendaExportModal.needAuthentication": "Het gebruik van de API vereist authenticatie.",
   "react.components.AgendaExportModal.new": "Nieuw",
+  "react.components.AgendaExportModal.newWindow": "(opent in een nieuw venster)",
   "react.components.AgendaExportModal.openInSamePage": "Evenementen op dezelfde pagina openen",
   "react.components.AgendaExportModal.outlookStep2": "Selecteer onderaan de pagina het agendapictogram",
   "react.components.AgendaExportModal.outlookStep3": "Selecteer in het navigatiedeelvenster \"Agenda toevoegen\"",

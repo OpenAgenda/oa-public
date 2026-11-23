@@ -11,6 +11,7 @@ import {
 import { RadioGroup, Radio, Checkbox } from '@openagenda/uikit/snippets';
 import AccordionItem from '../AccordionItem';
 import type { ExportField } from '../../types';
+import NewWindowHint from './NewWindowHint';
 import messages from './messages';
 import type { SpreadsheetFormat, SpreadsheetSubmitHandler } from './types';
 
@@ -175,6 +176,7 @@ export default function SpreadsheetAccordionItem({
           })}
         >
           {intl.formatMessage(messages.modalTitle)}
+          <NewWindowHint />
         </Button>
       </Flex>
     </AccordionItem>

@@ -153,6 +153,11 @@ $oa-admin-gap: 24px;
     padding: 12px 0;
   }
 
+  // Settings: no card around the menu, one per group (.oa-admin-menu-section)
+  .oa-admin-side-blocks {
+    padding: 0;
+  }
+
   // The support team's hidden resync button, right below the menu card: out
   // of the menu's way, and always in the same place
   .oa-admin-system {
@@ -168,19 +173,6 @@ $oa-admin-gap: 24px;
     max-width: 800px;
     min-width: 0;
     padding: 20px 24px 32px;
-  }
-
-  // The profile and contribution forms sat in a grid column, a share of the
-  // old body; in a card that fits its content they take the width they had.
-  .oa-admin-main .agenda-settings-edit {
-    > .profile,
-    > .contribution {
-      > .row > .col-md-7 {
-        float: none;
-        width: 530px;
-        max-width: 100%;
-      }
-    }
   }
 
   // While an application loads, its body holds its loader (`.oa-admin-loading`,
@@ -289,8 +281,21 @@ $oa-admin-gap: 24px;
       color: $oa-admin-gray-700;
     }
 
-    .group-start {
-      margin-top: 16px;
+    // A settings group, in its card, as next's menu draws them
+    .oa-admin-menu-section {
+      padding: 12px 0;
+      border-radius: $oa-admin-radius;
+      background: $oa-white;
+
+      & + .oa-admin-menu-section {
+        margin-top: 16px;
+      }
+
+      // Its own card sets the dangerous entries apart
+      .danger {
+        padding-top: 0;
+        border-top: 0;
+      }
     }
 
     // A page not activated for this agenda: greyed, still a link to ask for
@@ -323,18 +328,6 @@ $oa-admin-gap: 24px;
         right: 24px;
         transform: translateY(-50%);
       }
-    }
-  }
-
-  .oa-admin-menu-footer {
-    margin-top: 12px;
-    padding: 16px 24px 4px;
-    border-top: 1px solid $oa-gray-lighter;
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
     }
   }
 }

@@ -6,6 +6,7 @@ import {
   AccordionItemContent,
 } from '@openagenda/uikit/snippets';
 import type { Agenda } from '../../types';
+import NewWindowHint from './NewWindowHint';
 import messages from './messages';
 
 // The help page the agenda settings link to as well.
@@ -21,6 +22,7 @@ function ExternalLink({
   return (
     <Link href={href} target="_blank" rel="noopener">
       {children}
+      <NewWindowHint />
     </Link>
   );
 }
@@ -29,7 +31,7 @@ function InfoIcon() {
   return (
     <chakra.svg
       viewBox="0 0 24 24"
-      boxSize="4.5"
+      boxSize="4"
       flexShrink="0"
       fill="none"
       stroke="currentColor"
@@ -71,8 +73,13 @@ export default function AboutAccordionItem({
     : publisherName;
   return (
     <AccordionItem value="about">
-      <AccordionItemTrigger px="6" color="primary.fg">
-        <chakra.span display="flex" alignItems="center" gap="2.5">
+      <AccordionItemTrigger
+        px="6"
+        color="primary.fg"
+        // The hover background takes the usual blue under 4.5:1.
+        _hover={{ color: 'primary.600' }}
+      >
+        <chakra.span display="flex" alignItems="center" gap="2">
           <chakra.span color="primary.fg" display="inline-flex">
             <InfoIcon />
           </chakra.span>

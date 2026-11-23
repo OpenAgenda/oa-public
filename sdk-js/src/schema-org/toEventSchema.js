@@ -1,8 +1,7 @@
 import { getLocaleValue, DEFAULT_LANG } from '@openagenda/intl';
 import { isCurrencyCode, toMajor } from '@openagenda/utils/iso4217';
+import { toInstant } from '@openagenda/utils/isoDatetime';
 import { httpUrl, providerBookingUrl, rowBookingUrl } from './bookingLinks.js';
-import { isPast, toNow } from './timings.js';
-import { CANCELLED, FULL, statusIs } from './eventStatus.js';
 
 function getEventAttendanceMode(attendanceMode) {
   return (
@@ -55,6 +54,10 @@ const ROW_STATUSES = new Set([
 
 const SELLING = new Set(['available', 'limited']);
 
+// Event status ids (`status` in the event schema).
+const FULL = 5;
+const CANCELLED = 6;
+
 // The first registration link worth linking to: an absolute http(s) URL,
 // like every booking link. A link the page cannot vouch for is left out: the
 // write cleans links into that shape, and guessing a scheme for the rest turns
@@ -64,6 +67,47 @@ function getRegistrationLink(event, excluded = new Set()) {
     ?.filter((r) => r?.type === 'link' && !excluded.has(r.value))
     .map((r) => httpUrl(r.value))
     .find(Boolean);
+}
+
+// `status` arrives as an id, a numeric string, or `{ id, label }`; the server
+// compares it the same way (`Number(value) === expected`).
+const statusIs = (event, expected) =>
+  Number(event.status?.id ?? event.status) === expected;
+
+// `now` is an instant: epoch milliseconds or a Date, the current time when
+// absent. Anything else is a caller's mistake, and guessing would date every
+// offer wrongly.
+function toNow(now) {
+  if (now === undefined || now === null) {
+    return Date.now();
+  }
+
+  const ms = now instanceof Date ? now.getTime() : now;
+
+  if (typeof ms !== 'number' || Number.isNaN(ms)) {
+    throw new TypeError(
+      'toEventSchema: `now` must be epoch milliseconds or a Date',
+    );
+  }
+
+  return ms;
+}
+
+// The parser the server's own summary uses. The read always serves an end
+// with its offset; an end that cannot be read leaves the date counted, as the
+// summary does: dropping a date silently is the harder failure to notice.
+function isPast(timing, now) {
+  if (typeof timing.end === 'number') {
+    return timing.end < now;
+  }
+
+  try {
+    const end = toInstant(timing.end);
+
+    return end !== null && end < now;
+  } catch {
+    return false;
+  }
 }
 
 const rowsOf = (timing) =>
