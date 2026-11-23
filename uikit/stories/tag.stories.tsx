@@ -28,6 +28,12 @@ export function All() {
           </HStack>
         </VStack>
       ))}
+      <VStack gap="2" align="start">
+        <Text textStyle="sm">closable, its button named by `closeLabel`</Text>
+        <Tag closable closeLabel="Remove French" onClose={() => {}}>
+          French
+        </Tag>
+      </VStack>
     </VStack>
   );
 }

@@ -6,6 +6,8 @@ export interface TagProps extends ChakraTag.RootProps {
   endElement?: React.ReactNode;
   onClose?: VoidFunction;
   closable?: boolean;
+  // The name of the close button, which shows a cross only: what it removes
+  closeLabel?: string;
 }
 
 export const Tag = React.forwardRef<HTMLSpanElement, TagProps>(
@@ -15,6 +17,7 @@ export const Tag = React.forwardRef<HTMLSpanElement, TagProps>(
       endElement,
       onClose,
       closable = !!onClose,
+      closeLabel,
       children,
       ...rest
     } = props;
@@ -30,7 +33,7 @@ export const Tag = React.forwardRef<HTMLSpanElement, TagProps>(
         )}
         {closable && (
           <ChakraTag.EndElement>
-            <ChakraTag.CloseTrigger onClick={onClose} />
+            <ChakraTag.CloseTrigger aria-label={closeLabel} onClick={onClose} />
           </ChakraTag.EndElement>
         )}
       </ChakraTag.Root>
