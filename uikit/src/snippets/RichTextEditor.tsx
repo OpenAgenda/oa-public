@@ -48,19 +48,33 @@ const proseMirrorCss = defineStyle({
   bg: 'bg',
   lineHeight: '1.5',
 
+  // The focus and the refusal of a field, as `theme/recipes/fieldFrame.ts`
+  // draws them for an input: the palette's own colour and a soft halo, a
+  // refused border that reads twice as thick. Written again here because the
+  // frame is this box, which holds the toolbar too, and not the element that
+  // takes the focus.
+  '--field-halo': 'colors.colorPalette.solid',
   _focusWithin: {
-    borderColor: 'colorPalette.focusRing',
+    borderColor: 'var(--field-halo)',
     outline: 'thin solid',
-    outlineColor: 'colorPalette.focusRing',
+    outlineColor: 'var(--field-halo)',
+    boxShadow:
+      '0 0 0 3px color-mix(in srgb, var(--field-halo) 25%, transparent)',
   },
   '&[data-invalid]': {
-    borderColor: 'border.error',
-    outlineColor: 'border.error',
+    '--field-halo': 'colors.border.error',
+    borderColor: 'var(--field-halo)',
+    boxShadow: 'inset 0 0 0 1px var(--field-halo)',
+    _focusWithin: {
+      boxShadow:
+        'inset 0 0 0 1px var(--field-halo), 0 0 0 3px color-mix(in srgb, var(--field-halo) 25%, transparent)',
+    },
   },
 
   '& .ProseMirror': {
     outline: 'none',
-    px: '3',
+    // the inset of a field (`FIELD_INSET`)
+    px: '3.5',
     py: '2',
     '& > * + *': { marginTop: '0.75em' },
     // Every element the editor keeps is visible as such, toolbar or not: a
