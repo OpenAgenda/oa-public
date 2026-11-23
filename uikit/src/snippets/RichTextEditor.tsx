@@ -44,7 +44,7 @@ const proseMirrorCss = defineStyle({
   // backgrounds, and the editor read paler than the fields around it
   borderColor: 'border.emphasized',
   // and its corners are theirs
-  rounded: 'field',
+  rounded: 'control',
   bg: 'bg',
   lineHeight: '1.5',
 

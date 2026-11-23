@@ -1,6 +1,11 @@
 import { defineRecipe } from '@chakra-ui/react';
 
 export const buttonRecipe = defineRecipe({
+  base: {
+    // The corners of a field: a button sits beside inputs more often than
+    // not (see semanticTokens/radii.ts)
+    borderRadius: 'control',
+  },
   variants: {
     size: {
       sm: {

@@ -14,7 +14,7 @@ export const tagsInputRecipe = defineSlotRecipe({
   slots: tagsInputAnatomy.keys(),
   base: {
     control: {
-      borderRadius: 'field',
+      borderRadius: 'control',
       '--field-halo': 'colors.colorPalette.solid',
       '--focus-color': 'colors.colorPalette.solid',
       _invalid: {

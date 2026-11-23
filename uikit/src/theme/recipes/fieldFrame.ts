@@ -10,7 +10,7 @@ export const FIELD_INSET = '3.5';
 
 export const fieldFrame = {
   // A step rounder than the rest (see semanticTokens/radii.ts)
-  borderRadius: 'field',
+  borderRadius: 'control',
   // A field takes the focus in the colour of the palette itself, a step
   // livelier than the ring of the other controls (`focusRing`): 4.58:1 on
   // white for the primary one, where a focus mark needs 3:1

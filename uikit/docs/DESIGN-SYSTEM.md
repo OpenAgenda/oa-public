@@ -34,16 +34,16 @@ Built on **Chakra UI v3** (`createSystem`), CSS var prefix `oa` — see the
 theming (consult these for the underlying primitive's props; still import from
 uikit, not `@chakra-ui/react`). Source of truth:
 
-| Concern              | Source                                                       | Notes                                                                                                                                  |
-| -------------------- | ------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
-| Raw tokens           | [`src/theme/tokens/`](../src/theme/tokens/)                  | `colors`, `cursor`, `fonts`                                                                                                            |
-| Semantic tokens      | [`src/theme/semanticTokens/`](../src/theme/semanticTokens/)  | light/dark-aware `colors` (`fg`, `subtle`, `muted`, `emphasized`, `solid`, `contrast`, `focusRing`), `radii` (`l1`/`l2`/`l3`, `field`) |
-| Single-part variants | [`src/theme/recipes/`](../src/theme/recipes/)                | button, heading, link, text                                                                                                            |
-| Multi-part variants  | [`src/theme/recipes/`](../src/theme/recipes/) (slot recipes) | accordion, checkbox, menu, radioGroup, select, list, blockquote                                                                        |
-| Global CSS           | [`src/theme/globalCss.ts`](../src/theme/globalCss.ts)        | base/reset styles                                                                                                                      |
-| Composed system      | [`src/theme/index.ts`](../src/theme/index.ts)                | assembles all of the above into `system`                                                                                               |
-| Prebuilt components  | [`src/components/`](../src/components/)                      | OA-authored (`Heading`, `NoBreak`, `Surface`)                                                                                          |
-| Snippets             | [`src/snippets/`](../src/snippets/)                          | Chakra composition snippets (Dialog, Field, Tooltip, Tag, …)                                                                           |
+| Concern              | Source                                                       | Notes                                                                                                                                    |
+| -------------------- | ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| Raw tokens           | [`src/theme/tokens/`](../src/theme/tokens/)                  | `colors`, `cursor`, `fonts`                                                                                                              |
+| Semantic tokens      | [`src/theme/semanticTokens/`](../src/theme/semanticTokens/)  | light/dark-aware `colors` (`fg`, `subtle`, `muted`, `emphasized`, `solid`, `contrast`, `focusRing`), `radii` (`l1`/`l2`/`l3`, `control`) |
+| Single-part variants | [`src/theme/recipes/`](../src/theme/recipes/)                | button, heading, link, text                                                                                                              |
+| Multi-part variants  | [`src/theme/recipes/`](../src/theme/recipes/) (slot recipes) | accordion, checkbox, menu, radioGroup, select, list, blockquote                                                                          |
+| Global CSS           | [`src/theme/globalCss.ts`](../src/theme/globalCss.ts)        | base/reset styles                                                                                                                        |
+| Composed system      | [`src/theme/index.ts`](../src/theme/index.ts)                | assembles all of the above into `system`                                                                                                 |
+| Prebuilt components  | [`src/components/`](../src/components/)                      | OA-authored (`Heading`, `NoBreak`, `Surface`)                                                                                            |
+| Snippets             | [`src/snippets/`](../src/snippets/)                          | Chakra composition snippets (Dialog, Field, Tooltip, Tag, …)                                                                             |
 
 Palettes (values in `tokens/colors.ts`, roles in `semanticTokens/colors.ts`):
 `primary` for actions and links, `oaGray` for neutrals, `darkPurple` for the
@@ -102,16 +102,17 @@ single, swappable entry point.
    muted color must still pass contrast (4.5:1) on every background it sits on,
    selected and hovered states included.
 
-> **Radius: discreet, the same at every level — fields a step rounder.** The semantic
-> radii `l1`/`l2`/`l3`, which every recipe reads, all map to one small radius (`xs`,
-> 2px) in `src/theme/semanticTokens/radii.ts` — the corners of the content and the
-> containers of the legacy pages, so a dialog or a button looks the same on either
-> stack. That is not the radius of the legacy inputs: a field where one types or picks
-> a value (input, textarea, select, combobox, tags input, rich-text editor) takes the
-> semantic radius `field` (`sm`, 4px), set by its recipe. Use those four, never a
+> **Radius: discreet, the same at every level — controls a step rounder.** The semantic
+> radii `l1`/`l2`/`l3`, which every recipe reads, all map to one small radius in
+> `src/theme/semanticTokens/radii.ts` — the corners of the content and the containers of
+> the legacy pages, so a dialog or a surface looks the same on either stack. That is not
+> the radius of the legacy inputs: what one acts on in a form — a field where a value is
+> typed or picked (input, textarea, select, combobox, tags input, rich-text editor) and
+> the buttons beside it — takes the semantic radius `control`, set by its recipe, so
+> that a button and an input side by side are of one family. Use those four, never a
 > Chakra scale step (`md`, `lg`, …) or a literal; `borderRadius="base"` silently
-> resolves to nothing. A new kind of field reads `field`; everything else stays on
-> `l1`/`l2`/`l3`.
+> resolves to nothing. A new kind of field or of button reads `control`; everything
+> else stays on `l1`/`l2`/`l3`.
 >
 > **The frame of a field.** Corners, focus and refusal are drawn once, in
 > `src/theme/recipes/fieldFrame.ts`, and spread into the recipes of input, textarea,
