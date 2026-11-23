@@ -1,5 +1,5 @@
 import { defineRecipe } from '@chakra-ui/react';
-import { fieldFrame } from './fieldFrame';
+import { FIELD_HEIGHT, FIELD_INSET, fieldFrame } from './fieldFrame';
 
 // Emphasize the resting border of text inputs. Chakra's default outline
 // variant uses the faint `border` token, which is barely visible against light
@@ -8,6 +8,9 @@ import { fieldFrame } from './fieldFrame';
 export const inputRecipe = defineRecipe({
   base: fieldFrame,
   variants: {
+    size: {
+      md: { px: FIELD_INSET, '--input-height': FIELD_HEIGHT },
+    },
     variant: {
       outline: {
         borderColor: 'border.emphasized',

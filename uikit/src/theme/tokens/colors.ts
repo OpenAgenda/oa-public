@@ -92,8 +92,10 @@ export const colors = defineTokens.colors({
   // `border.emphasized`. Le gris le plus clair qui tienne 3:1 sur blanc ET sur
   // `oaGray.100` (3,65:1 et 3,15:1) — froid plutôt que neutre, pour peser moins
   // à contraste égal.
+  // `placeholder` : ce qu'un champ vide suggère, 4,83:1 sur blanc.
   control: {
     border: { value: '#7c8794' },
+    placeholder: { value: '#6b7280' },
   },
   // Statut de billetterie d'une date, lu en TEXTE sur fond clair (ligne
   // d'horaire, modale de détail). Chaque teinte est la plus saturée que l'écran

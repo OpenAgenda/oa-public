@@ -117,9 +117,13 @@ single, swappable entry point.
 > `src/theme/recipes/fieldFrame.ts`, and spread into the recipes of input, textarea,
 > select, native select and combobox: at rest a 1px `border.emphasized` (a cool grey,
 > 3.65:1 on white, 3.15:1 on the page grey — RGAA 3.3 asks 3:1, so no lighter); focused,
-> Chakra's ring plus a soft halo; refused, a border that reads twice as thick, in the
+> a ring in the palette's own colour (`primary.solid`, livelier than the `focusRing` of
+> buttons and links, 4.58:1 on white) plus a soft halo; refused, a border that reads twice as thick, in the
 > error colour. A field never signals an error by colour alone: its message says it,
-> with an icon. An error is one red, text and border alike (`fg.error` and
+> with an icon. At the default size a field is 44px tall with 14px of inset, and its
+> placeholder is `control.placeholder` (4.83:1). A field is thus taller than a button
+> (40px): where the two share a line, give one of them an explicit `size` so they line
+> up. An error is one red, text and border alike (`fg.error` and
 > `border.error`, 4.83:1 on white): it does not pass as text on the page's grey ground,
 > so forms and their errors sit on a white surface, never directly on `oaGray.100`.
 >

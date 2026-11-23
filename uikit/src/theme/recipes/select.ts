@@ -1,6 +1,6 @@
 import { selectAnatomy } from '@chakra-ui/react/anatomy';
 import { defineSlotRecipe } from '@chakra-ui/react';
-import { fieldFrame } from './fieldFrame';
+import { FIELD_HEIGHT, FIELD_INSET, fieldFrame } from './fieldFrame';
 
 export const selectRecipe = defineSlotRecipe({
   slots: selectAnatomy.keys(),
@@ -8,6 +8,8 @@ export const selectRecipe = defineSlotRecipe({
     trigger: {
       cursor: 'select',
       ...fieldFrame,
+      // its placeholder is the text of the trigger itself
+      _placeholderShown: { color: 'control.placeholder' },
     },
     item: {
       transition: 'backgrounds',
@@ -27,6 +29,14 @@ export const selectRecipe = defineSlotRecipe({
     },
   },
   variants: {
+    size: {
+      md: {
+        root: {
+          '--select-trigger-height': FIELD_HEIGHT,
+          '--select-trigger-padding-x': `spacing.${FIELD_INSET}`,
+        },
+      },
+    },
     variant: {
       // Emphasize the resting trigger border to match inputs (see input.ts).
       outline: {
