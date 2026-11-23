@@ -37,13 +37,29 @@ export interface FileUploadDropzoneProps
   description?: React.ReactNode;
 }
 
+// What a drop area that is not clicked is: a plain block. Ark gives it a role
+// and a name all the same (« application », « dropzone »), left out here.
+const DropArea = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(function DropArea(props, ref) {
+  const rest = { ...props };
+  delete rest.role;
+  delete rest['aria-label'];
+  return <div ref={ref} {...rest} />;
+});
+
+// Clicked, the area opens the file picker: it is a button, named by
+// `translations.dropzone` on the root. With `disableClick` it only takes the
+// files dropped on it, and is no control: the picker is opened by a
+// `FileUploadButton`, which may then sit inside it.
 export const FileUploadDropzone = React.forwardRef<
   HTMLInputElement,
   FileUploadDropzoneProps
 >(function FileUploadDropzone(props, ref) {
   const { children, label, description, ...rest } = props;
-  return (
-    <ChakraFileUpload.Dropzone ref={ref} {...rest}>
+  const content = (
+    <>
       <Icon fontSize="xl" color="fg.muted">
         <LuUpload />
       </Icon>
@@ -52,6 +68,20 @@ export const FileUploadDropzone = React.forwardRef<
         {description && <Text color="fg.muted">{description}</Text>}
       </ChakraFileUpload.DropzoneContent>
       {children}
+    </>
+  );
+
+  if (rest.disableClick) {
+    return (
+      <ChakraFileUpload.Dropzone ref={ref} {...rest} asChild>
+        <DropArea>{content}</DropArea>
+      </ChakraFileUpload.Dropzone>
+    );
+  }
+
+  return (
+    <ChakraFileUpload.Dropzone ref={ref} {...rest}>
+      {content}
     </ChakraFileUpload.Dropzone>
   );
 });
