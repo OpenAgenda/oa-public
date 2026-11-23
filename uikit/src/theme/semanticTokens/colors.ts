@@ -14,6 +14,16 @@ export const semanticColors = defineSemanticTokens.colors({
       value: { _light: '{colors.orange.700}', _dark: '{colors.orange.300}' },
     },
   },
+  // The border of a control at rest — inputs, selects, checkboxes, radios —
+  // is what shows where it is: it must stand at 3:1 from what surrounds it
+  // (RGAA 3.3). Chakra's (gray.300, gray.700) stays at 1.48:1 on white. This
+  // grey gives 3.69:1 on white, 3.18:1 on the page's grey ground, 5.3:1 on
+  // the dark one.
+  border: {
+    emphasized: {
+      value: { _light: '{colors.oaGray.500}', _dark: '{colors.oaGray.500}' },
+    },
+  },
   primary: {
     contrast: {
       value: { _light: 'white', _dark: 'white' },
