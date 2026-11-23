@@ -9,6 +9,7 @@ import { radioGroupRecipe } from './recipes/radio-group';
 import { segmentGroupRecipe } from './recipes/segment-group';
 import { selectRecipe } from './recipes/select';
 import { tagRecipe } from './recipes/tag';
+import { tagsInputRecipe } from './recipes/tags-input';
 import { blockquoteSlotRecipe } from './recipes/blocquoteSlot';
 import { listSlotRecipe } from './recipes/list';
 
@@ -24,6 +25,7 @@ export const slotRecipes = {
   segmentGroup: segmentGroupRecipe,
   select: selectRecipe,
   tag: tagRecipe,
+  tagsInput: tagsInputRecipe,
   list: listSlotRecipe,
   blockquote: blockquoteSlotRecipe,
 };

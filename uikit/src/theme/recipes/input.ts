@@ -5,6 +5,10 @@ import { defineRecipe } from '@chakra-ui/react';
 // backgrounds and makes fields read shorter/lighter than filled controls
 // (buttons) sitting next to them. Deep-merged onto the default input recipe.
 export const inputRecipe = defineRecipe({
+  base: {
+    // The corners of a field, a step rounder than the rest (see radii.ts)
+    borderRadius: 'field',
+  },
   variants: {
     variant: {
       outline: {

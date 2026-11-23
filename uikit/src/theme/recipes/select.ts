@@ -6,6 +6,8 @@ export const selectRecipe = defineSlotRecipe({
   base: {
     trigger: {
       cursor: 'select',
+      // The corners of a field (see radii.ts)
+      borderRadius: 'field',
     },
     item: {
       transition: 'backgrounds',

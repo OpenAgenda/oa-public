@@ -8,6 +8,12 @@ import { defineSlotRecipe } from '@chakra-ui/react';
 // directly rather than via the select recipe.
 export const nativeSelectRecipe = defineSlotRecipe({
   slots: nativeSelectAnatomy.keys(),
+  base: {
+    field: {
+      // The corners of a field (see radii.ts)
+      borderRadius: 'field',
+    },
+  },
   variants: {
     variant: {
       outline: {

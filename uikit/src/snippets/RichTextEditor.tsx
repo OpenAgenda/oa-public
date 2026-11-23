@@ -43,7 +43,8 @@ const proseMirrorCss = defineStyle({
   // As the input and textarea recipes: `border` is barely visible on light
   // backgrounds, and the editor read paler than the fields around it
   borderColor: 'border.emphasized',
-  rounded: 'l2',
+  // and its corners are theirs
+  rounded: 'field',
   bg: 'bg',
   lineHeight: '1.5',
 
