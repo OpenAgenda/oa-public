@@ -71,11 +71,13 @@ function SortableRow({
   index,
   labels,
   actions,
+  dragRows,
 }: {
   item: SortableListItem;
   index: number;
   labels: SortableListLabels;
   actions?: React.ReactNode;
+  dragRows?: boolean;
 }) {
   const {
     attributes,
@@ -89,6 +91,8 @@ function SortableRow({
     id: item.id,
     attributes: { roleDescription: labels.roleDescription },
   });
+
+  const grabCursor = isDragging ? 'grabbing' : 'grab';
 
   return (
     <chakra.li
@@ -106,6 +110,13 @@ function SortableRow({
       position="relative"
       zIndex={isDragging ? '1' : undefined}
       shadow={isDragging ? 'md' : undefined}
+      // A row dragged from anywhere: the pointer starts a move only once it
+      // has travelled (see the sensor), so a click on what the row holds — a
+      // button, a link — still reaches it. The keyboard keeps to the handle:
+      // the sensor answers only to keys pressed on it.
+      cursor={dragRows ? grabCursor : undefined}
+      userSelect={dragRows ? 'none' : undefined}
+      {...(dragRows ? listeners : null)}
       style={{
         transform: CSS.Translate.toString(transform),
         transition,
@@ -125,12 +136,14 @@ function SortableRow({
         ref={setActivatorNodeRef}
         size="xs"
         variant="ghost"
-        cursor={isDragging ? 'grabbing' : 'grab'}
+        cursor={grabCursor}
         aria-label={labels.handle(item.label)}
         // To give the focus back to a row after a change of the list
         data-sortable-handle={item.id}
+        // a finger on the handle moves the row, not the page
+        touchAction="none"
         {...attributes}
-        {...listeners}
+        {...(dragRows ? null : listeners)}
       >
         <LuGripVertical aria-hidden />
       </IconButton>
@@ -160,6 +173,10 @@ export interface SortableListProps {
   // focus
   renderActions?: (item: SortableListItem, index: number) => React.ReactNode;
   labels?: Partial<SortableListLabels>;
+  // Rows are dragged from anywhere on them with a mouse, not from the handle
+  // alone. The handle stays: it is what the keyboard and a finger move a row
+  // by (a finger on the row scrolls the page).
+  dragRows?: boolean;
   'aria-label'?: string;
   'aria-describedby'?: string;
 }
@@ -173,6 +190,7 @@ export function SortableList(props: SortableListProps) {
     onReorder,
     renderActions,
     labels: labelsProp,
+    dragRows,
     ...rest
   } = props;
   const labels = { ...DEFAULT_LABELS, ...labelsProp };
@@ -252,6 +270,7 @@ export function SortableList(props: SortableListProps) {
               index={index}
               labels={labels}
               actions={renderActions?.(item, index)}
+              dragRows={dragRows}
             />
           ))}
         </chakra.ol>

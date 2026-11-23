@@ -44,7 +44,8 @@ Default.storyName = 'SortableList';
 
 // A row may show more than its label: `content` takes its place — here a
 // title over a note, with the row's actions always in view — while `label`
-// still names the row for its handle and for screen readers
+// still names the row for its handle and for screen readers. With `dragRows`
+// the whole row is dragged with a mouse, and its buttons still answer a click
 export function WithContent() {
   const [items, setItems] = useState([
     { id: 'title', label: 'Title', note: 'Short text, required' },
@@ -55,6 +56,9 @@ export function WithContent() {
     <Box maxW="md" p="8">
       <SortableList
         aria-label="Fields"
+        // dragged from anywhere on the row: a click on « Remove » still
+        // removes
+        dragRows
         items={items.map((item) => ({
           id: item.id,
           label: item.label,
