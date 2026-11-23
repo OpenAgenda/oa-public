@@ -17,9 +17,8 @@ import { defineRecipe } from '@chakra-ui/react';
 // warning 7,3 · green (Chakra) 8,5. Le mode sombre est le miroir exact, donc
 // les mêmes rapports.
 //
-// ⚠️ La même erreur vit encore dans la recette `tag` de Chakra ; personne ne
-// l'exerce en `subtle` aujourd'hui, et la corriger demande d'ajouter un
-// slotRecipe entier. À faire le jour où un Tag en aura besoin.
+// La même erreur vivait dans la recette `tag` de Chakra, qui reprend ces
+// variantes : elle est corrigée de la même façon dans `tag.ts`.
 export const badgeRecipe = defineRecipe({
   variants: {
     variant: {
