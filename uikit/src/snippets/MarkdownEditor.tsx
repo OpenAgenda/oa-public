@@ -27,6 +27,8 @@ import {
   LuItalic,
   LuLink,
   LuList,
+  LuMaximize2,
+  LuMinimize2,
 } from 'react-icons/lu';
 import {
   PopoverBody,
@@ -57,6 +59,8 @@ export interface MarkdownEditorLabels {
   linkApply: string;
   linkRemove: string;
   linkInvalid: string;
+  fullscreen: string;
+  exitFullscreen: string;
 }
 
 // uikit has no translations: an app passes its own, these are the fallback
@@ -74,6 +78,8 @@ const DEFAULT_LABELS: MarkdownEditorLabels = {
   linkApply: 'Apply',
   linkRemove: 'Remove link',
   linkInvalid: 'This address cannot be used as a link',
+  fullscreen: 'Full screen',
+  exitFullscreen: 'Leave full screen',
 };
 
 // A space, a parenthesis or an angle bracket left in the address would end
@@ -333,11 +339,15 @@ function Toolbar({
   labels,
   disabled,
   fieldLabelId,
+  fullscreen,
+  onFullscreenChange,
 }: {
   editor: Editor;
   labels: MarkdownEditorLabels;
   disabled?: boolean;
   fieldLabelId?: string;
+  fullscreen: boolean;
+  onFullscreenChange: (fullscreen: boolean) => void;
 }) {
   const nameId = React.useId();
   const state = useEditorState({
@@ -427,9 +437,41 @@ function Toolbar({
         </RichTextEditorButton>
         <LinkControl editor={editor} labels={labels} disabled={disabled} />
       </RichTextEditorControlGroup>
+      {/* Apart from the formats, at the end of the bar: it changes the room
+          the text is given, not the text. Within reach of a field that cannot
+          be written in, which may still be read. */}
+      <RichTextEditorControlGroup ms="auto">
+        <RichTextEditorButton
+          label={fullscreen ? labels.exitFullscreen : labels.fullscreen}
+          active={fullscreen}
+          onClick={() => {
+            onFullscreenChange(!fullscreen);
+            editor.commands.focus();
+          }}
+        >
+          {fullscreen ? <LuMinimize2 /> : <LuMaximize2 />}
+        </RichTextEditorButton>
+      </RichTextEditorControlGroup>
     </RichTextEditorToolbar>
   );
 }
+
+// The editor over the whole window: its frame without corners, the text area
+// taking what the toolbar leaves and scrolling by itself
+const fullscreenCss = {
+  position: 'fixed',
+  inset: '0',
+  zIndex: 'modal',
+  rounded: 'none',
+  // the box tiptap puts around the text, then the text itself
+  '& > div:has(> .ProseMirror)': {
+    flex: '1',
+    minH: '0',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  '& .ProseMirror': { flex: '1', overflowY: 'auto' },
+} as const;
 
 export interface MarkdownEditorProps
   extends Omit<BoxProps, 'onChange' | 'defaultValue'> {
@@ -473,6 +515,8 @@ export const MarkdownEditor = React.forwardRef<
     // The language of the text being written: for the text area alone, the
     // toolbar around it speaks the language of the page
     lang,
+    // Whether the browser checks the spelling of the text: on unless refused
+    spellCheck,
     ...rest
   } = props;
   const field = useFieldContext();
@@ -480,6 +524,7 @@ export const MarkdownEditor = React.forwardRef<
   const readOnly = field?.readOnly ?? false;
   const invalid = invalidProp ?? field?.invalid ?? false;
   const labels = { ...DEFAULT_LABELS, ...labelsProp };
+  const [fullscreen, setFullscreen] = React.useState(false);
 
   // The markdown last sent out, so that a value coming back from the parent
   // does not reset the content (and the cursor) it came from
@@ -555,6 +600,7 @@ export const MarkdownEditor = React.forwardRef<
     if (disabled) attributes['aria-disabled'] = 'true';
     if (readOnly) attributes['aria-readonly'] = 'true';
     if (lang) attributes.lang = lang;
+    if (spellCheck === false) attributes.spellcheck = 'false';
     return { attributes };
   }, [
     controlId,
@@ -566,6 +612,7 @@ export const MarkdownEditor = React.forwardRef<
     disabled,
     readOnly,
     lang,
+    spellCheck,
   ]);
 
   const editor = useEditor({
@@ -617,6 +664,8 @@ export const MarkdownEditor = React.forwardRef<
     ) {
       return;
     }
+    // Left for something it covers: the editor gives the screen back
+    if (next) setFullscreen(false);
     onBlurRef.current?.();
   };
 
@@ -626,6 +675,19 @@ export const MarkdownEditor = React.forwardRef<
     // Redraws the placeholder, without changing the content
     if (editor && !editor.isDestroyed) editor.view.dispatch(editor.state.tr);
   }, [editor, placeholder]);
+
+  // Over the whole window, for a long text: the page under it does not
+  // scroll meanwhile
+  React.useEffect(() => {
+    if (!fullscreen) return undefined;
+
+    const { overflow } = document.body.style;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = overflow;
+    };
+  }, [fullscreen]);
 
   const setRootRef = React.useCallback(
     (node: HTMLDivElement | null) => {
@@ -642,8 +704,20 @@ export const MarkdownEditor = React.forwardRef<
       editor={editor}
       disabled={disabled}
       invalid={invalid}
-      css={[{ '& .ProseMirror': { minH: minContentHeight } }, css]}
+      css={[
+        { '& .ProseMirror': { minH: minContentHeight } },
+        fullscreen ? fullscreenCss : undefined,
+        css,
+      ]}
       onBlur={handleBlur}
+      onKeyDown={(event) => {
+        // Escape gives the screen back, and stops there: in a dialog it
+        // would close it too
+        if (fullscreen && event.key === 'Escape') {
+          event.stopPropagation();
+          setFullscreen(false);
+        }
+      }}
       {...rest}
     >
       {editor ? (
@@ -654,6 +728,8 @@ export const MarkdownEditor = React.forwardRef<
           // it is not editable
           disabled={disabled || readOnly}
           fieldLabelId={labelId}
+          fullscreen={fullscreen}
+          onFullscreenChange={setFullscreen}
         />
       ) : null}
       <RichTextEditorContent />
