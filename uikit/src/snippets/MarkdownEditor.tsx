@@ -470,6 +470,9 @@ export const MarkdownEditor = React.forwardRef<
     'aria-describedby': ownDescribedBy,
     'aria-label': ariaLabel,
     'aria-labelledby': ownLabelledBy,
+    // The language of the text being written: for the text area alone, the
+    // toolbar around it speaks the language of the page
+    lang,
     ...rest
   } = props;
   const field = useFieldContext();
@@ -551,6 +554,7 @@ export const MarkdownEditor = React.forwardRef<
     if (required) attributes['aria-required'] = 'true';
     if (disabled) attributes['aria-disabled'] = 'true';
     if (readOnly) attributes['aria-readonly'] = 'true';
+    if (lang) attributes.lang = lang;
     return { attributes };
   }, [
     controlId,
@@ -561,6 +565,7 @@ export const MarkdownEditor = React.forwardRef<
     required,
     disabled,
     readOnly,
+    lang,
   ]);
 
   const editor = useEditor({
