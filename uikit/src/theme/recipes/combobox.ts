@@ -11,6 +11,11 @@ export const comboboxRecipe = defineSlotRecipe({
   },
   variants: {
     size: {
+      sm: {
+        root: {
+          '--combobox-input-padding-x': `spacing.${FIELD_INSET}`,
+        },
+      },
       md: {
         root: {
           '--combobox-input-padding-x': `spacing.${FIELD_INSET}`,
@@ -25,4 +30,7 @@ export const comboboxRecipe = defineSlotRecipe({
       },
     },
   },
+  // Small unless said, as a button is: a field and a button left to their
+  // defaults are the same height
+  defaultVariants: { size: 'sm' },
 });

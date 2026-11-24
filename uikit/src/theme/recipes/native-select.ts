@@ -14,6 +14,9 @@ export const nativeSelectRecipe = defineSlotRecipe({
   },
   variants: {
     size: {
+      sm: {
+        field: { ps: FIELD_INSET },
+      },
       md: {
         field: { ps: FIELD_INSET },
       },
@@ -26,4 +29,7 @@ export const nativeSelectRecipe = defineSlotRecipe({
       },
     },
   },
+  // Small unless said, as a button is: a field and a button left to their
+  // defaults are the same height
+  defaultVariants: { size: 'sm' },
 });

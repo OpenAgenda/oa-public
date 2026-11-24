@@ -30,6 +30,11 @@ export const selectRecipe = defineSlotRecipe({
   },
   variants: {
     size: {
+      sm: {
+        root: {
+          '--select-trigger-padding-x': `spacing.${FIELD_INSET}`,
+        },
+      },
       md: {
         root: {
           '--select-trigger-padding-x': `spacing.${FIELD_INSET}`,
@@ -45,4 +50,7 @@ export const selectRecipe = defineSlotRecipe({
       },
     },
   },
+  // Small unless said, as a button is: a field and a button left to their
+  // defaults are the same height
+  defaultVariants: { size: 'sm' },
 });

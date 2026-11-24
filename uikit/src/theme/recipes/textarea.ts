@@ -6,6 +6,7 @@ export const textareaRecipe = defineRecipe({
   base: fieldFrame,
   variants: {
     size: {
+      sm: { px: FIELD_INSET },
       md: { px: FIELD_INSET },
     },
     variant: {
@@ -14,4 +15,7 @@ export const textareaRecipe = defineRecipe({
       },
     },
   },
+  // Small unless said, as a button is: a field and a button left to their
+  // defaults are the same height
+  defaultVariants: { size: 'sm' },
 });

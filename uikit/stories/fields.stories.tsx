@@ -228,12 +228,18 @@ export function Disabled() {
 }
 
 // A field and a button of the same `size` are the same height, and line up
-// on a shared line. Their defaults differ — a field is `md`, a button `sm` —
-// so both are given the size the line wants.
+// on a shared line — left to their defaults too, which are both `sm`.
 export function BesideAButton() {
   return (
     <Box bg="bg" p="8">
       <Stack gap="6" maxW="xl">
+        <Stack gap="2">
+          <Text color="fg.muted">Defaults</Text>
+          <HStack align="flex-start">
+            <Input placeholder="Search" />
+            <Button>Search</Button>
+          </HStack>
+        </Stack>
         {(['sm', 'md', 'lg'] as const).map((size) => (
           <Stack key={size} gap="2">
             <Text color="fg.muted">Both `{size}`</Text>
@@ -243,15 +249,6 @@ export function BesideAButton() {
             </HStack>
           </Stack>
         ))}
-        <Stack gap="2">
-          <Text color="fg.muted">
-            Defaults: the field is `md`, the button `sm`
-          </Text>
-          <HStack align="flex-start">
-            <Input placeholder="Search" />
-            <Button>Search</Button>
-          </HStack>
-        </Stack>
       </Stack>
     </Box>
   );

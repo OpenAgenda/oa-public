@@ -23,6 +23,8 @@ export const tagsInputRecipe = defineSlotRecipe({
     },
   },
   variants: {
+    // named so that it can be the default below; its measures are Chakra's
+    size: { sm: {} },
     variant: {
       outline: {
         control: {
@@ -35,4 +37,7 @@ export const tagsInputRecipe = defineSlotRecipe({
       },
     },
   },
+  // Small unless said, as a button is: a field and a button left to their
+  // defaults are the same height
+  defaultVariants: { size: 'sm' },
 });

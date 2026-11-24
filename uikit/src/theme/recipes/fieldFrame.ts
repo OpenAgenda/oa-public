@@ -2,9 +2,10 @@
 // select, combobox — beyond what Chakra draws: its corners, and how it shows
 // that it has the focus or that it is refused. Shared by their recipes, so
 // they all look alike.
-// The inset of the text of a field at the default size (`md`). Its height is
-// left to Chakra's scale, where a field and a button of the same `size` are
-// as tall as each other: side by side they line up.
+// The inset of the text of a field, at the sizes forms use (`sm`, the
+// default, and `md`). Its height is left to Chakra's scale, where a field and
+// a button of the same `size` are as tall as each other; both are `sm` unless
+// said, so that side by side they line up without a word.
 export const FIELD_INSET = '3.5';
 
 export const fieldFrame = {
