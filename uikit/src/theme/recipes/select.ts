@@ -1,6 +1,6 @@
 import { selectAnatomy } from '@chakra-ui/react/anatomy';
 import { defineSlotRecipe } from '@chakra-ui/react';
-import { FIELD_HEIGHT, FIELD_INSET, fieldFrame } from './fieldFrame';
+import { FIELD_INSET, fieldFrame } from './fieldFrame';
 
 export const selectRecipe = defineSlotRecipe({
   slots: selectAnatomy.keys(),
@@ -32,7 +32,6 @@ export const selectRecipe = defineSlotRecipe({
     size: {
       md: {
         root: {
-          '--select-trigger-height': FIELD_HEIGHT,
           '--select-trigger-padding-x': `spacing.${FIELD_INSET}`,
         },
       },

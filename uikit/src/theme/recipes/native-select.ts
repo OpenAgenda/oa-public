@@ -1,6 +1,6 @@
 import { nativeSelectAnatomy } from '@chakra-ui/react/anatomy';
 import { defineSlotRecipe } from '@chakra-ui/react';
-import { FIELD_HEIGHT, FIELD_INSET, fieldFrame } from './fieldFrame';
+import { FIELD_INSET, fieldFrame } from './fieldFrame';
 
 // Native <select> fields inherit their outline border from Chakra's default
 // (the faint `border` token). Emphasize it to match inputs (see input.ts).
@@ -15,7 +15,6 @@ export const nativeSelectRecipe = defineSlotRecipe({
   variants: {
     size: {
       md: {
-        root: { '--select-field-height': FIELD_HEIGHT },
         field: { ps: FIELD_INSET },
       },
     },

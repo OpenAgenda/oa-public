@@ -227,31 +227,29 @@ export function Disabled() {
   );
 }
 
-// A field is taller than a button at the default size: on a shared line one
-// of the two is given a size so that they line up
+// A field and a button of the same `size` are the same height, and line up
+// on a shared line. Their defaults differ — a field is `md`, a button `sm` —
+// so both are given the size the line wants.
 export function BesideAButton() {
   return (
     <Box bg="bg" p="8">
       <Stack gap="6" maxW="xl">
+        {(['sm', 'md', 'lg'] as const).map((size) => (
+          <Stack key={size} gap="2">
+            <Text color="fg.muted">Both `{size}`</Text>
+            <HStack align="flex-start">
+              <Input size={size} placeholder="Search" />
+              <Button size={size}>Search</Button>
+            </HStack>
+          </Stack>
+        ))}
         <Stack gap="2">
-          <Text color="fg.muted">Default sizes: the field stands taller</Text>
+          <Text color="fg.muted">
+            Defaults: the field is `md`, the button `sm`
+          </Text>
           <HStack align="flex-start">
             <Input placeholder="Search" />
             <Button>Search</Button>
-          </HStack>
-        </Stack>
-        <Stack gap="2">
-          <Text color="fg.muted">The button sized to the field</Text>
-          <HStack align="flex-start">
-            <Input placeholder="Search" />
-            <Button size="lg">Search</Button>
-          </HStack>
-        </Stack>
-        <Stack gap="2">
-          <Text color="fg.muted">The field sized to the button</Text>
-          <HStack align="flex-start">
-            <Input size="sm" placeholder="Search" />
-            <Button size="sm">Search</Button>
           </HStack>
         </Stack>
       </Stack>
