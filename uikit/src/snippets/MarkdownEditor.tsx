@@ -442,8 +442,9 @@ function Toolbar({
           be written in, which may still be read. */}
       <RichTextEditorControlGroup ms="auto">
         <RichTextEditorButton
+          // its name says where it leads: a pressed state on top of it would
+          // tell the same thing twice (and « Leave full screen, pressed »)
           label={fullscreen ? labels.exitFullscreen : labels.fullscreen}
-          active={fullscreen}
           onClick={() => {
             onFullscreenChange(!fullscreen);
             editor.commands.focus();
