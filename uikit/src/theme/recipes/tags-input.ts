@@ -1,8 +1,6 @@
 import { tagsInputAnatomy } from '@chakra-ui/react/anatomy';
 import { defineSlotRecipe } from '@chakra-ui/react';
-
-const HALO = '0 0 0 3px color-mix(in srgb, var(--field-halo) 25%, transparent)';
-const THICK = 'inset 0 0 0 1px var(--field-halo)';
+import { FIELD_HALO, FIELD_THICK_BORDER } from './fieldFrame';
 
 // The box values are typed into is a field, and takes the frame of one (see
 // fieldFrame.ts): its border, its corners, how it shows the focus
@@ -18,7 +16,7 @@ export const tagsInputRecipe = defineSlotRecipe({
       '--focus-color': 'colors.colorPalette.solid',
       _invalid: {
         '--field-halo': 'colors.border.error',
-        boxShadow: THICK,
+        boxShadow: FIELD_THICK_BORDER,
       },
     },
   },
@@ -30,8 +28,8 @@ export const tagsInputRecipe = defineSlotRecipe({
         control: {
           borderColor: 'border.emphasized',
           _focus: {
-            boxShadow: HALO,
-            _invalid: { boxShadow: `${THICK}, ${HALO}` },
+            boxShadow: FIELD_HALO,
+            _invalid: { boxShadow: `${FIELD_THICK_BORDER}, ${FIELD_HALO}` },
           },
         },
       },

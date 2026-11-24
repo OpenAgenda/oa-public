@@ -8,6 +8,13 @@
 // said, so that side by side they line up without a word.
 export const FIELD_INSET = '3.5';
 
+// The two marks every field draws the same way, for what cannot spread the
+// frame below (a box that takes the focus through what it holds): a soft
+// halo around the focus ring, and a border that reads twice as thick, drawn
+// inside so that nothing moves. Both in `--field-halo`.
+export const FIELD_HALO = '0 0 0 3px color-mix(in srgb, var(--field-halo) 25%, transparent)';
+export const FIELD_THICK_BORDER = 'inset 0 0 0 1px var(--field-halo)';
+
 export const fieldFrame = {
   // A step rounder than the rest (see semanticTokens/radii.ts)
   borderRadius: 'control',
@@ -24,18 +31,16 @@ export const fieldFrame = {
     // Set here, once the field has the focus: at rest Chakra's own ring
     // (`focusVisibleRing`) would set its colour back after this one
     focusRingColor: 'var(--field-halo)',
-    boxShadow:
-      '0 0 0 3px color-mix(in srgb, var(--field-halo) 25%, transparent)',
+    boxShadow: FIELD_HALO,
   },
   // Refused: the border reads twice as thick, by more than its colour. Drawn
   // inside, so that nothing moves when the error comes and goes.
   _invalid: {
     '--field-halo': 'colors.border.error',
-    boxShadow: 'inset 0 0 0 1px var(--field-halo)',
+    boxShadow: FIELD_THICK_BORDER,
     _focusVisible: {
       focusRingColor: 'var(--field-halo)',
-      boxShadow:
-        'inset 0 0 0 1px var(--field-halo), 0 0 0 3px color-mix(in srgb, var(--field-halo) 25%, transparent)',
+      boxShadow: `${FIELD_THICK_BORDER}, ${FIELD_HALO}`,
     },
   },
 };

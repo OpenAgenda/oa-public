@@ -92,6 +92,24 @@ function SortableRow({
     attributes: { roleDescription: labels.roleDescription },
   });
 
+  // The row answers the mouse alone: a finger on it scrolls the page, and a
+  // move begun there would be cancelled by that scroll each time, told to
+  // screen readers as picked up then cancelled. A finger moves the row by its
+  // handle, which does not scroll. Keys pressed on the handle come up to the
+  // row, and the sensor takes those.
+  const rowListeners = listeners && {
+    ...listeners,
+    onPointerDown: (event: React.PointerEvent) => {
+      const onHandle = (event.target as Element).closest(
+        '[data-sortable-handle]',
+      );
+
+      if (event.pointerType === 'mouse' || onHandle) {
+        listeners.onPointerDown?.(event);
+      }
+    },
+  };
+
   const grabCursor = isDragging ? 'grabbing' : 'grab';
 
   return (
@@ -116,7 +134,7 @@ function SortableRow({
       // the sensor answers only to keys pressed on it.
       cursor={dragRows ? grabCursor : undefined}
       userSelect={dragRows ? 'none' : undefined}
-      {...(dragRows ? listeners : null)}
+      {...(dragRows ? rowListeners : null)}
       style={{
         transform: CSS.Translate.toString(transform),
         transition,

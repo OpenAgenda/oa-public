@@ -11,6 +11,7 @@ import {
 import type { Editor } from '@tiptap/react';
 import { EditorContent } from '@tiptap/react';
 import * as React from 'react';
+import { FIELD_HALO, FIELD_THICK_BORDER } from '../theme/recipes/fieldFrame';
 import { Tooltip } from './Tooltip';
 
 // Adapted from Chakra's rich-text-editor composition (chakra snippet add
@@ -58,16 +59,14 @@ const proseMirrorCss = defineStyle({
     borderColor: 'var(--field-halo)',
     outline: 'thin solid',
     outlineColor: 'var(--field-halo)',
-    boxShadow:
-      '0 0 0 3px color-mix(in srgb, var(--field-halo) 25%, transparent)',
+    boxShadow: FIELD_HALO,
   },
   '&[data-invalid]': {
     '--field-halo': 'colors.border.error',
     borderColor: 'var(--field-halo)',
-    boxShadow: 'inset 0 0 0 1px var(--field-halo)',
+    boxShadow: FIELD_THICK_BORDER,
     _focusWithin: {
-      boxShadow:
-        'inset 0 0 0 1px var(--field-halo), 0 0 0 3px color-mix(in srgb, var(--field-halo) 25%, transparent)',
+      boxShadow: `${FIELD_THICK_BORDER}, ${FIELD_HALO}`,
     },
   },
 

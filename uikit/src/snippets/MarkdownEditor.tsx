@@ -689,6 +689,28 @@ export const MarkdownEditor = React.forwardRef<
     };
   }, [fullscreen]);
 
+  // Escape gives the screen back, and stops there: a dialog around the editor
+  // would close on it too, and lose what it holds. Heard on the window as the
+  // key goes down, before the dialog, which listens on the document. Not
+  // while the link popover is open, which Escape closes first.
+  React.useEffect(() => {
+    if (!fullscreen) return undefined;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
+      if ((event.target as Element | null)?.closest?.(`[${POPOVER_ATTR}]`)) {
+        return;
+      }
+
+      event.stopPropagation();
+      setFullscreen(false);
+    };
+
+    window.addEventListener('keydown', onKeyDown, true);
+
+    return () => window.removeEventListener('keydown', onKeyDown, true);
+  }, [fullscreen]);
+
   const setRootRef = React.useCallback(
     (node: HTMLDivElement | null) => {
       rootRef.current = node;
@@ -710,14 +732,6 @@ export const MarkdownEditor = React.forwardRef<
         css,
       ]}
       onBlur={handleBlur}
-      onKeyDown={(event) => {
-        // Escape gives the screen back, and stops there: in a dialog it
-        // would close it too
-        if (fullscreen && event.key === 'Escape') {
-          event.stopPropagation();
-          setFullscreen(false);
-        }
-      }}
       {...rest}
     >
       {editor ? (
