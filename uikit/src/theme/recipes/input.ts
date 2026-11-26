@@ -14,7 +14,7 @@ export const inputRecipe = defineRecipe({
     },
     variant: {
       outline: {
-        borderColor: 'border.emphasized',
+        borderColor: 'border.control',
       },
     },
   },

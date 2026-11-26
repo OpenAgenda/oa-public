@@ -116,12 +116,14 @@ single, swappable entry point.
 >
 > **The frame of a field.** Corners, focus and refusal are drawn once, in
 > `src/theme/recipes/fieldFrame.ts`, and spread into the recipes of input, textarea,
-> select, native select and combobox: at rest a 1px `border.emphasized` (a cool grey,
+> select, native select and combobox: at rest a 1px `border.control` (a cool grey,
 > 3.65:1 on white, 3.15:1 on the page grey — RGAA 3.3 asks 3:1, so no lighter); focused,
 > a ring in the palette's own colour (`primary.solid`, livelier than the `focusRing` of
 > buttons and links, 4.58:1 on white) plus a soft halo; refused, a border that reads twice as thick, in the
 > error colour. A field never signals an error by colour alone: its message says it,
-> with an icon. A field's placeholder is
+> with an icon. `border.control` is for controls only — a field, what is attached to it
+> (`InputAddon`), a checkbox, a radio; a card or a panel keeps `border` or
+> `border.emphasized`. A field's placeholder is
 > `control.placeholder`. A field and a button of the same `size` are the same height,
 > and both are `sm` by default: side by side they line up without sizing either, and a
 > screen that sizes one sizes the other the same (story « Fields › Beside A Button »).

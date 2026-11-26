@@ -24,7 +24,7 @@ export const nativeSelectRecipe = defineSlotRecipe({
     variant: {
       outline: {
         field: {
-          borderColor: 'border.emphasized',
+          borderColor: 'border.control',
         },
       },
     },

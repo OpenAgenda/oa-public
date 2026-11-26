@@ -21,6 +21,15 @@ export const radioGroupRecipe = defineSlotRecipe({
   },
 
   variants: {
+    // At rest the mark takes the border of a control (`border.control`) where
+    // Chakra reads `border.emphasized`, the frame of plain boxes
+    variant: {
+      solid: {
+        itemControl: {
+          borderColor: 'border.control',
+        },
+      },
+    },
     size: {
       xs: {
         itemControl: {

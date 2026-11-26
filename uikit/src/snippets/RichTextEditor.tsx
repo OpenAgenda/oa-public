@@ -11,7 +11,11 @@ import {
 import type { Editor } from '@tiptap/react';
 import { EditorContent } from '@tiptap/react';
 import * as React from 'react';
-import { FIELD_HALO, FIELD_THICK_BORDER } from '../theme/recipes/fieldFrame';
+import {
+  FIELD_HALO,
+  FIELD_INSET,
+  FIELD_THICK_BORDER,
+} from '../theme/recipes/fieldFrame';
 import { Tooltip } from './Tooltip';
 
 // Adapted from Chakra's rich-text-editor composition (chakra snippet add
@@ -43,7 +47,7 @@ const proseMirrorCss = defineStyle({
   borderWidth: 'thin',
   // As the input and textarea recipes: `border` is barely visible on light
   // backgrounds, and the editor read paler than the fields around it
-  borderColor: 'border.emphasized',
+  borderColor: 'border.control',
   // and its corners are theirs
   rounded: 'control',
   bg: 'bg',
@@ -72,8 +76,8 @@ const proseMirrorCss = defineStyle({
 
   '& .ProseMirror': {
     outline: 'none',
-    // the inset of a field (`FIELD_INSET`)
-    px: '3.5',
+    // the inset of a field
+    px: FIELD_INSET,
     py: '2',
     '& > * + *': { marginTop: '0.75em' },
     // Every element the editor keeps is visible as such, toolbar or not: a
@@ -113,7 +117,8 @@ const proseMirrorCss = defineStyle({
     '& strong': { fontWeight: 'bold' },
     '& p.is-editor-empty:first-of-type::before': {
       content: 'attr(data-placeholder)',
-      color: 'fg.muted',
+      // what a field suggests while empty (see fieldFrame.ts)
+      color: 'control.placeholder',
       pointerEvents: 'none',
       float: 'inline-start',
       height: '0',

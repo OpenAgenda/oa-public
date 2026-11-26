@@ -21,6 +21,15 @@ export const checkboxRecipe = defineSlotRecipe({
   },
 
   variants: {
+    // At rest the box takes the border of a control (`border.control`) where
+    // Chakra reads `border.emphasized`, the frame of plain boxes
+    variant: {
+      solid: {
+        control: {
+          borderColor: 'border.control',
+        },
+      },
+    },
     size: {
       xs: {
         control: {

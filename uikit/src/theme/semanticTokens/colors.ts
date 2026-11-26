@@ -33,12 +33,15 @@ export const semanticColors = defineSemanticTokens.colors({
   // (`oaGray.100`): no lighter, and on no ground darker than that one. Cool
   // rather than neutral: at the same contrast it reads less harsh down a long
   // form than `oaGray.500` did.
+  //
+  // A token of its own, not `border.emphasized`: that one also frames plain
+  // boxes — cards, panels — which have no reason to darken with the controls.
   border: {
     // the red of the error text (see `fg.error`)
     error: {
       value: { _light: '{colors.red.600}', _dark: '{colors.red.400}' },
     },
-    emphasized: {
+    control: {
       value: {
         _light: '{colors.control.border}',
         _dark: '{colors.control.border}',

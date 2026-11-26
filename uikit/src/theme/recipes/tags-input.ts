@@ -19,6 +19,10 @@ export const tagsInputRecipe = defineSlotRecipe({
         boxShadow: FIELD_THICK_BORDER,
       },
     },
+    // what the box suggests while empty, as any field (see fieldFrame.ts)
+    input: {
+      _placeholder: { color: 'control.placeholder' },
+    },
   },
   variants: {
     // named so that it can be the default below; its measures are Chakra's
@@ -26,7 +30,7 @@ export const tagsInputRecipe = defineSlotRecipe({
     variant: {
       outline: {
         control: {
-          borderColor: 'border.emphasized',
+          borderColor: 'border.control',
           _focus: {
             boxShadow: FIELD_HALO,
             _invalid: { boxShadow: `${FIELD_THICK_BORDER}, ${FIELD_HALO}` },

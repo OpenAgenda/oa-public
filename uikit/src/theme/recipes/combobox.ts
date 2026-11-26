@@ -25,7 +25,7 @@ export const comboboxRecipe = defineSlotRecipe({
     variant: {
       outline: {
         input: {
-          borderColor: 'border.emphasized',
+          borderColor: 'border.control',
         },
       },
     },

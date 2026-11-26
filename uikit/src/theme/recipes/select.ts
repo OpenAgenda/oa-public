@@ -45,7 +45,7 @@ export const selectRecipe = defineSlotRecipe({
       // Emphasize the resting trigger border to match inputs (see input.ts).
       outline: {
         trigger: {
-          borderColor: 'border.emphasized',
+          borderColor: 'border.control',
         },
       },
     },

@@ -89,7 +89,7 @@ export const colors = defineTokens.colors({
     900: { value: '#151316' },
   },
   // Bordure au repos d'un contrôle (champ, select, case, radio), lue par
-  // `border.emphasized`. Le gris le plus clair qui tienne 3:1 sur blanc ET sur
+  // `border.control`. Le gris le plus clair qui tienne 3:1 sur blanc ET sur
   // `oaGray.100` (3,65:1 et 3,15:1) — froid plutôt que neutre, pour peser moins
   // à contraste égal.
   // `placeholder` : ce qu'un champ vide suggère, 4,83:1 sur blanc.

@@ -11,7 +11,7 @@ export const textareaRecipe = defineRecipe({
     },
     variant: {
       outline: {
-        borderColor: 'border.emphasized',
+        borderColor: 'border.control',
       },
     },
   },
