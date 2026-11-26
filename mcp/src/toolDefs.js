@@ -38,7 +38,10 @@ export const searchDocsTool = {
       'Rank the OpenAgenda v3 operations against a question. A single call returns '
       + 'the complete result: the top hits in full (signature, parameters, request '
       + 'body, response shape, and a runnable example for the `execute` tool), and '
-      + 'every other match as a name, a summary and a call line.',
+      + 'every other match as a name, a summary and a call line. A query that is '
+      + 'exactly an operation id (e.g. `agendas.events.list`) returns that operation '
+      + 'alone, in full. An empty query, or one that matches nothing, '
+      + 'returns every operation as a name, a summary and a call line.',
     inputSchema: {
       query: z
         .string()

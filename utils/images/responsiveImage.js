@@ -8,9 +8,11 @@
 // `main`/`dev`) — the SAME segment the Next app emits, so both warm one cache.
 //
 // The shape is the clean v3 `Image`: { width, height, src, srcTemplate, srcset }
-// — no v2 internals (filename/base/variants), no credits (the owning resource's
-// `imageCredits`). `src` is a ready-to-use default rendition (a naive <img src>
-// just works); `srcTemplate`/`srcset` drive the responsive picture. Pure + side-effect-free (no I/O).
+// (the v3 mappers add its `ref`, see storedImageRef) — no v2 internals
+// (filename/base/variants), no credits (the owning resource's `imageCredits`).
+// `src` is a ready-to-use default rendition (a naive <img src> just works);
+// `srcTemplate`/`srcset` drive the responsive picture. Pure + side-effect-free
+// (no I/O).
 //
 // Fallback: with no `imageCdnPath` (Thumbor not live) or no resolvable source,
 // `src` falls back to the legacy `base + filename` URL (what works today) and the
@@ -336,6 +338,20 @@ function imageRefFromServed(value, imageOptions = {}) {
   return imageRefFromSource(parsed.source, imageOptions);
 }
 
+// The reference of a stored image: the last segment of the name its image
+// field stores, without the query (the `?_ts=` cache-buster, which a re-render
+// of the same object changes). It is what tells the image a resource carries
+// from any other, so a write can keep the stored image by naming it. Accepts
+// what the image fields hold: an event's `{ filename, … }` descriptor, or the
+// bare or prefixed string of an agenda or a location - a read and a write that
+// prefix it differently still name it alike. Returns null when there is no
+// stored image.
+function storedImageRef(value) {
+  const name = value && typeof value === 'object' ? value.filename : value;
+  if (!name || typeof name !== 'string') return null;
+  return keyOf(name).split('/').pop() || null;
+}
+
 // Shape the `config.s3` block into the option object every composer takes
 // ({ imageCdnPath, bucket, assetBase }). The ONE place that maps s3 field names
 // onto the builder's inputs, shared by the v3 mappers, the event-search parser
@@ -374,6 +390,7 @@ export {
   imageRefFromSource,
   imageRefFromServed,
   nativeImageUrl,
+  storedImageRef,
   imageServingOptions,
   DEFAULT_WIDTHS,
   DEFAULT_SRC_WIDTH,

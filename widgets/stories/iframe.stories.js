@@ -116,6 +116,17 @@ export const Sort = () => `
   <script async src="/widgets.js" charset="utf-8"></script>
 `;
 
+export const FixedSortAndThreshold = () => `
+  <section class="page">
+    <h2>Agenda</h2>
+    <blockquote class="oa-agenda" align="center" data-filters="search" data-sort="timings.asc|fixed" data-threshold="auto"><p lang="fr">Voir les événements de <a href="https://d.openagenda.com/agendas/83549053"><b>Bordeaux Métropole</b></a></p></blockquote>
+  </section>
+
+  <!-- remove hash -->
+  <script>history.replaceState({}, '', '#');</script>
+  <script async src="/widgets.js" charset="utf-8"></script>
+`;
+
 export const PrimaryColor = () => `
   <section class="page">
     <h2>Agenda</h2>

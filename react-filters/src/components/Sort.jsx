@@ -1,36 +1,27 @@
-import { useMemo, useState } from 'react';
-import { defineMessages, useIntl } from 'react-intl';
-import { Field, useForm } from 'react-final-form';
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { useIntl } from 'react-intl';
+import { Field, useField, useForm } from 'react-final-form';
 import { OnChange } from 'react-final-form-listeners';
+import { components as selectComponents } from 'react-select';
 import ReactSelectField from '@openagenda/react-shared/components/ReactSelectField';
+import AppliedValuesContext from '../contexts/AppliedValuesContext.js';
+import messages from '../messages/sort.js';
 
 const { defaultStyles: defaultReactSelectStyles } = ReactSelectField;
-
-const messages = defineMessages({
-  relevance: {
-    id: 'ReactFilters.Sort.relevance',
-    defaultMessage: 'Relevance',
-  },
-  chronological: {
-    id: 'ReactFilters.Sort.chronological',
-    defaultMessage: 'Chronological order',
-  },
-  recentlyUpdated: {
-    id: 'ReactFilters.Sort.recentlyUpdated',
-    defaultMessage: 'Recently updated',
-  },
-  publicView: {
-    id: 'ReactFilters.Sort.publicView',
-    defaultMessage: 'Public view',
-  },
-});
 
 const stateSelectStyles = {
   ...defaultReactSelectStyles,
   container: (provided) => ({
     ...provided,
     display: 'inline-block',
-    width: '180px',
+    minWidth: '180px',
   }),
   control: (provided, state) => ({
     ...defaultReactSelectStyles.control(provided, state),
@@ -46,37 +37,291 @@ const stateSelectStyles = {
   }),
 };
 
-const defaultOptions = ['score', 'timings.asc', 'updatedAt.desc'];
+// what the closed select shows, where room is short; the menu has the label
+const shortMessages = {
+  score: messages.relevance,
+  'timings.asc': messages.chronologicalShort,
+  'timingsWithFeatured.asc': messages.chronologicalShort,
+  'lastTiming.asc': messages.chronologicalShort,
+  'lastTimingWithFeatured.asc': messages.chronologicalShort,
+  'updatedAt.desc': messages.recentlyUpdated,
+  'updatedAt.asc': messages.leastRecentlyUpdatedShort,
+};
 
-export default function Sort({ options = defaultOptions }) {
+const descriptionMessages = {
+  score: messages.relevanceDescription,
+  'timings.asc': messages.chronologicalDescription,
+  'timingsWithFeatured.asc': messages.featuredThenChronologicalDescription,
+  'lastTiming.asc': messages.lastDateDescription,
+  'lastTimingWithFeatured.asc': messages.featuredThenLastDateDescription,
+  'updatedAt.desc': messages.recentlyUpdatedDescription,
+  'updatedAt.asc': messages.leastRecentlyUpdatedDescription,
+};
+
+const optionMessages = {
+  score: messages.relevance,
+  'timings.asc': messages.chronological,
+  'timingsWithFeatured.asc': messages.featuredThenChronological,
+  'lastTiming.asc': messages.lastDate,
+  'lastTimingWithFeatured.asc': messages.featuredThenLastDate,
+  'updatedAt.desc': messages.recentlyUpdated,
+  'updatedAt.asc': messages.leastRecentlyUpdated,
+};
+
+// Lays every label the closed select can show, invisible, in the cell of the
+// value: the select is as wide as the widest of them, whichever is selected
+// and whether a search offers relevance or not.
+function ValueContainer({ children, ...props }) {
+  return (
+    <selectComponents.ValueContainer {...props}>
+      {children}
+      {props.selectProps.sizingLabels?.map((sizingLabel) => (
+        <span
+          key={sizingLabel}
+          aria-hidden
+          style={{
+            gridArea: '1 / 1 / 2 / 3',
+            height: 0,
+            margin: '0 2px',
+            overflow: 'hidden',
+            visibility: 'hidden',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {sizingLabel}
+        </span>
+      ))}
+    </selectComponents.ValueContainer>
+  );
+}
+
+// shown with nothing to offer. react-select points `aria-describedby` at its
+// id: the id goes to an empty element, as the select's name already says
+// "Sort by", and the reference stays valid.
+function Placeholder({ innerProps, children, ...props }) {
+  return (
+    <selectComponents.Placeholder
+      {...props}
+      innerProps={{ ...innerProps, id: undefined }}
+    >
+      {children}
+      <span id={innerProps?.id} />
+    </selectComponents.Placeholder>
+  );
+}
+
+const selectComponentsOverrides = { ValueContainer, Placeholder };
+
+// what a public listing wants, with a single chronological order so the
+// closed select never shows two orders under the same short label; the agenda
+// admin passes its own
+const defaultOptions = ['lastTimingWithFeatured.asc', 'score'];
+const noLabels = {};
+
+export default function Sort({
+  options = defaultOptions,
+  // shown while the form holds no sort; the first option when it is not one
+  defaultValue = undefined,
+  // per-value label overrides, e.g. the admin names
+  // `lastTimingWithFeatured.asc` after the public view
+  labels = noLabels,
+  // per-value labels for the closed select only, where room is short; the
+  // label otherwise
+  shortLabels = noLabels,
+  // per-value detail lines shown under each label in the open menu, over the
+  // defaults; `false` shows labels only
+  descriptions = noLabels,
+  // merged over the default styles, key by key
+  styles = null,
+  // accessible name of the select, a translated "Sort by" by default; `false`
+  // when the page names it with its own <label>
+  label = undefined,
+  // merged over the component that sizes the select
+  components = undefined,
+  // as wide as the longest label it can show, whichever is selected; `false`
+  // lets the select follow the selected label, e.g. styled as a link
+  sizeToLabels = true,
+  ...rest
+}) {
   const intl = useIntl();
   const form = useForm();
 
-  const [userSort, setUserSort] = useState(() => form.getState().values.sort);
+  const mergedComponents = useMemo(() => {
+    const own = sizeToLabels
+      ? selectComponentsOverrides
+      : { Placeholder: selectComponentsOverrides.Placeholder };
+
+    return components ? { ...own, ...components } : own;
+  }, [components, sizeToLabels]);
+
+  const mergedStyles = useMemo(
+    () => (styles ? { ...stateSelectStyles, ...styles } : stateSelectStyles),
+    [styles],
+  );
+
+  // the sort to bring back once a search is cleared: never relevance, which
+  // only ranks against a search
+  const [userSort, setUserSort] = useState(() => {
+    const { sort } = form.getState().values;
+    return sort === 'score' ? undefined : sort;
+  });
+
+  // only the search matters here: subscribing to every value would re-render
+  // the select on each change of any filter
+  const {
+    input: { value: search },
+  } = useField('search', { subscription: { value: true } });
+  const hasSearch = Boolean(search?.length);
+  const hasRelevance = options.includes('score');
 
   const orderOptions = useMemo(
     () =>
-      [
-        {
-          label: intl.formatMessage(messages.relevance),
-          value: 'score',
-          // isDisabled: true
-        },
-        {
-          label: intl.formatMessage(messages.chronological),
-          value: 'timings.asc',
-        },
-        {
-          label: intl.formatMessage(messages.recentlyUpdated),
-          value: 'updatedAt.desc',
-        },
-        {
-          label: intl.formatMessage(messages.publicView),
-          value: 'lastTimingWithFeatured.asc',
-        },
-      ].filter((option) => options.includes(option.value)),
-    [intl, options],
+      // listed in the order of `options`; values without a label are dropped
+      options
+        .filter((value) => optionMessages[value])
+        .map((value) => ({
+          value,
+          label: labels[value] ?? intl.formatMessage(optionMessages[value]),
+        }))
+        // relevance only ranks against a search
+        .filter(({ value }) => value !== 'score' || hasSearch),
+    [hasSearch, intl, labels, options],
   );
+
+  // never show a default the select does not offer
+  const shownDefault = orderOptions.some(({ value }) => value === defaultValue)
+    ? defaultValue
+    : orderOptions[0]?.value;
+
+  // a sort loaded from the page query may be a known order the select does
+  // not offer: name it rather than showing its raw value
+  const formatOptionLabel = useCallback(
+    ({ value, label: rawLabel }, { context }) => {
+      // in the closed select: the integration's short label, then its
+      // label, then ours; in the menu: the integration's label, then ours
+      const defaultMessage = (context === 'value' ? shortMessages[value] : undefined)
+        ?? optionMessages[value];
+      const name = (context === 'value' ? shortLabels[value] : undefined)
+        ?? labels[value]
+        ?? (defaultMessage ? intl.formatMessage(defaultMessage) : rawLabel);
+
+      const description = context === 'menu' && descriptions !== false
+        ? (descriptions[value]
+            ?? (descriptionMessages[value]
+              ? intl.formatMessage(descriptionMessages[value])
+              : null))
+        : null;
+
+      if (!description) {
+        return name;
+      }
+
+      return (
+        <span className="oa-filters-sort-option">
+          <span className="oa-filters-sort-label">{name}</span>
+          <span className="oa-filters-sort-description">{description}</span>
+        </span>
+      );
+    },
+    [descriptions, intl, labels, shortLabels],
+  );
+
+  // A sort the select does not offer, from the page's URL, is shown under
+  // its label: it joins the sizing for good, so that picking an offered order
+  // afterwards does not narrow the select.
+  const {
+    input: { value: shownSort },
+  } = useField('sort', { subscription: { value: true } });
+  const [foreignSorts, setForeignSorts] = useState(() => {
+    const initialSort = form.getState().values.sort;
+    return typeof initialSort === 'string' && !options.includes(initialSort)
+      ? [initialSort]
+      : [];
+  });
+
+  useEffect(() => {
+    if (
+      // a query such as ?sort[a]=b gives an object, which has no label
+      typeof shownSort === 'string'
+      && shownSort
+      && !options.includes(shownSort)
+      && !foreignSorts.includes(shownSort)
+    ) {
+      setForeignSorts((previous) => [...previous, shownSort]);
+    }
+  }, [foreignSorts, options, shownSort]);
+
+  // relevance included: the width must not change when a search adds it
+  const sizingLabels = useMemo(
+    () => [
+      ...new Set([
+        ...options
+          .filter((value) => optionMessages[value])
+          .map((value) => formatOptionLabel({ value }, { context: 'value' })),
+        ...foreignSorts.map((value) =>
+          formatOptionLabel({ value, label: value }, { context: 'value' })),
+      ]),
+    ],
+    [foreignSorts, formatOptionLabel, options],
+  );
+
+  const userSortRef = useRef(userSort);
+  userSortRef.current = userSort;
+
+  // with manual submit, the provider keeps the applied values and the order
+  // applied before relevance
+  const applied = useContext(AppliedValuesContext);
+  const appliedRef = useRef(applied);
+  appliedRef.current = applied;
+
+  const hasRelevanceRef = useRef(hasRelevance);
+  hasRelevanceRef.current = hasRelevance;
+
+  // Switch to relevance when the visitor types a search, and back when they
+  // clear it. A search the form is reset to (back/forward, a link, a reset
+  // the page makes) comes with its own sort, and so do the applied values
+  // the provider realigns the form on. Not `dirty`: with manual submit the
+  // form is never reset, and a search cleared back to the initial one is not
+  // dirty, yet the visitor cleared it. In automatic mode, a field subscriber
+  // runs before the provider's submit resets the form.
+  useEffect(() => {
+    let previous = form.getState().values.search;
+
+    return form.registerField(
+      'search',
+      ({ value }) => {
+        const wasSet = Boolean(previous);
+        const isSet = Boolean(value);
+        previous = value;
+
+        if (
+          !hasRelevanceRef.current
+          || wasSet === isSet
+          || form.isResetting?.()
+          || appliedRef.current?.isApplying()
+        ) {
+          return;
+        }
+
+        const { sort } = form.getState().values;
+
+        if (isSet) {
+          if (sort !== 'score') {
+            setUserSort(sort);
+          }
+          form.change('sort', 'score');
+        } else if (sort === 'score') {
+          // relevance applied: the order applied before it, as when the
+          // search badge goes
+          const back = appliedRef.current?.values.sort === 'score'
+            ? appliedRef.current.sortBeforeRelevance()
+            : userSortRef.current;
+          form.change('sort', back || undefined);
+        }
+      },
+      { value: true },
+    );
+  }, [form]);
 
   return (
     <>
@@ -84,33 +329,28 @@ export default function Sort({ options = defaultOptions }) {
         Field={Field}
         name="sort"
         options={orderOptions}
-        styles={stateSelectStyles}
+        styles={mergedStyles}
         isSearchable={false}
         isClearable={false}
-        defaultValue="updatedAt.desc"
+        defaultValue={shownDefault}
+        formatOptionLabel={formatOptionLabel}
+        components={mergedComponents}
+        sizingLabels={sizingLabels}
+        // with nothing to offer, the select stays in place, named and idle
+        placeholder={intl.formatMessage(messages.sortBy)}
+        aria-label={
+          label === false
+            ? undefined
+            : (label ?? intl.formatMessage(messages.sortBy))
+        }
+        {...rest}
+        isDisabled={rest.isDisabled || !orderOptions.length}
       />
       <OnChange name="sort">
         {(value) => {
-          // user change
-          if (form.getState().active === 'sort') {
+          // picked by the visitor or set by the page's URL alike
+          if (value !== 'score') {
             setUserSort(value);
-          }
-        }}
-      </OnChange>
-      <OnChange name="search">
-        {(value, previousValue) => {
-          const { sort } = form.getState().values;
-
-          if (previousValue === '' && value !== '') {
-            // search added
-            setUserSort(sort);
-            form.change('sort', 'score');
-          } else if (sort === 'score' && previousValue !== '' && value === '') {
-            // search removed
-            form.change(
-              'sort',
-              userSort && userSort !== '' ? userSort : undefined,
-            );
           }
         }}
       </OnChange>

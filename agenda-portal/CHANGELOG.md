@@ -1,5 +1,54 @@
 # Change Log
 
+## 7.0.5
+
+### Patch Changes
+
+- Updated dependencies [[`3b0411c`](https://github.com/OpenAgenda/oa/commit/3b0411cdce78122d968d78f5195bab272e8c8d6f)]:
+  - @openagenda/react-shared@3.2.4
+  - @openagenda/react-filters@3.3.1
+
+## 7.0.4
+
+### Patch Changes
+
+- Updated dependencies [[`222b0fe`](https://github.com/OpenAgenda/oa/commit/222b0fe8ac8850e8d9c492f59df2bd135b6ac95e), [`1cb4c3d`](https://github.com/OpenAgenda/oa/commit/1cb4c3d37e3f5b96aaf27dff858e4f26dba514fb), [`3c68e27`](https://github.com/OpenAgenda/oa/commit/3c68e279e8800a1203102641c2eb14a7b38f9803), [`9d82325`](https://github.com/OpenAgenda/oa/commit/9d82325f48e36119b3c4818fa6f00227cb81fc5d), [`d39b864`](https://github.com/OpenAgenda/oa/commit/d39b864088fa56dead8f42f0d59843ffaa4ef054), [`8333644`](https://github.com/OpenAgenda/oa/commit/83336446a10d5cd73885881d2bf1d19c1459255b), [`8bf0fac`](https://github.com/OpenAgenda/oa/commit/8bf0fac5bbf173ade7b04df2785672a97b0f8f9f)]:
+  - @openagenda/react-filters@3.3.0
+  - @openagenda/react-shared@3.2.3
+
+## 7.0.3
+
+### Patch Changes
+
+- Updated dependencies [[`a2079a5`](https://github.com/OpenAgenda/oa/commit/a2079a59f3e021837353c19bb28c1f82db55cb17)]:
+  - @openagenda/babel-preset@2.1.0
+  - @openagenda/browserslist-config@2.1.0
+  - @openagenda/intl@2.2.0
+  - @openagenda/logs@1.3.0
+  - @openagenda/md@2.1.0
+  - @openagenda/polyfills@1.3.0
+  - @openagenda/react-portal-ssr@1.3.0
+  - @openagenda/react-shared@3.2.2
+  - @openagenda/react-filters@3.2.1
+
+## 7.0.2
+
+### Patch Changes
+
+- [#552](https://github.com/OpenAgenda/oa/pull/552) [`ac40f98`](https://github.com/OpenAgenda/oa/commit/ac40f98ed5544f2ba7c9111b3a36ebe673694100) Thanks [@kaore](https://github.com/kaore)! - The server render keeps the `sort` of the page query, as the filters controller now does in the browser, so the list no longer flashes the default order before the one in the URL.
+
+- Updated dependencies [[`c61657f`](https://github.com/OpenAgenda/oa/commit/c61657fda6a76ab18e8e13abf5c9345f889218a9)]:
+  - @openagenda/react-filters@3.2.0
+  - @openagenda/react-shared@3.2.1
+
+## 7.0.1
+
+### Patch Changes
+
+- Updated dependencies [[`08ecc16`](https://github.com/OpenAgenda/oa/commit/08ecc168e32c1281ad2a3c4dd7e9556c2c24220a), [`c4972f8`](https://github.com/OpenAgenda/oa/commit/c4972f872f890720be964965056d6f333d40ae87), [`b8fd0cc`](https://github.com/OpenAgenda/oa/commit/b8fd0cc2bb1c30b965f910624778d8738f419181)]:
+  - @openagenda/react-filters@3.1.0
+  - @openagenda/react-shared@3.2.0
+
 ## 7.0.0
 
 ### Major Changes

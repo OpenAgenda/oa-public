@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 import useSWR from 'swr';
 import ky from 'ky';
 import qs from 'qs';
-import { Box, Bleed, Link, VStack } from '@openagenda/uikit';
+import { Bleed, VStack } from '@openagenda/uikit';
 import {
   AccordionRoot,
   DialogBody,
@@ -11,21 +11,23 @@ import {
   Radio,
 } from '@openagenda/uikit/snippets';
 import isUpcomingOnlyQuery from '../../utils/isUpcomingOnlyQuery';
+import withDefaultCorpus from '../../utils/withDefaultCorpus';
 import ModalLoadingBody from '../ModalLoadingBody';
 import type { Agenda, EventQuery, ExportSettings } from '../../types';
 import SpreadsheetAccordionItem from './SpreadsheetAccordionItem';
-import PdfAccordionItem from './PdfAccordionItem';
+import DocumentAccordionItem from './DocumentAccordionItem';
 import JsonAccordionItem from './JsonAccordionItem';
 import GcalAccordionItem from './GcalAccordionItem';
 import OutlookAccordionItem from './OutlookAccordionItem';
 import IcsAccordionItem from './IcsAccordionItem';
 import RssAccordionItem from './RssAccordionItem';
+import AboutAccordionItem from './AboutAccordionItem';
 import EmbedAccordionItem from './EmbedAccordionItem';
 import messages from './messages';
 import type {
   CompleteUrlsResult,
   IcsSubmitHandler,
-  PdfSubmitHandler,
+  DocumentSubmitHandler,
   SpreadsheetSubmitHandler,
 } from './types';
 
@@ -42,43 +44,64 @@ function fetcher<T>(url: string): Promise<T> {
 }
 
 function completeUrls(
-  agendaUid: string | number,
+  agenda: Agenda,
   query: EventQuery,
   rootUrl = 'https://openagenda.com',
   apiRootUrl = 'https://api.openagenda.com',
 ): CompleteUrlsResult {
-  const apiQuery = {
-    ...isUpcomingOnlyQuery(query)
+  const apiQueryFor = (q: EventQuery, upcomingOnly: boolean) => ({
+    ...upcomingOnly
       ? {
         relative: ['current', 'upcoming'],
       }
       : null,
-    ...query,
+    ...q,
     passed: undefined, // omit passed
-  };
+  });
+
+  // A one-off file holds what the listing shows: an agenda whose events are
+  // all past exports them, a fully archived one its archives. A feed — a
+  // calendar subscription, the RSS, the JSON an integrator polls — and the
+  // embed keep the defaults: their URL outlives the agenda's current state,
+  // and must bring the upcoming events back once the agenda has some again.
+  // Both read the reader's own corpus, its spelling normalised (`?archived=
+  // true` is the archives, never their upcoming window).
+  const fileQuery = withDefaultCorpus(query, agenda);
+  const readerQuery = withDefaultCorpus(query);
+  const apiQuery = apiQueryFor(
+    fileQuery,
+    isUpcomingOnlyQuery(fileQuery, agenda),
+  );
+  const feedQuery = apiQueryFor(readerQuery, isUpcomingOnlyQuery(readerQuery));
 
   const apiQueryString = qs.stringify(apiQuery, { addQueryPrefix: true });
-  const embedQueryString = qs.stringify(query, { addQueryPrefix: true });
+  const feedQueryString = qs.stringify(feedQuery, { addQueryPrefix: true });
+  const embedQueryString = qs.stringify(readerQuery, {
+    addQueryPrefix: true,
+  });
   const countQueryString = qs.stringify(
     { ...apiQuery, size: 0 },
     { addQueryPrefix: true },
   );
 
   return {
-    agendaExportSettings: `/agendas/${agendaUid}/settings/exports`,
-    // How many events the export covers: the PDF greys its image option past
-    // the server threshold. Through the UI API, not the `.v2.json` export,
-    // which `trackFormat` would log as a JSON export of the agenda.
-    count: `${rootUrl}/api/agendas/${agendaUid}/events${countQueryString}`,
+    agendaExportSettings: `/agendas/${agenda.uid}/settings/exports`,
+    // How many events the export covers: the PDF and Word exports grey their
+    // image option past the server threshold. Through the UI API, not the
+    // `.v2.json` export, which `trackFormat` would log as a JSON export of the
+    // agenda.
+    count: `${rootUrl}/api/agendas/${agenda.uid}/events${countQueryString}`,
     me: '/api/me',
     export: {
-      jsonV2: `${apiRootUrl}/v2/agendas/${agendaUid}/events${apiQueryString}`,
-      pdf: `${rootUrl}/agendas/${agendaUid}/events.v2.pdf${apiQueryString}`,
-      xlsx: `${rootUrl}/agendas/${agendaUid}/events.v2.xlsx${apiQueryString}`,
-      ics: `${rootUrl}/agendas/${agendaUid}/events.v2.ics${apiQueryString}`,
-      csv: `${rootUrl}/agendas/${agendaUid}/events.v2.csv${apiQueryString}`,
-      rss: `${rootUrl}/agendas/${agendaUid}/events.v2.rss${apiQueryString}`,
-      embed: `${rootUrl}/agendas/${agendaUid}${embedQueryString}`,
+      jsonV2: `${apiRootUrl}/v2/agendas/${agenda.uid}/events${feedQueryString}`,
+      pdf: `${rootUrl}/agendas/${agenda.uid}/events.v2.pdf${apiQueryString}`,
+      docx: `${rootUrl}/agendas/${agenda.uid}/events.v2.docx${apiQueryString}`,
+      xlsx: `${rootUrl}/agendas/${agenda.uid}/events.v2.xlsx${apiQueryString}`,
+      ics: `${rootUrl}/agendas/${agenda.uid}/events.v2.ics${feedQueryString}`,
+      icsFile: `${rootUrl}/agendas/${agenda.uid}/events.v2.ics${apiQueryString}`,
+      csv: `${rootUrl}/agendas/${agenda.uid}/events.v2.csv${apiQueryString}`,
+      rss: `${rootUrl}/agendas/${agenda.uid}/events.v2.rss${feedQueryString}`,
+      embed: `${rootUrl}/agendas/${agenda.uid}${embedQueryString}`,
     },
   };
 }
@@ -110,9 +133,18 @@ export default function Body({
 
   const [mode, setMode] = useState<'all' | 'selection'>('selection');
   const res = useMemo(() => {
-    const usedQuery: EventQuery = mode === 'all' ? { relative: ['passed', 'current', 'upcoming'] } : query;
-    return completeUrls(agenda.uid, usedQuery, rootUrl, apiRootUrl);
-  }, [mode, agenda.uid, query, rootUrl, apiRootUrl]);
+    // "All" is every event of the corpus on screen: from the archives view,
+    // every archived event. The reader's `archived` as written, `0` included:
+    // `completeUrls` reads its spelling, and derives a fully archived
+    // agenda's default for the files only.
+    const usedQuery: EventQuery = mode === 'all'
+      ? {
+        relative: ['passed', 'current', 'upcoming'],
+        ...query.archived ? { archived: query.archived } : {},
+      }
+      : query;
+    return completeUrls(agenda, usedQuery, rootUrl, apiRootUrl);
+  }, [mode, agenda, query, rootUrl, apiRootUrl]);
 
   const { data: exportSettingsData, isLoading: exportSettingsLoading } = useSWR<ExportSettings>(res.agendaExportSettings, (url: string) =>
     (fetchAgendaExportSettings
@@ -124,6 +156,7 @@ export default function Body({
   const languages = exportSettingsData?.languages;
   const hasMultipleLocations = exportSettingsData?.hasMultipleLocations ?? true;
   const pdfImageLimit = exportSettingsData?.pdfImageLimit;
+  const wordImageLimit = exportSettingsData?.wordImageLimit;
   const fields = exportSettingsData?.spreadsheetColumns;
   const choiceFields = exportSettingsData?.choiceFields;
 
@@ -148,11 +181,11 @@ export default function Body({
     onClose();
   };
 
-  const handlePdfSubmit: PdfSubmitHandler = (options) => (e) => {
+  const handleDocumentSubmit: DocumentSubmitHandler = (options) => (e) => {
     e.preventDefault();
-    const url = new URL(res.export.pdf);
+    const url = new URL(res.export[options.format]);
     url.searchParams.append('lang', intl.locale);
-    if (options.locationInHeader) {
+    if (options.format === 'pdf' && options.locationInHeader) {
       url.searchParams.append('locationInHeader', 'true');
     }
     options.sort.forEach((s) => url.searchParams.append('sort[]', s));
@@ -165,7 +198,7 @@ export default function Body({
 
   const handleIcsSubmit: IcsSubmitHandler = (e) => {
     e.preventDefault();
-    window.open(new URL(res.export.ics), '_blank');
+    window.open(new URL(res.export.icsFile), '_blank');
     onClose();
   };
 
@@ -175,40 +208,6 @@ export default function Body({
 
   return (
     <DialogBody>
-      <Box alignItems="start" mb="4">
-        {renderHost === 'parent'
-          ? intl.formatMessage(messages.openDataInfoEmbed, {
-            agenda: (
-              <Link
-                href={`https://openagenda.com/${agenda.slug}`}
-                target="_blank"
-                rel="noopener"
-              >
-                {agenda.title}
-              </Link>
-            ),
-            linkOpendata: (chunks) => (
-              <Link
-                href="https://doc.openagenda.com/des-agendas-en-donnees-ouvertes-opendata"
-                target="_blank"
-                rel="noopener"
-              >
-                {chunks}
-              </Link>
-            ),
-          })
-          : intl.formatMessage(messages.openDataInfo, {
-            link: (chunks) => (
-              <Link
-                href="https://doc.openagenda.com/des-agendas-en-donnees-ouvertes-opendata"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {chunks}
-              </Link>
-            ),
-          })}
-      </Box>
       <RadioGroup
         value={mode}
         onValueChange={(e) => setMode(e.value as 'all' | 'selection')}
@@ -223,6 +222,7 @@ export default function Body({
 
       <Bleed inline="6">
         <AccordionRoot
+          size="sm"
           as="form"
           collapsible
           defaultValue={
@@ -235,11 +235,19 @@ export default function Body({
             languages={languages}
             fields={fields}
           />
-          <PdfAccordionItem
-            onSubmit={handlePdfSubmit}
+          <DocumentAccordionItem
+            format="pdf"
+            onSubmit={handleDocumentSubmit}
             hasMultipleLocations={hasMultipleLocations}
             total={countData?.total}
-            pdfImageLimit={pdfImageLimit}
+            imageLimit={pdfImageLimit}
+          />
+          <DocumentAccordionItem
+            format="docx"
+            onSubmit={handleDocumentSubmit}
+            hasMultipleLocations={hasMultipleLocations}
+            total={countData?.total}
+            imageLimit={wordImageLimit}
           />
           <JsonAccordionItem res={res} />
           <GcalAccordionItem res={res} />
@@ -251,6 +259,11 @@ export default function Body({
             choiceFields={choiceFields}
           />
           <EmbedAccordionItem dialogRef={dialogRef} res={res} agenda={agenda} />
+          <AboutAccordionItem
+            agenda={agenda}
+            rootUrl={rootUrl}
+            renderHost={renderHost}
+          />
         </AccordionRoot>
       </Bleed>
     </DialogBody>

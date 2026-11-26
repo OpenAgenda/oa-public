@@ -5,8 +5,11 @@ export type CompleteUrlsResult = {
   export: {
     jsonV2: string;
     pdf: string;
+    docx: string;
     xlsx: string;
+    // the subscription feed (calendar apps), and the one-off file
     ics: string;
+    icsFile: string;
     csv: string;
     rss: string;
     embed: string;
@@ -25,7 +28,11 @@ export type SpreadsheetSubmitOptions = {
   distributedFields: string[];
 };
 
-export type PdfSubmitOptions = {
+export type DocumentFormat = 'pdf' | 'docx';
+
+export type DocumentSubmitOptions = {
+  format: DocumentFormat;
+  // PDF only: the location in the page header rather than in each item.
   locationInHeader: boolean;
   sort: string[];
   // null: everything, the export's default. A list names every line to keep.
@@ -36,8 +43,8 @@ export type SpreadsheetSubmitHandler = (
   options: SpreadsheetSubmitOptions,
 ) => (e: React.SyntheticEvent) => void;
 
-export type PdfSubmitHandler = (
-  options: PdfSubmitOptions,
+export type DocumentSubmitHandler = (
+  options: DocumentSubmitOptions,
 ) => (e: React.SyntheticEvent) => void;
 
 export type IcsSubmitHandler = (e: React.SyntheticEvent) => void;

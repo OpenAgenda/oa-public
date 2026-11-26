@@ -1,12 +1,12 @@
 <%- include('../layout/_top.ejs') %>
 
-<div class="container agenda-admin">
+<div class="agenda-admin">
   <%- include('../agenda-admin/_admin-header.ejs') %>
 
-  <div class="row wsq">
+  <div class="oa-admin-container oa-admin-columns">
     <%- include( '../agenda-admin/_admin-tabs.ejs', { selectedTab: 'inbox' } ) %>
 
-    <div class="col col-xs-9 body">
+    <div class="oa-admin-card oa-admin-main">
       <div class="inbox inbox-agendaAdmin">
         <h2>Messagerie</h2>
 

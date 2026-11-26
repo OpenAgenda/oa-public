@@ -55,6 +55,23 @@ export default defineConfig({
     // `MergedLocationError` body and strips the extra key. Narrow such a
     // response by the carrier it declares (`'mergedIn' in error`, `'errors' in
     // error`) rather than by parsing it with the bare `zError`.
-    'zod',
+    //
+    // `dates.offset` IS NOT COSMETIC, and it is a review finding. Left to its
+    // default, the plugin emits `z.string().datetime()` for a `format:
+    // date-time`, and in zod 3 that means `{ offset: false }`: an explicit UTC
+    // offset is REFUSED and only `…Z` passes. Our contract requires the
+    // opposite — `failUnlessOffsetDate` rejects a stamp that carries no
+    // explicit offset — so every value the API accepts was rejected by the
+    // client generated from the very same contract. Measured on zod 3.25.76:
+    // `'2026-09-09T10:00:00+02:00'` → false without the option, true with it.
+    //
+    // `local` stays at its default `false`: a datetime with no zone at all is
+    // what the server refuses, and the generated validator refuses it too.
+    {
+      dates: {
+        offset: true,
+      },
+      name: 'zod',
+    },
   ],
 });

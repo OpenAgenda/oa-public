@@ -48,7 +48,14 @@ class Mails {
     );
   }
 
-  async send(options = {}) {
+  // `jobOptions` are BullMQ job options for the enqueued send (`delay`,
+  // `priority`, `jobId`…), and are the only way a caller can pace what it
+  // hands over: the queue holds the job and the worker renders and sends it
+  // when the delay is up, so a caller that would otherwise hand over a
+  // hundred mails in a second can spread them over an hour without staying
+  // alive for it. They never reach the job payload, and they are ignored on
+  // the unqueued path (`queue: false`), which sends on the spot.
+  async send({ jobOptions, ...options } = {}) {
     const { config } = this;
 
     if (options.template) {
@@ -123,10 +130,16 @@ class Mails {
           );
         }
 
-        const method = !enqueue
-          ? config.transporter.sendMail.bind(config.transporter)
-          : config.queue.add.bind(config.queue, 'prepareMail');
-        const result = await method(params);
+        // `config.queue` and not `enqueue` alone: the branch above has
+        // already rendered the message when there is no queue to hand it to,
+        // and `defaults.queue` is unset by `createConfig`, so a consumer that
+        // configures no queue and asks for none gets `enqueue` true. Reading
+        // `add` off `undefined` would then throw for every recipient, be
+        // caught below, and `send()` would resolve with a full `errors` array
+        // and nothing sent.
+        const result = enqueue && config.queue
+          ? await config.queue.add('prepareMail', params, jobOptions)
+          : await config.transporter.sendMail(params);
 
         results.push(result);
       } catch (error) {

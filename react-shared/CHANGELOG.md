@@ -1,5 +1,58 @@
 # Change Log
 
+## 3.2.4
+
+### Patch Changes
+
+- [#888](https://github.com/OpenAgenda/oa/pull/888) [`3b0411c`](https://github.com/OpenAgenda/oa/commit/3b0411cdce78122d968d78f5195bab272e8c8d6f) Thanks [@kaore](https://github.com/kaore)! - The modal's close button has its Italian label again: the compiled Italian
+  catalogue had missed `ReactShared.Modal.close`.
+- Updated dependencies [[`950b971`](https://github.com/OpenAgenda/oa/commit/950b971205da5df2f1e827862e3af7429c6f6702), [`1a6b6c3`](https://github.com/OpenAgenda/oa/commit/1a6b6c3f49ebd2ae7126817aa46c634d6a777ab3), [`9b5b7be`](https://github.com/OpenAgenda/oa/commit/9b5b7be844aa7b406fa567b7c95f1a7bd788c8f8), [`6b75569`](https://github.com/OpenAgenda/oa/commit/6b75569323220f340fc9762db43b44bac954ce06), [`4e0f8d2`](https://github.com/OpenAgenda/oa/commit/4e0f8d25ef511faeccd7ffcbe5707fbbe74d7dbb), [`6ef8480`](https://github.com/OpenAgenda/oa/commit/6ef8480ddd1ed4cd7ab9beb2a83a7f61a9b841a6)]:
+  - @openagenda/uikit@0.6.0
+
+## 3.2.3
+
+### Patch Changes
+
+- Updated dependencies [[`9b8839d`](https://github.com/OpenAgenda/oa/commit/9b8839d39639755f84553bf0ee83431195a92da1), [`d39f473`](https://github.com/OpenAgenda/oa/commit/d39f4739e2ee51fb9e72ae849c0ae396c66e489f)]:
+  - @openagenda/uikit@0.5.0
+
+## 3.2.2
+
+### Patch Changes
+
+- Updated dependencies [[`a2079a5`](https://github.com/OpenAgenda/oa/commit/a2079a59f3e021837353c19bb28c1f82db55cb17)]:
+  - @openagenda/common-labels@2.1.0
+  - @openagenda/intl@2.2.0
+  - @openagenda/md@2.1.0
+
+## 3.2.1
+
+### Patch Changes
+
+- Updated dependencies [[`87aa0ec`](https://github.com/OpenAgenda/oa/commit/87aa0ecf621be0b3f0d5786a187fc1d1f19d6d2b), [`7e22504`](https://github.com/OpenAgenda/oa/commit/7e225045c2bc0fde140ac5d391ecde60ea57263e), [`01eb410`](https://github.com/OpenAgenda/oa/commit/01eb4101c3062948ab3cdb8f375e458b32d7d399), [`fada31b`](https://github.com/OpenAgenda/oa/commit/fada31bf1b0daafd53a127d9493404b0195c9f1a)]:
+  - @openagenda/uikit@0.4.0
+
+## 3.2.0
+
+### Minor Changes
+
+- [#513](https://github.com/OpenAgenda/oa/pull/513) [`c4972f8`](https://github.com/OpenAgenda/oa/commit/c4972f872f890720be964965056d6f333d40ae87) Thanks [@kaore](https://github.com/kaore)! - `Modal` is now an accessible modal dialog (RGAA 7.1, 7.3, 12.8, 8.7).
+
+  - It is exposed as one: `role="dialog"`, `aria-modal="true"`, named by its
+    title, or by the new `ariaLabel` prop when it has none.
+  - Focus moves into it on open, unless a child already took it (an `autoFocus`
+    field), and goes back to where it was on close.
+  - Tab and Shift+Tab stay inside it. Focus sitting outside it, in a dropdown a
+    child renders in a portal for instance, is left alone.
+  - Escape closes it, as a click outside already did; a modal without
+    `onClose` ignores it. A child that handles Escape itself keeps the key,
+    whether it calls `preventDefault` (a focused react-select, a dnd-kit
+    keyboard drag) or stops the event (a floating-ui tooltip), and when a modal
+    opens another one, only the top one answers.
+  - The close button is named in the page language when an `IntlProvider` is
+    present (`ReactShared.Modal.close`), in English otherwise, or by the new
+    `closeLabel` prop.
+
 ## 3.1.0
 
 ### Minor Changes

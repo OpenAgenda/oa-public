@@ -1,5 +1,84 @@
 # Change Log
 
+## 3.3.1
+
+### Patch Changes
+
+- Updated dependencies [[`3b0411c`](https://github.com/OpenAgenda/oa/commit/3b0411cdce78122d968d78f5195bab272e8c8d6f)]:
+  - @openagenda/react-shared@3.2.4
+
+## 3.3.0
+
+### Minor Changes
+
+- [#711](https://github.com/OpenAgenda/oa/pull/711) [`222b0fe`](https://github.com/OpenAgenda/oa/commit/222b0fe8ac8850e8d9c492f59df2bd135b6ac95e) Thanks [@kaore](https://github.com/kaore)! - With `manualSubmit`, the active filters show the applied values, like the list they describe, instead of following the visitor's pending selection. Removing a value from them applies that removal alone, at once: `onFilterChange` gets the applied values minus that one, the filter it comes from realigns on the applied values, its own pending changes dropped, and pending changes on other filters stay pending. Automatic mode is unchanged. Relevance is never applied without a search: removing the search, from the active filters or by clearing the field and submitting, brings back the order applied before relevance. `AppliedValuesForm` is exported so that active filters built with `useActiveFilters` and the `*.Preview` components get the same behaviour; its `submit()` and `getSubmittedValues()` are the main form's.
+
+### Patch Changes
+
+- [#711](https://github.com/OpenAgenda/oa/pull/711) [`1cb4c3d`](https://github.com/OpenAgenda/oa/commit/1cb4c3d37e3f5b96aaf27dff858e4f26dba514fb) Thanks [@kaore](https://github.com/kaore)! - With manual submit, clearing a typed search in the field takes the sort off relevance again, back to the order picked before. It stayed on relevance when the page had opened without a search.
+
+- [#685](https://github.com/OpenAgenda/oa/pull/685) [`3c68e27`](https://github.com/OpenAgenda/oa/commit/3c68e279e8800a1203102641c2eb14a7b38f9803) Thanks [@kaore](https://github.com/kaore)! - README: the manual submit section shows how the page submits the filters (`form.submit()` from a form's `submit` event set up in `onLoad`) and how the search field behaves in that mode. The arguments of `onLoad` and `onFilterChange` are documented, and the unpkg links follow the latest 3.x.
+
+- [#671](https://github.com/OpenAgenda/oa/pull/671) [`9d82325`](https://github.com/OpenAgenda/oa/commit/9d82325f48e36119b3c4818fa6f00227cb81fc5d) Thanks [@kaore](https://github.com/kaore)! - With `manualSubmit`, a search filter set to `manualSearch` hands the typed text to the form: it now makes the filters pending (`onPendingChange`) and is carried by the page's submit, instead of being held until its own search button is clicked. Its `onChange` follows every keystroke, as it does without `manualSearch`.
+
+  With `manualSubmit` and `displayReset`, the reset button only shows on the applied search: until then, the field's button submits the typed text. Erasing a search that started empty no longer leaves the filters pending.
+
+- [#711](https://github.com/OpenAgenda/oa/pull/711) [`d39b864`](https://github.com/OpenAgenda/oa/commit/d39b864088fa56dead8f42f0d59843ffaa4ef054) Thanks [@kaore](https://github.com/kaore)! - `Sort` always shows its select, whatever the number of choices: with the defaults and no search, it was hidden until a search added relevance. A page that does not want the widget leaves it out. With no order to offer (only `score` and no search, or only unknown values), it stays in place, disabled and showing "Sort by", read once by screen readers, instead of react-select's untranslated placeholder.
+
+- [#711](https://github.com/OpenAgenda/oa/pull/711) [`8333644`](https://github.com/OpenAgenda/oa/commit/83336446a10d5cd73885881d2bf1d19c1459255b) Thanks [@kaore](https://github.com/kaore)! - The sort select is as wide as the longest label it can show closed, relevance included, and at least 180px: its width no longer cuts labels such as « Mise à jour récente » or the Italian and Spanish ones, and it does not change with the order picked or when a search adds relevance. A `container` style passed through `styles` replaces the default one, the 180px floor included, and can still set a width. An order from the page's URL that the select does not offer joins the sizing once shown. A `components` prop passed to `Sort` is merged over the sizing component instead of replacing it. `sizeToLabels={false}` lets the select follow the selected label instead.
+
+- [#711](https://github.com/OpenAgenda/oa/pull/711) [`8bf0fac`](https://github.com/OpenAgenda/oa/commit/8bf0fac5bbf173ade7b04df2785672a97b0f8f9f) Thanks [@kaore](https://github.com/kaore)! - A submit uses the provider's current `onSubmit`, `manualSubmit` and filters, instead of those it was mounted with.
+
+- Updated dependencies []:
+  - @openagenda/react-shared@3.2.3
+
+## 3.2.1
+
+### Patch Changes
+
+- Updated dependencies [[`a2079a5`](https://github.com/OpenAgenda/oa/commit/a2079a59f3e021837353c19bb28c1f82db55cb17)]:
+  - @openagenda/intl@2.2.0
+  - @openagenda/react-portal-ssr@1.3.0
+  - @openagenda/react-shared@3.2.2
+
+## 3.2.0
+
+### Minor Changes
+
+- [#552](https://github.com/OpenAgenda/oa/pull/552) [`c61657f`](https://github.com/OpenAgenda/oa/commit/c61657fda6a76ab18e8e13abf5c9345f889218a9) Thanks [@kaore](https://github.com/kaore)! - `Sort` covers every standard event order and labels each one by what it does: `timings.asc`, `timingsWithFeatured.asc`, `lastTiming.asc`, `lastTimingWithFeatured.asc`, `updatedAt.desc`, `updatedAt.asc` and `score`, listed in the order `options` gives them.
+
+  - New props: `defaultValue`, `labels` (per-value label overrides), `shortLabels` (per-value labels for the closed select only, falling back to the label), `descriptions` (per-value detail lines shown under each label in the open menu, with defaults; `false` hides them) and `styles` (merged over the defaults). The sort widget (`data-oa-widget-params` with `"name": "sort"`) takes `options`, `defaultValue`, `labels`, `shortLabels` and `descriptions`. The menu lines carry the `oa-filters-sort-option`, `oa-filters-sort-label` and `oa-filters-sort-description` classes.
+  - Without `options`, it offers `lastTimingWithFeatured.asc` and `score` (relevance during a search). The select is hidden while it has a single choice.
+  - The shown default falls back to the first option when `defaultValue` is missing or not offered, so a value outside the choices (`updatedAt.desc` until now) no longer appears.
+  - `lastTimingWithFeatured.asc` is no longer labelled "Public view": that name only makes sense in the agenda admin, which now passes it through `labels` (the message stays in `messages/sort`).
+  - `score` is only listed while a search is typed. A search the visitor types switches the sort to relevance when `score` is offered; clearing it brings back the previous sort, never relevance. A search the form is reset to (back/forward, a link) keeps the sort that comes with it.
+  - The controller keeps the `sort` of the initial `query` (it used to drop it): the widget shows the order a link carries, and later filter changes keep it instead of silently falling back to the default. An order the widget does not offer is shown under its label rather than its raw value.
+  - The select has an accessible name: a translated "Sort by" by default, set with the `label` prop or widget parameter, or left to an outside `<label>` with `label: false`. It used to have none.
+  - Each order has a default short label for the closed select ("Chronological", "Recently updated", "Relevance"…), so the select fits its default width; the menu lists the full labels. A label set through `labels` still wins.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @openagenda/react-shared@3.2.1
+
+## 3.1.0
+
+### Minor Changes
+
+- [#523](https://github.com/OpenAgenda/oa/pull/523) [`08ecc16`](https://github.com/OpenAgenda/oa/commit/08ecc168e32c1281ad2a3c4dd7e9556c2c24220a) Thanks [@kaore](https://github.com/kaore)! - Add an `onPendingChange(pending, values)` option for manual submit mode. In
+  that mode the filters can hold changes the list has not applied yet, and until
+  now nothing let the page know. The callback fires when the filters start or
+  stop differing from the applied values (the last submit, or the initial query),
+  only on those transitions, never at load and never in automatic mode. The
+  README now documents `manualSubmit` and this callback.
+
+- [#524](https://github.com/OpenAgenda/oa/pull/524) [`b8fd0cc`](https://github.com/OpenAgenda/oa/commit/b8fd0cc2bb1c30b965f910624778d8738f419181) Thanks [@kaore](https://github.com/kaore)! - The search filter accepts a `label` param, rendered as a `<label>` tied to the input (class `oa-filters-search-label`).
+
+### Patch Changes
+
+- Updated dependencies [[`c4972f8`](https://github.com/OpenAgenda/oa/commit/c4972f872f890720be964965056d6f333d40ae87)]:
+  - @openagenda/react-shared@3.2.0
+
 ## 3.0.0
 
 ### Major Changes

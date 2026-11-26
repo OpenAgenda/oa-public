@@ -5,10 +5,19 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { useForm } from 'react-final-form';
+import get from 'lodash/get.js';
+import { useForm, useFormState } from 'react-final-form';
 import { useDebouncedCallback } from 'use-debounce';
 import { defineMessages, useIntl } from 'react-intl';
+import { useUID } from 'react-uid';
 import FiltersAndWidgetsContext from '../../contexts/FiltersAndWidgetsContext.js';
+
+// A submit changes the applied value: re-render to update the button
+const submitSubscription = {
+  submitSucceeded: true,
+  dirtySinceLastSubmit: true,
+};
+const noSubscription = {};
 
 const messages = defineMessages({
   ariaLabel: {
@@ -24,19 +33,22 @@ const messages = defineMessages({
 function Input({
   input,
   placeholder,
+  label,
   ariaLabel,
   onButtonClick,
   isResetButton = false,
 }) {
   const intl = useIntl();
+  const inputId = `oa-filters-search-${useUID()}`;
 
-  return (
+  const group = (
     <div className="input-group mb-3">
       <input
+        id={label ? inputId : undefined}
         className="form-control"
         autoComplete="off"
         placeholder={placeholder}
-        aria-label={ariaLabel}
+        aria-label={label ? undefined : ariaLabel}
         title={ariaLabel}
         {...input}
       />
@@ -60,6 +72,19 @@ function Input({
       </div>
     </div>
   );
+
+  if (!label) {
+    return group;
+  }
+
+  return (
+    <>
+      <label htmlFor={inputId} className="oa-filters-search-label">
+        {label}
+      </label>
+      {group}
+    </>
+  );
 }
 
 export default function SearchInput({
@@ -77,10 +102,21 @@ export default function SearchInput({
     filtersOptions: { manualSubmit },
   } = useContext(FiltersAndWidgetsContext);
 
-  const isResetButton = displayReset && tmpValue && (tmpValue === input.value || !manualSubmit);
+  useFormState({
+    subscription: manualSubmit ? submitSubscription : noSubscription,
+  });
+
+  // With manualSubmit the field holds the typed text at once: the reset only
+  // shows on the text that is applied, the search button stays until then
+  const isApplied = () =>
+    tmpValue
+    === get(form.getSubmittedValues() ?? form.getState().initialValues, input.name);
+  const isResetButton = displayReset && tmpValue && (!manualSubmit || isApplied());
 
   const debouncedOnChange = useDebouncedCallback((e) => {
-    if (manualSearch) {
+    // With manualSubmit the form already waits for a submit: the value goes
+    // to it, so that it counts as pending and the page's submit carries it
+    if (manualSearch && !manualSubmit) {
       return;
     }
 
@@ -101,7 +137,7 @@ export default function SearchInput({
         debouncedOnChange.flush();
       }
     },
-    [debouncedOnChange],
+    [debouncedOnChange, manualSubmit],
   );
 
   const onButtonClick = useCallback(
@@ -116,7 +152,8 @@ export default function SearchInput({
         return form.submit();
       }
 
-      if (manualSearch) {
+      // With manualSubmit the form already holds the typed text
+      if (manualSearch && !manualSubmit) {
         input.onChange(tmpValue);
         if (typeof onChange === 'function') {
           onChange(tmpValue);
@@ -128,6 +165,7 @@ export default function SearchInput({
       form,
       input,
       manualSearch,
+      manualSubmit,
       onChange,
       tmpValue,
       isResetButton,

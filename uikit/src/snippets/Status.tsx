@@ -10,8 +10,8 @@ export interface StatusProps extends ChakraStatus.RootProps {
 
 const statusMap: Record<StatusValue, ColorPalette> = {
   success: 'green',
-  error: 'red',
-  warning: 'orange',
+  error: 'danger',
+  warning: 'warning',
   info: 'blue',
 };
 

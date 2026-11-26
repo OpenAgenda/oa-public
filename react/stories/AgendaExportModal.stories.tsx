@@ -79,3 +79,75 @@ export const OpenAccordion: Story = {
     },
   },
 };
+
+export const WordOpen: Story = {
+  render: function Render(): React.JSX.Element {
+    const { open, onOpen, onClose } = useDisclosure({ defaultOpen: true });
+
+    return (
+      <>
+        <Button onClick={onOpen}>Open modal</Button>
+
+        <AgendaExportModal
+          isOpen={open}
+          onClose={onClose}
+          agenda={agendaFixtures as Agenda}
+          query={{}}
+          defaultValue="docx"
+        />
+      </>
+    );
+  },
+  parameters: {
+    msw: {
+      handlers: [
+        http.get('/users/me', () => HttpResponse.json(userFixtures)),
+        http.get('/api/me', () => HttpResponse.json(me)),
+        http.get('/agendas/89904399/settings/exports', () =>
+          HttpResponse.json(columns)),
+      ],
+    },
+  },
+};
+
+export const WithLicence: Story = {
+  render: function Render(): React.JSX.Element {
+    const { open, onOpen, onClose } = useDisclosure({ defaultOpen: true });
+
+    return (
+      <>
+        <Button onClick={onOpen}>Open modal</Button>
+
+        <AgendaExportModal
+          isOpen={open}
+          onClose={onClose}
+          agenda={{
+            ...(agendaFixtures as Agenda),
+            rights: {
+              license: {
+                id: 'etalab-2.0',
+                name: 'Licence Ouverte v2.0',
+                url: 'https://www.etalab.gouv.fr/licence-ouverte-open-licence/',
+              },
+              publisher: {
+                name: 'Métropole Européenne de Lille',
+                url: 'https://openagenda.com/mel',
+              },
+            },
+          }}
+          query={{}}
+        />
+      </>
+    );
+  },
+  parameters: {
+    msw: {
+      handlers: [
+        http.get('/users/me', () => HttpResponse.json(userFixtures)),
+        http.get('/api/me', () => HttpResponse.json(me)),
+        http.get('/agendas/89904399/settings/exports', () =>
+          HttpResponse.json(columns)),
+      ],
+    },
+  },
+};

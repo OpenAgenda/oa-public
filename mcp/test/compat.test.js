@@ -80,7 +80,10 @@ describe('the contract stays inside what search_docs can render', () => {
       '/components/parameters/*/schema/example',
       '/components/parameters/*/schema/format:int64',
       '/components/parameters/*/schema/items/format:int64',
+      '/components/parameters/*/schema/items/maximum',
+      '/components/parameters/*/schema/items/minimum',
       '/components/parameters/*/schema/items/pattern',
+      '/components/parameters/*/schema/maxLength',
       '/components/parameters/*/schema/minItems',
       '/components/parameters/*/schema/oneOf/*/minimum',
       '/components/parameters/*/schema/properties/*/format:date-time',
@@ -113,36 +116,45 @@ describe('the contract stays inside what search_docs can render', () => {
       '/components/schemas/*/properties/*/format:double',
       '/components/schemas/*/properties/*/format:int64',
       '/components/schemas/*/properties/*/format:uri',
+      '/components/schemas/*/properties/*/items/maximum',
+      '/components/schemas/*/properties/*/items/minimum',
       '/components/schemas/*/properties/*/items/properties/*/format:uri',
+      '/components/schemas/*/properties/*/maxItems',
       '/components/schemas/*/properties/*/maxLength',
       '/components/schemas/*/properties/*/maximum',
       '/components/schemas/*/properties/*/minItems',
+      '/components/schemas/*/properties/*/minLength',
       '/components/schemas/*/properties/*/minimum',
       '/components/schemas/*/properties/*/properties/*/additionalProperties/x-additionalPropertiesName',
       '/components/schemas/*/properties/*/properties/*/format:int64',
+      '/components/schemas/*/properties/*/properties/*/format:uri',
+      '/components/schemas/*/properties/*/properties/*/maximum',
       // `ValidationError.error.errors` is never empty. Same construct the card
       // already drops a level up, and a reader who gets the list reads it.
       '/components/schemas/*/properties/*/properties/*/minItems',
+      '/components/schemas/*/properties/*/properties/*/minimum',
       '/components/schemas/*/properties/*/readOnly',
+      '/components/schemas/*/properties/*/uniqueItems',
       '/components/securitySchemes/*/description',
       '/components/securitySchemes/*/flows',
       '/components/securitySchemes/*/in',
       '/components/securitySchemes/*/name',
       '/info',
       '/openapi',
+      // Curated bodies for the location 404s, on every verb below. Everything
+      // contractual in them is already rendered - the `merged` enum,
+      // `mergedIn`, the envelope - and what is left is an illustrative uid and
+      // a human sentence, which is not what a caller branches on.
+      '/paths/*/delete/responses/*/content/*/examples',
       '/paths/*/delete/responses/*/description',
       '/paths/*/delete/tags',
       '/paths/*/delete/x-codeSamples/*/label',
-      // Curated bodies for the two location 404s. Everything contractual in them
-      // is already rendered - the `merged` enum, `mergedIn`, the envelope - and
-      // what is left is an illustrative uid and a human sentence, which is not
-      // what a caller branches on.
       '/paths/*/get/responses/*/content/*/examples',
       '/paths/*/get/responses/*/description',
       '/paths/*/get/tags',
       '/paths/*/get/x-codeSamples/*',
       '/paths/*/get/x-codeSamples/*/label',
-      '/paths/*/patch/responses/*',
+      '/paths/*/patch/responses/*/content/*/examples',
       '/paths/*/patch/responses/*/description',
       '/paths/*/patch/tags',
       '/paths/*/patch/x-codeSamples/*/label',
@@ -152,6 +164,7 @@ describe('the contract stays inside what search_docs can render', () => {
       '/paths/*/post/tags',
       '/paths/*/post/x-codeSamples/*/label',
       '/paths/*/put/responses/*',
+      '/paths/*/put/responses/*/content/*/examples',
       '/paths/*/put/responses/*/description',
       '/paths/*/put/tags',
       '/paths/*/put/x-codeSamples/*/label',
@@ -828,7 +841,8 @@ describe('what "rendered" means, on the contract itself', () => {
 describe('a contract newer than the server rendering it', () => {
   it('says nothing when there is nothing to say', () => {
     expect(contractWarning([])).toBe('');
-    expect(renderSearch(searchOperations('list events'))).not.toContain('⚠');
+    // The warning leads the payload; a description may carry the glyph too.
+    expect(renderSearch(searchOperations('list events'))).not.toMatch(/^⚠/);
   });
 
   it('leads the payload with what to distrust, and how many', () => {

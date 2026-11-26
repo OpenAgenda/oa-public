@@ -1,5 +1,62 @@
 # @openagenda/widgets
 
+## 0.2.7
+
+### Patch Changes
+
+- Updated dependencies [[`3ad4740`](https://github.com/OpenAgenda/oa/commit/3ad474053200f7de4ab71d35e6b7d49fa01fa729), [`950b971`](https://github.com/OpenAgenda/oa/commit/950b971205da5df2f1e827862e3af7429c6f6702), [`1a6b6c3`](https://github.com/OpenAgenda/oa/commit/1a6b6c3f49ebd2ae7126817aa46c634d6a777ab3), [`9b5b7be`](https://github.com/OpenAgenda/oa/commit/9b5b7be844aa7b406fa567b7c95f1a7bd788c8f8), [`6b75569`](https://github.com/OpenAgenda/oa/commit/6b75569323220f340fc9762db43b44bac954ce06), [`4e0f8d2`](https://github.com/OpenAgenda/oa/commit/4e0f8d25ef511faeccd7ffcbe5707fbbe74d7dbb), [`6ef8480`](https://github.com/OpenAgenda/oa/commit/6ef8480ddd1ed4cd7ab9beb2a83a7f61a9b841a6)]:
+  - @openagenda/react@0.4.5
+  - @openagenda/uikit@0.6.0
+  - @openagenda/react-filters@3.3.1
+
+## 0.2.6
+
+### Patch Changes
+
+- Updated dependencies [[`222b0fe`](https://github.com/OpenAgenda/oa/commit/222b0fe8ac8850e8d9c492f59df2bd135b6ac95e), [`1cb4c3d`](https://github.com/OpenAgenda/oa/commit/1cb4c3d37e3f5b96aaf27dff858e4f26dba514fb), [`3c68e27`](https://github.com/OpenAgenda/oa/commit/3c68e279e8800a1203102641c2eb14a7b38f9803), [`9d82325`](https://github.com/OpenAgenda/oa/commit/9d82325f48e36119b3c4818fa6f00227cb81fc5d), [`d39b864`](https://github.com/OpenAgenda/oa/commit/d39b864088fa56dead8f42f0d59843ffaa4ef054), [`8333644`](https://github.com/OpenAgenda/oa/commit/83336446a10d5cd73885881d2bf1d19c1459255b), [`8bf0fac`](https://github.com/OpenAgenda/oa/commit/8bf0fac5bbf173ade7b04df2785672a97b0f8f9f), [`9b8839d`](https://github.com/OpenAgenda/oa/commit/9b8839d39639755f84553bf0ee83431195a92da1), [`d39f473`](https://github.com/OpenAgenda/oa/commit/d39f4739e2ee51fb9e72ae849c0ae396c66e489f)]:
+  - @openagenda/react-filters@3.3.0
+  - @openagenda/uikit@0.5.0
+  - @openagenda/react@0.4.4
+
+## 0.2.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @openagenda/react@0.4.3
+  - @openagenda/react-filters@3.2.1
+
+## 0.2.4
+
+### Patch Changes
+
+- Updated dependencies [[`5305611`](https://github.com/OpenAgenda/oa/commit/5305611220bd83b258613920c859aff7512bdb7f), [`ddf9f44`](https://github.com/OpenAgenda/oa/commit/ddf9f44e4e8fb7db96ab0812cff642f2ac4849df)]:
+  - @openagenda/react@0.4.2
+
+## 0.2.3
+
+### Patch Changes
+
+- Updated dependencies [[`700e398`](https://github.com/OpenAgenda/oa/commit/700e3986d94e2bf8db9e60c7e31c830170edd37f)]:
+  - @openagenda/react@0.4.1
+
+## 0.2.2
+
+### Patch Changes
+
+- Updated dependencies [[`c61657f`](https://github.com/OpenAgenda/oa/commit/c61657fda6a76ab18e8e13abf5c9345f889218a9), [`0f26d7d`](https://github.com/OpenAgenda/oa/commit/0f26d7d2725d3fdc393b7f74bdc1a953aeb9a836), [`5cadf92`](https://github.com/OpenAgenda/oa/commit/5cadf921ea3310c93254e3e270e0ea59ac4a706e), [`87aa0ec`](https://github.com/OpenAgenda/oa/commit/87aa0ecf621be0b3f0d5786a187fc1d1f19d6d2b), [`7e22504`](https://github.com/OpenAgenda/oa/commit/7e225045c2bc0fde140ac5d391ecde60ea57263e), [`01eb410`](https://github.com/OpenAgenda/oa/commit/01eb4101c3062948ab3cdb8f375e458b32d7d399), [`fada31b`](https://github.com/OpenAgenda/oa/commit/fada31bf1b0daafd53a127d9493404b0195c9f1a)]:
+  - @openagenda/react-filters@3.2.0
+  - @openagenda/react@0.4.0
+  - @openagenda/uikit@0.4.0
+
+## 0.2.1
+
+### Patch Changes
+
+- Updated dependencies [[`5914ac2`](https://github.com/OpenAgenda/oa/commit/5914ac2a981b37c10f50aafffadc88ebd0f0f2c5), [`e4097d8`](https://github.com/OpenAgenda/oa/commit/e4097d840de55949f287b50c15dedfdb944ab486), [`fdfe0ed`](https://github.com/OpenAgenda/oa/commit/fdfe0ede1c073eb8f15762d0bdd8d5887f86bb79), [`08ecc16`](https://github.com/OpenAgenda/oa/commit/08ecc168e32c1281ad2a3c4dd7e9556c2c24220a), [`b8fd0cc`](https://github.com/OpenAgenda/oa/commit/b8fd0cc2bb1c30b965f910624778d8738f419181)]:
+  - @openagenda/react@0.3.0
+  - @openagenda/react-filters@3.1.0
+
 ## 0.2.0
 
 ### Minor Changes

@@ -31,7 +31,15 @@ export const colors = defineTokens.colors({
     200: { value: '#ffffff' },
     500: { value: '#ffffff' },
   },
+  // La rampe ambre s'arrêtait à 100 côté clair et à `#a76906` côté sombre, soit
+  // L=68 % et L=34 % : trop claire aux deux bouts pour composer une pastille
+  // lisible (texte ambre sur fond ambre, 1,39:1 mesuré). Le 50 est nouveau ; le
+  // 900 est APPROFONDI (L=34 % → 22 %), ce qui aligne enfin la rampe sur ses
+  // sœurs — primary 11 %, oaGray 20 %, danger 24 % — au lieu de s'arrêter en
+  // demi-teinte. Son seul lecteur, `Announcement` (texte sur blanc), y gagne :
+  // 4,50 → 7,79.
   warning: {
+    50: { value: '#fef6e7' },
     100: { value: '#f8c663' },
     200: { value: '#f7bf50' },
     300: { value: '#f6b83c' },
@@ -40,7 +48,7 @@ export const colors = defineTokens.colors({
     600: { value: '#eaa00b' },
     700: { value: '#d6920a' },
     800: { value: '#c38509' },
-    900: { value: '#a76906' },
+    900: { value: '#704b00' },
   },
   danger: {
     50: { value: '#fff5f5' },
@@ -54,6 +62,20 @@ export const colors = defineTokens.colors({
     800: { value: '#822727' },
     900: { value: '#63171b' },
   },
+  // A warm, paper-like tint: content set apart from the live agenda — its
+  // archives first. Pairs with darkPurple and the page's grey ground.
+  sand: {
+    50: { value: '#fbf7ef' },
+    100: { value: '#f4ead7' },
+    200: { value: '#e8d7b5' },
+    300: { value: '#d9c191' },
+    400: { value: '#c7a76f' },
+    500: { value: '#b08d55' },
+    600: { value: '#8f7143' },
+    700: { value: '#6b5532' },
+    800: { value: '#4d3d24' },
+    900: { value: '#3b2f1c' },
+  },
   darkPurple: {
     50: { value: '#A79EA9' },
     100: { value: '#948896' },
@@ -66,11 +88,25 @@ export const colors = defineTokens.colors({
     800: { value: '#201D20' },
     900: { value: '#151316' },
   },
+  // Statut de billetterie d'une date, lu en TEXTE sur fond clair (ligne
+  // d'horaire, modale de détail). Chaque teinte est la plus saturée que l'écran
+  // sache afficher à contraste ≥ 4,5:1 sur blanc ET sur `oaGray.100` (le fond de
+  // page sur ordinateur) : 5,3:1 et 4,6:1. Aucune rampe n'avait ces pas — le 600
+  // du vert et tout le haut de l'ambre échouent, et les 700 lisaient terne.
+  availability: {
+    available: { value: '#027d30' },
+    limited: { value: '#975f00' },
+    soldOut: { value: '#d90318' },
+    notYetOnSale: { value: '#036ace' },
+  },
   states: {
     refused: { value: '#da4453' },
     toControl: { value: '#ffffff' },
     controlled: { value: '#f6bb42' },
     published: { value: '#5cb85c' },
+    // Not a state: the archives corpus, beside the states it is counted
+    // with. Between the sand palette's 400 and 500.
+    archived: { value: '#bb9a62' },
   },
   strapi: {
     frenchBlue: {

@@ -1,4 +1,5 @@
 import useActiveFilters from '../hooks/useActiveFilters.js';
+import AppliedValuesForm from './AppliedValuesForm.jsx';
 import Filters from './Filters.jsx';
 import DateRangeFilter from './filters/DateRangeFilter.jsx';
 import SimpleDateRangeFilter from './filters/SimpleDateRangeFilter.jsx';
@@ -11,7 +12,7 @@ import CustomFilter from './filters/CustomFilter.jsx';
 import FavoritesFilter from './filters/FavoritesFilter.jsx';
 import TimelineFilter from './filters/TimelineFilter.jsx';
 
-export default function ActiveFilters({ filters, ...rest }) {
+function ActiveFiltersList({ filters, ...rest }) {
   const activeFilters = useActiveFilters(filters);
 
   return (
@@ -29,5 +30,15 @@ export default function ActiveFilters({ filters, ...rest }) {
       timelineComponent={TimelineFilter.Preview}
       {...rest}
     />
+  );
+}
+
+// the active filters describe the list: with manual submit, the applied
+// values, not the pending selection
+export default function ActiveFilters(props) {
+  return (
+    <AppliedValuesForm>
+      <ActiveFiltersList {...props} />
+    </AppliedValuesForm>
   );
 }

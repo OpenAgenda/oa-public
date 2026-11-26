@@ -210,3 +210,59 @@ export const MoreInfoInModal = () => {
     </>
   );
 };
+
+// To check by keyboard: focus moves into the dialog on open, Tab and
+// Shift+Tab cycle through its controls without reaching the page behind,
+// Escape closes it and gives focus back to the "Open" button.
+export const KeyboardAndFocus = () => {
+  const [display, setDisplay] = useState(false);
+  const closeModal = () => {
+    setDisplay(false);
+  };
+  return (
+    <>
+      <button
+        className="btn btn-default btn-primary"
+        type="button"
+        onClick={() => setDisplay(true)}
+      >
+        Open
+      </button>
+      <p>
+        <a href="#behind">A link behind the dialog</a>
+      </p>
+      {display ? (
+        <Modal
+          title="Export events"
+          onClose={closeModal}
+          closeLabel="Close the export dialog"
+          disableBodyScroll
+        >
+          <div className="form-group">
+            <label htmlFor="modal-story-format">Format</label>
+            <select id="modal-story-format" className="form-control">
+              <option>CSV</option>
+              <option>JSON</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="modal-story-email">Email</label>
+            <input id="modal-story-email" className="form-control" />
+          </div>
+          <div className="text-right">
+            <button
+              type="button"
+              className="btn btn-default margin-right-sm"
+              onClick={closeModal}
+            >
+              Cancel
+            </button>
+            <button type="button" className="btn btn-primary">
+              Export
+            </button>
+          </div>
+        </Modal>
+      ) : null}
+    </>
+  );
+};

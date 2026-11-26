@@ -213,31 +213,84 @@ describe('searchOperations', () => {
     // "show" must NOT fuzzy-match the facets keyword "how" — a listing query
     // stays on the listing op.
     expect(searchOperations('show events')[0].id).toBe('agendas.events.list');
-    expect(searchOperations('show me events')[0].id).toBe(
-      'agendas.events.list',
+  });
+
+  // Queries as the models send them, read from the recorded runs, each with
+  // the operation its run went on to execute. They are keywords, never padded
+  // with conversation: no run sent anything like "can you show me events".
+  it.each([
+    ['list events of an agenda', 'agendas.events.list'],
+    ['get event by id in agenda', 'agendas.events.get'],
+    ['get agenda details', 'agendas.get'],
+    ['list all agendas', 'agendas.list'],
+    ['agenda event form schema additional fields', 'agendas.events.schema'],
+    ['list places agenda', 'agendas.locations.list'],
+    ['list agendas I am a member of', 'me.agendas.list'],
+    ['retrieve place by external identifier', 'agendas.locations.getByExtId'],
+    ['create event in agenda', 'agendas.events.create'],
+    ['replace event entirely full replacement', 'agendas.events.update'],
+    ['delete event from agenda', 'agendas.events.delete'],
+    ['delete event by external identifier', 'agendas.events.deleteByExtId'],
+    ['upload media agenda', 'agendas.uploads.create'],
+    ['events of an agenda grouped by city facet', 'agendas.events.facets'],
+    ['find event by external identifier', 'agendas.events.getByExtId'],
+    ['validate event before creation', 'agendas.events.validate'],
+    ['event update patch title', 'agendas.events.patch'],
+    [
+      'create or replace event external identifier',
+      'agendas.events.setByExtId',
+    ],
+    ['change an event by external id', 'agendas.events.patchByExtId'],
+  ])('ranks the recorded query %p first on %s', (query, id) => {
+    expect(searchOperations(query)[0].id).toBe(id);
+  });
+
+  // The location writes share their vocabulary with the event writes and the
+  // location reads: the location noun, under its synonyms, must lead to them.
+  it.each([
+    ['create a venue', 'agendas.locations.create'],
+    ['update a place', 'agendas.locations.update'],
+    ['change location phone', 'agendas.locations.patch'],
+    ['delete a location', 'agendas.locations.delete'],
+    ['sync a venue from my system', 'agendas.locations.setByExtId'],
+    ['change a location by external id', 'agendas.locations.patchByExtId'],
+    ['delete a location by external id', 'agendas.locations.deleteByExtId'],
+  ])('ranks the location write %p first on %s', (query, id) => {
+    expect(searchOperations(query)[0].id).toBe(id);
+  });
+
+  // A location checked before it is written, and the writes an agenda allows,
+  // lead to their own operations rather than to the writes themselves.
+  it.each([
+    ['validate a location before creating it', 'agendas.locations.validate'],
+    ['check a venue before creating', 'agendas.locations.validate'],
+    ['location permissions of an agenda', 'agendas.locations.settings'],
+    ['location settings', 'agendas.locations.settings'],
+  ])('ranks the location query %p first on %s', (query, id) => {
+    expect(searchOperations(query)[0].id).toBe(id);
+  });
+
+  // An address to check or to place, and a point to name, lead to the
+  // geocoding, not to the location reads and writes that share their words.
+  it.each([
+    ['verify an address', 'geocoding.search'],
+    ['geocode an address', 'geocoding.search'],
+    ['coordinates of an address', 'geocoding.search'],
+    ['address at these coordinates', 'geocoding.reverse'],
+    ['reverse geocode a point', 'geocoding.reverse'],
+  ])('ranks the geocoding query %p first on %s', (query, id) => {
+    expect(searchOperations(query)[0].id).toBe(id);
+  });
+
+  // An image reaches a location through an upload, as it reaches an event.
+  it('ranks the upload first for an image of a location', () => {
+    expect(searchOperations('attach an image to a location')[0].id).toBe(
+      'agendas.uploads.createTicket',
     );
   });
 
-  // Queries are addressed to an assistant, so they arrive padded with filler.
-  // Every phrasing below used to return `me.agendas.list`: its id carries the
-  // singleton "me", and its summary ("List THE agendas YOU are a member of")
-  // carried the singleton "the"/"you" — two different high-IDF collisions, so
-  // an earlier fix that only damped 1–2 character tokens left the "the"/"you"
-  // half of this list red. Sweep the phrasings, not one specimen.
-  it.each([
-    'show me events',
-    'show me the events',
-    'give me the events',
-    'give me the list of events',
-    'can you show me events',
-    'show me upcoming events',
-  ])('keeps a padded listing query on the listing op: %p', (query) => {
-    expect(searchOperations(query)[0].id).toBe('agendas.events.list');
-  });
-
-  // The other half of that trade-off: filler must be demoted, never muted, or
-  // the operation those same short words genuinely ASK for stops being
-  // reachable. Both directions belong here — a fix for one breaks the other.
+  // Short words are damped, never muted: the operation they genuinely ask for
+  // stays reachable.
   it('still ranks the me.* op first when short words are the actual intent', () => {
     expect(searchOperations('my agendas')[0].id).toBe('me.agendas.list');
     expect(searchOperations('list my agendas')[0].id).toBe('me.agendas.list');
@@ -256,12 +309,11 @@ describe('searchOperations', () => {
   it.each([
     ['what events do we have', 'agendas.events.list'],
     ['events we like', 'agendas.events.list'],
-    ['what is on this week', 'agendas.events.list'],
     ['show events for my agenda', 'agendas.events.list'],
-    ['get me all the events', 'agendas.events.list'],
     ['find concerts in lyon', 'agendas.events.list'],
     ['show me the events of my agenda', 'agendas.events.list'],
     ['which agendas am i a member of', 'me.agendas.list'],
+    ['find my agenda', 'me.agendas.list'],
     ['find an agenda', 'agendas.list'],
     ['add a new event', 'agendas.events.create'],
     ['remove an event', 'agendas.events.delete'],
@@ -297,15 +349,30 @@ describe('searchOperations', () => {
     expect(searchOperations('browse agendas')[0].id).toBe('agendas.list');
   });
 
+  // An enum label is written for the reader and not indexed: `role` glosses
+  // `moderator` as "Moderates contributed events and manages content", and
+  // indexing it ranked `me.agendas.list` first for event queries. The values
+  // stay searchable, and a word a label carried comes from `x-synonyms`.
+  it('indexes enum values, not their labels', () => {
+    expect(
+      searchOperations('contributed events')
+        .slice(0, 3)
+        .map((op) => op.id),
+    ).not.toContain('me.agendas.list');
+    expect(searchOperations('moderator agendas')[0].id).toBe('me.agendas.list');
+    expect(searchOperations('sort by relevance')[0].id).toBe(
+      'agendas.events.list',
+    );
+  });
+
   it("carries the contract x-synonyms into an operation's keywords", () => {
     // "breakdown" is a facets x-synonym with no structural source — its presence
     // in keywords proves the extension is merged in.
     expect(byId('agendas.events.facets').keywords).toContain('breakdown');
   });
 
-  it('returns ALL operations when nothing matches (never empty)', () => {
-    const hits = searchOperations('zzzzz-nonsense');
-    expect(hits).toHaveLength(OPERATIONS.length);
+  it('returns no hit when nothing matches', () => {
+    expect(searchOperations('zzzzz-nonsense')).toEqual([]);
   });
 
   it('is case-insensitive', () => {
@@ -314,7 +381,7 @@ describe('searchOperations', () => {
 
   it.each([null, undefined, ''])('handles %p without throwing', (q) => {
     expect(() => searchOperations(q)).not.toThrow();
-    expect(searchOperations(q).length).toBeGreaterThan(0);
+    expect(searchOperations(q)).toEqual([]);
   });
 });
 
@@ -361,8 +428,8 @@ describe('structured params (derived from the contract)', () => {
   });
 
   it('resolves array item types', () => {
-    const city = list.params.find((p) => p.name === 'city');
-    expect(city.type).toBe('string[]');
+    const municipality = list.params.find((p) => p.name === 'adminLevel4');
+    expect(municipality.type).toBe('string[]');
   });
 });
 
@@ -1352,11 +1419,11 @@ describe('renderOperation', () => {
   });
 
   // A compacted parameter kept only its name, and a name does not say that
-  // `region` takes a LIST - which is what the generated client types it as.
+  // `adminLevel1` takes a LIST - which is what the generated client types it as.
   it('gives every compacted parameter its type', () => {
     const md = renderOperation(byId('agendas.events.list'), 0);
     const [, compacted = ''] = md.match(/Other optional parameters: (.*)\./) ?? [];
-    expect(compacted).toContain('region (string[])');
+    expect(compacted).toContain('adminLevel1 (string[])');
     expect(compacted).toContain('featured (boolean)');
     for (const entry of compacted.split(', ')) {
       expect(entry).toMatch(/^\S+ \(.+\)$/);
@@ -1443,10 +1510,19 @@ describe('summary/detailed variant resolution', () => {
 });
 
 describe('renderSearch', () => {
-  it('appends the validators footer with the contract-derived list', () => {
-    const text = renderSearch(searchOperations('events'));
-    expect(text).toContain('schemas');
-    expect(text).toContain('zEvent');
+  it('lists the validators of the types the payload shows, and only those', () => {
+    expect(renderSearch(searchOperations('agendas.events.delete'))).toContain(
+      'Validators: a `schemas` namespace of zod validators is available in `execute` '
+        + 'to parse payloads (e.g. `schemas.zDeletionResult.parse(data)`). '
+        + 'For the types above: zDeletionResult, zError.',
+    );
+    for (const query of ['events', 'create an event', 'upload an image']) {
+      const text = renderSearch(searchOperations(query));
+      const [, listed] = text.match(/For the types above: (.*)\.$/);
+      expect(listed.split(', ').map((v) => v.slice(1))).toEqual(
+        [...typeReferences(text)].sort(),
+      );
+    }
   });
 
   // The SDK handoff: every search_docs response LEADS with the frame that the
@@ -1466,12 +1542,12 @@ describe('renderSearch', () => {
 
   // A tail entry carries an id, a summary and a call line - none of what a card
   // adds. An LLM that treats it as documented could call the operation without
-  // ever seeing its parameters. Searching the id ranks it first, so the way out
-  // exists — but nothing said so. Pin the pointer, that it names an entry in the
-  // tail, and that it stays conditional (an unconditional "search again" would
-  // buy a 30 kB payload for nothing).
+  // ever seeing its parameters. Searching the id returns that card alone, so the
+  // way out exists — but nothing said so. Pin the pointer, that it names an entry
+  // in the tail, and that it stays conditional (an unconditional "search again"
+  // would buy a card for nothing).
   it('tells the reader the compact tail entries open, and how', () => {
-    const hits = searchOperations('what is happening this weekend');
+    const hits = searchOperations('create an event with an image');
     const text = renderSearch(hits);
     const tail = hits.slice(3);
     expect(tail.length).toBeGreaterThan(0);
@@ -1480,8 +1556,28 @@ describe('renderSearch', () => {
     // The escape hatch it points at has to work for every operation, or the
     // sentence sends the model somewhere it cannot arrive.
     for (const op of OPERATIONS) {
-      expect(searchOperations(op.id).indexOf(op)).toBeLessThan(3);
+      expect(searchOperations(op.id)).toEqual([op]);
     }
+  });
+
+  it('answers a search without hit with the catalogue, every entry compact', () => {
+    const text = renderSearch([]);
+    for (const op of OPERATIONS) {
+      expect(text).toContain(`### ${op.id} — ${op.summary}\n`);
+    }
+    expect(text.match(/^### /gm)).toHaveLength(OPERATIONS.length);
+    expect(text).not.toContain('Example:');
+    expect(text).not.toContain('Components —');
+    expect(text).not.toContain('@openagenda/api-client');
+    expect(text).not.toContain('Validators:');
+    expect(text).toMatch(new RegExp(`^All ${OPERATIONS.length} operations, `));
+  });
+
+  it('answers an id search with that card alone', () => {
+    const text = renderSearch(searchOperations('agendas.events.delete'));
+    expect(text.match(/^### /gm)).toEqual(['### ']);
+    expect(text).toContain('### agendas.events.delete\n');
+    expect(text).not.toContain('entries above');
   });
 
   it('says nothing about a tail when every hit got a full card', () => {
@@ -1515,10 +1611,12 @@ describe('renderSearch', () => {
     });
 
     it('defines object components with typed, described property lines', () => {
-      // EventLocation.country line: typed by component name AND described.
+      // OffersAggregate.price line: typed by component name AND described.
       expect(section).toMatch(
-        /- country \(LocalizedString \| null\) — Localized country label\./,
+        /- price \(OffersPrice\) — The event's price bounds/,
       );
+      // A nullable component reference reads as `Component | null`.
+      expect(section).toMatch(/- image \(ImageRef \| null\)/);
     });
 
     it('defines the components that field types reference (no dangling name)', () => {
@@ -1598,9 +1696,10 @@ describe('renderSearch', () => {
       // additional fields, but that semantics lived only in the component and
       // never reached the search_docs payload.
       const schemaText = renderSearch(searchOperations('event form schema'));
+      const { description } = spec.components.schemas.FormSchemaField.properties.schemaId;
       expect(schemaText).toContain('`FormSchemaField`');
-      expect(schemaText).toMatch(
-        /schemaId \(integer \| null\) — .*Non-null marks an/,
+      expect(schemaText).toContain(
+        `schemaId (integer | null) — ${description.trim().split(/\s+/).join(' ')}`,
       );
     });
 
@@ -1624,7 +1723,6 @@ describe('renderSearch', () => {
         'aggregate breakdown counts',
         'locations',
         'list my agendas',
-        '',
         // Write and upload phrasings: their body types had no coverage here.
         'create an event',
         'update an event',

@@ -40,5 +40,6 @@
   "ReactShared.ImageInput.tooManyFiles": "Te veel bestanden, slechts één bestand toegestaan",
   "ReactShared.ImageInput.update": "Aktualisieren Sie das Bild",
   "ReactShared.ImageInput.upload": "Een afbeelding uploaden",
-  "ReactShared.LeaveWarningPrompt.areYouSure": "Weet u zeker dat u deze pagina wilt verlaten? Alle niet-opgeslagen gegevens gaan verloren."
+  "ReactShared.LeaveWarningPrompt.areYouSure": "Weet u zeker dat u deze pagina wilt verlaten? Alle niet-opgeslagen gegevens gaan verloren.",
+  "ReactShared.Modal.close": "Sluiten"
 }

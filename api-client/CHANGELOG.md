@@ -1,5 +1,303 @@
 # @openagenda/api-client
 
+## 0.10.0
+
+### Minor Changes
+
+- [#676](https://github.com/OpenAgenda/oa/pull/676) [`f055426`](https://github.com/OpenAgenda/oa/commit/f055426154e8aa70c3e2f53a730f9197d26aba9a) Thanks [@clement180](https://github.com/clement180)! - Regenerated from the contract: `Event.offers` and the `OffersSource` /
+  `OffersTier` types, with the JSDoc the spec carries — including the one
+  trade-off a consumer has to know about, that a tier's `label` is absent unless
+  the event was read on its own.
+
+  New types and one new optional readonly property; nothing existing changed
+  shape.
+
+- [#739](https://github.com/OpenAgenda/oa/pull/739) [`f0f7058`](https://github.com/OpenAgenda/oa/commit/f0f705854240d3d41a9812e300d7abf6dbd1688e) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Regenerated from the contract: the write operations type their `429`
+  response, and the error `code` takes `too_many_requests`.
+
+### Patch Changes
+
+- [#677](https://github.com/OpenAgenda/oa/pull/677) [`c43fcc9`](https://github.com/OpenAgenda/oa/commit/c43fcc918a50bffdef5b8c84e521b0d2b67ddb57) Thanks [@clement180](https://github.com/clement180)! - Regenerated from the contract: the `OffersAggregate.links` JSDoc now says where
+  the per-date booking URL lives — the **v2** read joins it onto the matching
+  availability row — and why this API strips it rather than serving a field
+  `TimingAvailability` does not declare.
+
+  Documentation only; no type changes.
+
+## 0.9.0
+
+### Minor Changes
+
+- [#669](https://github.com/OpenAgenda/oa/pull/669) [`366ee15`](https://github.com/OpenAgenda/oa/commit/366ee15a7b406ab18b0f2de2398b0a76164be0bf) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `agendas.list` takes `networkUid`, which restricts the list to the agendas of these networks.
+
+- [#595](https://github.com/OpenAgenda/oa/pull/595) [`514ccfb`](https://github.com/OpenAgenda/oa/commit/514ccfb73f08bed8aa6016d9a67e2a444d48d32b) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Regenerated: the error code `agenda_not_granted`, and the descriptions of `GET /me/agendas` and `GET /agendas` for a key limited to agendas.
+
+- [#710](https://github.com/OpenAgenda/oa/pull/710) [`efb0ba5`](https://github.com/OpenAgenda/oa/commit/efb0ba531e630c3760e00fbac34ee96c6eb8e3c4) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Regenerated: `agendas.locations.list` takes `near`, `radius` and `verified`.
+
+- [#597](https://github.com/OpenAgenda/oa/pull/597) [`ff17434`](https://github.com/OpenAgenda/oa/commit/ff17434d5b3df43703fac45954640d613d377f62) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Regenerated: `VerifiedKey` carries `agendas`.
+
+- [#672](https://github.com/OpenAgenda/oa/pull/672) [`82e08ce`](https://github.com/OpenAgenda/oa/commit/82e08ce58fb2b1aee32d609e3f6bbe557b0c97d7) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `networks.list` lists the networks, searched on their title, with the `uid` to pass as `networkUid` to `agendas.list`.
+
+### Patch Changes
+
+- [#616](https://github.com/OpenAgenda/oa/pull/616) [`b535248`](https://github.com/OpenAgenda/oa/commit/b5352489e589caa86fb7a284680189b53ca82b26) Thanks [@clement180](https://github.com/clement180)! - Regenerate from the spec: the JSDoc of `TimingAvailability`, `OffersAggregate`
+  and the `closedBySource` / `links` fields says what an event's own `status`
+  does to the inventory its occurrences carry. No type changes.
+
+- [#625](https://github.com/OpenAgenda/oa/pull/625) [`37fbc90`](https://github.com/OpenAgenda/oa/commit/37fbc90c8af64c234be22ff46d3dfec8f6790d65) Thanks [@clement180](https://github.com/clement180)! - Regenerated from the contract: the two descriptions corrected in `@openagenda/api-spec` are
+  emitted as JSDoc on `offersAggregate.links` and `TimingAvailability`. The previous output told
+  integrators that `firstTiming` / `lastTiming` / `nextTiming` carry the inventory of the date
+  they copy — they do not — and that holding a per-date booking URL is a limit of what
+  OpenAgenda stores.
+
+  No type changes: the same fields, the same shapes.
+
+- [#646](https://github.com/OpenAgenda/oa/pull/646) [`217c25d`](https://github.com/OpenAgenda/oa/commit/217c25d76e127d215307b3ca9ef474aeb521accd) Thanks [@bertho-zero](https://github.com/bertho-zero)! - A private agenda answers a caller identified as one of its members, whatever their role, and its own per-agenda key, on every operation under `/agendas/{agendaUid}`; to any other caller it answers `404`, as an unknown uid does. Its per-agenda key reads it as its administrators do, a single event included.
+
+- [#683](https://github.com/OpenAgenda/oa/pull/683) [`37a790e`](https://github.com/OpenAgenda/oa/commit/37a790e44c49f7032d4f1330d8632c7edf682f98) Thanks [@bertho-zero](https://github.com/bertho-zero)! - The uid filters of `agendas.list`, of the event lists and of the location list take values from 1 to 2147483647, `age` from 0 to 2147483647, `localTime` in the facets filters from 0 to 1440, and the location `search` at most 255 characters.
+
+## 0.8.0
+
+### Minor Changes
+
+- [#621](https://github.com/OpenAgenda/oa/pull/621) [`7c93641`](https://github.com/OpenAgenda/oa/commit/7c93641684ca27008a637fcbab8847e42f0c97d5) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Regenerated: the administrative levels of a location are `adminLevel1` to `adminLevel6` in the location and event types, the event filters, the facets and the sort. Breaking for pre-1.0 consumers: `region`, `department`, `city` and `district` are gone, and the parameter types `FilterRegion`, `FilterDepartment`, `FilterCity` and `FilterDistrict` become `FilterAdminLevel1`, `FilterAdminLevel2`, `FilterAdminLevel4` and `FilterAdminLevel6`.
+
+- [#550](https://github.com/OpenAgenda/oa/pull/550) [`95d66c2`](https://github.com/OpenAgenda/oa/commit/95d66c203a758d28860ec43b492ada737446fa85) Thanks [@clement180](https://github.com/clement180)! - Regenerate for `availabilityAuthority` and the named `TicketingProvider`.
+
+  `EventInput` and `EventPatch` gain
+  `availabilityAuthority?: Array<TicketingProvider> | null`, the ticketing sources a
+  write declares it owns — `null`, like an empty array, claims nothing and behaves
+  like omitting the field, which is why the zod schema reads `.nullish()`. `TicketingProvider` is now an
+  exported type rather than the same seven-value union spelled inline on
+  `TimingAvailability.provider`, so a caller can name the type it passes.
+
+- [#585](https://github.com/OpenAgenda/oa/pull/585) [`be49f09`](https://github.com/OpenAgenda/oa/commit/be49f0916cbe1167fef705fe46eb0fa04fbce51a) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `agendas.events.patchByExtId` answers the updated event only: its `201` response is gone.
+
+- [#570](https://github.com/OpenAgenda/oa/pull/570) [`0279fe5`](https://github.com/OpenAgenda/oa/commit/0279fe5cebe07d7186420d5cda2a3cb17c68e437) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Types and schemas for the new `deleted` on an event's location.
+
+- [#573](https://github.com/OpenAgenda/oa/pull/573) [`b24e45b`](https://github.com/OpenAgenda/oa/commit/b24e45be51213e52f6c17f19fde3ba544fece626) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Types and schemas without `country` on `Event` and `EventLocation`: the country reads as `location.countryCode`. The `zEvent` of an earlier version requires `country`, so it rejects an event the API returns.
+
+- [#626](https://github.com/OpenAgenda/oa/pull/626) [`66522ef`](https://github.com/OpenAgenda/oa/commit/66522efc18f0d73505f5dd0e973fa5b68e53fa6a) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `geocoding.search` and `geocoding.reverse`, with the `GeocodingResult` and `GeocodedPlace` types and schemas.
+
+- [#586](https://github.com/OpenAgenda/oa/pull/586) [`7a125e5`](https://github.com/OpenAgenda/oa/commit/7a125e5c1e611d284f51ce87240f7b6bc99cddf8) Thanks [@bertho-zero](https://github.com/bertho-zero)! - The location write bodies take `image`, `imageCredits` and `imageRightsAreHeld`, `Location` carries `imageRightsAreHeld`, and `Image` carries the `ref` a write sends back to keep the image.
+
+- [#632](https://github.com/OpenAgenda/oa/pull/632) [`d5bce4d`](https://github.com/OpenAgenda/oa/commit/d5bce4ddd6ff0375b14487746327f15fc5c7d792) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `agendas.locations.validate` and `agendas.locations.settings`, with the `LocationSettings` type and schema.
+
+- [#582](https://github.com/OpenAgenda/oa/pull/582) [`95f5d1e`](https://github.com/OpenAgenda/oa/commit/95f5d1e0c5e59007ee793fb2869430cbb87131db) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `agendas.locations.setByExtId`, `patchByExtId` and `deleteByExtId`; `agendas.locations.patch` takes the `mergeExtIds` query. `getByExtId` types its `400`.
+
+- [#576](https://github.com/OpenAgenda/oa/pull/576) [`08e70ec`](https://github.com/OpenAgenda/oa/commit/08e70ec33323c2cb3c6decd27161e3b68f41c216) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `agendas.locations.create`, `update`, `patch` and `delete`, with the `LocationInput` and `LocationPatch` types and schemas.
+
+### Patch Changes
+
+- [#578](https://github.com/OpenAgenda/oa/pull/578) [`54f141d`](https://github.com/OpenAgenda/oa/commit/54f141d6c4fd8a086c23baa9de27cbb3ee93a850) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Regenerated: `EventInput` and `ImageInput` document the `422` an event write body carrying a key it does not take receives.
+
+- [#633](https://github.com/OpenAgenda/oa/pull/633) [`ccddd2f`](https://github.com/OpenAgenda/oa/commit/ccddd2f67821ba9cd5584701af2642ac1ce2341e) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Regenerated: the `agendas.events.validate` documentation follows the contract.
+
+## 0.7.0
+
+### Minor Changes
+
+- [#464](https://github.com/OpenAgenda/oa/pull/464) [`1019eb4`](https://github.com/OpenAgenda/oa/commit/1019eb4f2cee647bf2a5b6a2d9b25e95139c767d) Thanks [@clement180](https://github.com/clement180)! - `Event` gains `availabilityUpdatedAt` (read-only), `Sort` gains `availabilityUpdatedAt.asc` / `.desc`, and `FilterAvailabilityUpdatedAt` is exported — the generated counterpart of the inventory cursor added to the contract. `EventFilters` accepts the same key for the facet routes.
+
+- [#536](https://github.com/OpenAgenda/oa/pull/536) [`6813d07`](https://github.com/OpenAgenda/oa/commit/6813d078b06042d1d8357db01d6178b17b9b0adc) Thanks [@kaore](https://github.com/kaore)! - `canonicalUrl` in the event input types.
+
+- [#536](https://github.com/OpenAgenda/oa/pull/536) [`4dc035d`](https://github.com/OpenAgenda/oa/commit/4dc035dc2b3dfef082910fa48939d95369793a16) Thanks [@kaore](https://github.com/kaore)! - Types and schemas for the new `canonicalUrl` on events.
+
+- [#536](https://github.com/OpenAgenda/oa/pull/536) [`66a6b55`](https://github.com/OpenAgenda/oa/commit/66a6b55269faa2c5bcf539e472ad5bb3d5a034b9) Thanks [@kaore](https://github.com/kaore)! - Types and schemas for the new `rights` object on events and on the single agenda. `Agenda.rights` is nullable, like the event's.
+
+- [#464](https://github.com/OpenAgenda/oa/pull/464) [`785c6bb`](https://github.com/OpenAgenda/oa/commit/785c6bb042d4fc1471aa307736c1bef2a6fc4ad3) Thanks [@clement180](https://github.com/clement180)! - `Timing` gains `availability`, the per-occurrence inventory: an optional array of `TimingAvailability` rows (`provider`, `status`, `syncedAt`, `sourceRef`, `onSaleFrom`, `onSaleThrough`, `closedBySource`), one per ticketing provider, served in `timings[]` and in `firstTiming` / `lastTiming` / `nextTiming`. `TimingAvailability` and `zTimingAvailability` are exported.
+
+- [#527](https://github.com/OpenAgenda/oa/pull/527) [`9bb2ff0`](https://github.com/OpenAgenda/oa/commit/9bb2ff0f5b6a7c4b97666609bd23a4cbd6903a16) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Add `keys.verify` (`POST /keys/verify`): check an API key without authenticating with it.
+
+  Send the key in the body and read whether it authenticates, what kind of key it
+  is (`public`, `secret` or `agenda`), who it belongs to, which scopes restrict it
+  and when it expires. A key that does not authenticate answers `200` with
+  `valid: false` and an `error.code` naming the reason: unknown or revoked (or
+  owned by an account that is gone), disabled, expired, allowance used up, stored
+  in a state that cannot be read, or owned by a blacklisted account. A public key
+  names no owner, since it carries no identity.
+
+  The request takes no credential, and the check does not count as a use of the
+  key: the "last used" its owner sees does not move.
+
+  The authentication section of the contract no longer lists its exceptions: an
+  operation that takes another credential, or none, declares it in its own
+  security requirements.
+
+### Patch Changes
+
+- [#518](https://github.com/OpenAgenda/oa/pull/518) [`59e3d28`](https://github.com/OpenAgenda/oa/commit/59e3d28691971d2f106ce155d31a882dfae88122) Thanks [@bertho-zero](https://github.com/bertho-zero)! - A write refuses, with `422`, what it used to drop or reinterpret without a word: an `additionalFields` key the agenda's event form schema does not declare, a choice value that is not an option's `id` (the option's `value` and `""` included; `null` empties a choice), an `accessibility` or an `age` that is not an object or carries a key its schema does not declare, a `location` that carries no readable `uid` wherever the location is optional or a partial update would have kept the stored one, a value that is not a boolean where a boolean is expected, and a number or a boolean where a text is expected, which was written out as a string; `null` still empties a text. `AdditionalFields` and the option `id` of `FormSchemaField` state what the schema cannot. A `location` key other than `uid` is refused as well, and so are a timing key other than `begin`, `end`, `id`, `sourceRef` and `availability`, and a `registration` item that is not an object or carries a key other than `type` and `value`. `EventLocationRef.uid` is at least 1: `0` left the event without a location.
+
+  `ValidationIssue.field` is a dotted path to the value in the request: `additionalFields.thematique` for an additional field, `timings.end`, `age.min`, `image.url` or `location.uid` inside a native one.
+
+  The v2 API's `errors[].field` follows the same paths inside a native field: `timings.begin`, `age.min` or `image.url` where it named `begin`, `min` or `url`, and `location.uid` (or `location.<key>`) where it named `location`.
+
+  On a write, `400` is kept for a request that could not be read - a body that is not valid JSON or not a JSON object, a malformed query parameter - and every refusal that names a field of the body answers `422` with `error.errors[]`. An unknown or read-only top-level key, a key an `image` does not take or both `ref` and `url` at once, an `additionalFields` name colliding with a native field, and an upload with no `file` or a file under another field name answered `400`; they answer `422`. The fields refused before validation are listed together. An upload whose multipart body cannot be read (a part past the size limit, a part without a name) answers `400`; the refusals of an upload carry a `code`: `required`, `file.tooBig`, `file.invalidType` or `file.unexpected`.
+
+- [#464](https://github.com/OpenAgenda/oa/pull/464) [`39e2b5f`](https://github.com/OpenAgenda/oa/commit/39e2b5f4ca5d0a3ab47febe6edcf3ad54ea9ba21) Thanks [@clement180](https://github.com/clement180)! - The generated zod validators accept the explicit UTC offset the API requires. `z.string().datetime()` means `{ offset: false }` in zod 3 — only `…Z` passed — so every `date-time` the API accepts (`syncedAt`, `onSaleFrom`, `onSaleThrough`, `createdAt`, `updatedAt`, the date range filters) was rejected by the client generated from the same contract.
+
+- [#488](https://github.com/OpenAgenda/oa/pull/488) [`5578bc2`](https://github.com/OpenAgenda/oa/commit/5578bc27e626c30b42558880830dd48db11fe27a) Thanks [@clement180](https://github.com/clement180)! - Regenerate for `offersAggregate.price` and `offersAggregate.links`.
+
+  The generated types had drifted from the spec since the price bounds landed —
+  `generate:check`, which is this package's whole test script, was failing on the
+  branch. One regeneration clears both additions.
+
+- [#538](https://github.com/OpenAgenda/oa/pull/538) [`fb673ab`](https://github.com/OpenAgenda/oa/commit/fb673ab31c61b1d6c0d89f99c9f41ceb4fe533bf) Thanks [@bertho-zero](https://github.com/bertho-zero)! - An upload ticket from `agendas.uploads.createTicket` now expires after 15 minutes instead of 5, the window a staged upload already gives to attach its `ref`. `uploads.staged` states that an expired ticket answers `401` and that uploading again takes a new ticket.
+
+## 0.6.0
+
+### Minor Changes
+
+- [#508](https://github.com/OpenAgenda/oa/pull/508) [`244bfb5`](https://github.com/OpenAgenda/oa/commit/244bfb5552c001da628724c19c2735bd651c0716) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `agendas.events.schema` describes the fields in the vocabulary of the event body.
+
+  The schema also served native descriptors the v3 write operations refuse
+  (`uid`, `slug`, `createdAt`, `draft`, `locationUid`, `fileKey`...), several of
+  them under a name the v3 event never uses. A client reading it to build a
+  payload had no way to tell them from the fields it fills. They are omitted:
+  every native field listed is now a property of the event body, under the same
+  name, and `status` is listed only on an agenda that accepts it.
+
+  Each data descriptor carries a `path`, where its value lives on the event:
+  `additionalFields.<field>` for an additional field, the field name for a native
+  one. `schemaId` and `schemaType` no longer claim to tell an additional field
+  from a native one: a native an agenda overrides carries the agenda's. A code
+  sample lists the required fields with their condition, builds an event body
+  from the schema and dry-runs it with `agendas.events.validate`.
+
+  `FormSchemaField` documents `read` and `write`, served as lists of
+  `AccessLevel` (`public`, the four member roles, and the platform's own
+  `internal`/`system`) or `null` when open: `write` names the levels allowed to
+  set the field, and a value sent without your access level among them answers
+  `422` with an `unauthorized` issue on the field. `enableWith` states that an
+  inactive field is not required, whatever `optional` says, and holds no value:
+  one sent is not kept, and a stored one is cleared.
+
+- [#507](https://github.com/OpenAgenda/oa/pull/507) [`610604d`](https://github.com/OpenAgenda/oa/commit/610604dd9dff0102cfda2f2eb71fb17a61b2d4dc) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Filter `me.agendas.list` by `slug` and by `role`.
+
+  Resolving one of your agendas from its slug meant paging through every
+  membership client side: `agendas.list` does filter by `slug`, but private
+  agendas and agendas not indexed in public search are absent from it. `slug` on
+  `me.agendas.list` resolves against every agenda you are a member of, those
+  included; a slug matching none of your memberships yields an empty page.
+
+  `role` keeps the memberships holding one of the given roles, so "which agendas
+  can I write to" is one filtered call instead of a full listing narrowed client
+  side. An unknown role answers `400`.
+
+  The description of `agendas.list` now states that private and unindexed agendas
+  are absent from it.
+
+- [#474](https://github.com/OpenAgenda/oa/pull/474) [`b738e6e`](https://github.com/OpenAgenda/oa/commit/b738e6e428bda1ac9a4284728afabc4c4513d7cf) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Name the refused value `input` on a validation issue.
+
+  An item in `error.errors` has always carried the value it refused, but under
+  the name our validators use internally, `origin`, and the contract never
+  declared it. Two consequences: the key shipped in every `422` without being
+  documented anywhere, and the zod validators generated from this contract
+  dropped it on `parse()`, since they are emitted in strip mode.
+
+  `input` is the name zod itself gives the refused value on an issue - where
+  `origin` is the origin type. The same word already means something else in
+  this contract too: `FormSchemaField.origin` is what a field was converted
+  from.
+
+  v3 answers `input` and declares it. The rename happens on the v3 boundary
+  only: v2 keeps publishing `origin`, and a validator still writes whatever it
+  knows without anything changing for it.
+
+  `input` is declared and not required - a validator that reports a problem
+  without recording the value omits it.
+
+## 0.5.0
+
+### Minor Changes
+
+- [#461](https://github.com/OpenAgenda/oa/pull/461) [`727fdbb`](https://github.com/OpenAgenda/oa/commit/727fdbb4b5d60a13279fa6cc2580ccfe2c12fac4) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Give a refused request and a merged location each their own error schema.
+
+  `error.details` was one open object, so the only part of a 4xx a client can act
+  on was the part the contract said nothing about, and the two things ever found
+  there — the problems of a refused request, and the location a requested one was
+  merged into — sat side by side as if they appeared together, which they never do.
+
+  Each now has its schema, and says what it carries on `error` itself:
+  `ValidationError` carries `errors`, a list of `ValidationIssue`, and answers
+  `422` and the `400` of a request refused for its values; `MergedLocationError`
+  carries `mergedIn` and answers `404` on the two location reads. `Error` is the
+  envelope for everything else.
+
+  There is no discriminant field: a client tells the three apart by the carrier
+  they declare, `'errors' in error` and `'mergedIn' in error`. The generated zod
+  validators do not enforce `additionalProperties: false`, so `zError` alone does
+  not reject the richer bodies.
+
+  A `ValidationIssue` pins `message` plus the `field`, `lang`, `index` and `code`
+  that locate the value, and stays open: a validator that knows more about what it
+  refused — the bounds, the rejected value — says it.
+
+  One visible change for a client that reads `error.message`: a write that is
+  refused for its field values now answers the same sentence every time, `The
+request contains invalid field values.`, where the producers worded it three
+  ways (`data is invalid`, `invalid data`, `invalid request body`) and a refused
+  upload put its own verdict there. What each value was refused for is in
+  `errors[]`, read per field rather than guessed from one string.
+
+- [#453](https://github.com/OpenAgenda/oa/pull/453) [`002db7c`](https://github.com/OpenAgenda/oa/commit/002db7ca54474c625b37c854233d16f3b1ef29eb) Thanks [@bertho-zero](https://github.com/bertho-zero)! - `EventInput` and `EventPatch` gain `imageCredits`; `Image` loses `credits`, which was always `null` - read `imageCredits` on the event or location instead.
+
+### Patch Changes
+
+- [#462](https://github.com/OpenAgenda/oa/pull/462) [`9599773`](https://github.com/OpenAgenda/oa/commit/95997737d230087fc1dc03c9e373d8fe397d32ec) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Carry the error codes as contract data.
+
+  `Error.code` and `ValidationError.code` carried their values as `examples`, which no reader of the contract shows. They are now an `enum` with an `x-enum-descriptions` gloss on the three codes a `403` can carry, which is the only place a name does not already say the status, so the vocabulary reaches the generated SDK, the reference site and the MCP cards instead of living only in prose the card never renders.
+
+- [#462](https://github.com/OpenAgenda/oa/pull/462) [`29cfdf5`](https://github.com/OpenAgenda/oa/commit/29cfdf557557879cd4bf169d04e9b3c45a8a40e8) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Close three text gaps in the contract.
+
+  A folded line broken after a hyphen resolved to `self- contained`, `by- uid` and `de- references` in the descriptions a reader sees; `yarn validate` now fails on the pattern so it cannot come back. The dry-run verdict of `agendas.events.validate` was an anonymous inline schema, rendered as a type named `Object` that nothing defines; it is now `ValidationVerdict`. And eleven schemas carried no description at all, `Error` among them.
+
+- [#465](https://github.com/OpenAgenda/oa/pull/465) [`37b64d4`](https://github.com/OpenAgenda/oa/commit/37b64d465ba6e5bfc6e8b37d714e166de7a77d62) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Fix the examples a caller gets an error from.
+
+  The three code samples that write an event carried `title` and `timings` only; a default agenda also requires `description` and `location`, so following any of them answers `422`. Two of them handed back the write's `{ data, error }` without looking at `error`.
+
+  The `fields` parameter is shared by four list operations, and its description named event-only paths while its example was `[uid, title, location]`. Those names answer `400 unknown field(s)` on the agenda, own-agenda and location lists. The names were unattributed rather than wrong, so the description keeps them and says which resource they belong to, and states that each resource takes the names its own `data` item declares. The example becomes `[uid, slug]`, which every one of the four accepts.
+
+- [#452](https://github.com/OpenAgenda/oa/pull/452) [`95eafc9`](https://github.com/OpenAgenda/oa/commit/95eafc96bad1be178deb1ba23587a0369d440519) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Document where an event's `slug` comes from.
+
+  `Event.slug` states that the slug is unique across all events, set by the server from the title when the event is created, and never changed afterwards, even if the title changes.
+
+  `EventInput.title` and `EventPatch.title` state that the slug is derived from the title, preferring the language that comes first in the request body, so the event's original language goes first. `EventPatch` carries the sentence too because `patchByExtId` creates the event when no event carries the external id.
+
+- [#462](https://github.com/OpenAgenda/oa/pull/462) [`0cc4bd7`](https://github.com/OpenAgenda/oa/commit/0cc4bd78c3111c57dda42a7401e8a4d0d2938543) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Say a thing once, at the level that owns it.
+
+  A `search_docs` card renders no response description, so the contract had to repeat on the operation whatever a response said. The card now renders the description of a response an operation declares itself, and gives every compacted parameter its type. The merged-location fact, written three times on each of the two location gets, is written once - on the response that answers it - and the schema keeps the shape.
+
+- [#460](https://github.com/OpenAgenda/oa/pull/460) [`1436d8d`](https://github.com/OpenAgenda/oa/commit/1436d8d321a73975f3aa8a90c9989dfbd72e6dcc) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Both READMEs call the read-only key a public key.
+
+  The contract, the reference page and the MCP cards name it `publicKey`, after the
+  product, which says "Clé publique" in every locale. The two published READMEs
+  still said "publishable", and the MCP one still vouched for the key being safe in
+  a browser - a claim the product stopped making, because a key minted before the
+  public lock still reads with its owner's rights on v2.
+
+- [#455](https://github.com/OpenAgenda/oa/pull/455) [`8fec416`](https://github.com/OpenAgenda/oa/commit/8fec41695a74dc5c113c0ab89f0d64eb6a4ad879) Thanks [@bertho-zero](https://github.com/bertho-zero)! - An operation now declares which API key it accepts.
+
+  One `bearerAuth` scheme stood for both API keys, so the contract could not say that a public key is refused on a write - only the prose could. It is replaced by `publicKey` (`oa_pk_…`, read-only, no identity) and `secretKey` (`oa_sk_…`): reads accept either, writes and `/me` accept the secret key, and each stays paired with its OAuth alternative.
+
+  The generated client is unchanged beyond one more entry in the per-operation security metadata; every requirement is still an `Authorization: Bearer` header.
+
+  The reference page offers OAuth first: a reader without an API key signs in with
+  the account they already have instead of going to fetch a key from their
+  settings.
+
+- [#454](https://github.com/OpenAgenda/oa/pull/454) [`a3e1e5e`](https://github.com/OpenAgenda/oa/commit/a3e1e5e1301d8e528ee363bb3f37c7a01fea2ae1) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Descriptions state what the API does, on their own.
+
+  Several said the opposite of the server: `optionalWith` makes a field optional when its condition holds; `mergeExtIds=false` applies to `PUT` only, a `PATCH` always merges; an upload ticket rejected before staging stays usable; `nextTiming` includes an occurrence in progress; form schema descriptors are filtered by read access; `offersAggregate.pricing` is `unknown` when no source carries a usable price; `EventStatus` is a lifecycle status; deleting removes the event from the agenda.
+
+  Descriptions no longer point to another operation or field, mention future work that has shipped, or describe internals. `AgendaDetailed` names the fields only the single-agenda get returns, and the API overview states that a required response field is always present (`[]`, `{}` or `null` when empty).
+
+- [#454](https://github.com/OpenAgenda/oa/pull/454) [`cd63c81`](https://github.com/OpenAgenda/oa/commit/cd63c810511edca49c9817e52d2b046c5635de47) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Five statements a review found wrong or unusable.
+
+  `X-Upload-Ticket` was broken across two lines and rendered as `X-Upload- Ticket`, so the header name could not be copied. A `PATCH` was said to always merge `extIds`, while an empty array clears the stored mappings. The refusal to edit an event was stated unconditionally, though the server pairs it with a change to the event's own content. A public key limited to its own scopes meets `403` (`insufficient_scope`) before the `401` the scheme described. And a custom `file`/`image` field now says that `filename` is the stored object's key, the API returning no absolute URL for it.
+
+  An operation also stops spelling out the credential its `security` declares. Every published reader carries it per operation - the reference page lists the accepted schemes and the scope behind the operation's badge, an MCP card renders them on its `Auth:` line - so the sentence repeated on ten operations said nothing new. The consequence moves to the level that owns it: the shared `403` names `read_only_credential` beside the other codes it returns. What no structured field carries stays, namely the per-agenda right to create, edit or remove an event.
+
 ## 0.4.0
 
 ### Minor Changes

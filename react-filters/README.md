@@ -11,6 +11,8 @@ Table of contents:
 - [General principles](#principles)
 - [Styles](#styles)
 - [Available filters](#filters)
+- [Widgets](#widgets)
+- [Manual submit](#manual-submit)
 - [Accessibility](#accessibility)
 
 ## Principles
@@ -23,7 +25,7 @@ Configuration is provided to the controller through a `window.oa` object that mu
     <!-- after your own framework stylesheet, see Styles below -->
     <link
       rel="stylesheet"
-      href="https://unpkg.com/@openagenda/react-filters@3.0.0/dist/style.css"
+      href="https://unpkg.com/@openagenda/react-filters@3/dist/style.css"
     />
   </head>
   <body>
@@ -32,12 +34,12 @@ Configuration is provided to the controller through a `window.oa` object that mu
       window.oa = {
         res: '/events',
         locale: 'fr',
-        onLoad: () => {}, // ...
-        onFilterChange: (), // ...
+        onLoad: (values, aggregations, ref, form) => {}, // ...
+        onFilterChange: (values, aggregations, ref, form) => {}, // ...
         // ...
       };
     </script>
-    <script src="https://unpkg.com/@openagenda/react-filters@3.0.0/dist/main.js"></script>
+    <script src="https://unpkg.com/@openagenda/react-filters@3/dist/main.js"></script>
   </body>
 </html>
 ```
@@ -48,7 +50,7 @@ If you need to use this library outside of the context of a plugin, see the cont
 
 ### Controller options
 
-This are loaded through the `window.oa` object.
+These are loaded through the `window.oa` object.
 
 - **res**: The path where the controller will retrieve aggregated data to populate the filters with
 - **locale**: The locale in which the filters should be loaded
@@ -59,19 +61,32 @@ This are loaded through the `window.oa` object.
 - **query**: Optional. Filter value to be loaded at initialization.
 - **onFilterChange**: The function to be called each time a filter value changes. This function should be in charge of loading the matching events in the list and updating the URL.
 - **onLoad**: This function is called when the controller has been loaded.
+- **manualSubmit**: Optional, `false` by default. When `true`, filter changes are no longer applied as they happen: they are held in the form until it is submitted, and only then is `onFilterChange` called. The page provides the submit control. See [Manual submit](#manual-submit).
+- **onPendingChange**: Optional. Called as `onPendingChange(pending, values)` when the filters start or stop holding changes that have not been applied, in manual submit mode. See [Manual submit](#manual-submit).
 - **apiClient**: An optional axios instance. Useful for tests.
 - **ref**: A React ref. Useful if the controller is to be used with the `FilterManager` component (not documented). See `React.createRef()` or `React.useRef()`
+
+### Callback arguments
+
+`onLoad` and `onFilterChange` are both called as `(values, aggregations, ref, form)`:
+
+- **values**: The filter values: the initial `query` for `onLoad`, the submitted values for `onFilterChange`. They take the shape of an OpenAgenda events query.
+- **aggregations**: The aggregations the filters on the page need, to be requested along with the events.
+- **ref**: The controller, to be updated once the events are loaded:
+  - `updateFiltersAndWidgets(values, result)` refreshes the filter options and the widgets from the `aggregations` and `total` of `result`.
+  - `updateLocation(values)` writes the values in the URL query string.
+- **form**: The [final-form](https://final-form.org/docs/final-form/types/FormApi) instance holding the filters. In [manual submit](#manual-submit) mode, `form.submit()` applies the pending values.
 
 ## Styles
 
 **Since 3.0.0**, the library ships its rules as a stylesheet you load yourself. Earlier versions injected them at runtime, so nothing had to be loaded — an integration upgrading from 2.x renders unstyled filters until the stylesheet is added.
 
-When the library is loaded through a `<script>` tag, add the matching `<link>`:
+When the library is loaded through a `<script>` tag, add the matching `<link>`, from the same version as the script:
 
 ```html
 <link
   rel="stylesheet"
-  href="https://unpkg.com/@openagenda/react-filters@3.0.0/dist/style.css"
+  href="https://unpkg.com/@openagenda/react-filters@3/dist/style.css"
 />
 ```
 
@@ -89,7 +104,7 @@ When your application already has a sass entry point, importing it there is usua
 
 **Load it after the framework stylesheet the filters sit on** (bootstrap, in every integration we know of). Rules such as the value badge padding or the choice search width are written with a single class, so they overrule `.btn`, `.badge` and `.form-control` by source order rather than by specificity — loading them before bootstrap gives those defaults back.
 
-The class names the components carry are part of the public API and are meant to be targeted from your own stylesheet: `oa-filters-value-badge`, `oa-filters-choice-search`, `oa-filters-map`, `oa-filters-map-container`, `oa-filters-search-here` and `oa-filters-search-here-button`. Any rule of yours placed after the stylesheet overrides ours.
+The class names the components carry are part of the public API and are meant to be targeted from your own stylesheet: `oa-filters-value-badge`, `oa-filters-choice-search`, `oa-filters-map`, `oa-filters-map-container`, `oa-filters-search-here`, `oa-filters-search-here-button`, `oa-filters-search-label`, and for the sort widget menu `oa-filters-sort-option`, `oa-filters-sort-label` and `oa-filters-sort-description`. Any rule of yours placed after the stylesheet overrides ours.
 
 Note that the map filter also needs [leaflet's own stylesheet](https://leafletjs.com/examples/quick-start/), which this library does not bundle.
 
@@ -133,7 +148,10 @@ For all filters that take the form of a list of checkboxes, the parameter `input
 A text input for open-text search. Parameters are:
 
 - **name**: 'search'.
-- **manualSearch**: Boolean, false by default. When true, search is only triggered when the user submits the value.
+- **manualSearch**: Boolean, false by default. When true, search is only triggered when the user submits the value. With `manualSubmit`, the whole form already waits for a submit: the typed value is held by the form like any other filter, so it makes the filters pending and the page's submit applies it.
+- **displayReset**: Boolean, false by default. When true, the search button turns into a reset button (×) once the field holds text, which clears the search and submits. With `manualSubmit`, it only does so on the applied search: until the typed text is submitted, the button searches.
+- **label**: Text of a `<label>` rendered above the input and associated with it. It carries the class `oa-filters-search-label`. Without it, the input is only named by its `aria-label`.
+- **placeholder**: Placeholder of the input. Defaults to "Search", translated.
 
 ### Map
 
@@ -187,6 +205,135 @@ The HTML equivalent:
         data-oa-filter="evenement-jeune-public"
         data-oa-filter-params="{&quot;type&quot;:&quot;choice&quot;,&quot;name&quot;:&quot;evenement-jeune-public&quot;,&quot;options&quot;:[{&quot;label&quot;:&quot;Jeune public&quot;,&quot;value&quot;:&quot;true&quot;},{&quot;label&quot;:&quot;Vieux public&quot;,&quot;value&quot;:&quot;false&quot;}],&quot;aggregation&quot;:{&quot;type&quot;:&quot;additionalFields&quot;,&quot;field&quot;:&quot;audience-type&quot;}}"
       ></div>
+```
+
+## Widgets
+
+A widget is placed like a filter, with `data-oa-widget` and `data-oa-widget-params` attributes, the `name` parameter telling which widget to load. Widgets act on the event list rather than narrowing it.
+
+### Sort
+
+A select that sets the order of the event list. Its value is the `sort` key of the values passed to `onFilterChange`, in the format of the [OpenAgenda API](https://developers.openagenda.com/10-lecture/) `sort` parameter.
+
+```html
+<div
+  data-oa-widget="sort"
+  data-oa-widget-params='{"name":"sort","options":["lastTimingWithFeatured.asc","updatedAt.desc"],"defaultValue":"lastTimingWithFeatured.asc"}'
+></div>
+```
+
+Parameters are:
+
+- **name**: 'sort'.
+- **options**: Optional. The orders offered, listed in the order given. Defaults to `["lastTimingWithFeatured.asc", "score"]`. Offer a single chronological order: their short labels are the same. Values outside the list below are ignored.
+- **defaultValue**: Optional. The order shown while the visitor has not picked one. Falls back to the first option when missing or not among the options.
+- **labels**: Optional. Per-value label overrides, ex `{"lastTimingWithFeatured.asc":"Upcoming"}`. The label is what the menu lists. The closed select shows it too when the page sets it, else the default short label. Without it, each order is labelled by what it does, in the controller locale.
+- **label**: Optional. Accessible name of the select, read by screen readers. Defaults to "Sort by", translated. The select shows no visible label: set this when the page around it gives the list a more specific name.
+- **shortLabels**: Optional. Per-value labels for the closed select only, ex `{"updatedAt.desc":"Latest"}`. The menu keeps the full label. Without it, the closed select shows the label given in `labels`, else the default short label below.
+- **descriptions**: Optional. Per-value detail lines, shown under each label in the open menu only. Overrides the default ones below, ex `{"lastTimingWithFeatured.asc":"Highlighted events first"}`. `false` shows labels only.
+
+The available orders:
+
+| Value                        | Default short label | Default label                             | Default description                                        |
+| ---------------------------- | ------------------- | ----------------------------------------- | ---------------------------------------------------------- |
+| `lastTimingWithFeatured.asc` | Chronological       | Featured first, chronological (last date) | Featured events first, then by the last date of each event |
+| `timingsWithFeatured.asc`    | Chronological       | Featured first, chronological             | Featured events first, then by next date                   |
+| `lastTiming.asc`             | Chronological       | Chronological (last date)                 | By the last date of each event                             |
+| `timings.asc`                | Chronological       | Chronological order                       | Next dates first                                           |
+| `updatedAt.desc`             | Recently updated    | Recently updated                          | Last modified events first                                 |
+| `updatedAt.asc`              | Oldest updates      | Least recently updated                    | Least recently modified events first                       |
+| `score`                      | Relevance           | Relevance                                 | Best matches for the search first                          |
+
+`timings` orders events by their next date, `lastTiming` by their last one. The `WithFeatured` variants list featured events first.
+
+The select is at least 180px wide, and as wide as the longest label it can show closed, `score` included, as well as an order from the page's URL that it does not offer: its width does not change with the order picked, nor when a search adds relevance. Used as a React component, `sizeToLabels={false}` lets it follow the selected label instead, e.g. for a select styled as a link. It is always shown: with no order to offer (only `score` and no search, or only unknown values), it stays in place, disabled, showing "Sort by".
+
+`score` is only listed while a search is typed, since relevance ranks against it. When it is among the options, typing a search switches the order to relevance, and clearing the search brings back the order picked before.
+
+The widget starts on the `sort` of the initial `query`, so a link carrying an order shows it and keeps it through later filter changes. An order the widget does not offer is still shown, under its label. Without one, the values passed to `onFilterChange` carry no `sort` until the visitor picks an order: the page should then request the events in the order given as `defaultValue`.
+
+## Manual submit
+
+With `manualSubmit`, a visitor can change the filters without the list following, so that nothing reloads until they ask for it. Between a change and the next submit, the filters show one selection while the list, the total, the active filters and the URL still show the one last applied: the filters are **pending**.
+
+**Since 3.1.0.**
+
+### Submitting
+
+react-filters does not render a submit button: the page provides one and calls `form.submit()`, which calls `onFilterChange` with the values held by the filters. Place the filters and the button in a form, and submit from its `submit` event, set up in `onLoad`:
+
+```html
+<form id="filters-form">
+  <div data-oa-filter="search" data-oa-filter-params='{"name":"search"}'></div>
+  <div data-oa-filter="city" data-oa-filter-params='{"name":"city"}'></div>
+  <button type="submit">Search</button>
+</form>
+
+<script>
+  window.oa = {
+    // ...
+    manualSubmit: true,
+    onLoad: (values, aggregations, ref, form) => {
+      document
+        .getElementById('filters-form')
+        .addEventListener('submit', (event) => {
+          event.preventDefault();
+          form.submit();
+        });
+    },
+  };
+</script>
+```
+
+The listener also catches Enter in the search field. **Do not leave it out**: without it, Enter can make the browser submit the form itself and leave the page.
+
+### The search field
+
+In this mode the search text is held by the form like any other filter: typing makes the filters pending, and the page's submit applies the text as it stands, without waiting for a pause in typing. `manualSearch` changes nothing here, since the whole form already waits for the submit. With `displayReset`, the field's button searches until the text is applied, and only then turns into a reset button.
+
+### Active filters
+
+The active filters describe the list, so they show the applied values, not the pending ones: they change on a submit. Removing a value from them applies that removal at once, alone: `onFilterChange` is called with the applied values minus that one, and the visitor's other pending changes stay pending. The filter the value comes from realigns on the list: it shows the applied values, and the visitor's pending changes on it are dropped. Relevance is never applied without a search: removing the search, from the active filters or by clearing the field and submitting, brings back the order applied before relevance, and the select shows it.
+
+`ActiveFilters` gets this from `AppliedValuesForm`, which is exported: a page that builds its own active filters with `useActiveFilters` and the `*.Preview` components wraps them in it to read the applied values, and to apply a value changed there. Its form's `submit()` and `getSubmittedValues()` are those of the main form, and its `reset()`, `initialize()` and `restart()` apply the values they bring, so a "clear all" button can call `reset({})`. In automatic mode it renders its children as they are.
+
+The applied values change on a submit and on a change made in `AppliedValuesForm`. A page that resets the main form itself (`getForm().reset()`) should submit afterwards: until then, the active filters keep showing the list as it was.
+
+```jsx
+<AppliedValuesForm>
+  <MyActiveFilters />
+</AppliedValuesForm>
+```
+
+### Pending state
+
+`onPendingChange(pending, values)` reports whether the filters are pending, so the page can say so:
+
+- `pending` is `true` when the filter values differ from the applied ones, `false` when they match again, whether the visitor submitted or undid their changes. The applied values are those of the last submit, or the initial `query` before any submit.
+- It is called on transitions only, never twice in a row with the same `pending`, so it does not follow every keystroke in the search field. It is not called at load, where the filters are not pending.
+- `values` are the filter values at the time of the transition.
+- In automatic mode (no `manualSubmit`) every change is applied at once and the callback is never called.
+
+react-filters does not render the list, the total or the submit button, so the page renders the cue. For instance, fill a live region placed in the page at load, and emphasise the submit button:
+
+```html
+<div role="status" id="filters-pending"></div>
+<button type="submit" aria-describedby="filters-pending">Search</button>
+
+<script>
+  window.oa = {
+    // ...
+    manualSubmit: true,
+    onPendingChange: (pending) => {
+      document.getElementById('filters-pending').textContent = pending
+        ? 'The results do not match the selected filters yet.'
+        : '';
+      document
+        .querySelector('button[type=submit]')
+        .classList.toggle('btn-primary', pending);
+    },
+  };
+</script>
 ```
 
 ## Accessibility

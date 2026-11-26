@@ -91,3 +91,10 @@ generated SDK, and the Scalar reference. Hence these rules:
     closed set belongs in the schema and the prose names the rule that defines
     it. A partial example that helps writing a call (`800x0`) is fine; a list
     that mimics the members of a schema set is not, because it drifts.
+12. **What the caller acts on, not every branch of the code.** Write what
+    changes how a call is written or how its response is read. A behaviour
+    the caller does not steer and the response shows - a completion, a
+    fallback, the case of a rare body - takes a clause at most, or nothing:
+    leaving a case out states nothing false, describing it wrongly does. When
+    a text turns out incomplete, rewrite its sentence instead of adding one: a
+    description that grows a clause per case ends up mirroring the code.

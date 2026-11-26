@@ -1,101 +1,22 @@
-import { getLocaleValue, DEFAULT_LANG } from '@openagenda/intl';
+import { toEventSchema } from '@openagenda/sdk-js/schema-org';
 
-function getEventAttendanceMode(attendanceMode) {
-  return (
-    {
-      1: 'OfflineEventAttendanceMode',
-      2: 'OnlineEventAttendanceMode',
-      3: 'MixedEventAttendanceMode',
-    }[attendanceMode?.id ?? attendanceMode] ?? 'OfflineEventAttendanceMode'
-  );
-}
-
-function getEventStatus(status) {
-  return (
-    {
-      1: 'EventScheduled',
-      2: 'EventRescheduled',
-      3: 'EventMovedOnline',
-      4: 'EventPostponed',
-      5: 'EventScheduled', // but full.
-      6: 'EventCancelled',
-    }[status?.id ?? status] ?? 'EventScheduled'
-  );
-}
-
-function imageToUrl(image, type) {
-  if (!image) return;
-
-  const variant = typeof type === 'string'
-    ? image.variants?.find((img) => img.type === type) ?? image
-    : image;
-
-  return `${image.base}${variant.filename}`;
-}
-
-export default function toEventSchema(
-  event,
-  { url, locale, defaultLocale = DEFAULT_LANG, formatDate },
-) {
-  const { timings } = event;
-
-  const { begin } = timings[0];
-  const { end } = timings.at(-1);
-
-  const timezone = event.timezone || event.location?.timezone;
-
-  const eventSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Event',
-    name: getLocaleValue(event.title, locale, defaultLocale),
-    description: getLocaleValue(event.description, locale, defaultLocale),
-    startDate: formatDate(begin, timezone),
-    endDate: formatDate(end, timezone),
-    eventAttendanceMode: `https://schema.org/${getEventAttendanceMode(event.attendanceMode)}`,
-    eventStatus: `https://schema.org/${getEventStatus(event.status)}`,
-    ...event.registration?.some((r) => r.type === 'link')
-      ? {
-        offers: {
-          '@type': 'Offer',
-          url: event.registration.find((r) => r.type === 'link').value,
-          availability: `https://schema.org/${event.status === 5 ? 'SoldOut' : 'InStock'}`,
-        },
-      }
-      : {},
-  };
-
-  if (url) {
-    eventSchema['@id'] = url;
-    eventSchema.url = url;
+/**
+ * Kept for anything importing this path directly: the package publishes `lib/`
+ * and has no `exports` map. The mapping itself lives in `@openagenda/sdk-js`.
+ *
+ * Callers of this path cut the event down to the date they describe
+ * (`{ ...event, timings: [timing] }`), as the portal's own copy expected. Such
+ * an event is read as that date, so that it states the date's own availability
+ * and never the event summary's, which speaks for the other dates too.
+ *
+ * @deprecated Import `toEventSchema` from `@openagenda/sdk-js/schema-org` and
+ * pass the date as the `timing` option.
+ */
+export default function deprecatedToEventSchema(event, options = {}) {
+  // A `timing` given, even null, is the caller's say; undefined is none.
+  if (options.timing !== undefined || event?.timings?.length !== 1) {
+    return toEventSchema(event, options);
   }
 
-  if (event.image) {
-    eventSchema.image = imageToUrl(event.image);
-  }
-
-  if (event.location) {
-    eventSchema.location = {
-      '@type': 'Place',
-      name: event.location.name,
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: event.location.address,
-        addressLocality: event.location.city,
-        addressRegion: event.location.region,
-        postalCode: event.location.postalCode,
-        addressCountry: event.location.countryCode,
-      },
-      geo: {
-        '@type': 'GeoCoordinates',
-        latitude: event.location.latitude,
-        longitude: event.location.longitude,
-      },
-    };
-  }
-
-  if (event.age?.min || event.age?.max) {
-    eventSchema.typicalAgeRange = `${event.age.min || ''}-${event.age.max || ''}`;
-  }
-
-  return eventSchema;
+  return toEventSchema(event, { ...options, timing: event.timings[0] });
 }

@@ -69,6 +69,19 @@ const messages: Record<string, MessageDescriptor> = defineMessages({
     id: 'react.components.EventShareModal.downloadPDF',
     defaultMessage: 'Download PDF',
   },
+  downloadWord: {
+    id: 'react.components.EventShareModal.downloadWord',
+    defaultMessage: 'Download a Word document',
+  },
+  feedbackEmailSubjectWord: {
+    id: 'react.components.EventShareModal.feedbackEmailSubjectWord',
+    defaultMessage: 'Word export',
+  },
+  feedbackEmailBodyWord: {
+    id: 'react.components.EventShareModal.feedbackEmailBodyWord',
+    defaultMessage:
+      "I'm testing the Word export on the event {eventUrl} and I would like to make some suggestions: ...",
+  },
   download: {
     id: 'react.components.EventShareModal.downloadButton',
     defaultMessage: 'Download',

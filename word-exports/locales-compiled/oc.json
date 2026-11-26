@@ -1,0 +1,210 @@
+{
+  "word-exports.access": [
+    {
+      "type": 0,
+      "value": "Accès : "
+    },
+    {
+      "type": 1,
+      "value": "access"
+    }
+  ],
+  "word-exports.accessibility": [
+    {
+      "type": 0,
+      "value": "Accessibilitat : "
+    },
+    {
+      "type": 1,
+      "value": "list"
+    }
+  ],
+  "word-exports.accessibility.hi": [
+    {
+      "type": 0,
+      "value": "handicap auditiu"
+    }
+  ],
+  "word-exports.accessibility.ii": [
+    {
+      "type": 0,
+      "value": "handicap intellectual"
+    }
+  ],
+  "word-exports.accessibility.mi": [
+    {
+      "type": 0,
+      "value": "handicap motor"
+    }
+  ],
+  "word-exports.accessibility.pi": [
+    {
+      "type": 0,
+      "value": "handicap psiquic"
+    }
+  ],
+  "word-exports.accessibility.vi": [
+    {
+      "type": 0,
+      "value": "handicap visual"
+    }
+  ],
+  "word-exports.additionalValues": [
+    {
+      "type": 0,
+      "value": "Valors addicionalas"
+    }
+  ],
+  "word-exports.ageFrom": [
+    {
+      "type": 0,
+      "value": "A partir de "
+    },
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " ans"
+    }
+  ],
+  "word-exports.ageRange": [
+    {
+      "type": 0,
+      "value": "De "
+    },
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " a "
+    },
+    {
+      "type": 1,
+      "value": "max"
+    },
+    {
+      "type": 0,
+      "value": " ans"
+    }
+  ],
+  "word-exports.ageUpTo": [
+    {
+      "type": 0,
+      "value": "Fins a "
+    },
+    {
+      "type": 1,
+      "value": "max"
+    },
+    {
+      "type": 0,
+      "value": " ans"
+    }
+  ],
+  "word-exports.credits": [
+    {
+      "type": 0,
+      "value": "Crèdits : "
+    },
+    {
+      "type": 1,
+      "value": "credits"
+    }
+  ],
+  "word-exports.eventPage": [
+    {
+      "type": 0,
+      "value": "Pagina de l'eveniment :"
+    }
+  ],
+  "word-exports.fieldLabel": [
+    {
+      "type": 1,
+      "value": "label"
+    },
+    {
+      "type": 0,
+      "value": " :"
+    }
+  ],
+  "word-exports.locationDetails": [
+    {
+      "type": 0,
+      "value": "A prepaus del luòc"
+    }
+  ],
+  "word-exports.no": [
+    {
+      "type": 0,
+      "value": "Non"
+    }
+  ],
+  "word-exports.noEvents": [
+    {
+      "type": 0,
+      "value": "Cap d'eveniment correspond pas a aquesta seleccion."
+    }
+  ],
+  "word-exports.practicalInformation": [
+    {
+      "type": 0,
+      "value": "Informacions practicas"
+    }
+  ],
+  "word-exports.registration": [
+    {
+      "type": 0,
+      "value": "Inscripcion :"
+    }
+  ],
+  "word-exports.seeOnMap": [
+    {
+      "type": 0,
+      "value": "Veire sus una mapa"
+    }
+  ],
+  "word-exports.tableOfContents": [
+    {
+      "type": 0,
+      "value": "Ensenhador"
+    }
+  ],
+  "word-exports.tableOfContentsPlaceholder": [
+    {
+      "type": 0,
+      "value": "Metètz aquesta taula a jorn per listar los capítols : clic drech dessús, puèi « Metre a jorn los camps »."
+    }
+  ],
+  "word-exports.tags": [
+    {
+      "type": 0,
+      "value": "Etiquetas : "
+    },
+    {
+      "type": 1,
+      "value": "list"
+    }
+  ],
+  "word-exports.timingDetails": [
+    {
+      "type": 0,
+      "value": "Datas e oraris"
+    }
+  ],
+  "word-exports.unspecified": [
+    {
+      "type": 0,
+      "value": "Pas precisat"
+    }
+  ],
+  "word-exports.yes": [
+    {
+      "type": 0,
+      "value": "Òc"
+    }
+  ]
+}

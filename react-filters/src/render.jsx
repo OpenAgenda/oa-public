@@ -1,4 +1,3 @@
-import omit from 'lodash/omit.js';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import qs from 'qs';
@@ -34,6 +33,7 @@ export default function renderFiltersAndWidgets({
   onLoad,
   filtersBase,
   manualSubmit,
+  onPendingChange,
   ...rest
 } = {}) {
   const container = createContainer();
@@ -75,7 +75,8 @@ export default function renderFiltersAndWidgets({
         filters={filters}
         widgets={widgets}
         onSubmit={wrapCallback(onFilterChange)}
-        initialValues={omit(initialValues, 'sort')}
+        onPendingChange={onPendingChange}
+        initialValues={initialValues}
         res={res}
         dateFnsLocale={dateFnsLocales[locale]}
         missingValue={missingValue}
