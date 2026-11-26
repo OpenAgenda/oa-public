@@ -25,6 +25,9 @@ export const nativeSelectRecipe = defineSlotRecipe({
       outline: {
         field: {
           borderColor: 'border.control',
+          // open, it keeps the border it has at rest: Chakra's there is the
+          // frame of a plain box, paler
+          _expanded: { borderColor: 'border.control' },
         },
       },
     },
