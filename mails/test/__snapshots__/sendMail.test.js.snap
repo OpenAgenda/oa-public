@@ -47,7 +47,7 @@ exports[`sendMail Euthreal transport send email directly (without queue) - hello
   },
   {
     "accepted": [
-      "kevin.berthommier@openagenda.com",
+      "contact.6863@example.org",
     ],
     "ehlo": [
       "PIPELINING",
@@ -58,10 +58,10 @@ exports[`sendMail Euthreal transport send email directly (without queue) - hello
     "envelope": {
       "from": "no-reply@openagenda.com",
       "to": [
-        "kevin.berthommier@openagenda.com",
+        "contact.6863@example.org",
       ],
     },
-    "messageSize": 6154,
+    "messageSize": 6146,
     "rejected": [],
   },
   {
@@ -443,7 +443,7 @@ Go to https://openagenda.com
 ",
     "to": [
       {
-        "address": "kevin.berthommier@openagenda.com",
+        "address": "contact.6863@example.org",
         "name": "",
       },
     ],

@@ -49,7 +49,7 @@ describe('sendMail', () => {
           username: 'bertho',
         },
         to: [
-          'contact.6862@example.org, kevin.berthommier@openagenda.com',
+          'contact.6862@example.org, contact.6863@example.org',
           {
             address: '"Kaoré" <kaore@openagenda.com>',
             data: { username: 'kaore' },
@@ -132,7 +132,7 @@ describe('sendMail', () => {
           name: '',
         },
         subject: 'Nouvel inscrit à la newsletter',
-        text: '"dominiquemuslewski@chaumesenretz.fr" a été ajouté à la newsletter. <%- root %>',
+        text: '"contact.4102@example.org" a été ajouté à la newsletter. <%- root %>',
         data: {
           root: 'https://openagenda.com',
           emailSettingsLink: 'https://openagenda.com/settings/emails',
@@ -145,7 +145,7 @@ describe('sendMail', () => {
 
       expect(message.subject).toBe('Nouvel inscrit à la newsletter');
       expect(message.text).toBe(
-        '"dominiquemuslewski@chaumesenretz.fr" a été ajouté à la newsletter. https://openagenda.com',
+        '"contact.4102@example.org" a été ajouté à la newsletter. https://openagenda.com',
       );
     });
   });
@@ -173,7 +173,7 @@ describe('sendMail', () => {
           username: 'Bertho',
         },
         to: [
-          '"Kévin Berthommier" <contact.6862@example.org>, kevin.berthommier@openagenda.com',
+          '"Kévin Berthommier" <contact.6862@example.org>, contact.6863@example.org',
           { address: 'kaore@openagenda.com', data: { username: 'Kaore' } },
         ],
         queue: false,
