@@ -116,6 +116,7 @@ describe('the contract stays inside what search_docs can render', () => {
       '/components/schemas/*/properties/*/format:double',
       '/components/schemas/*/properties/*/format:int64',
       '/components/schemas/*/properties/*/format:uri',
+      '/components/schemas/*/properties/*/items/format:int64',
       '/components/schemas/*/properties/*/items/maximum',
       '/components/schemas/*/properties/*/items/minimum',
       '/components/schemas/*/properties/*/items/properties/*/format:uri',
