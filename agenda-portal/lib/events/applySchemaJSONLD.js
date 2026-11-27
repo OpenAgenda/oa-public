@@ -12,6 +12,7 @@ export function get(event, { defaultTimezone }) {
       end: event.lastTiming.end,
     },
     defaultTimezone,
+    { wholeEvent: true },
   );
 }
 
